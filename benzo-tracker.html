@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Benzodiazepines Tracker — Your Personal Medication & Wellness Partner</title>
+
+    <style>
+        /* ===== Reset & Base ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6; color: #333; overflow-x: hidden;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #fff; padding: 80px 20px 60px; text-align: center; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+            top: -250px; right: -250px; animation: pulse 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: ''; position: absolute; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            bottom: -200px; left: -200px; animation: pulse 10s ease-in-out infinite reverse;
+        }
+        @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:.8} }
+
+        .hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-icon { font-size: 4.5rem; margin-bottom: 15px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+        .hero h1 {
+            font-size: 3rem; font-weight: 800; margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
+        }
+        .subtitle { font-size: 1.25rem; margin-bottom: 16px; opacity: .95; }
+        .tagline {
+            font-size: 1.06rem; margin: 0 auto 28px; opacity: .92; max-width: 900px;
+        }
+
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 32px; font-size: 1rem; font-weight: 600; border: 0; border-radius: 40px;
+            cursor: pointer; text-decoration: none; display: inline-block; transition: all .25s ease;
+            box-shadow: 0 3px 12px rgba(0,0,0,.22);
+        }
+        .btn-primary { background: #fff; color: #4facfe; }
+        .btn-primary:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 6px 20px rgba(0,0,0,.28); }
+        .btn-secondary { background: rgba(255,255,255,.18); color: #fff; border: 2px solid #fff; }
+        .btn-secondary:hover { background: #fff; color: #4facfe; transform: translateY(-2px); }
+
+        .trust-badges { display: flex; gap: 20px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
+        .trust-badge {
+            background: rgba(255,255,255,.20); padding: 10px 18px; border-radius: 24px; font-weight: 600;
+            backdrop-filter: blur(8px); display: flex; align-items: center; gap: 8px;
+        }
+
+        /* ===== Sections (generic) ===== */
+        .section { padding: 50px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; color: #2d3748; }
+        .section-subtitle { text-align: center; font-size: 1.08rem; color: #718096; margin-bottom: 28px; }
+
+        /* ===== Why Choose ===== */
+        .why-choose { background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%); }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 20px; }
+        .why-card {
+            background: #fff; padding: 24px; border-radius: 16px; border-top: 4px solid #4facfe;
+            box-shadow: 0 6px 22px rgba(0,0,0,.08); transition: all .25s ease;
+        }
+        .why-card:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,.12); }
+        .why-icon { font-size: 2.4rem; margin-bottom: 10px; }
+        .why-card h3 { font-size: 1.25rem; color: #2d3748; margin-bottom: 6px; font-weight: 800; }
+        .why-card ul { list-style: none; }
+        .why-card li { padding: 6px 0; color: #4a5568; display: flex; align-items: center; gap: 8px; }
+        .why-card li::before { content: "✓"; color: #48bb78; font-weight: 800; }
+
+        /* ===== Features ===== */
+        .features-section { background: #fff; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 20px; }
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 20px; border-radius: 14px; box-shadow: 0 5px 18px rgba(0,0,0,.08); transition: all .25s ease;
+        }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(0,0,0,.12); }
+        .feature-card h3 {
+            color: #4facfe; font-size: 1.12rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+        }
+        .feature-card p { color: #4a5568; line-height: 1.65; }
+
+        /* ===== How It Works ===== */
+        .how-it-works { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #fff; }
+        .steps-container { max-width: 900px; margin: 0 auto; }
+        .step { display: flex; gap: 22px; margin-bottom: 26px; align-items: center; }
+        .step-number {
+            width: 64px; height: 64px; background: #fff; color: #4facfe; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,.22);
+        }
+        .step-content h3 { font-size: 1.18rem; margin-bottom: 6px; }
+        .step-content p { opacity: .95; font-size: 1.02rem; }
+
+        /* ===== Testimonials ===== */
+        .testimonials { background: #f8f9fa; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 20px; }
+        .testimonial {
+            background: #fff; padding: 20px; border-radius: 14px; border-left: 5px solid #4facfe;
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);
+        }
+        .testimonial-text { font-style: italic; color: #4a5568; line-height: 1.7; margin-bottom: 10px; }
+        .testimonial-stars { color: #fbbf24; font-size: 1.12rem; }
+
+        /* ===== Comparison ===== */
+        .comparison { background: #fff; }
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 900px; margin: 0 auto; }
+        .comparison-col h3 { font-size: 1.5rem; margin-bottom: 12px; text-align: center; }
+        .comparison-col.no-more h3 { color: #e53e3e; }
+        .comparison-col.instead h3 { color: #48bb78; }
+        .comparison-list { list-style: none; }
+        .comparison-list li {
+            padding: 12px; margin-bottom: 8px; border-radius: 10px; display: flex; align-items: center; gap: 8px;
+        }
+        .no-more .comparison-list li { background: #fff5f5; color: #c53030; }
+        .instead .comparison-list li { background: #f0fff4; color: #22543d; }
+        .no-more .comparison-list li::before { content: "❌"; }
+        .instead .comparison-list li::before { content: "✓"; color: #48bb78; font-weight: 800; font-size: 1.1rem; }
+
+        /* ===== Features Table ===== */
+        .features-table-section { background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%); }
+        .features-table {
+            background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.1);
+        }
+        .feature-row {
+            display: grid; grid-template-columns: 2fr 1.5fr .6fr;
+            border-bottom: 1px solid #e2e8f0; padding: 16px; transition: background .25s ease;
+        }
+        .feature-row:hover { background: #f7fafc; }
+        .feature-row.header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: #fff; font-weight: 800;
+        }
+        .feature-name { font-weight: 700; color: #2d3748; }
+        .feature-row.header .feature-name { color: #fff; }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: #fff; text-align: center; padding: 50px 20px;
+        }
+        .cta-section h2 { font-size: 2.1rem; margin-bottom: 10px; }
+        .cta-section p { font-size: 1.06rem; margin-bottom: 22px; opacity: .95; }
+        .cta-box {
+            background: rgba(255,255,255,.10); max-width: 640px; margin: 0 auto; padding: 26px; border-radius: 16px; backdrop-filter: blur(8px);
+        }
+
+        /* ===== Footer ===== */
+        footer { background: #1a202c; color: #cbd5e1; text-align: center; padding: 26px 16px; }
+        footer p { opacity: .92; margin: 4px 0; }
+        .foot-small { font-size: .92rem; opacity: .8; }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 64px 16px 40px; }
+            .hero h1 { font-size: 2.3rem; }
+            .subtitle { font-size: 1.06rem; }
+            .section-title { font-size: 1.8rem; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .feature-row { grid-template-columns: 1fr; gap: 8px; }
+            .step { flex-direction: column; text-align: center; }
+            .step-number { margin-bottom: 6px; }
+        }
+
+        /* ===== Appear Animations ===== */
+        .fade-in { opacity: 0; transform: translateY(28px); transition: all .6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+
+<body>
+<!-- ===== Hero ===== -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-icon">🏥</div>
+        <h1>Benzodiazepines Tracker</h1>
+        <p class="subtitle">Your Personal Medication & Wellness Partner</p>
+        <p class="tagline">
+            Take control of your benzodiazepine journey with precise tracking, gentle guidance, and complete privacy.
+            Whether you’re tapering, maintaining, or simply observing patterns — we’re here to help you make informed, confident choices.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="https://www.benzotracker.support/" class="btn btn-primary">🚀 Start Free Today</a>
+            <a href="#how" class="btn btn-secondary">📖 Learn More</a>
+        </div>
+
+        <div class="trust-badges">
+            <span class="trust-badge">🔒 100% Private</span>
+            <span class="trust-badge">🛡️ Secure & Encrypted</span>
+            <span class="trust-badge">🎁 Free Forever</span>
+            <span class="trust-badge">📱 Works Anywhere</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Why Choose ===== -->
+<section class="section why-choose">
+    <h2 class="section-title">💊 Why Choose Benzodiazepines Tracker?</h2>
+    <p class="section-subtitle">Balanced support for accuracy, privacy, and peace of mind</p>
+
+    <div class="why-grid">
+        <div class="why-card fade-in">
+            <div class="why-icon">🎯</div>
+            <h3>Complete Medication Control</h3>
+            <ul>
+                <li>Monitor every dose with precision</li>
+                <li>Track progress and patterns over time</li>
+                <li>Turn data into confident decisions</li>
+                <li>Everything at your fingertips</li>
+            </ul>
+        </div>
+
+        <div class="why-card fade-in">
+            <div class="why-icon">🔐</div>
+            <h3>Privacy First</h3>
+            <ul>
+                <li>Industry-standard encryption</li>
+                <li>Your data stays yours</li>
+                <li>No data sharing — ever</li>
+                <li>Secure, account-based access</li>
+            </ul>
+        </div>
+
+        <div class="why-card fade-in">
+            <div class="why-icon">📊</div>
+            <h3>Smart Analytics</h3>
+            <ul>
+                <li>Clear, insightful charts</li>
+                <li>Automatic calculations</li>
+                <li>Real-time updates</li>
+                <li>Pattern recognition</li>
+            </ul>
+        </div>
+
+        <div class="why-card fade-in">
+            <div class="why-icon">🌐</div>
+            <h3>Access Anywhere</h3>
+            <ul>
+                <li>Desktop & mobile ready</li>
+                <li>Cross-device sync</li>
+                <li>Web-based convenience</li>
+                <li>No installation required</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Features ===== -->
+<section class="section features-section">
+    <h2 class="section-title">🛠️ Features That Make a Difference</h2>
+    <p class="section-subtitle">Everything you need for comprehensive medication management</p>
+
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <h3>📝 Easy Dose Logging</h3>
+            <p>One-click “Now”, flexible date/time picker, reasons & notes, precision down to 0.001 mg.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>📊 Interactive Charts</h3>
+            <p>Dosage over time, daily summaries, multiple ranges (7–365 days), professional visuals.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>⏱️ Real-Time Tracking</h3>
+            <p>Live timer since last dose, last-dose info, frequency analysis, gap detection.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>🔍 Advanced Filtering</h3>
+            <p>Date and dosage ranges, reason & comment search, combined filters, instant stats.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>💾 Export & Import</h3>
+            <p>CSV export, full history backup, import with replace or merge, healthcare-friendly format.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>✏️ Full Edit Control</h3>
+            <p>Edit anytime, safe delete, auto-save to cloud, easy cancel before saving.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>🌙 Dark Mode</h3>
+            <p>Eye-friendly night mode with preferences remembered automatically.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>📈 Weekly & Monthly Stats</h3>
+            <p>7-day & 30-day trends, averages, and frequency insights in one view.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== How It Works ===== -->
+<section class="section how-it-works" id="how">
+    <h2 class="section-title">🎬 How It Works</h2>
+    <p class="section-subtitle">Get started in five simple steps</p>
+
+    <div class="steps-container">
+        <div class="step fade-in">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h3>🔐 Create Your Account</h3>
+                <p>Quick, secure signup with email verification.</p>
+            </div>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h3>💊 Select Your Medication</h3>
+                <p>Choose from Clonazepam, Diazepam, Lorazepam, or Alprazolam.</p>
+            </div>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h3>➕ Log Your Doses</h3>
+                <p>Add entries with dosage, time, reason, and personal notes.</p>
+            </div>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h3>📊 Watch Your Progress</h3>
+                <p>See beautiful charts and live statistics as they update.</p>
+            </div>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h3>📈 Make Informed Decisions</h3>
+                <p>Use insights to guide your plan and conversations with your clinician.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Comparison ===== -->
+<section class="section comparison">
+    <h2 class="section-title">🚫 No More Confusion</h2>
+    <p class="section-subtitle">See the difference Benzodiazepines Tracker makes</p>
+
+    <div class="comparison-grid">
+        <div class="comparison-col no-more fade-in">
+            <h3>No More:</h3>
+            <ul class="comparison-list">
+                <li>Lost paper logs</li>
+                <li>Scattered records</li>
+                <li>Guesswork about patterns</li>
+                <li>Unclear taper progress</li>
+                <li>Difficulty sharing with doctors</li>
+                <li>Uncertain dosage history</li>
+            </ul>
+        </div>
+
+        <div class="comparison-col instead fade-in">
+            <h3>Instead:</h3>
+            <ul class="comparison-list">
+                <li>Complete digital record</li>
+                <li>Organized history</li>
+                <li>Clear visual patterns</li>
+                <li>Precise taper tracking</li>
+                <li>Professional exports</li>
+                <li>Crystal-clear insights</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Testimonials ===== -->
+<section class="section testimonials">
+    <h2 class="section-title">🌈 What Users Say</h2>
+    <p class="section-subtitle">Real stories from people on their medication journey</p>
+
+    <div class="testimonial-grid">
+        <div class="testimonial fade-in">
+            <p class="testimonial-text">“This tracker helped me taper safely over eight months. Seeing progress kept me motivated.”</p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="testimonial fade-in">
+            <p class="testimonial-text">“Finally, a way to show my doctor exactly what I’ve been taking. The export is a lifesaver.”</p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="testimonial fade-in">
+            <p class="testimonial-text">“Simple, secure, and exactly what I needed. The real-time timer helps me space doses properly.”</p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+
+        <div class="testimonial fade-in">
+            <p class="testimonial-text">“The charts made it easy to spot a pattern before my next visit. Huge peace of mind.”</p>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Features Table ===== -->
+<section class="section features-table-section">
+    <h2 class="section-title">🌟 Key Features at a Glance</h2>
+    <p class="section-subtitle">Everything you need in one place</p>
+
+    <div class="features-table fade-in">
+        <div class="feature-row header">
+            <div class="feature-name">Feature</div>
+            <div>Description</div>
+            <div>Icon</div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-name">Secure Login</div>
+            <div>Account-based with email verification</div>
+            <div>🔐</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Real-Time Tracking</div>
+            <div>Live timer since last dose</div>
+            <div>⏱️</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Smart Analytics</div>
+            <div>Automatic calculations & insights</div>
+            <div>🧮</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Beautiful Charts</div>
+            <div>Interactive dosage visualizations</div>
+            <div>📊</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Advanced Filtering</div>
+            <div>Multi-criteria search capabilities</div>
+            <div>🔍</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Export / Import</div>
+            <div>Full data backup and restore</div>
+            <div>💾</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Dark Mode</div>
+            <div>Eye-friendly night palette</div>
+            <div>🌙</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Mobile Friendly</div>
+            <div>Works on all devices</div>
+            <div>📱</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Privacy Focused</div>
+            <div>Your data stays yours</div>
+            <div>🔒</div>
+        </div>
+        <div class="feature-row">
+            <div class="feature-name">Free Forever</div>
+            <div>No hidden costs or subscriptions</div>
+            <div>🎁</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Perfect For ===== -->
+<section class="section" style="background:#fff;">
+    <h2 class="section-title">💡 Perfect For</h2>
+    <p class="section-subtitle">Designed for people and professionals on every kind of journey</p>
+
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <h3>📉 Individuals Tapering</h3>
+            <p>Track reductions with precision and confidence, supported by clear visuals.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>⏳ Long-Term Users</h3>
+            <p>Monitor maintenance dosages, spot trends, and understand what’s working.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>👨‍⚕️ Healthcare Professionals</h3>
+            <p>Review structured histories and export reports for collaborative care.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <h3>🤝 Support Groups</h3>
+            <p>Document progress for peer support and accountability.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+    <h2>🚀 Ready to Take Control?</h2>
+    <p>Join others who’ve discovered the calm of clear, precise medication tracking.</p>
+
+    <div class="cta-box">
+        <h3 style="font-size:1.4rem; margin-bottom:10px;">Start Your Journey Today</h3>
+        <p style="margin-bottom:18px;">Free forever. No credit card required. Your data stays private.</p>
+        <a href="https://www.benzotracker.support/" class="btn btn-primary" style="color:#4facfe;">🏥 Create Free Account</a>
+        <p style="font-size:.92rem; margin-top:12px; opacity:.9;">✓ Secure • ✓ Private • ✓ Free • ✓ Powerful</p>
+    </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+    <p><strong>💝 A Personal Note</strong></p>
+    <p style="max-width: 860px; margin: 10px auto;">
+        We built Benzodiazepines Tracker to bring clarity and calm to a complex journey. It’s not medical advice —
+        it’s a private, reliable way to understand your own data and talk with your clinician more confidently.
+    </p>
+    <p class="foot-small">© Benzodiazepines Tracker. All rights reserved — LiDa Software</p>
+    <p class="foot-small">For informational purposes only. Always consult a qualified healthcare professional regarding your treatment.</p>
+</footer>
+
+<!-- ===== Scroll-in Animations ===== -->
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
