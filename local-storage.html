@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage Viewer Pro - Professional Chrome Extension</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            bottom: -200px;
+            left: -200px;
+            animation: pulse 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            font-size: 0.95rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #181717;
+            margin-bottom: 60px;
+        }
+
+        /* Features Grid */
+        .features-section {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #48bb78;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Showcase Section */
+        .showcase {
+            background: white;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .showcase-item {
+            text-align: center;
+        }
+
+        .showcase-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+        }
+
+        .showcase-item h3 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .showcase-item p {
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            opacity: 0.9;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: #f8f9fa;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid #667eea;
+        }
+
+        .use-case-card h3 {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .use-case-card p {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            background: white;
+        }
+
+        .tech-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .tech-item {
+            text-align: center;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            color: #2d3748;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        /* Browser Support */
+        .browser-support {
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .browsers {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .browser {
+            text-align: center;
+        }
+
+        .browser-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .browser-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .showcase-grid,
+            .steps-grid,
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-icon">🗄️</div>
+        <h1>Local Storage Viewer Pro</h1>
+        <p class="subtitle">Professional Chrome Extension for Managing Browser Storage</p>
+
+        <div class="cta-buttons">
+            <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en" class="btn btn-primary">🚀 Install Free Extension</a>
+            <a href="#features" class="btn btn-secondary">📖 Explore Features</a>
+        </div>
+
+        <div class="badges">
+            <span class="badge">✨ Modern Design</span>
+            <span class="badge">⚡ Lightning Fast</span>
+            <span class="badge">🔒 100% Free</span>
+            <span class="badge">🎯 Developer-Friendly</span>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section features-section" id="features">
+    <h2 class="section-title">✨ Powerful Features</h2>
+    <p class="section-subtitle">Everything you need to manage browser storage like a pro</p>
+
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🎨</div>
+            <h3>Modern Professional Design</h3>
+            <p>Beautiful gradient-based UI with smooth animations and polished visual elements</p>
+            <ul class="feature-list">
+                <li>Responsive developer-optimized layout</li>
+                <li>Custom scrollbars and animations</li>
+                <li>Intuitive card-based interface</li>
+            </ul>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔍</div>
+            <h3>Powerful Search & Filtering</h3>
+            <p>Find exactly what you need with advanced search and type-based filtering</p>
+            <ul class="feature-list">
+                <li>Real-time search across keys and values</li>
+                <li>Filter by String, Number, Boolean, JSON</li>
+                <li>Instant results as you type</li>
+            </ul>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📊</div>
+            <h3>Smart Data Display</h3>
+            <p>Automatic type detection with beautiful syntax highlighting</p>
+            <ul class="feature-list">
+                <li>Color-coded type badges</li>
+                <li>Dark theme JSON viewer</li>
+                <li>Collapsible entries</li>
+            </ul>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">⚡</div>
+            <h3>Storage Management</h3>
+            <p>Complete control over localStorage and sessionStorage</p>
+            <ul class="feature-list">
+                <li>Edit values directly in extension</li>
+                <li>One-click copy to clipboard</li>
+                <li>Delete items or clear all storage</li>
+                <li>Export data as JSON files</li>
+            </ul>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🎯</div>
+            <h3>Developer-Friendly</h3>
+            <p>Built by developers, for developers</p>
+            <ul class="feature-list">
+                <li>Compact mode for space efficiency</li>
+                <li>Keyboard-friendly interface</li>
+                <li>Clear visual feedback</li>
+                <li>Professional error handling</li>
+            </ul>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔄</div>
+            <h3>Dual Storage Support</h3>
+            <p>Seamlessly switch between localStorage and sessionStorage</p>
+            <ul class="feature-list">
+                <li>Toggle with one click</li>
+                <li>Separate management for each</li>
+                <li>Real-time synchronization</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Showcase Section -->
+<section class="section showcase">
+    <h2 class="section-title">Why Developers Love It</h2>
+    <p class="section-subtitle">Built for modern development workflows</p>
+
+    <div class="showcase-grid">
+        <div class="showcase-item fade-in">
+            <div class="showcase-icon">⚡</div>
+            <h3>Lightning Fast</h3>
+            <p>Instant load times with optimized performance. No lag, no waiting.</p>
+        </div>
+
+        <div class="showcase-item fade-in">
+            <div class="showcase-icon">🎨</div>
+            <h3>Beautiful Interface</h3>
+            <p>Modern gradient design that's easy on the eyes and pleasant to use daily.</p>
+        </div>
+
+        <div class="showcase-item fade-in">
+            <div class="showcase-icon">🔧</div>
+            <h3>Easy to Use</h3>
+            <p>Intuitive controls with clear visual feedback. Start using it in seconds.</p>
+        </div>
+
+        <div class="showcase-item fade-in">
+            <div class="showcase-icon">💾</div>
+            <h3>Export Anywhere</h3>
+            <p>Download your storage data as JSON for backup or sharing with team.</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section how-it-works">
+    <h2 class="section-title">🚀 How It Works</h2>
+    <p class="section-subtitle">Get started in three simple steps</p>
+
+    <div class="steps-grid">
+        <div class="step fade-in">
+            <div class="step-number">1</div>
+            <h3>Install Extension</h3>
+            <p>Add the extension to Chrome from the Web Store or load it manually</p>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">2</div>
+            <h3>Click Icon</h3>
+            <p>Click the extension icon in your browser toolbar to open the viewer</p>
+        </div>
+
+        <div class="step fade-in">
+            <div class="step-number">3</div>
+            <h3>Manage Storage</h3>
+            <p>View, edit, search, filter, and export all your storage data instantly</p>
+        </div>
+    </div>
+</section>
+
+<!-- Use Cases -->
+<section class="section use-cases">
+    <h2 class="section-title">💡 Perfect For</h2>
+    <p class="section-subtitle">Real-world scenarios where Local Storage Viewer Pro shines</p>
+
+    <div class="use-case-grid">
+        <div class="use-case-card fade-in">
+            <h3>🐛 Debugging Web Apps</h3>
+            <p>Quickly inspect and modify storage values to test different scenarios without writing code.</p>
+        </div>
+
+        <div class="use-case-card fade-in">
+            <h3>🧪 Testing Features</h3>
+            <p>Manually set storage values to test edge cases and validate feature flags instantly.</p>
+        </div>
+
+        <div class="use-case-card fade-in">
+            <h3>🔍 Investigating Issues</h3>
+            <p>Search through storage to find specific keys or values causing unexpected behavior.</p>
+        </div>
+
+        <div class="use-case-card fade-in">
+            <h3>📝 Documentation</h3>
+            <p>Export storage data to document application state or create bug reports with actual data.</p>
+        </div>
+
+        <div class="use-case-card fade-in">
+            <h3>🎓 Learning & Teaching</h3>
+            <p>Understand how localStorage works by viewing real-time changes in a clean interface.</p>
+        </div>
+
+        <div class="use-case-card fade-in">
+            <h3>⚙️ Development Workflow</h3>
+            <p>Seamlessly integrate storage management into your daily development process.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack -->
+<section class="section tech-stack">
+    <h2 class="section-title">🛠️ Built With Modern Tech</h2>
+    <p class="section-subtitle">Professional tools for professional developers</p>
+
+    <div class="tech-grid">
+        <div class="tech-item fade-in">
+            <div class="tech-badge">Manifest V3</div>
+        </div>
+        <div class="tech-item fade-in">
+            <div class="tech-badge">Modern CSS</div>
+        </div>
+        <div class="tech-item fade-in">
+            <div class="tech-badge">Vanilla JavaScript</div>
+        </div>
+        <div class="tech-item fade-in">
+            <div class="tech-badge">CSS Grid & Flexbox</div>
+        </div>
+        <div class="tech-item fade-in">
+            <div class="tech-badge">CSS Variables</div>
+        </div>
+    </div>
+</section>
+
+<!-- Browser Support -->
+<section class="section browser-support">
+    <h2 class="section-title">🌐 Browser Support</h2>
+    <p class="section-subtitle">Works on all Chromium-based browsers</p>
+
+    <div class="browsers">
+        <div class="browser fade-in">
+            <div class="browser-icon">🌐</div>
+            <div class="browser-name">Chrome 88+</div>
+        </div>
+        <div class="browser fade-in">
+            <div class="browser-icon">🔷</div>
+            <div class="browser-name">Edge 88+</div>
+        </div>
+        <div class="browser fade-in">
+            <div class="browser-icon">🦁</div>
+            <div class="browser-name">Brave</div>
+        </div>
+        <div class="browser fade-in">
+            <div class="browser-icon">⚡</div>
+            <div class="browser-name">Opera</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to Level Up Your Storage Management?</h2>
+    <p>Join thousands of developers using Local Storage Viewer Pro</p>
+    <div class="cta-buttons">
+        <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en" class="btn btn-primary">🚀 Install Free Extension</a>
+    </div>
+    <div style="margin-top: 30px; opacity: 0.9;">
+        <p>✅ 100% Free Forever  •  🔒 No Data Collection  •  ⚡ Open Source</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p><strong>Local Storage Viewer Pro</strong></p>
+    <p>Made with ❤️ by LiDa Software for developers worldwide</p>
+    <p style="margin-top: 20px; font-size: 0.9rem;">Professional • Modern • Developer-Friendly</p>
+</footer>
+
+<script>
+    // Scroll animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

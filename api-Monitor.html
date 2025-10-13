@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Monitor - Professional Network Request Debugger for Chrome</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Badges */
+        .badges {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Features Section */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #050505;
+            margin-bottom: 60px;
+        }
+
+        /* Killer Features */
+        .killer-features {
+            background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+        }
+
+        .killer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .killer-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .killer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .killer-card h3 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .killer-card .emoji {
+            font-size: 2rem;
+        }
+
+        .killer-card p {
+            color: #4a5568;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .killer-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .killer-card ul li {
+            padding: 8px 0;
+            color: #2d3748;
+        }
+
+        .killer-card ul li::before {
+            content: "✓ ";
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .use-case {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid #48bb78;
+            margin-top: 20px;
+        }
+
+        .use-case strong {
+            color: #667eea;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: white;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f7fafc;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .killer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); display: none;
+            align-items: center; justify-content: center;
+            z-index: 9999; backdrop-filter: blur(4px);
+        }
+        .popup-content {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white; text-align: center; padding: 40px 30px;
+            border-radius: 20px; max-width: 360px; width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: popIn 0.4s ease;
+        }
+        .popup-icon {
+            font-size: 3rem; margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .popup-btn {
+            margin-top: 25px; background: white; color: #4facfe;
+            border: none; padding: 10px 24px; border-radius: 40px;
+            font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .popup-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+        @keyframes popIn { from{opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);} }
+        @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+
+
+    </style>
+</head>
+<body>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>API Monitor</h1>
+        <p class="subtitle">Professional Network Request Debugger for Chrome</p>
+        <p class="tagline">The only Chrome extension that keeps your API history when you refresh.<br>Debug smarter, not harder.</p>
+
+
+
+        <div id="comingSoonPopup" class="popup-overlay">
+            <div class="popup-content">
+                <div class="popup-icon">🚀</div>
+                <h2>Coming Soon</h2>
+                <p>We're working hard on this feature.<br>Stay tuned, it will be available soon!</p>
+                <button class="popup-btn" onclick="closePopup()">Got it 👍</button>
+            </div>
+        </div>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-primary" onclick="showComingSoon(); return false;">🚀 Install Free Extension</a>
+            <a href="#features" class="btn btn-secondary">📖 Explore Features</a>
+        </div>
+
+        <div class="badges">
+            <span class="badge">✅ 100% Free</span>
+            <span class="badge">🔒 Privacy First</span>
+            <span class="badge">⚡ Zero Setup</span>
+            <span class="badge">🎯 Production Ready</span>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Section -->
+<section class="section killer-features" id="why">
+    <h2 class="section-title">Why Developers Choose API Monitor</h2>
+    <p class="section-subtitle">Three powerful reasons that set us apart from everything else</p>
+
+    <div class="killer-grid">
+        <div class="killer-card fade-in">
+            <h3><span class="emoji">🔥</span> Beats Chrome DevTools</h3>
+            <ul>
+                <li>Persistent data survives page refreshes</li>
+                <li>Request replay with full editing</li>
+                <li>Advanced filtering and grouping</li>
+                <li>Separate window mode</li>
+            </ul>
+            <p><strong>DevTools loses everything on refresh.</strong> We don't.</p>
+            <div class="use-case">
+                <strong>Use Case:</strong> Debug multi-step authentication flows where pages refresh after login. Keep the entire request history intact!
+            </div>
+        </div>
+
+        <div class="killer-card fade-in">
+            <h3><span class="emoji">⚡</span> Competes with Postman</h3>
+            <ul>
+                <li>Zero setup - auto-captures all requests</li>
+                <li>One-click replay - no manual copying</li>
+                <li>Integrated workflow - works in browser</li>
+                <li>Edit and resend instantly</li>
+            </ul>
+            <p><strong>Postman requires manual setup.</strong> We auto-capture.</p>
+            <div class="use-case">
+                <strong>Use Case:</strong> Captured a failed POST? Edit the payload and retry in seconds without leaving your browser!
+            </div>
+        </div>
+
+        <div class="killer-card fade-in">
+            <h3><span class="emoji">💎</span> Better Than Others</h3>
+            <ul>
+                <li>Complete request/response data</li>
+                <li>Professional statistics dashboard</li>
+                <li>Export as JSON, HAR, CSV</li>
+                <li>Smart filtering with auto-hide ads</li>
+            </ul>
+            <p><strong>Other extensions lack features.</strong> We're complete.</p>
+            <div class="use-case">
+                <strong>Use Case:</strong> Monitor API performance with real-time stats, identify slow endpoints, and export data to share with your team!
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Features -->
+<section class="section" id="features">
+    <h2 class="section-title">12 Powerful Features</h2>
+    <p class="section-subtitle">Everything you need for professional API debugging</p>
+
+    <div class="feature-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">💾</div>
+            <h3>Persistent Mode</h3>
+            <p>Keep all API history across page refreshes and browser restarts. Configure history limits from 100 to 2000 requests.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔄</div>
+            <h3>Request Replay</h3>
+            <p>One-click replay with full editing. Change method, URL, headers, params, and body. Like Postman built into your browser.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">⏱️</div>
+            <h3>Time Range Filtering</h3>
+            <p>DataDog-style time windows: Live, 5min, 10min, 20min, 30min. Focus on recent activity or isolate specific time periods.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📊</div>
+            <h3>Statistics Dashboard</h3>
+            <p>Real-time metrics: success rate, error rate, average response time, fastest/slowest requests, breakdowns by method and status.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">💾</div>
+            <h3>Export Filtered Data</h3>
+            <p>Export as JSON, HAR, or CSV. Share with team or import to other tools. Only exports currently filtered data for precision.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📂</div>
+            <h3>Request Grouping</h3>
+            <p>Group by domain, method, or status. Collapsible groups with counts. Perfect for organizing high-volume APIs and microservices.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🪟</div>
+            <h3>Floating Window</h3>
+            <p>Open in separate window, stays on top (optional). Perfect for dual-monitor setups. Monitor APIs while coding.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📑</div>
+            <h3>Tab-Specific Monitoring</h3>
+            <p>Filter to show only current tab's requests. Works in floating windows. Perfect for multi-tab debugging sessions.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔍</div>
+            <h3>Advanced Multi-Filtering</h3>
+            <p>Combine search, domain, method, status, errors-only, time range, and tab filters. Find exactly what you need instantly.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🚫</div>
+            <h3>Smart Blocklist</h3>
+            <p>Auto-hide tracking, analytics, and ads. Pre-loaded with common domains. One-click block from any request. Custom management.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🎨</div>
+            <h3>Professional UI</h3>
+            <p>VS Code-inspired dark/light themes. Clean, modern, responsive design. Full-width layout with clear visual hierarchy.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📖</div>
+            <h3>Built-in Documentation</h3>
+            <p>Comprehensive help system. Feature explanations with "What it does", "How to use", and "Why it's useful" for every feature.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Comparison Table -->
+<section class="section comparison">
+    <h2 class="section-title">How We Compare</h2>
+    <p class="section-subtitle">See why API Monitor is the best choice for developers</p>
+
+    <table class="comparison-table fade-in">
+        <thead>
+        <tr>
+            <th>Feature</th>
+            <th>API Monitor</th>
+            <th>Chrome F12</th>
+            <th>Postman</th>
+            <th>Other Extensions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Auto-capture requests</td>
+            <td>✅</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>✅</td>
+        </tr>
+        <tr>
+            <td>Survives page refresh</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>N/A</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Request replay</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>✅</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Edit before replay</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>✅</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Time range filtering</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Statistics dashboard</td>
+            <td>✅</td>
+            <td>⚠️ Basic</td>
+            <td>⚠️ Basic</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Export HAR/JSON/CSV</td>
+            <td>✅</td>
+            <td>⚠️ HAR only</td>
+            <td>✅</td>
+            <td>⚠️ Limited</td>
+        </tr>
+        <tr>
+            <td>Request grouping</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Floating window</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>N/A</td>
+            <td>❌</td>
+        </tr>
+        <tr>
+            <td>Custom blocklist</td>
+            <td>✅</td>
+            <td>❌</td>
+            <td>N/A</td>
+            <td>⚠️ Limited</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Perfect For -->
+<section class="section" style="background: #f6f8fb;">
+    <h2 class="section-title">Perfect For</h2>
+    <p class="section-subtitle">Built by developers, for developers</p>
+
+    <div class="feature-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">👨‍💻</div>
+            <h3>Frontend Developers</h3>
+            <p>Debug API integrations, monitor requests, and test responses without losing data on refresh.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">⚙️</div>
+            <h3>Backend Developers</h3>
+            <p>Test endpoints without Postman. Capture real requests and replay with modifications instantly.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔬</div>
+            <h3>QA Engineers</h3>
+            <p>Capture bugs with full request data. Export and share with team. Monitor production issues.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📈</div>
+            <h3>DevOps Engineers</h3>
+            <p>Monitor API performance, track error rates, and identify slow endpoints in real-time.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🎯</div>
+            <h3>Full-Stack Developers</h3>
+            <p>Monitor entire request flow from frontend to backend. Perfect for end-to-end debugging.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🏗️</div>
+            <h3>API Designers</h3>
+            <p>Analyze real-world API usage, review implementations, and optimize based on actual data.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to Debug Like a Pro?</h2>
+    <p>Join thousands of developers who never lose API data on refresh again</p>
+    <div class="cta-buttons">
+        <a href="#" class="btn btn-primary" onclick="showComingSoon(); return false;">🚀 Install Free Extension</a>
+    </div>
+    <div style="margin-top: 30px; opacity: 0.9;">
+        <p>✅ 100% Free Forever  •  🔒 Privacy First  •  ⚡ Zero Setup Required</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>Built with ❤️ for developers who are tired of losing API data on page refresh.</p>
+    <p style="margin-top: 10px; font-size: 0.9rem;">Professional. Powerful. Production-Ready.</p>
+</footer>
+
+<script>
+    // Scroll animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    function showComingSoon() {
+        document.getElementById('comingSoonPopup').style.display = 'flex';
+    }
+    function closePopup() {
+        document.getElementById('comingSoonPopup').style.display = 'none';
+    }
+</script>
+</body>
+</html>

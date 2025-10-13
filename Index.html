@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiDa Software - Open Source Knowledge for Developers</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="LiDa Software creates free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta name="keywords" content="open source, developer tools, free software, chrome extensions, coding resources, developer resources" />
+  <meta name="author" content="Hen Faibish" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lidasoftware.com/" />
+  <meta property="og:title" content="LiDa Software - Open Source Knowledge for Developers" />
+  <meta property="og:description" content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta property="og:image" content="https://lidasoftware.com/og-image.png" />
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://lidasoftware.com/" />
+  <meta property="twitter:title" content="LiDa Software - Open Source Knowledge for Developers" />
+  <meta property="twitter:description" content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta property="twitter:image" content="https://lidasoftware.com/og-image.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f23;
+      color: #e0e0e0;
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+
+    /* Navigation Header */
+    .nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 15, 35, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+
+    .nav-header.scrolled {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+
+    .nav-logo {
+      font-size: 1.5em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      list-style: none;
+    }
+
+
+    .nav-links a {
+      color: #b4b4d4;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea, #a78bfa);
+      transition: width 0.3s ease;
+    }
+
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+
+    .nav-social {
+      display: flex;
+      gap: 15px;
+    }
+
+
+    .nav-social a {
+      color: #9090b0;
+      font-size: 1.2em;
+      transition: all 0.3s ease;
+    }
+
+
+    .nav-social a:hover {
+      color: #a78bfa;
+      transform: translateY(-2px);
+    }
+
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #b4b4d4;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
+      padding: 20px 20px 1px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+    }
+
+
+    .logo-container {
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+
+    .logo-placeholder {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+
+    h1 {
+      font-size: 3.5em;
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+
+    .tagline {
+      font-size: 1.5em;
+      color: #b4b4d4;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+
+    .mission {
+      font-size: 1.1em;
+      color: #9090b0;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+
+    /* Projects Section */
+    .projects-section {
+      padding: 80px 20px;
+      background: #0f0f23;
+    }
+
+
+    .section-title {
+      font-size: 2.5em;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+
+    .section-subtitle {
+      text-align: center;
+      color: #9090b0;
+      font-size: 1.1em;
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+
+    .project-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #a78bfa);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+      border-color: rgba(102, 126, 234, 0.4);
+    }
+
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+
+    /* Community Project Card Style */
+    .project-card.community {
+      background: rgba(46, 213, 115, 0.05);
+      border: 1px solid rgba(46, 213, 115, 0.3);
+    }
+
+
+    .project-card.community::before {
+      background: linear-gradient(90deg, #b90000, #c90000);
+    }
+
+
+    .project-card.community:hover {
+      box-shadow: 0 20px 40px rgba(46, 213, 115, 0.2);
+      border-color: rgba(210, 33, 230, 0.5);
+    }
+
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(22, 1, 1, 0.15);
+      border: 1px solid rgba(238, 172, 240, 0.4);
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #d61f6d;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-badge-book {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(197, 235, 229, 0.15);
+      border: 1px solid rgba(46, 104, 213, 0.4);
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #2eb1d5;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-badge-chrome-ex {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(46, 213, 115, 0.15);
+      border: 1px solid rgba(46, 213, 115, 0.4);
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      color: #2ed598;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+
+    .project-badge::before {
+      content: '❤️';
+      font-size: 1em;
+    }
+
+
+    .project-icon {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+
+    .project-title {
+      font-size: 1.8em;
+      color: #fff;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+
+    .project-description {
+      color: #9090b0;
+      margin-bottom: 25px;
+      font-size: 1.05em;
+      line-height: 1.7;
+    }
+
+    .project-description-link {
+      color: #2ed598;
+      margin-bottom: 28px;
+      font-size: 1.05em;
+      line-height: 2.2;
+    }
+
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #a78bfa;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+
+    .project-link:hover {
+      color: #667eea;
+      gap: 12px;
+    }
+
+
+    /* About Section */
+    .about-section {
+      padding: 80px 20px;
+      background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+    }
+
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto 80px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 20px;
+      padding: 50px;
+    }
+
+
+    .about-title {
+      font-size: 2.2em;
+      color: #fff;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+
+    .about-text {
+      color: #b4b4d4;
+      font-size: 1.1em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+
+    .fun-fact {
+      background: rgba(102, 126, 234, 0.1);
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 8px;
+    }
+
+
+    /* Contact Section */
+    .contact-section {
+      padding: 80px 20px;
+      background: #0f0f23;
+    }
+
+
+    .contact-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 20px;
+      padding: 50px;
+    }
+
+
+    .contact-title {
+      font-size: 2.2em;
+      color: #fff;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+
+    .contact-subtitle {
+      text-align: center;
+      color: #9090b0;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+
+    .form-group label {
+      color: #b4b4d4;
+      font-weight: 500;
+      font-size: 0.95em;
+    }
+
+
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+    }
+
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+
+    .form-submit {
+      padding: 15px 35px;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      margin-top: 10px;
+    }
+
+
+    .form-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    }
+
+
+    .form-submit:active {
+      transform: translateY(-1px);
+    }
+
+
+    /* Footer */
+    footer {
+      background: #0a0a18;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid rgba(102, 126, 234, 0.1);
+    }
+
+
+    .open-source-badge {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 25px;
+      background: rgba(102, 126, 234, 0.1);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 25px;
+      color: #a78bfa;
+      font-weight: 500;
+    }
+
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 70px;
+      }
+
+
+      .nav-container {
+        height: 70px;
+      }
+
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 15, 35, 0.98);
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+      }
+
+
+      .nav-links.active {
+        transform: translateX(0);
+      }
+
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+
+      .nav-social {
+        flex-direction: column;
+      }
+
+
+      h1 {
+        font-size: 2.5em;
+      }
+
+
+      .tagline {
+        font-size: 1.2em;
+      }
+
+
+      .section-title {
+        font-size: 2em;
+      }
+
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .about-content {
+        padding: 30px;
+        margin-bottom: 60px;
+      }
+
+
+      .contact-container {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation Header -->
+<nav class="nav-header" id="navbar">
+  <div class="nav-container">
+    <a href="#" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
+        <img src="logo.png" alt="LiDa Logo" style="width: 30px; height: auto;">
+      </div>
+      LiDa Software
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <div class="nav-social">
+        <a href="https://www.facebook.com/profile.php?id=61581626213032" target="_blank" title="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+      </div>
+    </ul>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+      ☰
+    </button>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Open Source Tools for Developers</h1>
+      <p class="tagline">Free resources, no paywalls, just good stuff</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- Projects Section -->
+<section class="projects-section" id="projects">
+  <div class="container">
+    <h2 class="section-title">Free Resources & Projects</h2>
+    <p class="section-subtitle">
+      Everything we create is open source and free. No paywalls, no gatekeeping—just good stuff for developers.
+    </p>
+
+
+    <div class="projects-grid">
+      <!-- Book Project -->
+      <div class="project-card">
+        <div class="project-badge-book">eBook</div>
+        <div class="project-icon">🤖</div>
+        <h3 class="project-title">Coding with Robots</h3>
+        <p class="project-description">
+          A short, fun, and practical guide for developers. No boring AI hype, just real-world
+          examples and hands-on coding to help you work smarter with AI tools.
+        </p>
+        <a href="book.html" class="project-link">
+          Get the Free eBook →
+        </a>
+        <a href="codding-with-robots.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+            Learn more about the book
+          </p>
+        </a>
+      </div>
+
+
+      <div class="project-card">
+        <div class="project-badge-chrome-ex">Chrome extension</div>
+        <div class="project-icon">🔗</div>
+        <h3 class="project-title">Advanced Link Manager</h3>
+        <p class="project-description">
+          Advanced Link Manager is a smart Chrome extension that turns your bookmarks into a sleek, organized dashboard. Access sites instantly, group them by category, add icons, and sync or back up easily, all in one clean, click-away interface.
+        </p>
+        <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">
+          Try The Chrome extension →
+        </a>
+        <a href="link-manager.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+            Learn more about the extension
+          </p>
+        </a>
+      </div>
+
+
+      <div class="project-card">
+        <div class="project-badge-chrome-ex">Chrome extension</div>
+        <div class="project-icon">🎨</div>
+        <h3 class="project-title">Dummy Data Generator</h3>
+        <p class="project-description">
+          Dummy Data Generator is a Chrome extension that creates realistic dummy data from Java or TypeScript classes. Just paste your code and instantly get ready-to-use objects with names, emails, dates, and more, ideal for testing, prototyping, and mock APIs.
+        </p>
+        <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en" class="project-link">
+          Try The Chrome extension →
+        </a>
+        <a href="dummy-generate.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+            Learn more about the extension
+          </p>
+        </a>
+      </div>
+
+
+      <div class="project-card">
+        <div class="project-badge-chrome-ex">Chrome extension</div>
+        <div class="project-icon">🔍</div>
+        <h3 class="project-title">Local Storage Viewer</h3>
+        <p class="project-description">
+          Local Storage Viewer lets you view, edit, copy, and delete localStorage and sessionStorage data directly from your browser. Clean, fast, and developer-friendly, perfect for debugging, testing, and managing site data with ease.
+        </p>
+        <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en" class="project-link">
+          Try The Chrome extension →
+        </a>
+        <a href="local-storage.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+            Learn more about the extension
+          </p>
+        </a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-badge-chrome-ex">Chrome extension</div>
+        <div class="project-icon">📈</div>
+        <h3 class="project-title">API Monitor</h3>
+        <p class="project-description">
+          API Monitor is a powerful Chrome extension for developers that captures and analyzes HTTP/HTTPS API calls in real time. Unlike DevTools, it keeps data after refresh, offers request replay, advanced filtering, detailed analytics, exports, and a clean UI, your all-in-one API debugger.        </p>
+        <a href="api-Monitor.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+          Learn more about the extension
+          </p>
+        </a>
+      </div>
+
+
+      <!-- Community Project -->
+      <div class="project-card community">
+        <div class="project-badge">Community Project</div>
+        <div class="project-icon">💊</div>
+        <h3 class="project-title">Benzodiazepines Tracker</h3>
+        <p class="project-description">
+          A free, easy-to-use health tool designed to help individuals track their benzodiazepine usage. Whether you're tapering, managing your current dosage, or simply want to stay organized throughout your journey, this tool was built to support you.
+        </p>
+        <a href="https://www.benzotracker.support/" class="project-link">
+          Try Benzo Tracker →
+        </a>
+        <a href="benzo-tracker.html" class="project-link">
+          <p class="project-description-link">
+            <br>
+            Learn more about this tool
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- About Section -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-content">
+      <h2 class="about-title">About LiDa Software</h2>
+
+
+      <p class="about-text">
+        LiDa Software started as a small side project by Hen Faibish, a developer who just couldn’t stop building things, even on weekends.
+        It’s not a company with investors, slogans, or slides full of buzzwords. It’s just one guy who really loves code and believes good ideas should be shared, not locked behind paywalls or jargon.
+
+
+        LiDa creates small, useful, sometimes weird tools... the kind that make developers smile, save time, or say “oh, that’s actually clever.”
+        No hype. No AI drama. Just clean code, curiosity, and the joy of making things work (eventually).
+
+
+        When Hen isn’t coding, he’s probably testing another idea, writing about software, or explaining to his kids why “just five more minutes” of debugging can actually mean an hour.
+
+
+      </p>
+      <p>
+        ⚡ Motto: build cool stuff, keep it simple, and share what you learn.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="contact-container">
+      <h2 class="contact-title">💌 Get in Touch</h2>
+      <p class="contact-subtitle">
+        Have a question, feedback, or just want to say hi? I'd love to hear from you!
+      </p>
+
+
+      <form class="contact-form" action="https://formsubmit.co/lidasoftwarenet@gmail.com" method="POST">
+        <!-- Honeypot for spam protection -->
+        <input type="text" name="_honey" style="display:none">
+
+        <!-- Disable captcha -->
+        <input type="hidden" name="_captcha" value="false">
+
+        <!-- Success page redirect -->
+        <input type="hidden" name="_next" value="https://lidasoftware.com/thank-you.html">
+
+        <!-- Email subject -->
+        <input type="hidden" name="_subject" value="New contact form submission from LiDa Software website">
+
+
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required placeholder="Your name">
+        </div>
+
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+        </div>
+
+
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+        </div>
+
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required placeholder="Your message here..."></textarea>
+        </div>
+
+
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p style="color: #7070a0;">© 2025 LiDa Software. All rights reserved.</p>
+    <div class="open-source-badge">
+      ❤️ Open Source Initiative
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+
+  // Mobile menu toggle
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+
+  // Close mobile menu when clicking on a link
+  const navLinkItems = navLinks.querySelectorAll('a');
+  navLinkItems.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
