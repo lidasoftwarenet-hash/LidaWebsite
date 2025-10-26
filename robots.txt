@@ -5,7 +5,8 @@ User-agent: *
 Allow: /
 
 # 👇 Prevent indexing of non-www version (old root)
-Disallow: https://lidasoftware.online/
+User-agent: *
+Disallow: /$  # blocks only the root of non-www version
 
 # Sitemap for Google
 Sitemap: https://www.lidasoftware.online/sitemap.xml
