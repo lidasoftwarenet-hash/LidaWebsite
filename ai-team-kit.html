@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Team Kit - Your Virtual Development Team, Powered by AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            opacity: 0.95;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.8s backwards;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-4px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats-bar {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #1a202c;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-solution {
+            background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
+        }
+
+        .problem-solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .problem-box, .solution-box {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .problem-box {
+            border-left: 6px solid #e53e3e;
+        }
+
+        .solution-box {
+            border-left: 6px solid #48bb78;
+        }
+
+        .problem-box h3, .solution-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .problem-icon {
+            font-size: 2.2rem;
+        }
+
+        .problem-list, .solution-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .problem-list li, .solution-list li {
+            padding: 12px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .problem-list li:last-child, .solution-list li:last-child {
+            border-bottom: none;
+        }
+
+        .problem-list li:before {
+            content: "❌ ";
+            margin-right: 10px;
+        }
+
+        .solution-list li:before {
+            content: "✅ ";
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .how-it-works {
+            background: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 30px 25px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: #667eea;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #1a202c;
+        }
+
+        .step-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .revolutionary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .revolutionary .section-title,
+        .revolutionary .section-subtitle {
+            color: white;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .team-roles {
+            background: white;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #f7fafc 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .role-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .role-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+
+        .role-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .use-cases {
+            background: linear-gradient(135deg, #f6f9fc 0%, #edf2f7 100%);
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-left: 6px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .use-case-card h3 {
+            font-size: 1.6rem;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .use-case-card p {
+            font-size: 1.1rem;
+            color: #2d3748;
+            line-height: 1.7;
+        }
+
+        .future-vision {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+        }
+
+        .future-vision .section-title,
+        .future-vision .section-subtitle {
+            color: white;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .vision-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .vision-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #667eea;
+            transform: translateY(-8px);
+        }
+
+        .vision-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+
+        .vision-card p {
+            line-height: 1.7;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            background: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            margin-top: 15px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .problem-solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">🚀 The Future of Software Development</div>
+        <h1>AI Team Kit</h1>
+        <p class="subtitle">Your Virtual Development Team, Powered by AI</p>
+        <p class="tagline">
+            Instantly assemble a full engineering team — architects, developers, designers, QA specialists —
+            all AI-powered, all working together. Build faster, plan smarter, deliver better.
+        </p>
+
+        <div class="cta-buttons">
+            <a href="#features" class="btn btn-secondary">📖 Explore Features</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats-bar">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number">7+</div>
+            <div class="stat-label">AI Team Roles</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Custom Configurations</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">10x</div>
+            <div class="stat-label">Faster Planning</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Your Control</div>
+        </div>
+    </div>
+</section>
+
+<section class="section problem-solution">
+    <h2 class="section-title">The Development Team Paradox</h2>
+    <p class="section-subtitle">Building software shouldn't mean choosing between speed and quality</p>
+
+    <div class="problem-solution-grid">
+        <div class="problem-box fade-in">
+            <h3><span class="problem-icon">😰</span> The Problem</h3>
+            <ul class="problem-list">
+                <li>Solo developers overwhelmed by wearing too many hats</li>
+                <li>Teams misaligned on architecture, design, and priorities</li>
+                <li>Architects overthink, developers overcode, designers overdeliver</li>
+                <li>Hours wasted on repetitive planning and documentation</li>
+                <li>No shared language between roles — constant miscommunication</li>
+                <li>Hiring takes months, costs fortunes, and scales poorly</li>
+            </ul>
+        </div>
+
+        <div class="solution-box fade-in">
+            <h3><span class="problem-icon">✨</span> The Solution</h3>
+            <ul class="solution-list">
+                <li>Instant access to a complete AI development team</li>
+                <li>Every role aligned through structured, intelligent prompts</li>
+                <li>Crystal-clear accountability with automated RACI charts</li>
+                <li>Minutes to generate sprints, backlogs, and architectural docs</li>
+                <li>Universal precision — AI roles speak the same language</li>
+                <li>Scale infinitely without hiring, onboarding, or overhead</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section how-it-works" id="features">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">From project idea to production-ready plan in 5 simple steps</p>
+
+    <div class="steps-container">
+        <div class="step-card fade-in">
+            <div class="step-number">1</div>
+            <h3>Define Your Team</h3>
+            <p>Choose from 7+ predefined roles or create custom hybrid positions. Each role gets specific goals, personality traits, and technical constraints.</p>
+        </div>
+
+        <div class="step-card fade-in">
+            <div class="step-number">2</div>
+            <h3>Describe Your Project</h3>
+            <p>Add project name, scope, and primary features. The system understands your vision and translates it into actionable requirements.</p>
+        </div>
+
+        <div class="step-card fade-in">
+            <div class="step-number">3</div>
+            <h3>Generate Prompt Packs</h3>
+            <p>For each feature, get role-based instruction templates that guide your LLM or human developers to deliver exactly what you envision.</p>
+        </div>
+
+        <div class="step-card fade-in">
+            <div class="step-number">4</div>
+            <h3>Automate Planning</h3>
+            <p>Instantly create sprints, backlog breakdowns, RACI charts, and architectural decision records — all AI-generated from your data.</p>
+        </div>
+
+        <div class="step-card fade-in">
+            <div class="step-number">5</div>
+            <h3>Export & Build</h3>
+            <p>Package everything into professional deliverables (Markdown, DOCX, ZIP) ready for GitHub, Jira, or Notion. Start building immediately.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section revolutionary">
+    <h2 class="section-title">What Makes It Revolutionary</h2>
+    <p class="section-subtitle">Not another AI assistant — a complete development paradigm shift</p>
+
+    <div class="feature-grid">
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🧠</span>
+            <h3>Unified Intelligence</h3>
+            <p>Every role is interconnected. When your Architect defines system boundaries, the Backend automatically aligns API contracts, and QA adapts test plans in real-time.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🎯</span>
+            <h3>Template-Driven Precision</h3>
+            <p>No more improvising prompts. Get reusable, structured prompt kits optimized for each role and feature type — proven patterns that work.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">⚡</span>
+            <h3>Agile-by-Design</h3>
+            <p>Sprint creation, backlog prioritization, and RACI role mapping are all AI-generated from your data — no manual re-entry, no spreadsheet hell.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🔐</span>
+            <h3>Local-First Privacy</h3>
+            <p>No cloud lock-in. No data collection. You own your inputs, outputs, and intellectual property. Work offline, deploy anywhere.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🎨</span>
+            <h3>Full Customization</h3>
+            <p>Every AI role can have its own philosophy: cost efficiency, scalability, open-source bias, security rigidity — whatever matters to you and your project.</p>
+        </div>
+
+        <div class="feature-card fade-in">
+            <span class="feature-icon">🌍</span>
+            <h3>Tech-Agnostic</h3>
+            <p>Works with React, Angular, NestJS, Python, Java, or any stack. The intelligence lives in the structure, not the syntax.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section team-roles">
+    <h2 class="section-title">Meet Your AI Team</h2>
+    <p class="section-subtitle">7+ specialized roles working in perfect harmony</p>
+
+    <div class="roles-grid">
+        <div class="role-card fade-in">
+            <span class="role-icon">👔</span>
+            <h3>Team Lead</h3>
+            <p>Orchestrates priorities, manages sprints, ensures alignment across all roles, and drives project momentum.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">🏛️</span>
+            <h3>Architect</h3>
+            <p>Designs system architecture, defines technical boundaries, makes critical technology decisions, and creates ADRs.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">⚙️</span>
+            <h3>Backend Engineer</h3>
+            <p>Builds APIs, defines data models, optimizes performance, and ensures scalable server-side logic.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">💻</span>
+            <h3>Frontend Engineer</h3>
+            <p>Crafts user interfaces, implements responsive designs, manages state, and delivers exceptional user experiences.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">🎨</span>
+            <h3>UX/UI Designer</h3>
+            <p>Creates user flows, wireframes, and visual designs with deep empathy for user needs and business goals.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">🔬</span>
+            <h3>QA Specialist</h3>
+            <p>Designs test strategies, writes test cases, ensures quality standards, and never lets a bug escape.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">🚀</span>
+            <h3>DevOps Engineer</h3>
+            <p>Automates deployments, manages infrastructure, monitors systems, and obsesses over CI/CD perfection.</p>
+        </div>
+
+        <div class="role-card fade-in">
+            <span class="role-icon">✨</span>
+            <h3>Custom Roles</h3>
+            <p>Create hybrid positions tailored to your needs — Security Lead, Data Engineer, ML Specialist, or anything you imagine.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section use-cases">
+    <h2 class="section-title">Perfect For</h2>
+    <p class="section-subtitle">Real scenarios, real results</p>
+
+    <div class="use-case-card fade-in">
+        <h3>👨‍💻 Solo Developers</h3>
+        <p>Stop juggling architecture, design, coding, and testing alone. Get a full team that thinks through every angle while you focus on what you do best. Feel like you have a 7-person team backing every decision.</p>
+    </div>
+
+    <div class="use-case-card fade-in">
+        <h3>🚀 Startup Founders</h3>
+        <p>Design and plan your MVP fast before hiring. Validate architecture decisions, create professional specs, and secure funding with production-ready documentation — all before writing a single line of code.</p>
+    </div>
+
+    <div class="use-case-card fade-in">
+        <h3>👥 Engineering Leads</h3>
+        <p>Standardize collaboration across your team. Every developer gets the same high-quality prompts, every project follows consistent patterns, and nothing falls through the cracks.</p>
+    </div>
+
+    <div class="use-case-card fade-in">
+        <h3>🏢 Agencies</h3>
+        <p>Manage multiple client projects simultaneously with cloneable team templates. Scale your capacity without scaling headcount. Deliver consistent quality across every engagement.</p>
+    </div>
+
+    <div class="use-case-card fade-in">
+        <h3>🏛️ Enterprises</h3>
+        <p>Create scalable AI documentation and planning frameworks. Onboard new teams faster, maintain architectural consistency, and reduce knowledge silos across departments.</p>
+    </div>
+</section>
+
+<section class="section future-vision">
+    <h2 class="section-title">What's Next</h2>
+    <p class="section-subtitle">We're just getting started — here's where AI Team Kit is heading</p>
+
+    <div class="vision-grid">
+        <div class="vision-card fade-in">
+            <h3>💬 AI-to-AI Collaboration</h3>
+            <p>Watch roles debate trade-offs before finalizing decisions. Real-time negotiation between Architect and DevOps on infrastructure choices.</p>
+        </div>
+
+        <div class="vision-card fade-in">
+            <h3>📈 Learning Mode</h3>
+            <p>System improves prompt logic based on project outcomes. Your AI team gets smarter with every project you complete.</p>
+        </div>
+
+        <div class="vision-card fade-in">
+            <h3>🔍 Built-in Code Review</h3>
+            <p>Automatically align pull requests with the Architect's design. Catch architectural drift before it becomes technical debt.</p>
+        </div>
+
+        <div class="vision-card fade-in">
+            <h3>🧾 Documentation Generator</h3>
+            <p>Produce onboarding guides for every new team member. Keep docs in sync with code automatically.</p>
+        </div>
+
+        <div class="vision-card fade-in">
+            <h3>🧠 Personalized AI Personas</h3>
+            <p>Your DevOps agent remembers your CI pipeline preferences. Your UX agent knows your design voice. Evolves with each project.</p>
+        </div>
+
+        <div class="vision-card fade-in">
+            <h3>🌐 Team Cloning</h3>
+            <p>Replicate your best-performing virtual team across multiple products. Success becomes repeatable and scalable.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>Ready to Build with Your AI Team?</h2>
+    <p>Join developers who are already building faster, smarter, and better with AI Team Kit</p>
+    <div class="cta-buttons">
+        <a href="#features" class="btn btn-secondary">📖 Learn More</a>
+    </div>
+    <div style="margin-top: 30px; opacity: 0.9;">
+        <p>✅ No Setup Required  •  🔒 Privacy First  •  ⚡ Start in Minutes  •  🎯 Production Ready</p>
+    </div>
+</section>
+
+<footer>
+    <p>Built with ❤️ by developers, for developers who want to build better software faster.</p>
+    <p class="footer-tagline">AI Team Kit — Where Artificial Intelligence meets Engineering Intelligence</p>
+</footer>
+
+<script>
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
