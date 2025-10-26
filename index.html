@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LiDa Software - Open Source Knowledge for Developers</title>
   <!-- SEO Meta Tags -->
-  <meta name="description" content="LiDa Software creates free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
-  <meta name="keywords" content="open source, developer tools, free software, chrome extensions, coding resources, developer resources" />
+  <meta name="description"
+        content="LiDa Software creates free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta name="keywords"
+        content="open source, developer tools, free software, chrome extensions, coding resources, developer resources" />
   <meta name="author" content="Hen Faibish" />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://lidasoftware.online/" />
   <meta property="og:title" content="LiDa Software - Open Source Knowledge for Developers" />
-  <meta property="og:description" content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta property="og:description"
+        content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
   <meta property="og:image" content="https://lidasoftware.online/og-image.png" />
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://lidasoftware.online/" />
   <meta property="twitter:title" content="LiDa Software - Open Source Knowledge for Developers" />
-  <meta property="twitter:description" content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
+  <meta property="twitter:description"
+        content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
   <meta property="twitter:image" content="https://lidasoftware.online/og-image.png" />
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://lidasoftware.online/">
@@ -602,6 +607,115 @@
       font-weight: 500;
     }
 
+    /* WhatsApp Popup Styles */
+    .whatsapp-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .whatsapp-popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(15, 15, 35, 0.95);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .whatsapp-popup h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+
+    .whatsapp-popup p {
+      color: #b4b4d4;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .phone-number {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      color: #25D366;
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+
+    .whatsapp-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .whatsapp-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .whatsapp-btn.primary {
+      background: #25D366;
+      color: white;
+    }
+
+    .whatsapp-btn.primary:hover {
+      background: #20b358;
+      transform: translateY(-2px);
+    }
+
+    .whatsapp-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #b4b4d4;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+    .whatsapp-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .close-popup {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: #9090b0;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-popup:hover {
+      color: #fff;
+    }
+
 
     @media (max-width: 768px) {
       body {
@@ -740,12 +854,14 @@
   </script>
 
 </head>
+
 <body>
 <!-- Navigation Header -->
 <nav class="nav-header" id="navbar">
   <div class="nav-container">
     <a href="#" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
-      <div style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
+      <div
+              style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
         <img src="logo.png" alt="LiDa Logo" style="width: 30px; height: auto;">
       </div>
       LiDa Software
@@ -757,7 +873,14 @@
       <div class="nav-social">
         <a href="https://www.facebook.com/profile.php?id=61581626213032" target="_blank" title="Facebook">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg>
+        </a>
+        <a href="#" onclick="openWhatsAppPopup()" title="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
           </svg>
         </a>
       </div>
@@ -816,9 +939,12 @@
         <div class="project-icon">🔗</div>
         <h3 class="project-title">Advanced Link Manager</h3>
         <p class="project-description">
-          Advanced Link Manager is a smart Chrome extension that turns your bookmarks into a sleek, organized dashboard. Access sites instantly, group them by category, add icons, and sync or back up easily, all in one clean, click-away interface.
+          Advanced Link Manager is a smart Chrome extension that turns your bookmarks into a sleek, organized
+          dashboard. Access sites instantly, group them by category, add icons, and sync or back up easily, all in one
+          clean, click-away interface.
         </p>
-        <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">
+        <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
+           class="project-link">
           Try The Chrome extension →
         </a>
         <a href="link-manager.html" class="project-link">
@@ -835,9 +961,12 @@
         <div class="project-icon">🎨</div>
         <h3 class="project-title">Dummy Data Generator</h3>
         <p class="project-description">
-          Dummy Data Generator is a Chrome extension that creates realistic dummy data from Java or TypeScript classes. Just paste your code and instantly get ready-to-use objects with names, emails, dates, and more, ideal for testing, prototyping, and mock APIs.
+          Dummy Data Generator is a Chrome extension that creates realistic dummy data from Java or TypeScript
+          classes. Just paste your code and instantly get ready-to-use objects with names, emails, dates, and more,
+          ideal for testing, prototyping, and mock APIs.
         </p>
-        <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en" class="project-link">
+        <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en"
+           class="project-link">
           Try The Chrome extension →
         </a>
         <a href="dummy-generate.html" class="project-link">
@@ -854,9 +983,12 @@
         <div class="project-icon">🔍</div>
         <h3 class="project-title">Local Storage Viewer</h3>
         <p class="project-description">
-          Local Storage Viewer lets you view, edit, copy, and delete localStorage and sessionStorage data directly from your browser. Clean, fast, and developer-friendly, perfect for debugging, testing, and managing site data with ease.
+          Local Storage Viewer lets you view, edit, copy, and delete localStorage and sessionStorage data directly
+          from your browser. Clean, fast, and developer-friendly, perfect for debugging, testing, and managing site
+          data with ease.
         </p>
-        <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en" class="project-link">
+        <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en"
+           class="project-link">
           Try The Chrome extension →
         </a>
         <a href="local-storage.html" class="project-link">
@@ -872,15 +1004,18 @@
         <div class="project-icon">📈</div>
         <h3 class="project-title">API Data</h3>
         <p class="project-description">
-          API Data is a powerful Chrome extension for developers that captures and analyzes HTTP/HTTPS API calls in real time. Unlike DevTools, it keeps data after refresh, offers request replay, advanced filtering, detailed analytics, exports, and a clean UI, your all-in-one API debugger.
+          API Data is a powerful Chrome extension for developers that captures and analyzes HTTP/HTTPS API calls in
+          real time. Unlike DevTools, it keeps data after refresh, offers request replay, advanced filtering, detailed
+          analytics, exports, and a clean UI, your all-in-one API debugger.
         </p>
-        <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh?authuser=0&hl=en" class="project-link">
+        <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh?authuser=0&hl=en"
+           class="project-link">
           Try The Chrome extension →
         </a>
         <a href="api-Monitor.html" class="project-link">
           <p class="project-description-link">
             <br>
-          Learn more about the extension
+            Learn more about the extension
           </p>
         </a>
       </div>
@@ -892,7 +1027,9 @@
         <div class="project-icon">💊</div>
         <h3 class="project-title">Benzodiazepines Tracker</h3>
         <p class="project-description">
-          A free, easy-to-use health tool designed to help individuals track their benzodiazepine usage. Whether you're tapering, managing your current dosage, or simply want to stay organized throughout your journey, this tool was built to support you.
+          A free, easy-to-use health tool designed to help individuals track their benzodiazepine usage. Whether
+          you're tapering, managing your current dosage, or simply want to stay organized throughout your journey,
+          this tool was built to support you.
         </p>
         <a href="https://www.benzotracker.support/" class="project-link">
           Try Benzo Tracker →
@@ -917,15 +1054,19 @@
 
 
       <p class="about-text">
-        LiDa Software started as a small side project by Hen Faibish, a developer who just couldn’t stop building things, even on weekends.
-        It’s not a company with investors, slogans, or slides full of buzzwords. It’s just one guy who really loves code and believes good ideas should be shared, not locked behind paywalls or jargon.
+        LiDa Software started as a small side project by Hen Faibish, a developer who just couldn’t stop building
+        things, even on weekends.
+        It’s not a company with investors, slogans, or slides full of buzzwords. It’s just one guy who really loves
+        code and believes good ideas should be shared, not locked behind paywalls or jargon.
 
 
-        LiDa creates small, useful, sometimes weird tools... the kind that make developers smile, save time, or say “oh, that’s actually clever.”
+        LiDa creates small, useful, sometimes weird tools... the kind that make developers smile, save time, or say
+        “oh, that’s actually clever.”
         No hype. No AI drama. Just clean code, curiosity, and the joy of making things work (eventually).
 
 
-        When Hen isn’t coding, he’s probably testing another idea, writing about software, or explaining to his kids why “just five more minutes” of debugging can actually mean an hour.
+        When Hen isn’t coding, he’s probably testing another idea, writing about software, or explaining to his kids
+        why “just five more minutes” of debugging can actually mean an hour.
 
 
       </p>
@@ -1003,6 +1144,27 @@
   </div>
 </footer>
 
+<!-- WhatsApp Popup -->
+<div id="whatsappPopup" class="whatsapp-popup">
+  <div class="whatsapp-popup-content">
+    <button class="close-popup" onclick="closeWhatsAppPopup()">&times;</button>
+    <h3>📱 Contact via WhatsApp</h3>
+    <p>Get in touch with us directly on WhatsApp for quick support and questions.</p>
+    <div class="phone-number">+40 753 358 749</div>
+    <div class="whatsapp-buttons">
+      <a href="https://wa.me/40753358749?text=Hi%20there!%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch."
+         target="_blank" class="whatsapp-btn primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+        </svg>
+        Open WhatsApp
+      </a>
+      <button class="whatsapp-btn secondary" onclick="closeWhatsAppPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
 
 <script>
   // Navbar scroll effect
@@ -1033,20 +1195,41 @@
     });
   });
 
+  // WhatsApp popup functions
+  function openWhatsAppPopup() {
+    document.getElementById('whatsappPopup').style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  function closeWhatsAppPopup() {
+    document.getElementById('whatsappPopup').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+  }
+
+  // Close popup when clicking outside the content
+  document.getElementById('whatsappPopup').addEventListener('click', function (e) {
+    if (e.target === this) {
+      closeWhatsAppPopup();
+    }
+  });
+
+  // Close popup with Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeWhatsAppPopup();
+    }
+  });
+
 </script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GN0YLZXR8J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
   gtag('config', 'G-GN0YLZXR8J');
 </script>
 
 </body>
+
 </html>
-
-
-
-
-

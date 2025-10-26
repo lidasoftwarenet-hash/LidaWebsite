@@ -1,3 +1,14 @@
+# robots.txt for https://www.lidasoftware.online/
+# 🧭 SEO optimized and Vercel-compatible
+
 User-agent: *
 Allow: /
-Sitemap: https://lidasoftware.online/sitemap.xml
+
+# 👇 Prevent indexing of non-www version (old root)
+Disallow: https://lidasoftware.online/
+
+# Sitemap for Google
+Sitemap: https://www.lidasoftware.online/sitemap.xml
+
+# Preferred domain
+Host: www.lidasoftware.online
