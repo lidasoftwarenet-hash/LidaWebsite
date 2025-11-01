@@ -13,24 +13,26 @@
   <meta name="author" content="Hen Faibish" />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lidasoftware.online/" />
+  <meta property="og:url" content="https://www.lidasoftware.online/" />
   <meta property="og:title" content="LiDa Software - Open Source Knowledge for Developers" />
   <meta property="og:description"
         content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
-  <meta property="og:image" content="https://lidasoftware.online/og-image.png" />
+  <meta property="og:image" content="https://www.lidasoftware.online/og-image.png" />
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://lidasoftware.online/" />
+  <meta property="twitter:url" content="https://www.lidasoftware.online/" />
   <meta property="twitter:title" content="LiDa Software - Open Source Knowledge for Developers" />
   <meta property="twitter:description"
         content="Free, open-source tools and resources for developers. No paywalls, no gatekeeping—just good stuff for developers." />
-  <meta property="twitter:image" content="https://lidasoftware.online/og-image.png" />
+  <meta property="twitter:image" content="https://www.lidasoftware.online/og-image.png" />
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://lidasoftware.online/">
+  <link rel="canonical" href="https://www.lidasoftware.online/">
   <link rel="icon" type="image/x-icon" href="/favicon.png">
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
-  <link rel="icon" href="https://lidasoftware.online/favicon.png" />
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.png" />
   <link rel="preload" href="logo.png" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -45,11 +47,38 @@
 
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0f0f23;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a0f;
+      background-image:
+              radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
       color: #e0e0e0;
       line-height: 1.6;
       padding-top: 80px;
+      overflow-x: hidden;
+    }
+
+    /* Smooth scrolling for all elements */
+    * {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #202e1a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #a78bfa);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #5a6fd8, #9575e6);
     }
 
 
@@ -66,16 +95,19 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(15, 15, 35, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(102, 126, 234, 0.15);
       z-index: 1000;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
 
     .nav-header.scrolled {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      background: rgba(10, 10, 15, 0.95);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(102, 126, 234, 0.3);
     }
 
 
@@ -92,12 +124,18 @@
 
     .nav-logo {
       font-size: 1.5em;
-      font-weight: 700;
+      font-weight: 800;
       background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-decoration: none;
+      transition: all 0.3s ease;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.05);
     }
 
 
@@ -113,8 +151,10 @@
       color: #b4b4d4;
       text-decoration: none;
       font-weight: 500;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
+      padding: 8px 16px;
+      border-radius: 8px;
     }
 
 
@@ -132,8 +172,9 @@
 
     .nav-links a:hover {
       color: #fff;
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-1px);
     }
-
 
     .nav-links a:hover::after {
       width: 100%;
@@ -171,11 +212,14 @@
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(135deg, #1a1a3e 0%, #0f0f23 100%);
-      padding: 20px 20px 1px;
+      background: linear-gradient(135deg, #1a1a3e 0%, #0a0a0f 100%);
+      padding: 120px 20px 80px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
     }
 
 
@@ -186,8 +230,27 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+      background:
+              radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
+              radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      33% {
+        transform: translateY(-20px) rotate(1deg);
+      }
+
+      66% {
+        transform: translateY(10px) rotate(-1deg);
+      }
     }
 
 
@@ -220,46 +283,129 @@
 
 
     h1 {
-      font-size: 3.5em;
+      font-size: 4.5em;
       color: #fff;
-      margin-bottom: 20px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      margin-bottom: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 50%, #f093fb 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
 
     .tagline {
-      font-size: 1.5em;
-      color: #b4b4d4;
-      margin-bottom: 30px;
-      font-weight: 300;
+      font-size: 1.6em;
+      color: #c4c4e4;
+      margin-bottom: 40px;
+      font-weight: 400;
+      animation: fadeInUp 1s ease-out 0.2s both;
+      letter-spacing: -0.01em;
     }
 
 
     .mission {
-      font-size: 1.1em;
-      color: #9090b0;
+      font-size: 1.2em;
+      color: #a0a0c0;
       max-width: 700px;
-      margin: 0 auto 40px;
+      margin: 0 auto 50px;
       line-height: 1.8;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    /* CTA Button */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1em;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+      animation: fadeInUp 1s ease-out 0.6s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
     }
 
 
     /* Projects Section */
     .projects-section {
-      padding: 80px 20px;
-      background: #0f0f23;
+      padding: 120px 20px;
+      background: #0a0a0f;
+      position: relative;
+    }
+
+    .projects-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
     }
 
 
     .section-title {
-      font-size: 2.5em;
+      font-size: 3em;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #a78bfa);
+      border-radius: 2px;
     }
 
 
@@ -283,13 +429,15 @@
 
 
     .project-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      border-radius: 20px;
-      padding: 40px;
-      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 24px;
+      padding: 48px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
 
@@ -307,9 +455,10 @@
 
 
     .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(102, 126, 234, 0.25);
       border-color: rgba(102, 126, 234, 0.4);
+      background: rgba(255, 255, 255, 0.05);
     }
 
 
@@ -332,7 +481,7 @@
 
     .project-card.community:hover {
       box-shadow: 0 20px 40px rgba(46, 213, 115, 0.2);
-      border-color: rgba(210, 33, 230, 0.5);
+      border-color: rgb(237, 242, 243);
     }
 
 
@@ -409,16 +558,25 @@
 
 
     .project-icon {
-      font-size: 3em;
-      margin-bottom: 20px;
+      font-size: 3.5em;
+      margin-bottom: 24px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .project-card:hover .project-icon {
+      transform: scale(1.1) rotate(5deg);
     }
 
 
     .project-title {
-      font-size: 1.8em;
+      font-size: 2em;
       color: #fff;
-      margin-bottom: 15px;
-      font-weight: 600;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
     }
 
 
@@ -436,6 +594,12 @@
       line-height: 2.2;
     }
 
+    .project-description-link:hover {
+      color: #fff;
+      gap: 12px;
+      transform: translateX(4px);
+    }
+
 
     .project-link {
       display: inline-flex;
@@ -443,31 +607,103 @@
       gap: 8px;
       color: #a78bfa;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .project-link:hover {
+      color: #fff;
+      gap: 12px;
+      transform: translateX(4px);
+    }
+
+    /* Project Links Container */
+    .project-links-container {
+      margin-top: 30px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
       transition: all 0.3s ease;
     }
 
-
-    .project-link:hover {
-      color: #667eea;
-      gap: 12px;
+    .project-links-container:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(102, 126, 234, 0.25);
+      transform: translateY(-2px);
     }
 
 
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, #1a1a3e 0%, #0a0a0f 100%);
+      position: relative;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .stat-label {
+      color: #b4b4d4;
+      font-weight: 500;
+      font-size: 1.1em;
+    }
+
     /* About Section */
     .about-section {
-      padding: 80px 20px;
-      background: linear-gradient(180deg, #0f0f23 0%, #1a1a3e 100%);
+      padding: 120px 20px;
+      background: linear-gradient(180deg, #0a0a0f 0%, #1a1a3e 100%);
+      position: relative;
     }
 
 
     .about-content {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto 80px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      border-radius: 20px;
-      padding: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 24px;
+      padding: 60px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
 
@@ -498,18 +734,31 @@
 
     /* Contact Section */
     .contact-section {
-      padding: 80px 20px;
-      background: #0f0f23;
+      padding: 120px 20px;
+      background: #0a0a0f;
+      position: relative;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
     }
 
 
     .contact-container {
       max-width: 700px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      border-radius: 20px;
-      padding: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 24px;
+      padding: 60px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
 
@@ -552,14 +801,15 @@
 
     .form-group input,
     .form-group textarea {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(102, 126, 234, 0.3);
-      border-radius: 10px;
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 12px;
+      padding: 18px;
       color: #e0e0e0;
       font-family: inherit;
       font-size: 1em;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
 
@@ -568,7 +818,8 @@
       outline: none;
       border-color: #a78bfa;
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+      box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
+      transform: translateY(-2px);
     }
 
 
@@ -579,49 +830,115 @@
 
 
     .form-submit {
-      padding: 15px 35px;
+      padding: 18px 40px;
       background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
       color: white;
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 1.05em;
+      font-size: 1.1em;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-      margin-top: 10px;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
+    .form-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .form-submit:hover::before {
+      left: 100%;
+    }
 
     .form-submit:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
     }
-
 
     .form-submit:active {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
+
+    /* Scroll to Top Button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #667eea, #a78bfa);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+    }
+
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
 
     /* Footer */
     footer {
-      background: #0a0a18;
-      padding: 40px 20px;
+      background: linear-gradient(135deg, #0a0a18 0%, #1a1a2e 100%);
+      padding: 60px 20px 40px;
       text-align: center;
-      border-top: 1px solid rgba(102, 126, 234, 0.1);
+      border-top: 1px solid rgba(102, 126, 234, 0.15);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
     }
 
 
     .open-source-badge {
       display: inline-block;
-      margin-top: 15px;
-      padding: 10px 25px;
+      margin-top: 20px;
+      padding: 12px 30px;
       background: rgba(102, 126, 234, 0.1);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(102, 126, 234, 0.3);
-      border-radius: 25px;
+      border-radius: 30px;
       color: #a78bfa;
-      font-weight: 500;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .open-source-badge:hover {
+      background: rgba(102, 126, 234, 0.15);
+      border-color: rgba(102, 126, 234, 0.4);
+      transform: translateY(-2px);
     }
 
     /* WhatsApp Popup Styles */
@@ -734,75 +1051,174 @@
     }
 
 
+    /* Animation utilities */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.6s ease-out;
+    }
+
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.6s ease-out;
+    }
+
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Loading animation */
+    .loading-dots {
+      display: inline-block;
+    }
+
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s steps(5, end) infinite;
+    }
+
+    @keyframes dots {
+
+      0%,
+      20% {
+        content: '';
+      }
+
+      40% {
+        content: '.';
+      }
+
+      60% {
+        content: '..';
+      }
+
+      80%,
+      100% {
+        content: '...';
+      }
+    }
+
     @media (max-width: 768px) {
       body {
         padding-top: 70px;
       }
 
-
       .nav-container {
         height: 70px;
       }
-
 
       .nav-links {
         position: fixed;
         top: 70px;
         left: 0;
         right: 0;
-        background: rgba(15, 15, 35, 0.98);
+        background: rgba(10, 10, 15, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        padding: 20px;
+        padding: 30px 20px;
         gap: 20px;
         transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       }
-
 
       .nav-links.active {
         transform: translateX(0);
       }
 
-
       .mobile-menu-toggle {
         display: block;
       }
 
-
       .nav-social {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
       }
 
+      .hero {
+        padding: 80px 20px 60px;
+        min-height: 60vh;
+      }
 
+      h1 {
+        font-size: 3em;
+        line-height: 1.1;
+      }
+
+      .tagline {
+        font-size: 1.3em;
+      }
+
+      .section-title {
+        font-size: 2.2em;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .project-card {
+        padding: 35px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .about-content {
+        padding: 40px 30px;
+        margin-bottom: 60px;
+      }
+
+      .contact-container {
+        padding: 40px 30px;
+      }
+
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 480px) {
       h1 {
         font-size: 2.5em;
       }
 
-
-      .tagline {
-        font-size: 1.2em;
+      .project-card {
+        padding: 25px;
       }
 
-
-      .section-title {
-        font-size: 2em;
-      }
-
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-
-      .about-content {
-        padding: 30px;
-        margin-bottom: 60px;
-      }
-
-
+      .about-content,
       .contact-container {
-        padding: 30px;
+        padding: 30px 20px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -811,8 +1227,8 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "LiDa Software",
-      "url": "https://lidasoftware.online/",
-      "logo": "https://lidasoftware.online/logo.png",
+      "url": "https://www.lidasoftware.online/",
+      "logo": "https://www.lidasoftware.online/logo.png",
       "sameAs": [
         "https://www.facebook.com/profile.php?id=61581626213032",
         "https://chromewebstore.google.com/",
@@ -840,7 +1256,7 @@
             "name": "Advanced Link Manager",
             "operatingSystem": "Chrome",
             "applicationCategory": "BrowserExtension",
-            "url": "https://lidasoftware.online/link-manager.html",
+            "url": "https://www.lidasoftware.online/link-manager.html",
             "downloadUrl": "https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
           },
           {
@@ -848,7 +1264,7 @@
             "name": "Dummy Data Generator",
             "operatingSystem": "Chrome",
             "applicationCategory": "BrowserExtension",
-            "url": "https://lidasoftware.online/dummy-generate.html",
+            "url": "https://www.lidasoftware.online/dummy-generate.html",
             "downloadUrl": "https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe"
           },
           {
@@ -856,13 +1272,13 @@
             "name": "Local Storage Viewer",
             "operatingSystem": "Chrome",
             "applicationCategory": "BrowserExtension",
-            "url": "https://lidasoftware.online/local-storage.html",
+            "url": "https://www.lidasoftware.online/local-storage.html",
             "downloadUrl": "https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej"
           },
           {
             "@type": "Book",
             "name": "Coding with Robots",
-            "url": "https://lidasoftware.online/book.html",
+            "url": "https://www.lidasoftware.online/book.html",
             "author": "Hen Faibish"
           }
         ]
@@ -915,6 +1331,12 @@
     <div class="hero-content">
       <h1>Open Source Tools for Developers</h1>
       <p class="tagline">Free resources, no paywalls, just good stuff</p>
+      <a href="#projects" class="cta-button">
+        <span>Explore Projects</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
+        </svg>
+      </a>
     </div>
   </div>
 </section>
@@ -931,7 +1353,7 @@
 
     <div class="projects-grid">
       <!-- Book Project -->
-      <div class="project-card">
+      <div class="project-card fade-in">
         <div class="project-badge-book">eBook</div>
         <div class="project-icon">🤖</div>
         <h3 class="project-title">Coding with Robots</h3>
@@ -939,19 +1361,19 @@
           A short, fun, and practical guide for developers. No boring AI hype, just real-world
           examples and hands-on coding to help you work smarter with AI tools.
         </p>
-        <a href="book.html" class="project-link">
-          Get the Free eBook →
-        </a>
-        <a href="codding-with-robots.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about the book
-          </p>
-        </a>
+          <a href="book.html" class="project-link">
+            Get the Free eBook →
+          </a>
+          <a href="codding-with-robots.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about the book
+            </p>
+          </a>
       </div>
 
 
-      <div class="project-card">
+      <div class="project-card fade-in">
         <div class="project-badge-chrome-ex">Chrome extension</div>
         <div class="project-icon">🔗</div>
         <h3 class="project-title">Advanced Link Manager</h3>
@@ -960,10 +1382,10 @@
           dashboard. Access sites instantly, group them by category, add icons, and sync or back up easily, all in one
           clean, click-away interface.
         </p>
-        <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
-           class="project-link">
-          Try The Chrome extension →
-        </a>
+          <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
+             class="project-link">
+            Try The Chrome extension →
+          </a>
         <a href="link-manager.html" class="project-link">
           <p class="project-description-link">
             <br>
@@ -973,7 +1395,7 @@
       </div>
 
 
-      <div class="project-card">
+      <div class="project-card fade-in">
         <div class="project-badge-chrome-ex">Chrome extension</div>
         <div class="project-icon">🎨</div>
         <h3 class="project-title">Dummy Data Generator</h3>
@@ -982,20 +1404,20 @@
           classes. Just paste your code and instantly get ready-to-use objects with names, emails, dates, and more,
           ideal for testing, prototyping, and mock APIs.
         </p>
-        <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en"
-           class="project-link">
-          Try The Chrome extension →
-        </a>
-        <a href="dummy-generate.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about the extension
-          </p>
-        </a>
+          <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en"
+             class="project-link">
+            Try The Chrome extension →
+          </a>
+          <a href="dummy-generate.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about the extension
+            </p>
+          </a>
       </div>
 
 
-      <div class="project-card">
+      <div class="project-card fade-in">
         <div class="project-badge-chrome-ex">Chrome extension</div>
         <div class="project-icon">🔍</div>
         <h3 class="project-title">Local Storage Viewer</h3>
@@ -1004,19 +1426,19 @@
           from your browser. Clean, fast, and developer-friendly, perfect for debugging, testing, and managing site
           data with ease.
         </p>
-        <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en"
-           class="project-link">
-          Try The Chrome extension →
-        </a>
-        <a href="local-storage.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about the extension
-          </p>
-        </a>
+          <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej?authuser=0&hl=en"
+             class="project-link">
+            Try The Chrome extension →
+          </a>
+          <a href="local-storage.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about the extension
+            </p>
+          </a>
       </div>
 
-      <div class="project-card">
+      <div class="project-card fade-in">
         <div class="project-badge-chrome-ex">Chrome extension</div>
         <div class="project-icon">📈</div>
         <h3 class="project-title">API Data</h3>
@@ -1025,21 +1447,21 @@
           real time. Unlike DevTools, it keeps data after refresh, offers request replay, advanced filtering, detailed
           analytics, exports, and a clean UI, your all-in-one API debugger.
         </p>
-        <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh?authuser=0&hl=en"
-           class="project-link">
-          Try The Chrome extension →
-        </a>
-        <a href="api-Monitor.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about the extension
-          </p>
-        </a>
+          <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh?authuser=0&hl=en"
+             class="project-link">
+            Try The Chrome extension →
+          </a>
+          <a href="api-Monitor.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about the extension
+            </p>
+          </a>
       </div>
 
 
       <!-- Community Project -->
-      <div class="project-card community">
+      <div class="project-card community fade-in">
         <div class="project-badge">Community Project</div>
         <div class="project-icon">💊</div>
         <h3 class="project-title">Benzodiazepines Tracker</h3>
@@ -1048,20 +1470,20 @@
           you're tapering, managing your current dosage, or simply want to stay organized throughout your journey,
           this tool was built to support you.
         </p>
-        <a href="https://www.benzotracker.support/" class="project-link">
-          Try Benzo Tracker →
-        </a>
-        <a href="benzo-tracker.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about this tool
-          </p>
-        </a>
+          <a href="https://www.benzotracker.support/" class="project-link">
+            Try Benzo Tracker →
+          </a>
+          <a href="benzo-tracker.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about this tool
+            </p>
+          </a>
       </div>
 
 
-<!--      Soon-->
-      <div class="project-card">
+      <!--      Soon-->
+      <div class="project-card fade-in">
         <div class="project-badge-soon">Soon...Soon...Soon</div>
         <div class="project-icon">💻</div>
         <h3 class="project-title">Ai Team Kit</h3>
@@ -1070,17 +1492,44 @@
           It generates smart prompts, sprint plans, task ownership maps,
           and decision docs—helping developers plan, build, and deliver faster than ever.
         </p>
-        <a href="ai-team-kit.html" class="project-link">
-          <p class="project-description-link">
-            <br>
-            Learn more about this tool
-          </p>
-        </a>
+          <a href="ai-team-kit.html" class="project-link">
+            <p class="project-description-link">
+              <br>
+              Learn more about this tool
+            </p>
+          </a>
+        </div>
+      </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-in">
+        <span class="stat-number">5+</span>
+        <span class="stat-label">Chrome Extensions</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number">10K eBook Download</span>
+        <span class="stat-label"> </span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number">1000+</span>
+        <span class="stat-label">Active Users</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Open Source</span>
+      </div>
+      <div class="stat-item fade-in">
+        <span class="stat-number">0$</span>
+        <span class="stat-label">Cost to Use</span>
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- About Section -->
 <section class="about-section" id="about">
@@ -1133,7 +1582,7 @@
         <input type="hidden" name="_captcha" value="false">
 
         <!-- Success page redirect -->
-        <input type="hidden" name="_next" value="https://lidasoftware.online/thank-you.html">
+        <input type="hidden" name="_next" value="https://www.lidasoftware.online/thank-you.html">
 
         <!-- Email subject -->
         <input type="hidden" name="_subject" value="New contact form submission from LiDa Software website">
@@ -1201,6 +1650,12 @@
   </div>
 </div>
 
+<!-- Scroll to Top Button -->
+<button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+  </svg>
+</button>
 
 <script>
   // Navbar scroll effect
@@ -1254,6 +1709,75 @@
     if (e.key === 'Escape') {
       closeWhatsAppPopup();
     }
+  });
+
+  // Scroll to top functionality
+  const scrollToTopBtn = document.getElementById('scrollToTop');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.classList.add('visible');
+    } else {
+      scrollToTopBtn.classList.remove('visible');
+    }
+  });
+
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with animation classes
+  document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Add stagger animation to project cards
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+    card.classList.add('fade-in');
+  });
+
+  // Add loading state to form submission
+  const contactForm = document.querySelector('.contact-form');
+  const submitBtn = document.querySelector('.form-submit');
+
+  if (contactForm && submitBtn) {
+    contactForm.addEventListener('submit', function () {
+      submitBtn.innerHTML = '<span class="loading-dots">Sending</span>';
+      submitBtn.disabled = true;
+    });
+  }
+
+  // Smooth scroll for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
   });
 
 </script>
