@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiDa Prompt Vault - Professional AI Prompt Templates for Developers</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional AI prompt templates for developers. 12+ expert prompts for code reviews, sprint planning, security audits & testing. Generate optimized prompts instantly. 100% free." />
+    <meta name="keywords" content="ai prompts, prompt engineering, prompt templates, ai tools, developer prompts, code review prompts, sprint planning, chatgpt prompts, claude prompts, ai workflow" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LiDa Prompt Vault - Professional AI Prompt Templates" />
+    <meta property="og:description" content="Transform your AI workflow with 12+ expert prompt templates. Built for developers who need battle-tested prompts." />
+    <meta property="og:url" content="https://www.lidasoftware.online/prompt-vault.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/prompt-vault-og.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LiDa Prompt Vault - Professional AI Prompt Templates" />
+    <meta name="twitter:description" content="12+ expert AI prompt templates for developers. Free & open source." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/prompt-vault-twitter.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/prompt-vault.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/apple-touch-icon.png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "LiDa Prompt Vault",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "ratingCount": "1"
+            },
+            "description": "Professional AI prompt templates for developers. 12+ expert prompts for code reviews, sprint planning, security audits, and testing strategies.",
+            "featureList": [
+                "12+ Expert Templates",
+                "Smart Customization",
+                "Instant Results",
+                "Organized Library",
+                "Free & Open Source"
+            ]
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <img src="prompt-logo.png" alt="promptPilot Logo" style="width: 55px; height: auto;">
+            <div>
+                <h1>PromptPilot</h1>
+                <p>Professional AI prompts engineered for maximum productivity and results</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="lida-branding">
+                <span class="lida-text">By Lida Software</span>
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+
+                <span class="material-symbols-outlined">business</span>
+                </div>
+            </div>
+            <button class="help-button" id="helpButton" title="Help & Guide">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="main-grid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Categories -->
+            <div class="card">
+                <h3>
+                    <span class="material-symbols-outlined">category</span>
+                    Categories
+                </h3>
+                <div id="categoryList" class="category-list"></div>
+            </div>
+
+            <!-- Recent Prompts -->
+            <div class="card">
+                <h3>
+                    <span class="material-symbols-outlined">history</span>
+                    Recent Prompts
+                </h3>
+                <div id="recentPromptsList" class="recent-prompts-list">
+                    <p class="empty-state">No recent prompts yet</p>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="card">
+                <h3>
+                    <span class="material-symbols-outlined">tune</span>
+                    Filters
+                </h3>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search</label>
+                        <input id="searchInput" type="text" placeholder="Search prompts..." />
+                    </div>
+                    <div class="filter-group">
+                        <label>Difficulty</label>
+                        <select id="difficultyFilter">
+                            <option value="">All Levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" id="clearFilters">
+                        <span class="material-symbols-outlined">clear</span>
+                        Clear Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div id="templateGrid" class="template-grid"></div>
+            <div id="noResults" class="no-results" style="display: none;">
+                <span class="material-symbols-outlined">search_off</span>
+                <h3>No prompts found</h3>
+                <p>Try adjusting your filters or search terms</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Wizard Modal -->
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>
+                <span class="material-symbols-outlined">auto_awesome</span>
+                <span id="modalTitle">AI Prompt Wizard</span>
+            </h2>
+            <button class="close-modal" id="closeModal">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <!-- Wizard Progress Bar -->
+        <div class="wizard-progress">
+            <div class="progress-steps">
+                <div class="progress-line">
+                    <div class="progress-line-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Project Info</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Context</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Problem</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Goals</div>
+                </div>
+                <div class="progress-step" data-step="5">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">Generate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <!-- Live Preview Toggle -->
+            <div class="live-preview-toggle">
+                <label class="toggle-container">
+                    <input type="checkbox" id="livePreviewToggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">
+                        <span class="material-symbols-outlined">visibility</span>
+                        Live Preview
+                    </span>
+                </label>
+                <p class="toggle-hint">See your prompt build in real-time</p>
+            </div>
+
+            <!-- Live Preview Panel -->
+            <div id="livePreviewPanel" class="live-preview-panel" style="display: none;">
+                <div class="live-preview-header">
+                    <h4>
+                        <span class="material-symbols-outlined">preview</span>
+                        Live Preview
+                    </h4>
+                    <span class="live-preview-badge">Updates as you type</span>
+                </div>
+                <div id="livePreviewContent" class="live-preview-content">
+                    <p class="preview-placeholder">Start filling out the form to see your prompt preview...</p>
+                </div>
+            </div>
+
+            <!-- Step 1: Project Information -->
+            <div class="wizard-step active" data-step="1">
+                <div class="step-header">
+                    <h3>
+                        <span class="material-symbols-outlined">folder</span>
+                        Project Information
+                    </h3>
+                    <p>Tell us about your project to help us create the perfect prompt for your needs.</p>
+                </div>
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="full-width">
+                            <label for="projectName">Project Name <span style="color: var(--danger); font-weight: bold;">*</span></label>
+                            <input name="projectName" id="projectName" placeholder="e.g., E-commerce Platform, Mobile App" />
+                            <div class="input-hint">e.g., E-commerce Platform, Mobile App, API Service</div>
+                        </div>
+                        <div>
+                            <label for="projectType">Project Type <span style="color: var(--danger); font-weight: bold;">*</span></label>
+                            <input name="projectType" id="projectType" placeholder="e.g., Web App, Mobile, API" />
+                            <div class="input-hint">Web App, Mobile, API, etc.</div>
+                        </div>
+                        <div>
+                            <input name="technology" id="technology" placeholder="Tech Stack" />
+                            <div class="input-hint">React, Node.js, Python, etc.</div>
+                        </div>
+                        <div>
+                            <input name="teamSize" id="teamSize" placeholder="Team Size" />
+                            <div class="input-hint">e.g., 5 developers</div>
+                        </div>
+                        <div>
+                            <input name="timeframe" id="timeframe" placeholder="Timeframe" />
+                            <div class="input-hint">e.g., 2 weeks, 1 sprint</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Context & Background -->
+            <div class="wizard-step" data-step="2">
+                <div class="step-header">
+                    <h3>
+                        <span class="material-symbols-outlined">info</span>
+                        Context & Background
+                    </h3>
+                    <p>Provide context about your team, timeline, and any relevant background information.</p>
+                </div>
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="full-width">
+                            <textarea name="context" id="context" placeholder="Background Context"></textarea>
+                            <div class="input-hint">What led to this project? What have you tried so far?</div>
+                        </div>
+                        <div>
+                            <input name="teamExperience" id="teamExperience" placeholder="Team Experience Level" />
+                            <div class="input-hint">Junior, Mid, Senior</div>
+                        </div>
+                        <div>
+                            <input name="deadline" id="deadline" placeholder="Critical Deadlines" />
+                            <div class="input-hint">Any important dates?</div>
+                        </div>
+                        <div class="full-width">
+                            <input name="stakeholders" id="stakeholders" placeholder="Key Stakeholders" />
+                            <div class="input-hint">Who needs to be involved or informed?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Problem Definition -->
+            <div class="wizard-step" data-step="3">
+                <div class="step-header">
+                    <h3>
+                        <span class="material-symbols-outlined">warning</span>
+                        Problem Definition
+                    </h3>
+                    <p>Clearly define the problem you're trying to solve and any constraints you're facing.</p>
+                </div>
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="full-width">
+                            <label for="currentProblem">Problem Statement <span style="color: var(--danger); font-weight: bold;">*</span></label>
+                            <textarea name="currentProblem" id="currentProblem" placeholder="What problem are you trying to solve?"></textarea>
+                            <div class="input-hint">Be specific about pain points, blockers, or challenges</div>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="technicalConstraints" id="technicalConstraints" placeholder="Technical Constraints"></textarea>
+                            <div class="input-hint">Must use existing infrastructure, specific frameworks, etc.</div>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="businessConstraints" id="businessConstraints" placeholder="Business Constraints"></textarea>
+                            <div class="input-hint">Compliance requirements, budget limits, stakeholder approval, etc.</div>
+                        </div>
+                        <div>
+                            <input name="budget" id="budget" placeholder="Budget Constraints" />
+                        </div>
+                        <div>
+                            <input name="resources" id="resources" placeholder="Available Resources" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Goals & Requirements -->
+            <div class="wizard-step" data-step="4">
+                <div class="step-header">
+                    <h3>
+                        <span class="material-symbols-outlined">flag</span>
+                        Goals & Requirements
+                    </h3>
+                    <p>Define what success looks like and specify your requirements.</p>
+                </div>
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="full-width">
+                            <label for="desiredOutcome">Desired Outcome <span style="color: var(--danger); font-weight: bold;">*</span></label>
+                            <textarea name="desiredOutcome" id="desiredOutcome" placeholder="What does success look like?"></textarea>
+                            <div class="input-hint">What does success look like? What specific results do you want?</div>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="successMetrics" id="successMetrics" placeholder="Success Metrics"></textarea>
+                            <div class="input-hint">How will you measure success? (KPIs, metrics, acceptance criteria)</div>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="mustHave" id="mustHave" placeholder="Must-Have Requirements"></textarea>
+                            <div class="input-hint">Non-negotiable requirements</div>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="niceToHave" id="niceToHave" placeholder="Nice-to-Have Features"></textarea>
+                            <div class="input-hint">Optional features or considerations</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Output Preferences & Generate -->
+            <div class="wizard-step" data-step="5">
+                <div class="step-header">
+                    <h3>
+                        <span class="material-symbols-outlined">settings</span>
+                        Output Preferences
+                    </h3>
+                    <p>Customize how you want the AI to respond to your prompt.</p>
+                </div>
+                
+                <!-- Power User Mode Toggle -->
+                <div class="power-user-toggle">
+                    <label class="toggle-container">
+                        <input type="checkbox" id="powerUserMode">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">
+                            <span class="material-symbols-outlined">settings</span>
+                            Power User Mode
+                        </span>
+                    </label>
+                    <p class="toggle-hint">Enable advanced options for fine-tuned control</p>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-grid">
+                        <div class="full-width">
+                            <label>Output Format</label>
+                            <select name="outputFormat" id="outputFormat">
+                                <option value="detailed">Detailed analysis with recommendations</option>
+                                <option value="actionable">Actionable step-by-step plan</option>
+                                <option value="code">Code implementation with examples</option>
+                                <option value="documentation">Documentation format</option>
+                                <option value="comparison">Comparison of options</option>
+                                <option value="checklist">Checklist or task breakdown</option>
+                            </select>
+                        </div>
+                        <div class="full-width">
+                            <textarea name="additionalInstructions" id="additionalInstructions" placeholder="Additional Instructions"></textarea>
+                            <div class="input-hint">Any specific requirements for the AI response format or style</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Power User Fields (Hidden by default) -->
+                <div class="power-user-fields" id="powerUserFields" style="display: none;">
+                    <div class="form-section">
+                        <h4>
+                            <span class="material-symbols-outlined">tune</span>
+                            Advanced Options
+                        </h4>
+                        <div class="form-grid">
+                            <div>
+                                <label>Tone</label>
+                                <select name="tone" id="tone">
+                                    <option value="">Default</option>
+                                    <option value="formal">Formal</option>
+                                    <option value="casual">Casual</option>
+                                    <option value="technical">Technical</option>
+                                </select>
+                                <div class="input-hint">Communication style for the response</div>
+                            </div>
+                            <div>
+                                <label>Response Format</label>
+                                <select name="responseFormat" id="responseFormat">
+                                    <option value="">Default</option>
+                                    <option value="markdown">Markdown</option>
+                                    <option value="bullets">Bullet List</option>
+                                    <option value="code-comments">Code Comments</option>
+                                </select>
+                                <div class="input-hint">Structural format preference</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generated Prompt Section -->
+                <div id="generatedSection" class="generated-section" style="display: none;">
+                <div class="generated-header">
+                    <h3>
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                        Generated Prompt
+                    </h3>
+                    <div class="generated-actions">
+                        <label class="fast-mode-toggle">
+                            <input type="checkbox" id="fastModeToggle">
+                            <span class="material-symbols-outlined">bolt</span>
+                            <span>Fast mode</span>
+                        </label>
+                            <button class="btn btn-edit" id="editBtn">
+                                <span class="material-symbols-outlined">edit</span>
+                                Edit
+                            </button>
+                            <button class="btn btn-copy" id="copyBtn">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                Copy
+                            </button>
+                            <button class="btn btn-copy-open" id="copyOpenBtn">
+                                <span class="material-symbols-outlined">open_in_new</span>
+                                Copy + Open AI
+                            </button>
+                            <button class="btn btn-save" id="saveBtn">
+                                <span class="material-symbols-outlined">save</span>
+                                Save JSON
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Platform Selector -->
+                    <div class="ai-platform-selector">
+                        <button class="platform-selector-btn" id="platformSelectorBtn">
+                            <span class="material-symbols-outlined">psychology</span>
+                            <span id="selectedPlatformLabel">Preferred AI: ChatGPT</span>
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </button>
+                        <button class="platform-settings-btn" id="platformSettingsBtn" title="Configure AI Prompt Profiles">
+                            <span class="material-symbols-outlined">tune</span>
+                        </button>
+                        <div class="platform-dropdown" id="platformDropdown" style="display: none;">
+                            <div class="platform-option" data-platform="chatgpt">
+                                <span class="platform-icon">🤖</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">ChatGPT</div>
+                                    <div class="platform-url">chat.openai.com</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div class="platform-option" data-platform="claude">
+                                <span class="platform-icon">🧠</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">Claude</div>
+                                    <div class="platform-url">claude.ai</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div class="platform-option" data-platform="gemini">
+                                <span class="platform-icon">✨</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">Gemini</div>
+                                    <div class="platform-url">gemini.google.com</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div class="platform-option" data-platform="perplexity">
+                                <span class="platform-icon">🔍</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">Perplexity</div>
+                                    <div class="platform-url">perplexity.ai</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div class="platform-option" data-platform="custom">
+                                <span class="platform-icon">⚙️</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">Custom URL</div>
+                                    <div class="platform-url">Set your own</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Prompt Quality Meter -->
+                    <div id="promptQualityMeter" class="prompt-quality-meter" style="display: none;">
+                        <div class="quality-meter-header">
+                            <h4>
+                                <span class="material-symbols-outlined">analytics</span>
+                                Prompt Quality Score
+                            </h4>
+                            <div class="quality-meter-actions">
+                                <div class="quality-score" id="qualityScore">0%</div>
+                                <button class="quality-toggle" id="qualityToggle" title="Toggle quality details">
+                                    <span class="material-symbols-outlined">expand_less</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="quality-meter-content" id="qualityMeterContent">
+                            <div class="quality-bar-container">
+                                <div class="quality-bar" id="qualityBar"></div>
+                            </div>
+                            <div class="quality-feedback" id="qualityFeedback"></div>
+                            <div class="quality-details" id="qualityDetails"></div>
+                        </div>
+                    </div>
+
+                    <!-- Prompt Output and Breakdown Container -->
+                    <div class="prompt-container">
+                        <div id="promptOutput" class="prompt-output"></div>
+                        
+                        <!-- Prompt Breakdown Panel -->
+                        <div id="promptBreakdown" class="prompt-breakdown" style="display: none;">
+                            <div class="breakdown-header">
+                                <h4>
+                                    <span class="material-symbols-outlined">analytics</span>
+                                    Prompt Breakdown
+                                </h4>
+                                <button class="breakdown-toggle" id="breakdownToggle" title="Toggle breakdown panel">
+                                    <span class="material-symbols-outlined">expand_less</span>
+                                </button>
+                            </div>
+                            <div class="breakdown-content" id="breakdownContent">
+                                <p class="breakdown-intro">See how your inputs shape the final prompt:</p>
+                                <div class="breakdown-items" id="breakdownItems"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Reaction Box -->
+                    <div id="aiReactionBox" class="ai-reaction-box" style="display: none;">
+                        <div class="ai-reaction-header">
+                            <span class="ai-reaction-icon">🤖</span>
+                            <h4>AI Reaction</h4>
+                        </div>
+                        <div class="ai-reaction-content" id="aiReactionContent">
+                            <p id="aiReactionText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Follow-up Suggestions -->
+                    <div class="followup-section">
+                        <h4>
+                            <span class="material-symbols-outlined">lightbulb</span>
+                            Smart Follow-up Suggestions
+                        </h4>
+                        <div class="followup-suggestions" id="followupSuggestions"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wizard Navigation -->
+        <div class="wizard-navigation">
+            <div class="nav-left">
+                <button class="btn btn-secondary" id="prevBtn" style="display: none;">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Previous
+                </button>
+            </div>
+            <div class="nav-right">
+                <button class="btn btn-secondary" id="resetBtn">
+                    <span class="material-symbols-outlined">refresh</span>
+                    Reset
+                </button>
+                <button class="btn btn-primary" id="nextBtn">
+                    Next
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+                <button class="btn btn-primary" id="generateBtn" style="display: none;">
+                    <span class="material-symbols-outlined">auto_awesome</span>
+                    Generate Prompt
+                </button>
+                <button class="btn btn-primary" id="regenerateBtn" style="display: none;">
+                    <span class="material-symbols-outlined">refresh</span>
+                    Regenerate
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Dialog -->
+<div id="dialogOverlay" class="dialog-overlay"></div>
+<div id="confirmationDialog" class="confirmation-dialog" style="display: none;">
+    <div class="dialog-header">
+        <h3>
+            <span class="material-symbols-outlined">warning</span>
+            Save Your Progress?
+        </h3>
+        <p>You have unsaved changes in your prompt wizard.</p>
+    </div>
+    <div class="dialog-body">
+        <p>Choose how you'd like to proceed:</p>
+        <div class="dialog-options">
+            <button class="dialog-option" id="saveAndExit">
+                <span class="material-symbols-outlined">save</span>
+                <div class="dialog-option-content">
+                    <h4>Save & Exit</h4>
+                    <p>Save your progress to continue later</p>
+                </div>
+            </button>
+            <button class="dialog-option" id="continueEditing">
+                <span class="material-symbols-outlined">edit</span>
+                <div class="dialog-option-content">
+                    <h4>Continue Editing</h4>
+                    <p>Go back to the wizard</p>
+                </div>
+            </button>
+            <button class="dialog-option danger" id="exitWithoutSave">
+                <span class="material-symbols-outlined">close</span>
+                <div class="dialog-option-content">
+                    <h4>Exit Without Saving</h4>
+                    <p>Discard all changes</p>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Load Draft Dialog -->
+<div id="loadDraftDialog" class="confirmation-dialog" style="display: none;">
+    <div class="dialog-header">
+        <h3>
+            <span class="material-symbols-outlined">restore</span>
+            Continue Your Work?
+        </h3>
+        <p>We found a saved draft from your previous session.</p>
+    </div>
+    <div class="dialog-body">
+        <p id="draftTimestamp" style="margin-bottom: 20px; color: var(--gray); font-size: 14px;"></p>
+        <div class="dialog-options">
+            <button class="dialog-option" id="loadDraft">
+                <span class="material-symbols-outlined">play_arrow</span>
+                <div class="dialog-option-content">
+                    <h4>Continue Where I Left Off</h4>
+                    <p>Restore your saved progress and continue editing</p>
+                </div>
+            </button>
+            <button class="dialog-option" id="startFresh">
+                <span class="material-symbols-outlined">refresh</span>
+                <div class="dialog-option-content">
+                    <h4>Start Fresh</h4>
+                    <p>Begin a new prompt from scratch</p>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Reset Confirmation Dialog -->
+<div id="resetDialog" class="confirmation-dialog" style="display: none;">
+    <div class="dialog-header">
+        <h3>
+            <span class="material-symbols-outlined">restart_alt</span>
+            Reset All Fields?
+        </h3>
+        <p>This will clear all your current progress in the wizard.</p>
+    </div>
+    <div class="dialog-body">
+        <p style="margin-bottom: 20px; color: var(--dark); font-size: 15px;">
+            All form fields will be cleared and you'll return to step 1. This action cannot be undone.
+        </p>
+        <div class="dialog-options">
+            <button class="dialog-option danger" id="confirmReset">
+                <span class="material-symbols-outlined">delete_sweep</span>
+                <div class="dialog-option-content">
+                    <h4>Yes, Reset Everything</h4>
+                    <p>Clear all fields and start over</p>
+                </div>
+            </button>
+            <button class="dialog-option" id="cancelReset">
+                <span class="material-symbols-outlined">cancel</span>
+                <div class="dialog-option-content">
+                    <h4>Cancel</h4>
+                    <p>Keep my current progress</p>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Custom URL Dialog -->
+<div id="customUrlDialog" class="confirmation-dialog custom-url-dialog" style="display: none;">
+    <div class="dialog-header">
+        <h3>
+            <span class="material-symbols-outlined">link</span>
+            Custom AI Platform URL
+        </h3>
+        <p>Enter the URL of your preferred AI platform</p>
+    </div>
+    <div class="dialog-body">
+        <div class="custom-url-input-group">
+            <label for="customUrlInput">Platform URL</label>
+            <input 
+                type="url" 
+                id="customUrlInput" 
+                placeholder="https://your-ai-platform.com" 
+                class="custom-url-input"
+            />
+            <p class="input-hint" style="margin-top: 8px;">
+                💡 Enter the full URL including https://
+            </p>
+        </div>
+        <div class="dialog-actions">
+            <button class="btn btn-secondary" id="cancelCustomUrl">
+                <span class="material-symbols-outlined">close</span>
+                Cancel
+            </button>
+            <button class="btn btn-primary" id="saveCustomUrl">
+                <span class="material-symbols-outlined">check</span>
+                Save URL
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- AI Prompt Profile Settings Dialog -->
+<div id="promptProfileDialog" class="confirmation-dialog prompt-profile-dialog" style="display: none;">
+    <div class="dialog-header">
+        <h3>
+            <span class="material-symbols-outlined">tune</span>
+            AI Prompt Profiles
+        </h3>
+        <p>Customize prefix and suffix for each AI platform</p>
+    </div>
+    <div class="dialog-body">
+        <div class="profile-selector-group">
+            <label for="profilePlatformSelect">Select AI Platform</label>
+            <select id="profilePlatformSelect" class="profile-platform-select">
+                <option value="chatgpt">🤖 ChatGPT</option>
+                <option value="claude">🧠 Claude</option>
+                <option value="gemini">✨ Gemini</option>
+                <option value="perplexity">🔍 Perplexity</option>
+                <option value="custom">⚙️ Custom URL</option>
+            </select>
+        </div>
+        
+        <div class="profile-fields">
+            <div class="profile-field-group">
+                <label for="profilePrefix">Prompt Prefix</label>
+                <textarea 
+                    id="profilePrefix" 
+                    class="profile-textarea" 
+                    rows="4"
+                    placeholder="Text to add before your generated prompt..."
+                ></textarea>
+                <p class="input-hint">This text will be added at the beginning of every generated prompt for this AI platform.</p>
+            </div>
+            
+            <div class="profile-field-group">
+                <label for="profileSuffix">Prompt Suffix</label>
+                <textarea 
+                    id="profileSuffix" 
+                    class="profile-textarea" 
+                    rows="4"
+                    placeholder="Text to add after your generated prompt..."
+                ></textarea>
+                <p class="input-hint">This text will be added at the end of every generated prompt for this AI platform.</p>
+            </div>
+        </div>
+        
+        <div class="profile-hint">
+            <span class="material-symbols-outlined">info</span>
+            <span>Prefixes and suffixes are applied automatically based on your selected AI provider when generating prompts.</span>
+        </div>
+        
+        <div class="dialog-actions">
+            <button class="btn btn-secondary" id="resetProfileBtn">
+                <span class="material-symbols-outlined">restart_alt</span>
+                Reset to Default
+            </button>
+            <button class="btn btn-secondary" id="cancelProfileBtn">
+                <span class="material-symbols-outlined">close</span>
+                Cancel
+            </button>
+            <button class="btn btn-primary" id="saveProfileBtn">
+                <span class="material-symbols-outlined">check</span>
+                Save Profile
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Floating AI Avatar -->
+<div class="ai-avatar-container" id="aiAvatarContainer">
+    <div class="ai-avatar" id="aiAvatar">
+        <span class="material-symbols-outlined">smart_toy</span>
+    </div>
+    <div class="ai-tip-bubble" id="aiTipBubble" style="display: none;">
+        <p id="aiTipText"></p>
+    </div>
+</div>
+
+<!-- Help Guide Modal -->
+<div id="helpGuideModal" class="modal-overlay help-guide-overlay" style="display: none;">
+    <div class="modal help-guide-modal">
+        <div class="modal-header">
+            <h2>
+                <span class="material-symbols-outlined">help</span>
+                How to Use the AI Prompt Wizard
+            </h2>
+            <button class="close-modal" id="closeHelpGuide">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <div class="modal-body help-guide-body">
+            <div class="help-intro">
+                <p>Welcome to the AI Prompt Wizard! This tool helps you create professional, well-structured prompts for AI assistants. Here's how to make the most of it:</p>
+            </div>
+            
+            <div class="help-sections">
+                <!-- Template Cards -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">grid_view</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Template Cards</h3>
+                        <p>Browse and select from pre-built prompt templates designed for common development scenarios:</p>
+                        <ul>
+                            <li><strong>Sprint Planning:</strong> Plan your next sprint with AI-powered task breakdown</li>
+                            <li><strong>Code Architecture:</strong> Get expert architectural recommendations</li>
+                            <li><strong>Security Audit:</strong> Comprehensive security analysis for your APIs</li>
+                            <li><strong>Testing Strategy:</strong> Create comprehensive testing strategies</li>
+                            <li><strong>And more...</strong> Each template is optimized for specific use cases</li>
+                        </ul>
+                        <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Click any template card to start the wizard with pre-configured fields.</p>
+                    </div>
+                </div>
+                
+                <!-- Prompt Builder Form -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">edit_note</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Prompt Builder Form</h3>
+                        <p>The wizard guides you through 5 steps to build your perfect prompt:</p>
+                        <ol>
+                            <li><strong>Project Info:</strong> Basic details about your project and tech stack</li>
+                            <li><strong>Context:</strong> Background information, team experience, and timeline</li>
+                            <li><strong>Problem:</strong> Define the challenge you're facing and constraints</li>
+                            <li><strong>Goals:</strong> Specify desired outcomes and success metrics</li>
+                            <li><strong>Generate:</strong> Customize output format and generate your prompt</li>
+                        </ol>
+                        <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Fields marked with * are required. The more details you provide, the better your AI response will be!</p>
+                    </div>
+                </div>
+                
+                <!-- Generated Prompt Area -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">auto_awesome</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Generated Prompt Area</h3>
+                        <p>Once generated, you can:</p>
+                        <ul>
+                            <li><strong>Copy:</strong> Copy the prompt to your clipboard</li>
+                            <li><strong>Copy + Open AI:</strong> Copy and automatically open your preferred AI platform</li>
+                            <li><strong>Edit:</strong> Make manual adjustments to the generated prompt</li>
+                            <li><strong>Save JSON:</strong> Export your prompt configuration for later use</li>
+                        </ul>
+                        <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Use the "Fast Mode" toggle to skip the typewriter animation for quicker results.</p>
+                    </div>
+                </div>
+                
+                <!-- Search & Filters -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Search & Filters</h3>
+                        <p>Quickly find the right template:</p>
+                        <ul>
+                            <li><strong>Search:</strong> Type keywords to filter templates by name or description</li>
+                            <li><strong>Categories:</strong> Filter by Planning, Development, Testing, Security, DevOps, or Documentation</li>
+                            <li><strong>Difficulty:</strong> Choose Beginner, Intermediate, or Advanced level templates</li>
+                        </ul>
+                        <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Use "Clear Filters" to reset all search criteria at once.</p>
+                    </div>
+                </div>
+                
+                <!-- Draft Saving -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">save</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Draft Saving</h3>
+                        <p>Your progress is automatically saved:</p>
+                        <ul>
+                            <li><strong>Per-Template Storage:</strong> Each template maintains its own draft independently</li>
+                            <li><strong>Auto-Save:</strong> When you close the wizard, you'll be prompted to save your progress</li>
+                            <li><strong>Resume Anytime:</strong> Reopen the same template to continue where you left off</li>
+                        </ul>
+                        <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Work on multiple templates simultaneously - each saves its own state!</p>
+                    </div>
+                </div>
+                
+                <!-- Pro Tips -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">psychology</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Pro Tips for Better Prompts</h3>
+                        <ul>
+                            <li><strong>Be Specific:</strong> Include exact tech stack versions, team size, and timeline details</li>
+                            <li><strong>Add Context:</strong> Explain what you've already tried and why it didn't work</li>
+                            <li><strong>Define Success:</strong> Specify measurable outcomes and acceptance criteria</li>
+                            <li><strong>Mention Constraints:</strong> Include budget, compliance, or technical limitations upfront</li>
+                            <li><strong>Use Power User Mode:</strong> Enable advanced options for fine-tuned control over AI responses</li>
+                            <li><strong>Try Live Preview:</strong> Watch your prompt build in real-time as you type</li>
+                            <li><strong>Check Quality Score:</strong> Aim for 80%+ quality score for best AI responses</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Use Cases -->
+                <div class="help-section">
+                    <div class="help-section-icon">
+                        <span class="material-symbols-outlined">rocket_launch</span>
+                    </div>
+                    <div class="help-section-content">
+                        <h3>Common Use Cases</h3>
+                        <ul>
+                            <li><strong>Sprint Planning:</strong> Break down epics into actionable tasks with effort estimates</li>
+                            <li><strong>Code Reviews:</strong> Get architectural feedback and best practice recommendations</li>
+                            <li><strong>Bug Investigation:</strong> Systematically troubleshoot complex issues</li>
+                            <li><strong>Documentation:</strong> Generate comprehensive technical documentation</li>
+                            <li><strong>Performance Optimization:</strong> Identify and fix bottlenecks</li>
+                            <li><strong>Security Audits:</strong> Analyze vulnerabilities and get remediation steps</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-footer">
+                <div class="help-footer-content">
+                    <p class="help-footer-note">You can always access this guide by clicking the <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 18px;">help</span> icon in the header.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="help-guide-actions">
+            <button class="btn btn-primary" id="closeHelpGuideBtn">
+                <span class="material-symbols-outlined">check</span>
+                Got It!
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© Advanced Link Manager. All rights reserved to LiDa Software</p>
+        <p class="footer-version">Version 1.0.1 | Made with ❤️ for productivity enthusiasts</p>
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            <span class="material-symbols-outlined">explore</span>
+            Discover More Features
+        </a>
+    </div>
+</footer>
+
+<script src="utils.js"></script>
+<script src="validation.js"></script>
+<script src="prompt-logic.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
