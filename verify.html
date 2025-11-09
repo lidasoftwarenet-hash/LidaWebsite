@@ -7,7 +7,7 @@
 <script>
 async function verify() {
   const token = document.getElementById('token').value;
-  const res = await fetch('https://www.benzotracker.support/api/verify-token', {
+  const res = await fetch('https://www.benzotracker.support/api/token/verify-token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token }),
