@@ -5,564 +5,1654 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>AI Tools Developer Learning Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
-        .dark { background: #0f172a; color: #e2e8f0; }
-        .light { background: #f1f5f9; color: #1e293b; }
-        .light .stage-card { background: #ffffff; border-color: #cbd5e1; }
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        /* Theme Styles */
+        .dark { 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0; 
+        }
+        
+        .light { 
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1e293b; 
+        }
+        
+        .light .stage-card { 
+            background: #ffffff; 
+            border-color: #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        
         .light .stage-title { color: #0369a1; }
         .light .tip { background: #dbeafe; border-color: #93c5fd; color: #1e40af; }
         .light .notes { background: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
-        .light nav { background: #ffffff !important; border-color: #cbd5e1 !important; }
-        .light select, .light button { background: #e2e8f0 !important; color: #1e293b !important; }
+        .light nav { background: rgba(255, 255, 255, 0.95) !important; border-color: #e2e8f0 !important; }
+        .light select, .light button { background: #f1f5f9 !important; color: #1e293b !important; border: 1px solid #e2e8f0; }
         .light .progress-bar { background: #e2e8f0; }
-        .light tbody tr { border-color: #cbd5e1 !important; }
-        .light .tutorial-link { background: #f1f5f9 !important; color: #1e293b !important; border: 1px solid #e2e8f0; }
-        .tutorial-link { font-size: 0.875rem; border: 1px solid #334155; }
-        .stage-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
-        .stage-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 12px; color: #38bdf8; }
-        .progress-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
-        .progress-inner { height: 100%; background: linear-gradient(90deg, #0ea5e9, #38bdf8); transition: width 0.4s; }
-        .tip { background: #1e3a5f; border-left: 4px solid #0ea5e9; padding: 12px 16px; border-radius: 6px; }
-        .notes { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 12px; color: #cbd5e1; resize: vertical; }
-        table { border-collapse: collapse; }
-        tbody tr { transition: background 0.2s; }
-        tbody tr:hover { background: #334155; }
-        th { padding: 8px 12px; font-weight: 600; }
-        td { padding: 10px 12px; }
-        input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #0ea5e9; }
+        .light tbody tr { border-color: #e2e8f0 !important; }
+        .light tbody tr:hover { background: #f8fafc !important; }
+        .light .Video l-link { background: #f8fafc !important; color: #1e293b !important; border: 1px solid #e2e8f0; }
+        .light .completion-card { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+        
+        /* Stage Cards */
+        .stage-card { 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px solid #334155; 
+            border-radius: 16px; 
+            padding: 32px; 
+            margin-bottom: 40px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .stage-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stage-title { 
+            font-size: 2rem; 
+            font-weight: 800; 
+            margin-bottom: 16px; 
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
+        
+        .stage-subtitle {
+            font-size: 1rem;
+            color: #94a3b8;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+        
+        /* Progress Bars */
+        .progress-bar { 
+            height: 10px; 
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 10px; 
+            overflow: hidden; 
+            margin-bottom: 24px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .progress-inner { 
+            height: 100%; 
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8, #06b6d4);
+            background-size: 200% 100%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Tips Section */
+        .tip { 
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e4976 100%);
+            border-left: 4px solid #0ea5e9; 
+            padding: 20px 24px; 
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tip p {
+            margin-bottom: 8px;
+        }
+        
+        .tip p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tip strong {
+            color: #38bdf8;
+            font-weight: 600;
+        }
+        
+        /* Notes Textarea */
+        .notes { 
+            width: 100%; 
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid #334155; 
+            border-radius: 12px; 
+            padding: 16px; 
+            color: #cbd5e1; 
+            resize: vertical;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            min-height: 100px;
+        }
+        
+        .notes:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        /* Table Styles */
+        table { 
+            border-collapse: collapse; 
+            width: 100%;
+        }
+        
+        thead {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+        }
+        
+        th { 
+            padding: 12px 16px; 
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+        }
+        
+        tbody tr { 
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        
+        tbody tr:hover { 
+            background: rgba(51, 65, 85, 0.3);
+            transform: translateX(4px);
+        }
+        
+        td { 
+            padding: 16px; 
+            font-size: 0.95rem;
+        }
+        
+        /* Checkbox Styles */
+        input[type="checkbox"] { 
+            width: 20px; 
+            height: 20px; 
+            cursor: pointer; 
+            accent-color: #0ea5e9;
+            transition: transform 0.2s ease;
+        }
+        
+        input[type="checkbox"]:hover {
+            transform: scale(1.1);
+        }
+        
+        input[type="checkbox"]:checked {
+            animation: checkBounce 0.3s ease;
+        }
+        
+        @keyframes checkBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        /* Video Links */
+        .Video l-link { 
+            font-size: 0.875rem; 
+            border: 2px solid #334155;
+            transition: all 0.3s ease;
+        }
+        
+        .Video l-link:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        /* Links */
+        a {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        a:hover {
+            transform: translateY(-1px);
+        }
+        
+        /* Navigation */
+        nav {
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Buttons */
+        button {
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Select Dropdown */
+        select {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        select:hover {
+            border-color: #0ea5e9;
+        }
+        
+        /* Completion Card */
+        .completion-card {
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e4976 100%);
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        /* Scroll to Top Button */
+        #scrollTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            color: white;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        #scrollTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #scrollTop:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
+        }
+        
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stage-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            color: white;
+            margin-left: 8px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stage-card {
+                padding: 20px;
+                margin-bottom: 24px;
+            }
+            
+            .stage-title {
+                font-size: 1.5rem;
+            }
+            
+            table {
+                font-size: 0.875rem;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+            
+            #scrollTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        
+        /* Duration Badge */
+        .duration-badge {
+            background: rgba(14, 165, 233, 0.1);
+            color: #38bdf8;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
 <body class="min-h-screen pb-16">
 
-<nav class="fixed top-0 left-0 right-0 bg-slate-900/90 backdrop-blur border-b border-slate-700 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between">
-        <div class="flex space-x-4 text-slate-300 text-sm font-semibold">
-            <span class="text-sky-400">AI Learning Dashboard</span>
-        </div>
-
-        <div class="flex space-x-3 items-center">
-            <select id="stageJump" onchange="jumpToStage()" class="bg-slate-800 text-slate-200 rounded px-2 py-1 text-sm">
-                <option value="">Jump to Stage</option>
-                <option value="stage0">Stage 0 – Foundations</option>
-                <option value="stage1">Stage 1 – MCP Fundamentals</option>
-                <option value="stage2">Stage 2 – Tools Development</option>
-                <option value="stage3">Stage 3 – Agents & Autonomy</option>
-                <option value="stage4">Stage 4 – Product Building</option>
-                <option value="stage5">Stage 5 – Branding</option>
-            </select>
-
-            <button onclick="resetAll()" class="bg-sky-600 hover:bg-sky-500 text-white text-sm px-3 py-1 rounded">Reset All</button>
-
-            <button id="themeToggle" title="Toggle theme" class="ml-2 bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded text-sm">🌗</button>
-        </div>
-
-        <div class="mt-3 md:mt-0 w-full md:w-1/3">
-            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                <div id="globalProgress" class="h-2 bg-sky-500 transition-all"></div>
+<nav class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md border-b border-slate-700 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    AI
+                </div>
+                <span class="text-sky-400 text-lg font-bold tracking-tight">Learning Dashboard</span>
             </div>
-            <p class="text-xs text-slate-400 text-right mt-1" id="progressLabel">0%</p>
+
+            <div class="flex flex-wrap gap-3 items-center">
+                <select id="stageJump" onchange="jumpToStage()" class="bg-slate-800 text-slate-200 rounded-lg px-4 py-2 text-sm font-medium border border-slate-700 hover:border-sky-500 transition-all cursor-pointer">
+                    <option value="">📍 Jump to Stage</option>
+                    <option value="stage0">Stage 0 – Foundations</option>
+                    <option value="stage1">Stage 1 – MCP Fundamentals</option>
+                    <option value="stage2">Stage 2 – Tools Development</option>
+                    <option value="stage3">Stage 3 – Agents & Autonomy</option>
+                    <option value="stage4">Stage 4 – Product Building</option>
+                    <option value="stage5">Stage 5 – Branding</option>
+                </select>
+
+                <button onclick="resetAll()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm px-4 py-2 rounded-lg font-medium shadow-lg">
+                    🔄 Reset All
+                </button>
+
+                <button id="themeToggle" title="Toggle theme" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-lg">
+                    🌗
+                </button>
+            </div>
+
+            <div class="w-full md:w-64">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Overall Progress</span>
+                    <span class="text-sm font-bold text-sky-400" id="progressLabel">0%</span>
+                </div>
+                <div class="h-3 bg-slate-700 rounded-full overflow-hidden shadow-inner">
+                    <div id="globalProgress" class="h-3 bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-500 transition-all duration-500 shadow-lg"></div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
 
-<div class="pt-28 max-w-[120rem] mx-auto px-6">
-    <h1 class="text-4xl font-bold mb-3 text-center text-sky-400">AI Tools Developer Learning Dashboard</h1>
-    <p class="text-slate-400 text-center mb-10 text-lg">Your complete roadmap to mastering AI tool development — from foundations to production-ready products.</p>
+<div class="pt-32 pb-20 max-w-[1600px] mx-auto px-4 sm:px-6">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-sky-400 via-blue-500 to-cyan-400 bg-clip-text text-transparent leading-tight">
+            AI Tools Developer
+        </h1>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-slate-300">
+            Learning Dashboard
+        </h2>
+        <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            Your complete roadmap to mastering AI tool development — from foundations to production-ready products.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3 justify-center">
+            <span class="px-4 py-2 bg-sky-500/10 border border-sky-500/30 rounded-full text-sky-400 text-sm font-semibold">
+                🎯 6 Comprehensive Stages
+            </span>
+            <span class="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-sm font-semibold">
+                ⏱️ ~145 Hours Total
+            </span>
+            <span class="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-semibold">
+                ✨ 20+ New Topics
+            </span>
+        </div>
+    </div>
 
     <section id="stage0" class="stage-card">
-        <h2 class="stage-title">Stage 0 – AI Foundations for Developers</h2>
-        <p class="text-slate-300 mb-3">Goal: Gain a solid developer-oriented understanding of modern LLMs and API usage before building tools or agents.</p>
+        <h2 class="stage-title">
+            Stage 0 – AI Foundations for Developers
+        </h2>
+        <p class="stage-subtitle">
+            🎯 Goal: Gain a solid developer-oriented understanding of modern LLMs and API usage before building tools or agents.
+        </p>
 
-        <div class="progress-bar"><div id="stage0Bar" class="progress-inner" style="width:0%"></div></div>
-
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="llm_basics"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>LLM Basics – tokens, prompting and completion flow</td>
-                <td>"how large language models work for developers"</td><td>57 Min</td>
-                <td>
-                <a href="https://www.youtube.com/watch?v=ZaPbP9DwBOE" target="_blank" 
-                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                    Video
-                </a>
-                </td>
-                </tr>
-            <tr data-id="api_auth"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Working with OpenAI / Anthropic APIs</td>
-                <td>"OpenAI API key setup TypeScript"</td><td>23 Min</td>
-                <td>
-                <a href="https://www.youtube.com/watch?v=J2yGW9MRnfY" target="_blank" 
-                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                    Video
-                </a>
-                </td>
-            <tr data-id="json_prompt"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Prompt → Structured JSON Output Patterns</td>
-                <td>"structured response functions OpenAI"</td><td>44 / 22 Min</td>
-                <td class="space-x-4">
-                <a href="https://www.youtube.com/watch?v=_ZvnD73m40o" target="_blank" 
-                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                    Video 1
-                </a>
-                <a href="https://www.youtube.com/watch?v=pBdjGd-inmE" target="_blank" 
-                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                    Video 2
-                </a>
-        </td>
-            <tr data-id="llm_limits"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Token Limits & Cost Awareness</td>
-                <td>"token pricing OpenAI calculator"</td><td>12 / 11 / 11 Min</td>
-                <td class="space-x-4">
-                    <a href="https://www.youtube.com/watch?v=ooNRL9FJSuk&t=84s" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 1
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=7zbuEULTHIs&t=451s" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 2
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 3
-                    </a>
-                </td>
-                <tr data-id="embeddings"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Embeddings & Vector Databases</td>
-                <td>"text embeddings Pinecone tutorial"</td><td>19 / 11 / 11 Min</td>
-                 <td class="space-x-4">
-                    <a href="https://www.youtube.com/watch?v=ySus5ZS0b94" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 1
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=VVNYQKDLY5s&t=49s" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 2
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 3
-                    </a>
-                </td>
-            <tr data-id="rag"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> RAG (Retrieval Augmented Generation)</td>
-                <td>"RAG pattern explained TypeScript"</td><td>11 / 14 / 12 Min</td>
-                <td class="space-x-4">
-                    <a href="https://www.youtube.com/watch?v=VioF7v8Mikg" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 1
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=of4UDMvi2Kw" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 2
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=u47GtXwePms" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 3
-                    </a>
-                </td>
-            <tr data-id="finetuning"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Fine-tuning vs Prompting – When to use each</td>
-                <td>"when to fine-tune vs prompt engineer"</td><td>13 / 28 Min</td>
-                <td class="space-x-4">
-                    <a href="https://www.youtube.com/watch?v=zYGDpG-pTho" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 1
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=eC6Hd1hFvos" target="_blank" 
-                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
-                        Video 2
-                    </a>
-                </td>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> tokens, context window, temperature, API requests, embeddings, semantic search.</p>
-            <p><strong>Tips:</strong> practice small prompts and analyze responses. Experiment with vector search before building complex RAG systems.</p>
-            <p><strong>Common pitfalls:</strong> ignoring rate limits, not understanding when RAG is actually needed.</p>
+        <div class="progress-bar">
+            <div id="stage0Bar" class="progress-inner" style="width:0%"></div>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
-    </section>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-96">Tutorial Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="llm_basics">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">LLM Basics – tokens, prompting and completion flow</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"how large language models work for developers"</td>
+                        <td><span class="duration-badge">57 Min</span></td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=ZaPbP9DwBOE" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video 1
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="api_auth">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Working with OpenAI / Anthropic APIs</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"OpenAI API key setup TypeScript"</td>
+                        <td><span class="duration-badge">23 Min</span></td>
+                        <td>
+                            <a href="https://www.youtube.com/watch?v=J2yGW9MRnfY" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video 1
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="json_prompt">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Prompt → Structured JSON Output Patterns</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"structured response functions OpenAI"</td>
+                        <td><span class="duration-badge">44 / 22 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com/watch?v=_ZvnD73m40o" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=pBdjGd-inmE" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="llm_limits">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Token Limits & Cost Awareness</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"token pricing OpenAI calculator"</td>
+                        <td><span class="duration-badge">12 / 11 / 11 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com/watch?v=ooNRL9FJSuk&t=84s" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=7zbuEULTHIs&t=451s" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="embeddings">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Embeddings & Vector Databases</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"text embeddings Pinecone Video l"</td>
+                        <td><span class="duration-badge">19 / 11 / 11 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com/watch?v=ySus5ZS0b94" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=VVNYQKDLY5s&t=49s" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="rag">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> RAG (Retrieval Augmented Generation)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"RAG pattern explained TypeScript"</td>
+                        <td><span class="duration-badge">11 / 14 / 12 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com/watch?v=VioF7v8Mikg" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=of4UDMvi2Kw" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=u47GtXwePms" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="finetuning">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Fine-tuning vs Prompting – When to use each</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"when to fine-tune vs prompt engineer"</td>
+                        <td><span class="duration-badge">13 / 28 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com/watch?v=zYGDpG-pTho" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com/watch?v=eC6Hd1hFvos" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> tokens, context window, temperature, API requests, embeddings, semantic search.</p>
+            <p><strong>🎯 Tips:</strong> practice small prompts and analyze responses. Experiment with vector search before building complex RAG systems.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> ignoring rate limits, not understanding when RAG is actually needed.</p>
+        </div>
+
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 0..." class="notes text-base" oninput="saveData()"></textarea>
+    </section>
 
     <section id="stage1" class="stage-card">
         <h2 class="stage-title">Stage 1 – MCP Fundamentals</h2>
-        <p class="text-slate-300 mb-3">Goal: Understand and implement Model Context Protocol (MCP) to connect AI models with external data and tools.</p>
+        <p class="stage-subtitle">🎯 Goal: Understand and implement Model Context Protocol (MCP) to connect AI models with external data and tools.</p>
 
         <div class="progress-bar"><div id="stage1Bar" class="progress-inner" style="width:0%"></div></div>
 
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="mcp_intro"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Introduction to Model Context Protocol (MCP)</td>
-                <td>"Model Context Protocol explained"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="mcp_server"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Build an MCP Server in TypeScript</td>
-                <td>"MCP server TypeScript example"</td><td>5 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="mcp_resources_tools"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> MCP Resources vs Tools – Deep dive</td>
-                <td>"MCP resources vs tools when to use"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="zod_schemas"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Use Zod Schemas for Validation and Type Safety</td>
-                <td>"Zod schema TypeScript tutorial"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="streaming"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Streaming Responses</td>
-                <td>"streaming LLM responses TypeScript"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="mcp_inspector"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Debug with MCP Inspector</td>
-                <td>"Claude Desktop MCP Inspector demo"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> tools vs resources, URIs, schemas, runtime execution, streaming data.</p>
-            <p><strong>Tips:</strong> think of MCP as "plugin architecture for AI". Use resources for static data, tools for actions.</p>
-            <p><strong>Common pitfalls:</strong> not testing in Inspector, choosing wrong abstraction (tool vs resource).</p>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-96">Tutorial Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="mcp_intro">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Introduction to Model Context Protocol (MCP)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Model Context Protocol explained"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="mcp_server">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Build an MCP Server in TypeScript</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"MCP server TypeScript example"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="mcp_resources_tools">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> MCP Resources vs Tools – Deep dive</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"MCP resources vs tools when to use"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="zod_schemas">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Use Zod Schemas for Validation and Type Safety</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Zod schema TypeScript Video l"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="streaming">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Streaming Responses</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"streaming LLM responses TypeScript"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="mcp_inspector">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Debug with MCP Inspector</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Claude Desktop MCP Inspector demo"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> tools vs resources, URIs, schemas, runtime execution, streaming data.</p>
+            <p><strong>🎯 Tips:</strong> think of MCP as "plugin architecture for AI". Use resources for static data, tools for actions.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> not testing in Inspector, choosing wrong abstraction (tool vs resource).</p>
+        </div>
+
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 1..." class="notes text-base" oninput="saveData()"></textarea>
     </section>
 
     <section id="stage2" class="stage-card">
         <h2 class="stage-title">Stage 2 – AI Tools Development</h2>
-        <p class="text-slate-300 mb-3">
-            Goal: Learn how to build backend tools that communicate with LLMs — the bridge between AI logic and real developer functionality.
+        <p class="stage-subtitle">
+            🎯 Goal: Learn how to build backend tools that communicate with LLMs — the bridge between AI logic and real developer functionality.
         </p>
 
         <div class="progress-bar"><div id="stage2Bar" class="progress-inner" style="width:0%"></div></div>
 
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="openai_api"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Connect to OpenAI / Claude APIs using Axios</td>
-                <td>"OpenAI API with TypeScript Axios"</td><td>4 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="nest_rest_tool"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Create a REST API tool in NestJS</td>
-                <td>"NestJS REST API tutorial"</td><td>6 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="websocket"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> WebSocket Connections for Real-time AI Chat</td>
-                <td>"NestJS WebSocket real-time chat"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="multi_tool_mcp"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Register multiple MCP tools</td>
-                <td>"MCP multiple tools example"</td><td>5 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="rate_limiting"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Rate Limiting & Queue Systems (Bull/BullMQ)</td>
-                <td>"BullMQ queue TypeScript NestJS"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="caching"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Caching Strategies with Redis</td>
-                <td>"Redis caching LLM responses NestJS"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="cost_monitoring"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Cost Monitoring & Token Usage Tracking</td>
-                <td>"track OpenAI token costs production"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="error_logging"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Error handling, logging and testing</td>
-                <td>"NestJS error filters logging"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> REST endpoints, JSON schema design, request limits, caching, queues.</p>
-            <p><strong>Tips:</strong> start small – create a "summarizer" API, then expand. Cache aggressively to save costs.</p>
-            <p><strong>Common pitfalls:</strong> unhandled async calls, missing validation, not implementing rate limiting early.</p>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-80">Video Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="openai_api">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Connect to OpenAI / Claude APIs using Axios</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"OpenAI API with TypeScript Axios"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="nest_rest_tool">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Create a REST API tool in NestJS</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"NestJS REST API Video l"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="websocket">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> WebSocket Connections for Real-time AI Chat</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"NestJS WebSocket real-time chat"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="multi_tool_mcp">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Register multiple MCP tools</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"MCP multiple tools example"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="rate_limiting">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Rate Limiting & Queue Systems (Bull/BullMQ)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"BullMQ queue TypeScript NestJS"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="caching">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Caching Strategies with Redis</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Redis caching LLM responses NestJS"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="cost_monitoring">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Cost Monitoring & Token Usage Tracking</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"track OpenAI token costs production"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="error_logging">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Error handling, logging and testing</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"NestJS error filters logging"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
-    </section>
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> REST endpoints, JSON schema design, request limits, caching, queues.</p>
+            <p><strong>🎯 Tips:</strong> start small – create a "summarizer" API, then expand. Cache aggressively to save costs.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> unhandled async calls, missing validation, not implementing rate limiting early.</p>
+        </div>
 
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 2..." class="notes text-base" oninput="saveData()"></textarea>
+    </section>
 
     <section id="stage3" class="stage-card">
         <h2 class="stage-title">Stage 3 – Agents & Autonomy</h2>
-        <p class="text-slate-300 mb-3">
-            Goal: Understand how agents think, plan, and act — combining reasoning with your tools for autonomous task completion.
+        <p class="stage-subtitle">
+            🎯 Goal: Understand how agents think, plan, and act — combining reasoning with your tools for autonomous task completion.
         </p>
 
         <div class="progress-bar"><div id="stage3Bar" class="progress-inner" style="width:0%"></div></div>
 
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="agent_loop"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Understand the Agent Loop</td>
-                <td>"AI agent loop explained"</td><td>4 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="function_calling"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Function Calling Deep Dive</td>
-                <td>"OpenAI function calling tutorial"</td><td>4 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="langchain_integration"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>LangChain.js Integration – tools, memory, and chains</td>
-                <td>"LangChain tools and memory JS"</td><td>6 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="agent_memory"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Add short-term and long-term memory</td>
-                <td>"LangChain memory TypeScript"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="agent_eval"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Agent Evaluation & Testing</td>
-                <td>"testing AI agents evaluation metrics"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="multi_agent"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Multi-agent Systems</td>
-                <td>"multi-agent systems LangChain"</td><td>4 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="structured_outputs"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Structured Outputs – JSON mode, grammar-based</td>
-                <td>"structured output OpenAI JSON mode"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="prompt_engineering"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Prompt Engineering Techniques</td>
-                <td>"chain of thought few shot prompting"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="context_management"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Context Window Management</td>
-                <td>"context window chunking strategies"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="agent_project"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Build a full Agent project</td>
-                <td>"build AI agent project TypeScript"</td><td>8 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> Observation → Planning → Action → Reflection loop, reasoning steps, multi-tool orchestration.</p>
-            <p><strong>Tips:</strong> start with a single-goal agent before adding multiple tools. Test extensively with edge cases.</p>
-            <p><strong>Common pitfalls:</strong> infinite reasoning loops, no stop condition, not having proper evaluation metrics.</p>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-80">Video Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="agent_loop">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Understand the Agent Loop</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent loop explained"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="function_calling">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Function Calling Deep Dive</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"OpenAI function calling Video l"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="langchain_integration">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">LangChain.js Integration – tools, memory, and chains</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LangChain tools and memory JS"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="agent_memory">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Add short-term and long-term memory</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LangChain memory TypeScript"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="agent_eval">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Agent Evaluation & Testing</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"testing AI agents evaluation metrics"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="multi_agent">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Multi-agent Systems</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"multi-agent systems LangChain"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="structured_outputs">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Structured Outputs – JSON mode, grammar-based</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"structured output OpenAI JSON mode"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="prompt_engineering">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Prompt Engineering Techniques</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"chain of thought few shot prompting"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="context_management">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Context Window Management</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"context window chunking strategies"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="agent_project">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Build a full Agent project</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"build AI agent project TypeScript"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> Observation → Planning → Action → Reflection loop, reasoning steps, multi-tool orchestration.</p>
+            <p><strong>🎯 Tips:</strong> start with a single-goal agent before adding multiple tools. Test extensively with edge cases.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> infinite reasoning loops, no stop condition, not having proper evaluation metrics.</p>
+        </div>
+
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 3..." class="notes text-base" oninput="saveData()"></textarea>
     </section>
 
     <section id="stage4" class="stage-card">
         <h2 class="stage-title">Stage 4 – Product Building</h2>
-        <p class="text-slate-300 mb-3">
-            Goal: Combine your backend, frontend, and AI logic into a single, production-ready project.
+        <p class="stage-subtitle">
+            🎯 Goal: Combine your backend, frontend, and AI logic into a single, production-ready project.
         </p>
 
         <div class="progress-bar"><div id="stage4Bar" class="progress-inner" style="width:0%"></div></div>
 
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="frontend_ui"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Build Angular Frontend</td>
-                <td>"Angular API integration tutorial"</td><td>6 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="dark_theme"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Add Dark Theme + Responsive Design</td>
-                <td>"Angular Tailwind dark mode"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="auth"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> User Authentication (JWT, sessions)</td>
-                <td>"JWT authentication NestJS Angular"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="security"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Security Best Practices</td>
-                <td>"API key management prompt injection prevention"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="env_config"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Environment-based Configuration</td>
-                <td>"NestJS environment variables configuration"</td><td>1 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="monitoring"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Monitoring & Observability</td>
-                <td>"LangSmith Helicone monitoring AI apps"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="dockerize"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Dockerize & Deploy Backend</td>
-                <td>"Docker NestJS Render deploy"</td><td>4 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="testing"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Testing & QA</td>
-                <td>"Jest E2E tests NestJS Angular"</td><td>3 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> deployment pipelines, containerization, CI/CD, responsive UI, security, observability.</p>
-            <p><strong>Tips:</strong> keep UI minimal and functional. Never commit API keys to git.</p>
-            <p><strong>Common pitfalls:</strong> missing environment variables, ignoring error handling, not sanitizing inputs for prompt injection.</p>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-80">Video Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="frontend_ui">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Build Angular Frontend</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Angular API integration Video l"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="dark_theme">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Add Dark Theme + Responsive Design</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Angular Tailwind dark mode"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="auth">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> User Authentication (JWT, sessions)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"JWT authentication NestJS Angular"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="security">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Security Best Practices</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"API key management prompt injection prevention"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="env_config">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Environment-based Configuration</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"NestJS environment variables configuration"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="monitoring">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Monitoring & Observability</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LangSmith Helicone monitoring AI apps"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="dockerize">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Dockerize & Deploy Backend</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Docker NestJS Render deploy"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="testing">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Testing & QA</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Jest E2E tests NestJS Angular"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
-    </section>
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> deployment pipelines, containerization, CI/CD, responsive UI, security, observability.</p>
+            <p><strong>🎯 Tips:</strong> keep UI minimal and functional. Never commit API keys to git.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> missing environment variables, ignoring error handling, not sanitizing inputs for prompt injection.</p>
+        </div>
 
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 4..." class="notes text-base" oninput="saveData()"></textarea>
+    </section>
 
     <section id="stage5" class="stage-card">
         <h2 class="stage-title">Stage 5 – Branding & Publishing</h2>
-        <p class="text-slate-300 mb-3">
-            Goal: Share your work, grow credibility, and present yourself as an AI Tools Developer to the world.
+        <p class="stage-subtitle">
+            🎯 Goal: Share your work, grow credibility, and present yourself as an AI Tools Developer to the world.
         </p>
 
         <div class="progress-bar"><div id="stage5Bar" class="progress-inner" style="width:0%"></div></div>
 
-        <table class="text-base w-full mb-4">
-            <thead class="text-slate-400 text-left">
-            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
-            </thead>
-            <tbody class="divide-y divide-slate-700">
-            <tr data-id="github_readme"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Write a Professional README</td>
-                <td>"best GitHub README examples"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="api_docs"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> API Documentation (Swagger/OpenAPI)</td>
-                <td>"Swagger documentation NestJS"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="demo_video"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Demo Video Creation</td>
-                <td>"how to create demo video Loom"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="open_source"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Open-Source the Project</td>
-                <td>"how to open source project GitHub"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="linkedin_post"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>LinkedIn Post or Portfolio Showcase</td>
-                <td>"LinkedIn portfolio post developer"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="community"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td><strong>NEW:</strong> Community Engagement (Discord/Reddit)</td>
-                <td>"sharing projects developer communities"</td><td>ongoing</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            <tr data-id="future_plan"><td><input type="checkbox" onchange="toggleTask(this)"></td>
-                <td>Plan Next Projects / Monetization</td>
-                <td>"how to monetize AI tools"</td><td>2 h</td>
-                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
-            </tbody>
-        </table>
-
-        <div class="tip mb-3">
-            <p><strong>Key concepts:</strong> communication, documentation, personal branding, visibility, community building.</p>
-            <p><strong>Tips:</strong> share process, not just results. A 2-minute demo video is worth 1000 words.</p>
-            <p><strong>Common pitfalls:</strong> waiting for perfection — publish early and iterate. Don't skip documentation.</p>
+        <div class="overflow-x-auto">
+            <table class="text-base w-full mb-6">
+                <thead class="text-slate-400 text-left">
+                    <tr>
+                        <th class="w-12"></th>
+                        <th>Topic</th>
+                        <th class="hidden lg:table-cell">Search Phrase</th>
+                        <th class="w-32">Duration</th>
+                        <th class="w-64">Video Links</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    <tr data-id="github_readme">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Write a Professional README</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"best GitHub README examples"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="api_docs">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> API Documentation (Swagger/OpenAPI)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"Swagger documentation NestJS"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="demo_video">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Demo Video Creation</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"how to create demo video Loom"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="open_source">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Open-Source the Project</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"how to open source project GitHub"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="linkedin_post">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">LinkedIn Post or Portfolio Showcase</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LinkedIn portfolio post developer"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="community">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium"><span class="badge">NEW</span> Community Engagement (Discord/Reddit)</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"sharing projects developer communities"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                    <tr data-id="future_plan">
+                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                        <td class="font-medium">Plan Next Projects / Monetization</td>
+                        <td class="hidden lg:table-cell text-slate-400 text-sm">"how to monetize AI tools"</td>
+                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td class="space-x-2">
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  1
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  2
+                            </a>
+                            <a href="https://www.youtube.com" target="_blank" 
+                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                                📺 Video  3
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+        <div class="tip">
+            <p><strong>💡 Key concepts:</strong> communication, documentation, personal branding, visibility, community building.</p>
+            <p><strong>🎯 Tips:</strong> share process, not just results. A 2-minute demo video is worth 1000 words.</p>
+            <p><strong>⚠️ Common pitfalls:</strong> waiting for perfection — publish early and iterate. Don't skip documentation.</p>
+        </div>
+
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 5..." class="notes text-base" oninput="saveData()"></textarea>
     </section>
 
-
-    <section class="stage-card text-center">
-        <h2 class="text-2xl font-semibold text-green-400 mb-2">🎉 Completion & Reflection</h2>
-        <p class="text-slate-300 mb-4">
+    <section class="stage-card completion-card text-center">
+        <h2 class="text-3xl font-bold text-green-400 mb-4">🎉 Completion & Reflection</h2>
+        <p class="text-slate-200 mb-6 text-lg max-w-2xl mx-auto">
             Once you've checked every item, you'll have a comprehensive, production-ready foundation in AI tool development.
         </p>
-        <p class="text-slate-400 text-sm mb-4">
-            <strong>Total estimated Duration:</strong> ~145 Duration | <strong>New topics added:</strong> 20 items covering RAG, security, monitoring, and more.
-        </p>
-        <button onclick="resetAll()" class="bg-sky-600 hover:bg-sky-500 text-white text-sm px-4 py-2 rounded">Reset All Progress</button>
+        <div class="flex flex-wrap gap-4 justify-center mb-8">
+            <div class="bg-slate-800/50 rounded-xl p-6 min-w-[200px]">
+                <div class="text-3xl font-bold text-sky-400 mb-2">~145h</div>
+                <div class="text-slate-400 text-sm">Total Duration</div>
+            </div>
+            <div class="bg-slate-800/50 rounded-xl p-6 min-w-[200px]">
+                <div class="text-3xl font-bold text-blue-400 mb-2">20+</div>
+                <div class="text-slate-400 text-sm">New Topics</div>
+            </div>
+            <div class="bg-slate-800/50 rounded-xl p-6 min-w-[200px]">
+                <div class="text-3xl font-bold text-cyan-400 mb-2">6</div>
+                <div class="text-slate-400 text-sm">Learning Stages</div>
+            </div>
+        </div>
+        <button onclick="resetAll()" class="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-base px-8 py-3 rounded-xl font-semibold shadow-xl transform transition-all hover:scale-105">
+            🔄 Reset All Progress
+        </button>
     </section>
 </div>
+
+<!-- Scroll to Top Button -->
+<button id="scrollTop" onclick="scrollToTop()">↑</button>
 
 <script>
     function getData(){
         return JSON.parse(localStorage.getItem('ai_journey_progress')||'{}');
     }
 
-   function saveData() {
-  const d = getData();
-  
-  // שמירת progress בלוקאל
-  document.querySelectorAll('tr[data-id]').forEach(tr => {
-    const id = tr.dataset.id;
-    const checked = tr.querySelector('input[type="checkbox"]').checked;
-    const link = tr.querySelector('.tutorial-link')?.value || '';
-    d[id] = { checked, link };
-  });
+    function saveData() {
+        const d = getData();
+        
+        document.querySelectorAll('tr[data-id]').forEach(tr => {
+            const id = tr.dataset.id;
+            const checked = tr.querySelector('input[type="checkbox"]').checked;
+            const link = tr.querySelector('.Video l-link')?.value || '';
+            d[id] = { checked, link };
+        });
 
-  // 🔹 שמירת ההערות בשרת
-  document.querySelectorAll('.notes').forEach((ta, i) => {
-    const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
-    d[key] = ta.value;
+        document.querySelectorAll('.notes').forEach((ta, i) => {
+            const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+            d[key] = ta.value;
 
-    fetch('https://www.benzotracker.support/api/notes/save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ note_key: key, content: ta.value })
-    }).catch(err => console.error('Note save error:', err));
-  });
+            fetch('https://www.benzotracker.support/api/notes/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ note_key: key, content: ta.value })
+            }).catch(err => console.error('Note save error:', err));
+        });
 
-  localStorage.setItem('ai_journey_progress', JSON.stringify(d));
-  updateProgress();
-}
+        localStorage.setItem('ai_journey_progress', JSON.stringify(d));
+        updateProgress();
+    }
 
     function toggleTask(checkbox) {
-  const taskId = checkbox.closest('tr').dataset.id;
-  const checked = checkbox.checked;
-  localStorage.setItem(taskId, checked);
+        const taskId = checkbox.closest('tr').dataset.id;
+        const checked = checkbox.checked;
+        localStorage.setItem(taskId, checked);
 
-  fetch('https://www.benzotracker.support/api/progress/update', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ task_id: taskId, completed: checked })
-  }).catch(err => console.error('Save error:', err));
-}
-
-   async function resetAll() {
-  if (confirm("Reset all progress, notes, and tutorial links?")) {
-    localStorage.removeItem('ai_journey_progress');
-
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-    document.querySelectorAll('.tutorial-link').forEach(input => input.value = '');
-    document.querySelectorAll('.notes').forEach(ta => ta.value = '');
-    updateProgress();
-
-    try {
-      await fetch('https://www.benzotracker.support/api/progress/reset', {
-        method: 'DELETE'
-      });
-      alert('✅ Progress reset on server too!');
-    } catch (err) {
-      console.warn('⚠️ Could not reset progress on server:', err);
+        fetch('https://www.benzotracker.support/api/progress/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ task_id: taskId, completed: checked })
+        }).catch(err => console.error('Save error:', err));
+        
+        saveData();
     }
-  }
-}
 
+    async function resetAll() {
+        if (confirm("🔄 Reset all progress, notes, and Video links?\n\nThis action cannot be undone.")) {
+            localStorage.removeItem('ai_journey_progress');
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.querySelectorAll('.Video l-link').forEach(input => input.value = '');
+            document.querySelectorAll('.notes').forEach(ta => ta.value = '');
+            updateProgress();
+
+            try {
+                await fetch('https://www.benzotracker.support/api/progress/reset', {
+                    method: 'DELETE'
+                });
+                alert('✅ Progress reset successfully on server!');
+            } catch (err) {
+                console.warn('⚠️ Could not reset progress on server:', err);
+            }
+        }
+    }
 
     function jumpToStage(){
         const v=document.getElementById('stageJump').value;
         if(v){
-            document.getElementById(v).scrollIntoView({behavior:'smooth'});
+            document.getElementById(v).scrollIntoView({behavior:'smooth', block: 'start'});
+            document.getElementById('stageJump').value = '';
         }
     }
 
     function updateProgress(){
         const d=getData();
-        const all=[...document.querySelectorAll('tr[data-id] input')];
+        const all=[...document.querySelectorAll('tr[data-id] input[type="checkbox"]')];
         const total=all.length;
-        const done=all.filter(b=>d[b.closest('tr').dataset.id]).length;
+        const done=all.filter(cb=>d[cb.closest('tr').dataset.id]?.checked).length;
 
         // Update per-stage progress bars
         for(let i=0;i<=5;i++){
@@ -572,7 +1662,7 @@
                 const totalS=rows.length;
                 let doneS=0;
                 rows.forEach(r=>{
-                    if(d[r.dataset.id]) doneS++;
+                    if(d[r.dataset.id]?.checked) doneS++;
                 });
                 const bar=document.getElementById(`stage${i}Bar`);
                 if(bar){
@@ -587,55 +1677,76 @@
         document.getElementById('progressLabel').textContent=pct+'%';
     }
 
+    // Scroll to top functionality
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = document.getElementById('scrollTop');
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('visible');
+        } else {
+            scrollTop.classList.remove('visible');
+        }
+    });
+
     // Load saved data on page load
-  window.addEventListener('DOMContentLoaded', async () => {
-  const d = getData();
+    window.addEventListener('DOMContentLoaded', async () => {
+        const d = getData();
 
-  try {
-    // 🔹 1. טען progress (checkboxes) מהשרת
-    const res = await fetch('https://www.benzotracker.support/api/progress');
-    const serverData = await res.json();
-    const serverMap = {};
-    serverData.forEach(item => (serverMap[item.task_id] = item.completed));
+        try {
+            const res = await fetch('https://www.benzotracker.support/api/progress');
+            const serverData = await res.json();
+            const serverMap = {};
+            serverData.forEach(item => (serverMap[item.task_id] = item.completed));
 
-    document.querySelectorAll('tr[data-id]').forEach(tr => {
-      const id = tr.dataset.id;
-      const cb = tr.querySelector('input[type="checkbox"]');
-      const data = d[id] || { checked: false };
-      const isChecked = serverMap[id] ?? data.checked;
-      cb.checked = isChecked;
+            document.querySelectorAll('tr[data-id]').forEach(tr => {
+                const id = tr.dataset.id;
+                const cb = tr.querySelector('input[type="checkbox"]');
+                const data = d[id] || { checked: false };
+                const isChecked = serverMap[id] ?? data.checked;
+                cb.checked = isChecked;
+                
+                const linkInput = tr.querySelector('.Video l-link');
+                if(linkInput && data.link) {
+                    linkInput.value = data.link;
+                }
+            });
+
+            const notesRes = await fetch('https://www.benzotracker.support/api/notes');
+            const notes = await notesRes.json();
+            const noteMap = {};
+            notes.forEach(n => (noteMap[n.note_key] = n.content));
+
+            document.querySelectorAll('.notes').forEach((ta, i) => {
+                const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+                ta.value = noteMap[key] || d[key] || '';
+            });
+
+        } catch (err) {
+            console.warn('⚠️ Using local data only (server unreachable)', err);
+
+            document.querySelectorAll('tr[data-id]').forEach(tr => {
+                const id = tr.dataset.id;
+                const data = d[id] || { checked: false };
+                const cb = tr.querySelector('input[type="checkbox"]');
+                cb.checked = data.checked;
+                
+                const linkInput = tr.querySelector('.Video l-link');
+                if(linkInput && data.link) {
+                    linkInput.value = data.link;
+                }
+            });
+            
+            document.querySelectorAll('.notes').forEach((ta, i) => {
+                const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+                ta.value = d[key] || '';
+            });
+        }
+
+        updateProgress();
     });
-
-    // 🔹 2. טען notes מהשרת
-    const notesRes = await fetch('https://www.benzotracker.support/api/notes');
-    const notes = await notesRes.json();
-    const noteMap = {};
-    notes.forEach(n => (noteMap[n.note_key] = n.content));
-
-    document.querySelectorAll('.notes').forEach((ta, i) => {
-      const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
-      ta.value = noteMap[key] || d[key] || '';
-    });
-
-  } catch (err) {
-    console.warn('⚠️ Using local data only (server unreachable)', err);
-
-    // fallback — טען רק מהלוקאל
-    document.querySelectorAll('tr[data-id]').forEach(tr => {
-      const id = tr.dataset.id;
-      const data = d[id] || { checked: false };
-      const cb = tr.querySelector('input[type="checkbox"]');
-      cb.checked = data.checked;
-    });
-    document.querySelectorAll('.notes').forEach((ta, i) => {
-      const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
-      ta.value = d[key] || '';
-    });
-  }
-
-  updateProgress();
-});
-
 
     // Theme toggle functionality
     (function(){
@@ -644,7 +1755,7 @@
 
         function setButton(){
             if(!btn) return;
-            btn.textContent = html.classList.contains('light') ? '🌞' : '🌗';
+            btn.textContent = html.classList.contains('light') ? '☀️' : '🌙';
         }
 
         const saved = localStorage.getItem('site_theme');
@@ -664,5 +1775,9 @@
             });
         }
     })();
+    
     window.saveData = saveData;
 </script>
+
+</body>
+</html>
