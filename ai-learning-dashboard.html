@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>AI Tools Developer Learning Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+        .dark { background: #0f172a; color: #e2e8f0; }
+        .light { background: #f1f5f9; color: #1e293b; }
+        .light .stage-card { background: #ffffff; border-color: #cbd5e1; }
+        .light .stage-title { color: #0369a1; }
+        .light .tip { background: #dbeafe; border-color: #93c5fd; color: #1e40af; }
+        .light .notes { background: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        .light nav { background: #ffffff !important; border-color: #cbd5e1 !important; }
+        .light select, .light button { background: #e2e8f0 !important; color: #1e293b !important; }
+        .light .progress-bar { background: #e2e8f0; }
+        .light tbody tr { border-color: #cbd5e1 !important; }
+        .light .tutorial-link { background: #f1f5f9 !important; color: #1e293b !important; border: 1px solid #e2e8f0; }
+        .tutorial-link { font-size: 0.875rem; border: 1px solid #334155; }
+        .stage-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+        .stage-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 12px; color: #38bdf8; }
+        .progress-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+        .progress-inner { height: 100%; background: linear-gradient(90deg, #0ea5e9, #38bdf8); transition: width 0.4s; }
+        .tip { background: #1e3a5f; border-left: 4px solid #0ea5e9; padding: 12px 16px; border-radius: 6px; }
+        .notes { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 12px; color: #cbd5e1; resize: vertical; }
+        table { border-collapse: collapse; }
+        tbody tr { transition: background 0.2s; }
+        tbody tr:hover { background: #334155; }
+        th { padding: 8px 12px; font-weight: 600; }
+        td { padding: 10px 12px; }
+        input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: #0ea5e9; }
+    </style>
+</head>
+
+<body class="min-h-screen pb-16">
+
+<nav class="fixed top-0 left-0 right-0 bg-slate-900/90 backdrop-blur border-b border-slate-700 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between">
+        <div class="flex space-x-4 text-slate-300 text-sm font-semibold">
+            <span class="text-sky-400">AI Learning Dashboard</span>
+        </div>
+
+        <div class="flex space-x-3 items-center">
+            <select id="stageJump" onchange="jumpToStage()" class="bg-slate-800 text-slate-200 rounded px-2 py-1 text-sm">
+                <option value="">Jump to Stage</option>
+                <option value="stage0">Stage 0 – Foundations</option>
+                <option value="stage1">Stage 1 – MCP Fundamentals</option>
+                <option value="stage2">Stage 2 – Tools Development</option>
+                <option value="stage3">Stage 3 – Agents & Autonomy</option>
+                <option value="stage4">Stage 4 – Product Building</option>
+                <option value="stage5">Stage 5 – Branding</option>
+            </select>
+
+            <button onclick="resetAll()" class="bg-sky-600 hover:bg-sky-500 text-white text-sm px-3 py-1 rounded">Reset All</button>
+
+            <button id="themeToggle" title="Toggle theme" class="ml-2 bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded text-sm">🌗</button>
+        </div>
+
+        <div class="mt-3 md:mt-0 w-full md:w-1/3">
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div id="globalProgress" class="h-2 bg-sky-500 transition-all"></div>
+            </div>
+            <p class="text-xs text-slate-400 text-right mt-1" id="progressLabel">0%</p>
+        </div>
+    </div>
+</nav>
+
+<div class="pt-28 max-w-[120rem] mx-auto px-6">
+    <h1 class="text-4xl font-bold mb-3 text-center text-sky-400">AI Tools Developer Learning Dashboard</h1>
+    <p class="text-slate-400 text-center mb-10 text-lg">Your complete roadmap to mastering AI tool development — from foundations to production-ready products.</p>
+
+    <section id="stage0" class="stage-card">
+        <h2 class="stage-title">Stage 0 – AI Foundations for Developers</h2>
+        <p class="text-slate-300 mb-3">Goal: Gain a solid developer-oriented understanding of modern LLMs and API usage before building tools or agents.</p>
+
+        <div class="progress-bar"><div id="stage0Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="llm_basics"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>LLM Basics – tokens, prompting and completion flow</td>
+                <td>"how large language models work for developers"</td><td>57 Min</td>
+                <td>
+                <a href="https://www.youtube.com/watch?v=ZaPbP9DwBOE" target="_blank" 
+                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                    Video
+                </a>
+                </td>
+                </tr>
+            <tr data-id="api_auth"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Working with OpenAI / Anthropic APIs</td>
+                <td>"OpenAI API key setup TypeScript"</td><td>23 Min</td>
+                <td>
+                <a href="https://www.youtube.com/watch?v=J2yGW9MRnfY" target="_blank" 
+                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                    Video
+                </a>
+                </td>
+            <tr data-id="json_prompt"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Prompt → Structured JSON Output Patterns</td>
+                <td>"structured response functions OpenAI"</td><td>44 / 22 Min</td>
+                <td class="space-x-4">
+                <a href="https://www.youtube.com/watch?v=_ZvnD73m40o" target="_blank" 
+                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                    Video 1
+                </a>
+                <a href="https://www.youtube.com/watch?v=pBdjGd-inmE" target="_blank" 
+                    class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                    Video 2
+                </a>
+        </td>
+            <tr data-id="llm_limits"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Token Limits & Cost Awareness</td>
+                <td>"token pricing OpenAI calculator"</td><td>12 / 11 / 11 Min</td>
+                <td class="space-x-4">
+                    <a href="https://www.youtube.com/watch?v=ooNRL9FJSuk&t=84s" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 1
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=7zbuEULTHIs&t=451s" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 2
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 3
+                    </a>
+                </td>
+                <tr data-id="embeddings"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Embeddings & Vector Databases</td>
+                <td>"text embeddings Pinecone tutorial"</td><td>19 / 11 / 11 Min</td>
+                 <td class="space-x-4">
+                    <a href="https://www.youtube.com/watch?v=ySus5ZS0b94" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 1
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=VVNYQKDLY5s&t=49s" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 2
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=nKSk_TiR8YA" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 3
+                    </a>
+                </td>
+            <tr data-id="rag"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> RAG (Retrieval Augmented Generation)</td>
+                <td>"RAG pattern explained TypeScript"</td><td>11 / 14 / 12 Min</td>
+                <td class="space-x-4">
+                    <a href="https://www.youtube.com/watch?v=VioF7v8Mikg" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 1
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=of4UDMvi2Kw" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 2
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=u47GtXwePms" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 3
+                    </a>
+                </td>
+            <tr data-id="finetuning"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Fine-tuning vs Prompting – When to use each</td>
+                <td>"when to fine-tune vs prompt engineer"</td><td>13 / 28 Min</td>
+                <td class="space-x-4">
+                    <a href="https://www.youtube.com/watch?v=zYGDpG-pTho" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 1
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=eC6Hd1hFvos" target="_blank" 
+                        class="text-sky-400 hover:text-sky-300 underline decoration-sky-500">
+                        Video 2
+                    </a>
+                </td>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> tokens, context window, temperature, API requests, embeddings, semantic search.</p>
+            <p><strong>Tips:</strong> practice small prompts and analyze responses. Experiment with vector search before building complex RAG systems.</p>
+            <p><strong>Common pitfalls:</strong> ignoring rate limits, not understanding when RAG is actually needed.</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+
+    <section id="stage1" class="stage-card">
+        <h2 class="stage-title">Stage 1 – MCP Fundamentals</h2>
+        <p class="text-slate-300 mb-3">Goal: Understand and implement Model Context Protocol (MCP) to connect AI models with external data and tools.</p>
+
+        <div class="progress-bar"><div id="stage1Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="mcp_intro"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Introduction to Model Context Protocol (MCP)</td>
+                <td>"Model Context Protocol explained"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="mcp_server"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Build an MCP Server in TypeScript</td>
+                <td>"MCP server TypeScript example"</td><td>5 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="mcp_resources_tools"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> MCP Resources vs Tools – Deep dive</td>
+                <td>"MCP resources vs tools when to use"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="zod_schemas"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Use Zod Schemas for Validation and Type Safety</td>
+                <td>"Zod schema TypeScript tutorial"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="streaming"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Streaming Responses</td>
+                <td>"streaming LLM responses TypeScript"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="mcp_inspector"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Debug with MCP Inspector</td>
+                <td>"Claude Desktop MCP Inspector demo"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> tools vs resources, URIs, schemas, runtime execution, streaming data.</p>
+            <p><strong>Tips:</strong> think of MCP as "plugin architecture for AI". Use resources for static data, tools for actions.</p>
+            <p><strong>Common pitfalls:</strong> not testing in Inspector, choosing wrong abstraction (tool vs resource).</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+    <section id="stage2" class="stage-card">
+        <h2 class="stage-title">Stage 2 – AI Tools Development</h2>
+        <p class="text-slate-300 mb-3">
+            Goal: Learn how to build backend tools that communicate with LLMs — the bridge between AI logic and real developer functionality.
+        </p>
+
+        <div class="progress-bar"><div id="stage2Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="openai_api"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Connect to OpenAI / Claude APIs using Axios</td>
+                <td>"OpenAI API with TypeScript Axios"</td><td>4 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="nest_rest_tool"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Create a REST API tool in NestJS</td>
+                <td>"NestJS REST API tutorial"</td><td>6 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="websocket"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> WebSocket Connections for Real-time AI Chat</td>
+                <td>"NestJS WebSocket real-time chat"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="multi_tool_mcp"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Register multiple MCP tools</td>
+                <td>"MCP multiple tools example"</td><td>5 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="rate_limiting"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Rate Limiting & Queue Systems (Bull/BullMQ)</td>
+                <td>"BullMQ queue TypeScript NestJS"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="caching"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Caching Strategies with Redis</td>
+                <td>"Redis caching LLM responses NestJS"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="cost_monitoring"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Cost Monitoring & Token Usage Tracking</td>
+                <td>"track OpenAI token costs production"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="error_logging"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Error handling, logging and testing</td>
+                <td>"NestJS error filters logging"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> REST endpoints, JSON schema design, request limits, caching, queues.</p>
+            <p><strong>Tips:</strong> start small – create a "summarizer" API, then expand. Cache aggressively to save costs.</p>
+            <p><strong>Common pitfalls:</strong> unhandled async calls, missing validation, not implementing rate limiting early.</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+
+    <section id="stage3" class="stage-card">
+        <h2 class="stage-title">Stage 3 – Agents & Autonomy</h2>
+        <p class="text-slate-300 mb-3">
+            Goal: Understand how agents think, plan, and act — combining reasoning with your tools for autonomous task completion.
+        </p>
+
+        <div class="progress-bar"><div id="stage3Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="agent_loop"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Understand the Agent Loop</td>
+                <td>"AI agent loop explained"</td><td>4 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="function_calling"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Function Calling Deep Dive</td>
+                <td>"OpenAI function calling tutorial"</td><td>4 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="langchain_integration"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>LangChain.js Integration – tools, memory, and chains</td>
+                <td>"LangChain tools and memory JS"</td><td>6 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="agent_memory"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Add short-term and long-term memory</td>
+                <td>"LangChain memory TypeScript"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="agent_eval"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Agent Evaluation & Testing</td>
+                <td>"testing AI agents evaluation metrics"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="multi_agent"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Multi-agent Systems</td>
+                <td>"multi-agent systems LangChain"</td><td>4 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="structured_outputs"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Structured Outputs – JSON mode, grammar-based</td>
+                <td>"structured output OpenAI JSON mode"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="prompt_engineering"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Prompt Engineering Techniques</td>
+                <td>"chain of thought few shot prompting"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="context_management"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Context Window Management</td>
+                <td>"context window chunking strategies"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="agent_project"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Build a full Agent project</td>
+                <td>"build AI agent project TypeScript"</td><td>8 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> Observation → Planning → Action → Reflection loop, reasoning steps, multi-tool orchestration.</p>
+            <p><strong>Tips:</strong> start with a single-goal agent before adding multiple tools. Test extensively with edge cases.</p>
+            <p><strong>Common pitfalls:</strong> infinite reasoning loops, no stop condition, not having proper evaluation metrics.</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+    <section id="stage4" class="stage-card">
+        <h2 class="stage-title">Stage 4 – Product Building</h2>
+        <p class="text-slate-300 mb-3">
+            Goal: Combine your backend, frontend, and AI logic into a single, production-ready project.
+        </p>
+
+        <div class="progress-bar"><div id="stage4Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="frontend_ui"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Build Angular Frontend</td>
+                <td>"Angular API integration tutorial"</td><td>6 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="dark_theme"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Add Dark Theme + Responsive Design</td>
+                <td>"Angular Tailwind dark mode"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="auth"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> User Authentication (JWT, sessions)</td>
+                <td>"JWT authentication NestJS Angular"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="security"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Security Best Practices</td>
+                <td>"API key management prompt injection prevention"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="env_config"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Environment-based Configuration</td>
+                <td>"NestJS environment variables configuration"</td><td>1 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="monitoring"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Monitoring & Observability</td>
+                <td>"LangSmith Helicone monitoring AI apps"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="dockerize"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Dockerize & Deploy Backend</td>
+                <td>"Docker NestJS Render deploy"</td><td>4 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="testing"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Testing & QA</td>
+                <td>"Jest E2E tests NestJS Angular"</td><td>3 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> deployment pipelines, containerization, CI/CD, responsive UI, security, observability.</p>
+            <p><strong>Tips:</strong> keep UI minimal and functional. Never commit API keys to git.</p>
+            <p><strong>Common pitfalls:</strong> missing environment variables, ignoring error handling, not sanitizing inputs for prompt injection.</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+
+    <section id="stage5" class="stage-card">
+        <h2 class="stage-title">Stage 5 – Branding & Publishing</h2>
+        <p class="text-slate-300 mb-3">
+            Goal: Share your work, grow credibility, and present yourself as an AI Tools Developer to the world.
+        </p>
+
+        <div class="progress-bar"><div id="stage5Bar" class="progress-inner" style="width:0%"></div></div>
+
+        <table class="text-base w-full mb-4">
+            <thead class="text-slate-400 text-left">
+            <tr><th></th><th>Topic</th><th>Search Phrase</th><th>Duration</th><th>Tutorial Links</th></tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700">
+            <tr data-id="github_readme"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Write a Professional README</td>
+                <td>"best GitHub README examples"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="api_docs"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> API Documentation (Swagger/OpenAPI)</td>
+                <td>"Swagger documentation NestJS"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="demo_video"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Demo Video Creation</td>
+                <td>"how to create demo video Loom"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="open_source"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Open-Source the Project</td>
+                <td>"how to open source project GitHub"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="linkedin_post"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>LinkedIn Post or Portfolio Showcase</td>
+                <td>"LinkedIn portfolio post developer"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="community"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td><strong>NEW:</strong> Community Engagement (Discord/Reddit)</td>
+                <td>"sharing projects developer communities"</td><td>ongoing</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            <tr data-id="future_plan"><td><input type="checkbox" onchange="toggleTask(this)"></td>
+                <td>Plan Next Projects / Monetization</td>
+                <td>"how to monetize AI tools"</td><td>2 h</td>
+                <td><input type="text" class="tutorial-link bg-slate-800/50 text-slate-300 px-2 py-1 rounded w-full" placeholder="Paste tutorial URL..." onchange="saveData()"></td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip mb-3">
+            <p><strong>Key concepts:</strong> communication, documentation, personal branding, visibility, community building.</p>
+            <p><strong>Tips:</strong> share process, not just results. A 2-minute demo video is worth 1000 words.</p>
+            <p><strong>Common pitfalls:</strong> waiting for perfection — publish early and iterate. Don't skip documentation.</p>
+        </div>
+
+        <textarea rows="4" placeholder="Your notes…" class="notes text-base" oninput="saveData()"></textarea>
+    </section>
+
+
+    <section class="stage-card text-center">
+        <h2 class="text-2xl font-semibold text-green-400 mb-2">🎉 Completion & Reflection</h2>
+        <p class="text-slate-300 mb-4">
+            Once you've checked every item, you'll have a comprehensive, production-ready foundation in AI tool development.
+        </p>
+        <p class="text-slate-400 text-sm mb-4">
+            <strong>Total estimated Duration:</strong> ~145 Duration | <strong>New topics added:</strong> 20 items covering RAG, security, monitoring, and more.
+        </p>
+        <button onclick="resetAll()" class="bg-sky-600 hover:bg-sky-500 text-white text-sm px-4 py-2 rounded">Reset All Progress</button>
+    </section>
+</div>
+
+<script>
+    function getData(){
+        return JSON.parse(localStorage.getItem('ai_journey_progress')||'{}');
+    }
+
+    function saveData(){
+        const d=getData();
+        document.querySelectorAll('tr[data-id]').forEach(tr=>{
+            const id=tr.dataset.id;
+            const checked=tr.querySelector('input[type="checkbox"]').checked;
+            const link=tr.querySelector('.tutorial-link')?.value || '';
+            d[id]={checked, link};
+        });
+        document.querySelectorAll('.notes').forEach((ta,i)=>{
+            d[`notes_${i}`]=ta.value;
+        });
+        localStorage.setItem('ai_journey_progress',JSON.stringify(d));
+        updateProgress();
+    }
+
+    function toggleTask(cb){
+        saveData();
+    }
+
+    function resetAll(){
+        if(confirm("Reset all progress, notes, and tutorial links?")){
+            localStorage.removeItem('ai_journey_progress');
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);
+            document.querySelectorAll('.tutorial-link').forEach(input=>input.value='');
+            document.querySelectorAll('.notes').forEach(ta=>ta.value='');
+            updateProgress();
+        }
+    }
+
+    function jumpToStage(){
+        const v=document.getElementById('stageJump').value;
+        if(v){
+            document.getElementById(v).scrollIntoView({behavior:'smooth'});
+        }
+    }
+
+    function updateProgress(){
+        const d=getData();
+        const all=[...document.querySelectorAll('tr[data-id] input')];
+        const total=all.length;
+        const done=all.filter(b=>d[b.closest('tr').dataset.id]).length;
+
+        // Update per-stage progress bars
+        for(let i=0;i<=5;i++){
+            const stage=document.getElementById(`stage${i}`);
+            if(stage){
+                const rows=stage.querySelectorAll('tr[data-id]');
+                const totalS=rows.length;
+                let doneS=0;
+                rows.forEach(r=>{
+                    if(d[r.dataset.id]) doneS++;
+                });
+                const bar=document.getElementById(`stage${i}Bar`);
+                if(bar){
+                    bar.style.width=`${(doneS/totalS)*100}%`;
+                }
+            }
+        }
+
+        // Update global progress bar
+        const pct=Math.round((done/total)*100);
+        document.getElementById('globalProgress').style.width=pct+'%';
+        document.getElementById('progressLabel').textContent=pct+'%';
+    }
+
+    // Load saved data on page load
+    window.addEventListener('DOMContentLoaded',()=>{
+        const d=getData();
+
+        // Restore checkboxes and links
+        document.querySelectorAll('tr[data-id]').forEach(tr=>{
+            const id = tr.dataset.id;
+            const data = d[id] || {checked: false, link: ''};
+            const cb = tr.querySelector('input[type="checkbox"]');
+            const link = tr.querySelector('.tutorial-link');
+            if(data.checked) cb.checked = true;
+            if(data.link && link) link.value = data.link;
+        });
+
+        // Restore notes
+        document.querySelectorAll('.notes').forEach((ta,i)=>{
+            if(d[`notes_${i}`]) ta.value=d[`notes_${i}`];
+        });
+
+        updateProgress();
+    });
+
+    // Theme toggle functionality
+    (function(){
+        const html=document.documentElement;
+        const btn=document.getElementById('themeToggle');
+
+        function setButton(){
+            if(!btn) return;
+            btn.textContent = html.classList.contains('light') ? '🌞' : '🌗';
+        }
+
+        const saved = localStorage.getItem('site_theme');
+        if(saved==='light'){
+            html.classList.add('light');
+        } else {
+            html.classList.remove('light');
+        }
+
+        setButton();
+
+        if(btn){
+            btn.addEventListener('click', ()=>{
+                html.classList.toggle('light');
+                localStorage.setItem('site_theme', html.classList.contains('light') ? 'light' : 'dark');
+                setButton();
+            });
+        }
+    })();
+</script>

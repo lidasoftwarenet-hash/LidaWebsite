@@ -1,0 +1,19 @@
+<div class="login">
+  <input id="token" placeholder="Enter access token">
+  <button onclick="verify()">Verify</button>
+  <p id="msg"></p>
+</div>
+
+<script>
+async function verify() {
+  const token = document.getElementById('token').value;
+  const res = await fetch('https://www.benzotracker.support/api/verify-token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token }),
+  });
+  const data = await res.json();
+  if (data.valid) window.location.href = '/ai-learning-dashboard.html';
+  else document.getElementById('msg').innerText = '❌ Invalid access code';
+}
+</script>
