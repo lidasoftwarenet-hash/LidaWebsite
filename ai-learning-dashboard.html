@@ -491,20 +491,32 @@
         return JSON.parse(localStorage.getItem('ai_journey_progress')||'{}');
     }
 
-    function saveData(){
-        const d=getData();
-        document.querySelectorAll('tr[data-id]').forEach(tr=>{
-            const id=tr.dataset.id;
-            const checked=tr.querySelector('input[type="checkbox"]').checked;
-            const link=tr.querySelector('.tutorial-link')?.value || '';
-            d[id]={checked, link};
-        });
-        document.querySelectorAll('.notes').forEach((ta,i)=>{
-            d[`notes_${i}`]=ta.value;
-        });
-        localStorage.setItem('ai_journey_progress',JSON.stringify(d));
-        updateProgress();
-    }
+   function saveData() {
+  const d = getData();
+  
+  // שמירת progress בלוקאל
+  document.querySelectorAll('tr[data-id]').forEach(tr => {
+    const id = tr.dataset.id;
+    const checked = tr.querySelector('input[type="checkbox"]').checked;
+    const link = tr.querySelector('.tutorial-link')?.value || '';
+    d[id] = { checked, link };
+  });
+
+  // 🔹 שמירת ההערות בשרת
+  document.querySelectorAll('.notes').forEach((ta, i) => {
+    const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+    d[key] = ta.value;
+
+    fetch('https://www.benzotracker.support/api/notes/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note_key: key, content: ta.value })
+    }).catch(err => console.error('Note save error:', err));
+  });
+
+  localStorage.setItem('ai_journey_progress', JSON.stringify(d));
+  updateProgress();
+}
 
     function toggleTask(checkbox) {
   const taskId = checkbox.closest('tr').dataset.id;
@@ -576,46 +588,52 @@
     }
 
     // Load saved data on page load
-    window.addEventListener('DOMContentLoaded', async () => {
-    const d = getData();
+  window.addEventListener('DOMContentLoaded', async () => {
+  const d = getData();
 
-    try {
-      
-        const res = await fetch('https://www.benzotracker.support/api/progress');
-        const serverData = await res.json();
-        const serverMap = {};
-        serverData.forEach(item => (serverMap[item.task_id] = item.completed));
+  try {
+    // 🔹 1. טען progress (checkboxes) מהשרת
+    const res = await fetch('https://www.benzotracker.support/api/progress');
+    const serverData = await res.json();
+    const serverMap = {};
+    serverData.forEach(item => (serverMap[item.task_id] = item.completed));
 
-        
-        document.querySelectorAll('tr[data-id]').forEach(tr => {
-            const id = tr.dataset.id;
-            const cb = tr.querySelector('input[type="checkbox"]');
-            const data = d[id] || { checked: false };
-            const isChecked = serverMap[id] ?? data.checked; // עדיפות לשרת
-            cb.checked = isChecked;
-        });
+    document.querySelectorAll('tr[data-id]').forEach(tr => {
+      const id = tr.dataset.id;
+      const cb = tr.querySelector('input[type="checkbox"]');
+      const data = d[id] || { checked: false };
+      const isChecked = serverMap[id] ?? data.checked;
+      cb.checked = isChecked;
+    });
 
-      
-        document.querySelectorAll('.notes').forEach((ta, i) => {
-            if (d[`notes_${i}`]) ta.value = d[`notes_${i}`];
-        });
+    // 🔹 2. טען notes מהשרת
+    const notesRes = await fetch('https://www.benzotracker.support/api/notes');
+    const notes = await notesRes.json();
+    const noteMap = {};
+    notes.forEach(n => (noteMap[n.note_key] = n.content));
 
-    } catch (err) {
-        console.warn('⚠️ Using local data only (server unreachable)', err);
+    document.querySelectorAll('.notes').forEach((ta, i) => {
+      const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+      ta.value = noteMap[key] || d[key] || '';
+    });
 
-        // Fallback: Restore checkboxes from local storage only
-        document.querySelectorAll('tr[data-id]').forEach(tr => {
-            const id = tr.dataset.id;
-            const data = d[id] || { checked: false, link: '' };
-            const cb = tr.querySelector('input[type="checkbox"]');
-            if (data.checked) cb.checked = true;
-        });
-        document.querySelectorAll('.notes').forEach((ta, i) => {
-            if (d[`notes_${i}`]) ta.value = d[`notes_${i}`];
-        });
-    }
+  } catch (err) {
+    console.warn('⚠️ Using local data only (server unreachable)', err);
 
-    updateProgress();
+    // fallback — טען רק מהלוקאל
+    document.querySelectorAll('tr[data-id]').forEach(tr => {
+      const id = tr.dataset.id;
+      const data = d[id] || { checked: false };
+      const cb = tr.querySelector('input[type="checkbox"]');
+      cb.checked = data.checked;
+    });
+    document.querySelectorAll('.notes').forEach((ta, i) => {
+      const key = `stage${ta.closest('section').id.replace('stage', '')}_note_${i}`;
+      ta.value = d[key] || '';
+    });
+  }
+
+  updateProgress();
 });
 
 
@@ -646,4 +664,5 @@
             });
         }
     })();
+    window.saveData = saveData;
 </script>
