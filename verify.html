@@ -1,19 +1,344 @@
-<div class="login">
-  <input id="token" placeholder="Enter access token">
-  <button onclick="verify()">Verify</button>
-  <p id="msg"></p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Access - BenzoTracker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<script>
-async function verify() {
-  const token = document.getElementById('token').value;
-  const res = await fetch('https://www.benzotracker.support/api/token/verify-token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ token }),
-  });
-  const data = await res.json();
-  if (data.valid) window.location.href = '/ai-learning-dashboard.html';
-  else document.getElementById('msg').innerText = '❌ Invalid access code';
-}
-</script>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: float 20s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50px, -50px); }
+    }
+
+    .login-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 440px;
+      width: 100%;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    h1 {
+      color: #2d3748;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #718096;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-label {
+      display: block;
+      color: #4a5568;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #f7fafc;
+      color: #2d3748;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    input::placeholder {
+      color: #a0aec0;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    button.loading .btn-text { display: none; }
+    button.loading .spinner { display: block; }
+
+    .message {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .message.error {
+      background: #fed7d7;
+      color: #c53030;
+      border: 1px solid #fc8181;
+    }
+
+    .message.success {
+      background: #c6f6d5;
+      color: #276749;
+      border: 1px solid #9ae6b4;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #718096;
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 40px 30px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <div class="logo-icon">🔐</div>
+      <h1>Secure Access</h1>
+      <p class="subtitle">Enter your access token to continue</p>
+    </div>
+
+    <form onsubmit="verify(event)">
+      <div class="input-group">
+        <label class="input-label" for="token">Access Token</label>
+        <input 
+          id="token" 
+          type="text"
+          placeholder="Enter your access token"
+          autocomplete="off"
+          required>
+      </div>
+
+      <button type="submit" id="verifyBtn">
+        <span class="btn-text">Verify Access</span>
+        <div class="spinner"></div>
+      </button>
+    </form>
+
+    <div id="msg" class="message"></div>
+
+    <div class="footer">
+      <p>Protected by <a href="https://www.benzotracker.support">BenzoTracker</a></p>
+    </div>
+  </div>
+
+  <script>
+    async function verify(event) {
+      event.preventDefault();
+      
+      const token = document.getElementById('token').value.trim();
+      const btn = document.getElementById('verifyBtn');
+      const msg = document.getElementById('msg');
+      
+      if (!token) {
+        showMessage('Please enter an access token', 'error');
+        return;
+      }
+
+      // Show loading state
+      btn.disabled = true;
+      btn.classList.add('loading');
+      msg.classList.remove('show');
+
+      try {
+        const res = await fetch('https://www.benzotracker.support/api/token/verify-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+
+        const data = await res.json();
+
+        if (data.valid) {
+          showMessage('✓ Access granted! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = '/ai-learning-dashboard.html';
+          }, 1000);
+        } else {
+          showMessage('❌ Invalid access token. Please try again.', 'error');
+          btn.disabled = false;
+          btn.classList.remove('loading');
+        }
+      } catch (error) {
+        showMessage('⚠️ Connection error. Please try again.', 'error');
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+
+    function showMessage(text, type) {
+      const msg = document.getElementById('msg');
+      msg.textContent = text;
+      msg.className = `message ${type}`;
+      setTimeout(() => msg.classList.add('show'), 10);
+    }
+
+    // Auto-focus input on load
+    window.addEventListener('load', () => {
+      document.getElementById('token').focus();
+    });
+  </script>
+</body>
+</html>
