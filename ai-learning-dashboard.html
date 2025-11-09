@@ -506,19 +506,38 @@
         updateProgress();
     }
 
-    function toggleTask(cb){
-        saveData();
-    }
+    function toggleTask(checkbox) {
+  const taskId = checkbox.closest('tr').dataset.id;
+  const checked = checkbox.checked;
+  localStorage.setItem(taskId, checked);
 
-    function resetAll(){
-        if(confirm("Reset all progress, notes, and tutorial links?")){
-            localStorage.removeItem('ai_journey_progress');
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);
-            document.querySelectorAll('.tutorial-link').forEach(input=>input.value='');
-            document.querySelectorAll('.notes').forEach(ta=>ta.value='');
-            updateProgress();
-        }
+  fetch('https://www.benzotracker.support/api/progress/update', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ task_id: taskId, completed: checked })
+  }).catch(err => console.error('Save error:', err));
+}
+
+   async function resetAll() {
+  if (confirm("Reset all progress, notes, and tutorial links?")) {
+    localStorage.removeItem('ai_journey_progress');
+
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    document.querySelectorAll('.tutorial-link').forEach(input => input.value = '');
+    document.querySelectorAll('.notes').forEach(ta => ta.value = '');
+    updateProgress();
+
+    try {
+      await fetch('https://www.benzotracker.support/api/progress/reset', {
+        method: 'DELETE'
+      });
+      alert('✅ Progress reset on server too!');
+    } catch (err) {
+      console.warn('⚠️ Could not reset progress on server:', err);
     }
+  }
+}
+
 
     function jumpToStage(){
         const v=document.getElementById('stageJump').value;
@@ -557,26 +576,48 @@
     }
 
     // Load saved data on page load
-    window.addEventListener('DOMContentLoaded',()=>{
-        const d=getData();
+    window.addEventListener('DOMContentLoaded', async () => {
+    const d = getData();
 
-        // Restore checkboxes and links
-        document.querySelectorAll('tr[data-id]').forEach(tr=>{
+    try {
+      
+        const res = await fetch('https://www.benzotracker.support/api/progress');
+        const serverData = await res.json();
+        const serverMap = {};
+        serverData.forEach(item => (serverMap[item.task_id] = item.completed));
+
+        
+        document.querySelectorAll('tr[data-id]').forEach(tr => {
             const id = tr.dataset.id;
-            const data = d[id] || {checked: false, link: ''};
             const cb = tr.querySelector('input[type="checkbox"]');
-            const link = tr.querySelector('.tutorial-link');
-            if(data.checked) cb.checked = true;
-            if(data.link && link) link.value = data.link;
+            const data = d[id] || { checked: false };
+            const isChecked = serverMap[id] ?? data.checked; // עדיפות לשרת
+            cb.checked = isChecked;
         });
 
-        // Restore notes
-        document.querySelectorAll('.notes').forEach((ta,i)=>{
-            if(d[`notes_${i}`]) ta.value=d[`notes_${i}`];
+      
+        document.querySelectorAll('.notes').forEach((ta, i) => {
+            if (d[`notes_${i}`]) ta.value = d[`notes_${i}`];
         });
 
-        updateProgress();
-    });
+    } catch (err) {
+        console.warn('⚠️ Using local data only (server unreachable)', err);
+
+        // Fallback: Restore checkboxes from local storage only
+        document.querySelectorAll('tr[data-id]').forEach(tr => {
+            const id = tr.dataset.id;
+            const data = d[id] || { checked: false, link: '' };
+            const cb = tr.querySelector('input[type="checkbox"]');
+            if (data.checked) cb.checked = true;
+        });
+        document.querySelectorAll('.notes').forEach((ta, i) => {
+            if (d[`notes_${i}`]) ta.value = d[`notes_${i}`];
+        });
+    }
+
+    updateProgress();
+});
+
 
     // Theme toggle functionality
     (function(){
