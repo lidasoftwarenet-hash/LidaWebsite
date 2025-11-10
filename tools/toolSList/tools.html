@@ -23,45 +23,105 @@
       line-height: 1.6;
     }
 
-    /* Header */
+  
+
+
+    /* Header - promptPilot style */
     .header {
-      background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2.5rem 0;
-      margin-bottom: 3rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin: 22px auto 18px auto; /* center and make narrower */
+      max-width: 900px; /* narrower header box */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
-
-    .header-content {
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0 4rem;
-    }
-
-    .logo {
+    .header-left {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 20px;
+      flex: 1;
+      justify-content: center; /* center title horizontally */
     }
-
-    .logo-icon {
-      font-size: 3.5rem;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    .header-logo {
+      width: 55px;
+      height: auto;
+      margin-right: 10px;
     }
-
-    .title {
-      font-size: 2.75rem;
+    .header-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .header-title {
+      font-size: 2.1rem;
       font-weight: 800;
-      color: #ffffff;
+      color: #1e293b;
+      margin-bottom: 2px;
       letter-spacing: -0.025em;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
-
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 1.125rem;
+    .header-subtitle {
+      color: #64748b;
+      font-size: 1.1rem;
       font-weight: 500;
-      margin-top: 0.5rem;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: absolute; /* keep branding pinned to the right */
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .lida-branding {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 25px;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+      border: 2px solid #6366f1;
+      border-radius: 10px;
+    }
+    .lida-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      white-space: nowrap;
+    }
+    .lida-logo {
+      width: 65px;
+      height: auto;
+    }
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px;
+      }
+      .header-left {
+        justify-content: center;
+      }
+      .header-right {
+        position: static; /* reset absolute positioning on small screens */
+        transform: none;
+        justify-content: center;
+        margin-top: 12px;
+      }
+      .lida-branding {
+        padding: 12px 16px;
+        gap: 10px;
+      }
+      .header-title {
+        font-size: 1.5rem;
+      }
+      .header-subtitle {
+        font-size: 1rem;
+      }
     }
 
     /* Stats Bar */
@@ -69,23 +129,23 @@
       max-width: 100%;
       margin: 0 auto 3rem;
       padding: 0 4rem;
-      display: flex;
+      display: flexbox;
       gap: 4rem;
     }
 
     .stat {
-      text-align: left;
+      text-align: center;
     }
 
     .stat-value {
-      font-size: 2.5rem;
+      font-size: 2.0rem;
       font-weight: 800;
-      color: #60a5fa;
+      color: #012e65;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .stat-label {
-      color: #94a3b8;
+      color: #000000;
       font-size: 0.875rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -411,8 +471,8 @@
         padding-right: 1.5rem;
       }
 
-      .title {
-        font-size: 2rem;
+      .titl {
+        font-size: 15px
       }
 
       .subtitle {
@@ -441,21 +501,110 @@
         gap: 2rem;
       }
     }
+
+    /* Footer styles - improved visual footer */
+    .footer {
+      margin-top: 3rem;
+      background: linear-gradient(180deg, rgba(15,23,42,0.06), rgba(37,99,235,0.02));
+      border-top: 1px solid rgba(255,255,255,0.03);
+      padding: 2rem 0;
+      color: #cbd5e1;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .footer-brand {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .footer-brand .logo-icon { font-size: 1.6rem; }
+
+    /* Title and subtitle on same line */
+    .footer-brand .brand-text {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-title { font-weight: 700; color: #ffffff; font-size: 1.05rem; }
+    .footer-sub { font-size: 0.95rem; color: #94a3b8; opacity: 0.95; }
+
+  .footer-meta { margin-left: 0.5rem; font-size: 0.9rem; color: #94a3b8; margin-top: 0.5rem; }
+
+  /* Ensure nav and CTA sit under the brand/meta on a dedicated row */
+  .footer-right { display: flex; gap: 1rem; align-items: center; width: 100%; justify-content: center; margin-top: 0.75rem; }
+
+    .footer-links { display: flex; gap: 0.75rem; align-items: center; }
+    .footer-link { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 0.9rem; opacity: 0.9; }
+    .footer-link:hover { color: #ffffff; text-decoration: underline; }
+
+    .btn-discover {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(37,99,235,0.18);
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .btn-discover:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(37,99,235,0.22); }
+
+    .footer-copy { font-size: 0.9rem; color: #94a3b8; }
+    .footer-version { font-size: 0.85rem; color: #94a3b8; margin-top: 0.15rem; }
+
+    @media (max-width: 600px) {
+      .footer-content { padding-left: 1rem; padding-right: 1rem; }
+      .footer-left { width: 100%; gap: 0.75rem; }
+      .footer-right { width: 100%; justify-content: space-between; margin-top: 0.75rem; }
+      .footer-meta { display: block; }
+      .footer-brand .brand-text { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+    }
   </style>
+   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Header -->
-  <header class="header">
-    <div class="header-content">
-      <div class="logo">
-        <span class="logo-icon">🧰</span>
-        <div>
-          <h1 class="title">LiDa Dev Toolbox</h1>
-          <p class="subtitle">Professional developer tools and resources</p>
-        </div>
+  <div class="header">
+    <div class="header-left">
+
+      <div>
+        <h1 class="titl">LiDa Dev Toolbox</h1>
+        <p class="subtitle">Professional developer tools and resources</p>
       </div>
     </div>
-  </header>
+    <div class="header-right">
+      <div class="lida-branding">
+        <span class="lida-text">By Lida Software</span>
+        <img src="/tools/promptPilot/logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+      </div>
+    </div>
+  </div>
 
   <!-- Stats Bar -->
   <div class="stats-bar">
@@ -481,7 +630,7 @@
       >
     </div>
     <select id="categoryFilter">
-      <option value="">📂 All Categories</option>
+      <option value="">🗃️ All Categories</option>
     </select>
     <select id="pricingFilter">
       <option value="">💵 All Pricing</option>
@@ -495,6 +644,17 @@
   <div class="tools-grid" id="toolsContainer">
     <div class="loading">Loading tools...</div>
   </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa Dev Toolbox. All rights reserved to LiDa Software</p>
+        <p class="footer-version">Version 1.0.1 | Made with ❤️ for productivity enthusiasts</p>
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            <span class="material-symbols-outlined">explore</span>
+            Discover More Features
+        </a>
+    </div>
+  </footer>
 
   <script>
     let tools = [];
@@ -516,21 +676,22 @@
 
         // Fill categories in dropdown with icons
         const categoryIcons = {
-          'AI & Coding Assistants': '🤖',
-          'IDE & Code Editors': '💻',
-          'Version Control': '🔀',
-          'Testing & QA': '🧪',
-          'DevOps & CI/CD': '⚙️',
-          'Database Tools': '🗄️',
-          'API Development': '🔌',
-          'Design & Prototyping': '🎨',
-          'Project Management': '📋',
-          'Documentation': '📚',
-          'Security': '🔒',
-          'Monitoring & Analytics': '📊',
-          'Cloud Services': '☁️',
-          'Collaboration': '👥'
-        };
+  'AI & Coding Assistants': '🤖',
+  'AI & Productivity Tools': '🧠',
+  'API Development & Testing': '🧪',
+  'Browser Dev Tools & Extensions': '🧩',
+  'Cloud & DevOps Tools': '☁️',
+  'Databases & ORMs': '🗄️',
+  'Documentation & Knowledge Tools': '📘',
+  'IDE & Code Editors': '💻',
+  'Monitoring & Analytics Tools': '📊',
+  'Search & Indexing Tools': '🔍',
+  'Security & Authentication Tools': '🔐',
+  'Testing & QA Tools': '🧾',
+  'UI & Design Tools': '🎨',
+  'Version Control & Collaboration': '🔧'
+};
+
         
         categories.sort().forEach(cat => {
           const opt = document.createElement('option');
