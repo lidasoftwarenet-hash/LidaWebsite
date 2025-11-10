@@ -1,0 +1,2257 @@
+ [
+    {
+      "category": "AI & Coding Assistants",
+      "name": "GitHub Copilot",
+      "description": "AI-powered code completion tool developed by GitHub and OpenAI that suggests full lines or entire functions inside supported editors.",
+      "useCase": "Code completion, boilerplate generation, in-line suggestions.",
+      "url": "https://github.com/features/copilot",
+      "tags": ["ai", "assistant", "completion", "vscode", "jetbrains"],
+      "pricing": "Paid"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Tabnine",
+      "description": "AI coding assistant that learns your codebase and provides intelligent completions with an emphasis on privacy and local models.",
+      "useCase": "Smart auto-completion, faster coding with team-trained AI models.",
+      "url": "https://www.tabnine.com",
+      "tags": ["ai", "autocomplete", "team", "productivity"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Cursor IDE",
+      "description": "An AI-native IDE that deeply integrates language models to assist in code generation, debugging, and refactoring.",
+      "useCase": "AI-driven code navigation, refactor suggestions, and rapid iteration.",
+      "url": "https://cursor.com",
+      "tags": ["ai", "ide", "editor", "automation"],
+      "pricing": "Free"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Sourcegraph Cody",
+      "description": "A powerful AI code assistant for enterprise-level codebases, enabling context-aware completions and large-scale refactoring.",
+      "useCase": "Code search, repo understanding, automated refactoring.",
+      "url": "https://about.sourcegraph.com/cody",
+      "tags": ["ai", "enterprise", "search", "refactor"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Codeium",
+      "description": "Free AI code assistant that provides smart suggestions, explanations, and code documentation across multiple languages.",
+      "useCase": "Code completion, documentation generation, explanation.",
+      "url": "https://codeium.com",
+      "tags": ["ai", "multi-language", "documentation", "free"],
+      "pricing": "Free"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Replit Ghostwriter",
+      "description": "Replit's built-in AI assistant that helps write, debug, and explain code directly in the browser IDE.",
+      "useCase": "Browser-based prototyping and AI pair programming.",
+      "url": "https://replit.com",
+      "tags": ["ai", "browser", "ide", "pair-programming"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "Claude Code",
+      "description": "Anthropic’s AI coding assistant that understands broad project context and assists with code writing and explanations.",
+      "useCase": "Code generation, bug fixing, context-aware assistance.",
+      "url": "https://www.anthropic.com/claude",
+      "tags": ["ai", "anthropic", "assistant", "claude"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "AI & Coding Assistants",
+      "name": "JetBrains AI Assistant",
+      "description": "An integrated AI assistant for JetBrains IDEs that provides code suggestions, explanations, and test generation.",
+      "useCase": "AI assistance directly inside IntelliJ, WebStorm, and other JetBrains IDEs.",
+      "url": "https://www.jetbrains.com/ai/",
+      "tags": ["ai", "jetbrains", "intellij", "plugin"],
+      "pricing": "Freemium"
+    },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "OpenAI Codex",
+        "description": "The language-to-code model that powers many modern AI coding tools, capable of translating natural language into functional code.",
+        "useCase": "Generate code from text prompts or natural language queries.",
+        "url": "https://openai.com/research/codex",
+        "tags": ["ai", "openai", "codex", "language-model"],
+        "pricing": "Paid"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Amazon CodeWhisperer",
+        "description": "Amazon’s AI code generator that integrates with IDEs to provide code completions and security scanning for AWS developers.",
+        "useCase": "Generate code for AWS services, scan for vulnerabilities.",
+        "url": "https://aws.amazon.com/codewhisperer/",
+        "tags": ["ai", "aws", "security", "autocomplete"],
+        "pricing": "Freemium"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Blackbox AI",
+        "description": "AI tool that enables developers to copy code snippets from videos, generate code, and perform smart search across repos.",
+        "useCase": "Search, extract, and generate code using AI.",
+        "url": "https://www.useblackbox.io/",
+        "tags": ["ai", "search", "snippets", "productivity"],
+        "pricing": "Freemium"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Aider",
+        "description": "An open-source command-line tool that lets you talk to your codebase using GPT models and apply changes automatically.",
+        "useCase": "Chat-driven code refactoring and CLI-based code edits.",
+        "url": "https://aider.chat/",
+        "tags": ["ai", "cli", "open-source", "gpt"],
+        "pricing": "Free"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Continue.dev",
+        "description": "An open-source VSCode and JetBrains extension that adds ChatGPT-like chat capabilities directly into the IDE.",
+        "useCase": "Inline chatting, refactoring, and quick AI Q&A inside IDE.",
+        "url": "https://continue.dev/",
+        "tags": ["ai", "extension", "opensource", "chat"],
+        "pricing": "Free"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Pieces for Developers",
+        "description": "AI productivity suite that captures, organizes, and retrieves useful code snippets and resources automatically.",
+        "useCase": "Code snippet management and intelligent context retrieval.",
+        "url": "https://pieces.app/",
+        "tags": ["ai", "snippets", "productivity", "context"],
+        "pricing": "Freemium"
+      },
+      {
+        "category": "AI & Coding Assistants",
+        "name": "Zed AI Assistant",
+        "description": "A collaborative AI-powered code editor designed for speed, pair programming, and real-time AI help.",
+        "useCase": "Collaborative coding, real-time AI completions, pair sessions.",
+        "url": "https://zed.dev/",
+        "tags": ["ai", "editor", "collaboration", "pair-programming"],
+        "pricing": "Free"
+      },
+      {
+        "category": "IDE & Code Editors",
+        "name": "Visual Studio Code",
+        "description": "Lightweight, open-source editor from Microsoft with strong extension support and integrated Git tools.",
+        "useCase": "Web development, TypeScript, Node.js, Python, and general coding.",
+        "url": "https://code.visualstudio.com/",
+        "tags": ["ide", "editor", "typescript", "web", "open-source"],
+        "pricing": "Free"
+      },
+        {
+          "category": "IDE & Code Editors",
+          "name": "IntelliJ IDEA",
+          "description": "Professional Java IDE by JetBrains with deep integration for Spring, Maven, Gradle, and enterprise frameworks.",
+          "useCase": "Backend development in Java, Kotlin, and enterprise environments.",
+          "url": "https://www.jetbrains.com/idea/",
+          "tags": ["ide", "java", "spring", "enterprise"],
+          "pricing": "Freemium"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "WebStorm",
+          "description": "JetBrains IDE focused on modern web development, supporting React, Angular, Vue, and Node.js.",
+          "useCase": "Frontend and full-stack JavaScript/TypeScript development.",
+          "url": "https://www.jetbrains.com/webstorm/",
+          "tags": ["ide", "frontend", "react", "angular", "vue"],
+          "pricing": "Paid"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "PyCharm",
+          "description": "JetBrains IDE tailored for Python with debugging, data science, and web frameworks integration.",
+          "useCase": "Python web and data science development.",
+          "url": "https://www.jetbrains.com/pycharm/",
+          "tags": ["python", "django", "flask", "data-science"],
+          "pricing": "Freemium"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Rider",
+          "description": "JetBrains IDE for .NET developers supporting C#, ASP.NET, Unity, and cross-platform solutions.",
+          "useCase": ".NET and C# development with full-stack tooling.",
+          "url": "https://www.jetbrains.com/rider/",
+          "tags": [".net", "csharp", "unity", "cross-platform"],
+          "pricing": "Paid"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "GoLand",
+          "description": "IDE for Go developers with debugging, refactoring, and integration with Docker and Kubernetes.",
+          "useCase": "Building and testing Go applications efficiently.",
+          "url": "https://www.jetbrains.com/go/",
+          "tags": ["golang", "jetbrains", "backend"],
+          "pricing": "Paid"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Android Studio",
+          "description": "Official IDE for Android app development, powered by IntelliJ IDEA with Android SDK integration.",
+          "useCase": "Mobile app development for Android and Kotlin/Java apps.",
+          "url": "https://developer.android.com/studio",
+          "tags": ["android", "mobile", "java", "kotlin"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Xcode",
+          "description": "Apple’s official IDE for macOS and iOS development with Swift and Objective-C support.",
+          "useCase": "Building iPhone, iPad, and macOS apps.",
+          "url": "https://developer.apple.com/xcode/",
+          "tags": ["ios", "macos", "swift", "objective-c"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Sublime Text",
+          "description": "Fast and customizable text editor with multi-selection, macros, and rich plugin ecosystem.",
+          "useCase": "Lightweight coding and quick script editing.",
+          "url": "https://www.sublimetext.com/",
+          "tags": ["editor", "lightweight", "multi-language"],
+          "pricing": "Paid"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Atom",
+          "description": "Open-source editor by GitHub with collaborative features and high extensibility.",
+          "useCase": "Open-source projects, web and Markdown editing.",
+          "url": "https://atom.io/",
+          "tags": ["open-source", "customizable", "web"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Eclipse",
+          "description": "Classic open-source IDE with strong Java support and plugins for C/C++ and web.",
+          "useCase": "Enterprise Java and plugin-based projects.",
+          "url": "https://www.eclipse.org/",
+          "tags": ["java", "enterprise", "plugins"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "NetBeans",
+          "description": "Apache IDE supporting Java, PHP, and C++ with Maven integration and visual tools.",
+          "useCase": "Full-stack Java and web development.",
+          "url": "https://netbeans.apache.org/",
+          "tags": ["java", "php", "web"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Vim",
+          "description": "Highly configurable terminal-based text editor popular among developers for speed and flexibility.",
+          "useCase": "Command-line coding and editing on Linux systems.",
+          "url": "https://www.vim.org/",
+          "tags": ["cli", "text-editor", "linux"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Neovim",
+          "description": "An improved version of Vim with modern plugin system and better scripting APIs.",
+          "useCase": "Lightweight customizable development on terminal.",
+          "url": "https://neovim.io/",
+          "tags": ["cli", "text-editor", "vim"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Fleet",
+          "description": "JetBrains' next-generation IDE with collaborative features and cloud integration.",
+          "useCase": "Remote pair programming and lightweight coding with AI support.",
+          "url": "https://www.jetbrains.com/fleet/",
+          "tags": ["jetbrains", "collaboration", "cloud"],
+          "pricing": "Freemium"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Brackets",
+          "description": "Open-source code editor focused on web design and live preview for front-end developers.",
+          "useCase": "HTML, CSS, and JavaScript editing with instant preview.",
+          "url": "http://brackets.io/",
+          "tags": ["frontend", "css", "web", "opensource"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Komodo IDE",
+          "description": "Multi-language IDE with strong debugging and version control support.",
+          "useCase": "Cross-language development and debugging.",
+          "url": "https://www.activestate.com/products/komodo-ide/",
+          "tags": ["multi-language", "debugging", "vcs"],
+          "pricing": "Paid"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "TextMate",
+          "description": "macOS text editor for code, markup, and prose with bundle system for languages.",
+          "useCase": "Light editing and quick script adjustments on macOS.",
+          "url": "https://macromates.com/",
+          "tags": ["macos", "text-editor", "lightweight"],
+          "pricing": "Free"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "BBEdit",
+          "description": "Professional text editor for macOS focused on performance, syntax highlighting, and automation.",
+          "useCase": "Text manipulation and professional editing on macOS.",
+          "url": "https://www.barebones.com/products/bbedit/",
+          "tags": ["macos", "editor", "text"],
+          "pricing": "Freemium"
+        },
+        {
+          "category": "IDE & Code Editors",
+          "name": "Light Table",
+          "description": "Interactive IDE for rapid prototyping and real-time feedback during development.",
+          "useCase": "Experimenting and visualizing live code execution.",
+          "url": "http://lighttable.com/",
+          "tags": ["realtime", "prototype", "interactive"],
+          "pricing": "Free"
+        }
+        ,
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "React Developer Tools",
+            "description": "Official Chrome and Firefox extension for inspecting the React component tree and hooks.",
+            "useCase": "Debugging and profiling React apps directly in the browser.",
+            "url": "https://react.dev/tools",
+            "tags": ["react", "debug", "extension", "chrome"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Redux DevTools",
+            "description": "Debug and inspect application state changes in Redux stores.",
+            "useCase": "Track dispatched actions and visualize state transitions.",
+            "url": "https://github.com/reduxjs/redux-devtools",
+            "tags": ["redux", "debug", "state"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Vue.js Devtools",
+            "description": "Official Vue.js extension for debugging and visualizing Vue components and reactivity.",
+            "useCase": "Inspect props, data, events, and performance in Vue applications.",
+            "url": "https://devtools.vuejs.org/",
+            "tags": ["vue", "frontend", "debug"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Angular DevTools",
+            "description": "Official Angular debugging extension to profile and visualize component structure.",
+            "useCase": "Inspect Angular apps and track change detection cycles.",
+            "url": "https://angular.io/guide/devtools",
+            "tags": ["angular", "debug", "chrome", "profiling"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Svelte DevTools",
+            "description": "Inspect and debug Svelte components, reactivity, and state management in the browser.",
+            "useCase": "Component visualization and real-time state debugging.",
+            "url": "https://github.com/sveltejs/svelte-devtools",
+            "tags": ["svelte", "debug", "frontend"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "JSON Formatter",
+            "description": "Chrome extension that formats and highlights JSON data directly in the browser.",
+            "useCase": "View raw API responses and pretty-print JSON.",
+            "url": "https://chrome.google.com/webstore/detail/json-formatter/cgdnblomoeddcoddmgmljhigfijhgoha",
+            "tags": ["json", "api", "formatter"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Lighthouse",
+            "description": "Built-in Chrome tool for analyzing web performance, accessibility, and SEO best practices.",
+            "useCase": "Auditing and optimizing site performance and quality.",
+            "url": "https://developer.chrome.com/docs/lighthouse/overview/",
+            "tags": ["performance", "seo", "accessibility"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Wappalyzer",
+            "description": "Browser extension that detects technologies used on any website.",
+            "useCase": "Identify frameworks, CMS, analytics tools, and hosting providers.",
+            "url": "https://www.wappalyzer.com/",
+            "tags": ["analytics", "cms", "frameworks", "security"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "WhatRuns",
+            "description": "Lightweight alternative to Wappalyzer that shows technologies behind websites.",
+            "useCase": "Quick tech stack insights for competitive analysis.",
+            "url": "https://www.whatruns.com/",
+            "tags": ["tech-stack", "web", "analyzer"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Page Ruler Redux",
+            "description": "Simple measurement tool for web designers to measure pixel distances on web pages.",
+            "useCase": "Measure element dimensions and positioning visually.",
+            "url": "https://chrome.google.com/webstore/detail/page-ruler-redux/giejhjebcalaheckengmchjekofhhmdj",
+            "tags": ["design", "ui", "measurement"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "ColorZilla",
+            "description": "Color picker and eyedropper tool for web designers, available as a Chrome and Firefox extension.",
+            "useCase": "Extract and manage colors from web pages easily.",
+            "url": "https://www.colorzilla.com/",
+            "tags": ["design", "color", "ui"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Responsive Viewer",
+            "description": "View multiple responsive layouts of a website simultaneously in the same browser window.",
+            "useCase": "Test website responsiveness and breakpoints quickly.",
+            "url": "https://chrome.google.com/webstore/detail/responsive-viewer/inmopefhhbheeiccagieejkmlbcnkmoj",
+            "tags": ["responsive", "testing", "frontend"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Web Developer",
+            "description": "Extension that adds various web development tools such as disabling scripts, resizing windows, and inspecting forms.",
+            "useCase": "Quick front-end debugging and UI inspection.",
+            "url": "https://chrispederick.com/work/web-developer/",
+            "tags": ["frontend", "debug", "css", "accessibility"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "EditThisCookie",
+            "description": "Cookie manager for Chrome that allows viewing, editing, and exporting cookies.",
+            "useCase": "Manage browser cookies for development and debugging.",
+            "url": "https://www.editthiscookie.com/",
+            "tags": ["cookies", "security", "debug"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "AdGuard AdBlocker",
+            "description": "Advanced ad blocker and privacy protection tool for browsers.",
+            "useCase": "Remove ads, pop-ups, and trackers to focus on testing and browsing.",
+            "url": "https://adguard.com/",
+            "tags": ["privacy", "adblock", "security"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "User-Agent Switcher",
+            "description": "Easily switch between user agents to simulate different devices and browsers.",
+            "useCase": "Test site behavior on various devices without leaving your desktop.",
+            "url": "https://chrome.google.com/webstore/detail/user-agent-switcher/",
+            "tags": ["testing", "browser", "mobile"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Accessibility Insights",
+            "description": "Microsoft extension that helps developers identify and fix accessibility issues in web apps.",
+            "useCase": "Accessibility testing and compliance validation (WCAG/ARIA).",
+            "url": "https://accessibilityinsights.io/",
+            "tags": ["accessibility", "testing", "wcag"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Browser Dev Tools & Extensions",
+            "name": "Loom",
+            "description": "Screen recorder extension for instantly sharing visual feedback or bug reports.",
+            "useCase": "Record and share visual explanations, bug demos, or tutorials.",
+            "url": "https://www.loom.com/",
+            "tags": ["recording", "communication", "team"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Postman",
+            "description": "Industry-standard platform for designing, testing, and documenting APIs with collections, environments, and mock servers.",
+            "useCase": "REST API development, automated testing, and collaboration.",
+            "url": "https://www.postman.com/",
+            "tags": ["api", "testing", "rest", "mock"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Insomnia",
+            "description": "Lightweight API client supporting REST, GraphQL, and gRPC with code generation and team sharing features.",
+            "useCase": "Test and debug APIs with a clean UI and environment management.",
+            "url": "https://insomnia.rest/",
+            "tags": ["rest", "graphql", "grpc", "testing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Hoppscotch",
+            "description": "Open-source, browser-based API client for testing REST, GraphQL, and WebSocket endpoints.",
+            "useCase": "Fast, lightweight alternative to Postman, directly in the browser.",
+            "url": "https://hoppscotch.io/",
+            "tags": ["rest", "graphql", "opensource", "websocket"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Swagger Editor",
+            "description": "Online OpenAPI editor for defining and validating API contracts visually.",
+            "useCase": "Design OpenAPI/Swagger specs and generate server/client stubs.",
+            "url": "https://swagger.io/tools/swagger-editor/",
+            "tags": ["openapi", "swagger", "specification", "design"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "RapidAPI",
+            "description": "API marketplace with thousands of APIs and built-in testing and subscription management.",
+            "useCase": "Discover, connect, and manage APIs in one place.",
+            "url": "https://rapidapi.com/",
+            "tags": ["api", "marketplace", "testing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Apidog",
+            "description": "All-in-one API collaboration platform combining design, documentation, testing, and mocking.",
+            "useCase": "Collaborative API management and workflow automation.",
+            "url": "https://apidog.com/",
+            "tags": ["api", "testing", "mocking", "team"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Paw",
+            "description": "Native macOS API client with an advanced GUI and code generator for multiple languages.",
+            "useCase": "Design, test, and generate code snippets for REST and GraphQL APIs.",
+            "url": "https://paw.cloud/",
+            "tags": ["macos", "rest", "graphql", "testing"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "ReqBin",
+            "description": "Online REST and SOAP API testing tool with instant HTTP request preview.",
+            "useCase": "Quick online HTTP request testing without installation.",
+            "url": "https://reqbin.com/",
+            "tags": ["rest", "soap", "testing", "online"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "SoapUI",
+            "description": "Comprehensive tool for functional and load testing of SOAP and REST APIs.",
+            "useCase": "Enterprise-level testing of SOAP and REST endpoints.",
+            "url": "https://www.soapui.org/",
+            "tags": ["soap", "rest", "testing", "enterprise"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Kreya",
+            "description": "Modern gRPC and GraphQL client with workspace sync and environment variables.",
+            "useCase": "Simplify gRPC/GraphQL workflows and collaborate across teams.",
+            "url": "https://kreya.app/",
+            "tags": ["grpc", "graphql", "client", "testing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "HTTPie",
+            "description": "Command-line HTTP client with user-friendly syntax and JSON support.",
+            "useCase": "CLI-based REST testing and automation.",
+            "url": "https://httpie.io/",
+            "tags": ["cli", "rest", "testing", "automation"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Curl",
+            "description": "Classic command-line tool for making HTTP requests, used for testing APIs and scripts.",
+            "useCase": "Low-level HTTP request testing and scripting.",
+            "url": "https://curl.se/",
+            "tags": ["cli", "http", "testing"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Postwoman Legacy",
+            "description": "Legacy open-source version of Hoppscotch with core REST testing features.",
+            "useCase": "Simple REST API testing directly from the browser.",
+            "url": "https://postwoman.io/",
+            "tags": ["rest", "testing", "opensource"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Mockoon",
+            "description": "Desktop tool for mocking REST APIs with local servers and response simulation.",
+            "useCase": "Create mock APIs for front-end and integration testing.",
+            "url": "https://mockoon.com/",
+            "tags": ["mock", "api", "testing", "desktop"],
+            "pricing": "Free"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Beeceptor",
+            "description": "Online mock server and request inspector for testing API integrations.",
+            "useCase": "Debug webhooks and inspect HTTP requests in real time.",
+            "url": "https://beeceptor.com/",
+            "tags": ["mock", "webhooks", "testing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Stoplight Studio",
+            "description": "Visual OpenAPI editor and documentation generator for teams.",
+            "useCase": "Design, mock, and document APIs collaboratively.",
+            "url": "https://stoplight.io/studio/",
+            "tags": ["openapi", "mocking", "docs"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "API Development & Testing",
+            "name": "Thunder Client",
+            "description": "VSCode extension for lightweight API testing and debugging.",
+            "useCase": "Test REST APIs directly inside VSCode.",
+            "url": "https://www.thunderclient.com/",
+            "tags": ["vscode", "rest", "testing"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Docker",
+            "description": "Platform for building, running, and shipping applications in lightweight containers.",
+            "useCase": "Containerization and deployment of applications across environments.",
+            "url": "https://www.docker.com/",
+            "tags": ["containers", "devops", "deployment"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Kubernetes",
+            "description": "Open-source orchestration system for automating deployment, scaling, and management of containerized applications.",
+            "useCase": "Container orchestration and automated scaling of cloud workloads.",
+            "url": "https://kubernetes.io/",
+            "tags": ["containers", "orchestration", "cloud"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Jenkins",
+            "description": "Open-source automation server used to build, test, and deploy software continuously.",
+            "useCase": "CI/CD pipeline automation and integration with multiple SCM tools.",
+            "url": "https://www.jenkins.io/",
+            "tags": ["ci-cd", "automation", "integration"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "GitHub Actions",
+            "description": "Integrated CI/CD platform that automates build, test, and deployment workflows directly within GitHub.",
+            "useCase": "Automate builds and deployments inside GitHub repositories.",
+            "url": "https://github.com/features/actions",
+            "tags": ["ci-cd", "github", "automation"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "GitLab CI/CD",
+            "description": "Built-in continuous integration and deployment system inside GitLab for automated testing and delivery.",
+            "useCase": "End-to-end CI/CD workflows for repositories hosted on GitLab.",
+            "url": "https://docs.gitlab.com/ee/ci/",
+            "tags": ["ci-cd", "gitlab", "automation"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "CircleCI",
+            "description": "Cloud-based CI/CD platform that automates software testing and deployment pipelines.",
+            "useCase": "Build and deploy applications faster with parallel workflows.",
+            "url": "https://circleci.com/",
+            "tags": ["ci-cd", "cloud", "testing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Travis CI",
+            "description": "Continuous integration service used to build and test software projects hosted on GitHub.",
+            "useCase": "Automate testing and deployment for open-source projects.",
+            "url": "https://www.travis-ci.com/",
+            "tags": ["ci-cd", "testing", "opensource"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Terraform",
+            "description": "Infrastructure as Code tool that enables building, changing, and versioning infrastructure safely and efficiently.",
+            "useCase": "Automate cloud resource provisioning using declarative configuration.",
+            "url": "https://www.terraform.io/",
+            "tags": ["iac", "infrastructure", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Ansible",
+            "description": "Open-source IT automation tool for configuration management, application deployment, and orchestration.",
+            "useCase": "Automate repetitive IT tasks and manage configurations across servers.",
+            "url": "https://www.ansible.com/",
+            "tags": ["automation", "configuration", "deployment"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Pulumi",
+            "description": "Modern Infrastructure as Code platform using programming languages like TypeScript and Python.",
+            "useCase": "Manage infrastructure with real code instead of domain-specific languages.",
+            "url": "https://www.pulumi.com/",
+            "tags": ["iac", "cloud", "infrastructure"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "HashiCorp Vault",
+            "description": "Tool for securely managing secrets, tokens, and credentials in modern infrastructure.",
+            "useCase": "Centralized secrets management and encryption for cloud environments.",
+            "url": "https://www.vaultproject.io/",
+            "tags": ["security", "secrets", "encryption"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Prometheus",
+            "description": "Open-source monitoring system and time-series database for metrics collection and alerting.",
+            "useCase": "Monitor infrastructure, collect metrics, and trigger alerts.",
+            "url": "https://prometheus.io/",
+            "tags": ["monitoring", "metrics", "opensource"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Grafana",
+            "description": "Visualization and analytics tool for dashboards that integrate with Prometheus, InfluxDB, and more.",
+            "useCase": "Create real-time dashboards for metrics and logs monitoring.",
+            "url": "https://grafana.com/",
+            "tags": ["monitoring", "dashboards", "analytics"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Datadog",
+            "description": "Cloud monitoring platform for logs, metrics, and APM with extensive integrations.",
+            "useCase": "Monitor applications and infrastructure performance in real time.",
+            "url": "https://www.datadoghq.com/",
+            "tags": ["monitoring", "logging", "cloud"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "AWS CloudFormation",
+            "description": "Service for modeling and setting up AWS resources using templates for repeatable deployments.",
+            "useCase": "Automate AWS infrastructure creation and updates as code.",
+            "url": "https://aws.amazon.com/cloudformation/",
+            "tags": ["aws", "iac", "cloud"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Google Cloud Build",
+            "description": "Google's serverless CI/CD platform for building and deploying containerized applications.",
+            "useCase": "Automate builds and deployments on Google Cloud infrastructure.",
+            "url": "https://cloud.google.com/build",
+            "tags": ["gcp", "ci-cd", "containers"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "Azure DevOps",
+            "description": "Microsoft’s suite for project management, CI/CD pipelines, and cloud hosting integration.",
+            "useCase": "Manage software delivery pipelines and collaboration on Azure.",
+            "url": "https://azure.microsoft.com/en-us/services/devops/",
+            "tags": ["azure", "ci-cd", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Cloud & DevOps Tools",
+            "name": "NGINX",
+            "description": "High-performance web server and reverse proxy used for load balancing and serving web applications.",
+            "useCase": "Deploy and scale web applications efficiently.",
+            "url": "https://nginx.org/",
+            "tags": ["server", "reverse-proxy", "load-balancing"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "MySQL",
+            "description": "One of the most popular open-source relational databases known for reliability and simplicity.",
+            "useCase": "Web applications, transactional systems, and general-purpose data storage.",
+            "url": "https://www.mysql.com/",
+            "tags": ["database", "sql", "relational", "open-source"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "PostgreSQL",
+            "description": "Advanced open-source relational database with strong ACID compliance and JSONB support.",
+            "useCase": "Enterprise-grade applications, APIs, and analytics systems.",
+            "url": "https://www.postgresql.org/",
+            "tags": ["database", "sql", "postgres", "open-source"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "SQLite",
+            "description": "Lightweight, self-contained database engine that stores data in a single file.",
+            "useCase": "Local apps, embedded systems, and prototypes.",
+            "url": "https://www.sqlite.org/",
+            "tags": ["database", "embedded", "local", "lightweight"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "MongoDB",
+            "description": "Document-oriented NoSQL database for flexible and scalable data storage.",
+            "useCase": "Applications requiring unstructured or semi-structured data.",
+            "url": "https://www.mongodb.com/",
+            "tags": ["nosql", "database", "document", "scalable"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Redis",
+            "description": "In-memory data store used as a database, cache, and message broker.",
+            "useCase": "Caching, real-time analytics, and pub/sub messaging.",
+            "url": "https://redis.io/",
+            "tags": ["cache", "in-memory", "nosql"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "MariaDB",
+            "description": "Community-developed fork of MySQL, offering performance and licensing advantages.",
+            "useCase": "Drop-in replacement for MySQL in production systems.",
+            "url": "https://mariadb.org/",
+            "tags": ["database", "sql", "mysql", "open-source"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Cassandra",
+            "description": "Highly scalable NoSQL database optimized for high availability and big data workloads.",
+            "useCase": "Distributed applications and analytics at scale.",
+            "url": "https://cassandra.apache.org/",
+            "tags": ["nosql", "distributed", "big-data"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Firebase Realtime Database",
+            "description": "Google’s cloud-hosted NoSQL database for building real-time apps.",
+            "useCase": "Sync data across clients instantly for chat and collaborative tools.",
+            "url": "https://firebase.google.com/",
+            "tags": ["nosql", "realtime", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Supabase",
+            "description": "Open-source Firebase alternative built on PostgreSQL with real-time features and authentication.",
+            "useCase": "Full-stack applications needing instant APIs and authentication.",
+            "url": "https://supabase.com/",
+            "tags": ["postgres", "auth", "backend", "realtime"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Prisma ORM",
+            "description": "Next-generation ORM for Node.js and TypeScript with auto-generated queries and type safety.",
+            "useCase": "Simplify database access in TypeScript and Node.js applications.",
+            "url": "https://www.prisma.io/",
+            "tags": ["orm", "typescript", "nodejs"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "TypeORM",
+            "description": "Popular ORM for TypeScript and JavaScript supporting multiple SQL databases.",
+            "useCase": "Integrate database logic seamlessly in NestJS or Express apps.",
+            "url": "https://typeorm.io/",
+            "tags": ["orm", "typescript", "sql"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Sequelize",
+            "description": "Promise-based Node.js ORM supporting MySQL, PostgreSQL, and SQLite.",
+            "useCase": "Build REST APIs and manage relational data in Node.js.",
+            "url": "https://sequelize.org/",
+            "tags": ["orm", "nodejs", "sql"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Drizzle ORM",
+            "description": "Lightweight TypeScript ORM with SQL-first approach and schema-safe migrations.",
+            "useCase": "Modern database layer for TypeScript projects.",
+            "url": "https://orm.drizzle.team/",
+            "tags": ["orm", "typescript", "migrations"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "PlanetScale",
+            "description": "Serverless MySQL-compatible database built on Vitess for massive scalability.",
+            "useCase": "High-scale production systems needing global availability.",
+            "url": "https://planetscale.com/",
+            "tags": ["mysql", "serverless", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "Neon",
+            "description": "Serverless PostgreSQL platform with branching and instant provisioning.",
+            "useCase": "Cloud-native PostgreSQL for fast deployments and testing.",
+            "url": "https://neon.tech/",
+            "tags": ["postgres", "serverless", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "DynamoDB",
+            "description": "AWS fully managed NoSQL database optimized for scalability and low latency.",
+            "useCase": "Serverless apps and enterprise workloads at scale.",
+            "url": "https://aws.amazon.com/dynamodb/",
+            "tags": ["aws", "nosql", "serverless"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "CockroachDB",
+            "description": "Cloud-native distributed SQL database offering strong consistency and automatic failover.",
+            "useCase": "Mission-critical applications needing resilience and global reach.",
+            "url": "https://www.cockroachlabs.com/",
+            "tags": ["sql", "distributed", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Databases & ORMs",
+            "name": "EdgeDB",
+            "description": "Next-generation database combining relational structure with graph queries and a powerful query language.",
+            "useCase": "Complex data modeling and graph-like queries with strong typing.",
+            "url": "https://www.edgedb.com/",
+            "tags": ["sql", "graphql", "modern-db"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Figma",
+            "description": "Web-based collaborative design and prototyping tool for UI/UX teams.",
+            "useCase": "Design interfaces, build prototypes, and collaborate in real time.",
+            "url": "https://www.figma.com/",
+            "tags": ["design", "ui", "prototype", "collaboration"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Adobe XD",
+            "description": "Vector-based design tool for wireframing, prototyping, and UI/UX collaboration.",
+            "useCase": "Design high-fidelity prototypes and interactive mockups.",
+            "url": "https://www.adobe.com/products/xd.html",
+            "tags": ["adobe", "ui", "prototype", "design"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Sketch",
+            "description": "macOS design tool focused on vector graphics and UI prototyping.",
+            "useCase": "Create pixel-perfect interfaces and reusable design systems.",
+            "url": "https://www.sketch.com/",
+            "tags": ["macos", "design", "ui"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Canva",
+            "description": "Drag-and-drop design platform for creating graphics, social media posts, and presentations.",
+            "useCase": "Quickly design visuals without professional tools.",
+            "url": "https://www.canva.com/",
+            "tags": ["graphics", "design", "presentation"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Framer",
+            "description": "Interactive design and prototyping platform with real-time animations and AI support.",
+            "useCase": "Build responsive prototypes with animations and real interactions.",
+            "url": "https://www.framer.com/",
+            "tags": ["prototype", "ai", "design", "ui"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "InVision",
+            "description": "Prototyping and collaboration platform for creating interactive design workflows.",
+            "useCase": "Create clickable prototypes and manage design feedback loops.",
+            "url": "https://www.invisionapp.com/",
+            "tags": ["prototype", "design", "collaboration"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Zeplin",
+            "description": "Design handoff tool that connects designers and developers through shared specs and assets.",
+            "useCase": "Streamline collaboration between design and development teams.",
+            "url": "https://zeplin.io/",
+            "tags": ["handoff", "design", "developer", "collaboration"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Lunacy",
+            "description": "Free design tool by Icons8 compatible with Sketch files and real-time collaboration.",
+            "useCase": "Design and prototype without Figma or Adobe XD.",
+            "url": "https://icons8.com/lunacy",
+            "tags": ["design", "prototype", "icons"],
+            "pricing": "Free"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Penpot",
+            "description": "Open-source design and prototyping platform for teams and developers.",
+            "useCase": "Collaborate on open design projects with developer-friendly features.",
+            "url": "https://penpot.app/",
+            "tags": ["opensource", "ui", "prototype", "team"],
+            "pricing": "Free"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "UXPin",
+            "description": "Advanced design platform for creating fully interactive, code-based prototypes.",
+            "useCase": "Build realistic prototypes using real HTML, CSS, and JavaScript.",
+            "url": "https://www.uxpin.com/",
+            "tags": ["ux", "prototype", "interactive"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Balsamiq",
+            "description": "Low-fidelity wireframing tool that helps visualize app and website layouts quickly.",
+            "useCase": "Create fast, simple wireframes for early-stage projects.",
+            "url": "https://balsamiq.com/",
+            "tags": ["wireframe", "design", "ui"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Marvel",
+            "description": "Browser-based design and prototyping tool with simple collaboration features.",
+            "useCase": "Design and test prototypes quickly in the cloud.",
+            "url": "https://marvelapp.com/",
+            "tags": ["prototype", "cloud", "collaboration"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Whimsical",
+            "description": "Tool for creating flowcharts, wireframes, and mind maps collaboratively.",
+            "useCase": "Visualize ideas and UX flows quickly with teams.",
+            "url": "https://whimsical.com/",
+            "tags": ["flowchart", "wireframe", "ux"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Miro",
+            "description": "Online collaborative whiteboard for brainstorming, wireframing, and agile workflows.",
+            "useCase": "Visual collaboration for product teams and workshops.",
+            "url": "https://miro.com/",
+            "tags": ["collaboration", "whiteboard", "ui"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "FlowMapp",
+            "description": "Tool for UX planning, user flows, and sitemaps.",
+            "useCase": "Visualize and organize user journeys and site architecture.",
+            "url": "https://flowmapp.com/",
+            "tags": ["ux", "sitemap", "user-flow"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Coolors",
+            "description": "Simple tool for generating and managing color palettes.",
+            "useCase": "Create and explore color schemes for design projects.",
+            "url": "https://coolors.co/",
+            "tags": ["color", "palette", "design"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Adobe Illustrator",
+            "description": "Industry-standard vector graphics editor for creating icons, illustrations, and UI components.",
+            "useCase": "Design scalable vector assets and detailed artwork.",
+            "url": "https://www.adobe.com/products/illustrator.html",
+            "tags": ["vector", "illustration", "graphics"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "UI & Design Tools",
+            "name": "Affinity Designer",
+            "description": "Professional vector and raster design software as a one-time purchase alternative to Adobe.",
+            "useCase": "Design UI assets, icons, and illustrations without a subscription.",
+            "url": "https://affinity.serif.com/designer/",
+            "tags": ["design", "vector", "illustration"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "GitHub",
+            "description": "The world’s most popular platform for hosting Git repositories, collaboration, and CI/CD automation.",
+            "useCase": "Manage source code, pull requests, and automated workflows.",
+            "url": "https://github.com/",
+            "tags": ["git", "collaboration", "ci-cd"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "GitLab",
+            "description": "DevOps platform combining Git hosting, CI/CD, and issue tracking in a single application.",
+            "useCase": "Manage code, deploy pipelines, and plan projects collaboratively.",
+            "url": "https://gitlab.com/",
+            "tags": ["git", "devops", "ci-cd"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Bitbucket",
+            "description": "Atlassian’s Git platform integrating tightly with Jira and CI/CD pipelines.",
+            "useCase": "Version control and project management for teams using Jira.",
+            "url": "https://bitbucket.org/",
+            "tags": ["git", "jira", "devops"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "SourceForge",
+            "description": "Open-source project hosting platform offering version control and downloads.",
+            "useCase": "Host and distribute open-source projects to a large community.",
+            "url": "https://sourceforge.net/",
+            "tags": ["opensource", "hosting", "git"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Azure Repos",
+            "description": "Microsoft’s cloud-based Git repository service integrated with Azure DevOps.",
+            "useCase": "Version control with built-in CI/CD and work tracking.",
+            "url": "https://azure.microsoft.com/en-us/services/devops/repos/",
+            "tags": ["git", "azure", "devops"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Gitea",
+            "description": "Lightweight, self-hosted Git service written in Go, offering GitHub-like functionality.",
+            "useCase": "Self-hosted version control for small to medium development teams.",
+            "url": "https://gitea.io/",
+            "tags": ["git", "self-hosted", "opensource"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Gogs",
+            "description": "Minimal, open-source Git service for self-hosted environments.",
+            "useCase": "Deploy a simple and fast Git hosting service privately.",
+            "url": "https://gogs.io/",
+            "tags": ["git", "lightweight", "self-hosted"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Perforce Helix Core",
+            "description": "Version control system optimized for large-scale enterprise projects and binary assets.",
+            "useCase": "Manage massive codebases and digital assets efficiently.",
+            "url": "https://www.perforce.com/products/helix-core",
+            "tags": ["enterprise", "version-control", "binary"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Plastic SCM",
+            "description": "Version control tool designed for game development and large files, integrated with Unity.",
+            "useCase": "Collaborate on Unity and Unreal Engine projects with advanced merging.",
+            "url": "https://www.plasticscm.com/",
+            "tags": ["gamedev", "unity", "version-control"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Phabricator (Deprecated)",
+            "description": "Formerly a full suite for code review, task management, and CI integration.",
+            "useCase": "Legacy projects and teams that still use the old Phabricator stack.",
+            "url": "https://phacility.com/phabricator/",
+            "tags": ["code-review", "ci-cd", "legacy"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "AWS CodeCommit",
+            "description": "Fully-managed Git-based repository service integrated with AWS ecosystem.",
+            "useCase": "Host and manage private Git repositories within AWS.",
+            "url": "https://aws.amazon.com/codecommit/",
+            "tags": ["aws", "git", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Gerrit",
+            "description": "Open-source code review tool for Git repositories focused on collaboration and traceability.",
+            "useCase": "Facilitate code review workflows and approvals in large teams.",
+            "url": "https://www.gerritcodereview.com/",
+            "tags": ["git", "review", "opensource"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Review Board",
+            "description": "Web-based code review tool for Git, SVN, and Perforce repositories.",
+            "useCase": "Enhance collaboration and peer review across teams.",
+            "url": "https://www.reviewboard.org/",
+            "tags": ["review", "collaboration", "git"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Assembla",
+            "description": "Secure cloud-based hosting for Subversion, Git, and Perforce with enterprise compliance.",
+            "useCase": "Version control and code collaboration for regulated industries.",
+            "url": "https://www.assembla.com/",
+            "tags": ["svn", "git", "perforce"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Beanstalk",
+            "description": "Hosted Git and SVN service with built-in code review and deployment features.",
+            "useCase": "Collaborate and deploy code without managing servers.",
+            "url": "https://beanstalkapp.com/",
+            "tags": ["git", "svn", "deployment"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Codeberg",
+            "description": "Free, open-source Git hosting platform powered by Gitea, focused on privacy and sustainability.",
+            "useCase": "Host open-source projects without commercial constraints.",
+            "url": "https://codeberg.org/",
+            "tags": ["opensource", "privacy", "git"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Version Control & Collaboration",
+            "name": "Launchpad",
+            "description": "Collaboration platform for open-source projects with Git/Bazaar hosting and bug tracking.",
+            "useCase": "Manage open-source projects with integrated issue tracking.",
+            "url": "https://launchpad.net/",
+            "tags": ["git", "opensource", "bugs"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Jest",
+            "description": "Delightful JavaScript testing framework by Facebook with built-in mocking and snapshot testing.",
+            "useCase": "Unit and integration testing for JavaScript and TypeScript applications.",
+            "url": "https://jestjs.io/",
+            "tags": ["javascript", "testing", "unit", "snapshot"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Mocha",
+            "description": "Flexible JavaScript test framework running on Node.js with async support.",
+            "useCase": "Write customizable test setups for backend and frontend projects.",
+            "url": "https://mochajs.org/",
+            "tags": ["javascript", "nodejs", "testing"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Chai",
+            "description": "Assertion library that works with Mocha and other test frameworks for BDD/TDD style testing.",
+            "useCase": "Create expressive, readable test assertions.",
+            "url": "https://www.chaijs.com/",
+            "tags": ["assertions", "bdd", "tdd"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Cypress",
+            "description": "All-in-one testing framework for end-to-end, integration, and component testing in web apps.",
+            "useCase": "Test web UI flows with an interactive runner and built-in dashboard.",
+            "url": "https://www.cypress.io/",
+            "tags": ["e2e", "frontend", "integration"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Playwright",
+            "description": "Microsoft’s modern end-to-end testing framework supporting multiple browsers and languages.",
+            "useCase": "Cross-browser automation and UI testing for web applications.",
+            "url": "https://playwright.dev/",
+            "tags": ["e2e", "automation", "browser"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Selenium",
+            "description": "Veteran web automation framework supporting multiple languages and browsers.",
+            "useCase": "Automate browser testing across platforms and devices.",
+            "url": "https://www.selenium.dev/",
+            "tags": ["automation", "browser", "e2e"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Puppeteer",
+            "description": "Node.js library for controlling Chrome or Chromium for testing and scraping.",
+            "useCase": "Automate browser tasks or perform headless web testing.",
+            "url": "https://pptr.dev/",
+            "tags": ["browser", "headless", "automation"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Vitest",
+            "description": "Blazing fast unit test framework built for Vite with Jest-compatible APIs.",
+            "useCase": "Run lightning-fast unit tests in modern frontend projects.",
+            "url": "https://vitest.dev/",
+            "tags": ["vite", "javascript", "unit"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "TestCafe",
+            "description": "Node.js end-to-end testing tool that runs tests without browser plugins.",
+            "useCase": "Automate browser testing across multiple platforms easily.",
+            "url": "https://testcafe.io/",
+            "tags": ["e2e", "automation", "browser"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Karma",
+            "description": "Test runner by the Angular team for executing unit tests across real browsers and devices.",
+            "useCase": "Run browser-based unit tests efficiently.",
+            "url": "https://karma-runner.github.io/",
+            "tags": ["angular", "unit", "browser"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "JUnit",
+            "description": "Classic testing framework for Java applications supporting unit and integration testing.",
+            "useCase": "Write and manage unit tests in Java projects.",
+            "url": "https://junit.org/",
+            "tags": ["java", "testing", "unit"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "TestNG",
+            "description": "Advanced Java testing framework inspired by JUnit and NUnit with added configuration flexibility.",
+            "useCase": "Run large-scale integration and regression tests in Java apps.",
+            "url": "https://testng.org/",
+            "tags": ["java", "integration", "testing"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Allure TestOps",
+            "description": "Enterprise-grade test management platform integrating with CI/CD pipelines and frameworks.",
+            "useCase": "Manage test results, reports, and analytics for QA teams.",
+            "url": "https://qameta.io/",
+            "tags": ["test-management", "reporting", "ci-cd"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Applitools",
+            "description": "AI-powered visual testing platform that detects visual bugs across browsers and devices.",
+            "useCase": "Perform automated UI regression testing and visual validation.",
+            "url": "https://applitools.com/",
+            "tags": ["visual", "ui", "automation"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Postman Testing",
+            "description": "Part of Postman platform for running automated API tests and assertions.",
+            "useCase": "Validate API endpoints as part of CI/CD workflows.",
+            "url": "https://www.postman.com/",
+            "tags": ["api", "testing", "automation"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "LoadRunner",
+            "description": "Enterprise performance testing tool by Micro Focus for simulating large-scale user loads.",
+            "useCase": "Measure system performance and stability under heavy load.",
+            "url": "https://www.microfocus.com/en-us/products/loadrunner-professional/overview",
+            "tags": ["performance", "load-testing", "enterprise"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "Locust",
+            "description": "Open-source Python-based tool for load and performance testing of web apps.",
+            "useCase": "Simulate user traffic to test scalability and resilience.",
+            "url": "https://locust.io/",
+            "tags": ["load-testing", "performance", "python"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Testing & QA Tools",
+            "name": "BrowserStack",
+            "description": "Cloud platform for cross-browser testing on real devices and browsers.",
+            "useCase": "Run manual and automated UI tests on different browsers and devices.",
+            "url": "https://www.browserstack.com/",
+            "tags": ["cross-browser", "automation", "mobile"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Sentry",
+            "description": "Open-source error tracking and performance monitoring tool for modern applications.",
+            "useCase": "Monitor crashes, performance issues, and logs in real time.",
+            "url": "https://sentry.io/",
+            "tags": ["error-tracking", "monitoring", "performance"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Datadog",
+            "description": "Comprehensive monitoring and analytics platform for infrastructure, applications, and logs.",
+            "useCase": "Gain unified visibility into cloud and on-prem systems with APM and metrics.",
+            "url": "https://www.datadoghq.com/",
+            "tags": ["monitoring", "analytics", "cloud", "logs"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Grafana Cloud",
+            "description": "Managed monitoring platform for visualizing metrics, logs, and traces with powerful dashboards.",
+            "useCase": "Create real-time dashboards and alerts for cloud applications.",
+            "url": "https://grafana.com/cloud/",
+            "tags": ["monitoring", "metrics", "dashboards"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Prometheus",
+            "description": "Open-source monitoring and alerting toolkit for time-series data.",
+            "useCase": "Collect and query metrics for performance and reliability tracking.",
+            "url": "https://prometheus.io/",
+            "tags": ["metrics", "monitoring", "opensource"],
+            "pricing": "Free"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "New Relic",
+            "description": "Cloud-based observability platform that provides APM, infrastructure monitoring, and log management.",
+            "useCase": "Monitor application performance, transactions, and infrastructure in real time.",
+            "url": "https://newrelic.com/",
+            "tags": ["apm", "cloud", "monitoring"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Elastic APM",
+            "description": "Part of the Elastic Stack (ELK), providing distributed tracing and log analytics.",
+            "useCase": "Monitor performance and analyze logs within the Elastic ecosystem.",
+            "url": "https://www.elastic.co/apm",
+            "tags": ["apm", "logging", "elasticsearch"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Splunk",
+            "description": "Data platform for searching, monitoring, and analyzing machine-generated data.",
+            "useCase": "Collect and analyze logs for security and operational intelligence.",
+            "url": "https://www.splunk.com/",
+            "tags": ["logs", "security", "analytics"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "AWS CloudWatch",
+            "description": "AWS monitoring service for metrics, logs, and alarms in the AWS ecosystem.",
+            "useCase": "Track AWS resource performance and operational health.",
+            "url": "https://aws.amazon.com/cloudwatch/",
+            "tags": ["aws", "metrics", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Google Cloud Operations Suite",
+            "description": "Comprehensive observability stack on Google Cloud including logging, metrics, and tracing.",
+            "useCase": "Monitor GCP workloads and set up automated alerts.",
+            "url": "https://cloud.google.com/products/operations",
+            "tags": ["gcp", "cloud", "observability"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Azure Monitor",
+            "description": "Microsoft’s unified monitoring platform for Azure-based applications and infrastructure.",
+            "useCase": "Collect, analyze, and act on telemetry data from Azure environments.",
+            "url": "https://azure.microsoft.com/en-us/products/monitor/",
+            "tags": ["azure", "monitoring", "cloud"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "LogRocket",
+            "description": "Frontend monitoring tool that records user sessions, errors, and performance metrics.",
+            "useCase": "Replay user sessions to debug issues and improve UX.",
+            "url": "https://logrocket.com/",
+            "tags": ["frontend", "session-replay", "analytics"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Hotjar",
+            "description": "User behavior analytics tool with heatmaps and session recordings.",
+            "useCase": "Understand user interaction and improve UX through behavior tracking.",
+            "url": "https://www.hotjar.com/",
+            "tags": ["ux", "analytics", "heatmap"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Mixpanel",
+            "description": "Product analytics platform for tracking user interactions and event-based insights.",
+            "useCase": "Analyze engagement and retention metrics for digital products.",
+            "url": "https://mixpanel.com/",
+            "tags": ["analytics", "product", "events"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Amplitude",
+            "description": "Advanced product analytics and user behavior platform for data-driven decisions.",
+            "useCase": "Track feature adoption, funnels, and user journeys.",
+            "url": "https://amplitude.com/",
+            "tags": ["analytics", "product", "ux"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Pingdom",
+            "description": "Website uptime and performance monitoring service by SolarWinds.",
+            "useCase": "Monitor website availability, speed, and real-user performance.",
+            "url": "https://www.pingdom.com/",
+            "tags": ["uptime", "performance", "monitoring"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "Raygun",
+            "description": "Performance and error monitoring platform with detailed crash diagnostics.",
+            "useCase": "Detect performance bottlenecks and fix errors faster.",
+            "url": "https://raygun.com/",
+            "tags": ["performance", "error-tracking", "apm"],
+            "pricing": "Paid"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "UptimeRobot",
+            "description": "Simple uptime monitoring service that checks your websites every 5 minutes.",
+            "useCase": "Get notified instantly when your website goes down.",
+            "url": "https://uptimerobot.com/",
+            "tags": ["uptime", "alerting", "monitoring"],
+            "pricing": "Freemium"
+          },
+          {
+            "category": "Monitoring & Analytics Tools",
+            "name": "OpenTelemetry",
+            "description": "Open-source observability framework providing APIs and SDKs for collecting metrics, logs, and traces.",
+            "useCase": "Standardize telemetry data collection across microservices.",
+            "url": "https://opentelemetry.io/",
+            "tags": ["observability", "tracing", "metrics"],
+            "pricing": "Free"
+          },
+
+{
+    "category": "Security & Authentication Tools",
+    "name": "Auth0",
+    "description": "Identity management platform offering authentication, authorization, and user management for modern applications.",
+    "useCase": "Implement secure login, SSO, and MFA without building it from scratch.",
+    "url": "https://auth0.com/",
+    "tags": ["authentication", "oauth", "sso", "security"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Okta",
+    "description": "Enterprise-grade identity and access management service with strong security compliance.",
+    "useCase": "Manage workforce and customer identity across systems with MFA and SSO.",
+    "url": "https://okta.com/",
+    "tags": ["iam", "sso", "mfa"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Firebase Authentication",
+    "description": "Google’s backend service for authentication with email, phone, or social logins.",
+    "useCase": "Easily integrate authentication in web and mobile apps.",
+    "url": "https://firebase.google.com/products/auth",
+    "tags": ["auth", "firebase", "google", "oauth"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Clerk",
+    "description": "Developer-first authentication platform with prebuilt React and Next.js components.",
+    "useCase": "Add authentication, user profiles, and sessions with minimal setup.",
+    "url": "https://clerk.dev/",
+    "tags": ["auth", "nextjs", "react", "frontend"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Supabase Auth",
+    "description": "Open-source authentication system built on top of GoTrue and PostgreSQL.",
+    "useCase": "Self-hosted Firebase alternative for user management.",
+    "url": "https://supabase.com/",
+    "tags": ["auth", "postgres", "opensource"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Keycloak",
+    "description": "Open-source identity and access management solution developed by Red Hat.",
+    "useCase": "Add SSO, MFA, and role-based access control to enterprise apps.",
+    "url": "https://www.keycloak.org/",
+    "tags": ["sso", "mfa", "iam", "opensource"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "AWS Cognito",
+    "description": "AWS service providing secure user authentication and access control for web and mobile apps.",
+    "useCase": "Add user pools, tokens, and identity federation using AWS ecosystem.",
+    "url": "https://aws.amazon.com/cognito/",
+    "tags": ["aws", "auth", "identity"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "HashiCorp Vault",
+    "description": "Tool for securely storing and accessing secrets, API keys, and sensitive data.",
+    "useCase": "Manage and encrypt credentials, tokens, and secrets at scale.",
+    "url": "https://www.vaultproject.io/",
+    "tags": ["secrets", "encryption", "vault"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "1Password Teams",
+    "description": "Password manager for businesses with team sharing and encryption controls.",
+    "useCase": "Securely share credentials and manage secrets within teams.",
+    "url": "https://1password.com/teams/",
+    "tags": ["passwords", "teams", "encryption"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Bitwarden",
+    "description": "Open-source password manager with self-hosting and enterprise options.",
+    "useCase": "Store and share passwords securely across devices.",
+    "url": "https://bitwarden.com/",
+    "tags": ["password", "vault", "encryption"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Snyk",
+    "description": "Developer-first platform for scanning open-source dependencies and fixing vulnerabilities.",
+    "useCase": "Detect and remediate security issues in code and Docker images.",
+    "url": "https://snyk.io/",
+    "tags": ["security", "scan", "dependencies"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "SonarQube",
+    "description": "Continuous inspection tool for code quality and security vulnerabilities.",
+    "useCase": "Integrate static analysis to enforce clean code and prevent bugs.",
+    "url": "https://www.sonarsource.com/products/sonarqube/",
+    "tags": ["static-analysis", "quality", "ci-cd"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "OWASP ZAP",
+    "description": "Open-source web application security scanner maintained by the OWASP community.",
+    "useCase": "Detect common web vulnerabilities like XSS and SQLi.",
+    "url": "https://www.zaproxy.org/",
+    "tags": ["owasp", "scanner", "pentest"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Burp Suite",
+    "description": "Comprehensive web vulnerability scanner and penetration testing toolkit.",
+    "useCase": "Find and exploit security flaws in web applications.",
+    "url": "https://portswigger.net/burp",
+    "tags": ["pentest", "scanner", "web"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Cloudflare Security",
+    "description": "Suite of security features including WAF, DDoS protection, and bot mitigation.",
+    "useCase": "Protect web applications and APIs from online threats.",
+    "url": "https://www.cloudflare.com/",
+    "tags": ["waf", "ddos", "cdn"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Let's Encrypt",
+    "description": "Free certificate authority that automates SSL/TLS certificate issuance.",
+    "useCase": "Add HTTPS encryption to websites for free.",
+    "url": "https://letsencrypt.org/",
+    "tags": ["ssl", "tls", "certificates"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Acunetix",
+    "description": "Automated web vulnerability scanner for detecting over 7,000 security issues.",
+    "useCase": "Scan web applications for OWASP Top 10 vulnerabilities.",
+    "url": "https://www.acunetix.com/",
+    "tags": ["scanner", "web", "vulnerability"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Security & Authentication Tools",
+    "name": "Dependabot",
+    "description": "GitHub-integrated security tool that automatically updates vulnerable dependencies.",
+    "useCase": "Automate security patches for package dependencies.",
+    "url": "https://github.com/dependabot",
+    "tags": ["security", "dependencies", "automation"],
+    "pricing": "Free"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "ChatGPT",
+    "description": "OpenAI’s conversational AI for writing, brainstorming, coding, and task automation.",
+    "useCase": "Assist with writing, research, and general productivity using natural language.",
+    "url": "https://chat.openai.com/",
+    "tags": ["ai", "assistant", "writing", "automation"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Claude",
+    "description": "Anthropic’s AI assistant designed for safe, context-aware reasoning and text generation.",
+    "useCase": "Summarization, document writing, and general-purpose reasoning.",
+    "url": "https://claude.ai/",
+    "tags": ["ai", "anthropic", "assistant"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Google Gemini",
+    "description": "Google’s multimodal AI assistant for search, workspace integration, and creative tasks.",
+    "useCase": "Integrate AI into Gmail, Docs, and Sheets for enhanced productivity.",
+    "url": "https://gemini.google.com/",
+    "tags": ["ai", "google", "workspace"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Perplexity AI",
+    "description": "AI-powered search assistant that combines web results with conversational answers.",
+    "useCase": "Get accurate, cited answers with real-time web search.",
+    "url": "https://www.perplexity.ai/",
+    "tags": ["ai", "search", "assistant"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Notion AI",
+    "description": "Built into Notion, this assistant helps generate, summarize, and structure notes and docs.",
+    "useCase": "Automate documentation and writing tasks inside Notion workspaces.",
+    "url": "https://www.notion.so/product/ai",
+    "tags": ["notion", "notes", "docs"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Microsoft Copilot",
+    "description": "AI integrated into Microsoft 365 to assist with Word, Excel, PowerPoint, and Teams.",
+    "useCase": "Generate summaries, automate spreadsheets, and enhance presentations.",
+    "url": "https://copilot.microsoft.com/",
+    "tags": ["microsoft", "office", "productivity"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Slack AI",
+    "description": "AI built into Slack for summarizing threads, generating replies, and finding information.",
+    "useCase": "Enhance team communication and reduce chat noise.",
+    "url": "https://slack.com/ai",
+    "tags": ["slack", "communication", "automation"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Zoom AI Companion",
+    "description": "AI assistant inside Zoom that summarizes meetings and generates follow-ups.",
+    "useCase": "Save time by automating notes and key takeaways from meetings.",
+    "url": "https://explore.zoom.us/en/products/ai-companion/",
+    "tags": ["zoom", "meetings", "notes"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Otter.ai",
+    "description": "AI meeting transcription tool that generates summaries and searchable transcripts.",
+    "useCase": "Record, transcribe, and review meetings and lectures efficiently.",
+    "url": "https://otter.ai/",
+    "tags": ["transcription", "audio", "meetings"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Fireflies.ai",
+    "description": "AI meeting assistant that records, transcribes, and summarizes voice conversations.",
+    "useCase": "Automate note-taking for meetings and calls.",
+    "url": "https://fireflies.ai/",
+    "tags": ["voice", "notes", "automation"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Trello with Butler AI",
+    "description": "AI automation tool within Trello boards for automating repetitive project tasks.",
+    "useCase": "Streamline task management through AI-powered triggers and actions.",
+    "url": "https://trello.com/power-ups/56d5e249a98895a9797bebb9",
+    "tags": ["trello", "tasks", "automation"],
+    "pricing": "Free"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "ClickUp Brain",
+    "description": "AI assistant integrated into ClickUp for summarizing tasks, writing docs, and automating workflows.",
+    "useCase": "Accelerate productivity with project-level AI suggestions.",
+    "url": "https://clickup.com/ai",
+    "tags": ["clickup", "projects", "docs"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Airtable AI",
+    "description": "AI features in Airtable to summarize data, predict values, and automate tasks.",
+    "useCase": "Use AI formulas and workflows inside structured databases.",
+    "url": "https://airtable.com/",
+    "tags": ["data", "automation", "workspace"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Miro AI",
+    "description": "Built-in AI assistant for Miro that generates ideas, organizes boards, and summarizes discussions.",
+    "useCase": "Accelerate brainstorming and collaboration sessions.",
+    "url": "https://miro.com/ai/",
+    "tags": ["miro", "whiteboard", "brainstorming"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Canva Magic Studio",
+    "description": "AI design suite within Canva that generates images, presentations, and videos.",
+    "useCase": "Create marketing materials with text-to-image and auto-design tools.",
+    "url": "https://www.canva.com/magic-studio/",
+    "tags": ["design", "presentation", "image"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "ChatDOC",
+    "description": "AI document assistant that lets you chat directly with PDFs, Word files, and other documents.",
+    "useCase": "Extract, summarize, and query long documents instantly.",
+    "url": "https://chatdoc.com/",
+    "tags": ["pdf", "documents", "assistant"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Gamma App",
+    "description": "AI presentation creator that turns outlines or notes into visual slides instantly.",
+    "useCase": "Generate presentations quickly with AI-based design automation.",
+    "url": "https://gamma.app/",
+    "tags": ["presentation", "design", "slides"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "AI & Productivity Tools",
+    "name": "Tome",
+    "description": "AI storytelling and presentation platform that creates visual narratives from prompts.",
+    "useCase": "Build engaging pitch decks or visual stories using AI.",
+    "url": "https://tome.app/",
+    "tags": ["presentation", "storytelling", "ai"],
+    "pricing": "Freemium"
+  },{
+    "category": "Documentation & Knowledge Tools",
+    "name": "Docusaurus",
+    "description": "Open-source static site generator by Meta for building modern documentation websites using Markdown and React.",
+    "useCase": "Create beautiful documentation with versioning and search support.",
+    "url": "https://docusaurus.io/",
+    "tags": ["docs", "react", "static-site"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "GitBook",
+    "description": "Collaborative documentation platform that integrates Markdown editing, versioning, and team publishing.",
+    "useCase": "Host product or developer documentation with team collaboration.",
+    "url": "https://www.gitbook.com/",
+    "tags": ["docs", "markdown", "collaboration"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "ReadMe",
+    "description": "Interactive API documentation platform with dynamic examples and metrics dashboards.",
+    "useCase": "Build interactive API hubs and manage developer onboarding.",
+    "url": "https://readme.com/",
+    "tags": ["api", "docs", "developer-portal"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "MkDocs",
+    "description": "Lightweight static site generator for building documentation from Markdown files.",
+    "useCase": "Generate fast, simple docs with YAML configuration.",
+    "url": "https://www.mkdocs.org/",
+    "tags": ["docs", "markdown", "python"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Swagger UI",
+    "description": "Open-source API documentation interface for exploring and testing OpenAPI specifications.",
+    "useCase": "Visualize and test REST APIs interactively.",
+    "url": "https://swagger.io/tools/swagger-ui/",
+    "tags": ["api", "openapi", "docs"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Stoplight",
+    "description": "Collaborative API design and documentation platform supporting OpenAPI and governance workflows.",
+    "useCase": "Design and maintain API contracts with documentation and testing.",
+    "url": "https://stoplight.io/",
+    "tags": ["api", "design", "docs"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Slate",
+    "description": "Static API documentation generator for clean, developer-friendly REST API docs.",
+    "useCase": "Generate elegant API documentation from Markdown and YAML.",
+    "url": "https://github.com/slatedocs/slate",
+    "tags": ["api", "markdown", "generator"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Redoc",
+    "description": "Powerful open-source renderer for OpenAPI/Swagger documentation with clean UI.",
+    "useCase": "Render OpenAPI specs into interactive API documentation pages.",
+    "url": "https://redocly.com/",
+    "tags": ["api", "openapi", "swagger"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Typora",
+    "description": "Minimalist Markdown editor with live preview and export options.",
+    "useCase": "Write and format documentation locally with live preview.",
+    "url": "https://typora.io/",
+    "tags": ["markdown", "editor", "docs"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Confluence",
+    "description": "Atlassian’s enterprise wiki and documentation tool for team collaboration.",
+    "useCase": "Centralize knowledge sharing and documentation across teams.",
+    "url": "https://www.atlassian.com/software/confluence",
+    "tags": ["wiki", "collaboration", "enterprise"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Notion",
+    "description": "All-in-one workspace for note-taking, documentation, and project collaboration.",
+    "useCase": "Maintain living documents, wikis, and product knowledge bases.",
+    "url": "https://www.notion.so/",
+    "tags": ["docs", "notes", "collaboration"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Obsidian",
+    "description": "Local Markdown-based knowledge management tool with graph visualization.",
+    "useCase": "Organize research notes and personal documentation with backlinks.",
+    "url": "https://obsidian.md/",
+    "tags": ["markdown", "notes", "knowledge-base"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Docsify",
+    "description": "Open-source documentation site generator that renders Markdown files on the fly.",
+    "useCase": "Create lightweight single-page documentation websites.",
+    "url": "https://docsify.js.org/",
+    "tags": ["docs", "markdown", "generator"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "BookStack",
+    "description": "Open-source self-hosted wiki platform for organizing documentation like a digital library.",
+    "useCase": "Create internal wikis or team documentation on your own server.",
+    "url": "https://www.bookstackapp.com/",
+    "tags": ["wiki", "opensource", "docs"],
+    "pricing": "Free"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Coda",
+    "description": "Document and data platform that blends text, tables, and automation.",
+    "useCase": "Build interactive documents for team knowledge and project tracking.",
+    "url": "https://coda.io/",
+    "tags": ["docs", "data", "automation"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Document360",
+    "description": "Knowledge base software for creating public and private product documentation.",
+    "useCase": "Build professional documentation portals for customers or teams.",
+    "url": "https://document360.com/",
+    "tags": ["knowledge-base", "saas", "docs"],
+    "pricing": "Paid"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Archbee",
+    "description": "Documentation and wiki platform optimized for developer teams.",
+    "useCase": "Collaborate on developer-focused product and API documentation.",
+    "url": "https://www.archbee.com/",
+    "tags": ["api", "wiki", "developer"],
+    "pricing": "Freemium"
+  },
+  {
+    "category": "Documentation & Knowledge Tools",
+    "name": "Read the Docs",
+    "description": "Open-source platform for hosting and automating documentation builds.",
+    "useCase": "Automatically publish and version open-source documentation.",
+    "url": "https://readthedocs.org/",
+    "tags": ["docs", "hosting", "opensource"],
+    "pricing": "Free"
+  },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Elasticsearch",
+      "description": "Distributed open-source search and analytics engine built on Apache Lucene.",
+      "useCase": "Full-text search, log analytics, and real-time data exploration.",
+      "url": "https://www.elastic.co/elasticsearch/",
+      "tags": ["search", "analytics", "logging"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Meilisearch",
+      "description": "Lightning-fast, open-source search engine with RESTful API and instant search results.",
+      "useCase": "Add fast, typo-tolerant search to web and mobile apps.",
+      "url": "https://www.meilisearch.com/",
+      "tags": ["search", "opensource", "instant"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Algolia",
+      "description": "Powerful hosted search API for building real-time search experiences with instant results.",
+      "useCase": "Provide high-speed, relevance-tuned search for websites and e-commerce apps.",
+      "url": "https://www.algolia.com/",
+      "tags": ["search", "api", "hosted"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Typesense",
+      "description": "Open-source search engine optimized for simplicity and performance.",
+      "useCase": "Deliver fast and typo-tolerant search similar to Algolia, but self-hosted.",
+      "url": "https://typesense.org/",
+      "tags": ["search", "opensource", "fast"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "OpenSearch",
+      "description": "Community-driven fork of Elasticsearch with added features for analytics and security.",
+      "useCase": "Enterprise-grade search and observability stack.",
+      "url": "https://opensearch.org/",
+      "tags": ["search", "analytics", "opensource"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Pinecone",
+      "description": "Managed vector database designed for semantic and AI-powered search.",
+      "useCase": "Enable similarity and embedding-based search in AI applications.",
+      "url": "https://www.pinecone.io/",
+      "tags": ["vector", "ai", "semantic"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Weaviate",
+      "description": "Open-source vector database for semantic search and generative AI applications.",
+      "useCase": "Build semantic and hybrid search engines with vector embeddings.",
+      "url": "https://weaviate.io/",
+      "tags": ["vector", "ai", "opensource"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Qdrant",
+      "description": "Open-source vector database for similarity search and AI-driven recommendations.",
+      "useCase": "Implement hybrid search for ML or RAG pipelines.",
+      "url": "https://qdrant.tech/",
+      "tags": ["vector", "ml", "recommendations"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Milvus",
+      "description": "Highly scalable open-source vector database for AI search and recommendation systems.",
+      "useCase": "Store and query billions of embeddings efficiently.",
+      "url": "https://milvus.io/",
+      "tags": ["vector", "ai", "database"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Redis Search",
+      "description": "Module of Redis providing real-time full-text search and secondary indexing.",
+      "useCase": "Integrate ultra-fast in-memory search into applications.",
+      "url": "https://redis.io/docs/latest/develop/search/",
+      "tags": ["search", "redis", "in-memory"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Solr",
+      "description": "Enterprise search platform from Apache Lucene offering advanced text search capabilities.",
+      "useCase": "Build scalable full-text and faceted search systems.",
+      "url": "https://solr.apache.org/",
+      "tags": ["search", "lucene", "enterprise"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Vespa",
+      "description": "Yahoo’s open-source engine for big data serving, search, and recommendations.",
+      "useCase": "Power recommendation systems and large-scale search backends.",
+      "url": "https://vespa.ai/",
+      "tags": ["search", "big-data", "recommendation"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Elastic App Search",
+      "description": "Elastic’s hosted search service providing easy integration for web and mobile apps.",
+      "useCase": "Add enterprise-grade search without managing infrastructure.",
+      "url": "https://www.elastic.co/enterprise-search/",
+      "tags": ["search", "api", "hosted"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Whoosh",
+      "description": "Pure Python search library providing fast, lightweight text indexing.",
+      "useCase": "Add local full-text search without external dependencies.",
+      "url": "https://whoosh.readthedocs.io/",
+      "tags": ["python", "search", "lightweight"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Zilliz Cloud",
+      "description": "Managed vector database service built around Milvus for enterprise-scale AI search.",
+      "useCase": "Run scalable vector search for AI apps without infrastructure management.",
+      "url": "https://zilliz.com/",
+      "tags": ["vector", "cloud", "ai"],
+      "pricing": "Freemium"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Typesense Cloud",
+      "description": "Managed cloud hosting for Typesense search clusters with scaling and analytics.",
+      "useCase": "Deploy and manage hosted full-text search clusters easily.",
+      "url": "https://cloud.typesense.org/",
+      "tags": ["search", "cloud", "managed"],
+      "pricing": "Paid"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Lucene",
+      "description": "Core open-source search library that powers Solr and Elasticsearch.",
+      "useCase": "Embed custom search functionality into Java applications.",
+      "url": "https://lucene.apache.org/",
+      "tags": ["java", "search", "library"],
+      "pricing": "Free"
+    },
+    {
+      "category": "Search & Indexing Tools",
+      "name": "Jina AI",
+      "description": "Neural search framework for building multimodal and AI-native search systems.",
+      "useCase": "Enable cross-modal search using text, image, or audio embeddings.",
+      "url": "https://jina.ai/",
+      "tags": ["ai", "search", "multimodal"],
+      "pricing": "Freemium"
+    }
+  ]
+  
+
+
+
+        
+      
+
+    
+    
+        
+      
+      
+  
