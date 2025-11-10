@@ -168,9 +168,49 @@
         }
         
         /* Table Styles */
+        .overflow-x-auto {
+            overflow-x: visible;
+            width: 100%;
+        }
+
         table { 
             border-collapse: collapse; 
             width: 100%;
+            min-width: 1000px;
+            table-layout: fixed;
+            margin: 0;
+        }
+        
+        th.w-12 {
+            width: 48px;
+            min-width: 48px;
+            max-width: 48px;
+        }
+        
+        th.topic-col {
+            width: 35%;
+        }
+        
+        th.search-col {
+            width: 35%;
+        }
+        
+        th.duration-col {
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
+        }
+        
+        th.links-col {
+            width: 250px;
+            min-width: 250px;
+            max-width: 250px;
+        }
+
+        td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
         
         thead {
@@ -188,13 +228,12 @@
         }
         
         tbody tr { 
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease;
             border-bottom: 1px solid rgba(51, 65, 85, 0.5);
         }
         
         tbody tr:hover { 
             background: rgba(51, 65, 85, 0.3);
-            transform: translateX(4px);
         }
         
         td { 
@@ -361,6 +400,24 @@
             th, td {
                 padding: 8px;
             }
+
+            .topic-col {
+                width: 30%;
+            }
+
+            .search-col {
+                width: 30%;
+            }
+
+            .duration-col {
+                width: 100px;
+                min-width: 100px;
+            }
+
+            .links-col {
+                width: 200px;
+                min-width: 200px;
+            }
             
             #scrollTop {
                 bottom: 20px;
@@ -443,9 +500,7 @@
             <span class="px-4 py-2 bg-sky-500/10 border border-sky-500/30 rounded-full text-sky-400 text-sm font-semibold">
                 🎯 6 Comprehensive Stages
             </span>
-            <span class="px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-sm font-semibold">
-                ⏱️ ~145 Hours Total
-            </span>
+    
             <span class="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-semibold">
                 ✨ 20+ New Topics
             </span>
@@ -597,6 +652,7 @@
         </div>
 
         <div class="tip">
+            <p></p><strong>⏱️ Total Duration for Stage 0:</strong> 299 minutes (approximately 5 hours)</p>
             <p><strong>💡 Key concepts:</strong> tokens, context window, temperature, API requests, embeddings, semantic search.</p>
             <p><strong>🎯 Tips:</strong> practice small prompts and analyze responses. Experiment with vector search before building complex RAG systems.</p>
             <p><strong>⚠️ Common pitfalls:</strong> ignoring rate limits, not understanding when RAG is actually needed.</p>
@@ -627,17 +683,17 @@
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium">Introduction to Model Context Protocol (MCP)</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"Model Context Protocol explained"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">11 / 24 / 7 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=e3MX7HoGXug&pp=ygUmSW50cm9kdWN0aW9uIHRvIE1vZGVsIENvbnRleHQgUHJvdG9jb2w%3D" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=E2DEHOEbzks" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=yzwmTeA4Dgw" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  3
                             </a>
@@ -647,17 +703,17 @@
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium">Build an MCP Server in TypeScript</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"MCP server TypeScript example"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">11 / 75 / 51 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=8m-O_KiHRjk" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=ZoZxQwp1PiM&t=2291s" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=XC49e0pliEE" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  3
                             </a>
@@ -667,37 +723,34 @@
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium"><span class="badge">NEW</span> MCP Resources vs Tools – Deep dive</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"MCP resources vs tools when to use"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">20 / 6 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=XXh-lrWTMeQ" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=zPmJ8soT2DQ" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
+                        
                         </td>
                     </tr>
                     <tr data-id="zod_schemas">
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium">Use Zod Schemas for Validation and Type Safety</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"Zod schema TypeScript Video l"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">7 / 30 / 30 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=9UVPk0Ulm6U" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=L6BE-U3oy80" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=f-4-k1CP6wA&t=12s" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  3
                             </a>
@@ -707,39 +760,32 @@
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium"><span class="badge">NEW</span> Streaming Responses</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"streaming LLM responses TypeScript"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">23 / 13 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=J2yGW9MRnfY&t=12s" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=5rhvyHvocaA" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
+                
                         </td>
                     </tr>
                     <tr data-id="mcp_inspector">
                         <td><input type="checkbox" onchange="toggleTask(this)"></td>
                         <td class="font-medium">Debug with MCP Inspector</td>
                         <td class="hidden lg:table-cell text-slate-400 text-sm">"Claude Desktop MCP Inspector demo"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
+                        <td><span class="duration-badge">8 / 12 Min</span></td>
                         <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=Y0tZ35dFFx4&t=29s" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  1
                             </a>
-                            <a href="https://www.youtube.com" target="_blank" 
+                            <a href="https://www.youtube.com/watch?v=98l_k0XYXKs&t=221s" target="_blank" 
                                 class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
                                 📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
                             </a>
                         </td>
                     </tr>
@@ -747,7 +793,9 @@
             </table>
         </div>
 
+
         <div class="tip">
+            <p></p><strong>⏱️ Total Duration for Stage 0:</strong> 328 minutes (approximately 5.5 hours)</p>
             <p><strong>💡 Key concepts:</strong> tools vs resources, URIs, schemas, runtime execution, streaming data.</p>
             <p><strong>🎯 Tips:</strong> think of MCP as "plugin architecture for AI". Use resources for static data, tools for actions.</p>
             <p><strong>⚠️ Common pitfalls:</strong> not testing in Inspector, choosing wrong abstraction (tool vs resource).</p>
@@ -938,6 +986,10 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="text-slate-400 text-sm mb-4">
+            <strong>⏱️ Total Duration for Stage 2:</strong> 240 minutes (approximately 4 hours)
         </div>
 
         <div class="tip">
@@ -1173,6 +1225,10 @@
             </table>
         </div>
 
+        <div class="text-slate-400 text-sm mb-4">
+            <strong>⏱️ Total Duration for Stage 3:</strong> 300 minutes (approximately 5 hours)
+        </div>
+
         <div class="tip">
             <p><strong>💡 Key concepts:</strong> Observation → Planning → Action → Reflection loop, reasoning steps, multi-tool orchestration.</p>
             <p><strong>🎯 Tips:</strong> start with a single-goal agent before adding multiple tools. Test extensively with edge cases.</p>
@@ -1366,6 +1422,10 @@
             </table>
         </div>
 
+        <div class="text-slate-400 text-sm mb-4">
+            <strong>⏱️ Total Duration for Stage 4:</strong> 240 minutes (approximately 4 hours)
+        </div>
+
         <div class="tip">
             <p><strong>💡 Key concepts:</strong> deployment pipelines, containerization, CI/CD, responsive UI, security, observability.</p>
             <p><strong>🎯 Tips:</strong> keep UI minimal and functional. Never commit API keys to git.</p>
@@ -1391,7 +1451,7 @@
                         <th>Topic</th>
                         <th class="hidden lg:table-cell">Search Phrase</th>
                         <th class="w-32">Duration</th>
-                        <th class="w-64">Video Links</th>
+                        <th class="w-80">Video Links</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-700">
@@ -1554,10 +1614,6 @@
             Once you've checked every item, you'll have a comprehensive, production-ready foundation in AI tool development.
         </p>
         <div class="flex flex-wrap gap-4 justify-center mb-8">
-            <div class="bg-slate-800/50 rounded-xl p-6 min-w-[200px]">
-                <div class="text-3xl font-bold text-sky-400 mb-2">~145h</div>
-                <div class="text-slate-400 text-sm">Total Duration</div>
-            </div>
             <div class="bg-slate-800/50 rounded-xl p-6 min-w-[200px]">
                 <div class="text-3xl font-bold text-blue-400 mb-2">20+</div>
                 <div class="text-slate-400 text-sm">New Topics</div>
