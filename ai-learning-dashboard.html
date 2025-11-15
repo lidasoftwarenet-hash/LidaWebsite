@@ -458,9 +458,10 @@
                     <option value="stage0">Stage 0 – Foundations</option>
                     <option value="stage1">Stage 1 – MCP Fundamentals</option>
                     <option value="stage2">Stage 2 – Tools Development</option>
-                    <option value="stage3">Stage 3 – Agents & Autonomy</option>
-                    <option value="stage4">Stage 4 – Product Building</option>
-                    <option value="stage5">Stage 5 – Branding</option>
+                    <option value="stage2">Stage 3 – Agent Foundations</option>
+                    <option value="stage3">Stage 4 – Agents & Autonomy</option>
+                    <option value="stage4">Stage 5 – Product Building</option>
+                    <option value="stage5">Stage 6 – Branding</option>
                 </select>
 
                 <button onclick="resetAll()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm px-4 py-2 rounded-lg font-medium shadow-lg">
@@ -498,7 +499,7 @@
         </p>
         <div class="mt-8 flex flex-wrap gap-3 justify-center">
             <span class="px-4 py-2 bg-sky-500/10 border border-sky-500/30 rounded-full text-sky-400 text-sm font-semibold">
-                🎯 6 Comprehensive Stages
+                🎯 7 Comprehensive Stages
             </span>
     
             <span class="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-semibold">
@@ -1002,249 +1003,166 @@
     </section>
 
     <section id="stage3" class="stage-card">
-        <h2 class="stage-title">Stage 3 – Agents & Autonomy</h2>
-        <p class="stage-subtitle">
-            🎯 Goal: Understand how agents think, plan, and act — combining reasoning with your tools for autonomous task completion.
-        </p>
+    <h2 class="stage-title">
+        Stage 3 – Agent Foundations
+    </h2>
+    <p class="stage-subtitle">
+        🎯 Goal: Understand the core mental model of AI agents — planning, reasoning, tool-use, recursion, and safe multi-step execution.  
+        This stage prepares you for Stage 3 (Agents & Autonomy).
+    </p>
 
-        <div class="progress-bar"><div id="stage3Bar" class="progress-inner" style="width:0%"></div></div>
+    <div class="progress-bar">
+        <div id="stage25Bar" class="progress-inner" style="width:0%"></div>
+    </div>
 
-        <div class="overflow-x-auto">
-            <table class="text-base w-full mb-6">
-                <thead class="text-slate-400 text-left">
-                    <tr>
-                        <th class="w-12"></th>
-                        <th>Topic</th>
-                        <th class="hidden lg:table-cell">Search Phrase</th>
-                        <th class="w-32">Duration</th>
-                        <th class="w-80">Video Links</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-700">
-                    <tr data-id="agent_loop">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium">Understand the Agent Loop</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent loop explained"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="function_calling">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Function Calling Deep Dive</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"OpenAI function calling Video l"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="langchain_integration">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium">LangChain.js Integration – tools, memory, and chains</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LangChain tools and memory JS"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="agent_memory">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium">Add short-term and long-term memory</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"LangChain memory TypeScript"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="agent_eval">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Agent Evaluation & Testing</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"testing AI agents evaluation metrics"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="multi_agent">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Multi-agent Systems</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"multi-agent systems LangChain"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="structured_outputs">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Structured Outputs – JSON mode, grammar-based</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"structured output OpenAI JSON mode"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="prompt_engineering">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Prompt Engineering Techniques</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"chain of thought few shot prompting"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="context_management">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium"><span class="badge">NEW</span> Context Window Management</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"context window chunking strategies"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                    <tr data-id="agent_project">
-                        <td><input type="checkbox" onchange="toggleTask(this)"></td>
-                        <td class="font-medium">Build a full Agent project</td>
-                        <td class="hidden lg:table-cell text-slate-400 text-sm">"build AI agent project TypeScript"</td>
-                        <td><span class="duration-badge">10 / 10 / 10 Min</span></td>
-                        <td class="space-x-2">
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  1
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  2
-                            </a>
-                            <a href="https://www.youtube.com" target="_blank" 
-                                class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
-                                📺 Video  3
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="overflow-x-auto">
+        <table class="text-base w-full mb-6">
+            <thead class="text-slate-400 text-left">
+                <tr>
+                    <th class="w-12"></th>
+                    <th>Topic</th>
+                    <th class="hidden lg:table-cell">Search Phrase</th>
+                    <th class="w-32">Duration</th>
+                    <th class="w-96">Tutorial Links</th>
+                </tr>
+            </thead>
 
-        <div class="text-slate-400 text-sm mb-4">
-            <strong>⏱️ Total Duration for Stage 3:</strong> 300 minutes (approximately 5 hours)
-        </div>
+            <tbody class="divide-y divide-slate-700">
 
-        <div class="tip">
-            <p><strong>💡 Key concepts:</strong> Observation → Planning → Action → Reflection loop, reasoning steps, multi-tool orchestration.</p>
-            <p><strong>🎯 Tips:</strong> start with a single-goal agent before adding multiple tools. Test extensively with edge cases.</p>
-            <p><strong>⚠️ Common pitfalls:</strong> infinite reasoning loops, no stop condition, not having proper evaluation metrics.</p>
-        </div>
+                <tr data-id="agent_intro">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Introduction to AI Agents</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agents explained" / "how AI agents work"</td>
+                    <td><span class="duration-badge">12 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=vR1rBZQK7_c" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
 
-        <textarea rows="4" placeholder="✍️ Your notes for Stage 3..." class="notes text-base" oninput="saveData()"></textarea>
-    </section>
+                <tr data-id="agent_loop">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Loop – Planner → Reasoner → Tool Use</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"LLM agent loop explained" / "agent planning reasoning tools"</td>
+                    <td><span class="duration-badge">18 / 14 Min</span></td>
+                    <td class="space-x-2">
+                        <a href="https://www.youtube.com/watch?v=zB-Dv2xYmsk" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=3qJNtXG26YA" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 2
+                        </a>
+                    </td>
+                </tr>
 
-    <section id="stage4" class="stage-card">
-        <h2 class="stage-title">Stage 4 – Product Building</h2>
+                <tr data-id="task_decomposition">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Task Decomposition & Planning</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"task decomposition LLM" / "LLM planner strategies"</td>
+                    <td><span class="duration-badge">10 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=C6JwQ4HcGvA" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <tr data-id="cot_reasoning">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Chain-of-Thought & Internal Agent Reasoning</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"chain of thought LLM" / "agent reasoning internally"</td>
+                    <td><span class="duration-badge">11 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=ul2v2mk0J6A" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <tr data-id="tool_selection_logic">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Tool Selection Logic – How Agents Choose Tools</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"agent tool selection" / "LLM choose correct tool"</td>
+                    <td><span class="duration-badge">9 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=pRAxvQ0r5A4" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <tr data-id="multistep_agents">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Multi-Step Agent Workflows</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"multi-step agent reasoning" / "recursive agent loops"</td>
+                    <td><span class="duration-badge">17 / 12 Min</span></td>
+                    <td class="space-x-2">
+                        <a href="https://www.youtube.com/watch?v=qlJh0k2jfCE" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=gMuShbZkT60" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 2
+                        </a>
+                    </td>
+                </tr>
+
+                <tr data-id="multi_agent">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Single-Agent vs Multi-Agent Systems</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"multi agent collaboration AI" / "agent teams LLM"</td>
+                    <td><span class="duration-badge">13 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=gSsNvQNWyQo" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <tr data-id="agent_safety">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Safety – Avoiding Loops & Hallucinations</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent safety basics" / "LLM infinite loop prevention"</td>
+                    <td><span class="duration-badge">14 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=XR8rC4yAXP0" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tip">
+        <p><strong>⏱️ Total Duration for Stage 3:</strong> ~120 minutes (approximately 2 hours)</p>
+        <p><strong>💡 Key concepts:</strong> agent loop, planner strategies, internal reasoning, tool selection, recursion, multi-agent collaboration.</p>
+        <p><strong>🎯 Tips:</strong> observe how agents decide next actions, practice tracing an agent’s loop, understand when human-in-the-loop is needed.</p>
+        <p><strong>⚠️ Common pitfalls:</strong> infinite loops, over-trusting the agent, giving too much freedom, missing safety rails.</p>
+    </div>
+
+    <textarea rows="4" placeholder="✍️ Your notes for Stage 3..." class="notes text-base" oninput="saveData()"></textarea>
+</section>
+
+
+    <section id="stage5" class="stage-card">
+        <h2 class="stage-title">Stage 5 – Product Building</h2>
         <p class="stage-subtitle">
             🎯 Goal: Combine your backend, frontend, and AI logic into a single, production-ready project.
         </p>
 
-        <div class="progress-bar"><div id="stage4Bar" class="progress-inner" style="width:0%"></div></div>
+        <div class="progress-bar"><div id="stage5Bar" class="progress-inner" style="width:0%"></div></div>
 
         <div class="overflow-x-auto">
             <table class="text-base w-full mb-6">
@@ -1423,7 +1341,7 @@
         </div>
 
         <div class="text-slate-400 text-sm mb-4">
-            <strong>⏱️ Total Duration for Stage 4:</strong> 240 minutes (approximately 4 hours)
+            <strong>⏱️ Total Duration for Stage 5:</strong> 240 minutes (approximately 4 hours)
         </div>
 
         <div class="tip">
@@ -1432,11 +1350,11 @@
             <p><strong>⚠️ Common pitfalls:</strong> missing environment variables, ignoring error handling, not sanitizing inputs for prompt injection.</p>
         </div>
 
-        <textarea rows="4" placeholder="✍️ Your notes for Stage 4..." class="notes text-base" oninput="saveData()"></textarea>
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 5..." class="notes text-base" oninput="saveData()"></textarea>
     </section>
 
-    <section id="stage5" class="stage-card">
-        <h2 class="stage-title">Stage 5 – Branding & Publishing</h2>
+    <section id="stage6" class="stage-card">
+        <h2 class="stage-title">Stage 6 – Branding & Publishing</h2>
         <p class="stage-subtitle">
             🎯 Goal: Share your work, grow credibility, and present yourself as an AI Tools Developer to the world.
         </p>
@@ -1605,7 +1523,7 @@
             <p><strong>⚠️ Common pitfalls:</strong> waiting for perfection — publish early and iterate. Don't skip documentation.</p>
         </div>
 
-        <textarea rows="4" placeholder="✍️ Your notes for Stage 5..." class="notes text-base" oninput="saveData()"></textarea>
+        <textarea rows="4" placeholder="✍️ Your notes for Stage 6..." class="notes text-base" oninput="saveData()"></textarea>
     </section>
 
     <section class="stage-card completion-card text-center">
