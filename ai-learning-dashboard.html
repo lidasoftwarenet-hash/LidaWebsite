@@ -458,10 +458,10 @@
                     <option value="stage0">Stage 0 – Foundations</option>
                     <option value="stage1">Stage 1 – MCP Fundamentals</option>
                     <option value="stage2">Stage 2 – Tools Development</option>
-                    <option value="stage2">Stage 3 – Agent Foundations</option>
-                    <option value="stage3">Stage 4 – Agents & Autonomy</option>
-                    <option value="stage4">Stage 5 – Product Building</option>
-                    <option value="stage5">Stage 6 – Branding</option>
+                    <option value="stage3">Stage 3 – Agent Foundations</option>
+                    <option value="stage4">Stage 4 – Agents & Autonomy</option>
+                    <option value="stage5">Stage 5 – Product Building</option>
+                    <option value="stage6">Stage 6 – Branding</option>
                 </select>
 
                 <button onclick="resetAll()" class="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm px-4 py-2 rounded-lg font-medium shadow-lg">
@@ -1153,6 +1153,159 @@
     </div>
 
     <textarea rows="4" placeholder="✍️ Your notes for Stage 3..." class="notes text-base" oninput="saveData()"></textarea>
+</section>
+
+<section id="stage4" class="stage-card">
+    <h2 class="stage-title">
+        Stage 4 – Agents & Autonomy
+    </h2>
+
+    <p class="stage-subtitle">
+        🎯 Goal: Learn how to build autonomous AI agents that plan, reason, call tools, delegate tasks, and operate safely in multi-step workflows.
+    </p>
+
+    <div class="progress-bar">
+        <div id="stage4Bar" class="progress-inner" style="width:0%"></div>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="text-base w-full mb-6">
+            <thead class="text-slate-400 text-left">
+                <tr>
+                    <th class="w-12"></th>
+                    <th>Topic</th>
+                    <th class="hidden lg:table-cell">Search Phrase</th>
+                    <th class="w-32">Duration</th>
+                    <th class="w-96">Tutorial Links</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-700">
+
+                <!-- 1. Agent Planning -->
+                <tr data-id="agent_planning">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Planning – Breaking tasks into executable steps</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"LLM task planning" / "agent planner architecture"</td>
+                    <td><span class="duration-badge">14 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=zB-Dv2xYmsk" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 2. Reasoning -->
+                <tr data-id="agent_reasoning">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Reasoning & Chain-of-Thought for Agents</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"agent chain of thought" / "LLM reasoning techniques"</td>
+                    <td><span class="duration-badge">11 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=ul2v2mk0J6A" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 3. Tool Orchestration -->
+                <tr data-id="tool_orchestration">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Tool Orchestration – Multi-step tool usage</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent tool orchestration" / "LLM tool pipelines"</td>
+                    <td><span class="duration-badge">16 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=pRAxvQ0r5A4" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 4. Autonomous Execution Loop -->
+                <tr data-id="agent_loop_autonomy">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Execution Loop – Autonomy & Decision Making</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"autonomous LLM agent loop" / "recursive agent execution"</td>
+                    <td><span class="duration-badge">18 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=qlJh0k2jfCE" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 5. Multi-Agent Collaboration -->
+                <tr data-id="multi_agent_systems">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Multi-Agent Collaboration – Teams of Agents</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"multi agent LLM" / "agent collaboration patterns"</td>
+                    <td><span class="duration-badge">15 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=gSsNvQNWyQo" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 6. Memory for Agents -->
+                <tr data-id="agent_memory">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Memory – Short-term, Long-term, and Episodic</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent memory architecture" / "LLM memory systems"</td>
+                    <td><span class="duration-badge">13 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=8zKV-yvKP-Y" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 7. Agent Delegation -->
+                <tr data-id="agent_delegation">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Delegation – Assigning subtasks to other agents</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"agent delegation LLM" / "task delegation AI"</td>
+                    <td><span class="duration-badge">12 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=3qJNtXG26YA" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+                <!-- 8. Safety & Loop Prevention -->
+                <tr data-id="agent_safety">
+                    <td><input type="checkbox" onchange="toggleTask(this)"></td>
+                    <td class="font-medium">Agent Safety – Avoid Loops, Hallucinations & Bad Actions</td>
+                    <td class="hidden lg:table-cell text-slate-400 text-sm">"AI agent safety" / "avoid infinite loops LLM"</td>
+                    <td><span class="duration-badge">14 Min</span></td>
+                    <td>
+                        <a href="https://www.youtube.com/watch?v=XR8rC4yAXP0" target="_blank"
+                           class="text-sky-400 hover:text-sky-300 underline decoration-sky-500 font-medium">
+                           📺 Video 1
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tip">
+        <p><strong>⏱️ Total Duration for Stage 4:</strong> ~123 minutes (just over 2 hours)</p>
+        <p><strong>💡 Key concepts:</strong> planning, reasoning, tool orchestration, delegation, multi-agent systems, autonomy loops, memory.</p>
+        <p><strong>🎯 Tips:</strong> trace the internal loop of the agent, watch how it selects tools, monitor its reasoning steps, enforce safety rails.</p>
+        <p><strong>⚠️ Common pitfalls:</strong> infinite loops, tool misuse, over-delegation, missing stop conditions, "hallucinated planning".</p>
+    </div>
+
+    <textarea rows="4" placeholder="✍️ Your notes for Stage 4..." class="notes text-base" oninput="saveData()"></textarea>
 </section>
 
 
