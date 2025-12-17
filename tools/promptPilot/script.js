@@ -421,6 +421,13 @@ const defaultPlatformProfiles = {
         prefix: "Research and analyze the following technical requirement:\n\n",
         suffix: "\n\nPlease include relevant sources and best practices in your response."
     },
+    grok: {
+        id: "grok",
+        name: "Grok",
+        url: "https://grok.x.ai",
+        prefix: "You are a witty and knowledgeable AI assistant with a sense of humor. Help me with the following technical challenge:\n\n",
+        suffix: "\n\nPlease provide insightful, practical advice with a touch of humor where appropriate."
+    },
     custom: {
         id: "custom",
         name: "Custom URL",
@@ -1187,6 +1194,168 @@ function toggleEditMode() {
     }
 }
 
+// ===== EXPORT FUNCTIONS =====
+function exportPrompt(format) {
+    const text = promptOutput.textContent;
+    const data = collectFormData();
+    const timestamp = new Date().toISOString();
+    const templateName = currentTemplate ? currentTemplate.title : 'Custom';
+    
+    switch(format) {
+        case 'json':
+            exportAsJSON(data, text, timestamp, templateName);
+            break;
+        case 'markdown':
+            exportAsMarkdown(text, data, timestamp, templateName);
+            break;
+        case 'pdf':
+            exportAsPDF(text, data, timestamp, templateName);
+            break;
+        case 'text':
+            exportAsText(text, data, timestamp, templateName);
+            break;
+        default:
+            showToast('Unknown export format', 'error');
+    }
+}
+
+function exportAsJSON(data, prompt, timestamp, templateName) {
+    const exportData = {
+        timestamp: timestamp,
+        template: templateName,
+        formData: data,
+        generatedPrompt: prompt
+    };
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-prompt-${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('Prompt exported as JSON!', 'success');
+}
+
+function exportAsMarkdown(prompt, data, timestamp, templateName) {
+    const date = new Date(timestamp).toLocaleString();
+    let markdown = `# AI Prompt: ${templateName}\n\n`;
+    markdown += `**Generated:** ${date}\n\n`;
+    markdown += `## Prompt\n\n\`\`\`\n${prompt}\n\`\`\`\n\n`;
+    
+    // Add form data if available
+    if (data.projectName || data.projectType) {
+        markdown += `## Project Details\n\n`;
+        if (data.projectName) markdown += `- **Project:** ${data.projectName}\n`;
+        if (data.projectType) markdown += `- **Type:** ${data.projectType}\n`;
+        if (data.technology) markdown += `- **Tech Stack:** ${data.technology}\n`;
+        markdown += '\n';
+    }
+    
+    const blob = new Blob([markdown], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-prompt-${Date.now()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('Prompt exported as Markdown!', 'success');
+}
+
+function exportAsPDF(prompt, data, timestamp, templateName) {
+    // For PDF, we'll use browser's print functionality
+    const date = new Date(timestamp).toLocaleString();
+    const printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>AI Prompt: ${templateName}</title>
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+                h1 { color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+                .meta { color: #666; margin-bottom: 20px; }
+                .prompt { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre-wrap; }
+                .project-details { margin-top: 20px; }
+                .project-details h2 { color: #555; }
+                @media print {
+                    body { padding: 0; }
+                    .no-print { display: none; }
+                }
+            </style>
+        </head>
+        <body>
+            <h1>AI Prompt: ${templateName}</h1>
+            <div class="meta"><strong>Generated:</strong> ${date}</div>
+            <h2>Prompt</h2>
+            <div class="prompt">${prompt.replace(/</g, '<').replace(/>/g, '>')}</div>
+            
+            ${data.projectName || data.projectType ? `
+            <div class="project-details">
+                <h2>Project Details</h2>
+                <ul>
+                    ${data.projectName ? `<li><strong>Project:</strong> ${data.projectName}</li>` : ''}
+                    ${data.projectType ? `<li><strong>Type:</strong> ${data.projectType}</li>` : ''}
+                    ${data.technology ? `<li><strong>Tech Stack:</strong> ${data.technology}</li>` : ''}
+                </ul>
+            </div>
+            ` : ''}
+            
+            <div class="no-print" style="margin-top: 30px; color: #999; font-size: 12px;">
+                Generated with LiDa Prompt Pilot • ${window.location.origin}
+            </div>
+        </body>
+        </html>
+    `;
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    
+    // Wait for content to load, then print
+    printWindow.onload = function() {
+        printWindow.print();
+        printWindow.onafterprint = function() {
+            printWindow.close();
+            showToast('PDF generated successfully!', 'success');
+        };
+    };
+}
+
+function exportAsText(prompt, data, timestamp, templateName) {
+    const date = new Date(timestamp).toLocaleString();
+    let text = `AI Prompt: ${templateName}\n`;
+    text += `Generated: ${date}\n\n`;
+    text += `PROMPT:\n${prompt}\n\n`;
+    
+    if (data.projectName || data.projectType) {
+        text += `PROJECT DETAILS:\n`;
+        if (data.projectName) text += `  Project: ${data.projectName}\n`;
+        if (data.projectType) text += `  Type: ${data.projectType}\n`;
+        if (data.technology) text += `  Tech Stack: ${data.technology}\n`;
+        text += '\n';
+    }
+    
+    text += `Generated with LiDa Prompt Pilot • ${window.location.origin}`;
+    
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ai-prompt-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('Prompt exported as plain text!', 'success');
+}
+
 // ===== COPY & SAVE FUNCTIONS =====
 function copyToClipboard() {
     const text = promptOutput.textContent;
@@ -1814,6 +1983,116 @@ function closeModalFn() {
     document.body.style.overflow = "";
 }
 
+// ===== SHARE FUNCTIONALITY =====
+function sharePrompt() {
+    const promptText = promptOutput.textContent;
+    const data = collectFormData();
+    const templateName = currentTemplate ? currentTemplate.title : 'Custom';
+    const timestamp = new Date().toLocaleString();
+    
+    // Create shareable content with attribution
+    let shareContent = `🤖 AI Prompt: ${templateName}\n\n`;
+    shareContent += `Generated with LiDa Prompt Pilot\n`;
+    shareContent += `🔗 ${window.location.origin}\n\n`;
+    shareContent += `📅 ${timestamp}\n\n`;
+    
+    if (data.projectName) {
+        shareContent += `📁 Project: ${data.projectName}\n`;
+    }
+    if (data.projectType) {
+        shareContent += `📋 Type: ${data.projectType}\n`;
+    }
+    
+    shareContent += `\n--- PROMPT ---\n\n`;
+    shareContent += `${promptText}\n\n`;
+    shareContent += `--- END PROMPT ---\n\n`;
+    shareContent += `✨ Try it yourself: ${window.location.href}`;
+    
+    // Check if Web Share API is available
+    if (navigator.share) {
+        navigator.share({
+            title: `AI Prompt: ${templateName}`,
+            text: shareContent,
+            url: window.location.href
+        })
+        .then(() => {
+            showToast('Prompt shared successfully!', 'success');
+        })
+        .catch((error) => {
+            console.error('Error sharing:', error);
+            fallbackShare(shareContent);
+        });
+    } else {
+        fallbackShare(shareContent);
+    }
+}
+
+function fallbackShare(shareContent) {
+    // Copy to clipboard as fallback
+    navigator.clipboard.writeText(shareContent).then(() => {
+        showToast('Prompt copied to clipboard! Share it anywhere.', 'success');
+        
+        // Show a message about where to share
+        const shareOptions = [
+            '📧 Email',
+            '💬 Slack/Discord',
+            '🐦 Twitter/X',
+            '💼 LinkedIn',
+            '📱 WhatsApp/Telegram'
+        ];
+        
+        const shareMessage = `Prompt copied! You can paste it in:\n\n${shareOptions.join('\n')}`;
+        alert(shareMessage);
+    }).catch(() => {
+        // Last resort: show the content in an alert
+        alert('Share this prompt:\n\n' + shareContent);
+    });
+}
+
+// ===== EXPORT DROPDOWN FUNCTIONALITY =====
+function initializeExportDropdown() {
+    const exportDropdown = document.querySelector('.export-dropdown');
+    const saveBtn = document.getElementById('saveBtn');
+    const exportOptions = document.getElementById('exportOptions');
+    
+    if (!exportDropdown || !saveBtn || !exportOptions) return;
+    
+    // Toggle dropdown on button click
+    saveBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = exportOptions.style.display === 'block';
+        
+        if (isOpen) {
+            exportOptions.style.display = 'none';
+            exportDropdown.classList.remove('active');
+        } else {
+            exportOptions.style.display = 'block';
+            exportDropdown.classList.add('active');
+        }
+    });
+    
+    // Handle export option selection
+    exportOptions.addEventListener('click', (e) => {
+        const option = e.target.closest('.export-option');
+        if (option) {
+            const format = option.dataset.format;
+            exportPrompt(format);
+            
+            // Close dropdown
+            exportOptions.style.display = 'none';
+            exportDropdown.classList.remove('active');
+        }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!exportDropdown.contains(e.target)) {
+            exportOptions.style.display = 'none';
+            exportDropdown.classList.remove('active');
+        }
+    });
+}
+
 // ===== EVENT LISTENERS =====
 function attachEventListeners() {
     // Category selection
@@ -1923,6 +2202,12 @@ function attachEventListeners() {
 
     // Copy + Open AI button
     copyOpenBtn.addEventListener("click", copyAndOpenAI);
+    
+    // Share button
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener("click", sharePrompt);
+    }
 
     // Platform selector
     platformSelectorBtn.addEventListener("click", (e) => {
@@ -2622,9 +2907,288 @@ function hideHelpGuide() {
     }
 }
 
+// ===== THEME TOGGLE FUNCTIONALITY =====
+function initializeThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
+    
+    if (!themeToggle) return;
+    
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    applyTheme(currentTheme);
+    
+    // Toggle theme on click
+    themeToggle.addEventListener('click', () => {
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(currentTheme);
+        localStorage.setItem('theme', currentTheme);
+        showToast(`${currentTheme === 'dark' ? 'Dark' : 'Light'} mode enabled!`, 'success');
+    });
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            // Only auto-switch if user hasn't set a preference
+            const newTheme = e.matches ? 'dark' : 'light';
+            applyTheme(newTheme);
+        }
+    });
+}
+
+function applyTheme(theme) {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle?.querySelector('.material-symbols-outlined');
+    
+    // Set data-theme attribute on root
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Update icon
+    if (themeIcon) {
+        themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+        themeToggle.title = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
+    }
+}
+
+// ===== KEYBOARD SHORTCUTS =====
+function initializeKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Don't trigger shortcuts if user is typing in an input/textarea
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+            return;
+        }
+        
+        const isCtrl = e.ctrlKey || e.metaKey; // metaKey for Mac Command key
+        
+        // Ctrl/Cmd + Enter: Generate prompt or go to next step
+        if (isCtrl && e.key === 'Enter') {
+            e.preventDefault();
+            if (modalOverlay.classList.contains('active')) {
+                if (currentStep === totalSteps && generateBtn.style.display !== 'none') {
+                    generatePrompt();
+                } else if (nextBtn.style.display !== 'none') {
+                    nextStep();
+                }
+            }
+        }
+        
+        // Ctrl/Cmd + S: Save as JSON
+        if (isCtrl && e.key === 's') {
+            e.preventDefault();
+            if (generatedSection.style.display !== 'none') {
+                saveAsJSON();
+            }
+        }
+        
+        // Ctrl/Cmd + C: Copy prompt
+        if (isCtrl && e.key === 'c') {
+            e.preventDefault();
+            if (generatedSection.style.display !== 'none') {
+                copyToClipboard();
+            }
+        }
+        
+        // Ctrl/Cmd + K: Focus search
+        if (isCtrl && e.key === 'k') {
+            e.preventDefault();
+            searchInput.focus();
+        }
+        
+        // Escape: Close modal or dialog
+        if (e.key === 'Escape') {
+            if (modalOverlay.classList.contains('active') && !dialogOverlay.classList.contains('active')) {
+                attemptCloseModal();
+            } else if (dialogOverlay.classList.contains('active')) {
+                // Close whichever dialog is open
+                if (confirmationDialog.style.display !== 'none') {
+                    hideConfirmationDialog();
+                } else if (loadDraftDialog.style.display !== 'none') {
+                    hideLoadDraftDialog();
+                } else if (resetDialog.style.display !== 'none') {
+                    hideResetDialog();
+                } else if (document.getElementById('promptProfileDialog').style.display !== 'none') {
+                    hidePromptProfileDialog();
+                } else if (document.getElementById('customUrlDialog').style.display !== 'none') {
+                    hideCustomUrlDialog();
+                }
+            } else if (document.getElementById('helpGuideModal').style.display === 'flex') {
+                hideHelpGuide();
+            }
+        }
+        
+        // Ctrl/Cmd + /: Toggle help guide
+        if (isCtrl && e.key === '/') {
+            e.preventDefault();
+            const helpGuideModal = document.getElementById('helpGuideModal');
+            if (helpGuideModal.style.display === 'flex') {
+                hideHelpGuide();
+            } else {
+                showHelpGuide();
+            }
+        }
+        
+        // Ctrl/Cmd + T: Toggle theme
+        if (isCtrl && e.key === 't') {
+            e.preventDefault();
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.click();
+            }
+        }
+        
+        // Ctrl/Cmd + F: Toggle fast mode
+        if (isCtrl && e.key === 'f') {
+            e.preventDefault();
+            const fastModeToggle = document.getElementById('fastModeToggle');
+            if (fastModeToggle) {
+                fastModeToggle.checked = !fastModeToggle.checked;
+                // Trigger change event
+                fastModeToggle.dispatchEvent(new Event('change'));
+                showToast(`Fast mode ${fastModeToggle.checked ? 'enabled' : 'disabled'}!`, 'success');
+            }
+        }
+    });
+}
+
+// Show keyboard shortcut help
+function showKeyboardShortcutsHelp() {
+    const shortcuts = [
+        { key: 'Ctrl/Cmd + Enter', action: 'Generate prompt or next step' },
+        { key: 'Ctrl/Cmd + S', action: 'Save prompt as JSON' },
+        { key: 'Ctrl/Cmd + C', action: 'Copy prompt to clipboard' },
+        { key: 'Ctrl/Cmd + K', action: 'Focus search input' },
+        { key: 'Ctrl/Cmd + /', action: 'Toggle help guide' },
+        { key: 'Ctrl/Cmd + T', action: 'Toggle dark/light mode' },
+        { key: 'Ctrl/Cmd + F', action: 'Toggle fast mode' },
+        { key: 'Escape', action: 'Close modal/dialog' }
+    ];
+    
+    let helpText = 'Keyboard Shortcuts:\n\n';
+    shortcuts.forEach(shortcut => {
+        helpText += `${shortcut.key}: ${shortcut.action}\n`;
+    });
+    
+    alert(helpText);
+}
+
+// Add keyboard shortcuts help to help guide
+function addKeyboardShortcutsToHelpGuide() {
+    const helpGuideBody = document.querySelector('.help-guide-body');
+    if (!helpGuideBody) return;
+    
+    // Check if shortcuts section already exists
+    if (document.getElementById('keyboard-shortcuts-section')) return;
+    
+    const shortcutsSection = document.createElement('div');
+    shortcutsSection.id = 'keyboard-shortcuts-section';
+    shortcutsSection.className = 'help-section';
+    shortcutsSection.innerHTML = `
+        <div class="help-section-icon">
+            <span class="material-symbols-outlined">keyboard</span>
+        </div>
+        <div class="help-section-content">
+            <h3>Keyboard Shortcuts</h3>
+            <p>Work faster with these keyboard shortcuts:</p>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + Enter</span>
+                    <span class="shortcut-action">Generate prompt or next step</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + S</span>
+                    <span class="shortcut-action">Save prompt as JSON</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + C</span>
+                    <span class="shortcut-action">Copy prompt to clipboard</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + K</span>
+                    <span class="shortcut-action">Focus search input</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + /</span>
+                    <span class="shortcut-action">Toggle help guide</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + T</span>
+                    <span class="shortcut-action">Toggle dark/light mode</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Ctrl/Cmd + F</span>
+                    <span class="shortcut-action">Toggle fast mode</span>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-key">Escape</span>
+                    <span class="shortcut-action">Close modal/dialog</span>
+                </div>
+            </div>
+            <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Press <kbd>Ctrl</kbd> + <kbd>/</kbd> anytime to see this help!</p>
+        </div>
+    `;
+    
+    // Insert before the footer
+    const helpFooter = helpGuideBody.querySelector('.help-footer');
+    if (helpFooter) {
+        helpFooter.parentNode.insertBefore(shortcutsSection, helpFooter);
+    } else {
+        helpGuideBody.appendChild(shortcutsSection);
+    }
+    
+    // Add CSS for shortcuts grid
+    const style = document.createElement('style');
+    style.textContent = `
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .shortcut-item {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .shortcut-key {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 13px;
+        }
+        .shortcut-action {
+            font-size: 13px;
+            color: var(--dark);
+        }
+        kbd {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            box-shadow: 0 2px 0 var(--border);
+        }
+    `;
+    document.head.appendChild(style);
+}
+
 // ===== START APP =====
 init();
 initializeLivePreview();
 initializeAIAvatar();
 pauseTipsWhenModalOpen();
 initializeHelpGuide();
+initializeThemeToggle();
+initializeKeyboardShortcuts();
+initializeExportDropdown();
+
+// Add keyboard shortcuts to help guide after initialization
+setTimeout(addKeyboardShortcutsToHelpGuide, 100);

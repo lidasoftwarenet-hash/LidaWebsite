@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
 <head>
     
     <meta charset="UTF-8" />
@@ -82,8 +80,10 @@
             <div class="lida-branding">
                 <span class="lida-text">By Lida Software</span>
                 <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
-                </div>
             </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                <span class="material-symbols-outlined">dark_mode</span>
+            </button>
             <button class="help-button" id="helpButton" title="Help & Guide">
                 <span class="material-symbols-outlined">help</span>
             </button>
@@ -458,10 +458,35 @@
                                 <span class="material-symbols-outlined">open_in_new</span>
                                 Copy + Open AI
                             </button>
-                            <button class="btn btn-save" id="saveBtn">
-                                <span class="material-symbols-outlined">save</span>
-                                Save JSON
+                            <button class="btn btn-share" id="shareBtn">
+                                <span class="material-symbols-outlined">share</span>
+                                Share
                             </button>
+                            <div class="export-dropdown">
+                                <button class="btn btn-save" id="saveBtn">
+                                    <span class="material-symbols-outlined">save</span>
+                                    Export
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                </button>
+                                <div class="export-options" id="exportOptions" style="display: none;">
+                                    <button class="export-option" data-format="json">
+                                        <span class="material-symbols-outlined">code</span>
+                                        JSON
+                                    </button>
+                                    <button class="export-option" data-format="markdown">
+                                        <span class="material-symbols-outlined">text_fields</span>
+                                        Markdown
+                                    </button>
+                                    <button class="export-option" data-format="pdf">
+                                        <span class="material-symbols-outlined">picture_as_pdf</span>
+                                        PDF
+                                    </button>
+                                    <button class="export-option" data-format="text">
+                                        <span class="material-symbols-outlined">description</span>
+                                        Plain Text
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -505,6 +530,14 @@
                                 <div class="platform-info">
                                     <div class="platform-name">Perplexity</div>
                                     <div class="platform-url">perplexity.ai</div>
+                                </div>
+                                <span class="platform-check material-symbols-outlined">check_circle</span>
+                            </div>
+                            <div class="platform-option" data-platform="grok">
+                                <span class="platform-icon">🤪</span>
+                                <div class="platform-info">
+                                    <div class="platform-name">Grok</div>
+                                    <div class="platform-url">grok.x.ai</div>
                                 </div>
                                 <span class="platform-check material-symbols-outlined">check_circle</span>
                             </div>
@@ -769,6 +802,7 @@
                 <option value="claude">🧠 Claude</option>
                 <option value="gemini">✨ Gemini</option>
                 <option value="perplexity">🔍 Perplexity</option>
+                <option value="grok">🤪 Grok</option>
                 <option value="custom">⚙️ Custom URL</option>
             </select>
         </div>

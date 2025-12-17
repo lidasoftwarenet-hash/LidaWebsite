@@ -29,6 +29,18 @@
         <priority>0.9</priority>
     </url>
     <url>
+    <loc>https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html</loc>
+    <lastmod>2025-12-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    </url>
+    <url>
+    <loc>https://www.lidasoftware.online/usecase-json-beautifier</loc>
+    <lastmod>2025-12-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://www.lidasoftware.online/dummy-generate.html</loc>
         <lastmod>2025-10-14</lastmod>
         <changefreq>monthly</changefreq>
