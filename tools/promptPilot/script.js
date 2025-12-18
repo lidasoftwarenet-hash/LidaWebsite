@@ -1269,62 +1269,147 @@ function exportAsMarkdown(prompt, data, timestamp, templateName) {
 }
 
 function exportAsPDF(prompt, data, timestamp, templateName) {
-    // For PDF, we'll use browser's print functionality
+    // Create a print-friendly HTML document
     const date = new Date(timestamp).toLocaleString();
     const printContent = `
         <!DOCTYPE html>
         <html>
         <head>
             <title>AI Prompt: ${templateName}</title>
+            <meta charset="UTF-8">
             <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-                h1 { color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
-                .meta { color: #666; margin-bottom: 20px; }
-                .prompt { background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre-wrap; }
-                .project-details { margin-top: 20px; }
-                .project-details h2 { color: #555; }
+                body { 
+                    font-family: Arial, sans-serif; 
+                    line-height: 1.6; 
+                    padding: 40px; 
+                    max-width: 800px;
+                    margin: 0 auto;
+                    background: white;
+                    color: #333;
+                }
+                h1 { 
+                    color: #333; 
+                    border-bottom: 3px solid #667eea; 
+                    padding-bottom: 15px; 
+                    margin-bottom: 20px;
+                }
+                .meta { 
+                    color: #666; 
+                    margin-bottom: 30px; 
+                    font-size: 14px;
+                    padding: 10px;
+                    background: #f8f9fa;
+                    border-radius: 5px;
+                }
+                .prompt { 
+                    background: #f5f5f5; 
+                    padding: 20px; 
+                    border-radius: 5px; 
+                    font-family: 'Courier New', monospace; 
+                    white-space: pre-wrap;
+                    border: 1px solid #ddd;
+                    margin: 20px 0;
+                }
+                .project-details { 
+                    margin-top: 30px; 
+                    padding: 20px;
+                    background: #f8f9fa;
+                    border-radius: 5px;
+                }
+                .project-details h2 { 
+                    color: #555; 
+                    margin-top: 0;
+                }
+                ul {
+                    padding-left: 20px;
+                }
+                li {
+                    margin-bottom: 8px;
+                }
+                .instructions {
+                    margin-top: 40px;
+                    padding: 20px;
+                    background: #fff3cd;
+                    border: 1px solid #ffeaa7;
+                    border-radius: 5px;
+                    color: #856404;
+                    font-size: 14px;
+                }
                 @media print {
-                    body { padding: 0; }
-                    .no-print { display: none; }
+                    body { 
+                        padding: 0;
+                        max-width: 100%;
+                    }
+                    .instructions { 
+                        display: none; 
+                    }
+                    .prompt {
+                        page-break-inside: avoid;
+                    }
                 }
             </style>
         </head>
         <body>
             <h1>AI Prompt: ${templateName}</h1>
-            <div class="meta"><strong>Generated:</strong> ${date}</div>
+            <div class="meta">
+                <strong>Generated:</strong> ${date}<br>
+                <strong>Source:</strong> LiDa Prompt Pilot • ${window.location.origin}
+            </div>
+            
             <h2>Prompt</h2>
-            <div class="prompt">${prompt.replace(/</g, '<').replace(/>/g, '>')}</div>
+            <div class="prompt">${escapeHtmlForPDF(prompt)}</div>
             
             ${data.projectName || data.projectType ? `
             <div class="project-details">
                 <h2>Project Details</h2>
                 <ul>
-                    ${data.projectName ? `<li><strong>Project:</strong> ${data.projectName}</li>` : ''}
-                    ${data.projectType ? `<li><strong>Type:</strong> ${data.projectType}</li>` : ''}
-                    ${data.technology ? `<li><strong>Tech Stack:</strong> ${data.technology}</li>` : ''}
+                    ${data.projectName ? `<li><strong>Project:</strong> ${escapeHtmlForPDF(data.projectName)}</li>` : ''}
+                    ${data.projectType ? `<li><strong>Type:</strong> ${escapeHtmlForPDF(data.projectType)}</li>` : ''}
+                    ${data.technology ? `<li><strong>Tech Stack:</strong> ${escapeHtmlForPDF(data.technology)}</li>` : ''}
+                    ${data.teamSize ? `<li><strong>Team Size:</strong> ${escapeHtmlForPDF(data.teamSize)}</li>` : ''}
+                    ${data.timeframe ? `<li><strong>Timeframe:</strong> ${escapeHtmlForPDF(data.timeframe)}</li>` : ''}
                 </ul>
             </div>
             ` : ''}
             
-            <div class="no-print" style="margin-top: 30px; color: #999; font-size: 12px;">
-                Generated with LiDa Prompt Pilot • ${window.location.origin}
+            <div class="instructions">
+                <strong>📄 How to save as PDF:</strong><br>
+                1. In the print dialog, select "Save as PDF" as the destination<br>
+                2. Choose your preferred paper size and margins<br>
+                3. Click "Save" to download the PDF file<br>
+                <em>This message will not appear in the printed document.</em>
             </div>
         </body>
         </html>
     `;
     
+    // Open a new window with the print content
     const printWindow = window.open('', '_blank');
     printWindow.document.write(printContent);
     printWindow.document.close();
     
-    // Wait for content to load, then print
+    // Wait for content to load, then show print dialog
     printWindow.onload = function() {
-        printWindow.print();
-        printWindow.onafterprint = function() {
-            printWindow.close();
-            showToast('PDF generated successfully!', 'success');
-        };
+        // Show toast with instructions
+        showToast('Opening print dialog. Select "Save as PDF" to download.', 'success');
+        
+        // Small delay to ensure content is fully rendered
+        setTimeout(() => {
+            printWindow.print();
+            
+            // Close window after printing
+            printWindow.onafterprint = function() {
+                printWindow.close();
+            };
+        }, 500);
     };
+}
+
+function escapeHtmlForPDF(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML.replace(/\n/g, '<br>');
 }
 
 function exportAsText(prompt, data, timestamp, templateName) {
@@ -2285,7 +2370,7 @@ function attachEventListeners() {
 
     // Prompt actions
     copyBtn.addEventListener("click", copyToClipboard);
-    saveBtn.addEventListener("click", saveAsJSON);
+    // Note: saveBtn event listener is handled in initializeExportDropdown()
     editBtn.addEventListener("click", toggleEditMode);
 
     // Follow-up suggestions
