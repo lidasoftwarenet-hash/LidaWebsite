@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+
+      <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online timestamp converter tool to convert Unix timestamps to human-readable dates and vice versa. Supports timezone conversion, batch processing, timestamp math, and API code examples. 100% client-side." />
+    <meta name="keywords" content="timestamp converter, unix timestamp, date converter, timezone converter, batch timestamp, timestamp math, developer tools, web tools, convert timestamp" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Timestamp Converter - Convert Unix Timestamps Online" />
+    <meta property="og:description" content="Convert Unix timestamps to readable dates with timezone support, batch processing, and timestamp math. Free and fully client-side." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/timeStampConvert/time-stamp-convert.html" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Timestamp Converter - Unix Timestamp Tool" />
+    <meta name="twitter:description" content="A fast and free timestamp converter for developers. Convert between Unix timestamps and dates with timezone support and batch processing." />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/timeStampConvert/time-stamp-convert.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+
+
+
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timestamp Converter - Developer Tools</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-icon">⏱️</div>
+            <h1>Timestamp Converter</h1>
+            <p class="subtitle">Fast, offline, developer-friendly timestamp converter</p>
+        </header>
+        
+        <!-- Main Converter (Always Visible) -->
+        <div class="main-converter">
+            <div class="converter-card">
+                <div class="input-section">
+                    <label for="timestamp-input" class="main-label">Enter Timestamp or Date</label>
+                    <input 
+                        type="text" 
+                        id="timestamp-input" 
+                        placeholder="e.g., 1734652800 or 2024-12-20" 
+                        autocomplete="off"
+                    >
+                    <div class="quick-actions">
+                        <button class="quick-btn" onclick="insertNow()">
+                            <span class="icon">🕐</span> Now
+                        </button>
+                        <button class="quick-btn" onclick="insertPreset('today')">
+                            <span class="icon">📅</span> Today 00:00
+                        </button>
+                        <button class="quick-btn" onclick="insertPreset('yesterday')">
+                            <span class="icon">⏮️</span> Yesterday
+                        </button>
+                        <button class="quick-btn" onclick="insertPreset('tomorrow')">
+                            <span class="icon">⏭️</span> Tomorrow
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+                
+                <div class="input-section">
+                    <label for="date-input" class="main-label">Pick Date & Time</label>
+                    <input type="datetime-local" id="date-input">
+                </div>
+            </div>
+            
+            <!-- Output Section -->
+            <div class="output-section">
+                <div class="output-header">
+                    <h2>Results</h2>
+                    <div class="timezone-selector-wrapper">
+                        <label for="timezone-select" class="tz-label">🌍 Timezone:</label>
+                        <select id="timezone-select" class="timezone-select" onchange="updateOutput()">
+                            <option value="local">Local Time</option>
+                            <option value="UTC">UTC (GMT+0)</option>
+                            <optgroup label="Americas">
+                                <option value="America/New_York">EST/EDT (New York)</option>
+                                <option value="America/Chicago">CST/CDT (Chicago)</option>
+                                <option value="America/Denver">MST/MDT (Denver)</option>
+                                <option value="America/Los_Angeles">PST/PDT (Los Angeles)</option>
+                                <option value="America/Toronto">Toronto</option>
+                                <option value="America/Vancouver">Vancouver</option>
+                                <option value="America/Mexico_City">Mexico City</option>
+                                <option value="America/Sao_Paulo">São Paulo</option>
+                            </optgroup>
+                            <optgroup label="Europe">
+                                <option value="Europe/London">GMT/BST (London)</option>
+                                <option value="Europe/Paris">CET/CEST (Paris)</option>
+                                <option value="Europe/Berlin">Berlin</option>
+                                <option value="Europe/Madrid">Madrid</option>
+                                <option value="Europe/Rome">Rome</option>
+                                <option value="Europe/Amsterdam">Amsterdam</option>
+                                <option value="Europe/Stockholm">Stockholm</option>
+                                <option value="Europe/Moscow">Moscow</option>
+                            </optgroup>
+                            <optgroup label="Asia">
+                                <option value="Asia/Dubai">Dubai (GST)</option>
+                                <option value="Asia/Kolkata">India (IST)</option>
+                                <option value="Asia/Shanghai">China (CST)</option>
+                                <option value="Asia/Singapore">Singapore</option>
+                                <option value="Asia/Tokyo">Japan (JST)</option>
+                                <option value="Asia/Seoul">South Korea (KST)</option>
+                                <option value="Asia/Hong_Kong">Hong Kong</option>
+                                <option value="Asia/Bangkok">Bangkok</option>
+                                <option value="Asia/Jerusalem">Jerusalem</option>
+                            </optgroup>
+                            <optgroup label="Pacific">
+                                <option value="Australia/Sydney">Sydney</option>
+                                <option value="Australia/Melbourne">Melbourne</option>
+                                <option value="Pacific/Auckland">New Zealand</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="output-grid" class="output-grid"></div>
+                
+                <div id="countdown" class="countdown"></div>
+                
+                <div id="relative-time" class="relative-time"></div>
+            </div>
+        </div>
+        
+        <!-- Advanced Features (Collapsible) -->
+        <div class="advanced-section">
+            <button class="section-toggle" onclick="toggleSection('batch-section')">
+                <span class="toggle-icon">▶</span>
+                <span class="toggle-title">
+                    <span class="icon">🚀</span> Batch Converter & Smart Parser
+                </span>
+                <span class="badge">Advanced</span>
+            </button>
+            <div id="batch-section" class="collapsible-content">
+                <div class="feature-card">
+                    <p class="feature-description">
+                        Paste multiple timestamps (one per line) or mixed text with timestamps embedded in logs.
+                    </p>
+                    <div class="input-group">
+                        <label for="batch-input">Batch Input</label>
+                        <textarea 
+                            id="batch-input" 
+                            placeholder="Examples:
+1734652800
+1734652800000
+Log entry at 1734652800: User logged in
+Processing request timestamp=1734652800000
+2024-12-20T00:00:00Z"
+                        ></textarea>
+                    </div>
+                    
+                    <div class="format-options">
+                        <span class="format-label">Output Formats:</span>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="iso" checked onchange="updateBatchFormats()"> ISO 8601
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="locale" checked onchange="updateBatchFormats()"> Locale
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="relative" checked onchange="updateBatchFormats()"> Relative
+                        </label>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="processBatch()">Convert All</button>
+                        <button class="btn btn-secondary" onclick="copyBatchOutput()">Copy Output</button>
+                        <button class="btn btn-ghost" onclick="clearBatch()">Clear</button>
+                    </div>
+                    
+                    <div id="batch-output" class="batch-output"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="advanced-section">
+            <button class="section-toggle" onclick="toggleSection('math-section')">
+                <span class="toggle-icon">▶</span>
+                <span class="toggle-title">
+                    <span class="icon">🔢</span> Timestamp Math & Calculator
+                </span>
+                <span class="badge">Advanced</span>
+            </button>
+            <div id="math-section" class="collapsible-content">
+                <div class="feature-card">
+                    <p class="feature-description">
+                        Calculate time differences or add/subtract time from timestamps.
+                    </p>
+                    
+                    <div class="math-grid">
+                        <div class="input-group">
+                            <label for="math-ts1">Timestamp 1</label>
+                            <input type="text" id="math-ts1" placeholder="e.g., 1734652800000">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="math-ts2">Timestamp 2 (for difference)</label>
+                            <input type="text" id="math-ts2" placeholder="e.g., 1734739200000">
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="calculateDifference()">
+                            Calculate Difference
+                        </button>
+                    </div>
+                    
+                    <div class="time-adjustments">
+                        <span class="format-label">Quick Adjustments:</span>
+                        <button class="adj-btn" onclick="addTime(3600000)">+ 1 Hour</button>
+                        <button class="adj-btn" onclick="addTime(86400000)">+ 1 Day</button>
+                        <button class="adj-btn" onclick="addTime(604800000)">+ 1 Week</button>
+                        <button class="adj-btn" onclick="addTime(-3600000)">− 1 Hour</button>
+                        <button class="adj-btn" onclick="addTime(-86400000)">− 1 Day</button>
+                        <button class="adj-btn" onclick="addTime(-604800000)">− 1 Week</button>
+                    </div>
+                    
+                    <div id="math-result" class="math-result"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="advanced-section">
+            <button class="section-toggle" onclick="toggleSection('api-section')">
+                <span class="toggle-icon">▶</span>
+                <span class="toggle-title">
+                    <span class="icon">💻</span> API Code Examples
+                </span>
+                <span class="badge">Reference</span>
+            </button>
+            <div id="api-section" class="collapsible-content">
+                <div class="feature-card">
+                    <p class="feature-description">
+                        Get current timestamp in various programming languages.
+                    </p>
+                    <div id="api-examples" class="api-examples"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>Made with ❤️ for developers – Free & Open Source</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
