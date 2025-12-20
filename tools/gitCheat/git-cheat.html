@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Git Cheat Sheet Pro - Advanced Git Reference | lidasoftware.online</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Professional Git cheat sheet with interactive command builder, visual git graph, favorites, search, and comprehensive command database. 50+ Git commands with examples, difficulty levels, and IDE plugin recommendations." />
+  <meta name="keywords" content="git cheat sheet, git commands, git tutorial, git reference, git guide, git tips, git workflow, git branching, git merge, git rebase, git commands list, git cheat sheet pro, git visual graph, git command builder, git for developers, git tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Git Cheat Sheet Pro - Advanced Git Reference" />
+  <meta property="og:description" content="Interactive Git cheat sheet with command builder, visual graph, and 50+ Git commands. Free & open source." />
+  <meta property="og:url" content="https://www.lidasoftware.online/tools/gitCheat/git-cheat.html" />
+  <meta property="og:image" content="https://www.lidasoftware.online/tools/gitCheat/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Git Cheat Sheet Pro - Advanced Git Reference" />
+  <meta name="twitter:description" content="Interactive Git cheat sheet with command builder, visual graph, and 50+ Git commands. Free & open source." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/tools/gitCheat/logo.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.lidasoftware.online/tools/gitCheat/git-cheat.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+  <link rel="stylesheet" href="git-cheat.css">
+</head>
+<body>
+  <header>
+     <div class="logo-container">
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+                <div class="brand-name">Lida Software</div>
+            </div>
+    <h1>Git Cheat Sheet Pro</h1>
+    <p class="subtitle">Advanced interactive reference with command builder, visual graph, and 50+ Git commands</p>
+  </header>
+
+  <div class="container">
+    <div class="toolbar">
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search" placeholder="Search commands, descriptions, examples..." autofocus />
+      </div>
+      <button id="toggle-favorites" class="filter-btn">
+        <span>⭐</span> Favorites
+      </button>
+      <button id="export-btn" class="filter-btn">
+        <span>📥</span> Export
+      </button>
+      <button id="builder-btn" class="filter-btn">
+        <span>⚙️</span> Command Builder
+      </button>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-value" id="total-commands">0</div>
+        <div class="stat-label">Total Commands</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="favorites-count">0</div>
+        <div class="stat-label">Favorites</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="most-used-count">0</div>
+        <div class="stat-label">Most Used</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="advanced-count">0</div>
+        <div class="stat-label">Advanced</div>
+      </div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div id="favorites-section" style="display:none;">
+      <h2>⭐ My Favorites</h2>
+      <div class="command-list" id="favorites-list"></div>
+      <hr style="margin: 2rem 0; border-color: var(--border);" />
+    </div>
+
+    <div class="command-list" id="command-list"></div>
+
+    <div class="visual-graph-section">
+      <h2>🎯 Interactive Git Graph</h2>
+      <p>See how Git commands affect a repository. Click commands below to simulate.</p>
+      <div class="graph-container">
+        <div class="graph-svg-container">
+          <svg id="git-graph" width="800" height="300"></svg>
+        </div>
+        <div class="graph-controls">
+          <button class="graph-btn" data-cmd="commit">git commit</button>
+          <button class="graph-btn" data-cmd="branch">git branch feature</button>
+          <button class="graph-btn" data-cmd="checkout">git checkout feature</button>
+          <button class="graph-btn" data-cmd="merge">git merge feature</button>
+          <button class="graph-btn" data-cmd="rebase">git rebase main</button>
+          <button class="graph-btn" data-cmd="reset">Reset Graph</button>
+        </div>
+        <div class="graph-description">
+          <p id="graph-desc">Click a command to see how it changes the graph. This simulates a typical Git workflow.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Comprehensive Database</h3>
+        <p>50+ Git commands with detailed descriptions, examples, and parameter explanations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <h3>Command Builder</h3>
+        <p>Build custom Git commands with interactive parameter selection and real-time preview.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Visual Git Graph</h3>
+        <p>Understand branching and merging with an interactive visual graph of Git operations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📥</div>
+        <h3>Export & Share</h3>
+        <p>Export your favorite commands as a PDF or JSON. Share cheat sheets with your team.</p>
+      </div>
+    </div>
+
+    <div class="ide-plugins-section">
+      <h2>🔌 Git Plugins & Add‑ons for Popular IDEs</h2>
+      <p>Boost your Git workflow with these recommended extensions for your development environment.</p>
+      <div class="ide-grid">
+        <div class="ide-card">
+          <div class="ide-icon">💻</div>
+          <h3>Visual Studio Code</h3>
+          <ul>
+            <li><strong>GitLens</strong> – Supercharge Git with blame annotations, history, and code lens.</li>
+            <li><strong>Git Graph</strong> – Visualize repository history as a graph.</li>
+            <li><strong>GitHub Pull Requests</strong> – Review and manage PRs directly in VS Code.</li>
+          </ul>
+        </div>
+        <div class="ide-card">
+          <div class="ide-icon">🅙</div>
+          <h3>JetBrains (IntelliJ, WebStorm, etc.)</h3>
+          <ul>
+            <li><strong>Built‑in Git integration</strong> – Excellent native support.</li>
+            <li><strong>GitToolBox</strong> – Adds inline blame, annotations, and more.</li>
+            <li><strong>GitHub Copilot</strong> – AI‑powered code suggestions.</li>
+          </ul>
+        </div>
+        <div class="ide-card">
+          <div class="ide-icon">🐍</div>
+          <h3>PyCharm / DataSpell</h3>
+          <ul>
+            <li><strong>Git Integration</strong> – Full‑featured Git client built‑in.</li>
+            <li><strong>GitHub</strong> – Seamless GitHub connectivity.</li>
+            <li><strong>.ignore</strong> – Generate .gitignore files easily.</li>
+          </ul>
+        </div>
+        <div class="ide-card">
+          <div class="ide-icon">☁️</div>
+          <h3>VS Code (Web)</h3>
+          <ul>
+            <li><strong>GitHub Codespaces</strong> – Cloud‑powered dev environment with Git.</li>
+            <li><strong>GitHub Repositories</strong> – Clone and work directly from GitHub.</li>
+          </ul>
+        </div>
+        <div class="ide-card">
+          <div class="ide-icon">🛠️</div>
+          <h3>Eclipse</h3>
+          <ul>
+            <li><strong>EGit</strong> – Eclipse Git integration, part of Eclipse project.</li>
+            <li><strong>GitHub for Eclipse</strong> – GitHub connector.</li>
+          </ul>
+        </div>
+        <div class="ide-card">
+          <div class="ide-icon">📝</div>
+          <h3>Sublime Text</h3>
+          <ul>
+            <li><strong>GitSavvy</strong> – In‑editor Git commands and diff view.</li>
+            <li><strong>GitGutter</strong> – See line‑level Git changes in the gutter.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ide-note">💡 <strong>Tip</strong>: Most modern IDEs have excellent built‑in Git support. Explore your IDE’s marketplace for more Git‑related extensions.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard! ✓</div>
+
+  <footer>
+    <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa GIT CHEAT SHEET</p>
+        <p class="footer-version">Version 1.0.1 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            Discover More Features
+        </a>
+    </div>
+  </footer>
+
+  <!-- Command Builder Modal -->
+  <div id="builder-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>⚙️ Git Command Builder</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Build a custom Git command by selecting options below. The command will update in real‑time.</p>
+        
+        <div class="builder-form">
+          <div class="form-group">
+            <label for="base-command">Base Command</label>
+            <select id="base-command">
+              <option value="commit">commit</option>
+              <option value="push">push</option>
+              <option value="pull">pull</option>
+              <option value="log">log</option>
+              <option value="status">status</option>
+              <option value="add">add</option>
+              <option value="branch">branch</option>
+              <option value="checkout">checkout</option>
+              <option value="merge">merge</option>
+              <option value="rebase">rebase</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="options">Options / Flags</label>
+            <div class="options-grid" id="options-container">
+              <!-- Options will be generated based on base command -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="arguments">Arguments (e.g., file names, branch names)</label>
+            <input type="text" id="arguments" placeholder="e.g., main, file.txt, origin feature" />
+          </div>
+
+          <div class="form-group">
+            <label>Generated Command</label>
+            <div class="command-preview">
+              <code id="generated-command">git commit</code>
+              <button id="copy-generated" class="copy-btn">Copy</button>
+            </div>
+            <p class="preview-desc" id="command-description">Record changes to the repository.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="insert-command" class="modal-btn primary">Insert into Search</button>
+        <button class="modal-btn secondary close-modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+
+  <script src="git-cheat.js"></script>
+</body>
+</html>

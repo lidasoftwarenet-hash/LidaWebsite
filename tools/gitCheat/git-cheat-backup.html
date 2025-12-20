@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Git Cheat Sheet Pro - lidasoftware.online</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --primary: #3b82f6;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --hover: #eff6ff;
+      --success: #10b981;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --text: #e2e8f0;
+        --card: #1e293b;
+        --border: #334155;
+        --hover: #1e40af;
+      }
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--card);
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+    .subtitle {
+      color: #64748b;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .search-bar {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    #search {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--text);
+    }
+    #search:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.3rem;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .command-list {
+      display: grid;
+      gap: 1rem;
+    }
+    .command-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .command-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      border-color: var(--primary);
+    }
+    .command-card.most-used {
+      border-left: 5px solid var(--primary);
+    }
+    .command-header {
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .command-name {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+    .category-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: white;
+    }
+    .details {
+      padding: 0 1.5rem 1.5rem;
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+    .details.open {
+      display: block;
+    }
+    .example {
+      background: var(--hover);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .copy-btn:hover {
+      background: #2563eb;
+    }
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--success);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+    .favorite-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #cbd5e1;
+    }
+    .favorite-btn.active {
+      color: #fbbf24;
+    }
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .command-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Git Cheat Sheet Pro</h1>
+    <p class="subtitle">Interactive, searchable Git reference – fast and always ready</p>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="Search commands... (e.g., reset, branch, merge)" autofocus />
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div id="favorites-section" style="display:none;">
+      <h2>⭐ My Favorites</h2>
+      <div class="command-list" id="favorites-list"></div>
+      <hr style="margin: 2rem 0; border-color: var(--border);" />
+    </div>
+
+    <div class="command-list" id="command-list"></div>
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard! ✓</div>
+
+  <footer>
+    Made with ❤️ for developers – free & open source @ lidasoftware.online
+  </footer>
+
+  <script>
+    const commands = [
+      { name: "git status", category: "Basics", desc: "Show working tree status", examples: ["git status", "git status -s"], mostUsed: true },
+      { name: "git add", category: "Staging", desc: "Add files to staging area", examples: ["git add .", "git add file.txt", "git add -p"], mostUsed: true },
+      { name: "git commit", category: "Commit", desc: "Record changes to repository", examples: ["git commit -m 'message'", "git commit -am 'message'"], mostUsed: true },
+      { name: "git push", category: "Remote", desc: "Update remote refs", examples: ["git push", "git push origin main", "git push -f"], mostUsed: true },
+      { name: "git pull", category: "Remote", desc: "Fetch and merge from remote", examples: ["git pull", "git pull --rebase"], mostUsed: true },
+      { name: "git branch", category: "Branching", desc: "List, create, or delete branches", examples: ["git branch", "git branch new-feature", "git branch -d old"], mostUsed: true },
+      { name: "git checkout", category: "Branching", desc: "Switch branches or restore files", examples: ["git checkout main", "git checkout -b feature"], mostUsed: true },
+      { name: "git merge", category: "Branching", desc: "Join two or more histories", examples: ["git merge feature"], mostUsed: true },
+      { name: "git log", category: "History", desc: "Show commit history", examples: ["git log", "git log --oneline", "git log --graph --all"], mostUsed: true },
+      { name: "git diff", category: "History", desc: "Show changes between commits", examples: ["git diff", "git diff --staged"], mostUsed: true },
+      { name: "git reset", category: "Undo", desc: "Reset current HEAD to specified state", examples: ["git reset --hard HEAD~1", "git reset --soft HEAD^"] },
+      { name: "git revert", category: "Undo", desc: "Create new commit that undoes a commit", examples: ["git revert abc123"] },
+      { name: "git stash", category: "Staging", desc: "Stash changes temporarily", examples: ["git stash", "git stash pop"] },
+      { name: "git remote", category: "Remote", desc: "Manage set of tracked repositories", examples: ["git remote -v", "git remote add origin url"] },
+      { name: "git clone", category: "Remote", desc: "Clone a repository", examples: ["git clone https://github.com/user/repo.git"] },
+      { name: "git fetch", category: "Remote", desc: "Download objects and refs from another repo", examples: ["git fetch origin"] },
+      { name: "git rebase", category: "Branching", desc: "Reapply commits on top of another base", examples: ["git rebase main"] },
+      { name: "git config", category: "Config", desc: "Get and set configuration options", examples: ["git config --global user.name 'Name'"] },
+      { name: "git tag", category: "Tagging", desc: "Create, list, delete or verify a tag", examples: ["git tag v1.0", "git tag -a v1.0 -m 'message'"] },
+      { name: "git restore", category: "Undo", desc: "Restore working tree files (newer alternative)", examples: ["git restore file.txt", "git restore --staged file.txt"] }
+    ];
+
+    const categories = [...new Set(commands.map(c => c.category))];
+    const categoryColors = {
+      "Basics": "#10b981",
+      "Staging": "#f59e0b",
+      "Commit": "#8b5cf6",
+      "Remote": "#ef4444",
+      "Branching": "#3b82f6",
+      "History": "#06b6d4",
+      "Undo": "#dc2626",
+      "Config": "#6b7280",
+      "Tagging": "#ec4899"
+    };
+
+    let favorites = JSON.parse(localStorage.getItem("gitFavorites") || "[]");
+
+    function saveFavorites() {
+      localStorage.setItem("gitFavorites", JSON.stringify(favorites));
+    }
+
+    function renderFilters() {
+      const filtersDiv = document.getElementById("filters");
+      filtersDiv.innerHTML = `<button class="filter-btn active" data-cat="all">All</button>`;
+      categories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "filter-btn";
+        btn.textContent = cat;
+        btn.dataset.cat = cat;
+        btn.onclick = () => filterCommands(cat);
+        filtersDiv.appendChild(btn);
+      });
+    }
+
+    function renderCommands(list, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      list.forEach(cmd => {
+        const card = document.createElement("div");
+        card.className = `command-card ${cmd.mostUsed ? 'most-used' : ''}`;
+
+        const isFav = favorites.includes(cmd.name);
+        
+        card.innerHTML = `
+          <div class="command-header">
+            <div>
+              <div class="command-name">${cmd.name}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:1rem;">
+              <span class="category-badge" style="background:${categoryColors[cmd.category]}">${cmd.category}</span>
+              <button class="favorite-btn ${isFav ? 'active' : ''}" data-cmd="${cmd.name}">⭐</button>
+            </div>
+          </div>
+          <div class="details">
+            <p><strong>${cmd.desc}</strong></p>
+            ${cmd.examples.map(ex => `
+              <div class="example">
+                <code>${ex}</code>
+                <button class="copy-btn">Copy</button>
+              </div>
+            `).join("")}
+          </div>
+        `;
+
+        card.querySelector(".command-header").onclick = () => {
+          card.querySelector(".details").classList.toggle("open");
+        };
+
+        card.querySelector(".favorite-btn").onclick = (e) => {
+          e.stopPropagation();
+          if (favorites.includes(cmd.name)) {
+            favorites = favorites.filter(f => f !== cmd.name);
+          } else {
+            favorites.push(cmd.name);
+          }
+          saveFavorites();
+          renderAll();
+        };
+
+        card.querySelectorAll(".copy-btn").forEach(btn => {
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            navigator.clipboard.writeText(btn.previousElementSibling.textContent);
+            showToast();
+          };
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    function renderAll() {
+      const searchVal = document.getElementById("search").value.toLowerCase();
+      const activeCat = document.querySelector(".filter-btn.active")?.dataset.cat || "all";
+
+      let filtered = commands.filter(cmd => {
+        const matchesSearch = cmd.name.toLowerCase().includes(searchVal) ||
+                              cmd.desc.toLowerCase().includes(searchVal) ||
+                              cmd.examples.some(ex => ex.toLowerCase().includes(searchVal));
+        const matchesCat = activeCat === "all" || cmd.category === activeCat;
+        return matchesSearch && matchesCat;
+      });
+
+      const favCommands = filtered.filter(c => favorites.includes(c.name));
+      const regularCommands = filtered.filter(c => !favorites.includes(c.name));
+
+      if (favCommands.length > 0) {
+        document.getElementById("favorites-section").style.display = "block";
+        renderCommands(favCommands, "favorites-list");
+      } else {
+        document.getElementById("favorites-section").style.display = "none";
+      }
+
+      renderCommands(regularCommands, "command-list");
+    }
+
+    function filterCommands(cat) {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      document.querySelector(`.filter-btn[data-cat="${cat}"]`)?.classList.add("active");
+      if (cat === "all") document.querySelector(".filter-btn").classList.add("active");
+      renderAll();
+    }
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }
+
+    // Init
+    renderFilters();
+    renderAll();
+
+    document.getElementById("search").addEventListener("input", renderAll);
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") document.getElementById("search").value = "";
+      renderAll();
+    });
+  </script>
+</body>
+</html>
