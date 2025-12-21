@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free online Jenkins Pipeline Visualizer tool. Paste your Jenkinsfile, visualize the pipeline flowchart, simulate dry-runs, and export diagrams. 100% client-side, no data sent to servers." />
+  <meta name="keywords" content="jenkins pipeline visualizer, jenkinsfile, pipeline visualization, devops tools, ci/cd, jenkins flowchart, pipeline simulator, jenkins dry-run, free devops tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Jenkins Pipeline Visualizer Pro - lidasoftware.online" />
+  <meta property="og:description" content="Visualize Jenkins pipelines instantly. Paste your Jenkinsfile, see the flowchart, simulate execution, and export diagrams. Free, client-side tool for DevOps teams." />
+  <meta property="og:url" content="https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html" />
+  <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jenkins Pipeline Visualizer Pro - Free DevOps Tool" />
+  <meta name="twitter:description" content="Visualize and simulate Jenkins pipelines in your browser. No installation, no data uploads. Perfect for CI/CD pipeline design and debugging." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+  <title>Jenkins Pipeline Visualizer Pro - lidasoftware.online</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+        <div class="container">
+        <!-- Professional Header with Lida Software Branding -->
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+                <div class="brand-name">Lida Software</div>
+            </div>
+            <div class="brand-tagline">Professional Development Tools & Solutions</div>
+</div>
+        </div>
+    <h1>Jenkins Pipeline Visualizer Pro</h1>
+    <p class="subtitle">Paste your pipeline, visualize, and simulate – all in-browser!</p>
+  </header>
+
+  <div class="container">
+    <section class="input-section">
+      <div class="input-header">
+        <div class="input-header-left">
+          <span>Paste Jenkinsfile</span>
+          <button id="paste-btn" class="paste-btn" title="Paste from clipboard">📋 Paste</button>
+          <span style="margin: 0 10px;">or</span>
+          <span>Load Template</span>
+          <select id="presets" class="template-select">
+            <option value="">Choose...</option>
+            <!-- Options added via JS -->
+          </select>
+        </div>
+        <button id="copy-code-btn" class="paste-btn" title="Copy code to clipboard" disabled>📄 Copy Code</button>
+      </div>
+      <textarea id="pipeline-input" placeholder="pipeline { ... }" rows="15"></textarea>
+      <div class="controls">
+        <button id="visualize-btn">Visualize</button>
+        <button id="simulate-btn" disabled>Simulate Dry-Run</button>
+        <button id="export-btn" disabled>📥 Export PNG</button>
+        <button id="clear-btn">Clear</button>
+      </div>
+    </section>
+
+    <section class="output-section">
+      <div class="flowchart-header">
+        <h2>Flowchart</h2>
+        <div class="zoom-controls">
+          <button id="zoom-in-btn" class="zoom-btn" title="Zoom In">🔍+</button>
+          <button id="zoom-out-btn" class="zoom-btn" title="Zoom Out">🔍−</button>
+          <button id="zoom-reset-btn" class="zoom-btn" title="Reset Zoom">⟲</button>
+        </div>
+      </div>
+      <div id="flowchart" class="svg-container"></div>
+      <div class="flowchart-header">
+        <h2>Simulation Logs</h2>
+        <button id="copy-logs-btn" class="copy-logs-btn" title="Copy logs to clipboard" style="display: none;">📄 Copy Logs</button>
+      </div>
+      <pre id="logs" class="logs-panel"></pre>
+    </section>
+    <div class="toast" id="toast"></div>
+  </div>
+
+
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/presets.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/visualizer.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/main.js"></script>
+
+     <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa Jenkins Pipeline Visualizer</p>
+        <p class="footer-version">Version 1.0.1 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            Discover More Features
+        </a>
+    </div>
+  </footer>
+</body>
+</html>

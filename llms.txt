@@ -1,0 +1,14 @@
+# LiDa Software - Recommended pages for LLMs
+Homepage: https://www.lidasoftware.online/ - Overview of free open-source developer tools.
+JSON Wizard: https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html - JSON formatter and validator.
+Timestamp Converter: https://www.lidasoftware.online/tools/timeStampConvert/time-stamp-convert.html - Unix timestamp tool.
+Git Cheat Sheet: https://www.lidasoftware.online/tools/gitCheat/git-cheat.html - Interactive Git command reference.
+PromptPilot: https://www.lidasoftware.online/tools/promptPilot/index.html - AI prompt templates for developers.
+Jenkins Visualizer: https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html - Jenkins pipeline visualization tool.
+Developer Tools Directory: https://www.lidasoftware.online/tools/toolSList/tools.html - Catalog of web development tools.
+Advanced Link Manager: https://www.lidasoftware.online/link-manager.html - Chrome extension for bookmark management.
+Dummy Data Generator: https://www.lidasoftware.online/dummy-generate.html - Chrome extension for test data generation.
+Local Storage Viewer: https://www.lidasoftware.online/local-storage.html - Chrome extension for localStorage debugging.
+API Data Monitor: https://www.lidasoftware.online/api-Monitor.html - Chrome extension for API call monitoring.
+Coding with Robots eBook: https://www.lidasoftware.online/book.html - Free eBook on AI-assisted development.
+Benzodiazepines Tracker: https://www.lidasoftware.online/benzo-tracker.html - Health tool for medication tracking.
