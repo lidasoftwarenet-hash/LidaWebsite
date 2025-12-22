@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- SEO Meta Tags -->
+  <meta name="description" content="Free online Jenkins Pipeline Visualizer tool. Paste your Jenkinsfile, visualize the pipeline flowchart, simulate dry-runs, and export diagrams. 100% client-side, no data sent to servers." />
+  <meta name="keywords" content="jenkins pipeline visualizer, jenkinsfile, pipeline visualization, devops tools, ci/cd, jenkins flowchart, pipeline simulator, jenkins dry-run, free devops tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Json to Zod Schema Converter - lidasoftware.online" />
+  <meta property="og:description" content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
+  <meta property="og:url" content="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
+  <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Json to Zod Schema Converter - Free DevOps Tool" />
+  <meta name="twitter:description" content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+
+
+
+    <title>JSON to Zod Schema Converter | lidasoftware.online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            min-height: 100vh;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        textarea {
+            background-color: #252526;
+            color: #d4d4d4;
+            border: 1px solid #3e3e42;
+            resize: none;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #007acc;
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+        }
+
+         .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        textarea.error {
+            border-color: #f48771;
+        }
+
+        .btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-feedback {
+            animation: fadeInOut 2s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
+
+        .header-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3e3e42;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4e4e52;
+        }
+
+        .error-message {
+            background-color: #5a1d1d;
+            border-left: 3px solid #f48771;
+        }
+
+        .stats-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .highlight-output {
+            background-color: #252526;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .highlight-output pre {
+            margin: 0;
+            background: transparent !important;
+            padding: 0 !important;
+        }
+
+        .highlight-output code {
+            background: transparent !important;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .tab-button {
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .kbd {
+            background-color: #2d2d30;
+            border: 1px solid #3e3e42;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.75rem;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2d2d30;
+            color: #d4d4d4;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            white-space: nowrap;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            z-index: 1000;
+            border: 1px solid #3e3e42;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        select {
+            background-color: #252526;
+            color: #d4d4d4;
+            border: 1px solid #3e3e42;
+            transition: border-color 0.2s ease;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #007acc;
+        }
+
+        
+/* ===== FOOTER ===== */
+.footer {
+    background: var(--light);
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    margin-top: 40px;
+    box-shadow: 0 4px 6px var(--shadow);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-copyright {
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0;
+}
+
+.footer-version {
+    font-size: 16px;
+    color: var(--primary);
+    margin: 0;
+}
+
+.btn-discover {
+    margin-top: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-discover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+}
+
+.btn-discover .material-symbols-outlined {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 20px;
+        margin-top: 30px;
+    }
+    
+    .footer-copyright {
+        font-size: 16px;
+    }
+    
+    .footer-version {
+        font-size: 13px;
+    }
+    
+    .btn-discover {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+             <div class="logo-container">
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+                <div class="brand-name">Lida Software</div>
+            </div>
+        
+        <header class="header-gradient text-white py-6 px-4 shadow-lg">
+            <div class="container mx-auto">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">JSON to Zod Schema Converter ⚡</h1>
+                        <p class="text-sm opacity-90">Convert JSON objects to TypeScript Zod schemas instantly</p>
+                        <p class="text-xs opacity-75 mt-1">lidasoftware.online</p>
+                    </div>
+                    <div class="stats-badge text-white px-4 py-2 rounded-lg text-center">
+                        <div class="text-2xl font-bold" id="conversionCount">0</div>
+                        <div class="text-xs opacity-90">Conversions</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="bg-gray-800 border-b border-gray-700 py-3 px-4">
+            <div class="container mx-auto flex flex-wrap gap-3 items-center justify-between">
+                <div class="flex gap-2 items-center flex-wrap">
+                    <select id="presetSelect" class="code-font px-3 py-2 rounded-md text-sm">
+                        <option value="">📋 Load Example...</option>
+                        <optgroup label="👤 User & Auth">
+                            <option value="user">User Profile</option>
+                            <option value="auth">JWT Token Payload</option>
+                            <option value="registration">Registration Form</option>
+                        </optgroup>
+                        <optgroup label="🌐 API & Backend">
+                            <option value="api">API Response</option>
+                            <option value="graphql">GraphQL Query</option>
+                            <option value="webhook">Webhook Payload</option>
+                            <option value="pagination">Paginated Response</option>
+                        </optgroup>
+                        <optgroup label="🛒 E-commerce">
+                            <option value="ecommerce">Product</option>
+                            <option value="order">Order</option>
+                            <option value="cart">Shopping Cart</option>
+                        </optgroup>
+                        <optgroup label="⚙️ Config & Settings">
+                            <option value="config">App Config</option>
+                            <option value="env">Environment Variables</option>
+                            <option value="theme">Theme Settings</option>
+                        </optgroup>
+                        <optgroup label="📊 Data & Analytics">
+                            <option value="analytics">Analytics Event</option>
+                            <option value="metrics">Performance Metrics</option>
+                            <option value="log">Log Entry</option>
+                        </optgroup>
+                        <optgroup label="🔗 Complex Structures">
+                            <option value="nested">Deeply Nested</option>
+                            <option value="mixed">Mixed Types</option>
+                        </optgroup>
+                    </select>
+                    
+                    <button id="downloadBtn" class="btn bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Download as .ts file">
+                        💾 Download
+                    </button>
+                    
+                    <button id="formatBtn" class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Format JSON (Ctrl+Shift+F)">
+                        ✨ Format
+                    </button>
+                    
+                    <button id="refinementsBtn" class="btn bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Add smart validation rules">
+                        🎯 Add Refinements
+                    </button>
+                </div>
+                
+                <div class="flex gap-2 text-xs text-gray-400 items-center">
+                    <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> = Copy
+                    <span class="mx-2">|</span>
+                    <span class="kbd">Ctrl</span> + <span class="kbd">K</span> = Clear
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+                <!-- Input Section -->
+                <div class="flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-xl font-semibold text-gray-300">Input JSON</h2>
+                        <div class="flex gap-2">
+                            <span id="jsonStats" class="text-xs text-gray-500 px-3 py-2"></span>
+                            <button 
+                                id="clearBtn" 
+                                class="btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                            >
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <textarea 
+                            id="jsonInput" 
+                            class="code-font w-full flex-1 p-4 rounded-lg text-sm leading-relaxed min-h-[400px]"
+                            placeholder='Enter your JSON here, e.g.:
+{
+  "name": "John Doe",
+  "age": 30,
+  "isActive": true,
+  "tags": ["developer", "designer"],
+  "address": {
+    "street": "123 Main St",
+    "city": "New York"
+  }
+}'
+                        ></textarea>
+                        <div id="errorMessage" class="error-message mt-2 p-3 rounded-md text-sm hidden fade-in">
+                            <span class="font-semibold">❌ Invalid JSON:</span> <span id="errorText"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex gap-4">
+                            <button class="tab-button active text-sm font-medium" data-tab="schema">
+                                Zod Schema
+                            </button>
+                            <button class="tab-button text-sm font-medium text-gray-400" data-tab="typescript">
+                                TypeScript Type
+                            </button>
+                            <button class="tab-button text-sm font-medium text-gray-400" data-tab="usage">
+                                Usage Example
+                            </button>
+                            <button class="tab-button text-sm font-medium text-gray-400" data-tab="refinements">
+                                🎯 Refinements
+                            </button>
+                        </div>
+                        <button 
+                            id="copyBtn" 
+                            class="btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium relative"
+                        >
+                            <span id="copyBtnText">📋 Copy</span>
+                            <span id="copyFeedback" class="copy-feedback absolute inset-0 flex items-center justify-center bg-green-600 rounded-md hidden">
+                                ✓ Copied!
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <!-- Schema Tab -->
+                    <div id="schemaTab" class="flex-1 tab-content">
+                        <div id="zodOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
+                            <pre><code class="language-typescript">// Zod schema will appear here...</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- TypeScript Tab -->
+                    <div id="typescriptTab" class="flex-1 tab-content hidden">
+                        <div id="tsOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
+                            <pre><code class="language-typescript">// TypeScript type will appear here...</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Usage Tab -->
+                    <div id="usageTab" class="flex-1 tab-content hidden">
+                        <div id="usageOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
+                            <pre><code class="language-typescript">// Usage example will appear here...</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Refinements Tab -->
+                    <div id="refinementsTab" class="flex-1 tab-content hidden">
+                        <div id="refinementsOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
+                            <pre><code class="language-typescript">// Smart validation refinements will appear here...</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Info Section -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-300">✨ Pro Features</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">⚡</span>
+                            <span><strong>Real-time conversion</strong> with syntax highlighting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">🎯</span>
+                            <span><strong>TypeScript type generation</strong> from Zod schema</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">📚</span>
+                            <span><strong>Usage examples</strong> with validation code</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">💾</span>
+                            <span><strong>Download as .ts file</strong> ready to use</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">⌨️</span>
+                            <span><strong>Keyboard shortcuts</strong> for power users</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">📊</span>
+                            <span><strong>Schema complexity metrics</strong> in real-time</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-300">🎯 Smart Detection</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">🔍</span>
+                            <span>Handles <strong>deeply nested objects</strong> recursively</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">🔀</span>
+                            <span>Detects <strong>mixed-type arrays</strong> with unions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">🎨</span>
+                            <span>Supports all <strong>primitive types</strong> (string, number, boolean, null)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">🔐</span>
+                            <span>Escapes <strong>special characters</strong> in keys</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">📦</span>
+                            <span>Handles <strong>empty objects and arrays</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">✅</span>
+                            <span>Production-ready <strong>type-safe schemas</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa JSON To Zod Converter.</p>
+        <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
+        
+
+        
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+
+            Discover More Features
+        </a>
+        
+        <div class="footer-bottom">
+            <p class="footer-bottom-text">© 2025 LiDa Software. All tools are 100% free and open source.</p>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const jsonInput = document.getElementById('jsonInput');
+        const zodOutputHighlight = document.getElementById('zodOutputHighlight');
+        const tsOutputHighlight = document.getElementById('tsOutputHighlight');
+        const usageOutputHighlight = document.getElementById('usageOutputHighlight');
+        const copyBtn = document.getElementById('copyBtn');
+        const copyBtnText = document.getElementById('copyBtnText');
+        const copyFeedback = document.getElementById('copyFeedback');
+        const clearBtn = document.getElementById('clearBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const presetSelect = document.getElementById('presetSelect');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const formatBtn = document.getElementById('formatBtn');
+        const refinementsBtn = document.getElementById('refinementsBtn');
+        const conversionCount = document.getElementById('conversionCount');
+        const jsonStats = document.getElementById('jsonStats');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const refinementsOutputHighlight = document.getElementById('refinementsOutputHighlight');
+
+        let currentTab = 'schema';
+        let currentZodSchema = '';
+        let currentTsType = '';
+        let currentUsage = '';
+        let currentRefinements = '';
+        let conversions = 0;
+
+        // Presets
+        const presets = {
+            user: {
+                name: "John Doe",
+                age: 30,
+                email: "john@example.com",
+                isActive: true,
+                roles: ["admin", "user"],
+                metadata: {
+                    createdAt: "2024-01-01",
+                    lastLogin: "2024-12-22"
+                }
+            },
+            auth: {
+                userId: "usr_123456",
+                email: "user@example.com",
+                iat: 1703260800,
+                exp: 1703347200,
+                roles: ["user", "premium"],
+                permissions: ["read", "write"],
+                sessionId: "sess_abc123"
+            },
+            registration: {
+                username: "johndoe",
+                email: "john@example.com",
+                password: "SecurePass123!",
+                confirmPassword: "SecurePass123!",
+                age: 25,
+                acceptTerms: true,
+                newsletter: false
+            },
+            api: {
+                status: "success",
+                data: {
+                    users: [
+                        { id: 1, name: "Alice" },
+                        { id: 2, name: "Bob" }
+                    ],
+                    total: 2,
+                    page: 1
+                },
+                timestamp: "2024-12-22T10:00:00Z"
+            },
+            graphql: {
+                data: {
+                    user: {
+                        id: "1",
+                        name: "Alice",
+                        posts: [
+                            { id: "101", title: "Hello World", likes: 42 },
+                            { id: "102", title: "GraphQL Tips", likes: 128 }
+                        ]
+                    }
+                },
+                errors: null
+            },
+            webhook: {
+                event: "payment.succeeded",
+                id: "evt_1234567890",
+                created: 1703260800,
+                data: {
+                    object: {
+                        id: "ch_abc123",
+                        amount: 2999,
+                        currency: "usd",
+                        status: "succeeded"
+                    }
+                },
+                livemode: false
+            },
+            pagination: {
+                data: [
+                    { id: 1, title: "Item 1" },
+                    { id: 2, title: "Item 2" }
+                ],
+                pagination: {
+                    page: 1,
+                    pageSize: 10,
+                    totalPages: 5,
+                    totalItems: 50,
+                    hasNext: true,
+                    hasPrev: false
+                }
+            },
+            ecommerce: {
+                id: "prod-123",
+                name: "Wireless Headphones",
+                price: 99.99,
+                inStock: true,
+                categories: ["electronics", "audio"],
+                specs: {
+                    color: "black",
+                    weight: "250g",
+                    bluetooth: "5.0"
+                },
+                reviews: [
+                    { rating: 5, comment: "Great!" },
+                    { rating: 4, comment: "Good value" }
+                ]
+            },
+            order: {
+                orderId: "ORD-2024-001",
+                customerId: "cust_123",
+                items: [
+                    { productId: "prod-1", quantity: 2, price: 29.99 },
+                    { productId: "prod-2", quantity: 1, price: 49.99 }
+                ],
+                subtotal: 109.97,
+                tax: 9.90,
+                shipping: 5.99,
+                total: 125.86,
+                status: "processing",
+                createdAt: "2024-12-22T10:00:00Z"
+            },
+            cart: {
+                userId: "usr_123",
+                items: [
+                    { 
+                        productId: "prod-1", 
+                        name: "Laptop", 
+                        quantity: 1, 
+                        price: 999.99,
+                        image: "https://example.com/laptop.jpg"
+                    }
+                ],
+                subtotal: 999.99,
+                discount: 50.00,
+                total: 949.99,
+                currency: "USD"
+            },
+            config: {
+                appName: "MyApp",
+                version: "1.0.0",
+                features: {
+                    darkMode: true,
+                    notifications: true,
+                    analytics: false
+                },
+                api: {
+                    baseUrl: "https://api.example.com",
+                    timeout: 5000,
+                    retries: 3
+                }
+            },
+            env: {
+                NODE_ENV: "production",
+                PORT: 3000,
+                DATABASE_URL: "postgresql://user:pass@localhost:5432/db",
+                JWT_SECRET: "your-secret-key",
+                REDIS_URL: "redis://localhost:6379",
+                LOG_LEVEL: "info",
+                ENABLE_CORS: true
+            },
+            theme: {
+                name: "Dark Professional",
+                colors: {
+                    primary: "#667eea",
+                    secondary: "#764ba2",
+                    background: "#1e1e1e",
+                    text: "#d4d4d4",
+                    accent: "#007acc"
+                },
+                fonts: {
+                    body: "Inter, sans-serif",
+                    heading: "Poppins, sans-serif",
+                    code: "Fira Code, monospace"
+                },
+                spacing: {
+                    unit: 8,
+                    scale: [0, 4, 8, 16, 24, 32, 48, 64]
+                }
+            },
+            analytics: {
+                event: "page_view",
+                userId: "usr_123",
+                sessionId: "sess_abc",
+                timestamp: 1703260800000,
+                properties: {
+                    page: "/dashboard",
+                    referrer: "https://google.com",
+                    device: "desktop",
+                    browser: "Chrome"
+                },
+                context: {
+                    ip: "192.168.1.1",
+                    userAgent: "Mozilla/5.0..."
+                }
+            },
+            metrics: {
+                timestamp: "2024-12-22T10:00:00Z",
+                service: "api-gateway",
+                metrics: {
+                    requestsPerSecond: 1250,
+                    averageLatency: 45.3,
+                    errorRate: 0.02,
+                    cpuUsage: 65.5,
+                    memoryUsage: 78.2
+                },
+                alerts: []
+            },
+            log: {
+                level: "error",
+                timestamp: "2024-12-22T10:00:00.123Z",
+                message: "Database connection failed",
+                service: "user-service",
+                traceId: "trace-abc123",
+                error: {
+                    name: "ConnectionError",
+                    message: "ECONNREFUSED",
+                    stack: "Error: ECONNREFUSED..."
+                },
+                metadata: {
+                    userId: "usr_123",
+                    endpoint: "/api/users"
+                }
+            },
+            nested: {
+                level1: {
+                    level2: {
+                        level3: {
+                            level4: {
+                                level5: {
+                                    deepValue: "You found me!",
+                                    array: [1, 2, 3],
+                                    mixed: [1, "two", true, null]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            mixed: {
+                string: "text",
+                number: 42,
+                boolean: true,
+                null: null,
+                array: [1, "two", true, null],
+                object: { nested: "value" },
+                arrayOfObjects: [
+                    { id: 1, type: "A" },
+                    { id: 2, type: "B" }
+                ],
+                unionField: "could be string or number"
+            }
+        };
+
+        /**
+         * Infer the Zod type from a JavaScript value
+         */
+        function inferZodType(value, depth = 0) {
+            if (value === null) {
+                return 'z.null()';
+            }
+
+            const type = typeof value;
+
+            switch (type) {
+                case 'string':
+                    return 'z.string()';
+                case 'number':
+                    return 'z.number()';
+                case 'boolean':
+                    return 'z.boolean()';
+                case 'undefined':
+                    return 'z.undefined()';
+                case 'object':
+                    if (Array.isArray(value)) {
+                        return inferArrayType(value, depth);
+                    } else {
+                        return inferObjectType(value, depth);
+                    }
+                default:
+                    return 'z.any()';
+            }
+        }
+
+        /**
+         * Infer Zod type for arrays
+         */
+        function inferArrayType(arr, depth) {
+            if (arr.length === 0) {
+                return 'z.array(z.any())';
+            }
+
+            const types = arr.map(item => inferZodType(item, depth + 1));
+            const uniqueTypes = [...new Set(types)];
+
+            if (uniqueTypes.length === 1) {
+                return `z.array(${uniqueTypes[0]})`;
+            } else {
+                return `z.array(z.union([${uniqueTypes.join(', ')}]))`;
+            }
+        }
+
+        /**
+         * Infer Zod type for objects
+         */
+        function inferObjectType(obj, depth) {
+            const entries = Object.entries(obj);
+            
+            if (entries.length === 0) {
+                return 'z.object({})';
+            }
+
+            const indent = '  '.repeat(depth + 1);
+            const fields = entries.map(([key, value]) => {
+                const zodType = inferZodType(value, depth + 1);
+                const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key) ? key : `"${key}"`;
+                return `${indent}${safeKey}: ${zodType}`;
+            });
+
+            return `z.object({\n${fields.join(',\n')}\n${'  '.repeat(depth)}})`;
+        }
+
+        /**
+         * Generate TypeScript type from Zod schema
+         */
+        function generateTypeScriptType(obj, typeName = 'MyType') {
+            function inferTsType(value) {
+                if (value === null) return 'null';
+                const type = typeof value;
+                
+                switch (type) {
+                    case 'string': return 'string';
+                    case 'number': return 'number';
+                    case 'boolean': return 'boolean';
+                    case 'undefined': return 'undefined';
+                    case 'object':
+                        if (Array.isArray(value)) {
+                            if (value.length === 0) return 'any[]';
+                            const types = [...new Set(value.map(inferTsType))];
+                            return types.length === 1 ? `${types[0]}[]` : `(${types.join(' | ')})[]`;
+                        } else {
+                            const entries = Object.entries(value);
+                            if (entries.length === 0) return '{}';
+                            const fields = entries.map(([k, v]) => {
+                                const safeKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : `"${k}"`;
+                                return `  ${safeKey}: ${inferTsType(v)}`;
+                            });
+                            return `{\n${fields.join(';\n')};\n}`;
+                        }
+                    default: return 'any';
+                }
+            }
+
+            const tsType = inferTsType(obj);
+            return `export type ${typeName} = ${tsType};`;
+        }
+
+        /**
+         * Generate usage example
+         */
+        function generateUsageExample(obj) {
+            const example = JSON.stringify(obj, null, 2);
+            return `import { z } from 'zod';
+import { schema } from './schema';
+
+// Infer the TypeScript type from the schema
+type MyType = z.infer<typeof schema>;
+
+// Example data
+const data = ${example};
+
+// Validate the data
+try {
+  const validated: MyType = schema.parse(data);
+  console.log('✓ Validation successful!', validated);
+} catch (error) {
+  if (error instanceof z.ZodError) {
+    console.error('✗ Validation failed:', error.errors);
+  }
+}
+
+// Safe parsing (doesn't throw)
+const result = schema.safeParse(data);
+if (result.success) {
+  console.log('✓ Data is valid:', result.data);
+} else {
+  console.error('✗ Validation errors:', result.error.errors);
+}`;
+        }
+
+        /**
+         * Generate smart refinements based on data patterns
+         */
+        function generateRefinements(obj) {
+            const refinements = [];
+            
+            function analyzeValue(key, value, path = '') {
+                const fullPath = path ? `${path}.${key}` : key;
+                
+                if (typeof value === 'string') {
+                    // Email detection
+                    if (key.toLowerCase().includes('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'email',
+                            code: `${key}: z.string().email()`,
+                            description: 'Email validation'
+                        });
+                    }
+                    // URL detection
+                    else if (key.toLowerCase().includes('url') || key.toLowerCase().includes('link') || 
+                             value.startsWith('http://') || value.startsWith('https://')) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'url',
+                            code: `${key}: z.string().url()`,
+                            description: 'URL validation'
+                        });
+                    }
+                    // UUID detection
+                    else if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value)) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'uuid',
+                            code: `${key}: z.string().uuid()`,
+                            description: 'UUID validation'
+                        });
+                    }
+                    // Date/DateTime detection
+                    else if (key.toLowerCase().includes('date') || key.toLowerCase().includes('time') || 
+                             key.toLowerCase().includes('at') && !isNaN(Date.parse(value))) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'datetime',
+                            code: `${key}: z.string().datetime()`,
+                            description: 'ISO datetime validation'
+                        });
+                    }
+                    // Password detection
+                    else if (key.toLowerCase().includes('password')) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'password',
+                            code: `${key}: z.string().min(8).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/)`,
+                            description: 'Strong password (min 8 chars, uppercase, lowercase, number)'
+                        });
+                    }
+                    // Non-empty string
+                    else if (value.length > 0) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'nonempty',
+                            code: `${key}: z.string().min(1)`,
+                            description: 'Non-empty string'
+                        });
+                    }
+                }
+                else if (typeof value === 'number') {
+                    // Positive number detection
+                    if (value > 0 && (key.toLowerCase().includes('price') || key.toLowerCase().includes('amount') || 
+                        key.toLowerCase().includes('quantity') || key.toLowerCase().includes('count'))) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'positive',
+                            code: `${key}: z.number().positive()`,
+                            description: 'Positive number'
+                        });
+                    }
+                    // Integer detection
+                    else if (Number.isInteger(value) && (key.toLowerCase().includes('id') || 
+                             key.toLowerCase().includes('count') || key.toLowerCase().includes('age'))) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'int',
+                            code: `${key}: z.number().int()`,
+                            description: 'Integer validation'
+                        });
+                    }
+                    // Age validation
+                    else if (key.toLowerCase() === 'age' && value >= 0 && value <= 150) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'age',
+                            code: `${key}: z.number().int().min(0).max(150)`,
+                            description: 'Age validation (0-150)'
+                        });
+                    }
+                    // Port number
+                    else if (key.toLowerCase().includes('port') && value >= 0 && value <= 65535) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'port',
+                            code: `${key}: z.number().int().min(0).max(65535)`,
+                            description: 'Port number (0-65535)'
+                        });
+                    }
+                    // Percentage
+                    else if (key.toLowerCase().includes('percent') || key.toLowerCase().includes('rate')) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'percentage',
+                            code: `${key}: z.number().min(0).max(100)`,
+                            description: 'Percentage (0-100)'
+                        });
+                    }
+                }
+                else if (Array.isArray(value)) {
+                    // Non-empty array
+                    if (value.length > 0) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'nonempty-array',
+                            code: `${key}: z.array(...).nonempty()`,
+                            description: 'Non-empty array'
+                        });
+                    }
+                    // Min/max length suggestions
+                    if (value.length > 0) {
+                        refinements.push({
+                            path: fullPath,
+                            type: 'array-length',
+                            code: `${key}: z.array(...).min(1).max(${value.length * 2})`,
+                            description: `Array length constraints (based on sample: ${value.length} items)`
+                        });
+                    }
+                }
+                else if (typeof value === 'object' && value !== null) {
+                    // Recursively analyze nested objects
+                    Object.entries(value).forEach(([k, v]) => analyzeValue(k, v, fullPath));
+                }
+            }
+
+            Object.entries(obj).forEach(([key, value]) => analyzeValue(key, value));
+
+            // Generate the refinements code
+            let code = `import { z } from 'zod';\n\n`;
+            code += `// 🎯 Smart Refinements Detected\n`;
+            code += `// These validation rules were automatically suggested based on your data patterns\n\n`;
+            
+            if (refinements.length === 0) {
+                code += `// No specific refinements detected.\n`;
+                code += `// Your basic schema is already good!\n`;
+            } else {
+                code += `export const refinedSchema = z.object({\n`;
+                
+                // Group refinements by path
+                const grouped = {};
+                refinements.forEach(r => {
+                    const topLevel = r.path.split('.')[0];
+                    if (!grouped[topLevel]) grouped[topLevel] = [];
+                    grouped[topLevel].push(r);
+                });
+
+                Object.entries(grouped).forEach(([key, refs], idx) => {
+                    code += `  // ${refs.map(r => r.description).join(', ')}\n`;
+                    code += `  ${refs[0].code}`;
+                    if (idx < Object.keys(grouped).length - 1) code += ',';
+                    code += '\n';
+                });
+
+                code += `});\n\n`;
+                
+                code += `// 📋 Detected Patterns:\n`;
+                refinements.forEach(r => {
+                    code += `// • ${r.path}: ${r.description}\n`;
+                });
+                
+                code += `\n// 💡 Tips:\n`;
+                code += `// - Review these suggestions and adjust as needed\n`;
+                code += `// - Combine multiple refinements with .and() or .or()\n`;
+                code += `// - Add custom error messages with .refine()\n`;
+                code += `// - Use .optional() or .nullable() as needed\n`;
+            }
+
+            return code;
+        }
+
+        /**
+         * Calculate JSON statistics
+         */
+        function calculateStats(obj) {
+            let keys = 0;
+            let depth = 0;
+
+            function traverse(value, currentDepth) {
+                depth = Math.max(depth, currentDepth);
+                
+                if (value && typeof value === 'object') {
+                    if (Array.isArray(value)) {
+                        value.forEach(item => traverse(item, currentDepth + 1));
+                    } else {
+                        keys += Object.keys(value).length;
+                        Object.values(value).forEach(v => traverse(v, currentDepth + 1));
+                    }
+                }
+            }
+
+            traverse(obj, 1);
+            return { keys, depth };
+        }
+
+        /**
+         * Convert JSON to Zod schema
+         */
+        function jsonToZodSchema(jsonString) {
+            try {
+                const parsed = JSON.parse(jsonString);
+                const zodSchema = inferZodType(parsed);
+                const tsType = generateTypeScriptType(parsed);
+                const usage = generateUsageExample(parsed);
+                const refinements = generateRefinements(parsed);
+                const stats = calculateStats(parsed);
+                
+                currentZodSchema = `import { z } from 'zod';\n\nexport const schema = ${zodSchema};`;
+                currentTsType = tsType;
+                currentUsage = usage;
+                currentRefinements = refinements;
+                
+                conversions++;
+                conversionCount.textContent = conversions;
+                jsonStats.textContent = `${stats.keys} keys • ${stats.depth} levels deep`;
+                
+                return { success: true, schema: currentZodSchema, tsType, usage, refinements };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        /**
+         * Update syntax highlighting
+         */
+        function updateHighlighting(element, code) {
+            const codeElement = element.querySelector('code');
+            codeElement.textContent = code;
+            hljs.highlightElement(codeElement);
+        }
+
+        /**
+         * Handle input changes
+         */
+        function handleInputChange() {
+            const input = jsonInput.value.trim();
+
+            if (!input) {
+                updateHighlighting(zodOutputHighlight, '// Zod schema will appear here...');
+                updateHighlighting(tsOutputHighlight, '// TypeScript type will appear here...');
+                updateHighlighting(usageOutputHighlight, '// Usage example will appear here...');
+                updateHighlighting(refinementsOutputHighlight, '// Smart validation refinements will appear here...');
+                jsonInput.classList.remove('error');
+                errorMessage.classList.add('hidden');
+                jsonStats.textContent = '';
+                return;
+            }
+
+            const result = jsonToZodSchema(input);
+
+            if (result.success) {
+                updateHighlighting(zodOutputHighlight, result.schema);
+                updateHighlighting(tsOutputHighlight, result.tsType);
+                updateHighlighting(usageOutputHighlight, result.usage);
+                updateHighlighting(refinementsOutputHighlight, result.refinements);
+                jsonInput.classList.remove('error');
+                errorMessage.classList.add('hidden');
+            } else {
+                updateHighlighting(zodOutputHighlight, '// Invalid JSON');
+                updateHighlighting(tsOutputHighlight, '// Invalid JSON');
+                updateHighlighting(usageOutputHighlight, '// Invalid JSON');
+                updateHighlighting(refinementsOutputHighlight, '// Invalid JSON');
+                jsonInput.classList.add('error');
+                errorText.textContent = result.error;
+                errorMessage.classList.remove('hidden');
+                jsonStats.textContent = '';
+            }
+        }
+
+        /**
+         * Copy to clipboard
+         */
+        async function copyToClipboard() {
+            let text = '';
+            
+            switch (currentTab) {
+                case 'schema':
+                    text = currentZodSchema;
+                    break;
+                case 'typescript':
+                    text = currentTsType;
+                    break;
+                case 'usage':
+                    text = currentUsage;
+                    break;
+                case 'refinements':
+                    text = currentRefinements;
+                    break;
+            }
+
+            if (!text) return;
+
+            try {
+                await navigator.clipboard.writeText(text);
+                
+                copyBtnText.classList.add('hidden');
+                copyFeedback.classList.remove('hidden');
+
+                setTimeout(() => {
+                    copyBtnText.classList.remove('hidden');
+                    copyFeedback.classList.add('hidden');
+                }, 2000);
+            } catch (error) {
+                console.error('Failed to copy:', error);
+                alert('Failed to copy to clipboard');
+            }
+        }
+
+        /**
+         * Download as file
+         */
+        function downloadSchema() {
+            if (!currentZodSchema) return;
+
+            const blob = new Blob([currentZodSchema], { type: 'text/typescript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'schema.ts';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /**
+         * Format JSON
+         */
+        function formatJSON() {
+            try {
+                const parsed = JSON.parse(jsonInput.value);
+                jsonInput.value = JSON.stringify(parsed, null, 2);
+                handleInputChange();
+            } catch (error) {
+                // Invalid JSON, do nothing
+            }
+        }
+
+        /**
+         * Clear inputs
+         */
+        function clearInputs() {
+            jsonInput.value = '';
+            updateHighlighting(zodOutputHighlight, '// Zod schema will appear here...');
+            updateHighlighting(tsOutputHighlight, '// TypeScript type will appear here...');
+            updateHighlighting(usageOutputHighlight, '// Usage example will appear here...');
+            updateHighlighting(refinementsOutputHighlight, '// Smart validation refinements will appear here...');
+            jsonInput.classList.remove('error');
+            errorMessage.classList.add('hidden');
+            jsonStats.textContent = '';
+            jsonInput.focus();
+        }
+
+        /**
+         * Load preset
+         */
+        function loadPreset(presetName) {
+            if (!presetName || !presets[presetName]) return;
+            
+            jsonInput.value = JSON.stringify(presets[presetName], null, 2);
+            handleInputChange();
+            presetSelect.value = '';
+        }
+
+        /**
+         * Switch tabs
+         */
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            tabButtons.forEach(btn => {
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.add('active');
+                    btn.classList.remove('text-gray-400');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('text-gray-400');
+                }
+            });
+
+            tabContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.getElementById(`${tabName}Tab`).classList.remove('hidden');
+        }
+
+        // Event Listeners
+        jsonInput.addEventListener('input', handleInputChange);
+        copyBtn.addEventListener('click', copyToClipboard);
+        clearBtn.addEventListener('click', clearInputs);
+        downloadBtn.addEventListener('click', downloadSchema);
+        formatBtn.addEventListener('click', formatJSON);
+        refinementsBtn.addEventListener('click', () => {
+            switchTab('refinements');
+            handleInputChange();
+        });
+        presetSelect.addEventListener('change', (e) => loadPreset(e.target.value));
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+Enter: Copy
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                copyToClipboard();
+            }
+            // Ctrl+K: Clear
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                clearInputs();
+            }
+            // Ctrl+Shift+F: Format
+            if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                e.preventDefault();
+                formatJSON();
+            }
+        });
+
+        // Load example on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPreset('user');
+        });
+    </script>
+</body>
+</html>
