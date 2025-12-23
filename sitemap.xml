@@ -137,4 +137,18 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    
+    <!-- 🤖 AI Code Diff Viewer -->
+    <url>
+        <loc>https://www.lidasoftware.online/tools/aiCodeDiff/the-code-diff-viewer.html</loc>
+        <lastmod>2025-12-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-ai-code-diff.html</loc>
+        <lastmod>2025-12-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset>

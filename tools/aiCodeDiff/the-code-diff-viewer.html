@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     <!-- SEO Meta Tags -->
+  <meta name="description" content="Professional Git cheat sheet with interactive command builder, visual git graph, favorites, search, and comprehensive command database. 50+ Git commands with examples, difficulty levels, and IDE plugin recommendations." />
+  <meta name="keywords" content="git cheat sheet, git commands, git tutorial, git reference, git guide, git tips, git workflow, git branching, git merge, git rebase, git commands list, git cheat sheet pro, git visual graph, git command builder, git for developers, git tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Code Diff Viewer - LidaSoftware" />
+  <meta property="og:description" content="AI Code Diff Viewer - LidaSoftware" />
+  <meta property="og:url" content="https://www.lidasoftware.online/tools/aiCodeDiff/the-code-diff-viewer.html" />
+  <meta property="og:image" content="https://www.lidasoftware.online/tools/aiCodeDiff/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Code Diff Viewer - LidaSoftware" />
+  <meta name="twitter:description" content="AI Code Diff Viewer - LidaSoftware" />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/tools/aiCodeDiff/logo.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.lidasoftware.online/tools/aiCodeDiff/the-code-diff-viewer.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+
+
+    <title>AI Code Diff Viewer - LidaSoftware</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            background: linear-gradient(135deg, #0d1117 0%, #1a1e2e 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        textarea {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: rgba(22, 27, 34, 0.6);
+            color: #c9d1d9;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            background: rgba(22, 27, 34, 0.9);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: rgba(88, 166, 255, 0.5);
+        }
+        
+        .diff-container {
+            background: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .d2h-wrapper {
+            background-color: transparent !important;
+        }
+        
+        .d2h-file-header {
+            background: rgba(22, 27, 34, 0.8) !important;
+            border-color: rgba(88, 166, 255, 0.3) !important;
+        }
+        
+        .d2h-code-line {
+            background-color: rgba(13, 17, 23, 0.4) !important;
+            color: #c9d1d9 !important;
+        }
+        
+        .d2h-ins {
+            background-color: rgba(46, 160, 67, 0.2) !important;
+            border-color: #2ea043 !important;
+        }
+        
+        .d2h-del {
+            background-color: rgba(248, 81, 73, 0.2) !important;
+            border-color: #f85149 !important;
+        }
+        
+        .d2h-code-side-linenumber {
+            background-color: rgba(13, 17, 23, 0.6) !important;
+            border-color: rgba(48, 54, 61, 0.5) !important;
+            color: #8b949e !important;
+        }
+        
+        .d2h-info {
+            background: rgba(31, 111, 235, 0.3) !important;
+            border-color: #58a6ff !important;
+            color: #c9d1d9 !important;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(48, 54, 61, 0.8);
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #c9d1d9;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .stat-card {
+            background: rgba(22, 27, 34, 0.6);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .badge {
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .ai-tag {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .quick-action {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-action:hover {
+            background: rgba(88, 166, 255, 0.15);
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .toast {
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            min-width: 300px;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .toast.success {
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        
+        .toast.error {
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+        
+        .toast.info {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .toast-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .toast-content {
+            flex: 1;
+        }
+        
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .toast-message {
+            font-size: 12px;
+            color: #8b949e;
+        }
+        
+        .toast-close {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .toast-close:hover {
+            opacity: 1;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+        
+        .toast.removing {
+            animation: slideOut 0.3s ease-out forwards;
+        }
+        
+        /* Modal for save dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.2s ease-out;
+        }
+        
+        .modal {
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #c9d1d9;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(13, 17, 23, 0.6);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 8px;
+            color: #c9d1d9;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-size: 14px;
+        }
+        
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .modal-btn-secondary {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            color: #c9d1d9;
+        }
+        
+        .modal-btn-secondary:hover {
+            background: rgba(88, 166, 255, 0.2);
+        }
+        footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 3rem;
+}
+
+
+          /* ===== AMAZING FOOTER ===== */
+        .footer {
+            padding: 1px 1px;
+            color: #090909;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+            color: #ff6b6b;
+            
+           
+        }
+
+        .footer::before {
+            content: '';
+            color: #090909;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0px;
+           
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            color: #090909;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copyright {
+            font-size: 20px;
+            color: #c1bdd7;
+            font-weight: 200;
+           
+            -webkit-background-clip: text;
+    
+            background-clip: text;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-version {
+            font-size: 16px;
+            color: #f4f4f4;
+            margin: 0;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(3px);
+        }
+
+        .footer-heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .btn-discover {
+            margin-top: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            border: 2px solid rgba(198, 189, 189, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-discover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-discover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        }
+
+         .header {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body class="text-gray-300 p-4 md:p-6">
+    <header class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+                <div class="brand-name">Lida Software</div>
+            </div>
+        </div>
+    </header>
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8 text-center fade-in">
+            <div class="flex items-center justify-center gap-3 mb-3">
+                <h1 class="text-4xl md:text-5xl font-bold gradient-text">AI Code Diff Viewer</h1>
+                <span class="ai-tag text-purple-300">AI-POWERED</span>
+            </div>
+            <p class="text-gray-400 text-lg mb-2">Catch every change before you commit. Built for the AI coding era.</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 fade-in">
+            <div class="stat-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-green-400" id="addedLines">0</div>
+                <div class="text-xs text-gray-500 uppercase">Lines Added</div>
+            </div>
+            <div class="stat-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-400" id="deletedLines">0</div>
+                <div class="text-xs text-gray-500 uppercase">Lines Deleted</div>
+            </div>
+            <div class="stat-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-blue-400" id="changedFiles">0</div>
+                <div class="text-xs text-gray-500 uppercase">Changes</div>
+            </div>
+            <div class="stat-card rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-purple-400" id="similarity">100%</div>
+                <div class="text-xs text-gray-500 uppercase">Similarity</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-effect rounded-lg p-4 mb-6 fade-in">
+            <div class="text-sm text-gray-400 mb-3 font-semibold">⚡ Quick Actions</div>
+            <div class="flex flex-wrap gap-2 mb-3">
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="loadExample('python')">
+                    🐍 Python Example
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="loadExample('javascript')">
+                    ⚡ JavaScript Example
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="loadExample('java')">
+                    ☕ Java Example
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="loadExample('typescript')">
+                    📘 TypeScript Example
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="loadExample('react')">
+                    ⚛️ React Example
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="clearAll()">
+                    🗑️ Clear All
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="swapCode()">
+                    🔄 Swap Sides
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="copyDiffReport()">
+                    📋 Copy Report
+                </button>
+            </div>
+            
+            <div class="text-sm text-gray-400 mb-2 font-semibold">📤 Export & Tools</div>
+            <div class="flex flex-wrap gap-2">
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="exportToPDF()">
+                    📄 Export PDF
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="exportToMarkdown()">
+                    📝 Export Markdown
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="exportToJSON()">
+                    📊 Export JSON
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="toggleHistory()">
+                    📚 History
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="toggleComplexity()">
+                    📈 Complexity
+                </button>
+                <button class="btn-secondary quick-action text-xs px-3 py-2 rounded-lg" onclick="saveToHistory()">
+                    💾 Save
+                </button>
+            </div>
+        </div>
+
+        <!-- History Panel -->
+        <div id="historyPanel" class="glass-effect rounded-lg p-6 mb-6 hidden fade-in">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-white">📚 Comparison History</h3>
+                <button class="text-xs text-red-400 hover:text-red-300" onclick="clearHistory()">Clear All</button>
+            </div>
+            <div id="historyList" class="space-y-2 max-h-64 overflow-y-auto"></div>
+        </div>
+
+        <!-- Complexity Metrics Panel -->
+        <div id="complexityPanel" class="glass-effect rounded-lg p-6 mb-6 hidden fade-in">
+            <h3 class="text-lg font-semibold text-white mb-4">📈 Code Complexity Analysis</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <div class="text-sm text-gray-400 mb-2">Original Code</div>
+                    <div id="originalComplexity" class="space-y-2"></div>
+                </div>
+                <div>
+                    <div class="text-sm text-gray-400 mb-2">Modified Code</div>
+                    <div id="modifiedComplexity" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 fade-in">
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <label for="original" class="text-sm font-semibold text-gray-300 flex items-center gap-2">
+                        <span class="badge rounded px-2 py-1 text-xs">ORIGINAL</span>
+                        <span>Your Code</span>
+                    </label>
+                    <span class="text-xs text-gray-500" id="originalCount">0 lines</span>
+                </div>
+                <textarea 
+                    id="original" 
+                    class="w-full h-96 p-4 rounded-lg resize-none text-sm"
+                    placeholder="Paste your original code here...&#10;&#10;💡 Tip: Use Tab for indentation"
+                ></textarea>
+            </div>
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <label for="newcode" class="text-sm font-semibold text-gray-300 flex items-center gap-2">
+                        <span class="badge rounded px-2 py-1 text-xs">AI GENERATED</span>
+                        <span>Modified Code</span>
+                    </label>
+                    <span class="text-xs text-gray-500" id="newCount">0 lines</span>
+                </div>
+                <textarea 
+                    id="newcode" 
+                    class="w-full h-96 p-4 rounded-lg resize-none text-sm"
+                    placeholder="Paste AI-generated or modified code here...&#10;&#10;🤖 Works with ChatGPT, Claude, Copilot, Cursor"
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- View Controls -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 fade-in">
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-400">Line-by-line</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="viewModeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="text-sm text-gray-400">Side-by-side</span>
+            </div>
+            
+            <button 
+                id="compareBtn"
+                class="btn-primary text-white font-semibold py-3 px-8 rounded-lg text-lg w-full md:w-auto"
+            >
+                🔍 Compare Differences
+            </button>
+        </div>
+
+        <!-- AI Insights Panel -->
+        <div id="aiInsights" class="glass-effect rounded-lg p-6 mb-6 hidden fade-in">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span>🤖</span>
+                <span>AI Change Analysis</span>
+            </h3>
+            <div id="insightsContent" class="space-y-2 text-sm"></div>
+        </div>
+
+        <!-- Output Area -->
+        <div id="diffOutput" class="diff-container rounded-lg overflow-hidden fade-in"></div>
+
+        <!-- Footer Tips -->
+    <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa Ai Code Diff Viewer</p>
+        <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            Discover More Features
+        </a>
+    </div>
+  </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script>
+    <script src="ai-analysis-engine.js"></script>
+    <script src="diff-viewer-enhancements.js"></script>
+    <script>
+        const originalTextarea = document.getElementById('original');
+        const newcodeTextarea = document.getElementById('newcode');
+        const compareBtn = document.getElementById('compareBtn');
+        const diffOutput = document.getElementById('diffOutput');
+        const viewModeToggle = document.getElementById('viewModeToggle');
+        const aiInsights = document.getElementById('aiInsights');
+
+        let lastDiff = null;
+
+        // Line counters
+        function updateLineCounts() {
+            const origLines = originalTextarea.value.split('\n').length;
+            const newLines = newcodeTextarea.value.split('\n').length;
+            document.getElementById('originalCount').textContent = `${origLines} lines`;
+            document.getElementById('newCount').textContent = `${newLines} lines`;
+        }
+
+        originalTextarea.addEventListener('input', updateLineCounts);
+        newcodeTextarea.addEventListener('input', updateLineCounts);
+
+        // Examples
+        const examples = {
+            python: {
+                original: `def calculate_total(items):
+    total = 0
+    for item in items:
+        total += item['price']
+    return total
+
+def process_order(order):
+    total = calculate_total(order['items'])
+    print(f"Total: {total}")
+    return total`,
+                new: `def calculate_total(items, tax_rate=0.1):
+    """Calculate total with optional tax"""
+    subtotal = sum(item.get('price', 0) for item in items)
+    total = subtotal * (1 + tax_rate)
+    return round(total, 2)
+
+def process_order(order):
+    total = calculate_total(order['items'], order.get('tax_rate', 0.1))
+    print(f"Total: {total:.2f}")
+    return total`
+            },
+            javascript: {
+                original: `function fetchUserData(userId) {
+    const response = fetch('/api/users/' + userId);
+    return response.json();
+}
+
+function displayUser(user) {
+    document.getElementById('name').textContent = user.name;
+    document.getElementById('email').textContent = user.email;
+}`,
+                new: `async function fetchUserData(userId) {
+    try {
+        const response = await fetch('/api/users/' + userId);
+        if (!response.ok) throw new Error('User not found');
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to fetch user:', error);
+        return null;
+    }
+}
+
+function displayUser(user) {
+    if (!user) return;
+    document.getElementById('name').textContent = user.name || 'N/A';
+    document.getElementById('email').textContent = user.email || 'N/A';
+}`
+            },
+            java: {
+                original: `public class UserService {
+    private Database db;
+    
+    public User getUser(int id) {
+        return db.query("SELECT * FROM users WHERE id = " + id);
+    }
+    
+    public void updateUser(User user) {
+        db.execute("UPDATE users SET name = '" + user.getName() + "'");
+    }
+}`,
+                new: `public class UserService {
+    private Database db;
+    
+    public Optional<User> getUser(int id) {
+        String query = "SELECT * FROM users WHERE id = ?";
+        return db.queryWithParams(query, id);
+    }
+    
+    public void updateUser(User user) throws ValidationException {
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new ValidationException("User name cannot be empty");
+        }
+        String query = "UPDATE users SET name = ? WHERE id = ?";
+        db.executeWithParams(query, user.getName(), user.getId());
+    }
+}`
+            },
+            typescript: {
+                original: `function processData(data) {
+    const result = data.map(item => item.value * 2);
+    return result;
+}
+
+class DataManager {
+    private data;
+    
+    constructor(initialData) {
+        this.data = initialData;
+    }
+    
+    getData() {
+        return this.data;
+    }
+}`,
+                new: `interface DataItem {
+    value: number;
+    id: string;
+}
+
+function processData(data: DataItem[]): number[] {
+    return data.map(item => item.value * 2);
+}
+
+class DataManager<T extends DataItem> {
+    private data: T[];
+    
+    constructor(initialData: T[]) {
+        this.data = initialData;
+    }
+    
+    getData(): readonly T[] {
+        return Object.freeze([...this.data]);
+    }
+}`
+            },
+            react: {
+                original: `function UserProfile(props) {
+    const [user, setUser] = useState(null);
+    
+    useEffect(() => {
+        fetch('/api/user/' + props.id)
+            .then(res => res.json())
+            .then(data => setUser(data));
+    }, []);
+    
+    return (
+        <div>
+            <h1>{user.name}</h1>
+            <p>{user.email}</p>
+        </div>
+    );
+}`,
+                new: `interface User {
+    name: string;
+    email: string;
+}
+
+interface UserProfileProps {
+    id: string;
+}
+
+function UserProfile({ id }: UserProfileProps) {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const res = await fetch('/api/user/' + id);
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
+                setUser(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        
+        fetchUser();
+    }, [id]);
+    
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+    if (!user) return null;
+    
+    return (
+        <div>
+            <h1>{user.name}</h1>
+            <p>{user.email}</p>
+        </div>
+    );
+}`
+            }
+        };
+
+        function loadExample(lang) {
+            originalTextarea.value = examples[lang].original;
+            newcodeTextarea.value = examples[lang].new;
+            updateLineCounts();
+            compareBtn.click();
+        }
+
+        function clearAll() {
+            originalTextarea.value = '';
+            newcodeTextarea.value = '';
+            diffOutput.innerHTML = '';
+            aiInsights.classList.add('hidden');
+            updateLineCounts();
+            resetStats();
+        }
+
+        function swapCode() {
+            const temp = originalTextarea.value;
+            originalTextarea.value = newcodeTextarea.value;
+            newcodeTextarea.value = temp;
+            updateLineCounts();
+        }
+
+        function copyDiffReport() {
+            if (!lastDiff) {
+                alert('Please run a comparison first!');
+                return;
+            }
+            const report = generateReport();
+            navigator.clipboard.writeText(report).then(() => {
+                alert('✅ Diff report copied to clipboard!');
+            });
+        }
+
+        function generateReport() {
+            const stats = calculateStats();
+            return `CODE DIFF REPORT
+Generated: ${new Date().toLocaleString()}
+
+STATISTICS:
+- Lines Added: ${stats.added}
+- Lines Deleted: ${stats.deleted}
+- Total Changes: ${stats.added + stats.deleted}
+- Similarity: ${stats.similarity}%
+
+DIFF:
+${lastDiff}`;
+        }
+
+        function resetStats() {
+            document.getElementById('addedLines').textContent = '0';
+            document.getElementById('deletedLines').textContent = '0';
+            document.getElementById('changedFiles').textContent = '0';
+            document.getElementById('similarity').textContent = '100%';
+        }
+
+        function calculateStats() {
+            const lines = lastDiff.split('\n');
+            let added = 0, deleted = 0, modifications = 0;
+            
+            // Count additions and deletions
+            lines.forEach(line => {
+                if (line.startsWith('+') && !line.startsWith('+++')) added++;
+                if (line.startsWith('-') && !line.startsWith('---')) deleted++;
+            });
+
+            // Detect modifications (paired deletions and additions)
+            const minChanges = Math.min(added, deleted);
+            modifications = minChanges;
+            
+            // Adjust pure additions and deletions
+            const pureAdditions = added - modifications;
+            const pureDeletions = deleted - modifications;
+            
+            // Total changes = modifications + pure additions + pure deletions
+            const totalChanges = modifications + pureAdditions + pureDeletions;
+            
+            // Calculate similarity based on original file size
+            const originalLines = originalTextarea.value.split('\n').filter(line => line.trim() !== '').length;
+            const newLines = newcodeTextarea.value.split('\n').filter(line => line.trim() !== '').length;
+            const maxLines = Math.max(originalLines, newLines, 1);
+            
+            // Similarity calculation:
+            // - Modifications count as 0.5 (half changed, half same structure)
+            // - Pure additions/deletions count as 1.0 (completely different)
+            const weightedChanges = (modifications * 0.5) + pureAdditions + pureDeletions;
+            const similarity = Math.max(0, Math.round((1 - weightedChanges / maxLines) * 100));
+
+            return { 
+                added: pureAdditions, 
+                deleted: pureDeletions, 
+                changes: totalChanges,
+                modifications: modifications,
+                similarity 
+            };
+        }
+
+        function updateStats(stats) {
+            document.getElementById('addedLines').textContent = stats.added;
+            document.getElementById('deletedLines').textContent = stats.deleted;
+            document.getElementById('changedFiles').textContent = stats.changes;
+            document.getElementById('similarity').textContent = stats.similarity + '%';
+        }
+
+        // Initialize AI Analysis Engine
+        const aiEngine = new AIAnalysisEngine();
+
+        function generateInsights(stats, originalCode, newCode) {
+            const insights = [];
+            
+            // Basic stats insights
+            if (stats.added > stats.deleted * 2) {
+                insights.push({
+                    type: 'warning',
+                    icon: '⚠️',
+                    text: 'Significant code expansion detected - review for unnecessary additions'
+                });
+            }
+            if (stats.deleted > stats.added * 2) {
+                insights.push({
+                    type: 'warning',
+                    icon: '✂️',
+                    text: 'Major code reduction - verify no critical logic was removed'
+                });
+            }
+            if (stats.similarity < 50) {
+                insights.push({
+                    type: 'warning',
+                    icon: '🔄',
+                    text: 'Substantial rewrite detected - careful review recommended'
+                });
+            }
+            if (stats.similarity > 90 && stats.changes > 0) {
+                insights.push({
+                    type: 'success',
+                    icon: '✅',
+                    text: 'Minor changes only - low risk merge'
+                });
+            }
+            if (stats.changes === 0) {
+                insights.push({
+                    type: 'info',
+                    icon: '✨',
+                    text: 'No differences found - code is identical'
+                });
+            }
+            
+            // Use AI Analysis Engine for comprehensive pattern detection
+            const patterns = aiEngine.analyze(originalCode, newCode);
+            
+            // Map categories to insights with proper icons and styling
+            const categoryMap = [
+                { key: 'security', icon: '🛡️', title: 'Security Improvements', type: 'security' },
+                { key: 'credentials', icon: '🔐', title: 'Credentials & Secrets', type: 'credentials' },
+                { key: 'dataExposure', icon: '🔒', title: 'Data Exposure', type: 'dataExposure' },
+                { key: 'typesSafety', icon: '📘', title: 'Type Safety', type: 'types' },
+                { key: 'errorHandling', icon: '🚨', title: 'Error Handling', type: 'error' },
+                { key: 'modernization', icon: '⚡', title: 'Modernization', type: 'modern' },
+                { key: 'performance', icon: '🚀', title: 'Performance', type: 'performance' },
+                { key: 'bestPractices', icon: '✨', title: 'Best Practices', type: 'best' },
+                { key: 'configuration', icon: '⚙️', title: 'Configuration Changes', type: 'config' },
+                { key: 'apiChanges', icon: '🔌', title: 'API Changes', type: 'api' },
+                { key: 'dataFlow', icon: '📊', title: 'Data Flow', type: 'dataFlow' }
+            ];
+            
+            categoryMap.forEach(cat => {
+                if (patterns[cat.key] && patterns[cat.key].length > 0) {
+                    insights.push({
+                        type: cat.type,
+                        icon: cat.icon,
+                        category: cat.title,
+                        items: patterns[cat.key].map(p => p.message)
+                    });
+                }
+            });
+
+            return insights;
+        }
+
+        function renderDiff() {
+            const originalCode = originalTextarea.value;
+            const newCode = newcodeTextarea.value;
+
+            if (!originalCode && !newCode) {
+                diffOutput.innerHTML = '<div class="text-center text-gray-500 p-12">Please paste code in both textareas to compare.</div>';
+                return;
+            }
+
+            lastDiff = Diff.createTwoFilesPatch(
+                'original',
+                'modified',
+                originalCode,
+                newCode,
+                'Original Code',
+                'AI Generated Code'
+            );
+
+            const outputFormat = viewModeToggle.checked ? 'side-by-side' : 'line-by-line';
+
+            diffOutput.innerHTML = '';
+
+            const diff2htmlUi = new Diff2HtmlUI(diffOutput, lastDiff, {
+                drawFileList: false,
+                matching: 'lines',
+                outputFormat: outputFormat,
+                highlight: true
+            });
+
+            diff2htmlUi.draw();
+            diff2htmlUi.highlightCode();
+
+            // Calculate and display stats
+            const stats = calculateStats();
+            updateStats(stats);
+
+            // Generate AI insights with pattern analysis
+            const insights = generateInsights(stats, originalCode, newCode);
+            const insightsContent = document.getElementById('insightsContent');
+            
+            // Render insights with categories
+            insightsContent.innerHTML = insights.map(insight => {
+                if (insight.category) {
+                    // Categorized insight with multiple items
+                    const itemsHtml = insight.items.map(item => 
+                        `<div class="ml-4 text-gray-300 text-xs">${item}</div>`
+                    ).join('');
+                    return `
+                        <div class="mb-3 p-3 rounded-lg bg-opacity-10 ${getCategoryBgClass(insight.type)}">
+                            <div class="font-semibold text-sm mb-2 ${getCategoryTextClass(insight.type)}">
+                                ${insight.icon} ${insight.category}
+                            </div>
+                            ${itemsHtml}
+                        </div>
+                    `;
+                } else {
+                    // Simple insight
+                    return `<div class="text-gray-300 p-2">${insight.icon} ${insight.text}</div>`;
+                }
+            }).join('');
+            
+            aiInsights.classList.remove('hidden');
+
+            diffOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        compareBtn.addEventListener('click', renderDiff);
+
+        // Add toggle listener to re-render diff when view mode changes
+        viewModeToggle.addEventListener('change', function() {
+            if (lastDiff) {
+                renderDiff();
+            }
+        });
+
+        // Tab support
+        [originalTextarea, newcodeTextarea].forEach(textarea => {
+            textarea.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 4;
+                }
+            });
+        });
+
+        // Helper functions for category styling
+        function getCategoryBgClass(type) {
+            const classes = {
+                'security': 'bg-red-500',
+                'credentials': 'bg-orange-500',
+                'dataExposure': 'bg-pink-500',
+                'types': 'bg-blue-500',
+                'error': 'bg-yellow-500',
+                'modern': 'bg-purple-500',
+                'performance': 'bg-green-500',
+                'best': 'bg-indigo-500',
+                'config': 'bg-cyan-500',
+                'api': 'bg-teal-500',
+                'dataFlow': 'bg-violet-500'
+            };
+            return classes[type] || 'bg-gray-500';
+        }
+
+        function getCategoryTextClass(type) {
+            const classes = {
+                'security': 'text-red-300',
+                'credentials': 'text-orange-300',
+                'dataExposure': 'text-pink-300',
+                'types': 'text-blue-300',
+                'error': 'text-yellow-300',
+                'modern': 'text-purple-300',
+                'performance': 'text-green-300',
+                'best': 'text-indigo-300',
+                'config': 'text-cyan-300',
+                'api': 'text-teal-300',
+                'dataFlow': 'text-violet-300'
+            };
+            return classes[type] || 'text-gray-300';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                compareBtn.click();
+            }
+        });
+
+        // ==================== PREMIUM FEATURES ====================
+        
+        // Initialize enhancements
+        const enhancements = new DiffViewerEnhancements();
+        let currentPatterns = null;
+
+        // Export functions
+        function exportToPDF() {
+            if (!lastDiff) {
+                alert('Please run a comparison first!');
+                return;
+            }
+            const stats = calculateStats();
+            const insights = Array.from(document.getElementById('insightsContent').children).map(el => el.textContent);
+            enhancements.exportToPDF(
+                'Code Diff Analysis',
+                originalTextarea.value,
+                newcodeTextarea.value,
+                insights,
+                stats
+            );
+        }
+
+        function exportToMarkdown() {
+            if (!lastDiff) {
+                alert('Please run a comparison first!');
+                return;
+            }
+            const stats = calculateStats();
+            const insights = Array.from(document.getElementById('insightsContent').children).map(el => el.textContent);
+            enhancements.exportToMarkdown(
+                'Code_Diff_Analysis',
+                originalTextarea.value,
+                newcodeTextarea.value,
+                insights,
+                stats
+            );
+        }
+
+        function exportToJSON() {
+            if (!lastDiff) {
+                alert('Please run a comparison first!');
+                return;
+            }
+            const stats = calculateStats();
+            const insights = Array.from(document.getElementById('insightsContent').children).map(el => el.textContent);
+            enhancements.exportToJSON(
+                'Code_Diff_Analysis',
+                originalTextarea.value,
+                newcodeTextarea.value,
+                insights,
+                stats,
+                currentPatterns
+            );
+        }
+
+        // History functions
+        function saveToHistory() {
+            const original = originalTextarea.value;
+            const modified = newcodeTextarea.value;
+            
+            if (!original && !modified) {
+                alert('Please add some code first!');
+                return;
+            }
+            
+            const title = prompt('Enter a title for this comparison:', `Comparison ${new Date().toLocaleString()}`);
+            if (title) {
+                enhancements.saveToHistory(original, modified, title);
+                alert('✅ Saved to history!');
+                updateHistoryDisplay();
+            }
+        }
+
+        function toggleHistory() {
+            const panel = document.getElementById('historyPanel');
+            panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) {
+                updateHistoryDisplay();
+            }
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            const history = enhancements.history;
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<div class="text-gray-500 text-sm text-center py-4">No saved comparisons yet</div>';
+                return;
+            }
+            
+            historyList.innerHTML = history.map(entry => `
+                <div class="glass-effect p-3 rounded-lg flex justify-between items-center hover:bg-opacity-20 transition">
+                    <div class="flex-1 cursor-pointer" onclick="loadHistoryEntry(${entry.id})">
+                        <div class="text-sm font-semibold text-white">${entry.title}</div>
+                        <div class="text-xs text-gray-500">${new Date(entry.timestamp).toLocaleString()}</div>
+                        <div class="text-xs text-gray-400 mt-1">
+                            ${entry.stats.originalLines} → ${entry.stats.modifiedLines} lines 
+                            (${entry.stats.difference > 0 ? '+' : ''}${entry.stats.difference})
+                        </div>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300 text-xs ml-2" onclick="deleteHistoryEntry(${entry.id}); event.stopPropagation();">
+                        🗑️
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function loadHistoryEntry(id) {
+            const entry = enhancements.loadFromHistory(id);
+            if (entry) {
+                originalTextarea.value = entry.original;
+                newcodeTextarea.value = entry.modified;
+                updateLineCounts();
+                compareBtn.click();
+            }
+        }
+
+        function deleteHistoryEntry(id) {
+            if (confirm('Delete this comparison?')) {
+                enhancements.deleteFromHistory(id);
+                updateHistoryDisplay();
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('Clear all history? This cannot be undone.')) {
+                enhancements.clearHistory();
+                updateHistoryDisplay();
+            }
+        }
+
+        // Complexity metrics
+        function toggleComplexity() {
+            const panel = document.getElementById('complexityPanel');
+            panel.classList.toggle('hidden');
+            
+            if (!panel.classList.contains('hidden')) {
+                updateComplexityDisplay();
+            }
+        }
+
+        function updateComplexityDisplay() {
+            const originalCode = originalTextarea.value;
+            const modifiedCode = newcodeTextarea.value;
+            
+            if (!originalCode && !modifiedCode) {
+                document.getElementById('originalComplexity').innerHTML = '<div class="text-gray-500 text-sm">No code to analyze</div>';
+                document.getElementById('modifiedComplexity').innerHTML = '<div class="text-gray-500 text-sm">No code to analyze</div>';
+                return;
+            }
+            
+            const origMetrics = enhancements.calculateComplexityMetrics(originalCode);
+            const modMetrics = enhancements.calculateComplexityMetrics(modifiedCode);
+            
+            document.getElementById('originalComplexity').innerHTML = renderComplexityMetrics(origMetrics);
+            document.getElementById('modifiedComplexity').innerHTML = renderComplexityMetrics(modMetrics);
+        }
+
+        function renderComplexityMetrics(metrics) {
+            const rating = enhancements.getComplexityRating(metrics.maintainabilityIndex);
+            
+            return `
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center p-2 rounded" style="background: rgba(${rating.color === '#22c55e' ? '34,197,94' : rating.color === '#3b82f6' ? '59,130,246' : rating.color === '#f59e0b' ? '245,158,11' : '239,68,68'}, 0.1)">
+                        <span>Maintainability</span>
+                        <span class="font-bold" style="color: ${rating.color}">${rating.icon} ${metrics.maintainabilityIndex}/100</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Cyclomatic Complexity</span>
+                        <span class="font-semibold">${metrics.cyclomaticComplexity}</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Lines of Code</span>
+                        <span class="font-semibold">${metrics.linesOfCode}</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Comment Density</span>
+                        <span class="font-semibold">${metrics.commentDensity}%</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Functions</span>
+                        <span class="font-semibold">${metrics.functionCount}</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Max Nesting Depth</span>
+                        <span class="font-semibold">${metrics.maxNestingDepth}</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-800 bg-opacity-30 rounded">
+                        <span class="text-gray-400">Duplicate Lines</span>
+                        <span class="font-semibold">${metrics.duplicateLines}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Store patterns for export
+        compareBtn.addEventListener('click', function() {
+            setTimeout(() => {
+                currentPatterns = aiEngine.analyze(originalTextarea.value, newcodeTextarea.value);
+            }, 100);
+        });
+
+        // ==================== TOAST NOTIFICATIONS ====================
+        
+        function showToast(title, message, type = 'info', duration = 4000) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                info: 'ℹ️',
+                warning: '⚠️'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">${icons[type] || icons.info}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    ${message ? `<div class="toast-message">${message}</div>` : ''}
+                </div>
+                <div class="toast-close" onclick="this.parentElement.remove()">×</div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        function showModal(title, placeholder, defaultValue = '') {
+            return new Promise((resolve) => {
+                const overlay = document.createElement('div');
+                overlay.className = 'modal-overlay';
+                
+                overlay.innerHTML = `
+                    <div class="modal">
+                        <div class="modal-header">${title}</div>
+                        <input type="text" class="modal-input" placeholder="${placeholder}" value="${defaultValue}" id="modalInput">
+                        <div class="modal-buttons">
+                            <button class="modal-btn modal-btn-secondary" onclick="this.closest('.modal-overlay').remove(); window.modalResolve(null)">Cancel</button>
+                            <button class="modal-btn modal-btn-primary" onclick="window.modalResolve(document.getElementById('modalInput').value); this.closest('.modal-overlay').remove()">Save</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(overlay);
+                
+                // Focus input
+                setTimeout(() => {
+                    const input = document.getElementById('modalInput');
+                    input.focus();
+                    input.select();
+                    
+                    // Handle Enter key
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            resolve(input.value);
+                            overlay.remove();
+                        } else if (e.key === 'Escape') {
+                            resolve(null);
+                            overlay.remove();
+                        }
+                    });
+                }, 100);
+                
+                // Store resolve function globally for button onclick
+                window.modalResolve = resolve;
+                
+                // Click outside to close
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        resolve(null);
+                        overlay.remove();
+                    }
+                });
+            });
+        }
+
+        // Replace alert functions with toast notifications
+        const originalAlert = window.alert;
+        const originalConfirm = window.confirm;
+        const originalPrompt = window.prompt;
+
+        // Override saveToHistory to use modal
+        saveToHistory = async function() {
+            const original = originalTextarea.value;
+            const modified = newcodeTextarea.value;
+            
+            if (!original && !modified) {
+                showToast('No Code', 'Please add some code first!', 'warning');
+                return;
+            }
+            
+            const title = await showModal(
+                '💾 Save Comparison',
+                'Enter a title for this comparison',
+                `Comparison ${new Date().toLocaleString()}`
+            );
+            
+            if (title) {
+                enhancements.saveToHistory(original, modified, title);
+                showToast('Saved!', 'Comparison saved to history', 'success');
+                updateHistoryDisplay();
+            }
+        };
+
+        // Update export functions to use toasts
+        const originalExportToPDF = exportToPDF;
+        exportToPDF = function() {
+            if (!lastDiff) {
+                showToast('No Comparison', 'Please run a comparison first!', 'warning');
+                return;
+            }
+            originalExportToPDF();
+            showToast('PDF Ready', 'Print dialog opened', 'success');
+        };
+
+        const originalExportToMarkdown = exportToMarkdown;
+        exportToMarkdown = function() {
+            if (!lastDiff) {
+                showToast('No Comparison', 'Please run a comparison first!', 'warning');
+                return;
+            }
+            originalExportToMarkdown();
+            showToast('Exported!', 'Markdown file downloaded', 'success');
+        };
+
+        const originalExportToJSON = exportToJSON;
+        exportToJSON = function() {
+            if (!lastDiff) {
+                showToast('No Comparison', 'Please run a comparison first!', 'warning');
+                return;
+            }
+            originalExportToJSON();
+            showToast('Exported!', 'JSON file downloaded', 'success');
+        };
+
+        // Update copyDiffReport to use toast
+        copyDiffReport = function() {
+            if (!lastDiff) {
+                showToast('No Comparison', 'Please run a comparison first!', 'warning');
+                return;
+            }
+            const report = generateReport();
+            navigator.clipboard.writeText(report).then(() => {
+                showToast('Copied!', 'Diff report copied to clipboard', 'success');
+            });
+        };
+
+        // Update deleteHistoryEntry to use modal
+        deleteHistoryEntry = async function(id) {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            overlay.innerHTML = `
+                <div class="modal">
+                    <div class="modal-header">🗑️ Delete Comparison</div>
+                    <p style="color: #8b949e; margin-bottom: 20px;">Are you sure you want to delete this comparison? This cannot be undone.</p>
+                    <div class="modal-buttons">
+                        <button class="modal-btn modal-btn-secondary" onclick="this.closest('.modal-overlay').remove()">Cancel</button>
+                        <button class="modal-btn modal-btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);" onclick="window.confirmDelete(${id}); this.closest('.modal-overlay').remove();">Delete</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            window.confirmDelete = (id) => {
+                enhancements.deleteFromHistory(id);
+                updateHistoryDisplay();
+                showToast('Deleted', 'Comparison removed from history', 'success');
+            };
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.remove();
+            });
+        };
+
+        // Update clearHistory to use modal
+        clearHistory = async function() {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            
+            overlay.innerHTML = `
+                <div class="modal">
+                    <div class="modal-header">🗑️ Clear All History</div>
+                    <p style="color: #8b949e; margin-bottom: 20px;">Are you sure you want to clear all history? This cannot be undone.</p>
+                    <div class="modal-buttons">
+                        <button class="modal-btn modal-btn-secondary" onclick="this.closest('.modal-overlay').remove()">Cancel</button>
+                        <button class="modal-btn modal-btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);" onclick="window.confirmClearHistory(); this.closest('.modal-overlay').remove();">Clear All</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            window.confirmClearHistory = () => {
+                enhancements.clearHistory();
+                updateHistoryDisplay();
+                showToast('Cleared', 'All history has been cleared', 'success');
+            };
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.remove();
+            });
+        };
+    </script>
+</body>
+</html>
