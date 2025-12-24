@@ -178,7 +178,10 @@
         .fade-in { opacity: 0; transform: translateY(28px); transition: all .6s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
-<script defer src="https://va.vercel.app/script.js"></script>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
