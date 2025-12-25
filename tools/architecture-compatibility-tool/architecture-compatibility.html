@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online Architecture Compatibility Tool. Analyze your tech stack, get expert recommendations, cost estimates, and shareable reports. Validate backend, frontend, database, and deployment choices for your project." />
+    <meta name="keywords" content="architecture compatibility tool, tech stack analyzer, stack validation, web architecture, backend framework, frontend framework, database selection, deployment platform, devops tools, free architecture tool, stack recommendations" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Architecture Compatibility Tool - Build the Perfect Tech Stack" />
+    <meta property="og:description" content="Analyze and validate your web architecture stack instantly. Get expert recommendations, confidence scores, cost estimates, and shareable reports. Free tool for developers and architects." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Architecture Compatibility Tool - Free Stack Analyzer" />
+    <meta name="twitter:description" content="Validate your tech stack choices with expert analysis. Get recommendations for backend, frontend, database, and deployment. 100% free, client-side tool." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+    <title>Architecture Compatibility Tool - Build the Perfect Tech Stack</title>
+    
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(10%, 10%) scale(1.1); }
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .stats-banner {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .popular-stacks {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .popular-stacks h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .preset-btn {
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .preset-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .preset-name {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .preset-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .step {
+            margin-bottom: 40px;
+            opacity: 0.3;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(10px);
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .step.active .step-number {
+            animation: bounce 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .option {
+            padding: 18px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            position: relative;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            display: none;
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result-header {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e2e8f0;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .result-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-header-left::before {
+            content: '📊';
+            font-size: 32px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .confidence-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .confidence-number {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .confidence-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .assessment {
+            padding: 24px 28px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .assessment.recommended {
+            background: linear-gradient(135deg, #d4f4dd 0%, #c6f6d5 100%);
+            color: #22543d;
+            border-left: 5px solid #38a169;
+        }
+
+        .assessment.caution {
+            background: linear-gradient(135deg, #fff4e6 0%, #fef5e7 100%);
+            color: #744210;
+            border-left: 5px solid #f6ad55;
+        }
+
+        .assessment.not-recommended {
+            background: linear-gradient(135deg, #ffe5e5 0%, #fed7d7 100%);
+            color: #742a2a;
+            border-left: 5px solid #f56565;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-content {
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .section-content li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .section-content li:last-child {
+            border-bottom: none;
+        }
+
+        .section-content li:before {
+            content: "→";
+            position: absolute;
+            left: 8px;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .stack-summary {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+        }
+
+        .stack-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+        }
+
+        .stack-item:last-child {
+            border-bottom: none;
+        }
+
+        .stack-label {
+            font-weight: 700;
+            color: #1e293b;
+            display: inline-block;
+            min-width: 160px;
+            font-size: 15px;
+        }
+
+        .stack-value {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .cost-estimate {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #0ea5e9;
+        }
+
+        .cost-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0c4a6e;
+            margin-bottom: 12px;
+        }
+
+        .cost-range {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0369a1;
+            margin-bottom: 8px;
+        }
+
+        .cost-note {
+            font-size: 14px;
+            color: #075985;
+        }
+
+        .alternatives {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .alternatives-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #78350f;
+            margin-bottom: 12px;
+        }
+
+        .alternative-item {
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .alternative-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .learning-resources {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #a855f7;
+        }
+
+        .learning-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #581c87;
+            margin-bottom: 12px;
+        }
+
+        .resource-link {
+            display: block;
+            padding: 10px 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #7c3aed;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            background: #7c3aed;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .reset-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .reset-btn:active {
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-close:hover {
+            color: #1e293b;
+        }
+
+        .share-link-box {
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #22543d;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 2000;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== AMAZING FOOTER ===== */
+        .footer {
+            padding: 50px 1px;
+            color: #090909;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+            color: #ff6b6b;
+        }
+
+        .footer::before {
+            content: '';
+            color: #090909;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            color: #090909;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copyright {
+            font-size: 20px;
+            color: #c1bdd7;
+            font-weight: 200;
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-version {
+            font-size: 16px;
+            color: #f4f4f4;
+            margin: 0;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(3px);
+        }
+
+        .footer-heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .btn-discover {
+            margin-top: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            border: 2px solid rgba(198, 189, 189, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-discover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-discover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-discover:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .options {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 10px;
+            }
+
+            .result {
+                padding: 24px;
+            }
+
+            .stack-label {
+                min-width: 120px;
+                font-size: 14px;
+            }
+
+            .stack-value {
+                font-size: 14px;
+            }
+
+            .result-header {
+                font-size: 22px;
+            }
+
+            .action-buttons {
+                width: 100%;
+            }
+
+            .action-btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .footer-copyright {
+                font-size: 16px;
+            }
+
+            .btn-discover {
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+                <div class="brand-name">Lida Software</div>
+            </div>
+            <h1>🏗️ Architecture Compatibility Tool</h1>
+            <p>Build coherent web stacks without the guesswork</p>
+            <div class="stats-banner">
+                <div class="stat-item">
+                    <div class="stat-number">12,847</div>
+                    <div class="stat-label">Stacks Analyzed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Free</div>
+                    <div class="stat-label">Forever</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="popular-stacks">
+                <h3>🔥 Popular Stack Presets</h3>
+                <div class="preset-buttons">
+                    <button class="preset-btn" onclick="loadPreset('mern')">
+                        <div class="preset-name">MERN Stack</div>
+                        <div class="preset-desc">MongoDB, Express, React, Node.js</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('t3')">
+                        <div class="preset-name">T3 Stack</div>
+                        <div class="preset-desc">Next.js, TypeScript, tRPC, Prisma</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('jamstack')">
+                        <div class="preset-name">JAMstack</div>
+                        <div class="preset-desc">Next.js, Vercel, Headless CMS</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('django')">
+                        <div class="preset-name">Django Full Stack</div>
+                        <div class="preset-desc">Django, PostgreSQL, React</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('rails')">
+                        <div class="preset-name">Rails Stack</div>
+                        <div class="preset-desc">Ruby on Rails, PostgreSQL, React</div>
+                    </button>
+                    <button class="preset-btn" onclick="loadPreset('serverless')">
+                        <div class="preset-name">Serverless</div>
+                        <div class="preset-desc">AWS Lambda, DynamoDB, React</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            
+            <div class="step active" id="step1">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    Select Backend Language
+                </div>
+                <div class="options" id="languages"></div>
+            </div>
+
+            <div class="step" id="step2">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    Select Backend Framework
+                </div>
+                <div class="options" id="frameworks"></div>
+            </div>
+
+            <div class="step" id="step3">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    Select Database
+                </div>
+                <div class="options" id="databases"></div>
+            </div>
+
+            <div class="step" id="step4">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    Select Frontend Framework
+                </div>
+                <div class="options" id="frontendFrameworks"></div>
+            </div>
+
+            <div class="step" id="step5">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    Team Size
+                </div>
+                <div class="options" id="teamSize"></div>
+            </div>
+
+            <div class="step" id="step6">
+                <div class="step-title">
+                    <span class="step-number">6</span>
+                    Project Stage
+                </div>
+                <div class="options" id="projectStage"></div>
+            </div>
+
+            <div class="step" id="step7">
+                <div class="step-title">
+                    <span class="step-number">7</span>
+                    Architecture Pattern
+                </div>
+                <div class="options" id="architecturePattern"></div>
+            </div>
+
+            <div class="step" id="step8">
+                <div class="step-title">
+                    <span class="step-number">8</span>
+                    Deployment/Hosting
+                </div>
+                <div class="options" id="deployment"></div>
+            </div>
+
+            <div class="step" id="step9">
+                <div class="step-title">
+                    <span class="step-number">9</span>
+                    Optional: SSR Requirement
+                </div>
+                <div class="options" id="ssrRequirement"></div>
+            </div>
+
+            <div class="result" id="result">
+                <div class="result-header">
+                    <div class="result-header-left">Architecture Assessment</div>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="shareResults()">
+                            📤 Share
+                        </button>
+                        <button class="action-btn" onclick="exportPDF()">
+                            📄 Export PDF
+                        </button>
+                        <button class="action-btn" onclick="exportMarkdown()">
+                            📝 Markdown
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="confidence-score" id="confidenceScore"></div>
+                
+                <div id="assessment"></div>
+                <div id="summary"></div>
+                <div id="costEstimate"></div>
+                <div id="alternatives"></div>
+                <div id="tradeoffs"></div>
+                <div id="risks"></div>
+                <div id="suggestions"></div>
+                <div id="learningResources"></div>
+                <button class="reset-btn" onclick="resetTool()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('shareModal')">&times;</span>
+            <div class="modal-header">Share Your Stack Analysis</div>
+            <p style="color: #64748b; margin-bottom: 20px;">Copy this link to share your stack configuration with others:</p>
+            <div class="share-link-box" id="shareLinkBox"></div>
+            <button class="copy-btn" onclick="copyShareLink()">Copy Link</button>
+        </div>
+        
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-copyright">© LiDa Architecture Compatibility Tool</p>
+            <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+                Discover More Features
+            </a>
+        </div>
+      </footer>
+    <script>
+        const data = {
+            languages: [
+                'Node.js', 
+                'Python', 
+                'Java', 
+                'Go', 
+                'C#', 
+                'PHP', 
+                'Ruby', 
+                'Rust',
+                'TypeScript (Deno/Bun)',
+                'Kotlin',
+                'Scala',
+                'Elixir',
+                'Clojure'
+            ],
+            frameworks: {
+                'Node.js': ['Express.js', 'NestJS', 'Fastify', 'Koa', 'Hapi', 'AdonisJS', 'Sails.js', 'LoopBack'],
+                'Python': ['Django', 'FastAPI', 'Flask', 'Tornado', 'Pyramid', 'Sanic', 'Bottle', 'CherryPy'],
+                'Java': ['Spring Boot', 'Quarkus', 'Micronaut', 'Vert.x', 'Dropwizard', 'Play Framework', 'Spark Java'],
+                'PHP': ['Laravel', 'Symfony', 'CodeIgniter', 'Slim', 'Lumen', 'Yii', 'CakePHP', 'Phalcon'],
+                'C#': ['ASP.NET Core', 'Nancy', 'ServiceStack', 'Carter'],
+                'Go': ['Fiber', 'Gin', 'Echo', 'Chi', 'Gorilla Mux', 'Beego', 'Revel', 'Buffalo'],
+                'Ruby': ['Ruby on Rails', 'Sinatra', 'Hanami', 'Padrino', 'Grape'],
+                'Rust': ['Actix Web', 'Rocket', 'Axum', 'Warp', 'Tide'],
+                'TypeScript (Deno/Bun)': ['Fresh', 'Oak', 'Hono', 'Elysia'],
+                'Kotlin': ['Ktor', 'Spring Boot (Kotlin)', 'Javalin', 'http4k'],
+                'Scala': ['Play Framework', 'Akka HTTP', 'Finch', 'http4s'],
+                'Elixir': ['Phoenix', 'Plug', 'Maru'],
+                'Clojure': ['Ring', 'Compojure', 'Luminus', 'Pedestal']
+            },
+            frontendFrameworks: [
+                'React', 
+                'Vue', 
+                'Angular', 
+                'Svelte', 
+                'Next.js',
+                'Nuxt.js',
+                'SvelteKit',
+                'Solid.js',
+                'Qwik',
+                'Astro',
+                'Remix',
+                'Gatsby',
+                'Preact',
+                'Alpine.js',
+                'Lit',
+                'Ember.js',
+                'Backbone.js',
+                'Vanilla JS'
+            ],
+            databases: [
+                'PostgreSQL',
+                'MySQL',
+                'MongoDB',
+                'Redis',
+                'SQLite',
+                'MariaDB',
+                'Microsoft SQL Server',
+                'Oracle Database',
+                'Cassandra',
+                'DynamoDB',
+                'Firebase Firestore',
+                'Supabase',
+                'CouchDB',
+                'Neo4j',
+                'InfluxDB',
+                'Elasticsearch'
+            ],
+            architecturePatterns: ['Monolith', 'Microservices', 'Serverless', 'Modular Monolith', 'Hybrid'],
+            deploymentOptions: [
+                'AWS', 
+                'Google Cloud', 
+                'Azure', 
+                'Vercel', 
+                'Netlify', 
+                'Render', 
+                'Railway', 
+                'Fly.io',
+                'Heroku', 
+                'DigitalOcean', 
+                'Linode',
+                'Cloudflare Pages',
+                'GitHub Pages',
+                'Firebase Hosting',
+                'Self-Hosted/VPS'
+            ],
+            teamSizes: ['Solo', 'Small (2-4)', 'Medium (5-10)'],
+            projectStages: ['MVP', 'Growing Product', 'Mature Product'],
+            ssrOptions: ['No SSR', 'Yes - SSR Required']
+        };
+
+        const presets = {
+            mern: {
+                language: 'Node.js',
+                framework: 'Express.js',
+                database: 'MongoDB',
+                frontend: 'React',
+                teamSize: 'Small (2-4)',
+                stage: 'MVP',
+                architecture: 'Monolith',
+                deployment: 'Render',
+                ssr: 'No SSR'
+            },
+            t3: {
+                language: 'TypeScript (Deno/Bun)',
+                framework: 'Fresh',
+                database: 'PostgreSQL',
+                frontend: 'Next.js',
+                teamSize: 'Small (2-4)',
+                stage: 'Growing Product',
+                architecture: 'Monolith',
+                deployment: 'Vercel',
+                ssr: 'Yes - SSR Required'
+            },
+            jamstack: {
+                language: 'Node.js',
+                framework: 'Express.js',
+                database: 'Firebase Firestore',
+                frontend: 'Next.js',
+                teamSize: 'Solo',
+                stage: 'MVP',
+                architecture: 'Serverless',
+                deployment: 'Vercel',
+                ssr: 'Yes - SSR Required'
+            },
+            django: {
+                language: 'Python',
+                framework: 'Django',
+                database: 'PostgreSQL',
+                frontend: 'React',
+                teamSize: 'Medium (5-10)',
+                stage: 'Growing Product',
+                architecture: 'Monolith',
+                deployment: 'AWS',
+                ssr: 'No SSR'
+            },
+            rails: {
+                language: 'Ruby',
+                framework: 'Ruby on Rails',
+                database: 'PostgreSQL',
+                frontend: 'React',
+                teamSize: 'Small (2-4)',
+                stage: 'Growing Product',
+                architecture: 'Monolith',
+                deployment: 'Heroku',
+                ssr: 'No SSR'
+            },
+            serverless: {
+                language: 'Node.js',
+                framework: 'Express.js',
+                database: 'DynamoDB',
+                frontend: 'React',
+                teamSize: 'Solo',
+                stage: 'MVP',
+                architecture: 'Serverless',
+                deployment: 'AWS',
+                ssr: 'No SSR'
+            }
+        };
+
+        let selections = {
+            language: null,
+            framework: null,
+            database: null,
+            frontend: null,
+            teamSize: null,
+            stage: null,
+            architecture: null,
+            deployment: null,
+            ssr: null
+        };
+
+        function init() {
+            // Check for URL parameters
+            loadFromURL();
+            
+            renderOptions('languages', data.languages, 'language');
+            renderOptions('databases', data.databases, 'database');
+            renderOptions('teamSize', data.teamSizes, 'teamSize');
+            renderOptions('projectStage', data.projectStages, 'stage');
+            renderOptions('frontendFrameworks', data.frontendFrameworks, 'frontend');
+            renderOptions('architecturePattern', data.architecturePatterns, 'architecture');
+            renderOptions('deployment', data.deploymentOptions, 'deployment');
+            renderOptions('ssrRequirement', data.ssrOptions, 'ssr');
+        }
+
+        function loadFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('stack')) {
+                try {
+                    const stackData = JSON.parse(atob(params.get('stack')));
+                    selections = stackData;
+                    
+                    // Activate all steps and select options
+                    for (let i = 1; i <= 9; i++) {
+                        activateStep('step' + i);
+                    }
+                    
+                    // Update UI to reflect selections
+                    setTimeout(() => {
+                        updateAllSelections();
+                        evaluateArchitecture();
+                    }, 100);
+                }
+                catch (e) {
+                    console.error('Invalid share link');
+                }
+            }
+        }
+
+        function updateAllSelections() {
+            if (selections.language) {
+                renderOptions('frameworks', data.frameworks[selections.language], 'framework');
+                markSelected('languages', selections.language);
+            }
+            if (selections.framework) markSelected('frameworks', selections.framework);
+            if (selections.database) markSelected('databases', selections.database);
+            if (selections.frontend) markSelected('frontendFrameworks', selections.frontend);
+            if (selections.teamSize) markSelected('teamSize', selections.teamSize);
+            if (selections.stage) markSelected('projectStage', selections.stage);
+            if (selections.architecture) markSelected('architecturePattern', selections.architecture);
+            if (selections.deployment) markSelected('deployment', selections.deployment);
+            if (selections.ssr) markSelected('ssrRequirement', selections.ssr);
+            updateProgress();
+        }
+
+        function markSelected(containerId, value) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.querySelectorAll('.option').forEach(opt => {
+                    if (opt.textContent === value) {
+                        opt.classList.add('selected');
+                    }
+                });
+            }
+        }
+
+        function loadPreset(presetName) {
+            // Clear all previous selections first
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            const preset = presets[presetName];
+            selections = { ...preset };
+            
+            // Activate all steps
+            for (let i = 1; i <= 9; i++) {
+                activateStep('step' + i);
+            }
+            
+            // Update UI
+            updateAllSelections();
+            
+            // Evaluate
+            setTimeout(() => {
+                evaluateArchitecture();
+                document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        function renderOptions(containerId, options, selectionKey) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.textContent = option;
+                div.onclick = () => selectOption(containerId, option, selectionKey);
+                container.appendChild(div);
+            });
+        }
+
+        function updateProgress() {
+            let completedSteps = 0;
+            if (selections.language) completedSteps++;
+            if (selections.framework) completedSteps++;
+            if (selections.database) completedSteps++;
+            if (selections.frontend) completedSteps++;
+            if (selections.teamSize) completedSteps++;
+            if (selections.stage) completedSteps++;
+            if (selections.architecture) completedSteps++;
+            if (selections.deployment) completedSteps++;
+            if (selections.ssr) completedSteps++;
+            
+            const progress = (completedSteps / 9) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function selectOption(containerId, value, key) {
+            selections[key] = value;
+            
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.textContent === value) {
+                    opt.classList.add('selected');
+                }
+            });
+
+            updateProgress();
+
+            if (key === 'language') {
+                renderOptions('frameworks', data.frameworks[value], 'framework');
+                activateStep('step2');
+                selections.framework = null;
+            } else if (key === 'framework') {
+                activateStep('step3');
+            } else if (key === 'database') {
+                activateStep('step4');
+            } else if (key === 'frontend') {
+                activateStep('step5');
+            } else if (key === 'teamSize') {
+                activateStep('step6');
+            } else if (key === 'stage') {
+                activateStep('step7');
+            } else if (key === 'architecture') {
+                activateStep('step8');
+            } else if (key === 'deployment') {
+                activateStep('step9');
+            } else if (key === 'ssr') {
+                evaluateArchitecture();
+            }
+        }
+
+        function activateStep(stepId) {
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        function calculateConfidenceScore(assessment) {
+            let score = 85; // Base score
+            
+            if (assessment.status === 'recommended') score += 10;
+            else if (assessment.status === 'not-recommended') score -= 30;
+            else score -= 15;
+            
+            // Adjust based on risks
+            score -= assessment.risks.length * 5;
+            
+            // Adjust based on good tradeoffs
+            score += Math.min(assessment.tradeoffs.good.length * 2, 10);
+            
+            return Math.max(40, Math.min(99, score));
+        }
+
+        function estimateCost() {
+            let minCost = 0;
+            let maxCost = 0;
+            
+            // Deployment costs
+            const deploymentCosts = {
+                'AWS': [50, 500],
+                'Google Cloud': [50, 500],
+                'Azure': [50, 500],
+                'Vercel': [0, 150],
+                'Netlify': [0, 150],
+                'Render': [7, 200],
+                'Railway': [5, 150],
+                'Fly.io': [0, 100],
+                'Heroku': [25, 500],
+                'DigitalOcean': [12, 200],
+                'Linode': [10, 200],
+                'Cloudflare Pages': [0, 20],
+                'GitHub Pages': [0, 0],
+                'Firebase Hosting': [0, 50],
+                'Self-Hosted/VPS': [5, 100]
+            };
+            
+            const costs = deploymentCosts[selections.deployment] || [20, 200];
+            minCost += costs[0];
+            maxCost += costs[1];
+            
+            // Architecture multiplier
+            if (selections.architecture === 'Microservices') {
+                minCost *= 2;
+                maxCost *= 3;
+            } else if (selections.architecture === 'Serverless') {
+                minCost *= 0.5;
+                maxCost *= 1.5;
+            }
+            
+            // Team size multiplier
+            if (selections.teamSize === 'Medium (5-10)') {
+                maxCost *= 1.5;
+            }
+            
+            // Stage multiplier
+            if (selections.stage === 'Mature Product') {
+                minCost *= 2;
+                maxCost *= 4;
+            } else if (selections.stage === 'Growing Product') {
+                minCost *= 1.5;
+                maxCost *= 2;
+            }
+            
+            return {
+                min: Math.round(minCost),
+                max: Math.round(maxCost)
+            };
+        }
+
+        function generateAlternatives() {
+            const alternatives = [];
+            
+            // Suggest simpler alternatives for complex stacks
+            if (['NestJS', 'Spring Boot', 'Angular'].some(tech => 
+                [selections.framework, selections.frontend].includes(tech))) {
+                alternatives.push({
+                    title: 'Simpler Alternative',
+                    description: 'Consider Express.js + React for faster development with less boilerplate'
+                });
+            }
+            
+            // Suggest managed services
+            if (selections.deployment === 'Self-Hosted/VPS') {
+                alternatives.push({
+                    title: 'Managed Alternative',
+                    description: 'Try Render or Railway to reduce DevOps overhead'
+                });
+            }
+            
+            // Suggest cost-effective alternatives
+            if (['AWS', 'Google Cloud', 'Azure'].includes(selections.deployment) && 
+                selections.stage === 'MVP') {
+                alternatives.push({
+                    title: 'Cost-Effective Alternative',
+                    description: 'For MVP stage, consider Vercel or Netlify for lower initial costs'
+                });
+            }
+            
+            return alternatives;
+        }
+
+        function generateLearningResources() {
+            const resources = [];
+            
+            // Framework-specific resources
+            const frameworkResources = {
+                'Express.js': 'https://expressjs.com/en/starter/installing.html',
+                'NestJS': 'https://docs.nestjs.com/',
+                'Django': 'https://docs.djangoproject.com/en/stable/intro/tutorial01/',
+                'FastAPI': 'https://fastapi.tiangolo.com/tutorial/',
+                'Spring Boot': 'https://spring.io/guides/gs/spring-boot/',
+                'Ruby on Rails': 'https://guides.rubyonrails.org/getting_started.html',
+                'Next.js': 'https://nextjs.org/learn',
+                'React': 'https://react.dev/learn',
+                'Vue': 'https://vuejs.org/guide/introduction.html',
+                'Angular': 'https://angular.io/tutorial'
+            };
+            
+            if (selections.framework && frameworkResources[selections.framework]) {
+                resources.push({
+                    title: `${selections.framework} Official Docs`,
+                    url: frameworkResources[selections.framework]
+                });
+            }
+            
+            if (selections.frontend && frameworkResources[selections.frontend]) {
+                resources.push({
+                    title: `${selections.frontend} Official Docs`,
+                    url: frameworkResources[selections.frontend]
+                });
+            }
+            
+            // Architecture pattern resources
+            if (selections.architecture === 'Microservices') {
+                resources.push({
+                    title: 'Microservices Patterns',
+                    url: 'https://microservices.io/patterns/index.html'
+                });
+            }
+            
+            return resources;
+        }
+
+        function evaluateArchitecture() {
+            const assessment = analyzeStack();
+            const confidence = calculateConfidenceScore(assessment);
+            const cost = estimateCost();
+            const alternatives = generateAlternatives();
+            const learningResources = generateLearningResources();
+            
+            displayResults(assessment, confidence, cost, alternatives, learningResources);
+            document.getElementById('result').classList.add('show');
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function analyzeStack() {
+            let status = 'recommended';
+            let reasons = [];
+            let tradeoffs = { good: [], bad: [] };
+            let risks = [];
+            let suggestions = [];
+
+            // SSR Analysis
+            if (selections.ssr === 'Yes - SSR Required') {
+                if (['Next.js', 'Nuxt.js', 'SvelteKit', 'Remix'].includes(selections.frontend)) {
+                    tradeoffs.good.push('Built-in SSR support reduces configuration complexity');
+                    tradeoffs.good.push('Optimized for SEO and initial page load performance');
+                    suggestions.push('Implement proper caching strategies for SSR pages');
+                    suggestions.push('Consider using ISR (Incremental Static Regeneration) for semi-static content');
+                } else {
+                    status = 'not-recommended';
+                    reasons.push('SSR requires significant custom setup without a meta-framework. Consider Next.js, Nuxt.js, or SvelteKit for production-ready SSR.');
+                    suggestions.push('Switch to a meta-framework with built-in SSR (Next.js for React, Nuxt.js for Vue, SvelteKit for Svelte)');
+                    suggestions.push('If staying with current choice, plan for custom SSR implementation with proper hydration');
+                    risks.push('Custom SSR implementation increases development time and maintenance burden');
+                }
+                tradeoffs.bad.push('Higher server costs due to compute requirements');
+                tradeoffs.bad.push('More complex deployment and scaling considerations');
+            } else {
+                if (['Next.js', 'Nuxt.js', 'SvelteKit'].includes(selections.frontend)) {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Meta-frameworks like Next.js/Nuxt.js are optimized for SSR/SSG. For pure client-side apps, lighter alternatives may be more appropriate.');
+                    suggestions.push('Consider using standard React/Vue/Svelte for simpler client-side only applications');
+                    suggestions.push('If using Next.js, leverage static export feature for client-side only deployment');
+                }
+            }
+
+            // MVP Stage Analysis
+            if (selections.stage === 'MVP') {
+                if (['Express.js', 'FastAPI', 'Flask', 'Fastify', 'Gin', 'Fiber'].includes(selections.framework)) {
+                    tradeoffs.good.push('Minimal boilerplate allows rapid prototyping and iteration');
+                    tradeoffs.good.push('Easy to pivot and make architectural changes');
+                    suggestions.push('Focus on core features first, avoid premature optimization');
+                    suggestions.push('Use managed services (database, auth) to reduce infrastructure complexity');
+                }
+                
+                if (['Spring Boot', 'ASP.NET Core', 'Ruby on Rails', 'Django'].includes(selections.framework)) {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Enterprise-grade frameworks may slow MVP development due to setup complexity and learning curve.');
+                    risks.push('Time spent on framework configuration could delay market validation');
+                    suggestions.push('Consider lighter alternatives like FastAPI, Express.js, or Flask for faster MVP iteration');
+                    suggestions.push('If proceeding, use framework generators/scaffolding to speed up initial setup');
+                }
+                
+                if (['Angular', 'Ember.js'].includes(selections.frontend)) {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Opinionated frameworks with steep learning curves may not be ideal for rapid MVP development.');
+                    suggestions.push('Consider React, Vue, or Svelte for faster prototyping with less boilerplate');
+                }
+            }
+
+            // Growing Product Stage
+            if (selections.stage === 'Growing Product') {
+                tradeoffs.good.push('Stack is suitable for scaling features and team size');
+                suggestions.push('Implement comprehensive testing strategy (unit, integration, e2e)');
+                suggestions.push('Set up CI/CD pipelines for automated deployments');
+                suggestions.push('Consider implementing feature flags for gradual rollouts');
+                suggestions.push('Establish code review processes and coding standards');
+                
+                if (['Express.js', 'Flask', 'Sinatra'].includes(selections.framework)) {
+                    risks.push('Minimal frameworks require strong architectural discipline as codebase grows');
+                    suggestions.push('Implement clear folder structure and separation of concerns');
+                    suggestions.push('Consider adding architectural patterns (MVC, Clean Architecture, etc.)');
+                }
+            }
+
+            // Mature Product Stage
+            if (selections.stage === 'Mature Product') {
+                suggestions.push('Implement comprehensive monitoring and observability (APM, logging, metrics)');
+                suggestions.push('Establish disaster recovery and backup strategies');
+                suggestions.push('Consider microservices architecture if monolith becomes unwieldy');
+                suggestions.push('Implement robust security practices (OWASP guidelines, regular audits)');
+                suggestions.push('Plan for database optimization and query performance monitoring');
+                
+                if (['NestJS', 'Spring Boot', 'ASP.NET Core', 'Django'].includes(selections.framework)) {
+                    tradeoffs.good.push('Enterprise-grade features support complex business requirements');
+                    tradeoffs.good.push('Built-in patterns facilitate large-scale application architecture');
+                }
+                
+                if (['Express.js', 'Fiber', 'Gin'].includes(selections.framework)) {
+                    risks.push('Minimal frameworks may lack structure for very large codebases');
+                    suggestions.push('Implement strong architectural patterns and conventions');
+                    suggestions.push('Consider migrating to more opinionated framework if complexity increases');
+                }
+            }
+
+            // Team Size Analysis
+            if (selections.teamSize === 'Solo') {
+                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) || 
+                    selections.frontend === 'Angular') {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Complex architectures increase cognitive load for solo developers. Simpler stacks allow faster iteration.');
+                    risks.push('Entire maintenance burden falls on one person');
+                    risks.push('Steep learning curve may slow development velocity');
+                    suggestions.push('Consider simpler alternatives: Express.js, FastAPI, Flask, React, or Vue');
+                    suggestions.push('Focus on productivity tools and code generators to reduce boilerplate');
+                }
+                suggestions.push('Prioritize developer experience and tooling');
+                suggestions.push('Use managed services to reduce operational overhead');
+                suggestions.push('Implement comprehensive documentation for future maintainability');
+            }
+
+            if (selections.teamSize === 'Small (2-4)') {
+                suggestions.push('Establish clear coding standards and conventions early');
+                suggestions.push('Implement code review process even with small team');
+                suggestions.push('Use linting and formatting tools for consistency');
+                suggestions.push('Document architectural decisions (ADRs)');
+            }
+
+            if (selections.teamSize === 'Medium (5-10)') {
+                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) || 
+                    selections.frontend === 'Angular') {
+                    tradeoffs.good.push('Structured frameworks provide consistency across larger teams');
+                    tradeoffs.good.push('Built-in patterns reduce architectural debates');
+                }
+                suggestions.push('Implement monorepo structure for code sharing');
+                suggestions.push('Establish clear team ownership and responsibilities');
+                suggestions.push('Use feature branches and pull request workflows');
+                suggestions.push('Implement automated testing requirements for PRs');
+            }
+
+            // Language-Specific Recommendations
+            if (selections.language === 'Node.js') {
+                tradeoffs.good.push('JavaScript/TypeScript everywhere reduces context switching');
+                tradeoffs.good.push('Massive npm ecosystem with packages for almost everything');
+                tradeoffs.bad.push('Callback hell and async complexity if not managed properly');
+                suggestions.push('Use TypeScript for better type safety and developer experience');
+                suggestions.push('Implement proper error handling for async operations');
+            }
+
+            if (selections.language === 'Python') {
+                tradeoffs.good.push('Excellent for data processing, ML/AI integration, and rapid development');
+                tradeoffs.good.push('Clean, readable syntax reduces onboarding time');
+                tradeoffs.bad.push('GIL limitations for CPU-intensive concurrent operations');
+                suggestions.push('Use type hints (Python 3.5+) for better code quality');
+                suggestions.push('Consider async frameworks (FastAPI, Sanic) for I/O-bound operations');
+            }
+
+            if (['Java', 'Kotlin', 'Scala'].includes(selections.language)) {
+                tradeoffs.good.push('Strong typing and mature ecosystem for enterprise applications');
+                tradeoffs.good.push('Excellent performance and scalability characteristics');
+                tradeoffs.bad.push('Verbose syntax and longer development cycles');
+                suggestions.push('Leverage modern Java features (streams, lambdas, records)');
+                suggestions.push('Use build tools (Maven, Gradle) effectively for dependency management');
+            }
+
+            if (['Go', 'Rust'].includes(selections.language)) {
+                tradeoffs.good.push('Excellent performance and low resource consumption');
+                tradeoffs.good.push('Built-in concurrency primitives for high-performance applications');
+                tradeoffs.bad.push('Smaller ecosystem compared to JavaScript/Python');
+                suggestions.push('Leverage language strengths for performance-critical services');
+                suggestions.push('Consider for microservices or high-throughput APIs');
+            }
+
+            // Database-Specific Analysis
+            if (['PostgreSQL', 'MySQL', 'MariaDB'].includes(selections.database)) {
+                tradeoffs.good.push('ACID compliance ensures data integrity and reliability');
+                tradeoffs.good.push('Mature ecosystem with extensive tooling and community support');
+                tradeoffs.good.push('Strong support for complex queries and relationships');
+                suggestions.push('Implement proper indexing strategy for query optimization');
+                suggestions.push('Use connection pooling for better performance');
+                suggestions.push('Set up regular backup and replication strategies');
+                
+                if (selections.stage === 'MVP') {
+                    suggestions.push('Consider managed database services (AWS RDS, Google Cloud SQL) to reduce operational overhead');
+                }
+            }
+
+            if (selections.database === 'MongoDB') {
+                tradeoffs.good.push('Flexible schema design allows rapid iteration');
+                tradeoffs.good.push('Horizontal scaling with sharding built-in');
+                tradeoffs.good.push('Native JSON document storage matches JavaScript objects');
+                tradeoffs.bad.push('Lack of ACID transactions across documents (pre-4.0)');
+                tradeoffs.bad.push('Can lead to data duplication and inconsistency if not designed carefully');
+                suggestions.push('Design schema with query patterns in mind');
+                suggestions.push('Use aggregation pipeline for complex data transformations');
+                suggestions.push('Implement proper indexing on frequently queried fields');
+            }
+
+            // Architecture Pattern Analysis
+            if (selections.architecture === 'Monolith') {
+                tradeoffs.good.push('Simpler deployment and development workflow');
+                tradeoffs.good.push('Easier debugging and testing with single codebase');
+                tradeoffs.good.push('Lower operational complexity and infrastructure costs');
+                tradeoffs.bad.push('Scaling requires scaling entire application');
+                tradeoffs.bad.push('Technology stack locked for entire application');
+                
+                if (selections.stage === 'MVP') {
+                    tradeoffs.good.push('Perfect for MVP - fastest time to market');
+                    suggestions.push('Start with monolith, extract microservices only when needed');
+                }
+                
+                suggestions.push('Use feature flags for gradual rollouts');
+                suggestions.push('Implement proper logging and monitoring');
+            }
+
+            if (selections.architecture === 'Microservices') {
+                tradeoffs.good.push('Independent scaling of services based on demand');
+                tradeoffs.good.push('Technology flexibility per service');
+                tradeoffs.good.push('Team autonomy and parallel development');
+                tradeoffs.bad.push('Increased operational complexity');
+                tradeoffs.bad.push('Distributed system challenges (network latency, data consistency)');
+                tradeoffs.bad.push('More complex deployment and monitoring');
+                
+                if (selections.stage === 'MVP') {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Microservices add significant complexity for MVP. Start with monolith unless you have specific requirements.');
+                    risks.push('Premature microservices can slow development velocity');
+                    suggestions.push('Consider starting with modular monolith, migrate to microservices later');
+                }
+                
+                if (selections.teamSize === 'Solo' || selections.teamSize === 'Small (2-4)') {
+                    status = status === 'recommended' ? 'caution' : status;
+                    reasons.push('Microservices require significant operational overhead. Small teams may struggle with complexity.');
+                    risks.push('DevOps burden multiplies with each service');
+                    suggestions.push('Use managed services and platforms to reduce operational burden');
+                }
+                
+                suggestions.push('Implement API gateway for unified entry point');
+                suggestions.push('Use service mesh for inter-service communication');
+                suggestions.push('Implement distributed tracing (Jaeger, Zipkin)');
+            }
+
+            if (selections.architecture === 'Serverless') {
+                tradeoffs.good.push('Zero server management and automatic scaling');
+                tradeoffs.good.push('Pay only for actual usage');
+                tradeoffs.good.push('Built-in high availability');
+                tradeoffs.bad.push('Cold start latency for infrequent functions');
+                tradeoffs.bad.push('Vendor lock-in to cloud provider');
+                tradeoffs.bad.push('Limited execution time and resource constraints');
+                
+                suggestions.push('Design functions to be stateless and idempotent');
+                suggestions.push('Implement proper error handling and retries');
+                suggestions.push('Monitor cold starts and optimize function size');
+                risks.push('Costs can escalate with high traffic volumes');
+            }
+
+            // Deployment Platform Analysis
+            if (['AWS', 'Google Cloud', 'Azure'].includes(selections.deployment)) {
+                tradeoffs.good.push('Comprehensive cloud services and global infrastructure');
+                tradeoffs.good.push('Enterprise-grade security and compliance');
+                tradeoffs.good.push('Extensive documentation and community support');
+                tradeoffs.bad.push('Can be complex to navigate service offerings');
+                tradeoffs.bad.push('Costs can escalate without proper monitoring');
+                
+                suggestions.push('Use infrastructure as code (Terraform, CloudFormation)');
+                suggestions.push('Implement cost monitoring and budget alerts');
+                suggestions.push('Leverage managed services to reduce operational overhead');
+            }
+
+            if (['Vercel', 'Netlify'].includes(selections.deployment)) {
+                tradeoffs.good.push('Optimized for frontend and JAMstack applications');
+                tradeoffs.good.push('Automatic deployments from Git');
+                tradeoffs.good.push('Built-in CDN and edge functions');
+                tradeoffs.good.push('Excellent developer experience');
+                
+                if (['Next.js', 'Nuxt.js', 'SvelteKit', 'Remix', 'Astro'].includes(selections.frontend)) {
+                    tradeoffs.good.push('First-class support for ' + selections.frontend);
+                }
+                
+                tradeoffs.bad.push('Limited backend capabilities (use serverless functions)');
+                suggestions.push('Use edge functions for API routes');
+                suggestions.push('Leverage preview deployments for testing');
+            }
+
+            // Default recommendations if none specified
+            if (tradeoffs.good.length === 0) {
+                tradeoffs.good.push('Proven technology stack with strong community support');
+                tradeoffs.good.push('Good balance of flexibility and structure');
+                tradeoffs.good.push('Suitable for a wide range of application types');
+            }
+
+            if (tradeoffs.bad.length === 0) {
+                tradeoffs.bad.push('May require additional tooling for specific use cases');
+                tradeoffs.bad.push('Consider specific requirements when choosing supporting libraries');
+            }
+
+            if (reasons.length === 0) {
+                reasons.push('Well-balanced stack for your requirements with no major compatibility issues.');
+                reasons.push('This combination is widely used in production environments.');
+            }
+
+            if (suggestions.length === 0) {
+                suggestions.push('Implement comprehensive testing from the start');
+                suggestions.push('Set up proper development and production environments');
+                suggestions.push('Use version control and establish branching strategy');
+            }
+
+            return { status, reasons, tradeoffs, risks, suggestions };
+        }
+
+        function displayResults(assessment, confidence, cost, alternatives, learningResources) {
+            const statusClass = assessment.status === 'recommended' ? 'recommended' : 
+                               assessment.status === 'caution' ? 'caution' : 'not-recommended';
+            const statusIcon = assessment.status === 'recommended' ? '✅' : 
+                              assessment.status === 'caution' ? '⚠️' : '❌';
+            const statusText = assessment.status === 'recommended' ? 'Strong Fit' : 
+                              assessment.status === 'caution' ? 'Works with Caution' : 'Not Recommended';
+
+            // Confidence Score
+            document.getElementById('confidenceScore').innerHTML = `
+                <div class="confidence-number">${confidence}%</div>
+                <div class="confidence-label">Confidence Score</div>
+            `;
+
+            document.getElementById('assessment').innerHTML = `
+                <div class="assessment ${statusClass}">
+                    ${statusIcon} ${statusText}
+                </div>
+                ${assessment.reasons.map(r => `<p style="margin-bottom: 10px; color: #4a5568;">${r}</p>`).join('')}
+            `;
+
+            document.getElementById('summary').innerHTML = `
+                <div class="stack-summary">
+                    <div class="stack-item">
+                        <span class="stack-label">Backend Language:</span>
+                        <span class="stack-value">${selections.language}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Backend Framework:</span>
+                        <span class="stack-value">${selections.framework}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Database:</span>
+                        <span class="stack-value">${selections.database}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Frontend Framework:</span>
+                        <span class="stack-value">${selections.frontend}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Architecture Pattern:</span>
+                        <span class="stack-value">${selections.architecture}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Deployment/Hosting:</span>
+                        <span class="stack-value">${selections.deployment}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Rendering:</span>
+                        <span class="stack-value">${selections.ssr === 'Yes - SSR Required' ? 'Server-Side' : 'Client-Side'}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Team Size:</span>
+                        <span class="stack-value">${selections.teamSize}</span>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-label">Project Stage:</span>
+                        <span class="stack-value">${selections.stage}</span>
+                    </div>
+                </div>
+            `;
+
+            // Cost Estimate
+            document.getElementById('costEstimate').innerHTML = `
+                <div class="cost-estimate">
+                    <div class="cost-title">💰 Estimated Monthly Cost</div>
+                    <div class="cost-range">$${cost.min} - $${cost.max}</div>
+                    <div class="cost-note">Based on typical usage patterns for ${selections.stage.toLowerCase()} stage projects</div>
+                </div>
+            `;
+
+            // Alternatives
+            if (alternatives.length > 0) {
+                document.getElementById('alternatives').innerHTML = `
+                    <div class="alternatives">
+                        <div class="alternatives-title">🔄 Consider These Alternatives</div>
+                        ${alternatives.map(alt => `
+                            <div class="alternative-item">
+                                <strong>${alt.title}:</strong> ${alt.description}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                document.getElementById('alternatives').innerHTML = '';
+            }
+
+            document.getElementById('tradeoffs').innerHTML = `
+                <div class="section">
+                    <div class="section-title">✨ What This Stack Is Good At</div>
+                    <div class="section-content">
+                        <ul>
+                            ${assessment.tradeoffs.good.map(t => `<li>${t}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-title">⚡ Potential Challenges</div>
+                    <div class="section-content">
+                        <ul>
+                            ${assessment.tradeoffs.bad.map(t => `<li>${t}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            if (assessment.risks.length > 0) {
+                document.getElementById('risks').innerHTML = `
+                    <div class="section">
+                        <div class="section-title">⚠️ Risk Flags</div>
+                        <div class="section-content">
+                            <ul>
+                                ${assessment.risks.map(r => `<li>${r}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else {
+                document.getElementById('risks').innerHTML = '';
+            }
+
+            if (assessment.suggestions.length > 0) {
+                document.getElementById('suggestions').innerHTML = `
+                    <div class="section">
+                        <div class="section-title">💡 Suggested Adjustments</div>
+                        <div class="section-content">
+                            <ul>
+                                ${assessment.suggestions.map(s => `<li>${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else {
+                document.getElementById('suggestions').innerHTML = '';
+            }
+
+            // Learning Resources
+            if (learningResources.length > 0) {
+                document.getElementById('learningResources').innerHTML = `
+                    <div class="learning-resources">
+                        <div class="learning-title">📚 Learning Resources</div>
+                        ${learningResources.map(resource => `
+                            <a href="${resource.url}" target="_blank" class="resource-link">
+                                ${resource.title} →
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                document.getElementById('learningResources').innerHTML = '';
+            }
+        }
+
+        function shareResults() {
+            const stackData = btoa(JSON.stringify(selections));
+            const shareUrl = `${window.location.origin}${window.location.pathname}?stack=${stackData}`;
+            
+            document.getElementById('shareLinkBox').textContent = shareUrl;
+            document.getElementById('shareModal').classList.add('show');
+        }
+
+        function copyShareLink() {
+            const linkBox = document.getElementById('shareLinkBox');
+            const text = linkBox.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Link copied to clipboard!');
+                closeModal('shareModal');
+            });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function exportPDF() {
+            showToast('PDF export feature coming soon! For now, use your browser\'s Print to PDF function.');
+        }
+
+        function exportMarkdown() {
+            const assessment = analyzeStack();
+            const confidence = calculateConfidenceScore(assessment);
+            const cost = estimateCost();
+            
+            let markdown = `# Architecture Assessment Report\n\n`;
+            markdown += `**Generated:** ${new Date().toLocaleDateString()}\n\n`;
+            markdown += `## Stack Configuration\n\n`;
+            markdown += `- **Backend Language:** ${selections.language}\n`;
+            markdown += `- **Backend Framework:** ${selections.framework}\n`;
+            markdown += `- **Database:** ${selections.database}\n`;
+            markdown += `- **Frontend Framework:** ${selections.frontend}\n`;
+            markdown += `- **Architecture Pattern:** ${selections.architecture}\n`;
+            markdown += `- **Deployment/Hosting:** ${selections.deployment}\n`;
+            markdown += `- **Rendering:** ${selections.ssr === 'Yes - SSR Required' ? 'Server-Side' : 'Client-Side'}\n`;
+            markdown += `- **Team Size:** ${selections.teamSize}\n`;
+            markdown += `- **Project Stage:** ${selections.stage}\n\n`;
+            
+            markdown += `## Assessment\n\n`;
+            markdown += `**Confidence Score:** ${confidence}%\n\n`;
+            markdown += `**Status:** ${assessment.status === 'recommended' ? '✅ Strong Fit' : assessment.status === 'caution' ? '⚠️ Works with Caution' : '❌ Not Recommended'}\n\n`;
+            
+            markdown += `### Estimated Monthly Cost\n\n`;
+            markdown += `$${cost.min} - $${cost.max}\n\n`;
+            
+            markdown += `### Strengths\n\n`;
+            assessment.tradeoffs.good.forEach(item => {
+                markdown += `- ${item}\n`;
+            });
+            
+            markdown += `\n### Challenges\n\n`;
+            assessment.tradeoffs.bad.forEach(item => {
+                markdown += `- ${item}\n`;
+            });
+            
+            if (assessment.risks.length > 0) {
+                markdown += `\n### Risk Flags\n\n`;
+                assessment.risks.forEach(item => {
+                    markdown += `- ${item}\n`;
+                });
+            }
+            
+            markdown += `\n### Recommendations\n\n`;
+            assessment.suggestions.forEach(item => {
+                markdown += `- ${item}\n`;
+            });
+            
+            // Download markdown file
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'architecture-assessment.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Markdown file downloaded!');
+        }
+
+        function resetTool() {
+            selections = {
+                language: null,
+                framework: null,
+                database: null,
+                frontend: null,
+                teamSize: null,
+                stage: null,
+                architecture: null,
+                deployment: null,
+                ssr: null
+            };
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index === 0) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('progressFill').style.width = '0%';
+            
+            // Clear URL parameters
+            window.history.pushState({}, '', window.location.pathname);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('show');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
