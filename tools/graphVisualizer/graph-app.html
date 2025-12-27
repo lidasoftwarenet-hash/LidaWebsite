@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>System Graph | Professional Visualizer</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Interactive system graph visualizer for developers. Visualize project architecture, dependencies, and components with this professional tool. 100% free." />
+    <meta name="keywords" content="system graph, architecture visualization, dependency graph, project visualization, developer tools, system architecture, graph visualizer" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="System Graph Visualizer - Professional Architecture Tool" />
+    <meta property="og:description" content="Visualize your system architecture with interactive graphs. See components, layers, and dependencies in a visual format designed for developers." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-app.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-og.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="System Graph Visualizer - Professional Architecture Tool" />
+    <meta name="twitter:description" content="Interactive system graph visualizer for developers. Visualize project architecture and dependencies." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-twitter.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/graphVisualizer/graph-app.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "System Graph Visualizer",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "ratingCount": "1"
+            },
+            "description": "Interactive system graph visualizer for developers. Visualize project architecture, dependencies, and components with this professional tool.",
+            "featureList": [
+                "Interactive Graph Visualization",
+                "Drag & Drop Nodes",
+                "JSON Input Support",
+                "Export Functionality",
+                "Privacy First - No Data Collection"
+            ]
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+<script defer src="https://va.vercel.app/script.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0a0e1a;
+      --bg-card: #141b2e;
+      --text-primary: #ffffff;
+      --text-secondary: #a8b3cf;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --border: #1e2942;
+      --success: #22c55e;
+      --warning: #eab308;
+      --error: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 100%);
+      color: var(--text-primary);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(20, 27, 46, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 20px;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .panel:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .panel h2 {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    textarea {
+      flex: 1;
+      background: #0f1425;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 13px;
+      resize: none;
+      line-height: 1.6;
+      transition: border-color 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      flex: 0.5;
+    }
+
+    button.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    .graph-area {
+      flex: 1;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      position: relative;
+      overflow: auto;
+      padding: 24px;
+      background: #0f1425;
+      min-height: 400px;
+    }
+
+    .graph-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .node {
+      position: absolute;
+      padding: 12px 20px;
+      border-radius: 12px;
+      background: #1e2942;
+      border: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+      cursor: move;
+      transition: all 0.2s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      min-width: 120px;
+    }
+
+    .node:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+
+    .node-label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .node-type {
+      font-size: 11px;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .node.backend { 
+      border-color: #6366f1;
+      background: linear-gradient(135deg, #1e2942 0%, #2a2f4a 100%);
+    }
+    .node.frontend { 
+      border-color: #22c55e;
+      background: linear-gradient(135deg, #1e2942 0%, #2a3f2f 100%);
+    }
+    .node.database { 
+      border-color: #f97316;
+      background: linear-gradient(135deg, #1e2942 0%, #3a2f28 100%);
+    }
+    .node.infra { 
+      border-color: #eab308;
+      background: linear-gradient(135deg, #1e2942 0%, #3a362a 100%);
+    }
+    .node.external { 
+      border-color: #ec4899;
+      background: linear-gradient(135deg, #1e2942 0%, #3a2836 100%);
+    }
+
+    .edge {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .edge-line {
+      stroke: var(--border);
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 5, 5;
+      animation: dash 20s linear infinite;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -100;
+      }
+    }
+
+    .error {
+      color: var(--error);
+      font-size: 14px;
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--error);
+    }
+
+    .success {
+      color: var(--success);
+      font-size: 14px;
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--success);
+    }
+
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      padding: 16px;
+      background: #0f1425;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .stat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--text-secondary);
+      text-align: center;
+      gap: 12px;
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      opacity: 0.3;
+    }
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+      background: rgba(20, 27, 46, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 1200px) {
+      main {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+      .panel {
+        min-height: 400px;
+      }
+    }
+
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Graph entrance animations */
+    @keyframes nodeEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes nodeEntranceSlideLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes nodeEntranceSlideRight {
+      0% {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .node-entering {
+      animation: nodeEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .node-entering-left {
+      animation: nodeEntranceSlideLeft 0.5s ease-out forwards;
+    }
+
+    .node-entering-right {
+      animation: nodeEntranceSlideRight 0.5s ease-out forwards;
+    }
+    /* Welcome Modal */
+    .welcome-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .welcome-modal.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .modal-header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .modal-header h2 {
+      font-size: 28px;
+      margin: 0 0 8px 0;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .modal-header p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .text-to-copy {
+      background: #0f1425;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      margin: 20px 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .copy-button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 auto 20px;
+    }
+
+    .copy-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .copy-button.copied {
+      background: var(--success);
+    }
+
+    .close-modal-button {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .close-modal-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .modal-footer {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin-top: 16px;
+    }
+
+    /* ===== AMAZING FOOTER ===== */
+    .footer {
+        padding: 50px 1px;
+        color: #090909;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-top: 60px;
+        color: #ff6b6b;
+    }
+
+    .footer::before {
+        content: '';
+        color: #090909;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0px;
+        background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+        animation: shimmer 3s infinite linear;
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
+    }
+
+    .footer-content {
+        max-width: 1000px;
+        color: #090909;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-copyright {
+        font-size: 22px;
+        color: #2a05fb;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        margin: 0;
+        text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        letter-spacing: 0.5px;
+    }
+
+    .footer-version {
+        font-size: 16px;
+        color: #090909;
+        margin: 0;
+        font-weight: 500;
+        padding: 8px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .footer-heart {
+        color: #ff6b6b;
+        animation: heartbeat 1.5s infinite;
+        display: inline-block;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    .btn-discover {
+        margin-top: 6px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 16px 32px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-discover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-discover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-discover:hover::before {
+        left: 100%;
+    }
+
+    .btn-discover .material-symbols-outlined {
+        font-size: 22px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-link {
+        color: #a0a0a0;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .footer-link:hover {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .footer-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: #000000;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .footer-link:hover::after {
+        width: 80%;
+    }
+
+    .footer-bottom {
+        margin-top: 1px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(230, 224, 224, 0.1);
+        width: 100%;
+    }
+
+    .footer-bottom-text {
+        color: #c7c0c0;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    /* Floating particles in footer background */
+    .footer-particle {
+        position: absolute;
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 50%;
+        animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.3;
+        }
+        90% {
+            opacity: 0.3;
+        }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive footer */
+    @media (max-width: 768px) {
+        .footer {
+            padding: 40px 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 18px;
+        }
+        
+        .footer-version {
+            font-size: 14px;
+        }
+        
+        .btn-discover {
+            padding: 14px 24px;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            gap: 15px;
+        }
+        
+        .footer-link {
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Welcome Modal -->
+<div id="welcomeModal" class="welcome-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🚀 Welcome to System Graph Visualizer</h2>
+      <p>Visualize your system architecture with this interactive tool</p>
+    </div>
+    
+    <p>Here's a quick example JSON to get you started. You can copy it and paste it in the editor:</p>
+    
+    <div class="text-to-copy" id="copyText">
+You are operating in DATA-EXTRACTION MODE ONLY.
+You are NOT an autonomous agent.
+You must NOT ask questions or explain anything.
+
+SUPPORTED PROJECT TYPES (V1):
+This system ONLY supports:
+- Node.js projects
+- npm / yarn / pnpm based projects
+- JavaScript or TypeScript codebases
+- Projects that clearly reference "package.json", npm, Node.js, JS, or TS
+
+UNSUPPORTED PROJECT HANDLING (MANDATORY):
+If the provided input does NOT clearly describe a Node.js / npm-based project:
+Return EXACTLY this JSON and NOTHING ELSE:
+
+{
+  "unsupported": true,
+  "reason": "only npm / nodejs projects are supported in v1"
+}
+
+IF PROJECT IS SUPPORTED:
+Return VALID JSON ONLY in this schema:
+
+{
+  "project": { "name": "string" },
+  "nodes": [
+    { "id": "string", "label": "string", "type": "frontend | backend | database | infra | external" }
+  ],
+  "edges": [
+    { "from": "string", "to": "string", "type": "api | data | build | runtime" }
+  ]
+}
+
+RULES:
+- DO NOT guess technologies
+- DO NOT add explanations, comments, or markdown
+- DO NOT ask questions
+- Omit anything unclear
+- Use lowercase, short ids (frontend, backend, db, docker, nginx, etc.)
+- One logical component = one node
+
+EDGE RULES:
+- frontend → backend = api
+- backend → database = data
+
+FINAL COMMAND:
+Immediately process the input I provide next and output JSON ONLY.
+    </div>
+    
+    <button class="copy-button" onclick="copyWelcomeText()">
+      <span>📋 Copy Prompt</span>
+    </button>
+    
+    <button class="close-modal-button" onclick="closeWelcomeModal()">
+      Get Started → Explore the Visualizer
+    </button>
+    
+    <div class="modal-footer">
+      <p>Tip: Use the "Quick Examples" buttons to load different system configurations</p>
+    </div>
+  </div>
+</div>
+
+<header>
+  <h1>⚡ System Graph Visualizer</h1>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="exportGraph()">📥 Export</button>
+    <button class="icon-btn" onclick="showExamples()">📚 Examples</button>
+  </div>
+</header>
+
+<main>
+  <!-- INPUT -->
+    <div class="panel">
+    <h2>
+      Project Configuration
+      <span class="badge">JSON</span>
+    </h2>
+
+    <!-- Examples Section -->
+    <div class="examples-section" style="margin-bottom: 16px;">
+      <h3 style="font-size: 14px; margin: 0 0 8px 0; color: var(--text-secondary); font-weight: 500;">
+        Quick Examples:
+      </h3>
+      <div class="examples-buttons" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="example-btn" onclick="loadExample('simple')" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 100px;">
+          Simple System
+        </button>
+        <button class="example-btn" onclick="loadExample('medium')" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 100px;">
+          Medium Complexity
+        </button>
+        <button class="example-btn" onclick="loadExample('complex')" style="background: transparent; border: 1px solid var(--border); color: var(--text-secondary); padding: 8px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 100px;">
+          Complex System
+        </button>
+      </div>
+    </div>
+
+    <textarea id="jsonInput" placeholder="Paste your project JSON structure here...">{
+  "project": { "name": "example-project" },
+  "nodes": [
+    { "id": "frontend", "label": "Frontend", "type": "frontend" },
+    { "id": "backend", "label": "Backend API", "type": "backend" },
+    { "id": "db", "label": "Database", "type": "database" }
+  ],
+  "edges": [
+    { "from": "frontend", "to": "backend", "type": "api" },
+    { "from": "backend", "to": "db", "type": "data" }
+  ]
+}</textarea>
+
+    <div class="actions">
+      <button onclick="renderGraph()">🚀 Render Graph</button>
+      <button class="secondary" onclick="clearGraph()">🗑️ Clear</button>
+    </div>
+
+    <div id="message"></div>
+
+    <div id="stats" class="stats" style="display: none;">
+      <div class="stat">
+        <div class="stat-value" id="nodeCount">0</div>
+        <div class="stat-label">Nodes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="edgeCount">0</div>
+        <div class="stat-label">Connections</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="panel">
+    <h2>
+      Graph Visualization
+      <span class="badge">Interactive</span>
+    </h2>
+    <div id="graph" class="graph-area">
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <p><strong>No graph rendered yet</strong></p>
+        <p>Paste your project JSON and click "Render Graph"</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+  let currentData = null;
+
+  function showMessage(text, type = 'error') {
+    const msgEl = document.getElementById('message');
+    msgEl.className = type;
+    msgEl.textContent = text;
+    setTimeout(() => {
+      msgEl.textContent = '';
+      msgEl.className = '';
+    }, 5000);
+  }
+
+  function clearGraph() {
+    document.getElementById('graph').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <p><strong>No graph rendered yet</strong></p>
+        <p>Paste your project JSON and click "Render Graph"</p>
+      </div>
+    `;
+    document.getElementById('stats').style.display = 'none';
+    currentData = null;
+  }
+
+  function renderGraph() {
+    const input = document.getElementById('jsonInput').value.trim();
+    const graphEl = document.getElementById('graph');
+    
+    if (!input) {
+      showMessage('Please enter JSON data');
+      return;
+    }
+
+    let data;
+    try {
+      data = JSON.parse(input);
+    } catch (e) {
+      showMessage('Invalid JSON: ' + e.message);
+      return;
+    }
+
+    if (data.unsupported) {
+      showMessage(data.reason || 'Project not supported');
+      return;
+    }
+
+    if (!data.nodes || !Array.isArray(data.nodes)) {
+      showMessage('Missing or invalid nodes array');
+      return;
+    }
+
+    currentData = data;
+
+    // Clear and create container
+    graphEl.innerHTML = '';
+    const container = document.createElement('div');
+    container.className = 'graph-container';
+    graphEl.appendChild(container);
+
+    // Create SVG for edges
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.style.position = 'absolute';
+    svg.style.top = '0';
+    svg.style.left = '0';
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+    svg.style.pointerEvents = 'none';
+    container.appendChild(svg);
+
+    // Position nodes in a circular layout
+    const nodeElements = [];
+    const nodePositions = {};
+    const centerX = container.clientWidth / 2 || 400;
+    const centerY = container.clientHeight / 2 || 300;
+    const radius = Math.min(centerX, centerY) - 100;
+
+    data.nodes.forEach((node, i) => {
+      const angle = (i / data.nodes.length) * 2 * Math.PI - Math.PI / 2;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+
+      const el = document.createElement('div');
+      el.className = `node ${node.type || ''}`;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.opacity = '0'; // Start invisible for animation
+      
+      // Choose animation based on position (alternating left/right for visual interest)
+      const animationClass = i % 3 === 0 ? 'node-entering' : 
+                            i % 3 === 1 ? 'node-entering-left' : 'node-entering-right';
+      
+      el.innerHTML = `
+        <div class="node-label">${node.label || node.id}</div>
+        <div class="node-type">${node.type || 'node'}</div>
+      `;
+      
+      // Make draggable
+      makeDraggable(el);
+      
+      container.appendChild(el);
+      nodeElements.push(el);
+      nodePositions[node.id] = { x, y, element: el };
+      
+      // Apply animation with staggered delay
+      setTimeout(() => {
+        el.classList.add(animationClass);
+      }, i * 80); // Stagger the animations
+    });
+
+    // Draw edges
+    if (Array.isArray(data.edges) && data.edges.length > 0) {
+      setTimeout(() => {
+        data.edges.forEach(edge => {
+          const from = nodePositions[edge.from];
+          const to = nodePositions[edge.to];
+          
+          if (from && to) {
+            const fromRect = from.element.getBoundingClientRect();
+            const toRect = to.element.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            
+            const x1 = fromRect.left - containerRect.left + fromRect.width / 2;
+            const y1 = fromRect.top - containerRect.top + fromRect.height / 2;
+            const x2 = toRect.left - containerRect.left + toRect.width / 2;
+            const y2 = toRect.top - containerRect.top + toRect.height / 2;
+            
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            const d = `M ${x1} ${y1} L ${x2} ${y2}`;
+            line.setAttribute('d', d);
+            line.setAttribute('class', 'edge-line');
+            svg.appendChild(line);
+          }
+        });
+      }, 100);
+    }
+
+    // Update stats
+    document.getElementById('nodeCount').textContent = data.nodes.length;
+    document.getElementById('edgeCount').textContent = (data.edges || []).length;
+    document.getElementById('stats').style.display = 'flex';
+
+    showMessage(`✓ Rendered ${data.nodes.length} nodes and ${(data.edges || []).length} connections`, 'success');
+  }
+
+  function makeDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    
+    element.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e.preventDefault();
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e.preventDefault();
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      element.style.top = (element.offsetTop - pos2) + "px";
+      element.style.left = (element.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+
+  function exportGraph() {
+    if (!currentData) {
+      showMessage('No graph to export. Render a graph first.');
+      return;
+    }
+    
+    const dataStr = JSON.stringify(currentData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'system-graph.json';
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    showMessage('✓ Graph exported successfully', 'success');
+  }
+
+  function loadExample(type) {
+    let example;
+    
+    switch(type) {
+      case 'simple':
+        example = {
+          "project": { "name": "Simple Web App" },
+          "nodes": [
+            { "id": "frontend", "label": "Frontend", "type": "frontend" },
+            { "id": "backend", "label": "Backend API", "type": "backend" },
+            { "id": "database", "label": "Database", "type": "database" }
+          ],
+          "edges": [
+            { "from": "frontend", "to": "backend", "type": "api" },
+            { "from": "backend", "to": "database", "type": "data" }
+          ]
+        };
+        break;
+        
+      case 'medium':
+        example = {
+          "project": { "name": "Medium Complexity App" },
+          "nodes": [
+            { "id": "frontend", "label": "Frontend", "type": "frontend" },
+            { "id": "backend", "label": "Backend", "type": "backend" },
+            { "id": "database", "label": "PostgreSQL", "type": "database" },
+            { "id": "cache", "label": "Redis Cache", "type": "database" },
+            { "id": "api", "label": "External API", "type": "external" },
+            { "id": "nginx", "label": "Nginx", "type": "infra" }
+          ],
+          "edges": [
+            { "from": "frontend", "to": "backend", "type": "api" },
+            { "from": "backend", "to": "database", "type": "sql" },
+            { "from": "backend", "to": "cache", "type": "cache" },
+            { "from": "backend", "to": "api", "type": "http" },
+            { "from": "nginx", "to": "frontend", "type": "proxy" }
+          ]
+        };
+        break;
+        
+      case 'complex':
+        example = {
+          "project": { "name": "Complex Microservices System" },
+          "nodes": [
+            { "id": "frontend", "label": "Frontend", "type": "frontend" },
+            { "id": "api-gateway", "label": "API Gateway", "type": "backend" },
+            { "id": "auth-service", "label": "Auth Service", "type": "backend" },
+            { "id": "user-service", "label": "User Service", "type": "backend" },
+            { "id": "order-service", "label": "Order Service", "type": "backend" },
+            { "id": "database", "label": "PostgreSQL", "type": "database" },
+            { "id": "redis", "label": "Redis Cache", "type": "database" },
+            { "id": "rabbitmq", "label": "RabbitMQ", "type": "infra" },
+            { "id": "external-api", "label": "Payment API", "type": "external" },
+            { "id": "monitoring", "label": "Monitoring", "type": "infra" }
+          ],
+          "edges": [
+            { "from": "frontend", "to": "api-gateway", "type": "https" },
+            { "from": "api-gateway", "to": "auth-service", "type": "grpc" },
+            { "from": "api-gateway", "to": "user-service", "type": "grpc" },
+            { "from": "api-gateway", "to": "order-service", "type": "grpc" },
+            { "from": "auth-service", "to": "database", "type": "sql" },
+            { "from": "user-service", "to": "database", "type": "sql" },
+            { "from": "user-service", "to": "redis", "type": "cache" },
+            { "from": "order-service", "to": "database", "type": "sql" },
+            { "from": "order-service", "to": "rabbitmq", "type": "queue" },
+            { "from": "order-service", "to": "external-api", "type": "api" },
+            { "from": "monitoring", "to": "api-gateway", "type": "metrics" },
+            { "from": "monitoring", "to": "auth-service", "type": "metrics" }
+          ]
+        };
+        break;
+        
+      default:
+        example = {
+          "project": { "name": "example-project" },
+          "nodes": [
+            { "id": "frontend", "label": "Frontend", "type": "frontend" },
+            { "id": "backend", "label": "Backend API", "type": "backend" },
+            { "id": "db", "label": "Database", "type": "database" }
+          ],
+          "edges": [
+            { "from": "frontend", "to": "backend", "type": "api" },
+            { "from": "backend", "to": "db", "type": "data" }
+          ]
+        };
+    }
+    
+    document.getElementById('jsonInput').value = JSON.stringify(example, null, 2);
+    showMessage(`✓ ${type.charAt(0).toUpperCase() + type.slice(1)} example loaded! Click "Render Graph" to visualize`, 'success');
+  }
+
+  function showExamples() {
+    loadExample('medium');
+  }
+
+  // Welcome modal functions
+  function copyWelcomeText() {
+    const textToCopy = document.getElementById('copyText').textContent;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const copyButton = document.querySelector('.copy-button');
+      const originalText = copyButton.innerHTML;
+      copyButton.innerHTML = '✓ Copied!';
+      copyButton.classList.add('copied');
+      setTimeout(() => {
+        copyButton.innerHTML = originalText;
+        copyButton.classList.remove('copied');
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy text: ', err);
+      alert('Failed to copy text. Please select and copy manually.');
+    });
+  }
+
+  function closeWelcomeModal() {
+    const modal = document.getElementById('welcomeModal');
+    modal.classList.add('hidden');
+    // Store in localStorage that user has seen the modal
+    localStorage.setItem('welcomeModalSeen', 'true');
+  }
+
+  // Check if user has seen the modal before
+  window.addEventListener('load', () => {
+    const hasSeenModal = localStorage.getItem('welcomeModalSeen');
+    if (hasSeenModal === 'true') {
+      const modal = document.getElementById('welcomeModal');
+      modal.classList.add('hidden');
+    }
+    // Auto-render graph
+    renderGraph();
+  });
+</script>
+
+<!-- New Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa System Graph Visualizer</p>
+        <p class="footer-version">Version 2.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
+        
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            Discover More Features
+        </a>
+        
+        <div class="footer-bottom">
+            <p class="footer-bottom-text">© 2025 LiDa Software. All tools are 100% free.</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

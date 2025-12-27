@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Graph Visualizer | Visualize Your System Architecture</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="System Graph Visualizer - Turn structured project data into clear system diagrams. See components, layers, and dependencies in a visual format designed for developers." />
+    <meta name="keywords" content="system graph, architecture visualization, dependency graph, project visualization, developer tools, system architecture, graph visualizer, software architecture" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="System Graph Visualizer - Visualize Your System Architecture" />
+    <meta property="og:description" content="Turn structured project data into clear system diagrams. See components, layers, and dependencies in a visual format designed for developers." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-visualizer.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-og.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="System Graph Visualizer - Visualize Your System Architecture" />
+    <meta name="twitter:description" content="Turn structured project data into clear system diagrams. See components, layers, and dependencies in a visual format designed for developers." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-twitter.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/graphVisualizer/graph-visualizer.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "System Graph Visualizer",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "ratingCount": "1"
+            },
+            "description": "System Graph Visualizer - Turn structured project data into clear system diagrams. See components, layers, and dependencies in a visual format designed for developers.",
+            "featureList": [
+                "Interactive Graph Visualization",
+                "Drag & Drop Nodes",
+                "JSON Input Support",
+                "Export Functionality",
+                "Privacy First - No Data Collection"
+            ]
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+<script defer src="https://va.vercel.app/script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0a0e1a;
+      --bg-card: #141b2e;
+      --text-primary: #ffffff;
+      --text-secondary: #a8b3cf;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --border: #1e2942;
+      --gradient-1: #6366f1;
+      --gradient-2: #8b5cf6;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15), transparent 50%),
+                  radial-gradient(ellipse at 80% 50%, rgba(139, 92, 246, 0.1), transparent 50%);
+      z-index: -1;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Header */
+    nav {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 26, 0.8);
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 32px 80px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #a8b3cf 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .hero .highlight {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 48px;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    /* Graph Visual */
+    .graph-visual {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 32px;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    .graph-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .graph-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .graph-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Features Grid */
+    .features {
+      max-width: 1200px;
+      margin: 120px auto;
+      padding: 0 32px;
+    }
+
+    .features h2 {
+      font-size: clamp(36px, 5vw, 48px);
+      text-align: center;
+      margin-bottom: 64px;
+      font-weight: 700;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Use Cases */
+    .use-cases {
+      max-width: 1200px;
+      margin: 120px auto;
+      padding: 0 32px;
+    }
+
+    .use-cases h2 {
+      font-size: clamp(36px, 5vw, 48px);
+      text-align: center;
+      margin-bottom: 64px;
+      font-weight: 700;
+    }
+
+    .use-case-list {
+      display: grid;
+      gap: 24px;
+    }
+
+    .use-case {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .use-case:hover {
+      border-color: var(--accent);
+      transform: translateX(8px);
+    }
+
+    .use-case-number {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .use-case-content h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .use-case-content p {
+      color: var(--text-secondary);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      max-width: 900px;
+      margin: 120px auto;
+      padding: 64px 32px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+      border-radius: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(32px, 5vw, 42px);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 32px;
+      text-align: center;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 80px 24px 60px;
+      }
+
+      .features, .use-cases {
+        margin: 80px auto;
+      }
+
+      .graph-container {
+        padding: 24px;
+      }
+    }
+
+    /* ===== AMAZING FOOTER ===== */
+    .footer {
+        padding: 50px 1px;
+        color: #090909;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-top: 60px;
+        color: #ff6b6b;
+    }
+
+    .footer::before {
+        content: '';
+        color: #090909;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 0px;
+        background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+        animation: shimmer 3s infinite linear;
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: 200px 0; }
+    }
+
+    .footer-content {
+        max-width: 1000px;
+        color: #090909;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .footer-copyright {
+        font-size: 22px;
+        color: #2a05fb;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        margin: 0;
+        text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+        letter-spacing: 0.5px;
+    }
+
+    .footer-version {
+        font-size: 16px;
+        color: #090909;
+        margin: 0;
+        font-weight: 500;
+        padding: 8px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        backdrop-filter: blur(10px);
+    }
+
+    .footer-heart {
+        color: #ff6b6b;
+        animation: heartbeat 1.5s infinite;
+        display: inline-block;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    .btn-discover {
+        margin-top: 6px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 16px 32px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-discover::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .btn-discover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-discover:hover::before {
+        left: 100%;
+    }
+
+    .btn-discover .material-symbols-outlined {
+        font-size: 22px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .footer-link {
+        color: #a0a0a0;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .footer-link:hover {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .footer-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background: #000000;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .footer-link:hover::after {
+        width: 80%;
+    }
+
+    .footer-bottom {
+        margin-top: 1px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(230, 224, 224, 0.1);
+        width: 100%;
+    }
+
+    .footer-bottom-text {
+        color: #c7c0c0;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    /* Floating particles in footer background */
+    .footer-particle {
+        position: absolute;
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 50%;
+        animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.3;
+        }
+        90% {
+            opacity: 0.3;
+        }
+        100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Responsive footer */
+    @media (max-width: 768px) {
+        .footer {
+            padding: 40px 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 18px;
+        }
+        
+        .footer-version {
+            font-size: 14px;
+        }
+        
+        .btn-discover {
+            padding: 14px 24px;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            gap: 15px;
+        }
+        
+        .footer-link {
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient"></div>
+
+  <nav>
+    <div class="container">
+      <div class="logo">⚡ System Graph</div>
+      <button class="nav-btn" onclick="window.location.href='app.html'">Launch App</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Visualize Your System as a <span class="highlight">Structured Graph</span></h1>
+    <p>Turn structured project data into clear system diagrams. See components, layers, and dependencies in a visual format designed for developers.</p>
+    <div class="cta-group">
+      <button class="btn-primary" onclick="window.location.href='app.html'">Try It Now</button>
+      <button class="btn-secondary" onclick="document.querySelector('.features').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+    </div>
+  </section>
+
+  <div class="graph-visual">
+    <div class="graph-container">
+      <svg class="graph-svg" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Connections -->
+        <line x1="400" y1="80" x2="200" y2="180" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="400" y1="80" x2="400" y2="180" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="400" y1="80" x2="600" y2="180" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="200" y1="210" x2="150" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="200" y1="210" x2="250" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="400" y1="210" x2="350" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="400" y1="210" x2="450" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="600" y1="210" x2="550" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        <line x1="600" y1="210" x2="650" y2="310" stroke="url(#grad1)" stroke-width="2" opacity="0.4"/>
+        
+        <!-- Root Node -->
+        <circle cx="400" cy="80" r="35" fill="url(#grad1)" opacity="0.9"/>
+        <text x="400" y="85" text-anchor="middle" fill="white" font-size="14" font-weight="600">Root</text>
+        
+        <!-- Layer 2 Nodes -->
+        <rect x="165" y="180" width="70" height="60" rx="8" fill="#1e2942" stroke="url(#grad1)" stroke-width="2"/>
+        <text x="200" y="207" text-anchor="middle" fill="#a8b3cf" font-size="12">Service A</text>
+        <text x="200" y="224" text-anchor="middle" fill="#6366f1" font-size="10">API</text>
+        
+        <rect x="365" y="180" width="70" height="60" rx="8" fill="#1e2942" stroke="url(#grad1)" stroke-width="2"/>
+        <text x="400" y="207" text-anchor="middle" fill="#a8b3cf" font-size="12">Service B</text>
+        <text x="400" y="224" text-anchor="middle" fill="#6366f1" font-size="10">Core</text>
+        
+        <rect x="565" y="180" width="70" height="60" rx="8" fill="#1e2942" stroke="url(#grad1)" stroke-width="2"/>
+        <text x="600" y="207" text-anchor="middle" fill="#a8b3cf" font-size="12">Service C</text>
+        <text x="600" y="224" text-anchor="middle" fill="#6366f1" font-size="10">UI</text>
+        
+        <!-- Layer 3 Nodes -->
+        <circle cx="150" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="150" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">DB</text>
+        
+        <circle cx="250" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="250" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">Auth</text>
+        
+        <circle cx="350" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="350" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">Cache</text>
+        
+        <circle cx="450" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="450" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">Queue</text>
+        
+        <circle cx="550" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="550" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">CDN</text>
+        
+        <circle cx="650" cy="320" r="18" fill="#1e2942" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="650" y="325" text-anchor="middle" fill="#a8b3cf" font-size="10">Logs</text>
+      </svg>
+    </div>
+  </div>
+
+  <section class="features">
+    <h2>Built for Modern Development</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Faster Understanding</h3>
+        <p>See your system structure visually instead of reading through text files. A graph view can make component relationships and architecture layers more apparent.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy First</h3>
+        <p>This tool visualizes structured system data. It does not analyze your repository or source code. No repository access, no scanning, no data collection.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Zero Setup</h3>
+        <p>No installation, no login, no configuration. Generate structured project data using your own tools, paste it in, and get a graph visualization.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Dependency Visualization</h3>
+        <p>Display connections between components based on your input data. See which parts of your system depend on others in a node-and-edge format.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Layered Layout</h3>
+        <p>Organize components into logical layers you define. The tool arranges nodes according to the layer structure you provide in your input.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Consistent Layout</h3>
+        <p>Graph rendering with color-coded nodes and consistent spacing. The visualization follows standard graph layout conventions for readability.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="use-cases">
+    <h2>Perfect For</h2>
+    <div class="use-case-list">
+      <div class="use-case">
+        <div class="use-case-number">1</div>
+        <div class="use-case-content">
+          <h3>Onboarding Documentation</h3>
+          <p>Create visual system diagrams to supplement onboarding materials. A graph can help new developers see how components relate before diving into code.</p>
+        </div>
+      </div>
+      
+      <div class="use-case">
+        <div class="use-case-number">2</div>
+        <div class="use-case-content">
+          <h3>Architecture Presentations</h3>
+          <p>Generate visual representations of your system for technical discussions or reviews. Show structure and dependencies in a format easier to discuss than text.</p>
+        </div>
+      </div>
+      
+      <div class="use-case">
+        <div class="use-case-number">3</div>
+        <div class="use-case-content">
+          <h3>System Documentation</h3>
+          <p>Include generated diagrams alongside written documentation. Visual graphs can complement architecture documents by showing relationships spatially.</p>
+        </div>
+      </div>
+      
+      <div class="use-case">
+        <div class="use-case-number">4</div>
+        <div class="use-case-content">
+          <h3>Dependency Review</h3>
+          <p>View dependencies in graph form when reviewing system structure. See which components connect to others based on your project's actual dependency data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Visualize Structured Data</h2>
+    <p>Generate structured project data yourself, then use this tool to render it as a graph.</p>
+    <button class="btn-primary" onclick="window.location.href='app.html'">Try the Visualizer</button>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+        <p class="footer-copyright">© LiDa System Graph Visualizer</p>
+        <p class="footer-version">Version 2.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
+        
+        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            Discover More Features
+        </a>
+        
+        <div class="footer-bottom">
+            <p class="footer-bottom-text">© 2025 LiDa Software. All tools are 100% free.</p>
+        </div>
+    </div>
+  </footer>
+</body>
+</html>
