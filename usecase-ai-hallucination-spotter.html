@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="en" />
+    <title>AI Hallucination Spotter - Catch AI Code Errors | LiDa Software</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Case study: How the AI Hallucination Spotter helps developers catch fake imports, wrong function calls, and logic errors in AI-generated code. Free tool for Python, JavaScript, Java, and Go." />
+    <meta name="keywords"
+        content="ai hallucination detection, copilot errors, chatgpt code validation, claude code checker, ai code verification tools" />
+    <meta name="author" content="LiDa Software" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/usecase-ai-hallucination-spotter.html" />
+    <meta property="og:title" content="AI Hallucination Spotter - Verify AI-Generated Code in Seconds" />
+    <meta property="og:description"
+        content="Learn how developers use the AI Hallucination Spotter to catch fake imports, wrong arguments, and impossible logic before running AI code." />
+    <meta property="og:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <link rel="canonical" href="https://www.lidasoftware.online/usecase-ai-hallucination-spotter.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #238636 0%, #1f6feb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #fff;
+            margin: 40px 0 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #d0d0f0;
+            margin: 30px 0 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #b0b0d0;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a3e 100%);
+            border-radius: 20px;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(35, 134, 54, 0.15);
+            border: 1px solid rgba(35, 134, 54, 0.4);
+            color: #2ed573;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #238636 0%, #1f6feb 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(35, 134, 54, 0.3);
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(35, 134, 54, 0.4);
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+        }
+
+        .code-example {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        .error-marker {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .warning-marker {
+            color: #ffd93d;
+            background: rgba(255, 217, 61, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        ul,
+        ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            color: #b0b0d0;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: #e0e0e0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+            margin-top: 80px;
+        }
+    </style>
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <span class="badge">🕵️ Case Study</span>
+            <h1>AI Hallucination Spotter</h1>
+            <p style="font-size: 1.3em; color: #d0d0f0; max-width: 700px; margin: 0 auto;">
+                Stop trusting AI code blindly. Catch fake imports, wrong functions, and impossible logic before you
+                waste time debugging.
+            </p>
+            <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="cta-button">
+                Try the Tool →
+            </a>
+        </div>
+
+        <h2>The Problem</h2>
+        <p>
+            AI assistants like ChatGPT, Claude, and Copilot are amazing—until they lie to you. They confidently generate
+            code with:
+        </p>
+        <ul>
+            <li><strong>Fake imports</strong> that don't exist</li>
+            <li><strong>Made-up function names</strong> that look real</li>
+            <li><strong>Wrong arguments</strong> in the wrong order</li>
+            <li><strong>Deprecated syntax</strong> from old language versions</li>
+            <li><strong>Impossible logic</strong> that will never work</li>
+        </ul>
+        <p>
+            You paste the code, run it, and... error. Then you spend 20 minutes figuring out what the AI got wrong.
+        </p>
+
+        <h2>The Solution</h2>
+        <p>
+            The <strong>AI Hallucination Spotter</strong> runs fast static checks on AI-generated code and highlights
+            likely hallucinations before you waste time.
+        </p>
+
+        <div class="feature-box">
+            <h3>🔍 What It Checks</h3>
+            <ul>
+                <li><strong>Python:</strong> Fake methods like <code>list.push()</code>, wrong imports like
+                    <code>os.exists()</code>, Python 2 syntax</li>
+                <li><strong>JavaScript:</strong> Typos like <code>fs.existSync</code>, non-existent methods like
+                    <code>.contains()</code>, Python-style booleans</li>
+                <li><strong>Java & Go (Beta):</strong> Common AI mistakes in these languages</li>
+            </ul>
+        </div>
+
+        <h2>Real Example: Python Hallucination</h2>
+        <p>AI generates this code:</p>
+        <div class="code-example">
+            <pre>import json
+import os
+
+def process_data(file_path):
+    <span class="error-marker">data = json.load(file_path)</span>  # ERROR!
+    results = []
+    <span class="error-marker">results.push(data['value'])</span>  # ERROR!
+    
+    if <span class="error-marker">os.exists('log.txt')</span>:  # ERROR!
+        print("Log found")</pre>
+        </div>
+        <p>
+            The AI Hallucination Spotter instantly highlights 3 errors:
+        </p>
+        <ol>
+            <li><code>json.load()</code> expects a file object, not a string path</li>
+            <li>Python lists use <code>.append()</code>, not <code>.push()</code></li>
+            <li><code>os.exists</code> doesn't exist—it's <code>os.path.exists</code></li>
+        </ol>
+
+        <h2>Real Example: JavaScript Hallucination</h2>
+        <div class="code-example">
+            <pre>const fs = require('fs');
+
+function saveData(data) {
+    if (<span class="error-marker">fs.existSync('./data.json')</span>) {  # ERROR!
+        console.log('File exists');
+    }
+    
+    const items = ['a', 'b', 'c'];
+    <span class="error-marker">items.remove('b');</span>  # ERROR!
+}</pre>
+        </div>
+        <p>
+            Issues detected:
+        </p>
+        <ol>
+            <li><code>fs.existSync</code> should be <code>fs.existsSync</code> (with an 's')</li>
+            <li>Arrays don't have a <code>.remove()</code> method—use <code>.splice()</code> or <code>.filter()</code>
+            </li>
+        </ol>
+
+        <h2>How It Works</h2>
+        <div class="feature-box">
+            <h3>⚡ Client-Side & Fast</h3>
+            <p>
+                All checks run in your browser using pattern matching and common hallucination databases. No data is
+                sent to servers. Results appear in under 2 seconds.
+            </p>
+        </div>
+
+        <div class="feature-box">
+            <h3>🎯 Trust But Verify</h3>
+            <p>
+                AI is powerful, but it's not perfect. This tool acts as a quick sanity check before you run code from
+                ChatGPT, Copilot, or Claude.
+            </p>
+        </div>
+
+        <h2>Who Uses This</h2>
+        <ul>
+            <li>Solo devs copying code from ChatGPT/Claude</li>
+            <li>Teams reviewing PRs with AI contributions</li>
+            <li>Anyone who's been burned by AI hallucinations before</li>
+        </ul>
+
+        <h2>What It's NOT</h2>
+        <p>
+            This tool is <strong>not</strong>:
+        </p>
+        <ul>
+            <li>A full linter replacement (use Pylint, ESLint, etc. for that)</li>
+            <li>A code runner (it never executes your code)</li>
+            <li>Perfect (it catches common mistakes, not semantic bugs)</li>
+        </ul>
+
+        <h2>Start Spotting Hallucinations</h2>
+        <p>
+            Stop wasting time debugging AI code. Paste it in, spot the lies, and move on.
+        </p>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="cta-button">
+                Try AI Hallucination Spotter →
+            </a>
+        </div>
+
+        <footer>
+            <p style="color: #9090b0;">
+                © 2025 LiDa Software. All tools are 100% free and open source.
+            </p>
+            <p style="margin-top: 10px;">
+                <a href="index.html" style="color: #667eea; text-decoration: none;">← Back to All Tools</a>
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>
