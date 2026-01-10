@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+    <title>Tutorials - LiDa Software</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Free developer tutorials for JavaScript, CSS, Tools, and AI. No fluff, just code." />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.lidasoftware.online/tutorials/index.html" />
+    <meta property="og:title" content="LiDa Tutorials - Free Developer Guides" />
+    <meta property="og:description"
+        content="Free, high-quality developer tutorials for JavaScript, AI, and Tools. No fluff, just code." />
+    <meta property="og:image" content="https://www.lidasoftware.online/assets/og-image.jpg" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.lidasoftware.online/tutorials/index.html" />
+    <meta property="twitter:title" content="LiDa Tutorials - Free Developer Guides" />
+    <meta property="twitter:description"
+        content="Free, high-quality developer tutorials for JavaScript, AI, and Tools. No fluff, just code." />
+    <meta property="twitter:image" content="https://www.lidasoftware.online/assets/og-image.jpg" />
+
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.lidasoftware.online/tutorials/">
+    <link rel="alternate" hreflang="en" href="https://www.lidasoftware.online/tutorials/" />
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online/",
+      "logo": "https://www.lidasoftware.online/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61581626213032",
+        "https://chromewebstore.google.com/",
+        "https://github.com/LidaSoftware"
+      ],
+      "description": "LiDa Software creates open-source developer tools, Chrome extensions, and free resources for programmers worldwide.",
+      "founder": {
+        "@type": "Person",
+        "name": "Hen Faibish"
+      },
+      "knowsAbout": [
+        "Chrome extensions",
+        "developer productivity",
+        "test data generation",
+        "JavaScript",
+        "TypeScript",
+        "open-source software"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Free Tools & Extensions",
+        "itemListElement": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "Advanced Link Manager",
+            "operatingSystem": "Chrome",
+            "applicationCategory": "BrowserExtension",
+            "url": "https://www.lidasoftware.online/link-manager.html",
+            "downloadUrl": "https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Dummy Data Generator",
+            "operatingSystem": "Chrome",
+            "applicationCategory": "BrowserExtension",
+            "url": "https://www.lidasoftware.online/dummy-generate.html",
+            "downloadUrl": "https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Local Storage Viewer",
+            "operatingSystem": "Chrome",
+            "applicationCategory": "BrowserExtension",
+            "url": "https://www.lidasoftware.online/local-storage.html",
+            "downloadUrl": "https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej"
+          },
+          {
+            "@type": "Book",
+            "name": "Coding with Robots",
+            "url": "https://www.lidasoftware.online/book.html",
+            "author": "Hen Faibish"
+          }
+        ]
+      }
+    }
+  </script>
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
+                <div
+                    style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
+                    <img src="../logo.png" alt="LiDa Software Logo - Free Developer Tools"
+                        style="width: 30px; height: auto;">
+                </div>
+                LiDa Software
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html#projects">Projects</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+                <li><a href="#" style="color: #fff; background: rgba(102, 126, 234, 0.1);">Tutorials</a></li>
+                <div class="nav-social">
+                    <a href="https://www.linkedin.com/in/hen-faibish-0469931b0/" target="_blank"
+                        rel="noopener noreferrer" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61581626213032" target="_blank"
+                        rel="noopener noreferrer" title="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="#" onclick="openWhatsAppPopup(); return false;" title="WhatsApp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+                        </svg>
+                    </a>
+                </div>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Tutorials Hero Section -->
+    <section class="hero tutorials-hero" style="min-height: 60vh; padding-bottom: 60px;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Developer Tutorials</h1>
+                <p class="tagline">Deep dives, quick tips, and hands-on guides. Without the fluff.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section" style="padding: 0 20px 40px; margin-top: -40px; position: relative; z-index: 10;">
+        <div class="container">
+            <div class="search-container"
+                style="background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 16px; padding: 24px; display: grid; gap: 20px; grid-template-columns: 2fr 1fr 1fr auto;">
+
+                <!-- Search -->
+                <div class="search-box" style="position: relative;">
+                    <input type="text" id="searchInput" placeholder="Search tutorials..."
+                        style="width: 100%; background: rgba(10, 10, 15, 0.6); border: 1px solid rgba(102, 126, 234, 0.3); padding: 12px 16px 12px 48px; border-radius: 8px; color: #fff; font-family: inherit;">
+                    <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #667eea; width: 20px; height: 20px;"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+
+                <!-- Filters -->
+                <select id="topicFilter"
+                    style="background: rgba(10, 10, 15, 0.6); border: 1px solid rgba(102, 126, 234, 0.3); padding: 12px; border-radius: 8px; color: #b4b4d4; font-family: inherit;">
+                    <option value="">All Topics</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="css">CSS & Design</option>
+                    <option value="tools">Tools & Workflow</option>
+                    <option value="ai">AI Engineering</option>
+                </select>
+
+                <select id="levelFilter"
+                    style="background: rgba(10, 10, 15, 0.6); border: 1px solid rgba(102, 126, 234, 0.3); padding: 12px; border-radius: 8px; color: #b4b4d4; font-family: inherit;">
+                    <option value="">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+
+                <!-- Toggle View -->
+                <div class="view-toggle"
+                    style="display: flex; gap: 8px; background: rgba(10, 10, 15, 0.6); padding: 4px; border-radius: 8px; border: 1px solid rgba(102, 126, 234, 0.3);">
+                    <button id="gridViewBtn" class="active"
+                        style="padding: 8px; border: none; background: rgba(102, 126, 234, 0.2); border-radius: 6px; color: #fff; cursor: pointer;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button id="listViewBtn"
+                        style="padding: 8px; border: none; background: transparent; border-radius: 6px; color: #9090b0; cursor: pointer;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutorials Grid -->
+    <section class="tutorials-section" style="padding-bottom: 120px; min-height: 500px;">
+        <div class="container">
+
+            <!-- Empty State (Hidden) -->
+            <div id="emptyState" style="display: none; text-align: center; padding: 60px;">
+                <div style="font-size: 4em; margin-bottom: 20px;">🔍</div>
+                <h3 style="color: #fff; font-size: 1.5em; margin-bottom: 10px;">No tutorials found</h3>
+                <p style="color: #9090b0;">Try adjusting your search or filters.</p>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="tutorialsGrid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+                <!-- Cards will be injected here via JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="color: #7070a0;">© 2025 LiDa Software. All rights reserved.</p>
+            <div class="open-source-badge">
+                ❤️ Inspired by Open Source
+            </div>
+
+            <!-- One-Sentence Philosophy -->
+            <div class="philosophy-statement">
+                I build tools the same way I write code: small, boring, and useful.
+            </div>
+        </div>
+        <Br>
+        <a href="../verify.html" style="opacity:10;">.</a>
+    </footer>
+
+    <!-- WhatsApp Popup -->
+    <div id="whatsappPopup" class="whatsapp-popup">
+        <div class="whatsapp-popup-content">
+            <button class="close-popup" onclick="closeWhatsAppPopup()">&times;</button>
+            <h3>📱 Contact via WhatsApp</h3>
+            <p>Get in touch with us directly on WhatsApp for quick support and questions.</p>
+            <div class="phone-number">+40 753 358 749</div>
+            <div class="whatsapp-buttons">
+                <a href="https://wa.me/40753358749?text=Hi%20there!%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch."
+                    target="_blank" class="whatsapp-btn primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+                    </svg>
+                    Open WhatsApp
+                </a>
+                <button class="whatsapp-btn secondary" onclick="closeWhatsAppPopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Popup -->
+    <div id="videoPopup" class="video-popup">
+        <div class="video-popup-content">
+            <div class="popup-header">
+                <div class="popup-brand">
+                    <img src="../logo.png" alt="LiDa Logo" class="popup-logo">
+                    <span>LiDa Tutorials</span>
+                </div>
+                <button class="close-popup" onclick="closeVideoPopup()">&times;</button>
+            </div>
+            <div class="video-container">
+                <video id="tutorialVideo" controls style="width: 100%; border-radius: 8px;">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <h3 id="videoTitle" style="margin-top: 15px; color: #fff;"></h3>
+        </div>
+    </div>
+
+    <!-- Easter Egg Toast -->
+    <div id="easterEggToast" class="easter-egg-toast">
+        Yep. Still building this at night.
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+        </svg>
+    </button>
+
+    <!-- Main Script -->
+    <script src="tutorials-data.js"></script>
+    <script src="script.js"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GN0YLZXR8J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GN0YLZXR8J');
+    </script>
+</body>
+
+</html>

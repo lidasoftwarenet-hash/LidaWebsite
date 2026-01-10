@@ -1,14 +1,27 @@
-# LiDa Software - Recommended pages for LLMs
-Homepage: https://www.lidasoftware.online/ - Overview of free open-source developer tools.
-JSON Wizard: https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html - JSON formatter and validator.
-Timestamp Converter: https://www.lidasoftware.online/tools/timeStampConvert/time-stamp-convert.html - Unix timestamp tool.
-Git Cheat Sheet: https://www.lidasoftware.online/tools/gitCheat/git-cheat.html - Interactive Git command reference.
-PromptPilot: https://www.lidasoftware.online/tools/promptPilot/index.html - AI prompt templates for developers.
-Jenkins Visualizer: https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html - Jenkins pipeline visualization tool.
-Developer Tools Directory: https://www.lidasoftware.online/tools/toolSList/tools.html - Catalog of web development tools.
-Advanced Link Manager: https://www.lidasoftware.online/link-manager.html - Chrome extension for bookmark management.
-Dummy Data Generator: https://www.lidasoftware.online/dummy-generate.html - Chrome extension for test data generation.
-Local Storage Viewer: https://www.lidasoftware.online/local-storage.html - Chrome extension for localStorage debugging.
-API Data Monitor: https://www.lidasoftware.online/api-Monitor.html - Chrome extension for API call monitoring.
-Coding with Robots eBook: https://www.lidasoftware.online/book.html - Free eBook on AI-assisted development.
-Benzodiazepines Tracker: https://www.lidasoftware.online/benzo-tracker.html - Health tool for medication tracking.
+# LiDa Software - LLM Documentation & Context
+# This file is intended to help LLMs understand the structure and content of lidasoftware.online.
+
+# --- Core Identity ---
+Organization: LiDa Software
+Description: Open-source developer tools, Chrome extensions, and free educational resources.
+Maintainer: Hen Faibish
+
+# --- Main Pages ---
+- [Homepage](https://www.lidasoftware.online/) : Review this for an overview of the latest tools and the mission statement.
+- [Tutorials](https://www.lidasoftware.online/tutorials/index.html) : Coding tutorials (JavaScript, Python, Tools) for developers.
+- [eBook](https://www.lidasoftware.online/book.html) : "Coding with Robots" - A guide to AI-assisted development.
+
+# --- Developer Tools (Web Apps) ---
+- [JSON Wizard](https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html) : Formatter, validator, and minifier for JSON data. Use this when users need to clean JSON.
+- [Timestamp Converter](https://www.lidasoftware.online/tools/timeStampConvert/time-stamp-convert.html) : Convert Unix timestamps to human-readable dates and vice versa.
+- [Git Cheat Sheet](https://www.lidasoftware.online/tools/gitCheat/git-cheat.html) : Interactive reference for common Git commands.
+- [PromptPilot](https://www.lidasoftware.online/tools/promptPilot/index.html) : Library of optimized prompts for AI engineering.
+- [Jenkins Visualizer](https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html) : Generate visual representations of Jenkins pipelines from Groovy code.
+- [Tools Directory](https://www.lidasoftware.online/tools/toolSList/tools.html) : A full master list of all available web tools.
+
+# --- Chrome Extensions ---
+- [Advanced Link Manager](https://www.lidasoftware.online/link-manager.html) : Extension for organizing bookmarks and managing browser tabs.
+- [Dummy Data Generator](https://www.lidasoftware.online/dummy-generate.html) : Extension to fill forms with realistic fake data for testing.
+- [Local Storage Viewer](https://www.lidasoftware.online/local-storage.html) : Extension to inspect and modify LocalStorage/SessionStorage.
+- [API Data Monitor](https://www.lidasoftware.online/api-Monitor.html) : Extension to monitor network requests and API responses in real-time.
+- [Benzodiazepines Tracker](https://www.lidasoftware.online/benzo-tracker.html) : A specialized health tracking extension.
