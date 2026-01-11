@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="en" />
+    <title>MCP Blueprint Generator - Standardize Your AI Infrastructure | LiDa Software</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Case study: How the MCP Blueprint Generator helps developers architect professional Model Context Protocol servers. Standardize tools, resources, and state management." />
+    <meta name="keywords"
+        content="mcp server design, model context protocol architecture, ai tool development, mcp boilerplate, ai agent infrastructure" />
+    <meta name="author" content="LiDa Software" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/usecase-mcp-blueprint-generator.html" />
+    <meta property="og:title" content="MCP Blueprint Generator - Architecture Before Code" />
+    <meta property="og:description"
+        content="Learn how senior developers use the MCP Blueprint Generator to design robust, scalable, and secure AI tool servers." />
+    <meta property="og:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <link rel="canonical" href="https://www.lidasoftware.online/usecase-mcp-blueprint-generator.html">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #fff;
+            margin: 40px 0 20px;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #d0d0f0;
+            margin: 30px 0 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #b0b0d0;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, #0a0a0f 0%, #0f172a 100%);
+            border-radius: 20px;
+            margin-bottom: 60px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+        }
+
+        .code-example {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        ul,
+        ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            color: #b0b0d0;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: #e0e0e0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(59, 130, 246, 0.15);
+            margin-top: 80px;
+        }
+    </style>
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <span class="badge">🏗️ Architecture Study</span>
+            <h1>MCP Blueprint Generator</h1>
+            <p style="font-size: 1.3em; color: #d0d0f0; max-width: 700px; margin: 0 auto;">
+                Stop writing messy MCP servers. Force senior-level architecture decisions into your codebase before you
+                even type "npm install".
+            </p>
+            <a href="tools/mcp-blueprint-generator/mcp-blueprint-generator.html" class="cta-button">
+                Generate Blueprint →
+            </a>
+        </div>
+
+        <h2>The Problem</h2>
+        <p>
+            The Model Context Protocol (MCP) is the new standard for connecting AI models to local data and tools.
+            However, most developers fall into common traps:
+        </p>
+        <ul>
+            <li><strong>Mixing concerns:</strong> Putting logic, transport, and resource definitions in one giant file.
+            </li>
+            <li><strong>Security leaks:</strong> Exposing tools that can perform dangerous side effects without proper
+                guarding.</li>
+            <li><strong>Scaling issues:</strong> Building stateless tools that need context, or stateful ones that break
+                concurrency.</li>
+            <li><strong>Weak schema:</strong> Writing loose JSON schemas that make LLMs hallucinate arguments.</li>
+        </ul>
+        <p>
+            Fixing a bad MCP architecture after the server is live is painful and breaks your AI's reliability.
+        </p>
+
+        <h2>The Solution</h2>
+        <p>
+            The <strong>MCP Blueprint Generator</strong> acts as a Senior Architect in your browser. It asks high-level
+            questions about your server's intent and generates a production-ready folder structure and boilerplate.
+        </p>
+
+        <div class="feature-box">
+            <h3>🛡️ Architecture Principles</h3>
+            <ul>
+                <li><strong>Separation of Powers:</strong> Clearly defined Resource, Tool, and Prompt layers.</li>
+                <li><strong>Opinionated Defaults:</strong> Automatic inclusion of <code>MCP_RULES.md</code> to guide
+                    future AI edits.</li>
+                <li><strong>Type Safety:</strong> Full TypeScript support with Zod-based schema validation.</li>
+                <li><strong>Environment Aware:</strong> Templates for environment variables, standard logging, and error
+                    handling.</li>
+            </ul>
+        </div>
+
+        <h2>Real Impact: From Chaos to Order</h2>
+        <p>Traditional "just start coding" approach:</p>
+        <div class="code-example" style="opacity: 0.7;">
+            <pre>server.ts (500 lines) -> imports + logic + tools all mixed up</pre>
+        </div>
+        <p>The Blueprint Generator approach:</p>
+        <div class="code-example" style="border-color: #3b82f6;">
+            <pre>src/
+  ├── domains/ (Business logic)
+  ├── resources/ (MCP Resources)
+  ├── tools/ (MCP Tools)
+  ├── prompts/ (User Prompts)
+  └── server.ts (Thin entry point)</pre>
+        </div>
+        <p>
+            By separating these layers, your AI assistant can understand the codebase better, leading to fewer
+            hallucinations and more stable code generation.
+        </p>
+
+        <h2>Standard Features</h2>
+        <div class="feature-box">
+            <h3>⚡ Instant Boilerplate</h3>
+            <p>
+                Get <code>package.json</code>, <code>tsconfig.json</code>, and core server files ready to go. No more
+                looking up boilerplate syntax.
+            </p>
+        </div>
+
+        <div class="feature-box">
+            <h3>📜 AI Governance</h3>
+            <p>
+                Every blueprint includes a custom <code>MCP_RULES.md</code>. This file tells any AI tool (Cursor,
+                Windsurf, etc.) exactly how to maintain your server without breaking rules.
+            </p>
+        </div>
+
+        <h2>Who Is This For?</h2>
+        <ul>
+            <li><strong>Platform Engineers:</strong> Creating internal toolkits for company AI agents.</li>
+            <li><strong>Indie Hackers:</strong> Building Claude Desktop extensions or custom GPT tools.</li>
+            <li><strong>Solopreneurs:</strong> Who need senior-level architecture without a senior-level budget.</li>
+        </ul>
+
+        <h2>Build Your Foundation</h2>
+        <p>
+            Bad code is cheap. Good architecture is priceless. Don't start your next MCP project with a blank file.
+        </p>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="tools/mcp-blueprint-generator/mcp-blueprint-generator.html" class="cta-button">
+                Try MCP Blueprint Generator →
+            </a>
+        </div>
+
+        <footer>
+            <p style="color: #9090b0;">
+                © 2026 LiDa Software. All tools are 100% free and open source.
+            </p>
+            <p style="margin-top: 10px;">
+                <a href="index.html" style="color: #3b82f6; text-decoration: none;">← Back to All Tools</a>
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>
