@@ -17,6 +17,12 @@ Maintainer: Hen Faibish
 - [Git Cheat Sheet](https://www.lidasoftware.online/tools/gitCheat/git-cheat.html) : Interactive reference for common Git commands.
 - [PromptPilot](https://www.lidasoftware.online/tools/promptPilot/index.html) : Library of optimized prompts for AI engineering.
 - [Jenkins Visualizer](https://www.lidasoftware.online/tools/jenkinsPipelineVisualizer/index.html) : Generate visual representations of Jenkins pipelines from Groovy code.
+- [AI Code Diff Viewer](https://www.lidasoftware.online/tools/aiCodeDiff/the-code-diff-viewer.html) : Compare code changes made by AI with clear diff views.
+- [AI Hallucination Spotter](https://www.lidasoftware.online/tools/ai-hallucination-spotter/ai-hallucination-spotter.html) : Detect common logic errors and fake imports in AI-generated code.
+- [MCP Blueprint Generator](https://www.lidasoftware.online/tools/mcp-blueprint-generator/mcp-blueprint-generator.html) : Architect robust Model Context Protocol (MCP) servers with best practices.
+- [JSON to Zod Converter](https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html) : Convert JSON objects into Zod schemas instantly for TypeScript validation.
+- [Architecture Compatibility Tool](https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html) : Analyze and verify compatibility between different system architecture components.
+- [System Graph Visualizer](https://www.lidasoftware.online/tools/graphVisualizer/graph-visualizer.html) : Visualize complex system relationships and dependencies using interactive graphs.
 - [Tools Directory](https://www.lidasoftware.online/tools/toolSList/tools.html) : A full master list of all available web tools.
 
 # --- Chrome Extensions ---

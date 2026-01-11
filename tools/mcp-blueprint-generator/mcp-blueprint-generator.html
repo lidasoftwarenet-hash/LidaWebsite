@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="MCP Blueprint Generator - Force good MCP thinking before bad MCP code exists. Generate professional MCP server architecture in seconds." />
+    <meta name="keywords"
+        content="mcp, model context protocol, mcp server, architecture, bootstrap, generator, developer tools, typescript, python" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url"
+        content="https://www.lidasoftware.online/tools/mcp-blueprint-generator/mcp-blueprint-generator.html" />
+    <meta property="og:title" content="MCP Blueprint Generator | LiDa Software" />
+    <meta property="og:description"
+        content="Force good MCP thinking before bad MCP code exists. Generate professional MCP server architecture in seconds." />
+    <meta property="og:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <link rel="canonical"
+        href="https://www.lidasoftware.online/tools/mcp-blueprint-generator/mcp-blueprint-generator.html">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Title -->
+    <title>MCP Blueprint Generator | LiDa Software</title>
+
+    <!-- Tailwind & Highlight.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+        window.mermaid = mermaid;
+    </script>
+    <!-- JSZip for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <style>
+        :root {
+            --bg-deep: #05070a;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --accent-primary: #3b82f6;
+            --accent-secondary: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            color-scheme: dark;
+        }
+
+        /* Animated Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            filter: blur(80px);
+            animation: mesh-float 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes mesh-float {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.1) translate(20px, 20px);
+            }
+        }
+
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        .premium-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .gradient-btn:hover::after {
+            left: 100%;
+        }
+
+        .gradient-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Step Indicator Styles */
+        .step-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .step-dot.active {
+            background: var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-primary);
+            width: 24px;
+            border-radius: 12px;
+        }
+
+        .step-dot.completed {
+            background: var(--accent-secondary);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Option Card Enhancements */
+        .option-card {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.01);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .option-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .option-card:hover::after {
+            opacity: 1;
+        }
+
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+        .option-card.selected {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: var(--accent-primary);
+            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .option-card.selected::before {
+            opacity: 1;
+        }
+
+        /* AI Inference Styles */
+        .ai-pick-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            animation: pulse-gold 2s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+            }
+        }
+
+        .magic-bar-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .magic-bar-container:focus-within {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Results Tab Styling */
+        .result-tab {
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .result-tab.active {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), transparent);
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-tab.active .icon-container {
+            background: var(--accent-primary);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .tab-view {
+            display: none;
+        }
+
+        .tab-view.active {
+            display: flex;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        .step-card {
+            display: none;
+        }
+
+        .step-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Architect Advice Style */
+        .advice-glow {
+            position: relative;
+        }
+
+        .advice-glow::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
+            z-index: -1;
+            filter: blur(10px);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(59, 130, 246, 0.4);
+        }
+
+        /* ===== AMAZING FOOTER ===== */
+        .footer {
+            padding: 50px 1px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-copyright {
+            font-size: 20px;
+            color: #c1bdd7;
+            font-weight: 200;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-version {
+            font-size: 16px;
+            color: #f4f4f4;
+            margin: 0;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(3px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .btn-discover {
+            margin-top: 6px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-discover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-discover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+            left: 0;
+        }
+
+        .btn-discover:hover::before {
+            left: 100%;
+        }
+
+        .footer-bottom {
+            margin-top: 20px;
+            opacity: 0.5;
+        }
+
+        .footer-bottom-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+
+        .toast {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            animation: toast-in 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        @keyframes toast-in {
+            from {
+                transform: translateX(100%) opacity(0);
+            }
+
+            to {
+                transform: translateX(0) opacity(1);
+            }
+        }
+
+        /* Mermaid Zoom Control */
+        .mermaid-container {
+            cursor: grab;
+            transition: transform 0.1s ease-out;
+            transform-origin: center;
+        }
+
+        .mermaid-container:active {
+            cursor: grabbing;
+        }
+
+        /* Social Share Buttons */
+        .social-share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .share-fb {
+            background: #1877f2;
+        }
+
+        .share-li {
+            background: #0a66c2;
+        }
+
+        .share-tw {
+            background: #14171a;
+        }
+
+        .share-wa {
+            background: #25d366;
+        }
+
+        .share-copy {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <div class="mesh-bg"></div>
+    <div class="grid-overlay"></div>
+    <div id="toastContainer" class="toast-container"></div>
+
+
+    <!-- Navbar -->
+    <nav class="border-b border-white/5 py-6 px-6 glass sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col items-center justify-center text-center">
+            <div class="flex flex-col items-center gap-2">
+                <a href="../../index.html" class="mb-2">
+                    <img src="../../logo.png" alt="LiDa Logo" class="w-10 h-10 object-contain">
+                </a>
+                <h1 class="text-2xl md:text-3xl font-outfit font-extrabold tracking-[0.2em] uppercase gradient-text">MCP
+                    Blueprint Generator</h1>
+                <div class="flex items-center gap-3">
+                    <span
+                        class="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]"></span>
+                    <p class="text-xs text-blue-400 font-bold uppercase tracking-[0.5em]">Architect Mode</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Global Share Bar -->
+    <div id="shareContainer" class="border-b border-white/5 bg-white/[0.02] py-3 hidden">
+        <div class="container mx-auto px-6 flex flex-wrap items-center justify-center gap-4">
+            <span class="text-[10px] text-muted uppercase tracking-widest font-bold">Share Tool & Architecture:</span>
+            <div id="desktop-share-buttons" class="flex flex-wrap gap-2"></div>
+        </div>
+    </div>
+
+
+    <!-- Main Workspace -->
+    <main class="flex-1 container mx-auto px-6 py-12 flex flex-col items-center">
+
+        <!-- Header -->
+        <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-4xl md:text-5xl font-outfit font-extrabold mb-4 tracking-tight">
+                Architect Your <span class="gradient-text">MCP Server</span>
+            </h2>
+            <p class="text-muted text-lg max-w-2xl mx-auto font-light">
+                This tool exists to force good MCP thinking before bad MCP code exists.
+                Generate a professional boilerplate based on senior architect decisions.
+            </p>
+        </div>
+
+        <!-- Wizard Container -->
+        <div class="w-full max-w-4xl glass rounded-3xl overflow-hidden border border-white/5 p-8 md:p-12 animate-fade-in"
+            style="animation-delay: 0.1s">
+
+            <!-- Magic Intent Bar (AI Inference) -->
+            <div class="mb-10 magic-bar-container relative group">
+                <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                    <span class="text-xl">✨</span>
+                </div>
+                <input type="text" id="aiMagicInput"
+                    placeholder="Describe your intent (e.g., 'A Python server to bridge MySQL to Claude read-only')"
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl py-5 pl-14 pr-32 text-sm font-medium focus:outline-none focus:border-blue-500/50 transition-all placeholder:text-muted/50">
+                <button id="aiInferBtn"
+                    class="absolute inset-y-2 right-2 px-5 bg-blue-500 hover:bg-blue-600 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all shadow-lg shadow-blue-500/20">
+                    Infer Config
+                </button>
+                <div id="aiFeedback"
+                    class="absolute -bottom-6 left-5 text-[10px] font-bold text-blue-400 opacity-0 transition-all">
+                    Optimizing configuration...
+                </div>
+            </div>
+
+            <!-- Progress & Step Dots -->
+            <div class="flex flex-col gap-6 mb-12">
+                <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                    <div id="progressBar" class="h-full bg-blue-500 transition-all duration-700 ease-out"
+                        style="width: 14.2%"></div>
+                </div>
+                <div class="flex justify-between items-center px-4" id="stepDots">
+                    <div class="step-dot active"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                    <div class="step-dot"></div>
+                </div>
+            </div>
+
+            <!-- Steps -->
+            <div id="wizardSteps">
+
+                <!-- Step 1: Project Metadata & Type -->
+                <div class="step-card active" data-step="1">
+                    <div class="mb-10 p-6 rounded-2xl bg-white/5 border border-white/10">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-blue-400 mb-4">Project
+                            Metadata</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-[10px] text-muted mb-2 uppercase">Project Name</label>
+                                <input type="text" id="projectNameInput" placeholder="mcp-server-omega"
+                                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/50 transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] text-muted mb-2 uppercase">Author / Organization</label>
+                                <input type="text" id="projectAuthorInput" placeholder="LiDa Software"
+                                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500/50 transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-2xl font-outfit font-bold mb-2">1. MCP Type</h3>
+
+                    <p class="text-muted text-sm mb-8">Determine the primary interaction model for your server.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="data-only">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-2xl mb-4">
+                                📦</div>
+                            <h4 class="font-bold mb-2">Data-only</h4>
+                            <p class="text-xs text-muted">Exposes resources (read-only) but no tools for actions.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="action-only">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-2xl mb-4">
+                                ⚡</div>
+                            <h4 class="font-bold mb-2">Action-only</h4>
+                            <p class="text-xs text-muted">Exposes tools for actions but no data resources.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="hybrid">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-2xl mb-4">
+                                🌓</div>
+                            <h4 class="font-bold mb-2">Hybrid</h4>
+                            <p class="text-xs text-muted">Full flexibility with both data reading and action tools.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: State Model -->
+                <div class="step-card" data-step="2">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">2. State Model</h3>
+                    <p class="text-muted text-sm mb-8">How should the server handle data persistence between requests?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="stateless">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center border border-green-500/20 text-2xl mb-4">
+                                🍃</div>
+                            <h4 class="font-bold mb-2">Stateless</h4>
+                            <p class="text-xs text-muted">No internal memory. Simple, reliable, and horizontally
+                                scalable.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="stateful">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-2xl mb-4">
+                                💾</div>
+                            <h4 class="font-bold mb-2">Stateful</h4>
+                            <p class="text-xs text-muted">Maintains context between calls. Ideal for multi-step
+                                workflows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Consumer -->
+                <div class="step-card" data-step="3">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">3. Intended Consumer</h3>
+                    <p class="text-muted text-sm mb-8">Who will be the primary entity interacting with your server?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="human">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 text-2xl mb-4">
+                                👨‍💻</div>
+                            <h4 class="font-bold mb-2">Human Developer</h4>
+                            <p class="text-xs text-muted">Optimized for humans using LLM interfaces (Claude Chat, etc).
+                            </p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="agent">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 text-2xl mb-4">
+                                🤖</div>
+                            <h4 class="font-bold mb-2">Autonomous Agent</h4>
+                            <p class="text-xs text-muted">High-precision patterns for programmatic agent use.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="both">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-2xl mb-4">
+                                🤝</div>
+                            <h4 class="font-bold mb-2">Hybrid Use</h4>
+                            <p class="text-xs text-muted">A balanced approach for both direct and agent interaction.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Side Effects -->
+                <div class="step-card" data-step="4">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">4. Side Effects</h3>
+                    <p class="text-muted text-sm mb-8">Does your server modify external systems or just read data?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="none">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-slate-500/10 flex items-center justify-center border border-slate-500/20 text-2xl mb-4">
+                                🛡️</div>
+                            <h4 class="font-bold mb-2">None (Safe)</h4>
+                            <p class="text-xs text-muted">Strictly read-only. No risk of accidental system changes.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="controlled">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 text-2xl mb-4">
+                                ⚙️</div>
+                            <h4 class="font-bold mb-2">Controlled Effects</h4>
+                            <p class="text-xs text-muted">Allows writes/actions. Requires strict parameter validation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Size -->
+                <div class="step-card" data-step="5">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">5. Expected Size</h3>
+                    <p class="text-muted text-sm mb-8">How many tools or resources do you expect to build?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="small">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-2xl mb-4">
+                                🌱</div>
+                            <h4 class="font-bold mb-2">Small</h4>
+                            <p class="text-xs text-muted">1–3 tools. Simple flat structure for speed.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="medium">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-2xl mb-4">
+                                🌳</div>
+                            <h4 class="font-bold mb-2">Medium</h4>
+                            <p class="text-xs text-muted">4–10 tools. Grouped folders for better organization.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="large">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 text-2xl mb-4">
+                                🌲</div>
+                            <h4 class="font-bold mb-2">Large / Enterprise</h4>
+                            <p class="text-xs text-muted">10+ tools. Full Domain-Driven Design (DDD).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Language -->
+                <div class="step-card" data-step="6">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">6. Implementation Language</h3>
+                    <p class="text-muted text-sm mb-8">What tech stack do you prefer for your MCP server?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="typescript">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-2xl mb-4">
+                                🔷</div>
+                            <h4 class="font-bold mb-2">TypeScript</h4>
+                            <p class="text-xs text-muted">Standard Node.js SDK. Type-safe and widely used in MCP.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="python">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20 text-2xl mb-4">
+                                🐍</div>
+                            <h4 class="font-bold mb-2">Python</h4>
+                            <p class="text-xs text-muted">FastAPI powered. Excellent for data & AI heavy servers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7: Architectural Pattern -->
+                <div class="step-card" data-step="7">
+                    <h3 class="text-2xl font-outfit font-bold mb-2">7. Architectural Pattern</h3>
+                    <p class="text-muted text-sm mb-8">Which design pattern fits your specific implementation goal?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="option-card p-6 rounded-2xl" data-value="rest-bridge">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 text-2xl mb-4">
+                                🌉</div>
+                            <h4 class="font-bold mb-2">The Bridge</h4>
+                            <p class="text-xs text-muted">Specialized patterns for wrapping existing REST/GraphQL APIs.
+                            </p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="librarian">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center border border-orange-500/20 text-2xl mb-4">
+                                📚</div>
+                            <h4 class="font-bold mb-2">The Librarian</h4>
+                            <p class="text-xs text-muted">RAG optimized. Focus on context retrieval and resource search.
+                            </p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="executor">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 text-2xl mb-4">
+                                ⚡</div>
+                            <h4 class="font-bold mb-2">The Executor</h4>
+                            <p class="text-xs text-muted">Side-effect heavy. Focused on task execution and feedback
+                                loops.</p>
+                        </div>
+                        <div class="option-card p-6 rounded-2xl" data-value="pure-logic">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-slate-500/10 flex items-center justify-center border border-slate-500/20 text-2xl mb-4">
+                                ⚙️</div>
+                            <h4 class="font-bold mb-2">Stateless Logic</h4>
+                            <p class="text-xs text-muted">Calculations & transformations. Focused on pure domain logic.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Step -->
+                <div class="step-card" id="loadingStep">
+                    <div class="flex flex-col items-center justify-center py-20 text-center">
+                        <div class="w-16 h-16 rounded-full border-4 border-white/5 border-t-blue-500 mb-8 relative">
+                            <div class="absolute inset-0 rounded-full border-4 border-blue-500/20"></div>
+                        </div>
+                        <h3 class="text-2xl font-outfit font-bold mb-2">Assembling Architecture</h3>
+                        <p class="text-muted text-sm">Consulting best practices and patterns...</p>
+                    </div>
+                </div>
+
+                <!-- Result Step -->
+                <div class="step-card" id="resultStep">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h3 class="text-3xl font-outfit font-bold mb-2">Blueprint Ready</h3>
+                            <p class="text-muted text-sm">Your professional MCP architecture has been assembled.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button id="downloadZipBtn"
+                                class="gradient-btn px-5 py-2 rounded-xl text-xs font-bold shadow-lg shadow-blue-500/20 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Download Project .zip
+                            </button>
+                            <button id="restartBtn"
+                                class="px-5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-xs font-bold text-muted hover:text-white flex items-center gap-2">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Restart Wizard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Choice Summary Breadcrumbs & Share -->
+                    <div id="choiceSummary"
+                        class="flex flex-wrap items-center gap-3 mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/5 text-[10px] font-bold uppercase tracking-wider text-muted hidden">
+                    </div>
+
+
+
+                    <!-- Architect's Advice Panel -->
+                    <div id="advicePanel" class="mb-8 p-6 rounded-2xl glass border-blue-500/20 advice-glow hidden">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-xl">
+                                🤵</div>
+                            <h4 class="text-xs font-bold uppercase tracking-widest text-blue-400">Architect's Senior
+                                Guidance</h4>
+                        </div>
+                        <p id="adviceText" class="text-sm leading-relaxed text-blue-100/90 mb-4 font-medium"></p>
+                        <div id="adviceTags" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Left: Sidebar Tools -->
+                        <div class="lg:col-span-1 space-y-6">
+                            <!-- Discovery Tabs -->
+                            <div class="flex flex-col gap-3" id="detailTabs">
+                                <button data-tab="files"
+                                    class="result-tab active flex items-center gap-4 p-4 rounded-2xl transition-all text-left">
+                                    <div
+                                        class="icon-container w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl transition-all">
+                                        📁</div>
+                                    <div>
+                                        <div class="text-sm font-bold">Project Files</div>
+                                        <div class="text-[10px] text-muted font-medium uppercase tracking-wider">Source
+                                            Code</div>
+                                    </div>
+                                </button>
+                                <button data-tab="bash"
+                                    class="result-tab flex items-center gap-4 p-4 rounded-2xl transition-all text-left">
+                                    <div
+                                        class="icon-container w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl transition-all">
+                                        ⚡</div>
+                                    <div>
+                                        <div class="text-sm font-bold">Magic Scaffolder</div>
+                                        <div class="text-[10px] text-muted font-medium uppercase tracking-wider">
+                                            One-Line Bash</div>
+                                    </div>
+                                </button>
+                                <button data-tab="diagram"
+                                    class="result-tab flex items-center gap-4 p-4 rounded-2xl transition-all text-left">
+                                    <div
+                                        class="icon-container w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-xl transition-all">
+                                        📊</div>
+                                    <div>
+                                        <div class="text-sm font-bold">Architectural Flow</div>
+                                        <div class="text-[10px] text-muted font-medium uppercase tracking-wider">Visual
+                                            Diagram</div>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <!-- Structure Tree (Visible only when 'files' tab is active) -->
+                            <div id="structureView" class="tab-view active glass p-6 rounded-2xl border border-white/5">
+                                <h4 class="text-[10px] font-bold uppercase text-muted tracking-widest mb-4">Folder
+                                    Structure</h4>
+                                <pre id="folderTree" class="font-mono text-xs leading-relaxed text-blue-300"></pre>
+                            </div>
+                        </div>
+
+                        <!-- Right: Content Area -->
+                        <div class="lg:col-span-2 h-[600px] flex flex-col">
+
+                            <!-- Files View -->
+                            <div id="filesView" class="tab-view active flex-1 flex flex-col overflow-hidden">
+                                <div class="flex gap-2 mb-4 overflow-x-auto pb-2" id="fileTabs"></div>
+                                <div class="flex-1 glass rounded-2xl overflow-hidden border border-white/5 relative">
+                                    <button id="copyBtn"
+                                        class="absolute top-4 right-4 bg-white/5 hover:bg-white/10 p-2 rounded-lg border border-white/10 transition-all z-10"
+                                        title="Copy Content">
+                                        📋
+                                    </button>
+                                    <pre
+                                        class="w-full h-full p-6 m-0 overflow-auto font-mono text-sm leading-relaxed"><code id="fileContent" class="language-typescript"></code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Bash View -->
+                            <div id="bashView" class="tab-view flex-1 flex flex-col overflow-hidden hidden">
+                                <div
+                                    class="flex-1 glass rounded-2xl p-6 overflow-hidden border border-white/5 flex flex-col">
+                                    <h4 class="text-xs font-bold mb-4">Run this in your terminal to scaffold the
+                                        project:</h4>
+                                    <div class="flex-1 bg-black/40 rounded-xl p-4 relative group">
+                                        <button id="copyBashBtn"
+                                            class="absolute top-4 right-4 bg-white/5 hover:bg-white/10 p-2 rounded-lg border border-white/10 transition-all opacity-0 group-hover:opacity-100"
+                                            title="Copy Bash Command">
+                                            📋
+                                        </button>
+                                        <pre class="whitespace-pre-wrap font-mono text-xs text-emerald-400"
+                                            id="magicBashCode"></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Diagram View -->
+                            <div id="diagramView" class="tab-view flex-1 flex flex-col overflow-hidden hidden">
+                                <div
+                                    class="flex-1 glass rounded-2xl p-6 overflow-hidden border border-white/5 flex flex-col bg-black/20 relative">
+                                    <div class="absolute top-4 right-4 flex gap-2 z-10">
+                                        <button id="zoomIn"
+                                            class="p-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10">➕</button>
+                                        <button id="zoomOut"
+                                            class="p-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10">➖</button>
+                                        <button id="zoomReset"
+                                            class="p-2 bg-white/5 hover:bg-white/10 rounded-lg border border-white/10">🔄</button>
+                                    </div>
+                                    <div id="mermaidDiagramContainer"
+                                        class="w-full h-full overflow-hidden flex items-center justify-center">
+                                        <div id="mermaidDiagram"
+                                            class="w-full h-full mermaid-container transition-transform"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="mt-12 flex justify-between items-center" id="wizardNav">
+                <button id="prevBtn"
+                    class="px-8 py-3 rounded-xl text-sm font-semibold text-muted hover:text-white hover:bg-white/5 transition-all opacity-0 pointer-events-none flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Previous
+                </button>
+                <div id="stepIndicator" class="text-xs font-bold text-muted uppercase tracking-widest font-mono">
+                    Step 1 of 7
+                </div>
+                <button id="nextBtn"
+                    class="gradient-btn px-10 py-3 rounded-xl text-sm font-bold shadow-lg shadow-blue-500/20 disabled:opacity-50 flex items-center gap-2"
+                    disabled>
+                    Next
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-copyright">© LiDa MCP Blueprint Generator</p>
+            <p class="footer-version">Architect v1.0 | Made with <span class="footer-heart">❤️</span> for MCP developers
+            </p>
+
+            <a href="../../index.html" class="btn btn-discover">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Discover More Tools
+            </a>
+
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free, private, and open source.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
