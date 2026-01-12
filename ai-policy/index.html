@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Usage Policy - LiDa Software</title>
+    <meta name="description" content="AI usage policy for LiDa Software website content.">
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0f;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #111116;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid #222228;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 32px;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .policy-list {
+            list-style: none;
+            text-align: left;
+            margin: 0 auto;
+            display: inline-block;
+        }
+
+        .policy-list li {
+            margin-bottom: 20px;
+            font-size: 1.125rem;
+            color: #b0b0d0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .icon {
+            margin-top: 4px;
+        }
+
+        .allowed {
+            color: #4ade80;
+        }
+
+        .forbidden {
+            color: #f87171;
+        }
+
+        .footer-note {
+            margin-top: 40px;
+            font-size: 0.875rem;
+            color: #666680;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="../lida-logo.png" alt="LiDa Software Logo" class="logo">
+
+        <h1>AI Usage Policy</h1>
+
+        <ul class="policy-list">
+            <li>
+                <span class="icon allowed">✓</span>
+                <span>AI systems are allowed to read the public content of the site</span>
+            </li>
+            <li>
+                <span class="icon allowed">✓</span>
+                <span>AI systems are allowed to summarize the content</span>
+            </li>
+            <li>
+                <span class="icon forbidden">✕</span>
+                <span>The content is not allowed for training AI models</span>
+            </li>
+            <li>
+                <span class="icon forbidden">✕</span>
+                <span>There is no public API access without explicit permission</span>
+            </li>
+        </ul>
+
+        <p class="footer-note">
+            This policy serves as a human-readable anchor for our technical configuration.
+        </p>
+    </div>
+</body>
+
+</html>

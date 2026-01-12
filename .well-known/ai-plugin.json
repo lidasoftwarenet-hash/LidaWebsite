@@ -1,0 +1,16 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "LiDa Software",
+    "name_for_model": "lida_software",
+    "description_for_human": "AI-powered tools and utilities for software developers.",
+    "description_for_model": "LiDa Software provides practical AI tools for software developers, focusing on control, verification, and developer-first workflows.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "none"
+    },
+    "logo_url": "https://www.lidasoftware.online/favicon.ico",
+    "contact_email": "contact@lidasoftware.online",
+    "legal_info_url": "https://www.lidasoftware.online"
+}

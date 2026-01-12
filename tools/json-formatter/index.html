@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter | LiDa Software</title>
+    <meta name="description"
+        content="A simple, private, and fast JSON formatter and validator. running entirely in your browser.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>JSON Formatter</h1>
+            <p>Format, validate, and minify your JSON data instantly. 100% Client-side privacy.</p>
+        </header>
+
+        <main>
+            <div class="editor-container">
+                <div class="input-section">
+                    <div class="section-header">
+                        <h2>Input</h2>
+                        <div class="actions">
+                            <button id="clearBtn" class="btn-secondary">Clear</button>
+                            <button id="pasteBtn" class="btn-secondary">Paste</button>
+                        </div>
+                    </div>
+                    <textarea id="jsonInput" placeholder="Paste your dirty JSON here..."></textarea>
+                </div>
+
+                <div class="controls">
+                    <button id="formatBtn" class="btn-primary">Format JSON</button>
+                    <button id="minifyBtn" class="btn-secondary">Minify</button>
+                </div>
+
+                <div class="output-section">
+                    <div class="section-header">
+                        <h2>Output</h2>
+                        <div class="actions">
+                            <button id="copyBtn" class="btn-secondary">Copy</button>
+                        </div>
+                    </div>
+                    <pre id="jsonOutput" class="output-area" contenteditable="false"></pre>
+                </div>
+            </div>
+
+            <div id="statusMessage" class="hidden"></div>
+        </main>
+
+        <footer>
+            <p>Built with precision by LiDa Software</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

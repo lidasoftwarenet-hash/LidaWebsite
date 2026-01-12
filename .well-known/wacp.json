@@ -1,0 +1,10 @@
+{
+    "version": "1.0",
+    "publisher": "LiDa Software",
+    "description": "Developer-focused AI tools and educational content.",
+    "content": {
+        "allow_ai_access": true,
+        "allow_summarization": true,
+        "allow_training": false
+    }
+}
