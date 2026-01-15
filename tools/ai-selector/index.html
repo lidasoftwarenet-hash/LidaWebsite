@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Compare top AI models like GPT-5, Claude 3.5 Opus, and Llama 4. Calculate costs, check specs, and find the perfect LLM for your coding, RAG, or chatbot project." />
+    <meta name="keywords" content="ai model selector, llm comparison, gpt-5 vs claude 3.5, ai cost calculator, developer tools, lida software, open source ai models, llama 4, gemini 2.5" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lida ModelScanner Pro - Compare AI Models" />
+    <meta property="og:description" content="The ultimate tool for developers to compare AI models. Calculate costs, analyze specs, and find the best LLM for your use case." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/ai-selector/index.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/ai-selector/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lida ModelScanner Pro - Compare AI Models" />
+    <meta name="twitter:description" content="Compare GPT-5, Claude 3.5, and more. Calculate costs and find the best AI model for your project." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/tools/ai-selector/logo.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/ai-selector/index.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+    <title>Lida ModelScanner Pro // The Dev's Choice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Lida ModelScanner Pro",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "LiDa Software",
+        "url": "https://www.lidasoftware.online",
+        "logo": "https://www.lidasoftware.online/lida-logo.png"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <div class="modal-overlay" id="apiModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <h3 id="modalTitle" style="margin-bottom: 0.5rem; font-size: 1.5rem;">API Configuration</h3>
+            <div class="export-tabs">
+                <button class="export-tab active" onclick="switchExport('curl')">cURL</button>
+                <button class="export-tab" onclick="switchExport('python')">Python</button>
+                <button class="export-tab" onclick="switchExport('node')">Node.js</button>
+                <button class="export-tab" onclick="switchExport('env')">.env</button>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Ready-to-use snippet for <span id="modalModelName" style="color:var(--text-main); font-weight:600;"></span>.</p>
+            
+            <div class="code-block" id="modalCode" data-lang="BASH"></div>
+            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="btn" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" onclick="copyToClipboard()">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="compareModal">
+        <div class="modal" style="width: 1000px;">
+            <button class="close-btn" onclick="closeCompareModal()">×</button>
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Model Comparison</h3>
+            <div id="compareContent"></div>
+        </div>
+    </div>
+
+    <div class="compare-bar" id="compareBar">
+        <div style="color:white; font-weight:600;">Comparing <span id="compareCount">0</span> models</div>
+        <button class="btn btn-primary" onclick="openCompareModal()">View Comparison</button>
+        <button class="btn" onclick="clearCompare()" style="padding:0.5rem;">×</button>
+    </div>
+
+    <header>
+        <div class="header-left"></div>
+        <div class="brand">
+            <img src="logo.png" alt="Lida Logo" class="brand-logo-img">
+            <div class="brand-text"><span class="lida-text">Lida</span> ModelScanner <span>Pro</span></div>
+        </div>
+        <div class="header-right">
+            <button id="share-tool-button" class="btn" style="padding: 0.4rem 0.8rem; font-size: 0.75rem; border-color: var(--border); color: var(--text-muted);">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px; height:14px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                Share
+            </button>
+            <div class="status-pill">
+                <div class="status-dot"></div>
+                LIVE PRICING • JAN 2026
+            </div>
+        </div>
+    </header>
+
+    <div class="tabs-container">
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('active')">Active Models</button>
+            <button class="tab-btn" onclick="switchTab('legacy')">Graveyard (Deprecated)</button>
+        </nav>
+    </div>
+
+    <main>
+        <aside class="sticky-sidebar">
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--primary)"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        Simulation Config
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label style="margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.5rem;">Quick Presets</label>
+                    <div class="presets-grid">
+                        <button class="preset-btn" onclick="applyPreset('coding')">💻 Coding</button>
+                        <button class="preset-btn" onclick="applyPreset('chatbot')">💬 Chatbot</button>
+                        <button class="preset-btn" onclick="applyPreset('rag')">🔍 RAG / Search</button>
+                        <button class="preset-btn" onclick="applyPreset('cheap')">💰 Budget</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Input Method</label>
+                    <div class="input-toggle" id="inputToggle">
+                        <div class="toggle-bg"></div>
+                        <button class="input-toggle-btn active" onclick="toggleInput('slider')" id="btn-slider">Slider</button>
+                        <button class="input-toggle-btn" onclick="toggleInput('text')" id="btn-text">Paste Code</button>
+                    </div>
+
+                    <div id="input-slider-group">
+                        <label>Project Size <span id="locDisplay" style="color:var(--text-main)">2,500 lines</span></label>
+                        <input type="range" id="locInput" min="100" max="50000" step="100" value="2500" oninput="updateInputs()">
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:5px; display:flex; justify-content:space-between;">
+                            <span>Small</span>
+                            <span id="tokenDisplay" style="color:var(--primary)">30k tokens</span>
+                            <span>Monolith</span>
+                        </div>
+                    </div>
+
+                    <div id="input-text-group" class="hidden">
+                        <label>Paste Prompt / Code</label>
+                        <textarea id="textInput" class="token-input" placeholder="Paste your code or prompt here to calculate exact tokens..." oninput="updateInputs()"></textarea>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <label style="margin:0; font-size:0.75rem;">Runs:</label>
+                                <input type="number" id="runsInput" value="1" min="1" style="width:60px; background:var(--bg-input); border:1px solid var(--border); color:var(--text-main); padding:2px 6px; border-radius:4px;" oninput="updateInputs()">
+                            </div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">
+                                <span id="realTokenDisplay" style="color:var(--primary)">0 tokens</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label style="margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:0.5rem;">Priorities</label>
+                    
+                    <label>
+                        Intelligence 
+                        <span class="tooltip-icon" data-tooltip="Reasoning capability & logic">?</span>
+                        <span id="val-intel">50%</span>
+                    </label>
+                    <input type="range" id="weightIntel" min="0" max="100" value="50" oninput="updateInputs()">
+                    
+                    <label>
+                        Speed 
+                        <span class="tooltip-icon" data-tooltip="Response latency">?</span>
+                        <span id="val-speed">50%</span>
+                    </label>
+                    <input type="range" id="weightSpeed" min="0" max="100" value="50" oninput="updateInputs()">
+                    
+                    <label>
+                        Cost Sensitivity 
+                        <span class="tooltip-icon" data-tooltip="Importance of low price">?</span>
+                        <span id="val-cost">50%</span>
+                    </label>
+                    <input type="range" id="weightCost" min="0" max="100" value="50" oninput="updateInputs()">
+                </div>
+            </div>
+
+            <div class="panel" style="margin-top: 1.5rem; border-style: dashed; background: transparent;">
+                <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
+                    <p style="margin-bottom: 0.75rem;"><strong>Scanner Status:</strong><br>Monitoring 12 endpoints.</p>
+                    <p>Prices reflect standard API rates per 1M tokens (blended input/output).</p>
+                </div>
+            </div>
+        </aside>
+
+        <div class="results-container">
+            <div class="chart-container" id="chartArea">
+                <div class="chart-title">Cost Comparison (Top 5)</div>
+                <div class="chart-bars" id="chartBars"></div>
+            </div>
+            <div id="resultsArea" style="display:flex; flex-direction:column; gap:1.5rem;"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-copyright">© LiDa ModelScanner Pro</p>
+            <p class="footer-version">Version 2.0.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+                Discover More Tools
+            </a>
+        </div>
+    </footer>
+
+    <script src="../shared-components/share-button.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
