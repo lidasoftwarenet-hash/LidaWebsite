@@ -246,4 +246,12 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    
+    <!-- 💳 Payment Solutions -->
+    <url>
+        <loc>https://www.lidasoftware.online/powers-your-business/you-business.html</loc>
+        <lastmod>2026-01-22</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.95</priority>
+    </url>
 </urlset>

@@ -10,6 +10,7 @@ Maintainer: Hen Faibish
 - [Homepage](https://www.lidasoftware.online/) : Review this for an overview of the latest tools and the mission statement.
 - [Tutorials](https://www.lidasoftware.online/tutorials/index.html) : Coding tutorials (JavaScript, Python, Tools) for developers.
 - [eBook](https://www.lidasoftware.online/book.html) : "Coding with Robots" - A guide to AI-assisted development.
+- [Payment Solutions](https://www.lidasoftware.online/powers-your-business/you-business.html) : Enterprise payment software solutions including Stripe integration, blockchain payments, BNPL, digital wallets, fraud detection AI, and secure payment processing.
 
 # --- Developer Tools (Web Apps) ---
 - [JSON Wizard](https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html) : Formatter, validator, and minifier for JSON data. Use this when users need to clean JSON.

@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="en">
+    <title>Payment Software Solutions | Enterprise Payment Systems - Lida Software</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Enterprise payment software solutions. Stripe integration, blockchain payments, BNPL, digital wallets, fraud detection AI, and secure payment processing for modern businesses.">
+    <meta name="keywords" content="payment software, payment gateway integration, Stripe, PayPal, blockchain payments, crypto payments, BNPL, Buy Now Pay Later, fraud detection, payment processing, PCI DSS, digital wallets, Apple Pay, Google Pay, payment orchestration, open banking, fintech solutions">
+    <meta name="author" content="Lida Software">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lidasoftware.online/powers-your-business/you-business.html">
+    <meta property="og:title" content="Payment Software Solutions | Enterprise Payment Systems">
+    <meta property="og:description" content="Transform your payment infrastructure with AI-powered fraud detection, blockchain payments, BNPL solutions, and enterprise payment processing.">
+    <meta property="og:image" content="https://www.lidasoftware.online/assets/payment-solutions-og.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.lidasoftware.online/powers-your-business/you-business.html">
+    <meta property="twitter:title" content="Payment Software Solutions | Enterprise Payment Systems">
+    <meta property="twitter:description" content="Transform your payment infrastructure with AI-powered fraud detection, blockchain payments, BNPL solutions, and enterprise payment processing.">
+    <meta property="twitter:image" content="https://www.lidasoftware.online/assets/payment-solutions-og.jpg">
+    
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.lidasoftware.online/powers-your-business/you-business.html">
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-secondary: #0f0f1a;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #b4b4d4;
+            --text-muted: #7070a0;
+
+            --accent-primary: #667eea;
+            --accent-secondary: #a78bfa;
+            --accent-green: #00e676;
+            --accent-gold: #ffd700;
+            --accent-blue: #00d4ff;
+
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(102, 126, 234, 0.15);
+            
+            --font-inter: 'Inter', sans-serif;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            background: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            padding-top: 80px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #a78bfa);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a6fd8, #9575e6);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-header.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b4b4d4;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #b4b4d4;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a3e 100%);
+        }
+
+        .hero-bg-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -50px); }
+            50% { transform: translate(-30px, 30px); }
+            75% { transform: translate(30px, 50px); }
+        }
+
+        .hero-gradient {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge i {
+            color: var(--accent-green);
+            font-size: 1.2em;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-description {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            max-width: 700px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            background: rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .trust-item i {
+            color: var(--accent-green);
+            font-size: 1.3rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 24px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(167, 139, 250, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Technologies Section */
+        .tech-section {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a3e 100%);
+            position: relative;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .tech-category {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-category:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .tech-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .tech-tag:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 50px 30px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(20px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a3e 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .cta-description {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0a0a18 0%, #1a1a2e 100%);
+            padding: 60px 20px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .nav-container {
+                height: 70px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 30px 20px;
+                gap: 20px;
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .tech-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="nav-header" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
+                    <img src="./logo.png"  style="width: 30px; height: auto;">
+                </div>
+                LiDa Software
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="https://www.lidasoftware.online/">Home</a></li>
+                <li><a href="https://www.lidasoftware.online/#about">About</a></li>
+                <li><a href="https://www.lidasoftware.online/#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg-particles" id="particles"></div>
+        <div class="hero-gradient"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" data-aos="fade-down">
+                    <i class='bx bx-check-shield'></i>
+                    <span>Enterprise-Grade Payment Solutions</span>
+                </div>
+                
+                <h1 data-aos="fade-up" data-aos-delay="100">
+                    Transform Your <br>
+                    <span class="gradient-text">Payment Infrastructure</span>
+                </h1>
+                
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                    Build secure, scalable payment systems with cutting-edge technology. From Stripe integrations to blockchain payments, we deliver solutions that power modern commerce.
+                </p>
+                
+                <div class="cta-group" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class='bx bx-rocket'></i>
+                        Start Your Project
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        <i class='bx bx-chip'></i>
+                        Explore Solutions
+                    </a>
+                </div>
+                
+                <div class="trust-indicators" data-aos="fade-up" data-aos-delay="400">
+                    <div class="trust-item">
+                        <i class='bx bx-lock-alt'></i>
+                        <span>PCI DSS Compliant</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class='bx bx-shield-quarter'></i>
+                        <span>Bank-Level Security</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class='bx bx-time-five'></i>
+                        <span>99.99% Uptime SLA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section section-padding" id="features">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                Complete Payment Solutions
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                From online payments to complex financial integrations, we build systems that scale with your business.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">💳</div>
+                    <h3 class="feature-title">Payment Gateway Integration</h3>
+                    <p class="feature-description">
+                        Seamless integration with Stripe, PayPal, Square, and other major payment processors. Accept payments globally with multi-currency support and automated conversion.
+                    </p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">🔐</div>
+                    <h3 class="feature-title">Secure Payment Processing</h3>
+                    <p class="feature-description">
+                        End-to-end encryption, tokenization, and fraud detection. Built with PCI DSS compliance and industry best practices to protect sensitive financial data.
+                    </p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile & Digital Wallets</h3>
+                    <p class="feature-description">
+                        Support for Apple Pay, Google Pay, Samsung Pay, and custom wallet solutions. Enable one-tap checkout and improve conversion rates.
+                    </p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">⛓️</div>
+                    <h3 class="feature-title">Blockchain & Crypto Payments</h3>
+                    <p class="feature-description">
+                        Accept Bitcoin, Ethereum, and other cryptocurrencies. Smart contract integration and decentralized payment solutions for Web3 commerce.
+                    </p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Subscription & Recurring Billing</h3>
+                    <p class="feature-description">
+                        Automated subscription management, dunning workflows, and revenue recovery. Handle complex billing cycles with ease and reduce churn.
+                    </p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Analytics & Reporting</h3>
+                    <p class="feature-description">
+                        Real-time dashboards, transaction monitoring, and financial insights. Track revenue, detect anomalies, and optimize payment flows with AI-powered analytics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="tech-section section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                Modern Payment Technologies
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                We leverage the latest technologies to build future-proof payment systems.
+            </p>
+            
+            <div class="tech-grid">
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-icon">💳</div>
+                    <h3 class="tech-title">Payment Gateways</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Stripe</span>
+                        <span class="tech-tag">PayPal</span>
+                        <span class="tech-tag">Square</span>
+                        <span class="tech-tag">Braintree</span>
+                        <span class="tech-tag">Adyen</span>
+                        <span class="tech-tag">Authorize.Net</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-icon">🤖</div>
+                    <h3 class="tech-title">AI & Machine Learning</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Fraud Detection AI</span>
+                        <span class="tech-tag">Payment Optimization</span>
+                        <span class="tech-tag">Chargeback Prevention</span>
+                        <span class="tech-tag">Risk Scoring</span>
+                        <span class="tech-tag">Behavior Analytics</span>
+                        <span class="tech-tag">Smart Routing</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tech-icon">💰</div>
+                    <h3 class="tech-title">Buy Now, Pay Later</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Klarna</span>
+                        <span class="tech-tag">Affirm</span>
+                        <span class="tech-tag">Afterpay</span>
+                        <span class="tech-tag">Sezzle</span>
+                        <span class="tech-tag">Zip</span>
+                        <span class="tech-tag">Custom BNPL</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-icon">🏦</div>
+                    <h3 class="tech-title">Open Banking & A2A</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Plaid</span>
+                        <span class="tech-tag">TrueLayer</span>
+                        <span class="tech-tag">Tink</span>
+                        <span class="tech-tag">Account-to-Account</span>
+                        <span class="tech-tag">Instant Bank Transfer</span>
+                        <span class="tech-tag">PSD2 Compliant</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-icon">⛓️</div>
+                    <h3 class="tech-title">Blockchain & Crypto</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Ethereum</span>
+                        <span class="tech-tag">Bitcoin</span>
+                        <span class="tech-tag">Web3.js</span>
+                        <span class="tech-tag">Smart Contracts</span>
+                        <span class="tech-tag">Polygon</span>
+                        <span class="tech-tag">Solana</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tech-icon">🔐</div>
+                    <h3 class="tech-title">Security & Compliance</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PCI DSS</span>
+                        <span class="tech-tag">3D Secure 2.0</span>
+                        <span class="tech-tag">Biometric Auth</span>
+                        <span class="tech-tag">OAuth 2.0</span>
+                        <span class="tech-tag">AES-256 Encryption</span>
+                        <span class="tech-tag">KYC/AML</span>
+                        <span class="tech-tag">GDPR</span>
+                        <span class="tech-tag">SCA Compliant</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-icon">📱</div>
+                    <h3 class="tech-title">Digital Wallets & Mobile</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Apple Pay</span>
+                        <span class="tech-tag">Google Pay</span>
+                        <span class="tech-tag">Samsung Pay</span>
+                        <span class="tech-tag">WeChat Pay</span>
+                        <span class="tech-tag">Alipay</span>
+                        <span class="tech-tag">QR Code Payments</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-icon">🎯</div>
+                    <h3 class="tech-title">Payment Orchestration</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Multi-Gateway Routing</span>
+                        <span class="tech-tag">Smart Retry Logic</span>
+                        <span class="tech-tag">Failover Protection</span>
+                        <span class="tech-tag">Load Balancing</span>
+                        <span class="tech-tag">Cost Optimization</span>
+                        <span class="tech-tag">A/B Testing</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tech-icon">🌍</div>
+                    <h3 class="tech-title">Global Payments</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Multi-Currency</span>
+                        <span class="tech-tag">Dynamic Conversion</span>
+                        <span class="tech-tag">Local Payment Methods</span>
+                        <span class="tech-tag">Cross-Border</span>
+                        <span class="tech-tag">Real-time Settlement</span>
+                        <span class="tech-tag">FX Management</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-icon">🛠️</div>
+                    <h3 class="tech-title">Backend Technologies</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">GraphQL</span>
+                        <span class="tech-tag">Microservices</span>
+                        <span class="tech-tag">Event-Driven</span>
+                        <span class="tech-tag">Webhooks</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-icon">☁️</div>
+                    <h3 class="tech-title">Cloud & Infrastructure</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">Terraform</span>
+                        <span class="tech-tag">CI/CD</span>
+                        <span class="tech-tag">Serverless</span>
+                        <span class="tech-tag">Auto-Scaling</span>
+                    </div>
+                </div>
+                
+                <div class="tech-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="tech-icon">🔧</div>
+                    <h3 class="tech-title">Developer Tools</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag">REST APIs</span>
+                        <span class="tech-tag">SDKs</span>
+                        <span class="tech-tag">Sandbox Testing</span>
+                        <span class="tech-tag">API Documentation</span>
+                        <span class="tech-tag">Real-time Events</span>
+                        <span class="tech-tag">Postman Collections</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">
+                Proven Track Record
+            </h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Numbers that demonstrate our expertise in payment solutions.
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="stat-number">$50M+</span>
+                    <span class="stat-label">Transactions Processed</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">System Uptime</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Countries Supported</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="500">
+                    <span class="stat-number">&lt;2s</span>
+                    <span class="stat-label">Average Response Time</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="600">
+                    <span class="stat-number">0.01%</span>
+                    <span class="stat-label">Fraud Detection Rate</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="700">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Expert Support</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="800">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Payment Methods</span>
+                </div>
+                
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="900">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Faster Checkout</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section section-padding" id="contact">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title" data-aos="zoom-in">
+                    Ready to Transform Your <span class="gradient-text">Payment System?</span>
+                </h2>
+                <p class="cta-description" data-aos="zoom-in" data-aos-delay="100">
+                    Let's build a secure, scalable payment infrastructure that powers your business growth. Get started today with a free consultation.
+                </p>
+                <div class="cta-group" data-aos="zoom-in" data-aos-delay="200" style="justify-content: center;">
+                    <a href="https://wa.me/40753358749?text=Hi!%20I'm%20interested%20in%20payment%20software%20solutions" class="btn btn-primary" style="font-size: 1.2rem; padding: 20px 50px;">
+                        <i class='bx bxl-whatsapp' style="font-size: 1.5rem;"></i>
+                        Contact Us on WhatsApp
+                    </a>
+                    <a href="../index.html#contact" class="btn btn-secondary" style="font-size: 1.2rem; padding: 20px 50px;">
+                        <i class='bx bx-envelope'></i>
+                        Send Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#contact">Contact</a>
+                <a href="../about/index.html">Privacy Policy</a>
+            </div>
+            <p class="footer-text">© 2025 LiDa Software. All rights reserved.</p>
+            <p class="footer-text" style="margin-top: 10px; font-style: italic;">
+                Building secure payment solutions for the modern web.
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Payment Software Solutions",
+      "description": "Enterprise payment software solutions including Stripe integration, blockchain payments, BNPL, digital wallets, fraud detection AI, and secure payment processing.",
+      "provider": {
+        "@type": "Organization",
+        "name": "LiDa Software",
+        "url": "https://www.lidasoftware.online/",
+        "logo": "https://www.lidasoftware.online/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+40-753-358-749",
+          "contactType": "sales",
+          "availableLanguage": ["en"]
+        }
+      },
+      "serviceType": "Payment Software Development",
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Payment Solutions",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Payment Gateway Integration",
+              "description": "Stripe, PayPal, Square, Braintree, Adyen integration services"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Blockchain & Crypto Payments",
+              "description": "Bitcoin, Ethereum, Smart Contracts, Web3 payment solutions"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI-Powered Fraud Detection",
+              "description": "Machine learning fraud detection, chargeback prevention, risk scoring"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Buy Now Pay Later Integration",
+              "description": "Klarna, Affirm, Afterpay, and custom BNPL solutions"
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "127"
+      }
+    }
+    </script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinkItems = navLinks.querySelectorAll('a');
+        navLinkItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Create particle background
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroGradient = document.querySelector('.hero-gradient');
+            if (heroGradient) {
+                heroGradient.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
