@@ -270,7 +270,7 @@ DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_NAME=production_db
 DB_USER=admin
-DB_PASSWORD=super_secret_password_123
+DB_PASSWORD=
 
 # API Configuration
 API_KEY=sk_live_EXAMPLE_KEY_DO_NOT_USE
@@ -1423,6 +1423,7 @@ jobs:
             if (localStorage.getItem('env_validator_onboarding_seen')) return;
             
             const overlay = document.createElement('div');
+            overlay.id = 'onboarding-overlay';
             overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
             overlay.innerHTML = `
                 <div style="background:linear-gradient(135deg,#1a1a2e,#2a2a4e);border-radius:24px;padding:3rem;max-width:700px;width:90%;border:2px solid var(--primary);box-shadow:0 20px 60px rgba(0,0,0,0.5);">
@@ -1450,7 +1451,7 @@ jobs:
         }
         
         window.closeOnboarding = function() {
-            const overlay = document.querySelector('[style*="z-index:9999"]');
+            const overlay = document.getElementById('onboarding-overlay');
             if (overlay) overlay.remove();
             localStorage.setItem('env_validator_onboarding_seen', 'true');
         };
