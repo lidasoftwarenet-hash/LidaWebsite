@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="en">
+    <title>Environment Variable Validator Pro - Compare, Validate & Secure .env Files | LiDa Software</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional environment variable validator. Compare multiple .env files, detect secrets, generate templates, get deployment readiness scores. Advanced features for serious developers.">
+    <meta name="keywords" content="env validator, environment variables, .env file comparison, secret detection, devops tools, deployment checklist, multi-environment, env template generator, docker compose env">
+    <meta name="author" content="LiDa Software">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/envValidator/">
+    <meta property="og:title" content="Environment Variable Validator Pro | LiDa Software">
+    <meta property="og:description" content="Compare multiple .env files, detect secrets, generate templates, and get deployment readiness scores. The ultimate env validation tool.">
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/envValidator/logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.lidasoftware.online/tools/envValidator/">
+    <meta property="twitter:title" content="Environment Variable Validator Pro | LiDa Software">
+    <meta property="twitter:description" content="The ultimate tool for environment variable management. Multi-env comparison, secret detection, health scores, and more.">
+    <meta property="twitter:image" content="https://www.lidasoftware.online/tools/envValidator/logo.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/envValidator/">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.png">
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.png">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Environment Variable Validator Pro",
+        "description": "Professional tool to compare, validate and secure .env files with multi-environment support",
+        "url": "https://www.lidasoftware.online/tools/envValidator/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": "Multi-environment comparison, Secret detection, Template generation, Health scoring, Deployment readiness check",
+        "provider": {
+            "@type": "Organization",
+            "name": "LiDa Software",
+            "url": "https://www.lidasoftware.online"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Professional Header with Lida Software Branding -->
+    <div class="lida-header">
+        <div class="lida-logo-container">
+            <img src="logo.png" alt="LiDa Logo" class="lida-logo" onerror="this.src='https://www.lidasoftware.online/logo.png'">
+            <div class="lida-brand-name">Lida Software</div>
+        </div>
+        <div class="lida-brand-tagline">Professional Development Tools & Solutions</div>
+        <div class="lida-tool-title">Environment Variable Validator Pro</div>
+        <div class="lida-tool-subtitle">Multi-env comparison • Secret detection • Health scoring • Template generation</div>
+    </div>
+
+    <!-- Share Buttons -->
+    <div class="share-section">
+        <button id="share-tool-button" class="share-mobile-btn" title="Share this tool">
+            ↗️ Share this tool
+        </button>
+        <div id="desktop-share-buttons" class="share-desktop-btns">
+            <span class="share-label">Share:</span>
+            <a href="#" id="share-facebook" class="share-btn share-btn-facebook" title="Share on Facebook">
+                <svg class="share-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Facebook
+            </a>
+            <a href="#" id="share-linkedin" class="share-btn share-btn-linkedin" title="Share on LinkedIn">
+                <svg class="share-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+            <a href="#" id="share-twitter" class="share-btn share-btn-twitter" title="Share on X">
+                <svg class="share-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                X
+            </a>
+            <button id="share-copy" class="share-btn share-btn-copy" title="Copy link">
+                <svg class="share-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                Copy Link
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Mode Selector -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="simple">
+                <span class="mode-icon">🎯</span>
+                <span>Simple Compare</span>
+            </button>
+            <button class="mode-btn" data-mode="multi">
+                <span class="mode-icon">🔄</span>
+                <span>Multi-Environment</span>
+            </button>
+            <button class="mode-btn" data-mode="docker">
+                <span class="mode-icon">🐳</span>
+                <span>Docker Compose</span>
+            </button>
+        </div>
+
+        <!-- Quick Actions Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-section">
+                <button id="sample-btn" class="toolbar-btn" title="Load sample (Ctrl+L)">
+                    <span>📋</span> Sample
+                </button>
+                <button id="generate-template-btn" class="toolbar-btn" title="Generate .env.example (Ctrl+G)">
+                    <span>📝</span> Generate Template
+                </button>
+                <button id="history-btn" class="toolbar-btn" title="View history (Ctrl+H)">
+                    <span>🕐</span> History
+                </button>
+            </div>
+            <div class="toolbar-section">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search" placeholder="Search variables..." />
+                </div>
+                <select id="filter-select" class="filter-dropdown">
+                    <option value="all">All Variables</option>
+                    <option value="missing">Missing Only</option>
+                    <option value="secrets">Secrets Only</option>
+                    <option value="empty">Empty Only</option>
+                    <option value="different">Different Values</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Simple Compare Mode -->
+        <div id="simple-mode" class="mode-content active">
+            <div class="input-grid">
+                <div class="file-panel">
+                    <div class="panel-header">
+                        <h3><span class="step-num">1</span> Reference (.env.example)</h3>
+                        <label for="file-1" class="upload-btn">📁 Upload</label>
+                        <input type="file" id="file-1" accept=".env,.txt" hidden>
+                    </div>
+                    <div class="textarea-container">
+                        <textarea id="input-1" placeholder="Paste .env.example here..." spellcheck="false"></textarea>
+                        <div class="textarea-toolbar">
+                            <button class="mini-btn" data-action="clear" data-target="input-1">🗑️</button>
+                            <button class="mini-btn" data-action="copy" data-target="input-1">📋</button>
+                        </div>
+                    </div>
+                    <div class="var-count" id="count-1">0 variables</div>
+                </div>
+
+                <div class="file-panel">
+                    <div class="panel-header">
+                        <h3><span class="step-num">2</span> Your File (.env)</h3>
+                        <label for="file-2" class="upload-btn">📁 Upload</label>
+                        <input type="file" id="file-2" accept=".env,.txt" hidden>
+                    </div>
+                    <div class="textarea-container">
+                        <textarea id="input-2" placeholder="Paste .env here..." spellcheck="false"></textarea>
+                        <div class="textarea-toolbar">
+                            <button class="mini-btn" data-action="clear" data-target="input-2">🗑️</button>
+                            <button class="mini-btn" data-action="copy" data-target="input-2">📋</button>
+                        </div>
+                    </div>
+                    <div class="var-count" id="count-2">0 variables</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Multi-Environment Mode -->
+        <div id="multi-mode" class="mode-content">
+            <div class="multi-env-header">
+                <h3>Compare Multiple Environments</h3>
+                <button id="add-env-btn" class="add-btn">+ Add Environment</button>
+            </div>
+            <div id="multi-env-container" class="multi-env-grid">
+                <!-- Dynamic environment panels will be added here -->
+            </div>
+        </div>
+
+        <!-- Docker Compose Mode -->
+        <div id="docker-mode" class="mode-content">
+            <div class="docker-section">
+                <div class="file-panel">
+                    <div class="panel-header">
+                        <h3>🐳 Docker Compose File</h3>
+                        <label for="docker-file" class="upload-btn">📁 Upload</label>
+                        <input type="file" id="docker-file" accept=".yml,.yaml" hidden>
+                    </div>
+                    <textarea id="docker-input" placeholder="Paste docker-compose.yml here..." spellcheck="false"></textarea>
+                    <div class="var-count" id="docker-count">0 env vars detected</div>
+                </div>
+                <div class="file-panel">
+                    <div class="panel-header">
+                        <h3>📄 Your .env File</h3>
+                        <label for="docker-env-file" class="upload-btn">📁 Upload</label>
+                        <input type="file" id="docker-env-file" accept=".env,.txt" hidden>
+                    </div>
+                    <textarea id="docker-env-input" placeholder="Paste .env here..." spellcheck="false"></textarea>
+                    <div class="var-count" id="docker-env-count">0 variables</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button id="validate-btn" class="cta-btn">
+                <span class="btn-icon">🔍</span>
+                <span>Validate & Analyze</span>
+            </button>
+            <button id="clear-all-btn" class="secondary-btn">
+                <span>🗑️</span> Clear All
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-state" style="display:none;">
+            <div class="spinner"></div>
+            <p>Analyzing environment variables...</p>
+        </div>
+
+        <!-- View Tabs -->
+        <div id="view-tabs" class="view-tabs" style="display:none;">
+            <button class="tab-btn active" data-view="overview">📊 Overview</button>
+            <button class="tab-btn" data-view="comparison">🔍 Comparison</button>
+            <button class="tab-btn" data-view="diff">📝 Diff View</button>
+            <button class="tab-btn" data-view="matrix">🎯 Matrix</button>
+            <button class="tab-btn" data-view="insights">💡 Insights</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="results-section" style="display:none;">
+            <!-- Overview Tab -->
+            <div id="overview-view" class="tab-content active">
+                <!-- Health Score Card -->
+                <div class="health-score-card">
+                    <div class="score-visual">
+                        <div class="score-circle" id="health-score-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="score-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="score-progress" id="score-progress" cx="50" cy="50" r="45"></circle>
+                            </svg>
+                            <div class="score-text">
+                                <div class="score-number" id="health-score">0</div>
+                                <div class="score-label">Health</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="score-details">
+                        <h3>Environment Health Score</h3>
+                        <div id="health-breakdown"></div>
+                        <div id="health-recommendations"></div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div id="stats-grid" class="stats-grid"></div>
+
+                <!-- Deployment Readiness -->
+                <div id="deployment-readiness" class="deployment-card"></div>
+
+                <!-- Security Warnings -->
+                <div id="security-warnings" class="warnings-section"></div>
+            </div>
+
+            <!-- Comparison Tab -->
+            <div id="comparison-view" class="tab-content">
+                <div id="comparison-results" class="comparison-grid"></div>
+            </div>
+
+            <!-- Diff View Tab -->
+            <div id="diff-view" class="tab-content">
+                <div class="diff-container" id="diff-container"></div>
+            </div>
+
+            <!-- Matrix Tab -->
+            <div id="matrix-view" class="tab-content">
+                <div class="matrix-controls">
+                    <button id="export-matrix-btn" class="icon-btn">📥 Export Matrix</button>
+                </div>
+                <div class="matrix-table-wrapper">
+                    <table id="matrix-table" class="matrix-table"></table>
+                </div>
+            </div>
+
+            <!-- Insights Tab -->
+            <div id="insights-view" class="tab-content">
+                <div id="insights-content" class="insights-grid"></div>
+                
+                <!-- Template Generator Section -->
+                <div class="generator-section">
+                    <h3>🎯 Quick Actions</h3>
+                    <div class="generator-actions">
+                        <button id="gen-env-example-btn" class="action-card">
+                            <span class="action-icon">📝</span>
+                            <div class="action-text">
+                                <div class="action-title">Generate .env.example</div>
+                                <div class="action-desc">Strip sensitive values, keep safe defaults</div>
+                            </div>
+                        </button>
+                        <button id="gen-readme-btn" class="action-card">
+                            <span class="action-icon">📚</span>
+                            <div class="action-text">
+                                <div class="action-title">Generate Documentation</div>
+                                <div class="action-desc">Create README.md env variables table</div>
+                            </div>
+                        </button>
+                        <button id="gen-hook-btn" class="action-card">
+                            <span class="action-icon">🪝</span>
+                            <div class="action-text">
+                                <div class="action-title">Pre-Commit Hook</div>
+                                <div class="action-desc">Auto-validate before git commit</div>
+                            </div>
+                        </button>
+                        <button id="gen-ci-btn" class="action-card">
+                            <span class="action-icon">⚙️</span>
+                            <div class="action-text">
+                                <div class="action-title">CI/CD Workflow</div>
+                                <div class="action-desc">GitHub Actions validation script</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Options Panel -->
+        <div id="export-panel" class="export-panel" style="display:none;">
+            <div class="export-header">
+                <h3>📥 Export Options</h3>
+                <button class="close-btn" onclick="closeExportPanel()">×</button>
+            </div>
+            <div class="export-options">
+                <button class="export-option-btn" data-format="markdown">
+                    <span>📝</span> Markdown Report
+                </button>
+                <button class="export-option-btn" data-format="json">
+                    <span>{ }</span> JSON
+                </button>
+                <button class="export-option-btn" data-format="csv">
+                    <span>📊</span> CSV
+                </button>
+                <button class="export-option-btn" data-format="html">
+                    <span>🌐</span> HTML Report
+                </button>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div id="history-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🕐 Validation History</h3>
+                    <button class="close-btn" onclick="closeHistory()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="history-list" class="history-list"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="clear-history-btn" class="danger-btn">Clear All History</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Output Modal -->
+        <div id="template-modal" class="modal" style="display:none;">
+            <div class="modal-content large">
+                <div class="modal-header">
+                    <h3 id="template-modal-title">📝 Generated Template</h3>
+                    <button class="close-btn" onclick="closeTemplateModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="template-output" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="copy-template-btn" class="primary-btn">📋 Copy to Clipboard</button>
+                    <button id="download-template-btn" class="secondary-btn">💾 Download</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="privacy-notice-box">
+            🔒 <strong>100% Private:</strong> All processing in your browser. No uploads. No tracking.
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button id="fab-main" class="fab">
+            <span>⚡</span>
+        </button>
+        <div id="fab-menu" class="fab-menu">
+            <button class="fab-option" data-action="save-snapshot">💾 Save Snapshot</button>
+            <button class="fab-option" data-action="export">📥 Export Report</button>
+            <button class="fab-option" data-action="shortcuts">⌨️ Shortcuts</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Shortcuts Help Modal -->
+    <div id="shortcuts-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⌨️ Keyboard Shortcuts</h3>
+                <button class="close-btn" onclick="closeShortcuts()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                        <span>Validate</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>L</kbd>
+                        <span>Load Sample</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>G</kbd>
+                        <span>Generate Template</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>H</kbd>
+                        <span>History</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>S</kbd>
+                        <span>Save Snapshot</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>F</kbd>
+                        <span>Search</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>K</kbd>
+                        <span>Clear All</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Ctrl</kbd> + <kbd>E</kbd>
+                        <span>Export</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="lida-footer">
+        <div class="lida-footer-content">
+            <p class="lida-footer-copyright">© LiDa Environment Variable Validator Pro</p>
+            <p class="lida-footer-version">Version 2.0.0 | Made with <span class="lida-footer-heart">❤️</span> for serious developers</p>
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="lida-btn-discover">
+                Discover More Tools
+            </a>
+            <div class="lida-footer-bottom">
+                <p class="lida-footer-bottom-text">© 2025 LiDa Software. Enterprise-grade tools, forever free.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
