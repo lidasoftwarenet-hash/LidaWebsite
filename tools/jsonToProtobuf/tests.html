@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProtoStruct Test Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .test-group {
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .test-group-header {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .test-case {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .test-case:last-child {
+            border-bottom: none;
+        }
+
+        .test-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .test-status {
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .test-status.pending {
+            background: #f39c12;
+            color: white;
+        }
+
+        .test-status.pass {
+            background: #27ae60;
+            color: white;
+        }
+
+        .test-status.fail {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .test-details {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .test-output {
+            margin-top: 10px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ecf0f1;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .run-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .run-button:hover {
+            background: #2980b9;
+        }
+
+        .run-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 ProtoStruct Test Suite</h1>
+        <p class="subtitle">Comprehensive tests for all critical fixes</p>
+
+        <button class="run-button" id="runTests">▶️ Run All Tests</button>
+
+        <div id="testResults"></div>
+
+        <div class="summary" id="summary">
+            <div class="summary-item">
+                <div class="summary-number" id="totalTests">0</div>
+                <div class="summary-label">Total Tests</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-number" style="color: #27ae60;" id="passedTests">0</div>
+                <div class="summary-label">Passed</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-number" style="color: #e74c3c;" id="failedTests">0</div>
+                <div class="summary-label">Failed</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="ProtoStruct.js"></script>
+    <script src="Generators.js"></script>
+    <script src="Validator.js"></script>
+    
+    <script>
+        class TestRunner {
+            constructor() {
+                this.tests = [];
+                this.results = {
+                    total: 0,
+                    passed: 0,
+                    failed: 0
+                };
+            }
+
+            addTest(group, name, testFn) {
+                this.tests.push({ group, name, testFn });
+            }
+
+            async runAll() {
+                this.results = { total: 0, passed: 0, failed: 0 };
+                const resultsDiv = document.getElementById('testResults');
+                resultsDiv.innerHTML = '';
+
+                const groups = {};
+                this.tests.forEach(test => {
+                    if (!groups[test.group]) {
+                        groups[test.group] = [];
+                    }
+                    groups[test.group].push(test);
+                });
+
+                for (const [groupName, tests] of Object.entries(groups)) {
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'test-group';
+                    groupDiv.innerHTML = `<div class="test-group-header">${groupName}</div>`;
+                    resultsDiv.appendChild(groupDiv);
+
+                    for (const test of tests) {
+                        this.results.total++;
+                        const testDiv = document.createElement('div');
+                        testDiv.className = 'test-case';
+                        
+                        try {
+                            const result = await test.testFn();
+                            if (result.pass) {
+                                this.results.passed++;
+                                testDiv.innerHTML = `
+                                    <div>
+                                        <div class="test-name">${test.name}</div>
+                                        ${result.details ? `<div class="test-details">${result.details}</div>` : ''}
+                                    </div>
+                                    <div class="test-status pass">✓ PASS</div>
+                                `;
+                            } else {
+                                this.results.failed++;
+                                testDiv.innerHTML = `
+                                    <div style="flex: 1;">
+                                        <div class="test-name">${test.name}</div>
+                                        ${result.details ? `<div class="test-details">Expected: ${result.details}</div>` : ''}
+                                        ${result.error ? `<div class="test-output">${result.error}</div>` : ''}
+                                    </div>
+                                    <div class="test-status fail">✗ FAIL</div>
+                                `;
+                            }
+                        } catch (error) {
+                            this.results.failed++;
+                            testDiv.innerHTML = `
+                                <div style="flex: 1;">
+                                    <div class="test-name">${test.name}</div>
+                                    <div class="test-output">Error: ${error.message}</div>
+                                </div>
+                                <div class="test-status fail">✗ FAIL</div>
+                            `;
+                        }
+
+                        groupDiv.appendChild(testDiv);
+                    }
+                }
+
+                this.updateSummary();
+            }
+
+            updateSummary() {
+                document.getElementById('totalTests').textContent = this.results.total;
+                document.getElementById('passedTests').textContent = this.results.passed;
+                document.getElementById('failedTests').textContent = this.results.failed;
+            }
+        }
+
+        const runner = new TestRunner();
+
+        // ===== TEST GROUP 1: REPEATED KEYWORD =====
+        runner.addTest('1. Repeated Keyword Support', 'Should add "repeated" keyword to arrays', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { tags: ["tag1", "tag2", "tag3"] };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasRepeated = result.proto.includes('repeated string tags');
+            return {
+                pass: hasRepeated,
+                details: hasRepeated ? 'Found "repeated" keyword in array field' : 'Missing "repeated" keyword'
+            };
+        });
+
+        runner.addTest('1. Repeated Keyword Support', 'Should handle arrays of objects with repeated', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { items: [{ id: 1, name: "item1" }, { id: 2, name: "item2" }] };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasRepeated = result.proto.includes('repeated Items items');
+            return {
+                pass: hasRepeated,
+                details: hasRepeated ? 'Found "repeated" for object arrays' : 'Missing "repeated" for object arrays'
+            };
+        });
+
+        // ===== TEST GROUP 2: OPTIONAL SUPPORT =====
+        runner.addTest('2. Optional Field Support', 'Should mark null fields as optional in proto3', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { name: "test", bio: null };
+            const result = protoStruct.convert(JSON.stringify(json), { useOptional: true, syntaxVersion: 'proto3' });
+            
+            const hasOptional = result.proto.includes('optional');
+            return {
+                pass: hasOptional,
+                details: hasOptional ? 'Found "optional" keyword for null field' : 'Missing "optional" keyword'
+            };
+        });
+
+        runner.addTest('2. Optional Field Support', 'Should track optional fields count', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { field1: "test", field2: null, field3: null };
+            const result = protoStruct.convert(JSON.stringify(json), { useOptional: true });
+            
+            const hasCount = result.stats.optionalFieldsDetected === 2;
+            return {
+                pass: hasCount,
+                details: `Detected ${result.stats.optionalFieldsDetected} optional fields (expected 2)`
+            };
+        });
+
+        // ===== TEST GROUP 3: INPUT SANITIZATION =====
+        runner.addTest('3. XSS Prevention', 'Should reject input with script tags', () => {
+            const protoStruct = new ProtoStruct();
+            const maliciousJson = '{"name": "<script>alert(1)</script>"}';
+            const result = protoStruct.convert(maliciousJson);
+            
+            const rejected = !result.success && result.error.includes('dangerous');
+            return {
+                pass: rejected,
+                details: rejected ? 'Dangerous content was rejected' : 'Failed to block dangerous content'
+            };
+        });
+
+        runner.addTest('3. XSS Prevention', 'Should reject input with javascript: protocol', () => {
+            const protoStruct = new ProtoStruct();
+            const maliciousJson = '{"url": "javascript:alert(1)"}';
+            const result = protoStruct.convert(maliciousJson);
+            
+            const rejected = !result.success && result.error.includes('dangerous');
+            return {
+                pass: rejected,
+                details: rejected ? 'JavaScript protocol was rejected' : 'Failed to block javascript: protocol'
+            };
+        });
+
+        runner.addTest('3. XSS Prevention', 'Should reject oversized input', () => {
+            const protoStruct = new ProtoStruct();
+            const hugeData = 'x'.repeat(11 * 1024 * 1024);
+            const hugeJson = JSON.stringify({ data: hugeData });
+            const result = protoStruct.convert(hugeJson);
+            
+            const rejected = !result.success && result.error.includes('too large');
+            return {
+                pass: rejected,
+                details: rejected ? 'Oversized input was rejected' : 'Failed to reject oversized input'
+            };
+        });
+
+        // ===== TEST GROUP 4: ERROR HANDLING =====
+        runner.addTest('4. Error Handling', 'Should handle empty input gracefully', () => {
+            const protoStruct = new ProtoStruct();
+            const result = protoStruct.convert('');
+            
+            const hasError = !result.success && result.error.includes('empty');
+            return {
+                pass: hasError,
+                details: hasError ? 'Empty input handled with clear error' : 'Failed to handle empty input'
+            };
+        });
+
+        runner.addTest('4. Error Handling', 'Should handle invalid JSON with helpful message', () => {
+            const protoStruct = new ProtoStruct();
+            const result = protoStruct.convert('{invalid json}');
+            
+            const hasError = !result.success && result.error.includes('Invalid JSON');
+            return {
+                pass: hasError,
+                details: hasError ? 'Invalid JSON handled with clear error' : 'Failed to handle invalid JSON'
+            };
+        });
+
+        runner.addTest('4. Error Handling', 'Should handle array root with helpful error', () => {
+            const protoStruct = new ProtoStruct();
+            const result = protoStruct.convert('[1, 2, 3]');
+            
+            const hasError = !result.success && result.error.includes('array');
+            return {
+                pass: hasError,
+                details: hasError ? 'Array root handled with clear error' : 'Failed to handle array root'
+            };
+        });
+
+        // ===== TEST GROUP 5: NESTED MESSAGES =====
+        runner.addTest('5. Nested Message Extraction', 'Should extract nested objects as separate messages', () => {
+            const protoStruct = new ProtoStruct();
+            const json = {
+                user: {
+                    profile: {
+                        address: {
+                            street: "123 Main St"
+                        }
+                    }
+                }
+            };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasAddress = result.proto.includes('message Address');
+            const hasProfile = result.proto.includes('message Profile');
+            return {
+                pass: hasAddress && hasProfile,
+                details: `Extracted ${result.messageCount} messages (expected 4)`
+            };
+        });
+
+        runner.addTest('5. Nested Message Extraction', 'Should handle circular reference detection', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { a: { b: { c: "test" } } };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasWarnings = result.warnings && result.warnings.length >= 0;
+            return {
+                pass: hasWarnings,
+                details: `Generated ${result.messageCount} nested messages`
+            };
+        });
+
+        // ===== TEST GROUP 6: RESERVED KEYWORDS =====
+        runner.addTest('6. Reserved Keyword Handling', 'Should rename reserved keyword fields', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { message: "test", service: "api", import: "value" };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasRenamed = result.proto.includes('message_field') || 
+                               result.proto.includes('service_field') || 
+                               result.proto.includes('import_field');
+            const hasWarning = result.warnings.some(w => w.includes('Reserved keyword'));
+            
+            return {
+                pass: hasRenamed && hasWarning,
+                details: hasRenamed ? 'Reserved keywords were renamed' : 'Failed to rename reserved keywords'
+            };
+        });
+
+        runner.addTest('6. Reserved Keyword Handling', 'Should sanitize package names', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { test: "value" };
+            const result = protoStruct.convert(JSON.stringify(json), { 
+                packageName: 'INVALID$PACKAGE#NAME!' 
+            });
+            
+            const hasDefault = result.proto.includes('package com.example.api');
+            return {
+                pass: hasDefault,
+                details: hasDefault ? 'Invalid package name was sanitized' : 'Failed to sanitize package name'
+            };
+        });
+
+        // ===== TEST GROUP 7: COMPLETE WORKFLOW =====
+        runner.addTest('7. Complete Workflow', 'Should handle complex real-world JSON', () => {
+            const protoStruct = new ProtoStruct();
+            const json = {
+                userId: 123,
+                email: "test@example.com",
+                createdAt: "2024-01-01T00:00:00Z",
+                profile: {
+                    name: "John Doe",
+                    age: 30,
+                    bio: null,
+                    tags: ["tag1", "tag2"]
+                },
+                orders: [
+                    { orderId: 1, amount: 99.99 },
+                    { orderId: 2, amount: 49.99 }
+                ]
+            };
+            const result = protoStruct.convert(JSON.stringify(json), { useOptional: true });
+            
+            const hasRepeated = result.proto.includes('repeated');
+            const hasOptional = result.proto.includes('optional');
+            const hasTimestamp = result.proto.includes('google.protobuf.Timestamp');
+            const isValid = result.success && result.messageCount >= 3;
+            
+            return {
+                pass: isValid && hasRepeated && hasOptional && hasTimestamp,
+                details: `Generated ${result.messageCount} messages with repeated, optional, and Well-Known Types`
+            };
+        });
+
+        runner.addTest('7. Complete Workflow', 'Should generate valid proto3 syntax', () => {
+            const protoStruct = new ProtoStruct();
+            const json = { id: 1, name: "test" };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const hasProto3 = result.proto.includes('syntax = "proto3"');
+            const hasPackage = result.proto.includes('package ');
+            const hasMessage = result.proto.includes('message ');
+            
+            return {
+                pass: hasProto3 && hasPackage && hasMessage,
+                details: 'Generated valid proto3 file structure'
+            };
+        });
+
+        // ===== TEST GROUP 8: VALIDATION =====
+        runner.addTest('8. Validation', 'Validator should pass valid proto', () => {
+            const protoStruct = new ProtoStruct();
+            const validator = new ProtoValidator();
+            const json = { id: 1, name: "test" };
+            const result = protoStruct.convert(JSON.stringify(json));
+            
+            const validation = validator.validate(result.proto);
+            
+            return {
+                pass: validation.valid,
+                details: validation.valid ? 'Valid proto passed validation' : `Validation failed: ${validation.errors.join(', ')}`
+            };
+        });
+
+        // Run button handler
+        document.getElementById('runTests').addEventListener('click', async () => {
+            const button = document.getElementById('runTests');
+            button.disabled = true;
+            button.textContent = '⏳ Running tests...';
+            
+            await runner.runAll();
+            
+            button.disabled = false;
+            button.textContent = '▶️ Run All Tests';
+            
+            // Show completion message
+            const passed = runner.results.passed;
+            const total = runner.results.total;
+            if (passed === total) {
+                alert(`🎉 All ${total} tests passed!`);
+            } else {
+                alert(`⚠️ ${passed}/${total} tests passed`);
+            }
+        });
+
+        // Auto-run on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('runTests').click();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

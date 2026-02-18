@@ -25,6 +25,8 @@ Maintainer: Hen Faibish
 - [Architecture Compatibility Tool](https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html) : Analyze and verify compatibility between different system architecture components.
 - [System Graph Visualizer](https://www.lidasoftware.online/tools/graphVisualizer/graph-visualizer.html) : Visualize complex system relationships and dependencies using interactive graphs.
 - [AI Model Selector](https://www.lidasoftware.online/tools/ai-selector/index.html) : Compare top LLMs (GPT-5, Claude 3.5, Llama 4), calculate costs, and generate API configs.
+- [Environment Variable Validator Pro](https://www.lidasoftware.online/tools/envValidator/index.html) : Compare .env files across environments, detect secrets, generate templates, health scoring, deployment readiness checks.
+- [JSON to Protobuf Architect](https://www.lidasoftware.online/tools/jsonToProtobuf/index.html) : Convert JSON to Protocol Buffer schemas with advanced type inference, nested structures, and well-known types support for gRPC development.
 - [Tools Directory](https://www.lidasoftware.online/tools/toolSList/tools.html) : A full master list of all available web tools.
 
 # --- Chrome Extensions ---
