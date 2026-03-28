@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/lidamixplay", "destination": "/lida-mix-play/index.html" }
+    { "source": "/lidamixplay/:path*", "destination": "/lida-mix-play/:path*" }
+  ],
+  "redirects": [
+    { "source": "/lidamixplay", "destination": "/lidamixplay/", "permanent": false }
   ]
 }
