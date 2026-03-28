@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/lidamixplay", "destination": "/lida-mix-play/index.html" }
+  ]
+}
