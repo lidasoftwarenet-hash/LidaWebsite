@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="language" content="en" />
+  <title>AI API Status Monitor - Know Before Your Users Do | LiDa Software</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Case study: How the LiDa AI API Status Dashboard gives developers real-time visibility into OpenAI, Anthropic, Gemini, Groq, DeepSeek, Mistral, Perplexity, and xAI — before users start complaining." />
+  <meta name="keywords"
+    content="AI API monitoring, OpenAI status, Anthropic down, Gemini outage, is ChatGPT down, AI uptime dashboard, real-time status monitoring, developer tools, API health check" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.lidasoftware.online/usecase-ai-status.html" />
+  <meta property="og:title" content="AI API Status Monitor – Know Before Your Users Do" />
+  <meta property="og:description"
+    content="A real-time monitoring dashboard for 8 major AI APIs. Live data from official status feeds, 90-day history, and a mission-control UX you'll actually want to watch." />
+  <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+  <meta property="og:site_name" content="LiDa Software" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI API Status Monitor – Is it Down?" />
+  <meta name="twitter:description"
+    content="Real-time status of OpenAI, Anthropic, Gemini, Groq, DeepSeek and more. Auto-refreshes every 60 seconds from official feeds." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+
+  <link rel="canonical" href="https://www.lidasoftware.online/usecase-ai-status.html">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI API Status Monitor — Know Before Your Users Do",
+    "description": "How the LiDa AI Status Dashboard provides real-time visibility into 8 major AI APIs using official status feeds, 90-day history, and a cinematic live-ops UX.",
+    "url": "https://www.lidasoftware.online/usecase-ai-status.html",
+    "author": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online",
+      "logo": "https://www.lidasoftware.online/lida-logo.png"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "logo": { "@type": "ImageObject", "url": "https://www.lidasoftware.online/lida-logo.png" }
+    }
+  }
+  </script>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #08080f;
+      color: #e0e0e0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+
+    h1 {
+      font-size: clamp(2em, 6vw, 3em);
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #22c55e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    h2 { font-size: 1.8em; color: #fff; margin: 40px 0 16px; font-weight: 700; }
+    h3 { font-size: 1.3em; color: #d0d0f0; margin: 28px 0 12px; font-weight: 600; }
+    p  { color: #b0b0d0; margin-bottom: 18px; font-size: 1.05em; line-height: 1.8; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(135deg, #08080f 0%, #0d0d1a 100%);
+      border: 1px solid rgba(102,126,234,0.15);
+      border-radius: 20px;
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(102,126,234,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(102,126,234,0.12);
+      border: 1px solid rgba(102,126,234,0.3);
+      color: #818cf8;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #667eea 0%, #22c55e 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.05em;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(102,126,234,0.3);
+      margin-top: 28px;
+    }
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(102,126,234,0.4);
+    }
+
+    .feature-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(102,126,234,0.12);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .feature-box h3 { margin-top: 0; }
+
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .provider-chip {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+    .provider-chip .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(34,197,94,0.6);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 24px 0;
+    }
+    @media (max-width: 600px) { .stat-row { grid-template-columns: 1fr 1fr; } }
+    .stat-card {
+      background: rgba(102,126,234,0.06);
+      border: 1px solid rgba(102,126,234,0.15);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 2em;
+      font-weight: 800;
+      color: #818cf8;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .lbl { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #475569; }
+
+    ul, ol { margin-left: 28px; margin-bottom: 20px; }
+    li { color: #b0b0d0; margin-bottom: 10px; line-height: 1.7; }
+    strong { color: #e0e0e0; }
+    code {
+      background: rgba(102,126,234,0.1);
+      border: 1px solid rgba(102,126,234,0.2);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: .9em;
+      color: #818cf8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(102,126,234,0.12);
+      margin-top: 80px;
+      color: #475569;
+      font-size: 13px;
+    }
+    footer a { color: #667eea; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+      <span class="badge">📡 Live Monitoring Tool</span>
+      <h1>AI API Status Dashboard</h1>
+      <p style="font-size:1.2em;color:#94a3b8;max-width:640px;margin:0 auto;">
+        Stop finding out from your users that the AI is down.
+        Get a real-time command-center view of every major AI API — straight from official feeds.
+      </p>
+      <a href="tools/ai-status/" class="cta-button">
+        Open Live Dashboard →
+      </a>
+    </div>
+
+    <!-- STATS -->
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">8</div><div class="lbl">Providers monitored</div></div>
+      <div class="stat-card"><div class="num">60s</div><div class="lbl">Auto-refresh interval</div></div>
+      <div class="stat-card"><div class="num">90</div><div class="lbl">Days of history shown</div></div>
+    </div>
+
+    <!-- THE PROBLEM -->
+    <h2>The Problem</h2>
+    <p>
+      When an AI API goes down, most developers find out in the worst possible way — from a support ticket,
+      a Slack message, or a spike in errors. By then, users are already frustrated.
+    </p>
+    <p>
+      Checking each provider's status page manually is slow, fragmented, and inconsistent.
+      Some providers don't even expose machine-readable APIs — making automation harder still.
+    </p>
+
+    <!-- THE SOLUTION -->
+    <h2>The Solution</h2>
+    <p>
+      The <strong>LiDa AI API Status Dashboard</strong> aggregates live status data from all 8 major AI API providers
+      into a single, beautiful, real-time monitoring view — refreshed automatically every 60 seconds.
+    </p>
+
+    <div class="provider-grid">
+      <div class="provider-chip"><span class="dot"></span>OpenAI</div>
+      <div class="provider-chip"><span class="dot"></span>Anthropic</div>
+      <div class="provider-chip"><span class="dot"></span>Google Gemini</div>
+      <div class="provider-chip"><span class="dot"></span>Mistral AI</div>
+      <div class="provider-chip"><span class="dot"></span>Groq</div>
+      <div class="provider-chip"><span class="dot"></span>DeepSeek</div>
+      <div class="provider-chip"><span class="dot"></span>Perplexity</div>
+      <div class="provider-chip"><span class="dot"></span>xAI (Grok)</div>
+    </div>
+
+    <!-- FEATURES -->
+    <h2>What You Get</h2>
+
+    <div class="feature-box">
+      <h3>📡 Live Status from Official Feeds</h3>
+      <p>
+        Status data is fetched from each provider's official public status API (Atlassian Statuspage, Google Cloud
+        Incidents, Instatus). The dashboard talks directly to the same endpoints provider engineering teams use —
+        not scraped text or third-party aggregators.
+      </p>
+      <p>
+        Providers without machine-readable APIs (Mistral, Groq, Perplexity) are clearly labelled as
+        <em>"No public API"</em> with direct links to their status pages rather than showing misleading automated data.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>📊 90-Day Uptime History</h3>
+      <p>
+        Each provider card includes a compact 90-day history sparkline — colour-coded by status
+        (green = operational, amber = degraded, red = outage). Click any card's history section to open a
+        full chart modal with a canvas-drawn latency area graph, uptime percentage, best day, worst day,
+        and an interactive status timeline with per-day tooltips.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>⚡ Mission-Control UX</h3>
+      <p>
+        Unlike static status pages, the dashboard is designed to feel alive. Provider cards stagger in on load,
+        history blocks stream in left-to-right, operational providers show radar-ping status indicators,
+        and the global health banner pulses with concentric rings. A live HH:MM:SS clock and countdown arc
+        show exactly when the next refresh fires.
+      </p>
+    </div>
+
+    <div class="feature-box">
+      <h3>🛡️ Graceful Degradation</h3>
+      <p>
+        If the backend is unreachable, the last known data is preserved from <code>localStorage</code> and
+        a non-blocking toast notifies you. No broken layouts, no spinning spinners — just the last good snapshot
+        until connectivity is restored. Unsupported providers are shown with a neutral <em>"Live automation
+        unavailable"</em> label, never as false outages.
+      </p>
+    </div>
+
+    <!-- WHO IS IT FOR -->
+    <h2>Who Is This For?</h2>
+    <ul>
+      <li><strong>SaaS developers</strong> whose product depends on one or more AI APIs and need a quick sanity check before debugging their own code.</li>
+      <li><strong>AI engineers</strong> who want to cross-reference provider reliability before picking a primary and fallback model.</li>
+      <li><strong>Product managers</strong> who need to communicate incident timelines to stakeholders without waiting on provider emails.</li>
+      <li><strong>Indie hackers</strong> building on LLM APIs who want professional-grade visibility without setting up their own monitoring infrastructure.</li>
+    </ul>
+
+    <!-- DATA SOURCES -->
+    <h2>Data & Transparency</h2>
+    <p>
+      Every provider card shows its <strong>data source label</strong> — either
+      <em>"Official public status API"</em>, <em>"Google Cloud incidents feed"</em>, or
+      <em>"Public status page only (no machine-readable API)"</em>. Response latency shown on each card
+      is the actual measured time to fetch the status endpoint, not AI inference latency.
+      Typical TTFT values are benchmark estimates from Artificial Analysis, updated quarterly.
+    </p>
+
+    <!-- CTA -->
+    <h2>Start Monitoring</h2>
+    <p>
+      Free, no login, no setup. The dashboard works entirely in your browser using the LiDa backend,
+      which polls each provider on a schedule and serves aggregated results.
+    </p>
+    <div style="text-align:center;margin-top:32px">
+      <a href="tools/ai-status/" class="cta-button">
+        Open AI Status Dashboard →
+      </a>
+    </div>
+
+    <footer>
+      <p>© 2026 LiDa Software. All tools are 100% free.</p>
+      <p style="margin-top:10px">
+        <a href="index.html">← Back to All Tools</a>
+      </p>
+    </footer>
+
+  </div>
+</body>
+
+</html>

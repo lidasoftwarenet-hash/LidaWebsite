@@ -15,6 +15,22 @@
     "pricing": "Free"
   },
   {
+    "id": "ai-status",
+    "category": "AI & Coding Assistants",
+    "name": "AI API Status Dashboard",
+    "description": "Real-time monitoring dashboard for 8 major AI APIs — OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Auto-refreshes every 60 seconds from official status feeds.",
+    "useCase": "Know before your users do when an AI API goes down. Live status, 90-day history, and a mission-control UX.",
+    "url": "../../tools/ai-status/index.html",
+    "tags": [
+      "ai",
+      "monitoring",
+      "status",
+      "ops",
+      "real-time"
+    ],
+    "pricing": "Free"
+  },
+  {
     "id": "ai-hallucination-spotter",
     "category": "AI & Coding Assistants",
     "name": "AI Hallucination Spotter",
@@ -93,14 +109,14 @@
     "id": "claude-code",
     "category": "AI & Coding Assistants",
     "name": "Claude Code",
-    "description": "Anthropic’s official AI coding assistant that excels at high-level reasoning, complex logic fixes, and multi-file architecture explanations.",
-    "useCase": "Complex bug fixing and deep architectural understanding of large codebases.",
-    "url": "https://claude.ai",
+    "description": "Anthropic's official terminal-based agentic coding assistant. Edits files, runs commands, and autonomously completes multi-step engineering tasks using Claude 4.",
+    "useCase": "Running long autonomous coding tasks, complex refactors, and architectural work directly from your terminal with full repo context.",
+    "url": "https://claude.ai/code",
     "tags": [
       "ai",
       "anthropic",
-      "reasoning",
-      "claude"
+      "agentic",
+      "terminal"
     ],
     "pricing": "Freemium"
   },
@@ -138,16 +154,16 @@
     "id": "sourcegraph-cody",
     "category": "AI & Coding Assistants",
     "name": "Sourcegraph Cody",
-    "description": "An AI assistant that uses the full context of your codebase to answer questions and write code.",
-    "useCase": "Large-scale repositories where cross-file context is essential for code generation.",
+    "description": "An AI assistant that uses the full context of your codebase to answer questions and write code. Consumer plans discontinued in 2025 — now focused on enterprise teams.",
+    "useCase": "Large-scale enterprise repositories where cross-file context and security compliance are essential.",
     "url": "https://sourcegraph.com/cody",
     "tags": [
       "ai",
       "context",
-      "search",
-      "enterprise"
+      "enterprise",
+      "search"
     ],
-    "pricing": "Freemium"
+    "pricing": "Paid"
   },
   {
     "id": "continue-dev",
@@ -165,17 +181,47 @@
     "pricing": "Free"
   },
   {
-    "id": "supermaven",
+    "id": "augment-code",
     "category": "AI & Coding Assistants",
-    "name": "Supermaven",
-    "description": "Ultra-fast AI code completion with a massive context window of up to 1 million tokens.",
-    "useCase": "High-speed coding with the ability to reference huge chunks of the project at once.",
-    "url": "https://supermaven.com/",
+    "name": "Augment Code",
+    "description": "Enterprise-grade AI coding assistant that understands your entire codebase across multiple repositories. Its context engine indexes hundreds of thousands of files to give deeply accurate suggestions.",
+    "useCase": "Onboarding to large legacy codebases, multi-repo refactoring, and complex bug fixing where cross-file context is essential.",
+    "url": "https://www.augmentcode.com/",
     "tags": [
       "ai",
-      "fast",
+      "enterprise",
       "context",
-      "autocomplete"
+      "multi-repo"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "lovable-dev",
+    "category": "AI & Coding Assistants",
+    "name": "Lovable",
+    "description": "The breakout full-stack AI app builder of 2025. Go from a text prompt to a complete, deployed web app (frontend + Supabase backend + auth) in minutes.",
+    "useCase": "Rapidly prototyping and launching MVPs without needing to configure a backend, auth, or database from scratch.",
+    "url": "https://lovable.dev",
+    "tags": [
+      "ai",
+      "builder",
+      "full-stack",
+      "prototype"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "kiro-aws-ide",
+    "category": "AI & Coding Assistants",
+    "name": "Kiro IDE",
+    "description": "Agentic IDE by AWS (launched July 2025) built on VS Code. Uses spec-driven development to convert prompts into structured specs, user stories, and tasks — bridging the gap between vibe coding and production readiness.",
+    "useCase": "AWS-centric development where you want to go from natural language to production-ready code with automated testing, documentation, and deployment hooks.",
+    "url": "https://kiro.dev",
+    "tags": [
+      "ai",
+      "agentic",
+      "aws",
+      "ide"
     ],
     "pricing": "Freemium"
   },
@@ -194,21 +240,7 @@
     ],
     "pricing": "Paid"
   },
-  {
-    "id": "amazon-q",
-    "category": "AI & Coding Assistants",
-    "name": "Amazon Q Developer",
-    "description": "AI-powered assistant for developers that helps with coding, testing, upgrading applications, and troubleshooting AWS resources.",
-    "useCase": "AWS-centric development and modernization tasks.",
-    "url": "https://aws.amazon.com/q/developer/",
-    "tags": [
-      "ai",
-      "aws",
-      "cloud",
-      "completion"
-    ],
-    "pricing": "Freemium"
-  },
+
   {
     "id": "codeium",
     "category": "AI & Coding Assistants",
@@ -255,10 +287,10 @@
     "pricing": "Freemium"
   },
   {
-    "id": "flux-pro",
+    "id": "flux-2-pro",
     "category": "Media",
-    "name": "Flux 2 Pro",
-    "description": "A top-tier image generation model by Black Forest Labs known for extreme photorealism and precise prompt adherence.",
+    "name": "FLUX.2 [pro]",
+    "description": "Top-tier image generation model by Black Forest Labs known for extreme photorealism and precise prompt adherence. Released November 2025.",
     "useCase": "Generating high-end professional assets and photorealistic imagery via API.",
     "url": "https://blackforestlabs.ai",
     "tags": [
@@ -694,16 +726,15 @@
     "id": "fleet-jetbrains",
     "category": "IDE & Code Editors",
     "name": "Fleet",
-    "description": "The next-generation distributed IDE from JetBrains, designed to be lightweight and smart.",
-    "useCase": "Polyglot development with a clean UI and remote development capabilities.",
-    "url": "https://www.jetbrains.com/fleet/",
+    "description": "⚠️ Discontinued Dec 2025. JetBrains shut this down. Use IntelliJ-based IDEs or look out for their upcoming agentic IDE.",
+    "useCase": "N/A — discontinued.",
+    "url": "https://www.jetbrains.com/",
     "tags": [
       "ide",
-      "distributed",
-      "modern",
+      "discontinued",
       "jetbrains"
     ],
-    "pricing": "Freemium"
+    "pricing": "N/A"
   },
   {
     "id": "xcode",
@@ -903,9 +934,9 @@
   {
     "id": "rapidapi-paw",
     "category": "API Development & Testing",
-    "name": "RapidAPI Paw",
-    "description": "High-end API tool for macOS that allows you to easily test and describe the HTTP APIs you build.",
-    "useCase": "Native macOS development workflows for API integration and testing.",
+    "name": "RapidAPI for Mac",
+    "description": "Native macOS API tool (formerly known as Paw) for designing, testing, and describing HTTP APIs with a polished interface.",
+    "useCase": "macOS-native API development workflows with a rich visual interface for HTTP inspection and integration.",
     "url": "https://paw.cloud/",
     "tags": [
       "api",
@@ -975,21 +1006,7 @@
     ],
     "pricing": "Freemium"
   },
-  {
-    "id": "phind-search",
-    "category": "AI & Productivity Tools",
-    "name": "Phind",
-    "description": "A search engine designed specifically for developers, optimized for answering coding queries.",
-    "useCase": "Getting immediate, code-centric answers for debugging and problem solving.",
-    "url": "https://www.phind.com/",
-    "tags": [
-      "ai",
-      "search",
-      "coding",
-      "developer"
-    ],
-    "pricing": "Free"
-  },
+
   {
     "id": "pieces-dev",
     "category": "AI & Productivity Tools",
@@ -1814,5 +1831,50 @@
       "proxy"
     ],
     "pricing": "Free"
+  },
+  {
+    "id": "pulumi-iac",
+    "category": "Cloud & DevOps Tools",
+    "name": "Pulumi",
+    "description": "Infrastructure as Code using real programming languages (TypeScript, Python, Go, C#) instead of HCL. Deploy to AWS, Azure, GCP, and Kubernetes.",
+    "useCase": "Defining complex, reusable cloud infrastructure with full programming language features — loops, functions, types — instead of declarative config files.",
+    "url": "https://www.pulumi.com/",
+    "tags": [
+      "iac",
+      "infrastructure",
+      "cloud",
+      "typescript"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "opentelemetry-otel",
+    "category": "Cloud & DevOps Tools",
+    "name": "OpenTelemetry",
+    "description": "The industry-standard open-source framework for collecting distributed traces, metrics, and logs across any language and cloud. Vendor-neutral observability.",
+    "useCase": "Instrumenting microservices for distributed tracing and correlating logs, traces, and metrics in production systems.",
+    "url": "https://opentelemetry.io/",
+    "tags": [
+      "observability",
+      "tracing",
+      "metrics",
+      "open-source"
+    ],
+    "pricing": "Free"
+  },
+  {
+    "id": "socket-security",
+    "category": "Security & Authentication Tools",
+    "name": "Socket Security",
+    "description": "Supply chain security tool that detects malicious or compromised npm and PyPI packages before you install them. Integrated directly into GitHub PRs.",
+    "useCase": "Protecting your project from supply chain attacks by scanning dependency changes before they land in your codebase.",
+    "url": "https://socket.dev/",
+    "tags": [
+      "security",
+      "supply-chain",
+      "npm",
+      "scanning"
+    ],
+    "pricing": "Freemium"
   }
 ]

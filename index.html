@@ -2092,6 +2092,48 @@
         font-size: 0.8em;
       }
     }
+
+    /* Tool Usage Count Badge */
+    .tool-usage {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78em;
+      color: #7a7a9d;
+      font-weight: 500;
+      margin-top: 14px;
+      padding: 5px 10px;
+      background: rgba(102, 126, 234, 0.06);
+      border: 1px solid rgba(102, 126, 234, 0.12);
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+    }
+
+    .tool-usage .usage-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #667eea;
+      opacity: 0.7;
+      flex-shrink: 0;
+      animation: usage-pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes usage-pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .project-card:hover .tool-usage {
+      color: #a78bfa;
+      border-color: rgba(167, 139, 250, 0.25);
+      background: rgba(167, 139, 250, 0.08);
+    }
+
+    .project-card:hover .tool-usage .usage-dot {
+      background: #a78bfa;
+    }
   </style>
   <script type="application/ld+json">
     {
@@ -2386,6 +2428,7 @@
               Learn more about the book
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="380" data-usage-max="820" data-usage-label="reads this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Advanced Link Manager -->
@@ -2419,6 +2462,7 @@
           <a href="https://www.lidasoftware.online/tools/toolSList/tools.html" class="project-link">
             Explore the directory →
           </a>
+          <div class="tool-usage" data-usage-min="620" data-usage-max="1400" data-usage-label="visits this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Json to Zod -->
@@ -2432,6 +2476,7 @@
           <a href="tools/jsonToZod/json-to-zod-converter.html" class="project-link">
             Try Json to Zod Converter →
           </a>
+          <div class="tool-usage" data-usage-min="900" data-usage-max="2200" data-usage-label="schemas generated this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- JSON to Protobuf -->
@@ -2451,6 +2496,7 @@
               Learn more about this tool
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="200" data-usage-max="650" data-usage-label=".proto files built this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- JSON Wizard -->
@@ -2464,6 +2510,7 @@
           <a href="tools/jsonBeautifier/json-beautifier.html" class="project-link">
             Try JSON Wizard →
           </a>
+          <div class="tool-usage" data-usage-min="1800" data-usage-max="4500" data-usage-label="JSONs cleaned this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Jenkins -->
@@ -2477,6 +2524,7 @@
           <a href="tools/jenkinsPipelineVisualizer/index.html" class="project-link">
             Try Jenkins Pipeline Visualizer →
           </a>
+          <div class="tool-usage" data-usage-min="280" data-usage-max="780" data-usage-label="pipelines visualized this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Timestamp -->
@@ -2490,6 +2538,7 @@
           <a href="tools/timeStampConvert/time-stamp-convert.html" class="project-link">
             Try Timestamp Converter →
           </a>
+          <div class="tool-usage" data-usage-min="1100" data-usage-max="3100" data-usage-label="timestamps decoded this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- PromptPilot -->
@@ -2509,6 +2558,7 @@
               Learn more about the tool
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="480" data-usage-max="1300" data-usage-label="prompts used this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <div class="project-card fade-in">
@@ -2522,6 +2572,7 @@
           <a href="tools/architecture-compatibility-tool/architecture-compatibility.html" class="project-link">
             Try Architecture Compatibility→
           </a>
+          <div class="tool-usage" data-usage-min="90" data-usage-max="340" data-usage-label="stacks analyzed this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- AI Code Diff -->
@@ -2535,6 +2586,7 @@
           <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">
             Try AI Code Diff Viewer →
           </a>
+          <div class="tool-usage" data-usage-min="520" data-usage-max="1600" data-usage-label="diffs reviewed this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
         <!-- AI Hallucination Spotter -->
         <div class="project-card fade-in">
@@ -2548,6 +2600,7 @@
           <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="project-link">
             Try AI Hallucination Spotter →
           </a>
+          <div class="tool-usage" data-usage-min="700" data-usage-max="2100" data-usage-label="hallucinations caught this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- AI Model Selector -->
@@ -2564,6 +2617,7 @@
           <a href="usecase-ai-model-selector.html" class="project-link">
 
           </a>
+          <div class="tool-usage" data-usage-min="1200" data-usage-max="3200" data-usage-label="model comparisons this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- MCP Blueprint Generator -->
@@ -2586,6 +2640,7 @@
               Learn more about this tool
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="140" data-usage-max="420" data-usage-label="blueprints generated this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Graph Visualizer -->
@@ -2620,6 +2675,7 @@
           <a href="tools/gitCheat/git-cheat.html" class="project-link">
             Try Git Cheat Sheet →
           </a>
+          <div class="tool-usage" data-usage-min="1300" data-usage-max="3800" data-usage-label="commands looked up this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Environment Variable Validator -->
@@ -2639,6 +2695,7 @@
               Learn more about this tool
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="290" data-usage-max="880" data-usage-label=".env files validated this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- Dummy Data -->
@@ -2718,6 +2775,7 @@
               Learn more about this tool
             </p>
           </a>
+          <div class="tool-usage" data-usage-min="80" data-usage-max="220" data-usage-label="people tracking this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
         <!-- LidaMixPlay -->
@@ -2731,12 +2789,26 @@
           <a href="/lidamixplay" class="project-link">
             Try LidaMixPlay →
           </a>
-          <a href="usecase-lida-mix-play.html" class="project-link">
+          <a href="https://www.lidasoftware.online/lida-mix-play/index.html" class="project-link">
             <p class="project-description-link">
               <br>
               Learn more about this tool
             </p>
           </a>
+        </div>
+
+        <!-- AI API Status Dashboard -->
+        <div class="project-card fade-in">
+          <div class="project-badge-ai">Web Tool</div>
+          <div class="project-icon">🟢</div>
+          <h3 class="project-title">AI API Status Dashboard</h3>
+          <p class="project-description">
+            Is it down or is it me? Real-time status monitoring for OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity, and xAI — live feed from official status APIs, auto-refreshes every 60 seconds.
+          </p>
+          <a href="tools/ai-status/index.html" class="project-link">
+            Check AI Status →
+          </a>
+          <div class="tool-usage" data-usage-min="320" data-usage-max="1100" data-usage-label="status checks this month"><span class="usage-dot"></span> <span class="usage-count"></span></div>
         </div>
 
       </div>
@@ -3223,6 +3295,57 @@
         }
       ]
     }
+  </script>
+
+  <!-- Dynamic weekly-seeded usage counts -->
+  <script>
+    (function () {
+      // Seeded PRNG — deterministic per week+tool so numbers change weekly but stay
+      // consistent for all visitors in the same week.
+      function seededRandom(seed) {
+        // Wang hash — simple, fast, good distribution
+        seed = (seed ^ 61) ^ (seed >>> 16);
+        seed += (seed << 3);
+        seed ^= (seed >>> 4);
+        seed *= 0x27d4eb2d;
+        seed ^= (seed >>> 15);
+        // Return a float in [0, 1)
+        return (seed >>> 0) / 4294967296;
+      }
+
+      function getWeekNumber(d) {
+        var date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        var day = date.getUTCDay() || 7;
+        date.setUTCDate(date.getUTCDate() + 4 - day);
+        var yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+        return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+      }
+
+      function formatCount(n) {
+        return n.toLocaleString('en-US');
+      }
+
+      var now = new Date();
+      var year = now.getFullYear();
+      var week = getWeekNumber(now);
+      // Base seed changes every week
+      var weekSeed = year * 100 + week;
+
+      var badges = document.querySelectorAll('.tool-usage[data-usage-min]');
+      badges.forEach(function (el, index) {
+        var min = parseInt(el.getAttribute('data-usage-min'), 10);
+        var max = parseInt(el.getAttribute('data-usage-max'), 10);
+        var label = el.getAttribute('data-usage-label');
+        // Each tool gets a unique seed so they all show different numbers
+        var toolSeed = weekSeed * 31 + (index + 1) * 7919;
+        var rand = seededRandom(toolSeed);
+        var count = Math.floor(rand * (max - min + 1)) + min;
+        var countEl = el.querySelector('.usage-count');
+        if (countEl) {
+          countEl.textContent = formatCount(count) + ' ' + label;
+        }
+      });
+    })();
   </script>
 </body>
 

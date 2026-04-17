@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="language" content="en" />
+  <title>AI API Status — Is it Down? | LiDa Software</title>
+  <meta name="description" content="Real-time status dashboard for 8 major AI APIs — OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Live monitoring every 60 seconds from official status feeds." />
+  <meta name="keywords" content="AI API status, OpenAI status, Anthropic status, Claude down, GPT down, Gemini status, Groq status, DeepSeek status, Mistral status, Perplexity status, AI downtime, API monitoring, is ChatGPT down" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.lidasoftware.online/tools/ai-status/" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.lidasoftware.online/tools/ai-status/" />
+  <meta property="og:title" content="AI API Status — Is it Down? | LiDa Software" />
+  <meta property="og:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Auto-refreshes every 60 seconds from official status APIs." />
+  <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+  <meta property="og:site_name" content="LiDa Software" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI API Status — Is it Down?" />
+  <meta name="twitter:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Auto-refreshes every 60 seconds." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "AI API Status Dashboard",
+    "url": "https://www.lidasoftware.online/tools/ai-status/",
+    "description": "Real-time monitoring dashboard for major AI API providers including OpenAI, Anthropic, Google Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online",
+      "logo": "https://www.lidasoftware.online/lida-logo.png"
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+  <!-- AMBIENT SCAN LINE -->
+  <div class="scan-line" aria-hidden="true"></div>
+
+  <!-- COMMAND STRIP -->
+  <div class="command-strip" id="commandStrip">
+
+    <!-- LEFT: session label + live dot -->
+    <div class="cs-left">
+      <span class="cs-session">OPS–MON</span>
+      <span class="cs-sep">◆</span>
+      <span class="cs-live-badge"><span class="cs-live-dot"></span>LIVE</span>
+    </div>
+
+    <!-- CENTER: JS-injected provider chips + scrolling ticker -->
+    <div class="cs-center">
+      <div class="cs-chips" id="csChips"></div>
+      <div class="cs-divider-v"></div>
+      <div class="cs-ticker-wrap">
+        <div class="cs-ticker-inner" id="csTicker">INITIALIZING FEEDS…</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: clock + refresh timer + uptime -->
+    <div class="cs-right">
+      <div class="cs-stat">
+        <span class="cs-stat-label">UPTIME</span>
+        <span class="cs-stat-val green" id="csUptime">—</span>
+      </div>
+      <div class="cs-divider-v"></div>
+      <div class="cs-stat">
+        <span class="cs-stat-label">NEXT</span>
+        <span class="cs-stat-val" id="csNext">60s</span>
+      </div>
+      <div class="cs-divider-v"></div>
+      <span class="cs-clock" id="sysTime">--:--:--</span>
+    </div>
+
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../../index.html" class="nav-back">
+      <img src="/favicon.ico" alt="LiDa" width="20" height="20" style="border-radius:4px;flex-shrink:0" />
+      LiDa Software
+    </a>
+    <span class="nav-divider">/</span>
+    <span class="nav-title">AI API Status</span>
+    <span class="nav-badge">Live</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Real-Time Monitoring
+    </div>
+    <h1>Is it Down or Is it Me?</h1>
+    <p class="hero-sub">
+      Live status of 8 major AI API providers. Auto-refreshes every 60 seconds
+      using official status feeds directly from each provider.
+    </p>
+
+    <!-- GLOBAL BANNER -->
+    <div id="globalBanner" class="loading">
+      <div class="banner-dot-wrap">
+        <div class="banner-dot"></div>
+        <div class="banner-pulse-ring"></div>
+        <div class="banner-pulse-ring"></div>
+        <div class="banner-pulse-ring"></div>
+      </div>
+      <span id="globalText">Checking all providers…</span>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-left">
+      <div class="stat-item">
+        <div class="countdown-ring-wrap" title="Next auto-refresh">
+          <svg viewBox="0 0 36 36" fill="none" class="countdown-svg">
+            <circle cx="18" cy="18" r="14" class="countdown-arc-track"/>
+            <circle cx="18" cy="18" r="14" class="countdown-arc-fill" id="countdownArc"
+                    stroke-dasharray="87.96" stroke-dashoffset="0"/>
+          </svg>
+          <span class="stat-countdown" id="countdown">60s</span>
+        </div>
+        <span class="stat-next-label">Next refresh</span>
+      </div>
+      <div class="stat-item">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/><path d="M8 5v4"/><circle cx="8" cy="11" r=".5" fill="currentColor"/></svg>
+        <span id="updatedLabel" class="stat-value">—</span>
+      </div>
+      <div class="stat-item">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M6 7h4M6 10h2"/></svg>
+        <span class="stat-value" id="operationalCount">—</span>&nbsp;providers checked
+      </div>
+    </div>
+    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/><path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/><path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/></svg>
+      Refresh now
+    </button>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">All providers</button>
+    <button class="filter-btn" data-filter="operational" onclick="setFilter('operational', this)">
+      <span class="filter-dot" style="background:var(--green)"></span> Operational
+    </button>
+    <button class="filter-btn" data-filter="issues" onclick="setFilter('issues', this)">
+      <span class="filter-dot" style="background:var(--amber)"></span> Issues
+    </button>
+    <button class="filter-btn" data-filter="outage" onclick="setFilter('outage', this)">
+      <span class="filter-dot" style="background:var(--red)"></span> Outage
+    </button>
+  </div>
+
+  <!-- PROVIDER GRID -->
+  <main class="provider-grid" id="providerGrid">
+    <!-- Cards injected by JS -->
+  </main>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span class="legend-label">Legend</span>
+    <div class="legend-items">
+      <div class="legend-item"><span class="legend-dot" style="background:rgba(34,197,94,.7)"></span>Operational</div>
+      <div class="legend-item"><span class="legend-dot" style="background:rgba(245,158,11,.7);height:60%;align-self:center"></span>Minor issue</div>
+      <div class="legend-item"><span class="legend-dot" style="background:rgba(239,68,68,.8)"></span>Outage</div>
+      <div class="legend-item"><span class="legend-dot" style="background:rgba(71,85,105,.4)"></span>No data</div>
+      <span style="font-size:11px;color:var(--dim);margin-left:8px">← 90-day history (left = oldest)</span>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer" style="max-width:1200px;margin:0 auto 32px;padding:0 24px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px">
+      <strong>Data sources:</strong> Status is fetched directly from each provider's official public status feed (Atlassian Statuspage JSON API) where available.
+      Providers marked <em>manual check</em> don't expose a public machine-readable status API — links go to their status pages.
+      <strong>Response time</strong> reflects the latency measured fetching the status endpoint — not AI inference latency.
+      <strong>Typical latency</strong> shows average Time-to-First-Token benchmarks from public sources (Artificial Analysis, etc.), updated quarterly.
+      90-day history is generated from provider-specific uptime reports where available.
+    </div>
+  </div>
+
+  <!-- SOCIAL SHARE -->
+  <div id="shareSection" style="max-width:1200px;margin:0 auto 48px;padding:0 24px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:4px">Share this tool</div>
+        <div style="font-size:13px;color:var(--muted)">Know someone whose AI APIs keep going down? Share the dashboard.</div>
+      </div>
+      <div id="shareButtons" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Built by <a href="../../index.html">LiDa Software</a> · Data from official provider status pages ·
+    <a href="../../index.html#projects">More Dev Tools →</a>
+  </footer>
+
+  <div id="toast"></div>
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

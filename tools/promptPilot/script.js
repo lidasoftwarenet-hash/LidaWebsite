@@ -3,148 +3,183 @@
 const templateConfigs = {
     sprint: {
         fieldOverrides: {
-            projectName: { label: "Sprint Name", placeholder: "e.g., Sprint 23 - Q1 2024 Planning" },
-            projectType: { placeholder: "e.g., 2-week sprint, Scrum methodology" },
-            technology: { placeholder: "e.g., React, Node.js, PostgreSQL" },
-            teamSize: { placeholder: "e.g., 5 developers, 1 QA, 1 designer" },
-            context: { placeholder: "Previous sprint outcomes, team velocity, any blockers from last sprint..." },
-            currentProblem: { label: "Sprint Goals & Challenges", placeholder: "What are the main objectives for this sprint? Any known challenges or dependencies?" },
-            desiredOutcome: { label: "Sprint Success Criteria", placeholder: "What does a successful sprint look like? Key deliverables and metrics..." },
-            mustHave: { placeholder: "Critical user stories or features that must be completed" },
-            niceToHave: { placeholder: "Stretch goals if team has extra capacity" }
+            projectName: { label: "Sprint Name", placeholder: "e.g., Sprint 23 - Q1 2025 Planning" },
+            projectType: { placeholder: "e.g., 2-week sprint, Scrum / Shape Up / Kanban" },
+            technology: { placeholder: "e.g., React, Node.js, PostgreSQL, Turborepo" },
+            teamSize: { placeholder: "e.g., 4 engineers, 1 QA, 1 product manager" },
+            context: { placeholder: "Previous sprint velocity, carried-over tickets, team morale, any dependencies or blockers..." },
+            currentProblem: { label: "Sprint Goals & Challenges", placeholder: "What are the main objectives? Which epics are in scope? Any unresolved tech debt that must be addressed?" },
+            desiredOutcome: { label: "Sprint Success Criteria", placeholder: "What does done look like? Which KPIs or outcomes define success for this sprint?" },
+            mustHave: { placeholder: "User stories or tasks that absolutely must ship (P0 items)" },
+            niceToHave: { placeholder: "Stretch goals — only if velocity allows" }
         }
     },
     architecture: {
         fieldOverrides: {
             projectName: { placeholder: "e.g., E-commerce Platform Redesign" },
-            projectType: { placeholder: "e.g., Microservices architecture, Cloud-native" },
-            technology: { placeholder: "e.g., Kubernetes, Docker, AWS, GraphQL" },
-            context: { placeholder: "Current architecture state, pain points, scalability requirements..." },
-            currentProblem: { label: "Architecture Challenges", placeholder: "What architectural issues need to be addressed? Performance bottlenecks, scalability concerns, technical debt..." },
-            desiredOutcome: { label: "Target Architecture", placeholder: "Describe the ideal architecture state. What patterns, principles, and qualities are important?" },
-            technicalConstraints: { placeholder: "e.g., Must support 10k concurrent users, 99.9% uptime, existing legacy systems to integrate with" },
-            mustHave: { placeholder: "Non-negotiable architectural requirements (security, compliance, performance SLAs)" }
+            projectType: { placeholder: "e.g., Microservices, Event-driven, Modular monolith" },
+            technology: { placeholder: "e.g., Kubernetes, Docker, AWS, GraphQL, Kafka" },
+            context: { placeholder: "Current architecture state, biggest pain points, scalability floor, what broke last..." },
+            currentProblem: { label: "Architecture Challenges", placeholder: "What specific architectural issues need solving? Coupling, latency, data consistency, blast radius on failure..." },
+            desiredOutcome: { label: "Target Architecture", placeholder: "Describe the ideal end state. What qualities and principles matter most — simplicity, scalability, observability?" },
+            technicalConstraints: { placeholder: "e.g., Must support 100k RPS, 99.95% SLA, must integrate with legacy SAP system" },
+            mustHave: { placeholder: "Non-negotiable architectural requirements (security, compliance, performance SLAs, team autonomy)" }
         }
     },
     security: {
         fieldOverrides: {
             projectName: { placeholder: "e.g., Payment API Security Audit" },
-            projectType: { placeholder: "e.g., REST API, OAuth 2.0 implementation" },
-            technology: { placeholder: "e.g., Node.js, Express, JWT, PostgreSQL" },
-            context: { placeholder: "Current security measures, compliance requirements (PCI-DSS, GDPR), recent incidents..." },
-            currentProblem: { label: "Security Concerns", placeholder: "What security vulnerabilities or risks need to be assessed? Authentication issues, data exposure, injection attacks..." },
-            desiredOutcome: { label: "Security Goals", placeholder: "What security posture do you want to achieve? Compliance certifications, threat mitigation..." },
-            technicalConstraints: { placeholder: "e.g., Must comply with PCI-DSS Level 1, zero-trust architecture" },
-            businessConstraints: { placeholder: "e.g., Cannot disrupt production, limited security budget" },
-            mustHave: { placeholder: "Critical security controls that must be implemented" }
+            projectType: { placeholder: "e.g., REST API, OAuth 2.0 / OIDC flow, Supply chain" },
+            technology: { placeholder: "e.g., Node.js, Express, JWT, PostgreSQL, AWS Secrets Manager" },
+            context: { placeholder: "Current security posture, compliance scope (PCI-DSS Level 1, GDPR, SOC 2), any recent security incidents or pen test findings..." },
+            currentProblem: { label: "Security Concerns", placeholder: "What's the threat model? OWASP Top 10 risks, authentication weaknesses, secrets in code, insecure dependencies (SBOM), privilege escalation..." },
+            desiredOutcome: { label: "Security Goals", placeholder: "Target security posture: zero-trust, least privilege, defense in depth. Specific compliance certifications needed?" },
+            technicalConstraints: { placeholder: "e.g., Must work with existing IAM, zero-downtime remediation required, no vendor lock-in" },
+            businessConstraints: { placeholder: "e.g., Limited security headcount, cannot disrupt production APIs, strict data residency requirements" },
+            mustHave: { placeholder: "Critical controls: MFA, secrets management, SAST/DAST in CI, dependency scanning, audit logging" }
         }
     },
     testing: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Mobile App Testing Strategy" },
-            projectType: { placeholder: "e.g., iOS/Android app, React Native" },
-            technology: { placeholder: "e.g., Jest, Detox, Appium, CI/CD with GitHub Actions" },
-            context: { placeholder: "Current testing coverage, known quality issues, release frequency..." },
-            currentProblem: { label: "Testing Challenges", placeholder: "What testing gaps exist? Flaky tests, low coverage, slow test execution, lack of E2E tests..." },
-            desiredOutcome: { label: "Testing Goals", placeholder: "Target test coverage, test pyramid structure, automation level, quality metrics..." },
-            mustHave: { placeholder: "Essential testing types (unit, integration, E2E) and coverage requirements" },
-            successMetrics: { placeholder: "e.g., 80% code coverage, <5 min test execution, zero flaky tests" }
+            projectName: { placeholder: "e.g., Frontend Testing Modernization" },
+            projectType: { placeholder: "e.g., Web app, Mobile (React Native / Flutter), Microservices" },
+            technology: { placeholder: "e.g., Vitest, Playwright, Cypress, k6, Pact (contract testing), GitHub Actions" },
+            context: { placeholder: "Current test coverage %, CI pipeline speed, known flaky tests, release cadence, recent production bugs that tests didn't catch..." },
+            currentProblem: { label: "Testing Challenges", placeholder: "What's broken in your testing? Slow CI, low confidence in deploys, flaky Cypress tests, no API contract tests, missing observability in prod..." },
+            desiredOutcome: { label: "Testing Goals", placeholder: "Testing trophy coverage, CI under X minutes, zero flaky tests, shift-left security testing, feature flag validation..." },
+            mustHave: { placeholder: "Critical test layers (component tests, API integration, E2E critical paths, contract tests between services)" },
+            successMetrics: { placeholder: "e.g., 85% branch coverage, CI under 8 min, <0.5% flaky rate, DORA deployment frequency target" }
         }
     },
     devops: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., CI/CD Pipeline for Microservices" },
-            projectType: { placeholder: "e.g., Kubernetes deployment, Multi-environment setup" },
-            technology: { placeholder: "e.g., Jenkins, GitLab CI, Docker, Terraform, AWS ECS" },
-            context: { placeholder: "Current deployment process, pain points, deployment frequency, rollback procedures..." },
-            currentProblem: { label: "DevOps Challenges", placeholder: "What deployment or infrastructure issues exist? Slow deployments, manual processes, environment inconsistencies..." },
-            desiredOutcome: { label: "DevOps Goals", placeholder: "Ideal CI/CD workflow, deployment frequency, automation level, monitoring and observability..." },
-            technicalConstraints: { placeholder: "e.g., Must support blue-green deployments, zero-downtime releases" },
-            mustHave: { placeholder: "Critical pipeline stages (build, test, security scan, deploy)" }
+            projectName: { placeholder: "e.g., GitOps Migration to ArgoCD" },
+            projectType: { placeholder: "e.g., Kubernetes GitOps, Multi-cloud IaC, Serverless CI/CD" },
+            technology: { placeholder: "e.g., GitHub Actions, ArgoCD, Terraform, Pulumi, AWS ECS / GKE, OpenTelemetry" },
+            context: { placeholder: "Current deployment frequency, lead time for changes, MTTR, change failure rate (DORA metrics), on-call load, current IaC maturity..." },
+            currentProblem: { label: "DevOps Challenges", placeholder: "Root cause of the pain: manual deployments, drift between environments, no rollback strategy, alert fatigue, poor observability, no SLOs..." },
+            desiredOutcome: { label: "DevOps Goals", placeholder: "Target DORA metrics, GitOps-based deploy workflow, platform engineering principles, self-service for dev teams, SLO-based alerting..." },
+            technicalConstraints: { placeholder: "e.g., Must support canary + blue-green, zero-downtime releases, air-gapped environment for compliance" },
+            mustHave: { placeholder: "Pipeline non-negotiables: SAST, secret scanning, image signing, smoke tests post-deploy, automated rollback" }
         }
     },
     documentation: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., API Documentation Portal" },
-            projectType: { placeholder: "e.g., Technical documentation, Developer guides" },
-            technology: { placeholder: "e.g., Markdown, Docusaurus, OpenAPI/Swagger" },
-            context: { placeholder: "Current documentation state, target audience (developers, end-users, stakeholders)..." },
-            currentProblem: { label: "Documentation Gaps", placeholder: "What documentation is missing or outdated? Onboarding guides, API references, architecture diagrams..." },
-            desiredOutcome: { label: "Documentation Goals", placeholder: "Complete documentation structure, style guide, maintenance process..." },
-            mustHave: { placeholder: "Essential documentation sections (getting started, API reference, examples)" },
-            stakeholders: { placeholder: "e.g., New developers, external API consumers, support team" }
+            projectName: { placeholder: "e.g., Internal Developer Portal Docs" },
+            projectType: { placeholder: "e.g., Diátaxis-structured docs, ADR library, API reference, Architecture diagrams" },
+            technology: { placeholder: "e.g., Markdown + Docusaurus, Confluence, OpenAPI/Swagger, C4 diagrams, Mermaid" },
+            context: { placeholder: "Who reads this? Developers onboarding? External API consumers? Support team? Current docs state — outdated, missing, or not trusted?" },
+            currentProblem: { label: "Documentation Gaps", placeholder: "What's missing or confusing? Missing getting-started guide, outdated API reference, no architecture decision records (ADRs), docs not maintained in sync with code..." },
+            desiredOutcome: { label: "Documentation Goals", placeholder: "Docs-as-code workflow, Diátaxis structure (tutorials, how-tos, reference, explanation), AI-friendly for code copilots, auto-generated from code where possible..." },
+            mustHave: { placeholder: "Core sections: getting started, API reference with examples, deployment guide, troubleshooting" },
+            stakeholders: { placeholder: "e.g., Onboarding engineers, external API consumers, ops team, security auditors" }
         }
     },
     database: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., E-commerce Database Optimization" },
-            projectType: { placeholder: "e.g., PostgreSQL optimization, Schema redesign" },
-            technology: { placeholder: "e.g., PostgreSQL 14, Redis cache, Connection pooling" },
-            context: { placeholder: "Current database performance, query patterns, data volume, growth projections..." },
-            currentProblem: { label: "Database Issues", placeholder: "What performance or design issues exist? Slow queries, N+1 problems, schema inefficiencies, scaling limitations..." },
-            desiredOutcome: { label: "Optimization Goals", placeholder: "Target query performance, scalability requirements, data integrity improvements..." },
-            technicalConstraints: { placeholder: "e.g., Cannot change primary keys, must maintain backward compatibility" },
-            successMetrics: { placeholder: "e.g., <100ms query response time, support 1M records, 99.99% uptime" }
+            projectName: { placeholder: "e.g., Postgres Query Performance Overhaul" },
+            projectType: { placeholder: "e.g., PostgreSQL optimization, Multi-tenancy schema, Read replica setup, Vector search" },
+            technology: { placeholder: "e.g., PostgreSQL 16, pgvector, Redis, Drizzle ORM, PgBouncer, AWS RDS" },
+            context: { placeholder: "Current p95 query latency, table sizes, growth rate, most expensive queries (pg_stat_statements), index hit rates, connection pool exhaustion issues..." },
+            currentProblem: { label: "Database Issues", placeholder: "Exact pain: N+1 from the ORM, missing indexes on filter columns, table bloat, lock contention, cross-shard queries, vector search latency..." },
+            desiredOutcome: { label: "Optimization Goals", placeholder: "Target p99 latency, read/write throughput, horizontal scaling strategy, zero-downtime migrations, PITR backup strategy..." },
+            technicalConstraints: { placeholder: "e.g., Cannot change primary key type, zero-downtime schema migrations required, must stay on managed RDS" },
+            successMetrics: { placeholder: "e.g., p99 query <50ms, support 10M rows, 99.99% uptime, max 100 concurrent connections" }
         }
     },
     'user-story': {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., User Registration Feature" },
-            projectType: { placeholder: "e.g., Web application feature, Mobile app flow" },
-            context: { placeholder: "User personas, business goals, competitive analysis..." },
-            currentProblem: { label: "Feature Requirements", placeholder: "What user need or business goal does this address? Current user pain points..." },
-            desiredOutcome: { label: "User Story Goals", placeholder: "What should users be able to do? Expected user journey and outcomes..." },
-            mustHave: { placeholder: "Core acceptance criteria that define 'done'" },
-            niceToHave: { placeholder: "Additional enhancements or edge cases to consider" },
-            stakeholders: { placeholder: "e.g., Product owner, UX designer, end users" }
+            projectName: { placeholder: "e.g., Onboarding Redesign Feature" },
+            projectType: { placeholder: "e.g., Web app feature, Mobile app flow, API-first feature" },
+            context: { placeholder: "User personas, jobs-to-be-done (JTBD), competitive benchmark, usage analytics showing the current gap..." },
+            currentProblem: { label: "Feature Requirements", placeholder: "What user problem or business goal does this address? What is the user currently forced to do as a workaround?" },
+            desiredOutcome: { label: "User Story Goals", placeholder: "What capability does the user gain? What's the happy path? What metrics improve?" },
+            mustHave: { placeholder: "Core acceptance criteria (Given/When/Then format preferred)" },
+            niceToHave: { placeholder: "Edge cases, accessibility improvements, i18n, dark mode, keyboard nav" },
+            stakeholders: { placeholder: "e.g., Product owner, UX designer, accessibility auditor, backend API team" }
         }
     },
     performance: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Web App Performance Optimization" },
-            projectType: { placeholder: "e.g., React SPA, Server-side rendering" },
-            technology: { placeholder: "e.g., React, Next.js, CDN, Image optimization" },
-            context: { placeholder: "Current performance metrics, user complaints, business impact of slow performance..." },
-            currentProblem: { label: "Performance Issues", placeholder: "What performance problems exist? Slow page loads, high bounce rate, poor Core Web Vitals scores..." },
-            desiredOutcome: { label: "Performance Goals", placeholder: "Target metrics: load time, Time to Interactive, Lighthouse scores..." },
-            technicalConstraints: { placeholder: "e.g., Cannot remove third-party scripts, must support IE11" },
-            successMetrics: { placeholder: "e.g., <2s page load, Lighthouse score >90, <5% bounce rate" }
+            projectName: { placeholder: "e.g., Core Web Vitals Improvement — Landing Page" },
+            projectType: { placeholder: "e.g., Next.js App Router, React SPA, Node.js API, Mobile app" },
+            technology: { placeholder: "e.g., Next.js 15, React 19, TurboPack, Cloudflare CDN, Vercel Edge" },
+            context: { placeholder: "Current Lighthouse scores, Core Web Vitals (LCP/CLS/INP), real user monitoring data (RUM), DevTools waterfall observations, bundle size..." },
+            currentProblem: { label: "Performance Issues", placeholder: "Specific bottlenecks: LCP >4s because of unoptimized hero image, INP issues from long tasks, render-blocking JS, layout shift from font-swap, 2MB+ bundle..." },
+            desiredOutcome: { label: "Performance Goals", placeholder: "Target: LCP <2.5s, INP <200ms, CLS <0.1, Lighthouse Performance >90, TTFB <800ms, bundle <150KB gzipped" },
+            technicalConstraints: { placeholder: "e.g., Cannot remove GTM/analytics scripts, must support Safari 15+, on shared Vercel free plan" },
+            successMetrics: { placeholder: "e.g., Lighthouse >90 on mobile, real-user LCP <2.5s (75th percentile), bounce rate reduction by 15%" }
         }
     },
     refactoring: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Legacy Payment Module Refactoring" },
-            projectType: { placeholder: "e.g., Monolith to microservices, Code modernization" },
-            technology: { placeholder: "e.g., Legacy: Java 8, Target: Java 17 + Spring Boot" },
-            context: { placeholder: "Current code state, technical debt, why refactoring is needed now..." },
-            currentProblem: { label: "Code Issues", placeholder: "What makes the code hard to maintain? Tight coupling, no tests, unclear logic, performance issues..." },
-            desiredOutcome: { label: "Refactoring Goals", placeholder: "Target code quality, test coverage, maintainability improvements, performance gains..." },
-            technicalConstraints: { placeholder: "e.g., Must maintain API compatibility, cannot break existing integrations" },
-            mustHave: { placeholder: "Non-negotiable refactoring outcomes (test coverage, documentation, performance)" }
+            projectName: { placeholder: "e.g., Payments Service — Express to Fastify Migration" },
+            projectType: { placeholder: "e.g., Monolith decomposition, Framework upgrade, TypeScript migration, Module federation" },
+            technology: { placeholder: "e.g., Legacy: Express + JS, Target: Fastify + TypeScript + Zod" },
+            context: { placeholder: "Why now? Recent incident? New team? Performance cliff? Compliance change? What's the blast radius if refactoring goes wrong?" },
+            currentProblem: { label: "Code Issues", placeholder: "Specific smells: no type safety, implicit any everywhere, zero test coverage, 2000-line god files, circular dependencies, undocumented side effects..." },
+            desiredOutcome: { label: "Refactoring Goals", placeholder: "Target: full TypeScript strict mode, 80%+ test coverage, max 200-line modules, zero circular deps, documented public API surface" },
+            technicalConstraints: { placeholder: "e.g., Must maintain backward compatibility with v1 API consumers, refactor in-place (no big-bang rewrite), deploy incrementally" },
+            mustHave: { placeholder: "Non-negotiables: type safety, test coverage, ADR for each major decision, feature flags to roll back incrementally" }
         }
     },
     incident: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Production Incident Response Plan" },
-            projectType: { placeholder: "e.g., Web service outage, Data breach response" },
-            technology: { placeholder: "e.g., Kubernetes, AWS, PagerDuty, Datadog monitoring" },
-            context: { placeholder: "Current incident response process, past incidents, team structure, on-call rotation..." },
-            currentProblem: { label: "Incident Response Gaps", placeholder: "What issues exist in current incident handling? Slow response time, unclear ownership, poor communication..." },
-            desiredOutcome: { label: "Response Plan Goals", placeholder: "Ideal incident response workflow, escalation procedures, communication protocols, post-mortem process..." },
-            mustHave: { placeholder: "Critical response procedures (detection, triage, communication, resolution, post-mortem)" },
-            stakeholders: { placeholder: "e.g., On-call engineers, DevOps team, Customer support, Management" }
+            projectName: { placeholder: "e.g., Post-Mortem: Checkout Service 4hr Outage" },
+            projectType: { placeholder: "e.g., Blameless post-mortem, Incident runbook, Escalation playbook" },
+            technology: { placeholder: "e.g., Kubernetes, AWS, PagerDuty, Datadog, OpenTelemetry, Grafana OnCall" },
+            context: { placeholder: "Timeline of events, detection-to-resolution time, customer impact scope, current monitoring coverage, on-call rotation structure..." },
+            currentProblem: { label: "Incident Response Gaps", placeholder: "Root causes of slow MTTR: no runbooks, alert fatigue, unclear ownership, missing distributed tracing, cascading failures not isolated, no chaos engineering..." },
+            desiredOutcome: { label: "Response Plan Goals", placeholder: "Target MTTR, SLO-based alerting, automated runbooks, incident commander role, customer comms template, blameless post-mortem culture" },
+            mustHave: { placeholder: "Runbook for top 5 failure modes, SLO definitions, alert routing, post-mortem template, comms escalation matrix" },
+            stakeholders: { placeholder: "e.g., On-call engineers, SRE team, Customer Success, Legal (for data incidents), Leadership" }
         }
     },
     'api-design': {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Customer Management API" },
-            projectType: { placeholder: "e.g., RESTful API, GraphQL API" },
-            technology: { placeholder: "e.g., Node.js, Express, OpenAPI 3.0, JWT authentication" },
-            context: { placeholder: "API consumers, use cases, integration requirements, existing APIs..." },
-            currentProblem: { label: "API Design Challenges", placeholder: "What API design decisions need to be made? Resource modeling, versioning strategy, authentication approach..." },
-            desiredOutcome: { label: "API Design Goals", placeholder: "Well-designed, consistent, developer-friendly API following REST best practices..." },
-            technicalConstraints: { placeholder: "e.g., Must support pagination, rate limiting, backward compatibility" },
-            mustHave: { placeholder: "Essential API features (CRUD operations, filtering, sorting, error handling)" }
+            projectName: { placeholder: "e.g., Customer Management REST API v2" },
+            projectType: { placeholder: "e.g., REST + OpenAPI 3.1, GraphQL, tRPC, gRPC, Webhooks" },
+            technology: { placeholder: "e.g., Fastify + Zod + OpenAPI, GraphQL Yoga, Prisma, Clerk auth" },
+            context: { placeholder: "Who will consume this API (internal teams, mobile apps, third-party integrations)? Existing v1 contract? Breaking vs non-breaking change policy?" },
+            currentProblem: { label: "API Design Challenges", placeholder: "What's the core design question? Versioning strategy, resource modeling for complex domains, real-time (WebSockets vs SSE), auth patterns (API key vs OAuth2 PKCE), batch operations..." },
+            desiredOutcome: { label: "API Design Goals", placeholder: "Developer-first API: predictable naming, consistent error codes (RFC 9457), idempotency, pagination (cursor-based), rate limiting, SDK-ready, auto-generated docs" },
+            technicalConstraints: { placeholder: "e.g., Cannot break v1 consumers, must support 10k req/s, response time SLA <200ms p99" },
+            mustHave: { placeholder: "Must-haves: versioning strategy, auth + scopes, error format (RFC 9457), pagination, OpenAPI spec, changelog" }
+        }
+    },
+    'llm-app': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., Customer Support AI Agent" },
+            projectType: { placeholder: "e.g., RAG chatbot, AI agent, LLM pipeline, fine-tuning project, multi-modal app" },
+            technology: { placeholder: "e.g., GPT-5 / Claude 4 / Gemini 2.5, LangChain, LlamaIndex, Vercel AI SDK, Pinecone, Weaviate" },
+            context: { placeholder: "What domain? What data sources? What's the expected query volume? Any latency or cost constraints? Current prototype results?" },
+            currentProblem: { label: "AI Engineering Challenge", placeholder: "What's the specific problem: hallucinations in prod, retrieval quality too low, latency too high, context window overflow, high token cost, no eval framework, prompt drift over time..." },
+            desiredOutcome: { label: "AI App Goals", placeholder: "Target accuracy (eval metrics: RAGAS, BERTScore, custom evals), latency p95, cost per query, guardrails in place, human-in-the-loop fallback..." },
+            technicalConstraints: { placeholder: "e.g., Must use on-prem LLM (Ollama / vLLM), PII must not leave EU, max $0.01 per query, context window <32k tokens" },
+            mustHave: { placeholder: "Eval framework, structured output with Zod/Pydantic, fallback to human, source citations, streaming support" }
+        }
+    },
+    'prompt-craft': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., Code Review Prompt for Claude 4" },
+            projectType: { placeholder: "e.g., System prompt, Few-shot prompt, Chain-of-thought, Structured output prompt" },
+            technology: { placeholder: "e.g., GPT-5, Claude 4 Sonnet, Gemini 2.5 Flash, Mistral Large, DeepSeek V3, Llama 3.3" },
+            context: { placeholder: "What task will this prompt perform? What model will run it? What's the current prompt that's not working well, and what's going wrong?" },
+            currentProblem: { label: "Prompt Engineering Challenge", placeholder: "What's wrong with the current prompt? Too vague? Model ignores format instructions? Hallucinating? Not grounding in provided context? JSON output malformed? Too many tokens?" },
+            desiredOutcome: { label: "Prompt Goals", placeholder: "Exact output format and quality you want. Include a few examples of ideal responses if possible." },
+            mustHave: { placeholder: "Required prompt elements: role assignment, chain-of-thought, output schema, few-shot examples, fallback behavior" },
+            successMetrics: { placeholder: "e.g., 95%+ valid JSON output, 0 hallucinations on eval set, <1500 tokens system prompt" }
+        }
+    },
+    'observability': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., Observability Overhaul — E-commerce Platform" },
+            projectType: { placeholder: "e.g., Distributed tracing, SLO/SLA setup, Log aggregation, Alerting strategy" },
+            technology: { placeholder: "e.g., OpenTelemetry, Grafana, Loki, Tempo, Prometheus, Datadog, Jaeger" },
+            context: { placeholder: "Current observability gaps: only logs? No traces? Alert fatigue? How many services? What's the biggest pain — finding the root cause of incidents takes hours?" },
+            currentProblem: { label: "Observability Challenges", placeholder: "Specific gaps: no distributed tracing across services, logs not correlated with traces, too many undefined alerts, no SLOs defined, MTTR > 2 hours, dashboards nobody trusts..." },
+            desiredOutcome: { label: "Observability Goals", placeholder: "Full OTel instrumentation, SLO-based alerting (not threshold-based), correlated logs+traces+metrics, auto-dashboards, error budget tracking, <30min MTTR" },
+            mustHave: { placeholder: "OpenTelemetry SDK in all services, structured logging, distributed trace IDs, 3 golden signals (latency, traffic, errors) per service, on-call runbook link in every alert" }
         }
     }
 };
@@ -153,7 +188,7 @@ const prompts = [
     {
         id: 1,
         title: "Sprint Planning Assistant",
-        description: "Plan your next sprint with AI-powered task breakdown, effort estimation, and risk analysis.",
+        description: "Generate a structured sprint plan with task breakdown, dependency mapping, effort estimation, and risk flags — ready to paste into Jira or Linear.",
         category: "planning",
         difficulty: "beginner",
         icon: "event_note",
@@ -161,8 +196,8 @@ const prompts = [
     },
     {
         id: 2,
-        title: "Code Architecture Review",
-        description: "Get expert architectural recommendations for scalable, maintainable systems.",
+        title: "System Architecture Review",
+        description: "Get a senior architect's take on your system design — trade-off analysis, bottleneck identification, and a concrete improvement roadmap.",
         category: "development",
         difficulty: "advanced",
         icon: "architecture",
@@ -170,8 +205,8 @@ const prompts = [
     },
     {
         id: 3,
-        title: "API Security Audit",
-        description: "Comprehensive security analysis for your REST APIs and microservices.",
+        title: "Security Threat Modeling",
+        description: "Apply STRIDE/OWASP threat modeling to your system. Get a prioritized vulnerability list and SAST/DAST integration plan.",
         category: "security",
         difficulty: "advanced",
         icon: "security",
@@ -179,8 +214,8 @@ const prompts = [
     },
     {
         id: 4,
-        title: "Testing Strategy Design",
-        description: "Create comprehensive testing strategies from unit to E2E tests.",
+        title: "Modern Testing Strategy",
+        description: "Design a testing trophy strategy with Vitest, Playwright, and contract testing. Cut CI time while raising confidence in deploys.",
         category: "testing",
         difficulty: "intermediate",
         icon: "bug_report",
@@ -188,8 +223,8 @@ const prompts = [
     },
     {
         id: 5,
-        title: "CI/CD Pipeline Setup",
-        description: "Design and implement robust continuous integration and deployment pipelines.",
+        title: "GitOps CI/CD Pipeline Design",
+        description: "Design a GitOps-based pipeline with GitHub Actions, ArgoCD, and Terraform — including canary deploys, rollback, and SLO-gated promotions.",
         category: "devops",
         difficulty: "intermediate",
         icon: "cloud",
@@ -197,8 +232,8 @@ const prompts = [
     },
     {
         id: 6,
-        title: "Technical Documentation Writer",
-        description: "Generate clear, comprehensive technical documentation for any project.",
+        title: "Docs-as-Code Documentation",
+        description: "Structure technical docs using the Diátaxis framework. Get a full outline with tutorials, how-tos, reference, and explanation sections.",
         category: "documentation",
         difficulty: "beginner",
         icon: "description",
@@ -206,8 +241,8 @@ const prompts = [
     },
     {
         id: 7,
-        title: "Database Schema Optimization",
-        description: "Optimize your database design for performance and scalability.",
+        title: "Database Query Optimization",
+        description: "Diagnose slow queries, fix N+1 issues, design indexes, and get a zero-downtime migration plan for your PostgreSQL setup.",
         category: "development",
         difficulty: "advanced",
         icon: "storage",
@@ -215,8 +250,8 @@ const prompts = [
     },
     {
         id: 8,
-        title: "User Story Generator",
-        description: "Transform requirements into well-structured user stories with acceptance criteria.",
+        title: "User Story + Acceptance Criteria",
+        description: "Transform vague requirements into INVEST-compliant user stories with Given/When/Then acceptance criteria and edge case coverage.",
         category: "planning",
         difficulty: "beginner",
         icon: "person",
@@ -224,8 +259,8 @@ const prompts = [
     },
     {
         id: 9,
-        title: "Performance Optimization",
-        description: "Identify and fix performance bottlenecks in your application.",
+        title: "Core Web Vitals Optimizer",
+        description: "Fix LCP, INP, and CLS bottlenecks in your Next.js or React app. Get a prioritized performance plan with before/after metric targets.",
         category: "development",
         difficulty: "advanced",
         icon: "speed",
@@ -233,8 +268,8 @@ const prompts = [
     },
     {
         id: 10,
-        title: "Code Refactoring Guide",
-        description: "Systematic approach to refactor legacy code while maintaining functionality.",
+        title: "Safe Code Refactoring Plan",
+        description: "Incrementally modernize legacy code with a feature-flag-based refactor plan, TypeScript migration path, and test coverage gates.",
         category: "development",
         difficulty: "intermediate",
         icon: "transform",
@@ -242,8 +277,8 @@ const prompts = [
     },
     {
         id: 11,
-        title: "Incident Response Plan",
-        description: "Create effective incident response procedures for production issues.",
+        title: "Blameless Incident Post-Mortem",
+        description: "Write a complete blameless post-mortem with timeline, root cause analysis, contributing factors, and actionable prevention items.",
         category: "devops",
         difficulty: "intermediate",
         icon: "emergency",
@@ -251,22 +286,96 @@ const prompts = [
     },
     {
         id: 12,
-        title: "API Design Best Practices",
-        description: "Design RESTful APIs following industry standards and best practices.",
+        title: "REST / GraphQL API Design",
+        description: "Design a developer-friendly API with proper versioning, RFC 9457 error format, cursor pagination, and auto-generated OpenAPI spec.",
         category: "development",
         difficulty: "intermediate",
         icon: "api",
         template: "api-design"
+    },
+    {
+        id: 13,
+        title: "LLM App Architecture",
+        description: "Design a production-ready LLM application — choose between RAG, agents, or fine-tuning, with cost/latency/accuracy trade-off analysis.",
+        category: "ai",
+        difficulty: "advanced",
+        icon: "smart_toy",
+        template: "llm-app"
+    },
+    {
+        id: 14,
+        title: "Prompt Engineering Workbench",
+        description: "Craft a high-performance prompt for GPT-5, Claude 4, or Gemini 2.5 — with role priming, chain-of-thought, few-shot examples, and structured output.",
+        category: "prompts",
+        difficulty: "intermediate",
+        icon: "psychology",
+        template: "prompt-craft"
+    },
+    {
+        id: 15,
+        title: "RAG Pipeline Design",
+        description: "Architect a retrieval-augmented generation system with chunking strategy, embedding model selection, vector DB choice, and reranking.",
+        category: "ai",
+        difficulty: "advanced",
+        icon: "hub",
+        template: "llm-app"
+    },
+    {
+        id: 16,
+        title: "AI Agent Blueprint",
+        description: "Design a multi-step AI agent with tool use, memory, interruption handling, and human-in-the-loop checkpoints using modern agent frameworks.",
+        category: "ai",
+        difficulty: "advanced",
+        icon: "precision_manufacturing",
+        template: "llm-app"
+    },
+    {
+        id: 17,
+        title: "System Prompt Optimizer",
+        description: "Audit and rewrite an underperforming system prompt. Reduce token waste, eliminate ambiguity, and enforce reliable output formats.",
+        category: "prompts",
+        difficulty: "beginner",
+        icon: "tune",
+        template: "prompt-craft"
+    },
+    {
+        id: 18,
+        title: "Observability & SLO Setup",
+        description: "Implement OpenTelemetry across your services, define SLOs for golden signals, and set up SLO-based alerting to kill alert fatigue.",
+        category: "devops",
+        difficulty: "intermediate",
+        icon: "monitor_heart",
+        template: "observability"
+    },
+    {
+        id: 19,
+        title: "Few-Shot Prompt Designer",
+        description: "Build a few-shot prompt with carefully selected examples that generalize well — for classification, extraction, or transformation tasks.",
+        category: "prompts",
+        difficulty: "intermediate",
+        icon: "format_list_numbered",
+        template: "prompt-craft"
+    },
+    {
+        id: 20,
+        title: "LLM Evaluation Framework",
+        description: "Design an eval suite for your LLM application using RAGAS, LLM-as-judge, or custom metrics to measure accuracy, groundedness, and latency.",
+        category: "ai",
+        difficulty: "advanced",
+        icon: "fact_check",
+        template: "llm-app"
     }
 ];
 
 const categories = [
     { id: "all", name: "All Prompts", icon: "apps" },
+    { id: "ai", name: "AI Development", icon: "smart_toy" },
+    { id: "prompts", name: "Prompt Engineering", icon: "psychology" },
     { id: "planning", name: "Planning", icon: "event_note" },
     { id: "development", name: "Development", icon: "code" },
     { id: "testing", name: "Testing", icon: "bug_report" },
     { id: "security", name: "Security", icon: "security" },
-    { id: "devops", name: "DevOps", icon: "cloud" },
+    { id: "devops", name: "DevOps & SRE", icon: "cloud" },
     { id: "documentation", name: "Documentation", icon: "description" }
 ];
 
@@ -274,67 +383,67 @@ const followupSuggestions = {
     refine: [
         {
             icon: "compress",
-            text: "Make it more concise",
-            action: "\n\n---\n\n**REFINEMENT REQUEST:** Please make the above prompt more concise while preserving all critical information. Remove redundancy and focus on essential details only."
+            text: "Make it shorter — remove fluff",
+            action: "\n\n---\n\n**REFINEMENT REQUEST:** Rewrite the above prompt to be 40% shorter while keeping all critical information. Remove filler phrases, redundant context, and anything the model can reasonably infer. Keep every constraint and output format instruction intact."
         },
         {
             icon: "psychology",
-            text: "Improve clarity and remove ambiguity",
-            action: "\n\n---\n\n**REFINEMENT REQUEST:** Review the above prompt and suggest improvements to make it clearer and more specific. Remove any ambiguous language and ensure all requirements are unambiguous."
+            text: "Add chain-of-thought instruction",
+            action: "\n\n---\n\n**REFINEMENT REQUEST:** Enhance the above prompt by adding explicit chain-of-thought reasoning instructions. Tell the model to think step-by-step before answering, show its reasoning, and flag any assumptions it makes. This improves output accuracy on complex tasks."
         },
         {
-            icon: "format_list_bulleted",
-            text: "Simplify and structure better",
-            action: "\n\n---\n\n**REFINEMENT REQUEST:** Restructure the above prompt for better readability. Use clear sections, bullet points, and prioritize information logically."
+            icon: "output",
+            text: "Lock down the output format",
+            action: "\n\n---\n\n**REFINEMENT REQUEST:** Rewrite the output format section of the above prompt to be much more specific and enforceable. Define: exact sections required, whether code blocks are needed, numbering for steps, maximum length, and what the model should NOT include. Add an example of ideal output structure."
         }
     ],
     extend: [
         {
-            icon: "bug_report",
-            text: "Add test cases and edge cases",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Generate comprehensive test cases including edge cases, error scenarios, boundary conditions, and validation requirements for the above specification."
+            icon: "fact_check",
+            text: "Add an LLM evaluation rubric",
+            action: "\n\n---\n\n**EXTENSION REQUEST:** Create a 5-point evaluation rubric for grading the quality of responses to the above prompt. Define criteria like: accuracy, completeness, actionability, format compliance, and depth. This rubric can be used for LLM-as-judge evaluation."
         },
         {
-            icon: "speed",
-            text: "Include performance considerations",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Add performance optimization strategies, potential bottlenecks, scalability considerations, and efficiency metrics to consider for the solution described above."
+            icon: "hub",
+            text: "Design as a multi-step agent prompt",
+            action: "\n\n---\n\n**EXTENSION REQUEST:** Refactor the above into a multi-step agentic workflow. Break it into: (1) Planning step — identify what to do, (2) Execution steps — each with a specific tool or action, (3) Verification step — self-check the output. Format each step as a separate prompt with clear handoff context."
         },
         {
             icon: "security",
-            text: "Add security analysis",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Analyze potential security vulnerabilities, provide security best practices, authentication/authorization considerations, and data protection measures for the implementation above."
+            text: "Add security & privacy guardrails",
+            action: "\n\n---\n\n**EXTENSION REQUEST:** Add a guardrails section to the above prompt that instructs the model to: (1) Never output PII, credentials, or secrets, (2) Refuse if the request could be used maliciously, (3) Flag any assumptions about sensitive data. Format as an explicit system-level instruction block."
         },
         {
             icon: "checklist",
-            text: "Request implementation checklist",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Based on the above requirements, provide a detailed step-by-step implementation checklist with estimated time for each task, dependencies, and priority levels."
+            text: "Convert to an implementation checklist",
+            action: "\n\n---\n\n**EXTENSION REQUEST:** Based on the above specification, generate a prioritized implementation checklist organized in phases (Phase 1: Foundation, Phase 2: Core, Phase 3: Polish). For each item include: [ ] checkbox, what to do, why it matters, estimated time, and acceptance criteria."
         },
         {
             icon: "code",
-            text: "Add code examples",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Provide practical code examples, implementation snippets, and technical specifics with explanations for the key components described above."
+            text: "Request working code with tests",
+            action: "\n\n---\n\n**EXTENSION REQUEST:** For the technical components described above, provide: (1) A working code implementation with inline comments, (2) At least 3 unit tests covering the happy path and 2 edge cases, (3) A README snippet showing how to run it. Use the same tech stack specified in the prompt."
         }
     ],
     context: [
         {
-            icon: "alt_route",
-            text: "Ask for alternative solutions",
-            action: "\n\n---\n\n**CONTEXT REQUEST:** Provide 2-3 alternative approaches to solve the problem described above. Compare pros, cons, trade-offs, and recommend the best option with justification."
+            icon: "compare_arrows",
+            text: "Compare 3 solution approaches",
+            action: "\n\n---\n\n**CONTEXT REQUEST:** For the problem above, propose exactly 3 different solution approaches. For each, provide: (1) A one-line name, (2) How it works in 2–3 sentences, (3) Pros (2–3 bullet points), (4) Cons (2–3 bullet points), (5) When to choose it. End with a clear recommendation and justification."
         },
         {
             icon: "warning",
-            text: "Add edge-case scenarios",
-            action: "\n\n---\n\n**CONTEXT REQUEST:** Identify and describe potential edge cases, failure scenarios, error conditions, and exceptional situations that should be handled in the implementation above."
+            text: "Identify failure modes & risks",
+            action: "\n\n---\n\n**CONTEXT REQUEST:** For the solution or approach discussed above, provide a failure mode analysis: (1) List 5 most likely failure scenarios, (2) For each: probability (High/Medium/Low), impact, detection method, and mitigation strategy. Format as a risk register table."
         },
         {
-            icon: "groups",
-            text: "Consider user perspectives",
-            action: "\n\n---\n\n**CONTEXT REQUEST:** Analyze the above from different user perspectives (end-users, developers, stakeholders, operations team). What concerns or requirements might each group have?"
+            icon: "rocket_launch",
+            text: "Write a phased rollout strategy",
+            action: "\n\n---\n\n**CONTEXT REQUEST:** Create a phased rollout plan for implementing the above in a production system. Include: Phase 1 (Internal/Alpha), Phase 2 (Beta with feature flags), Phase 3 (GA). For each phase: what's deployed, acceptance criteria to advance, rollback trigger conditions, and metrics to monitor."
         },
         {
-            icon: "timeline",
-            text: "Add migration and rollback strategy",
-            action: "\n\n---\n\n**CONTEXT REQUEST:** Provide a migration strategy, rollback plan, and deployment considerations for implementing the solution described above in a production environment."
+            icon: "explore",
+            text: "Add a 'what if' scenario analysis",
+            action: "\n\n---\n\n**CONTEXT REQUEST:** Run 3 'what if' scenarios against the solution described above: (1) What if the load is 10× the expected volume? (2) What if a key dependency is unavailable? (3) What if the team halves in size mid-project? For each scenario, describe the impact and how the solution should adapt."
         }
     ]
 };
@@ -391,42 +500,56 @@ const platformSelectorBtn = document.getElementById("platformSelectorBtn");
 const platformDropdown = document.getElementById("platformDropdown");
 const selectedPlatformLabel = document.getElementById("selectedPlatformLabel");
 
-// AI Platform Configuration with Prompt Profiles
+// AI Platform Configuration with Prompt Profiles — updated for 2026 models
 const defaultPlatformProfiles = {
     chatgpt: {
         id: "chatgpt",
-        name: "ChatGPT",
+        name: "ChatGPT (GPT-5)",
         url: "https://chat.openai.com",
-        prefix: "You are a senior software engineer with extensive experience in software architecture, best practices, and modern development workflows. Help me with the following task:\n\n",
-        suffix: "\n\nPlease provide a comprehensive, well-structured response with practical examples and actionable recommendations."
+        prefix: "You are a principal-level software engineer with deep expertise in system design, modern development workflows, and AI-assisted engineering. You reason through problems step by step before giving a final answer.\n\nTask:\n\n",
+        suffix: "\n\nRespond with a well-structured, comprehensive answer using Markdown. Include code examples where relevant, call out trade-offs explicitly, and end with a prioritized 'next steps' list."
     },
     claude: {
         id: "claude",
-        name: "Claude",
+        name: "Claude 4 (Sonnet/Opus)",
         url: "https://claude.ai",
-        prefix: "Let's work through this systematically, step by step. I need your expertise on the following:\n\n",
-        suffix: "\n\nPlease think through this carefully and provide detailed reasoning for your recommendations."
+        prefix: "<system>You are an expert software architect and technical advisor. Think through problems carefully before answering. When uncertain, state your assumptions explicitly. Prioritize correctness and nuance over speed.</system>\n\n<task>\n",
+        suffix: "\n</task>\n\nThink step by step before answering. Structure your response clearly with headers. Cite trade-offs for every major recommendation. End with a concrete action plan."
     },
     gemini: {
         id: "gemini",
-        name: "Gemini",
+        name: "Gemini 2.5 Pro",
         url: "https://gemini.google.com",
-        prefix: "I need your help with a technical challenge. Here's the context:\n\n",
-        suffix: "\n\nPlease provide clear, actionable guidance with examples where appropriate."
+        prefix: "You are an expert technical advisor specializing in the area described below. Use your broad knowledge and reasoning capabilities to provide accurate, nuanced guidance.\n\n",
+        suffix: "\n\nProvide a structured response with clear sections. Where you use code, ensure it is production-quality with error handling. Highlight any assumptions and call out risks explicitly."
     },
     perplexity: {
         id: "perplexity",
-        name: "Perplexity",
+        name: "Perplexity (Sonar)",
         url: "https://www.perplexity.ai",
-        prefix: "Research and analyze the following technical requirement:\n\n",
-        suffix: "\n\nPlease include relevant sources and best practices in your response."
+        prefix: "Research the following technical topic and provide an evidence-based, up-to-date answer with citations:\n\n",
+        suffix: "\n\nInclude links to official documentation, recent best practice guides, and relevant GitHub repos where appropriate. Distinguish between what is established practice vs. emerging/experimental."
+    },
+    deepseek: {
+        id: "deepseek",
+        name: "DeepSeek V3",
+        url: "https://chat.deepseek.com",
+        prefix: "You are an expert software engineer with strong reasoning capabilities. Analyze the following problem thoroughly and provide a well-reasoned solution.\n\n",
+        suffix: "\n\nProvide a detailed technical response. Show your reasoning process. Include working code examples where applicable and highlight any edge cases or potential pitfalls."
+    },
+    mistral: {
+        id: "mistral",
+        name: "Mistral Large",
+        url: "https://chat.mistral.ai",
+        prefix: "You are a senior software engineer and technical expert. Provide precise, technically accurate guidance for the following:\n\n",
+        suffix: "\n\nBe concise and technically precise. Use code where it helps. Structure your response with clear headers and actionable recommendations."
     },
     grok: {
         id: "grok",
-        name: "Grok",
+        name: "Grok 3",
         url: "https://grok.x.ai",
-        prefix: "You are a witty and knowledgeable AI assistant with a sense of humor. Help me with the following technical challenge:\n\n",
-        suffix: "\n\nPlease provide insightful, practical advice with a touch of humor where appropriate."
+        prefix: "You are a sharp, technically deep AI assistant. Cut through the noise and give the real answer — not the textbook answer — for the following technical challenge:\n\n",
+        suffix: "\n\nBe direct, precise, and opinionated where appropriate. Call out what's commonly done wrong. Give the recommendation you'd actually give a senior engineer colleague."
     },
     custom: {
         id: "custom",
