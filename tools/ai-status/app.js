@@ -161,9 +161,12 @@ async function fetchBackend(url, retry = true) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (e) {
-    if (retry) {
+    // CORS / network block detection: fetch throws TypeError with no response
+    if (e instanceof TypeError && retry) {
       await new Promise(r => setTimeout(r, 1500));
-      return fetchBackend(url, false);
+      const result = await fetchBackend(url, false);
+      if (result === null) showNetworkBlockModal();
+      return result;
     }
     return null;
   }
@@ -606,6 +609,75 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+let _networkModalShown = false;
+function showNetworkBlockModal() {
+  if (_networkModalShown) return;
+  _networkModalShown = true;
+
+  const el = document.createElement('div');
+  el.id = 'networkBlockModal';
+  el.innerHTML = `
+    <div class="nbm-backdrop" id="nbmBackdrop"></div>
+    <div class="nbm-panel" role="alertdialog" aria-modal="true" aria-labelledby="nbmTitle">
+      <div class="nbm-icon-wrap">
+        <div class="nbm-shield">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"/>
+            <path d="M12 8v5M12 16h.01" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="nbm-rings">
+          <div class="nbm-ring"></div>
+          <div class="nbm-ring"></div>
+        </div>
+      </div>
+
+      <div class="nbm-content">
+        <h2 id="nbmTitle" class="nbm-title">Network Access Restricted</h2>
+        <p class="nbm-desc">
+          This dashboard can't reach the status API from your current network.
+          A <strong>VPN, corporate firewall, or proxy</strong> (like Zscaler) is
+          likely intercepting the connection and blocking cross-origin requests.
+        </p>
+
+        <div class="nbm-reasons">
+          <div class="nbm-reason">
+            <span class="nbm-reason-dot vpn"></span>
+            <span>VPN or corporate proxy active</span>
+          </div>
+          <div class="nbm-reason">
+            <span class="nbm-reason-dot fw"></span>
+            <span>Firewall blocking external API calls</span>
+          </div>
+          <div class="nbm-reason">
+            <span class="nbm-reason-dot ssl"></span>
+            <span>SSL inspection stripping CORS headers</span>
+          </div>
+        </div>
+
+        <div class="nbm-tip">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v4M8 11h.01"/></svg>
+          Try opening this page on a different network or device to see live status data.
+        </div>
+      </div>
+
+      <button class="nbm-close-btn" id="nbmCloseBtn">Got it, continue anyway</button>
+    </div>`;
+  document.body.appendChild(el);
+
+  requestAnimationFrame(() => el.classList.add('open'));
+
+  const close = () => {
+    el.classList.remove('open');
+    setTimeout(() => el.remove(), 300);
+  };
+  document.getElementById('nbmCloseBtn').addEventListener('click', close);
+  document.getElementById('nbmBackdrop').addEventListener('click', close);
+  document.addEventListener('keydown', function handler(e) {
+    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+  });
 }
 
 /* ══════════════════════════════════════════════════════

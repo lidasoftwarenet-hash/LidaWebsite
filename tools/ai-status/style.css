@@ -1262,3 +1262,169 @@ body::before {
   .cs-divider-v:first-of-type { display: none; }
   .cs-ticker-wrap { padding-left: 10px; }
 }
+
+/* ══════════════════════════════════════════════════════
+   NETWORK BLOCK MODAL
+══════════════════════════════════════════════════════ */
+#networkBlockModal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+#networkBlockModal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.nbm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(10px);
+}
+.nbm-panel {
+  position: relative;
+  background: linear-gradient(160deg, #0f0f20 0%, #0a0a18 100%);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px 36px 32px;
+  box-shadow: 0 0 0 1px rgba(239,68,68,0.08),
+              0 32px 80px rgba(0,0,0,0.8),
+              0 0 80px -20px rgba(239,68,68,0.25);
+  transform: translateY(20px) scale(0.97);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  text-align: center;
+}
+#networkBlockModal.open .nbm-panel {
+  transform: translateY(0) scale(1);
+}
+
+/* Icon */
+.nbm-icon-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nbm-shield {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444;
+  position: relative;
+  z-index: 2;
+}
+.nbm-shield svg { width: 26px; height: 26px; }
+.nbm-rings {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nbm-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(239,68,68,0.3);
+  animation: nbm-ring-expand 2.5s ease-out infinite;
+}
+.nbm-ring:nth-child(1) { width: 72px; height: 72px; }
+.nbm-ring:nth-child(2) { width: 72px; height: 72px; animation-delay: 1.25s; }
+@keyframes nbm-ring-expand {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Text */
+.nbm-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.nbm-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.nbm-desc strong { color: var(--text); font-weight: 600; }
+
+/* Reason list */
+.nbm-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.nbm-reason {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.nbm-reason-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.nbm-reason-dot.vpn { background: #ef4444; box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+.nbm-reason-dot.fw  { background: #f59e0b; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+.nbm-reason-dot.ssl { background: #a78bfa; box-shadow: 0 0 6px rgba(167,139,250,0.5); }
+
+/* Tip */
+.nbm-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  text-align: left;
+}
+.nbm-tip svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; opacity: .6; }
+
+/* Button */
+.nbm-close-btn {
+  width: 100%;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .2s;
+}
+.nbm-close-btn:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.18);
+  color: var(--text);
+}
