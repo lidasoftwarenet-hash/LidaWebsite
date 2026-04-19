@@ -1,4 +1,17 @@
 /* ══════════════════════════════════════════════════════
+   LOGO FALLBACK HANDLER
+══════════════════════════════════════════════════════ */
+function handleLogoError(img) {
+  if (img.dataset.fb) {
+    img.style.display = 'none';
+    if (img.nextElementSibling) img.nextElementSibling.style.display = 'block';
+  } else {
+    img.dataset.fb = '1';
+    img.src = 'https://www.google.com/s2/favicons?domain=' + img.dataset.domain + '&sz=64';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
    PROVIDER CONFIGURATION  (metadata only — no direct fetching)
 ══════════════════════════════════════════════════════ */
 const PROVIDERS = [
@@ -136,19 +149,23 @@ const state = {
   currentFilter: 'all',
 };
 
-const CACHE_KEY = 'lida_ai_status_cache_v2';
+const CACHE_KEY = 'lida_ai_status_cache_v3';
 const CACHE_TTL = 55 * 1000; // 55 s
 
 /* ══════════════════════════════════════════════════════
    BACKEND FETCH HELPERS
 ══════════════════════════════════════════════════════ */
-async function fetchBackend(url) {
+async function fetchBackend(url, retry = true) {
   try {
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (e) {
-    return null; // caller handles null as failure
+    if (retry) {
+      await new Promise(r => setTimeout(r, 1500));
+      return fetchBackend(url, false);
+    }
+    return null;
   }
 }
 
@@ -292,7 +309,8 @@ function renderCard(provider, status) {
             alt="${p.name} logo"
             width="22" height="22"
             loading="lazy" decoding="async"
-            onerror="if(this.dataset.fb){this.style.display='none';this.nextElementSibling.style.display='block';}else{this.dataset.fb='1';this.src='https://www.google.com/s2/favicons?domain=${p.logoDomain}&sz=64';}"
+            data-domain="${p.logoDomain}"
+            onerror="handleLogoError(this)"
           /><span class="provider-logo-fallback">${p.icon}</span>` : p.icon}
         </div>
         <div class="card-header-text">
@@ -426,7 +444,7 @@ function updateGlobalBanner() {
     text.textContent = `✓  All ${operCount} auto-checked providers operational`;
   }
 
-  document.getElementById('operationalCount').textContent = PROVIDERS.length;
+  document.getElementById('operationalCount').textContent = operCount;
 }
 
 function updateStats() {
@@ -472,6 +490,9 @@ function loadCache() {
     if (!raw) return false;
     const { ts, statuses, history } = JSON.parse(raw);
     if (Date.now() - ts > CACHE_TTL) return false;
+    // Discard cache if any provider is stuck in "checking"
+    const hasStuck = Object.values(statuses || {}).some(s => s.state === 'checking');
+    if (hasStuck) { localStorage.removeItem(CACHE_KEY); return false; }
     state.statuses = statuses || {};
     state.history  = history  || {};
     return true;
@@ -488,50 +509,58 @@ async function refreshAll(isManual = false) {
   const btn = document.getElementById('refreshBtn');
   if (btn) btn.classList.add('spinning');
 
-  // Show "checking" skeletons on very first load
-  if (Object.keys(state.statuses).length === 0) {
-    PROVIDERS.forEach(p => { state.statuses[p.id] = { state: 'checking', label: 'Checking…' }; });
-    renderAllCards();
-  }
+  try {
+    // Show "checking" skeletons on very first load
+    if (Object.keys(state.statuses).length === 0) {
+      PROVIDERS.forEach(p => { state.statuses[p.id] = { state: 'checking', label: 'Checking…' }; });
+      renderAllCards();
+    }
 
-  // Fetch both endpoints in parallel
-  const [latestArr, historyObj] = await Promise.all([
-    fetchBackend(API_LATEST),
-    fetchBackend(API_HISTORY),
-  ]);
+    // Fetch both endpoints in parallel
+    const [latestArr, historyObj] = await Promise.all([
+      fetchBackend(API_LATEST),
+      fetchBackend(API_HISTORY),
+    ]);
 
-  if (latestArr === null && historyObj === null) {
-    // Both failed — keep previous data, show toast
-    showToast('⚠ Could not reach backend — showing last known data');
-  } else {
-    if (latestArr !== null) {
-      const byBackendId = normalizeLatest(latestArr);
-      // Map backendId → provider.id
+    if (latestArr === null && historyObj === null) {
       PROVIDERS.forEach(p => {
-        if (byBackendId[p.backendId]) {
-          state.statuses[p.id] = byBackendId[p.backendId];
+        if (state.statuses[p.id]?.state === 'checking') {
+          state.statuses[p.id] = { state: 'unknown', label: 'Unavailable' };
         }
       });
+      showToast('⚠ Could not reach backend — showing last known data');
+    } else {
+      if (latestArr !== null) {
+        const byBackendId = normalizeLatest(latestArr);
+        PROVIDERS.forEach(p => {
+          if (byBackendId[p.backendId]) {
+            state.statuses[p.id] = byBackendId[p.backendId];
+          }
+        });
+      }
+      if (historyObj !== null) {
+        state.history = historyObj;
+      }
+      saveCache();
+      if (isManual) showToast('Status refreshed');
     }
-    if (historyObj !== null) {
-      state.history = historyObj; // already keyed by backendId
-    }
-    saveCache();
-    if (isManual) showToast('Status refreshed');
+
+    renderAllCards();
+    updateGlobalBanner();
+    updateStats();
+    updateCommandStrip();
+  } catch (err) {
+    console.error('[ai-status] refreshAll error:', err);
+    showToast('⚠ Error loading status data');
+  } finally {
+    if (btn) btn.classList.remove('spinning');
+    state.isRefreshing = false;
+    resetCountdown();
   }
-
-  renderAllCards();
-  updateGlobalBanner();
-  updateStats();
-  updateCommandStrip();
-
-  if (btn) btn.classList.remove('spinning');
-  state.isRefreshing = false;
-
-  resetCountdown();
 }
 
 function manualRefresh() {
+  if (state.isRefreshing) return;
   clearInterval(state.countdownTimer);
   clearTimeout(state.refreshTimer);
   state.countdown = 60;
@@ -566,7 +595,10 @@ function timeAgo(ts) {
   const sec = Math.round((Date.now() - ts) / 1000);
   if (sec < 5)  return 'just now';
   if (sec < 60) return `${sec}s ago`;
-  return `${Math.floor(sec / 60)}m ago`;
+  if (sec < 3600) return `${Math.floor(sec / 60)}m ago`;
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  return m > 0 ? `${h}h ${m}m ago` : `${h}h ago`;
 }
 
 function showToast(msg) {

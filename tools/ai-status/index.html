@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08080f" />
   <meta name="language" content="en" />
   <title>AI API Status — Is it Down? | LiDa Software</title>
   <meta name="description" content="Real-time status dashboard for 8 major AI APIs — OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Live monitoring every 60 seconds from official status feeds." />
@@ -94,7 +95,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="../../index.html" class="nav-back">
+    <a href="../../index.html" class="nav-back" title="Back to LiDa Software">
       <img src="/favicon.ico" alt="LiDa" width="20" height="20" style="border-radius:4px;flex-shrink:0" />
       LiDa Software
     </a>
@@ -150,7 +151,7 @@
         <span class="stat-value" id="operationalCount">—</span>&nbsp;providers checked
       </div>
     </div>
-    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
+    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()" aria-label="Refresh provider status">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/><path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/><path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/></svg>
       Refresh now
     </button>
@@ -171,7 +172,7 @@
   </div>
 
   <!-- PROVIDER GRID -->
-  <main class="provider-grid" id="providerGrid">
+  <main class="provider-grid" id="providerGrid" aria-label="Provider status cards">
     <!-- Cards injected by JS -->
   </main>
 
@@ -188,8 +189,8 @@
   </div>
 
   <!-- DISCLAIMER -->
-  <div class="disclaimer" style="max-width:1200px;margin:0 auto 32px;padding:0 24px">
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px">
+  <div class="disclaimer-wrap">
+    <div class="disclaimer-inner">
       <strong>Data sources:</strong> Status is fetched directly from each provider's official public status feed (Atlassian Statuspage JSON API) where available.
       Providers marked <em>manual check</em> don't expose a public machine-readable status API — links go to their status pages.
       <strong>Response time</strong> reflects the latency measured fetching the status endpoint — not AI inference latency.
@@ -199,11 +200,11 @@
   </div>
 
   <!-- SOCIAL SHARE -->
-  <div id="shareSection" style="max-width:1200px;margin:0 auto 48px;padding:0 24px">
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-      <div style="flex:1;min-width:200px">
-        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-bottom:4px">Share this tool</div>
-        <div style="font-size:13px;color:var(--muted)">Know someone whose AI APIs keep going down? Share the dashboard.</div>
+  <div id="shareSection" class="share-section">
+    <div class="share-section-inner">
+      <div class="share-label">
+        <div class="share-label-title">Share this tool</div>
+        <div class="share-label-sub">Know someone whose AI APIs keep going down? Share the dashboard.</div>
       </div>
       <div id="shareButtons" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></div>
     </div>
