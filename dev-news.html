@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="language" content="en" />
+  <title>Dev &amp; AI News Feed — Daily Stories for Developers | LiDa Software</title>
+  <meta name="description" content="Live developer and AI news feed aggregating top stories from Hacker News, TechCrunch, The Verge, Ars Technica, Wired, DEV.to, GitHub Trending and Reddit. Updated every 30 minutes." />
+  <meta name="keywords" content="developer news, AI news, tech news, Hacker News, programming, open source, LLM news, machine learning, web development, software engineering, GitHub trending, TechCrunch, developer tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.lidasoftware.online/dev-news.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.lidasoftware.online/dev-news.html" />
+  <meta property="og:title" content="Dev &amp; AI News Feed — Daily Stories for Developers" />
+  <meta property="og:description" content="Live aggregator pulling top dev and AI stories from Hacker News, TechCrunch, The Verge, Ars Technica, Wired, DEV.to, GitHub Trending and Reddit. Read articles without leaving the page." />
+  <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+  <meta property="og:site_name" content="LiDa Software" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dev &amp; AI News Feed for Developers" />
+  <meta name="twitter:description" content="Top dev and AI stories from 8 sources — Hacker News, TechCrunch, The Verge, Ars Technica, Wired, DEV.to, GitHub Trending and Reddit. Auto-refreshes every 30 minutes." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Dev & AI News Feed",
+    "url": "https://www.lidasoftware.online/dev-news.html",
+    "description": "Live news aggregator for developers — pulls top stories from Hacker News, TechCrunch, The Verge, Ars Technica, Wired, DEV.to, GitHub Trending and Reddit. Updated every 30 minutes.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online",
+      "logo": "https://www.lidasoftware.online/lida-logo.png"
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f;
+      --surface: rgba(255,255,255,0.03);
+      --surface-h: rgba(255,255,255,0.055);
+      --border: rgba(255,255,255,0.07);
+      --border-h: rgba(255,255,255,0.14);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --dim: #475569;
+      --accent: #667eea;
+      --accent2: #a78bfa;
+      --green: #22c55e;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --radius: 14px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(102,126,234,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(167,139,250,0.04) 0%, transparent 50%);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      padding: 0 24px;
+      height: 52px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,15,0.94);
+      backdrop-filter: blur(20px);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--muted); text-decoration: none;
+      font-size: 13px; font-weight: 500; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-back img { border-radius: 4px; flex-shrink: 0; }
+    .nav-sep { color: var(--dim); font-size: 16px; }
+    .nav-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .nav-right {
+      margin-left: auto; display: flex; align-items: center; gap: 16px;
+    }
+    .nav-live {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--green);
+    }
+    .nav-live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 7px rgba(34,197,94,0.9);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+    .nav-refresh-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 7px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--muted); font-size: 11px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all .2s;
+    }
+    .nav-refresh-btn:hover { background: var(--surface-h); border-color: var(--border-h); color: var(--text); }
+    .nav-refresh-btn svg { width: 12px; height: 12px; }
+    .nav-refresh-btn.spinning svg { animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 52px 24px 36px; text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
+    }
+    .hero-eyebrow-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 7px rgba(34,197,94,0.7);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    h1 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 800; letter-spacing: -.025em; line-height: 1.1;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: 15px; color: var(--muted);
+      max-width: 480px; margin: 0 auto; line-height: 1.65;
+    }
+
+    /* ── TICKER ── */
+    .ticker-bar {
+      background: rgba(102,126,234,0.05);
+      border-top: 1px solid rgba(102,126,234,0.1);
+      border-bottom: 1px solid rgba(102,126,234,0.1);
+      padding: 9px 0; overflow: hidden; position: relative; margin-bottom: 40px;
+    }
+    .ticker-bar::before, .ticker-bar::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 1; pointer-events: none;
+    }
+    .ticker-bar::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .ticker-bar::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+    .ticker-inner {
+      display: inline-block; white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(102,126,234,0.55);
+      animation: ticker-scroll 60s linear infinite;
+    }
+    @keyframes ticker-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── CONTROLS ── */
+    .controls {
+      max-width: 1200px; margin: 0 auto 24px;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .filter-tabs { display: flex; gap: 5px; flex-wrap: wrap; }
+    .filter-tab {
+      padding: 6px 15px; border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.08); background: transparent;
+      color: #64748b; font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all .18s;
+    }
+    .filter-tab:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.14); color: #94a3b8; }
+    .filter-tab.active {
+      background: rgba(102,126,234,0.14);
+      border-color: rgba(102,126,234,0.35); color: #818cf8;
+    }
+    .updated-label {
+      font-size: 11px; color: var(--dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── PAGE BODY ── */
+    .page-body {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: 24px; align-items: start;
+    }
+    @media (max-width: 880px) { .page-body { grid-template-columns: 1fr; } }
+
+    /* ── NEWS CARDS ── */
+    .news-grid { display: flex; flex-direction: column; gap: 8px; }
+
+    .news-card {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: start;
+      gap: 16px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, transform .15s, box-shadow .15s;
+      position: relative; overflow: hidden;
+      user-select: none;
+    }
+    .news-card::before {
+      content: ''; position: absolute;
+      inset: 0; border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(102,126,234,0.04) 0%, transparent 60%);
+      opacity: 0; transition: opacity .2s;
+    }
+    .news-card:hover {
+      background: rgba(255,255,255,0.042);
+      border-color: rgba(102,126,234,0.28);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.32), 0 0 0 1px rgba(102,126,234,0.1);
+    }
+    .news-card:hover::before { opacity: 1; }
+
+    /* Hot card — top 3 stories */
+    .news-card.hot {
+      border-color: rgba(249,115,22,0.2);
+      background: rgba(249,115,22,0.03);
+    }
+    .news-card.hot:hover { border-color: rgba(249,115,22,0.35); }
+
+    .news-rank {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.18); text-align: right;
+      flex-shrink: 0; padding-top: 3px;
+    }
+    .news-card.hot .news-rank { color: rgba(249,115,22,0.5); }
+
+    .news-body { min-width: 0; }
+    .news-tags { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+
+    .source-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 99px;
+      border: 1px solid; white-space: nowrap;
+    }
+    .source-hn      { color: #fb923c; border-color: rgba(251,146,60,.25);  background: rgba(251,146,60,.08); }
+    .source-devto   { color: #a78bfa; border-color: rgba(167,139,250,.25); background: rgba(167,139,250,.08); }
+    .source-gh      { color: #4ade80; border-color: rgba(74,222,128,.22);  background: rgba(74,222,128,.07); }
+    .source-verge      { color: #38bdf8; border-color: rgba(56,189,248,.22); background: rgba(56,189,248,.07); }
+    .source-techcrunch { color: #f472b6; border-color: rgba(244,114,182,.22); background: rgba(244,114,182,.07); }
+    .source-ars        { color: #fb923c; border-color: rgba(251,146,60,.22); background: rgba(251,146,60,.06); }
+    .source-wired      { color: #e2e8f0; border-color: rgba(226,232,240,.18); background: rgba(226,232,240,.05); }
+    .source-reddit     { color: #f97316; border-color: rgba(249,115,22,.22); background: rgba(249,115,22,.07); }
+    /* Live pulse on badge */
+    .source-badge.live-src::before {
+      content: ''; display: inline-block;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: currentColor; margin-right: 4px;
+      animation: blink 1.5s ease-in-out infinite;
+      vertical-align: middle;
+    }
+
+    .hot-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 99px;
+      color: #fb923c; border: 1px solid rgba(251,146,60,.3); background: rgba(251,146,60,.1);
+      display: flex; align-items: center; gap: 3px;
+    }
+
+    .tag-pill {
+      font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 99px;
+      background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2); color: #818cf8;
+    }
+
+    .news-title {
+      font-size: 15px; font-weight: 600; color: #dde5f0;
+      line-height: 1.5; margin-bottom: 9px;
+      display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      letter-spacing: -.005em;
+    }
+    .news-card:hover .news-title { color: #f1f5f9; }
+
+    .news-meta {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .news-meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: #475569;
+    }
+    .news-meta-item svg { width: 11px; height: 11px; flex-shrink: 0; }
+    .news-meta-item.read-time {
+      color: #4f6080;
+      background: rgba(102,126,234,0.06);
+      border: 1px solid rgba(102,126,234,0.12);
+      padding: 1px 7px; border-radius: 99px;
+      font-size: 10.5px; font-weight: 600;
+    }
+    .news-meta-item.date { color: #64748b; }
+    .news-meta-item.comments { color: #64748b; }
+    .news-meta-item.comments:hover { color: var(--accent); cursor: pointer; }
+
+    .news-domain {
+      font-size: 10.5px; color: #475569;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      padding: 2px 7px; border-radius: 5px; letter-spacing: .01em;
+    }
+
+    .news-score-col {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      flex-shrink: 0; min-width: 52px; padding-top: 2px;
+    }
+    .news-score-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px; font-weight: 800; line-height: 1;
+      color: #94a3b8;
+    }
+    .news-card.hot .news-score-val { color: #fb923c; }
+    .news-card:hover .news-score-val { color: #e2e8f0; }
+    .news-score-label { font-size: 9px; color: #334155; letter-spacing: .06em; text-transform: uppercase; }
+    .news-score-bar {
+      width: 32px; height: 3px; border-radius: 99px;
+      background: rgba(255,255,255,0.06); overflow: hidden; margin-top: 1px;
+    }
+    .news-score-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .4s ease;
+    }
+    .news-card.hot .news-score-fill { background: linear-gradient(90deg, #f97316, #fb923c); }
+
+    /* Skeleton */
+    .news-skeleton {
+      height: 84px; border-radius: var(--radius);
+      background: linear-gradient(90deg,
+        rgba(255,255,255,.02) 25%, rgba(255,255,255,.05) 50%, rgba(255,255,255,.02) 75%);
+      background-size: 200% 100%; animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* Load more */
+    .load-more-wrap { text-align: center; margin-top: 16px; }
+    .load-more-btn {
+      padding: 10px 28px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all .2s;
+    }
+    .load-more-btn:hover { background: var(--surface-h); border-color: var(--border-h); color: var(--text); }
+
+    /* Empty state */
+    .feed-empty {
+      text-align: center; padding: 48px 24px;
+      color: var(--dim); font-size: 14px; line-height: 1.7;
+    }
+    .feed-empty svg { width: 28px; height: 28px; opacity: .25; display: block; margin: 0 auto 12px; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 68px; }
+    .sidebar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px;
+    }
+    .sidebar-title {
+      font-size: 10px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--dim);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
+    }
+    .sidebar-title svg { width: 12px; height: 12px; opacity: .5; }
+
+    .source-list { display: flex; flex-direction: column; gap: 6px; }
+    .source-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      padding: 7px 9px; border-radius: 8px; border: 1px solid transparent;
+      transition: all .2s;
+    }
+    .source-item:hover { background: var(--surface-h); border-color: var(--border-h); color: var(--text); }
+    .source-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .source-item-name { font-weight: 600; flex: 1; }
+    .source-item-tag { font-size: 10px; color: var(--dim); }
+
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-box {
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+      border-radius: 9px; padding: 11px 12px;
+    }
+    .stat-box-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 3px;
+    }
+    .stat-box-val.green { color: var(--green); }
+    .stat-box-label { font-size: 9px; color: var(--dim); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+
+    .topic-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .topic-pill {
+      font-size: 10px; font-weight: 600; letter-spacing: .03em;
+      padding: 3px 9px; border-radius: 99px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; transition: all .15s;
+    }
+    .topic-pill:hover, .topic-pill.active {
+      background: rgba(102,126,234,0.1); border-color: rgba(102,126,234,0.25); color: var(--accent);
+    }
+
+    /* ── ARTICLE MODAL ── */
+    #articleModal {
+      position: fixed; inset: 0; z-index: 500;
+      display: flex; align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    #articleModal.open { opacity: 1; pointer-events: all; }
+
+    .am-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+    }
+
+    .am-sheet {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 1040px;
+      height: 94vh;
+      background: #0c0c18;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-bottom: none;
+      border-radius: 24px 24px 0 0;
+      display: flex; flex-direction: column;
+      transform: translateY(100%);
+      transition: transform .35s cubic-bezier(.32,0,.67,0);
+      overflow: hidden;
+      box-shadow: 0 -32px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(102,126,234,0.06);
+    }
+    #articleModal.open .am-sheet {
+      transform: translateY(0);
+      transition: transform .42s cubic-bezier(.16,1,.3,1);
+    }
+
+    /* Drag handle */
+    .am-handle {
+      width: 40px; height: 4px; border-radius: 99px;
+      background: rgba(255,255,255,0.1);
+      margin: 14px auto 0; flex-shrink: 0;
+    }
+
+    /* Modal header */
+    .am-header {
+      padding: 18px 36px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: flex-start; gap: 16px;
+      flex-shrink: 0;
+    }
+    .am-header-left { flex: 1; min-width: 0; }
+    .am-tags { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+    .am-title {
+      font-size: 22px; font-weight: 800; line-height: 1.3;
+      color: #f1f5f9; letter-spacing: -.02em;
+    }
+    .am-header-right {
+      display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;
+    }
+    .am-close {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; flex-shrink: 0; line-height: 1;
+    }
+    .am-close:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.2); }
+
+    /* Modal stats bar */
+    .am-stats {
+      display: flex; align-items: center; gap: 24px;
+      padding: 11px 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.012);
+      flex-wrap: wrap; flex-shrink: 0;
+    }
+    .am-stat {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: var(--muted);
+    }
+    .am-stat svg { width: 14px; height: 14px; opacity: .5; flex-shrink: 0; }
+    .am-stat strong { color: var(--text); font-weight: 600; font-size: 14px; }
+
+    /* Modal body */
+    .am-body {
+      flex: 1; overflow-y: auto; position: relative;
+    }
+    .am-body::-webkit-scrollbar { width: 6px; }
+    .am-body::-webkit-scrollbar-track { background: transparent; }
+    .am-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 99px; }
+    .am-body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+
+    /* Loading state */
+    .am-loading {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; height: 320px; color: var(--muted); font-size: 14px;
+    }
+    .am-loading.visible { display: flex; }
+    .am-spinner {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid rgba(102,126,234,0.15);
+      border-top-color: var(--accent);
+      animation: spin .7s linear infinite;
+    }
+
+    /* Article content — two-column reading layout */
+    .am-article {
+      display: none;
+      max-width: 740px; margin: 0 auto;
+      padding: 44px 48px 64px;
+    }
+    .am-article.visible { display: block; }
+    .am-article-content {
+      font-size: 17px; line-height: 1.85; color: #b8c8d8;
+      font-family: 'Inter', sans-serif;
+    }
+    .am-article-content h1 {
+      font-size: 26px; font-weight: 800; color: #f1f5f9;
+      letter-spacing: -.025em; line-height: 1.25;
+      margin: 1.8em 0 .6em; padding-bottom: .5em;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .am-article-content h1:first-child { margin-top: 0; }
+    .am-article-content h2 {
+      font-size: 20px; font-weight: 700; color: #e2e8f0;
+      letter-spacing: -.015em; line-height: 1.3;
+      margin: 1.6em 0 .5em;
+    }
+    .am-article-content h3 {
+      font-size: 17px; font-weight: 600; color: #cbd5e1;
+      margin: 1.4em 0 .4em;
+    }
+    .am-article-content p { margin-bottom: 1.3em; }
+    .am-article-content p:last-child { margin-bottom: 0; }
+    .am-article-content a {
+      color: #818cf8; text-decoration: none;
+      border-bottom: 1px solid rgba(129,140,248,0.3);
+      transition: border-color .15s, color .15s;
+    }
+    .am-article-content a:hover { color: #a5b4fc; border-bottom-color: rgba(165,180,252,0.5); }
+    .am-article-content strong { color: #e2e8f0; font-weight: 600; }
+    .am-article-content em { color: #94a3b8; font-style: italic; }
+    .am-article-content code {
+      font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+      background: rgba(102,126,234,0.1); border: 1px solid rgba(102,126,234,0.2);
+      padding: 2px 7px; border-radius: 5px; color: #a5b4fc;
+      white-space: nowrap;
+    }
+    .am-article-content pre {
+      background: #080810; border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 20px 24px; overflow-x: auto;
+      margin: 1.5em 0; position: relative;
+    }
+    .am-article-content pre code {
+      background: none; border: none; padding: 0;
+      font-size: 13.5px; color: #94a3b8; white-space: pre; line-height: 1.7;
+    }
+    .am-article-content blockquote {
+      border-left: 3px solid rgba(102,126,234,0.5);
+      background: rgba(102,126,234,0.05);
+      padding: 14px 20px; border-radius: 0 10px 10px 0;
+      color: #94a3b8; margin: 1.4em 0; font-style: italic;
+      font-size: 16px; line-height: 1.7;
+    }
+    .am-article-content img {
+      max-width: 100%; border-radius: 10px; margin: 1.4em 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .am-article-content ul, .am-article-content ol {
+      padding-left: 28px; margin-bottom: 1.2em;
+    }
+    .am-article-content li { margin-bottom: .55em; line-height: 1.75; }
+    .am-article-content li::marker { color: rgba(102,126,234,0.5); }
+    .am-article-content hr {
+      border: none; border-top: 1px solid rgba(255,255,255,0.07);
+      margin: 2em 0;
+    }
+    .am-article-content table {
+      width: 100%; border-collapse: collapse; margin: 1.4em 0;
+      font-size: 14px;
+    }
+    .am-article-content th {
+      background: rgba(102,126,234,0.08); color: #e2e8f0;
+      font-weight: 600; padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .am-article-content td {
+      padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #94a3b8;
+    }
+    .am-article-content tr:last-child td { border-bottom: none; }
+
+    /* Fallback */
+    .am-fallback {
+      display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 18px; padding: 60px 24px; text-align: center;
+    }
+    .am-fallback.visible { display: flex; }
+    .am-fallback-title { font-size: 18px; font-weight: 700; color: var(--text); }
+    .am-fallback-desc { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 360px; }
+    .am-open-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 13px 26px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-size: 14px; font-weight: 700;
+      text-decoration: none; transition: opacity .2s, transform .15s;
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .am-open-btn:hover { opacity: .88; transform: translateY(-1px); }
+    .am-open-btn svg { width: 14px; height: 14px; }
+    .am-hn-link {
+      font-size: 13px; color: var(--accent); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; opacity: .8;
+    }
+    .am-hn-link:hover { opacity: 1; text-decoration: underline; }
+
+    /* Reading progress bar */
+    .am-progress {
+      position: absolute; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), #f472b6);
+      border-radius: 0 3px 3px 0;
+      transition: width .1s linear;
+      box-shadow: 0 0 10px rgba(102,126,234,0.7);
+      z-index: 10; pointer-events: none;
+    }
+
+
+      padding: 13px 36px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 14px;
+      flex-shrink: 0; flex-wrap: wrap;
+    }
+    .am-domain {
+      font-size: 12px; color: var(--dim);
+      font-family: 'JetBrains Mono', monospace; letter-spacing: .02em;
+    }
+    .am-actions { margin-left: auto; display: flex; gap: 8px; }
+    .am-action-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 16px; border-radius: 9px;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04);
+      color: var(--muted); font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: inherit; text-decoration: none;
+      transition: all .2s;
+    }
+    .am-action-btn:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.18); color: var(--text); }
+    .am-action-btn svg { width: 12px; height: 12px; }
+
+    @media (max-width: 700px) {
+      .am-sheet { height: 96vh; border-radius: 18px 18px 0 0; }
+      .am-header { padding: 14px 20px 12px; }
+      .am-title { font-size: 17px; }
+      .am-stats { padding: 10px 20px; gap: 14px; }
+      .am-article { padding: 28px 20px 48px; }
+      .am-article-content { font-size: 15px; line-height: 1.75; }
+      .am-footer { padding: 11px 20px; }
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e293b; border: 1px solid #334155;
+      color: var(--text); padding: 9px 18px;
+      border-radius: 99px; font-size: 13px; font-weight: 500;
+      z-index: 9999; transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap; pointer-events: none;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 24px;
+      text-align: center; font-size: 12px; color: var(--dim);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .controls { flex-direction: column; align-items: flex-start; }
+      .hero { padding: 36px 16px 24px; }
+      .page-body { padding: 0 16px 60px; }
+      .news-card { grid-template-columns: 1fr auto; }
+      .news-rank { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back" title="Back to LiDa Software">
+    <img src="/favicon.png" alt="LiDa" width="20" height="20" />
+    LiDa Software
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Dev &amp; AI Feed</span>
+  <div class="nav-right">
+    <span class="updated-label" id="updatedLabel">—</span>
+    <div class="nav-live"><span class="nav-live-dot"></span>Live</div>
+    <button class="nav-refresh-btn" id="refreshBtn" aria-label="Refresh feed">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/>
+        <path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/>
+        <path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/>
+      </svg>
+      Refresh
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <span class="hero-eyebrow-dot"></span>
+    Developer Intelligence Feed
+  </div>
+  <h1>What Developers Are Reading Right Now</h1>
+  <p class="hero-sub">Top stories from Hacker News filtered for AI, LLMs, dev tools, and open source. Click any story to read it here.</p>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-inner" id="tickerText">LOADING FEED…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOADING FEED…&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-filter="all">All</button>
+    <button class="filter-tab" data-filter="ai">AI &amp; LLMs</button>
+    <button class="filter-tab" data-filter="tools">Dev Tools</button>
+    <button class="filter-tab" data-filter="openai">OpenAI</button>
+    <button class="filter-tab" data-filter="oss">Open Source</button>
+    <button class="filter-tab" data-filter="web">Web Dev</button>
+    <button class="filter-tab" data-filter="security">Security</button>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- FEED -->
+  <div>
+    <div class="news-grid" id="newsGrid">
+      <div class="news-skeleton"></div>
+      <div class="news-skeleton"></div>
+      <div class="news-skeleton"></div>
+      <div class="news-skeleton"></div>
+      <div class="news-skeleton"></div>
+      <div class="news-skeleton"></div>
+    </div>
+    <div class="load-more-wrap">
+      <button class="load-more-btn" id="loadMoreBtn" style="display:none">Load more stories</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/><path d="M2 8h12M8 2a10 10 0 0 1 0 12M8 2a10 10 0 0 0 0 12"/></svg>
+        Sources
+      </div>
+      <div class="source-list">
+        <a href="https://news.ycombinator.com" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#fb923c"></span>
+          <span class="source-item-name">Hacker News</span>
+          <span class="source-item-tag">Daily</span>
+        </a>
+        <a href="https://dev.to" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#a78bfa"></span>
+          <span class="source-item-name">DEV.to</span>
+          <span class="source-item-tag">Daily</span>
+        </a>
+        <a href="https://github.com/trending" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#4ade80"></span>
+          <span class="source-item-name">GitHub Trending</span>
+          <span class="source-item-tag">Daily</span>
+        </a>
+        <a href="https://theverge.com" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#38bdf8;box-shadow:0 0 6px rgba(56,189,248,.6)"></span>
+          <span class="source-item-name">The Verge</span>
+          <span class="source-item-tag" style="color:#38bdf8">Live</span>
+        </a>
+        <a href="https://techcrunch.com" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#f472b6;box-shadow:0 0 6px rgba(244,114,182,.6)"></span>
+          <span class="source-item-name">TechCrunch</span>
+          <span class="source-item-tag" style="color:#f472b6">Live</span>
+        </a>
+        <a href="https://arstechnica.com" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#fb923c;box-shadow:0 0 6px rgba(251,146,60,.6)"></span>
+          <span class="source-item-name">Ars Technica</span>
+          <span class="source-item-tag" style="color:#fb923c">Live</span>
+        </a>
+        <a href="https://wired.com" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#e2e8f0;box-shadow:0 0 6px rgba(226,232,240,.4)"></span>
+          <span class="source-item-name">Wired</span>
+          <span class="source-item-tag" style="color:#94a3b8">Live</span>
+        </a>
+        <a href="https://reddit.com/r/programming" target="_blank" rel="noopener" class="source-item">
+          <span class="source-dot" style="background:#f97316;box-shadow:0 0 6px rgba(249,115,22,.6)"></span>
+          <span class="source-item-name">Reddit</span>
+          <span class="source-item-tag" style="color:#f97316">Live</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l4-4 3 3 5-6"/></svg>
+        Feed Stats
+      </div>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-box-val green" id="statLoaded">—</div>
+          <div class="stat-box-label">Loaded</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-val" id="statFiltered">—</div>
+          <div class="stat-box-label">Showing</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-val" id="statAvgScore">—</div>
+          <div class="stat-box-label">Avg score</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-box-val" id="statCacheAge">—</div>
+          <div class="stat-box-label">Cache age</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+        Hot Topics
+      </div>
+      <div class="topic-list" id="topicList"></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v4M8 11h.01"/></svg>
+        About
+      </div>
+      <p style="font-size:12px;color:var(--muted);line-height:1.65">
+        Stories pulled from Hacker News, filtered for AI &amp; dev relevance, cached 2h. Click any card to read without leaving this page.
+      </p>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--dim)">
+        By <a href="index.html" style="color:var(--accent);text-decoration:none">LiDa Software</a> · No ads · No tracking
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <a href="index.html">← LiDa Software</a> · Hacker News public API · Zero tracking
+</footer>
+
+<!-- ARTICLE MODAL -->
+<div id="articleModal" role="dialog" aria-modal="true" aria-labelledby="amTitle">
+  <div class="am-backdrop" id="amBackdrop"></div>
+  <div class="am-sheet" id="amSheet">
+    <div class="am-handle"></div>
+    <div class="am-progress" id="amProgress"></div>
+    <div class="am-header">
+      <div class="am-header-left">
+        <div class="am-tags" id="amTags"></div>
+        <div class="am-title" id="amTitle">Loading…</div>
+      </div>
+      <div class="am-header-right">
+        <button class="am-close" id="amClose" aria-label="Close article">×</button>
+      </div>
+    </div>
+    <div class="am-stats" id="amStats"></div>
+    <div class="am-body" id="amBody">
+      <div class="am-loading" id="amLoading">
+        <div class="am-spinner"></div>
+        <span>Fetching article…</span>
+      </div>
+      <div class="am-article" id="amArticle">
+        <div class="am-article-content" id="amContent"></div>
+      </div>
+      <div class="am-fallback" id="amFallback">
+        <svg style="width:36px;height:36px;opacity:.18;margin-bottom:4px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <div class="am-fallback-title">Couldn't load article</div>
+        <div class="am-fallback-desc">The article couldn't be extracted. Open it directly or check the Hacker News discussion.</div>
+        <a class="am-open-btn" id="amOpenBtn" href="#" target="_blank" rel="noopener">
+          Open article
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M5 2h5v5"/></svg>
+        </a>
+        <a class="am-hn-link" id="amHnLink" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M5 2h5v5"/></svg>
+          View discussion on Hacker News
+        </a>
+      </div>
+    </div>
+    <div class="am-footer">
+      <span class="am-domain" id="amDomain"></span>
+      <div class="am-actions">
+        <a class="am-action-btn" id="amCopyBtn">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M2 8V2h6"/></svg>
+          Copy link
+        </a>
+        <a class="am-action-btn" id="amExtBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M5 2h5v5"/></svg>
+          Open tab
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  /* ── Constants ── */
+  const CACHE_KEY      = 'lida_devnews_v4';
+  const CACHE_KEY_LIVE = 'lida_devnews_live_v4';
+  const CACHE_TTL      = 24 * 60 * 60 * 1000; // daily: HN, DEV.to, GitHub
+  const CACHE_TTL_LIVE = 30 * 60 * 1000;       // 30 min: RSS feeds, Reddit
+  const PAGE_SIZE = 20;
+
+  const FILTER_KEYWORDS = {
+    all:      null,
+    ai:       ['ai', 'llm', 'gpt', 'claude', 'gemini', 'openai', 'anthropic', 'machine learning', 'neural', 'deep learning', 'model', 'agent', 'mistral', 'groq', 'deepseek', 'ollama', 'inference', 'transformer'],
+    tools:    ['tool', 'cli', 'vscode', 'extension', 'plugin', 'framework', 'library', 'sdk', 'developer', 'devtools', 'ide', 'copilot', 'cursor', 'github', 'terminal'],
+    openai:   ['openai', 'chatgpt', 'gpt-4', 'gpt-5', 'o3', 'o4', 'sora', 'whisper', 'dall-e', 'dalle'],
+    oss:      ['open source', 'open-source', 'github', 'gitlab', 'apache', 'mit license', 'foss', 'free software', 'hugging face', 'open weights'],
+    web:      ['javascript', 'typescript', 'react', 'vue', 'svelte', 'node', 'deno', 'bun', 'css', 'html', 'webassembly', 'wasm', 'browser', 'frontend', 'backend', 'web dev'],
+    security: ['security', 'vulnerability', 'exploit', 'breach', 'hack', 'cve', 'zero-day', 'malware', 'ransomware', 'phishing', 'cryptography'],
+  };
+
+  const RELEVANCE_KEYWORDS = [
+    'ai', 'llm', 'gpt', 'claude', 'gemini', 'openai', 'anthropic',
+    'machine learning', 'neural', 'ml ', 'deep learning',
+    'javascript', 'typescript', 'python', 'rust', 'developer',
+    'api', 'open source', 'github', 'tool', 'framework', 'model',
+    'agent', 'copilot', 'cursor', 'coding', 'programming', 'software',
+    'database', 'security', 'cloud', 'docker', 'kubernetes', 'devops',
+  ];
+
+  let allStories = [];
+  let currentFilter = 'all';
+  let cacheTs = null;
+  let shownCount = PAGE_SIZE;
+
+  /* ── Helpers ── */
+  function timeAgo(sec) {
+    const d = Math.floor(Date.now() / 1000) - sec;
+    if (d < 3600)  return `${Math.floor(d / 60)}m ago`;
+    if (d < 86400) return `${Math.floor(d / 3600)}h ago`;
+    return `${Math.floor(d / 86400)}d ago`;
+  }
+  function cacheAge(ts) {
+    const m = Math.floor((Date.now() - ts) / 60000);
+    if (m < 1) return 'fresh'; if (m < 60) return `${m}m`; return `${Math.floor(m/60)}h`;
+  }
+  function getDomain(url) {
+    try { return new URL(url).hostname.replace('www.', ''); } catch { return 'ycombinator.com'; }
+  }
+  function getTag(title) {
+    const t = title.toLowerCase();
+    if (['openai','chatgpt','gpt'].some(k=>t.includes(k)))               return 'OpenAI';
+    if (['claude','anthropic'].some(k=>t.includes(k)))                   return 'Anthropic';
+    if (['gemini','google ai','bard'].some(k=>t.includes(k)))            return 'Google AI';
+    if (['llm','large language','ai model','artificial intelligence'].some(k=>t.includes(k))) return 'AI';
+    if (t.includes('rust'))     return 'Rust';
+    if (t.includes('python'))   return 'Python';
+    if (['open source','open-source'].some(k=>t.includes(k)))            return 'OSS';
+    if (['security','exploit','vulnerability','cve'].some(k=>t.includes(k))) return 'Security';
+    if (['react','vue','svelte','angular'].some(k=>t.includes(k)))       return 'Frontend';
+    return null;
+  }
+  function isRelevant(title) {
+    const t = title.toLowerCase();
+    return RELEVANCE_KEYWORDS.some(k => t.includes(k));
+  }
+  function matchesFilter(title, filter) {
+    if (!filter || filter === 'all') return true;
+    const keys = FILTER_KEYWORDS[filter];
+    if (!keys) return true;
+    const t = title.toLowerCase();
+    return keys.some(k => t.includes(k));
+  }
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg; el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 3000);
+  }
+
+  function readTime(title) {
+    // Estimate: title length as proxy for article complexity + base 3 min
+    const words = title.split(/\s+/).length;
+    const mins = Math.max(2, Math.min(12, Math.round(words * 0.6 + 2.5)));
+    return `${mins} min read`;
+  }
+
+  /* ── Card HTML ── */
+  function cardHTML(item, rank, maxScore) {
+    const tag = getTag(item.title);
+    const domain = item.url ? getDomain(item.url) : 'news.ycombinator.com';
+    const isHot = rank <= 3;
+    const scorePct = maxScore ? Math.round((item.score / maxScore) * 100) : 50;
+    const absDate = new Date(item.time * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const ago = timeAgo(item.time);
+    const comments = item.descendants || 0;
+    const rt = readTime(item.title);
+
+    const sourceMap = {
+      hn:         { cls: 'source-hn',         label: 'HN',          live: false },
+      devto:      { cls: 'source-devto',       label: 'DEV',         live: false },
+      github:     { cls: 'source-gh',          label: 'GitHub',      live: false },
+      verge:      { cls: 'source-verge',       label: 'The Verge',   live: true  },
+      techcrunch: { cls: 'source-techcrunch',  label: 'TechCrunch',  live: true  },
+      ars:        { cls: 'source-ars',         label: 'Ars',         live: true  },
+      wired:      { cls: 'source-wired',       label: 'Wired',       live: true  },
+      reddit:     { cls: 'source-reddit',      label: 'Reddit',      live: true  },
+    };
+    const src = sourceMap[item.source] || sourceMap.hn;
+    const commentsLabel = item.source === 'github' ? `${comments} forks` : `${comments} comment${comments !== 1 ? 's' : ''}`;
+    const scoreLabel   = item.source === 'github' ? 'stars' : item.source === 'devto' ? 'reactions' : item.source === 'reddit' ? 'upvotes' : 'pts';
+
+    return `
+      <div class="news-card${isHot ? ' hot' : ''}" data-id="${item.id}" tabindex="0" role="button" aria-label="Read: ${item.title.replace(/"/g,'&quot;')}">
+        <span class="news-rank">${rank}</span>
+        <div class="news-body">
+          <div class="news-tags">
+            <span class="source-badge ${src.cls}${src.live ? ' live-src' : ''}">${src.label}</span>
+            ${isHot ? '<span class="hot-badge">🔥 Hot</span>' : ''}
+            ${tag ? `<span class="tag-pill">${tag}</span>` : ''}
+            <span class="news-domain">${domain}</span>
+          </div>
+          <div class="news-title">${item.title}</div>
+          <div class="news-meta">
+            <span class="news-meta-item date" title="${absDate}">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M5 2v2M11 2v2M2 7h12"/></svg>
+              ${absDate}
+            </span>
+            <span class="news-meta-item" title="${ago}">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 1"/></svg>
+              ${ago}
+            </span>
+            <span class="news-meta-item read-time">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+              ${rt}
+            </span>
+            <span class="news-meta-item comments">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h3l3 3 3-3h3a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z"/></svg>
+              ${commentsLabel}
+            </span>
+          </div>
+        </div>
+        <div class="news-score-col">
+          <span class="news-score-val">▲${item.score}</span>
+          <span class="news-score-label">${scoreLabel}</span>
+          <div class="news-score-bar"><div class="news-score-fill" style="width:${scorePct}%"></div></div>
+        </div>
+      </div>`;
+  }
+
+  /* ── Render ── */
+  function renderStories(stories) {
+    const grid = document.getElementById('newsGrid');
+    shownCount = Math.min(PAGE_SIZE, stories.length);
+    if (!stories.length) {
+      grid.innerHTML = `<div class="feed-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        No stories match this filter.<br/>Try "All" or check back soon.
+      </div>`;
+      document.getElementById('loadMoreBtn').style.display = 'none';
+      return;
+    }
+    const maxScore = Math.max(...stories.slice(0, PAGE_SIZE).map(s => s.score));
+    grid.innerHTML = stories.slice(0, PAGE_SIZE).map((item, i) => cardHTML(item, i + 1, maxScore)).join('');
+    bindCardClicks(grid, stories);
+    document.getElementById('loadMoreBtn').style.display = stories.length > PAGE_SIZE ? 'inline-block' : 'none';
+  }
+
+  function bindCardClicks(grid, stories) {
+    grid.querySelectorAll('.news-card').forEach(card => {
+      const handler = () => {
+        const id = parseInt(card.dataset.id);
+        const item = stories.find(s => s.id === id);
+        if (item) openModal(item);
+      };
+      card.addEventListener('click', handler);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } });
+    });
+  }
+
+  function applyFilter(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.toggle('active', t.dataset.filter === filter));
+    const filtered = allStories.filter(s => matchesFilter(s.title, filter));
+    renderStories(filtered);
+    updateStats(filtered);
+  }
+
+  function updateStats(filtered) {
+    document.getElementById('statLoaded').textContent   = allStories.length;
+    document.getElementById('statFiltered').textContent = Math.min(filtered.length, PAGE_SIZE);
+    const avg = filtered.length ? Math.round(filtered.reduce((a,s)=>a+s.score,0)/filtered.length) : 0;
+    document.getElementById('statAvgScore').textContent = avg;
+    document.getElementById('statCacheAge').textContent = cacheTs ? cacheAge(cacheTs) : '—';
+  }
+
+  function buildTicker(stories) {
+    if (!stories.length) return;
+    const text = stories.slice(0,14).map(s=>s.title).join('    ◆    ');
+    const el = document.getElementById('tickerText');
+    el.textContent = text + '          ' + text;
+    el.style.animation = 'none';
+    requestAnimationFrame(() => { el.style.animation = 'ticker-scroll 60s linear infinite'; });
+  }
+
+  function buildTopics(stories) {
+    const counts = {};
+    stories.forEach(s => { const tag=getTag(s.title); if(tag) counts[tag]=(counts[tag]||0)+1; });
+    const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    document.getElementById('topicList').innerHTML = sorted.map(([tag,n]) =>
+      `<button class="topic-pill" data-topic="${tag.toLowerCase()}">${tag} <span style="opacity:.4">${n}</span></button>`
+    ).join('');
+    document.getElementById('topicList').querySelectorAll('.topic-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const kw = btn.dataset.topic;
+        document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('.topic-pill').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        const filtered = allStories.filter(s => s.title.toLowerCase().includes(kw));
+        renderStories(filtered); updateStats(filtered);
+      });
+    });
+  }
+
+  /* ── Fetch helpers ── */
+  async function fetchStory(id) {
+    try { const r = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`); return await r.json(); }
+    catch { return null; }
+  }
+
+  async function fetchHN(endpoint) {
+    try {
+      const r = await fetch(`https://hacker-news.firebaseio.com/v0/${endpoint}.json`);
+      const ids = await r.json();
+      const batch = await Promise.all(ids.slice(0, 60).map(fetchStory));
+      return batch.filter(Boolean).filter(s => s.title && s.score > 5).map(s => ({
+        id: s.id, title: s.title, url: s.url || null,
+        score: s.score, time: s.time, descendants: s.descendants || 0,
+        source: 'hn',
+      }));
+    } catch { return []; }
+  }
+
+  async function fetchDevTo() {
+    try {
+      const r = await fetch('https://dev.to/api/articles?top=1&per_page=30', { signal: AbortSignal.timeout(8000) });
+      const articles = await r.json();
+      return articles.filter(a => a.title && a.positive_reactions_count > 10).map(a => ({
+        id: `devto-${a.id}`, title: a.title, url: a.url,
+        score: a.positive_reactions_count,
+        time: Math.floor(new Date(a.published_at).getTime() / 1000),
+        descendants: a.comments_count || 0, source: 'devto',
+      }));
+    } catch { return []; }
+  }
+
+  async function fetchGithubTrending() {
+    try {
+      const r = await fetch('https://gh-trending-api.vercel.app/repositories?since=daily', { signal: AbortSignal.timeout(8000) });
+      const repos = await r.json();
+      if (!Array.isArray(repos)) return [];
+      const now = Math.floor(Date.now() / 1000);
+      return repos.slice(0, 20).map((repo, i) => ({
+        id: `gh-${repo.author}-${repo.name}`,
+        title: `${repo.author}/${repo.name}${repo.description ? ': ' + repo.description : ''}`,
+        url: repo.url || `https://github.com/${repo.author}/${repo.name}`,
+        score: repo.stars || (500 - i * 20),
+        time: now - 3600 * (i + 1),
+        descendants: repo.forks || 0, source: 'github',
+      }));
+    } catch { return []; }
+  }
+
+  // RSS via rss2json (free, CORS-open, no key needed for basic use)
+  async function fetchRSS(feedUrl, sourceKey) {
+    try {
+      const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=15`;
+      const r = await fetch(api, { signal: AbortSignal.timeout(8000) });
+      const data = await r.json();
+      if (data.status !== 'ok' || !data.items) return [];
+      return data.items.map(item => ({
+        id: `${sourceKey}-${btoa(item.link||item.title).slice(0,12)}`,
+        title: item.title.replace(/&amp;/g,'&').replace(/&#\d+;/g,'').trim(),
+        url: item.link || null,
+        score: 0, // RSS has no score — sort by time
+        time: Math.floor(new Date(item.pubDate).getTime() / 1000),
+        descendants: 0, source: sourceKey,
+      })).filter(s => s.title && s.time > 0);
+    } catch { return []; }
+  }
+
+  async function fetchReddit(subreddit) {
+    try {
+      const r = await fetch(`https://www.reddit.com/r/${subreddit}/hot.json?limit=20`, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(8000),
+      });
+      const data = await r.json();
+      return data.data.children
+        .map(c => c.data)
+        .filter(p => !p.stickied && p.title && p.score > 50)
+        .map(p => ({
+          id: `reddit-${p.id}`,
+          title: p.title,
+          url: p.url && !p.url.includes('reddit.com') ? p.url : `https://reddit.com${p.permalink}`,
+          score: p.score,
+          time: Math.floor(p.created_utc),
+          descendants: p.num_comments || 0,
+          source: 'reddit',
+        }));
+    } catch { return []; }
+  }
+
+  /* ── Two-tier load ── */
+  async function loadFeed(force = false) {
+    const btn = document.getElementById('refreshBtn');
+    btn.classList.add('spinning');
+
+    // --- TIER 1: daily sources (HN + DEV.to + GitHub) ---
+    let dailyStories = [];
+    if (!force) {
+      try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && Date.now() - cached.ts < CACHE_TTL) {
+          dailyStories = cached.stories;
+          cacheTs = cached.ts;
+        }
+      } catch {}
+    }
+    if (!dailyStories.length) {
+      const [hnTop, hnBest, devto, github] = await Promise.all([
+        fetchHN('topstories'), fetchHN('beststories'), fetchDevTo(), fetchGithubTrending(),
+      ]);
+      const seenIds = new Set();
+      for (const s of [...hnTop, ...hnBest, ...devto, ...github]) {
+        if (!seenIds.has(s.id)) { seenIds.add(s.id); dailyStories.push(s); }
+      }
+      cacheTs = Date.now();
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: cacheTs, stories: dailyStories })); } catch {}
+    }
+
+    // --- TIER 2: live sources (RSS + Reddit, 30-min cache) ---
+    let liveStories = [];
+    if (!force) {
+      try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY_LIVE) || 'null');
+        if (cached && Date.now() - cached.ts < CACHE_TTL_LIVE) {
+          liveStories = cached.stories;
+        }
+      } catch {}
+    }
+    if (!liveStories.length) {
+      const [verge, techcrunch, ars, wired, redditProg, redditML] = await Promise.all([
+        fetchRSS('https://www.theverge.com/rss/index.xml',              'verge'),
+        fetchRSS('https://techcrunch.com/feed/',                        'techcrunch'),
+        fetchRSS('https://feeds.arstechnica.com/arstechnica/technology','ars'),
+        fetchRSS('https://www.wired.com/feed/rss',                      'wired'),
+        fetchReddit('programming'),
+        fetchReddit('MachineLearning'),
+      ]);
+      const seenLive = new Set();
+      for (const s of [...verge, ...techcrunch, ...ars, ...wired, ...redditProg, ...redditML]) {
+        if (!seenLive.has(s.id)) { seenLive.add(s.id); liveStories.push(s); }
+      }
+      try { localStorage.setItem(CACHE_KEY_LIVE, JSON.stringify({ ts: Date.now(), stories: liveStories })); } catch {}
+    }
+
+    // --- Merge & rank ---
+    const now = Math.floor(Date.now() / 1000);
+    // Normalize RSS/Reddit scores using recency (newer = higher pseudo-score)
+    liveStories = liveStories.map(s => ({
+      ...s,
+      score: s.score > 0 ? s.score : Math.max(1, Math.round(500 - (now - s.time) / 120)),
+    }));
+
+    const allMerged = [...liveStories, ...dailyStories];
+    const seenFinal = new Set();
+    const deduped = [];
+    for (const s of allMerged) {
+      if (!seenFinal.has(s.id)) { seenFinal.add(s.id); deduped.push(s); }
+    }
+
+    let relevant = deduped.filter(s => isRelevant(s.title));
+    if (relevant.length < 15) relevant = deduped;
+
+    // Sort: live/recent first within last 6h, then by score
+    relevant.sort((a, b) => {
+      const aRecent = (now - a.time) < 21600;
+      const bRecent = (now - b.time) < 21600;
+      if (aRecent && !bRecent) return -1;
+      if (!aRecent && bRecent) return 1;
+      if (aRecent && bRecent) return b.time - a.time; // newest first among live
+      return b.score - a.score;
+    });
+
+    allStories = relevant.slice(0, 80);
+    if (!cacheTs) cacheTs = Date.now();
+
+    if (!allStories.length) {
+      document.getElementById('newsGrid').innerHTML = `<div class="feed-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Could not reach any news sources.<br/>Check your connection.
+      </div>`;
+      btn.classList.remove('spinning'); return;
+    }
+
+    applyFilter(currentFilter); buildTicker(allStories); buildTopics(allStories);
+    setLabel(cacheTs); btn.classList.remove('spinning');
+    if (force) showToast('Feed refreshed ✓');
+
+    // Schedule next live refresh in 30 min
+    if (!force) setTimeout(() => loadFeed(true), CACHE_TTL_LIVE);
+  }
+
+  function setLabel(ts) {
+    const d = new Date(ts);
+    const isToday = new Date().toDateString() === d.toDateString();
+    const label = isToday
+      ? 'Updated today ' + d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+      : 'Updated ' + d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    document.getElementById('updatedLabel').textContent = label;
+  }
+
+  /* ── Article Modal ── */
+  let currentItem = null;
+
+  function openModal(item) {
+    currentItem = item;
+    const hnUrl = `https://news.ycombinator.com/item?id=${item.id}`;
+    const articleUrl = item.url || hnUrl;
+    const tag = getTag(item.title);
+    const domain = item.url ? getDomain(item.url) : 'news.ycombinator.com';
+
+    // Header
+    const srcMapM = {
+      hn: {cls:'source-hn',label:'HN'}, devto: {cls:'source-devto',label:'DEV'},
+      github: {cls:'source-gh',label:'GitHub'}, verge: {cls:'source-verge',label:'The Verge'},
+      techcrunch: {cls:'source-techcrunch',label:'TechCrunch'}, ars: {cls:'source-ars',label:'Ars'},
+      wired: {cls:'source-wired',label:'Wired'}, reddit: {cls:'source-reddit',label:'Reddit'},
+    };
+    const srcM = srcMapM[item.source] || srcMapM.hn;
+    document.getElementById('amTitle').textContent = item.title;
+    document.getElementById('amTags').innerHTML = `
+      <span class="source-badge ${srcM.cls}">${srcM.label}</span>
+      ${tag ? `<span class="tag-pill">${tag}</span>` : ''}`;
+
+    // Stats
+    document.getElementById('amStats').innerHTML = `
+      <span class="am-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3l1.5 3 3.5.5-2.5 2.5.5 3.5L8 11l-3 1.5.5-3.5L3 6.5 6.5 6z"/></svg>
+        <strong>${item.score}</strong> points
+      </span>
+      <span class="am-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 3H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h3l3 3 3-3h3a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z"/></svg>
+        <strong>${item.descendants||0}</strong> comments
+      </span>
+      <span class="am-stat">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 1"/></svg>
+        ${timeAgo(item.time)}
+      </span>
+      <span class="am-stat" style="background:rgba(102,126,234,0.07);border:1px solid rgba(102,126,234,0.15);padding:3px 10px;border-radius:99px">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+        <strong id="amReadTime">${readTime(item.title)}</strong>
+      </span>
+      <a href="${hnUrl}" target="_blank" rel="noopener" class="am-hn-link" style="margin-left:auto">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M5 2h5v5"/></svg>
+        HN discussion
+      </a>`;
+
+    // Footer
+    document.getElementById('amDomain').textContent = domain;
+    document.getElementById('amExtBtn').href = articleUrl;
+    document.getElementById('amOpenBtn').href = articleUrl;
+    document.getElementById('amHnLink').href = hnUrl;
+    document.getElementById('amCopyBtn').onclick = () => {
+      navigator.clipboard.writeText(articleUrl).then(() => showToast('Link copied ✓'));
+    };
+
+    // Reset state
+    document.getElementById('amLoading').classList.add('visible');
+    document.getElementById('amArticle').classList.remove('visible');
+    document.getElementById('amFallback').classList.remove('visible');
+    document.getElementById('amBody').scrollTop = 0;
+
+    // Open modal
+    document.getElementById('articleModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Fetch article via Jina Reader
+    if (item.url) {
+      fetchArticle(item.url).then(html => {
+        document.getElementById('amLoading').classList.remove('visible');
+        if (html) {
+          document.getElementById('amContent').innerHTML = html;
+          document.getElementById('amArticle').classList.add('visible');
+          // Update read time based on actual word count
+          const wordCount = html.replace(/<[^>]+>/g, '').split(/\s+/).length;
+          const mins = Math.max(1, Math.round(wordCount / 230));
+          const rtEl = document.getElementById('amReadTime');
+          if (rtEl) rtEl.textContent = `${mins} min read`;
+        } else {
+          document.getElementById('amFallback').classList.add('visible');
+        }
+      });
+    } else {
+      document.getElementById('amLoading').classList.remove('visible');
+      document.getElementById('amFallback').classList.add('visible');
+    }
+  }
+
+  /* Simple markdown-ish renderer for Jina's text output */
+  function mdToHtml(md) {
+    return md
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/^#{1}\s+(.+)$/gm, '<h1>$1</h1>')
+      .replace(/^#{2}\s+(.+)$/gm, '<h2>$1</h2>')
+      .replace(/^#{3}\s+(.+)$/gm, '<h3>$1</h3>')
+      .replace(/^#{4,6}\s+(.+)$/gm, '<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/^\s*[-*]\s+(.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>\n?)+/g, s => `<ul>${s}</ul>`)
+      .replace(/^\s*\d+\.\s+(.+)$/gm, '<li>$1</li>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/^---+$/gm, '<hr>')
+      .replace(/\n{2,}/g, '</p><p>')
+      .replace(/^(?!<[hupola])(.+)$/gm, '$1')
+      .replace(/(<\/h[1-3]>|<\/li>|<\/ul>|<hr>)\n?<\/p>/g, '$1')
+      .replace(/<p><\/p>/g, '')
+      .replace(/^/, '<p>').replace(/$/, '</p>');
+  }
+
+  async function fetchArticle(url) {
+    try {
+      const jinaUrl = `https://r.jina.ai/${url}`;
+      const res = await fetch(jinaUrl, {
+        headers: { 'Accept': 'text/plain', 'X-Return-Format': 'text' },
+        signal: AbortSignal.timeout(12000),
+      });
+      if (!res.ok) return null;
+      const text = await res.text();
+      if (!text || text.trim().length < 100) return null;
+      // Strip Jina header metadata lines
+      const lines = text.split('\n');
+      const contentStart = lines.findIndex((l,i) => i > 3 && l.trim() !== '' && !l.startsWith('Title:') && !l.startsWith('URL:') && !l.startsWith('Published') && !l.startsWith('Source:') && !l.startsWith('Description:'));
+      const content = lines.slice(contentStart > 0 ? contentStart : 0).join('\n').trim();
+      return mdToHtml(content);
+    } catch {
+      return null;
+    }
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('articleModal');
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('amProgress').style.width = '0%';
+    setTimeout(() => {
+      document.getElementById('amLoading').classList.remove('visible');
+      document.getElementById('amArticle').classList.remove('visible');
+      document.getElementById('amFallback').classList.remove('visible');
+      document.getElementById('amContent').innerHTML = '';
+    }, 350);
+  }
+
+  document.getElementById('amClose').addEventListener('click', closeModal);
+  document.getElementById('amBackdrop').addEventListener('click', closeModal);
+
+  // Reading progress bar
+  document.getElementById('amBody').addEventListener('scroll', () => {
+    const body = document.getElementById('amBody');
+    const progress = document.getElementById('amProgress');
+    const scrollable = body.scrollHeight - body.clientHeight;
+    const pct = scrollable > 0 ? Math.round((body.scrollTop / scrollable) * 100) : 0;
+    progress.style.width = pct + '%';
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* ── Events ── */
+  document.getElementById('filterTabs').addEventListener('click', e => {
+    const tab = e.target.closest('.filter-tab');
+    if (tab) applyFilter(tab.dataset.filter);
+  });
+  document.getElementById('refreshBtn').addEventListener('click', () => loadFeed(true));
+  document.getElementById('loadMoreBtn').addEventListener('click', () => {
+    const filtered = allStories.filter(s => matchesFilter(s.title, currentFilter));
+    const grid = document.getElementById('newsGrid');
+    const maxScore = Math.max(...filtered.map(s => s.score));
+    const extra = filtered.slice(PAGE_SIZE).map((item,i) => cardHTML(item, PAGE_SIZE+i+1, maxScore)).join('');
+    grid.insertAdjacentHTML('beforeend', extra);
+    bindCardClicks(grid, filtered);
+    document.getElementById('loadMoreBtn').style.display = 'none';
+  });
+
+  loadFeed();
+</script>
+
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
