@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="language" content="en" />
   <title>AI API Status — Is it Down? | LiDa Software</title>
-  <meta name="description" content="Real-time status dashboard for 8 major AI APIs — OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Live monitoring every 60 seconds from official status feeds." />
+  <meta name="description" content="Real-time status dashboard for 8 major AI APIs — OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Status data refreshes once every two days." />
   <meta name="keywords" content="AI API status, OpenAI status, Anthropic status, Claude down, GPT down, Gemini status, Groq status, DeepSeek status, Mistral status, Perplexity status, AI downtime, API monitoring, is ChatGPT down" />
   <meta name="author" content="LiDa Software" />
   <meta name="robots" content="index, follow" />
@@ -16,14 +16,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.lidasoftware.online/tools/ai-status/" />
   <meta property="og:title" content="AI API Status — Is it Down? | LiDa Software" />
-  <meta property="og:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Auto-refreshes every 60 seconds from official status APIs." />
+  <meta property="og:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
   <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
   <meta property="og:site_name" content="LiDa Software" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI API Status — Is it Down?" />
-  <meta name="twitter:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Auto-refreshes every 60 seconds." />
+  <meta name="twitter:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
   <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
 
   <!-- JSON-LD Structured Data -->
@@ -83,8 +83,8 @@
       </div>
       <div class="cs-divider-v"></div>
       <div class="cs-stat">
-        <span class="cs-stat-label">NEXT</span>
-        <span class="cs-stat-val" id="csNext">60s</span>
+        <span class="cs-stat-label">CYCLE</span>
+        <span class="cs-stat-val" id="csNext">48h</span>
       </div>
       <div class="cs-divider-v"></div>
       <span class="cs-clock" id="sysTime">--:--:--</span>
@@ -111,7 +111,7 @@
     </div>
     <h1>Is it Down or Is it Me?</h1>
     <p class="hero-sub">
-      Live status of 8 major AI API providers. Auto-refreshes every 60 seconds
+      Live status of 8 major AI API providers. Status data refreshes once every two days
       using official status feeds directly from each provider.
     </p>
 
@@ -131,15 +131,15 @@
   <div class="stats-bar">
     <div class="stats-left">
       <div class="stat-item">
-        <div class="countdown-ring-wrap" title="Next auto-refresh">
+        <div class="countdown-ring-wrap" title="Status update cycle">
           <svg viewBox="0 0 36 36" fill="none" class="countdown-svg">
             <circle cx="18" cy="18" r="14" class="countdown-arc-track"/>
             <circle cx="18" cy="18" r="14" class="countdown-arc-fill" id="countdownArc"
                     stroke-dasharray="87.96" stroke-dashoffset="0"/>
           </svg>
-          <span class="stat-countdown" id="countdown">60s</span>
+          <span class="stat-countdown" id="countdown">48h</span>
         </div>
-        <span class="stat-next-label">Next refresh</span>
+        <span class="stat-next-label">Update cycle</span>
       </div>
       <div class="stat-item">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/><path d="M8 5v4"/><circle cx="8" cy="11" r=".5" fill="currentColor"/></svg>
@@ -150,10 +150,6 @@
         <span class="stat-value" id="operationalCount">—</span>&nbsp;providers checked
       </div>
     </div>
-    <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/><path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/><path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/></svg>
-      Refresh now
-    </button>
   </div>
 
   <!-- FILTER -->

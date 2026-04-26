@@ -129,7 +129,7 @@ const API_HISTORY = `${API_BASE}/history`;
 const state = {
   statuses: {},    // { providerId: normalized status object }
   history:  {},    // { backendId: [ { date, status, avg_latency, checks } ] }
-  countdown: 60,
+  countdown: 48,
   countdownTimer: null,
   refreshTimer: null,
   isRefreshing: false,
@@ -137,7 +137,7 @@ const state = {
 };
 
 const CACHE_KEY = 'lida_ai_status_cache_v2';
-const CACHE_TTL = 55 * 1000; // 55 s
+const CACHE_TTL = 48 * 60 * 60 * 1000; // 48 hours
 
 /* ══════════════════════════════════════════════════════
    BACKEND FETCH HELPERS
@@ -528,35 +528,26 @@ async function refreshAll(isManual = false) {
   if (btn) btn.classList.remove('spinning');
   state.isRefreshing = false;
 
-  resetCountdown();
+  // No automatic countdown-based refresh needed for 48h cycle.
+  // We still trigger initial UI update.
+  updateRightStatsManual();
 }
 
-function manualRefresh() {
-  clearInterval(state.countdownTimer);
-  clearTimeout(state.refreshTimer);
-  state.countdown = 60;
-  document.getElementById('countdown').textContent = '60s';
-  refreshAll(true);
+function updateRightStatsManual() {
+  const nextEl = document.getElementById('csNext');
+  const countEl = document.getElementById('countdown');
+  if (nextEl) nextEl.textContent = '48h';
+  if (countEl) countEl.textContent = '48h';
+  setArc(60); // Keep arc full
 }
 
 /* ══════════════════════════════════════════════════════
    COUNTDOWN
 ══════════════════════════════════════════════════════ */
 function resetCountdown() {
-  clearInterval(state.countdownTimer);
-  clearTimeout(state.refreshTimer);
-  state.countdown = 60;
-  document.getElementById('countdown').textContent = '60s';
-  setArc(60);
-
-  state.countdownTimer = setInterval(() => {
-    state.countdown--;
-    document.getElementById('countdown').textContent = `${state.countdown}s`;
-    setArc(state.countdown);
-    if (state.countdown <= 0) clearInterval(state.countdownTimer);
-  }, 1000);
-
-  state.refreshTimer = setTimeout(() => refreshAll(), 60000);
+  // Disabled automatic 60s refresh.
+  // The data now refreshes once every two days on the backend.
+  updateRightStatsManual();
 }
 
 /* ══════════════════════════════════════════════════════
@@ -596,6 +587,9 @@ async function init() {
 
   // Keep "updated X ago" label ticking
   setInterval(updateStats, 10000);
+
+  // Auto-open maintenance notification
+  setTimeout(openMaintenanceModal, 800);
 }
 
 init();
@@ -683,7 +677,7 @@ function _buildTicker() {
     `OK ${operational}/${total}`,
     degraded ? `⚠ DEGRADED ${degraded}` : null,
     outages  ? `✕ OUTAGE ${outages}` : null,
-    `REFRESH 60s`,
+    `REFRESH 2d`,
     `SOURCES: STATUSPAGE.IO · GCP INCIDENTS · INSTATUS`,
     `LIDA OPS DASHBOARD`
   ].filter(Boolean).join('    ·    ');
@@ -708,7 +702,7 @@ function _updateRightStats() {
     uptimeEl.className = `cs-stat-val ${pct === 100 ? 'green' : pct >= 75 ? 'amber' : 'red'}`;
   }
   if (nextEl) {
-    nextEl.textContent = (state.countdown ?? 60) + 's';
+    nextEl.textContent = '48h';
   }
 }
 
@@ -718,7 +712,8 @@ function setArc(seconds) {
   const arc = document.getElementById('countdownArc');
   if (!arc) return;
   const circ = 87.96;
-  arc.style.strokeDashoffset = String(circ * (1 - seconds / 60));
+  // Always full arc now
+  arc.style.strokeDashoffset = '0';
 }
 
 // Stagger cards in with spring entrance
@@ -940,8 +935,57 @@ function closeHistoryModal() {
 
 function positionTooltip(e) {
   const t = document.getElementById('hmTooltip');
-  t.style.left = (e.clientX + 14) + 'px';
-  t.style.top  = (e.clientY - 36) + 'px';
+  if (t) {
+    t.style.left = (e.clientX + 14) + 'px';
+    t.style.top  = (e.clientY - 36) + 'px';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   MAINTENANCE MODAL
+   Auto-opens to notify users of upgrades.
+══════════════════════════════════════════════════════ */
+
+(function createMaintenanceModal() {
+  const el = document.createElement('div');
+  el.id = 'maintenanceModal';
+  el.innerHTML = `
+    <div class="mm-backdrop" id="mmBackdrop"></div>
+    <div class="mm-panel" role="dialog" aria-modal="true">
+      <div class="mm-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          <circle cx="12" cy="12" r="4"/>
+        </svg>
+      </div>
+      <h2 class="mm-title">AI Status Upgrade in Progress</h2>
+      <p class="mm-body">
+        We’re currently improving and optimizing this tool to deliver a better experience.
+        Live status data will return in the next few days.<br>
+        Thank you for your patience.
+      </p>
+      <button class="mm-cta" id="mmCloseBtn">Got it</button>
+    </div>`;
+  document.body.appendChild(el);
+
+  document.getElementById('mmCloseBtn').onclick = closeMaintenanceModal;
+  document.getElementById('mmBackdrop').onclick = closeMaintenanceModal;
+})();
+
+function openMaintenanceModal() {
+  const modal = document.getElementById('maintenanceModal');
+  if (modal) {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeMaintenanceModal() {
+  const modal = document.getElementById('maintenanceModal');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 }
 
 // ── Canvas latency area chart ─────────────────────────────
