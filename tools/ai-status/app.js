@@ -559,7 +559,12 @@ async function refreshAll(isManual = false) {
     // No automatic countdown-based refresh needed for 48h cycle.
     // We still trigger initial UI update.
     updateRightStatsManual();
+  } catch (e) {
+    console.error('Refresh failed:', e);
+    if (btn) btn.classList.remove('spinning');
+    state.isRefreshing = false;
   }
+}
 
 function updateRightStatsManual() {
     const nextEl = document.getElementById('csNext');
