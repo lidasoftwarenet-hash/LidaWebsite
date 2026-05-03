@@ -692,9 +692,6 @@ function updateRightStatsManual() {
 
     // Keep "updated X ago" label ticking
     setInterval(updateStats, 10000);
-
-    // Auto-open maintenance notification
-    setTimeout(openMaintenanceModal, 800);
   }
 
   init();
@@ -1046,52 +1043,6 @@ function updateRightStatsManual() {
     }
   }
 
-  /* ══════════════════════════════════════════════════════
-     MAINTENANCE MODAL
-     Auto-opens to notify users of upgrades.
-  ══════════════════════════════════════════════════════ */
-
-  (function createMaintenanceModal() {
-    const el = document.createElement('div');
-    el.id = 'maintenanceModal';
-    el.innerHTML = `
-    <div class="mm-backdrop" id="mmBackdrop"></div>
-    <div class="mm-panel" role="dialog" aria-modal="true">
-      <div class="mm-icon-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-      </div>
-      <h2 class="mm-title">AI Status Upgrade in Progress</h2>
-      <p class="mm-body">
-        We’re currently improving and optimizing this tool to deliver a better experience.
-        Live status data will return in the next few days.<br>
-        Thank you for your patience.
-      </p>
-      <button class="mm-cta" id="mmCloseBtn">Got it</button>
-    </div>`;
-    document.body.appendChild(el);
-
-    document.getElementById('mmCloseBtn').onclick = closeMaintenanceModal;
-    document.getElementById('mmBackdrop').onclick = closeMaintenanceModal;
-  })();
-
-  function openMaintenanceModal() {
-    const modal = document.getElementById('maintenanceModal');
-    if (modal) {
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeMaintenanceModal() {
-    const modal = document.getElementById('maintenanceModal');
-    if (modal) {
-      modal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  }
 
   // ── Canvas latency area chart ─────────────────────────────
   function drawLatencyChart(days, providerColor) {
