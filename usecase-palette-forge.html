@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+    <title>PaletteForge Use Case - Build Accessible Color Systems Faster | LiDa Software</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Case study: How PaletteForge helps developers generate accessible color palettes, test WCAG contrast, preview real UI components, and export Tailwind/CSS design tokens in seconds." />
+    <meta name="keywords"
+        content="color palette generator, wcag contrast tool, tailwind color tokens, design system colors, css variables generator, ui color accessibility, developer design tools" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/usecase-PaletteForge.html" />
+    <meta property="og:title" content="PaletteForge Use Case — Build Accessible Color Systems Faster" />
+    <meta property="og:description"
+        content="From color idea to production-ready tokens: harmony generation, accessibility checks, live previews, and one-click exports." />
+    <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+    <meta property="og:site_name" content="LiDa Software" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PaletteForge Use Case — Accessible Color Systems for Developers" />
+    <meta name="twitter:description"
+        content="Generate harmonies, validate contrast, preview components, and export Tailwind/CSS tokens — all in one tool." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+
+    <link rel="canonical" href="https://www.lidasoftware.online/usecase-PaletteForge.html" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "PaletteForge Use Case — Build Accessible Color Systems Faster",
+    "description": "How PaletteForge helps developers generate harmonious, accessible color systems and export implementation-ready tokens.",
+    "url": "https://www.lidasoftware.online/usecase-PaletteForge.html",
+    "author": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.lidasoftware.online/lida-logo.png"
+      }
+    },
+    "mainEntityOfPage": "https://www.lidasoftware.online/usecase-PaletteForge.html"
+  }
+  </script>
+
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #090912;
+            color: #dbe0ff;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 56px 20px;
+        }
+
+        .hero {
+            border: 1px solid rgba(139, 92, 246, .2);
+            border-radius: 18px;
+            background: linear-gradient(135deg, #0f0f1f 0%, #14142d 100%);
+            padding: 64px 24px 54px;
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #c4b5fd;
+            border: 1px solid rgba(139, 92, 246, .35);
+            background: rgba(139, 92, 246, .12);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5.5vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #a78bfa 0%, #60a5fa 55%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: #fff;
+            margin: 34px 0 12px;
+        }
+
+        p {
+            color: #b4bddf;
+            margin-bottom: 14px;
+        }
+
+        ul {
+            margin: 8px 0 14px 22px;
+            color: #b4bddf;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .feature-box {
+            border: 1px solid rgba(148, 163, 184, .18);
+            background: rgba(255, 255, 255, .02);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 14px;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #7c3aed, #2563eb);
+            box-shadow: 0 10px 26px rgba(124, 58, 237, .35);
+            margin-top: 12px;
+        }
+
+        .cta:hover {
+            filter: brightness(1.08);
+        }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(148, 163, 184, .2);
+            color: #7c89b2;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="hero">
+            <span class="badge">🎨 Developer Tool Use Case</span>
+            <h1>PaletteForge: From Color Idea to Production Tokens</h1>
+            <p style="max-width:720px;margin:0 auto 8px;">
+                Teams waste hours jumping between palette sites, contrast checkers, and export scripts.
+                PaletteForge combines all of that into one fast, static, browser-based workflow.
+            </p>
+            <a class="cta" href="palette-forge/index.html">Open PaletteForge →</a>
+        </section>
+
+        <h2>The Problem</h2>
+        <p>
+            Most projects struggle with inconsistent color usage: designers and developers use different shades,
+            accessibility checks happen too late, and token exports are manual and error-prone.
+        </p>
+
+        <h2>The Solution</h2>
+        <div class="feature-box">
+            <ul>
+                <li><strong>Harmony generation:</strong> monochromatic, complementary, analogous, triadic, split,
+                    tetradic.</li>
+                <li><strong>Accessibility first:</strong> built-in WCAG contrast validation and simulation support.</li>
+                <li><strong>Live UI preview:</strong> see components update instantly as colors change.</li>
+                <li><strong>Export-ready output:</strong> Tailwind config, CSS variables, JSON tokens, and
+                    framework-ready snippets.</li>
+            </ul>
+        </div>
+
+        <h2>Typical Workflow</h2>
+        <div class="feature-box">
+            <ul>
+                <li>Start with a base hex or extract color from an image.</li>
+                <li>Refine with harmony mode and mood-driven palette suggestions.</li>
+                <li>Validate contrast and preview real UI states.</li>
+                <li>Copy or download tokens directly into your codebase.</li>
+            </ul>
+        </div>
+
+        <h2>Outcome</h2>
+        <p>
+            PaletteForge reduces the handoff gap between design intent and implementation,
+            helping teams ship faster with consistent, accessible color systems.
+        </p>
+
+        <a class="cta" href="palette-forge/index.html">Try PaletteForge now</a>
+
+        <footer>
+            © 2026 LiDa Software · <a href="https://www.lidasoftware.online"
+                style="color:#a78bfa;">lidasoftware.online</a>
+        </footer>
+    </div>
+</body>
+
+</html>

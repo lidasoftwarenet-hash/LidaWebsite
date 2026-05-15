@@ -21,6 +21,7 @@ Maintainer: Hen Faibish
 - [AI Code Diff Viewer](https://www.lidasoftware.online/tools/aiCodeDiff/the-code-diff-viewer.html) : Compare code changes made by AI with clear diff views.
 - [AI Hallucination Spotter](https://www.lidasoftware.online/tools/ai-hallucination-spotter/ai-hallucination-spotter.html) : Detect common logic errors and fake imports in AI-generated code.
 - [MCP Blueprint Generator](https://www.lidasoftware.online/tools/mcp-blueprint-generator/mcp-blueprint-generator.html) : Architect robust Model Context Protocol (MCP) servers with best practices.
+- [PaletteForge](https://www.lidasoftware.online/palette-forge/index.html) : Advanced palette generator and design sandbox for developers. Generate color harmonies, test WCAG accessibility, preview real UI components, and export design tokens for Tailwind, React, Angular, and more.
 - [JSON to Zod Converter](https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html) : Convert JSON objects into Zod schemas instantly for TypeScript validation.
 - [Architecture Compatibility Tool](https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html) : Analyze and verify compatibility between different system architecture components.
 - [System Graph Visualizer](https://www.lidasoftware.online/tools/graphVisualizer/graph-visualizer.html) : Visualize complex system relationships and dependencies using interactive graphs.

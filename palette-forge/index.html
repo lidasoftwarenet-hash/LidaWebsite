@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="language" content="English" />
+  <title>PaletteForge — Dev Color Palette &amp; Tailwind Generator</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Generate developer-ready color palettes with harmony modes, WCAG contrast checks, live UI preview, and one-click Tailwind/CSS exports. Free static tool by LiDa Software." />
+  <meta name="keywords"
+    content="color palette generator, tailwind color generator, wcag contrast checker, design tokens, css variables, color harmony, ui color tool, developer tools" />
+  <meta name="author" content="LiDa Software" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.lidasoftware.online/PaletteForge/index.html" />
+  <meta property="og:title" content="PaletteForge — Dev Color Palette &amp; Tailwind Generator" />
+  <meta property="og:description"
+    content="Build beautiful accessible color systems fast: harmony modes, shade scales, live component preview, and framework exports." />
+  <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+  <meta property="og:site_name" content="LiDa Software" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PaletteForge — Dev Color Palette & Tailwind Generator" />
+  <meta name="twitter:description"
+    content="Generate harmonious palettes, verify contrast, and export Tailwind/CSS tokens in seconds." />
+  <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.lidasoftware.online/PaletteForge/index.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PaletteForge",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web Browser",
+    "description": "Developer-focused color palette generator with harmony modes, WCAG contrast checks, live UI previews, and Tailwind/CSS exports.",
+    "url": "https://www.lidasoftware.online/PaletteForge/index.html",
+    "creator": {
+      "@type": "Organization",
+      "name": "LiDa Software",
+      "url": "https://www.lidasoftware.online"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LiDa Software",
+    "url": "https://www.lidasoftware.online",
+    "logo": "https://www.lidasoftware.online/lida-logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/lida-software"
+    ]
+  }
+  </script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-950 text-gray-100 font-sans min-h-screen overflow-x-hidden">
+
+  <!-- ════════════════════════ HEADER ════════════════════════ -->
+  <header class="sticky top-0 z-30 border-b border-white/5 backdrop-blur-xl">
+    <div class="absolute inset-0 header-gradient pointer-events-none"></div>
+    <div class="relative max-w-screen-2xl mx-auto px-4 sm:px-6">
+
+      <!-- Top bar -->
+      <div class="flex items-center justify-between h-16 gap-4">
+        <!-- Brand -->
+        <div class="flex items-center gap-3 shrink-0">
+          <img src="https://www.lidasoftware.online/lida-logo.png" alt="PaletteForge Logo" class="logo-icon w-10 h-10 rounded-2xl" />
+          <div>
+            <h1 class="text-xl font-black tracking-tight leading-none text-white">
+              Lida Palette<span class="text-gradient">Forge</span>
+            </h1>
+            <p class="text-[10px] text-gray-500 leading-tight tracking-widest uppercase mt-0.5">
+              Color Palette &amp; Tailwind Generator
+            </p>
+          </div>
+        </div>
+
+        <!-- Center tagline — hidden on mobile -->
+        <div class="hidden lg:flex flex-col items-center gap-0.5 select-none">
+          <div class="flex items-center gap-2">
+            <span class="hero-pill">🎯 Harmony Modes</span>
+            <span class="hero-pill">🌊 Tailwind Config</span>
+            <span class="hero-pill">♿ WCAG Contrast</span>
+            <span class="hero-pill">❤ Save Palettes</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="theme-toggle" title="Toggle light/dark"
+            class="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-all hover:scale-105">
+            <span id="theme-icon">🌙</span>
+          </button>
+          <button id="randomize-btn"
+            class="hidden sm:flex btn-secondary items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold">
+            🎲 Random
+          </button>
+          <button id="export-all-btn"
+            class="btn-primary flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold">
+            ⬇ Export
+          </button>
+        </div>
+      </div>
+
+      <!-- Desktop share buttons (like JSON→Zod tool) -->
+      <div id="desktop-share-buttons" class="hidden md:flex gap-2 items-center justify-center pb-2">
+        <span class="text-xs text-gray-500 mr-1">Share:</span>
+        <a href="#" id="share-facebook"
+          class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+          title="Share on Facebook" target="_blank" rel="noopener noreferrer">
+          Facebook
+        </a>
+        <a href="#" id="share-linkedin"
+          class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+          title="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+        <a href="#" id="share-twitter"
+          class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+          title="Share on X (Twitter)" target="_blank" rel="noopener noreferrer">
+          X
+        </a>
+        <button id="share-copy"
+          class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+          title="Copy link">
+          Copy
+        </button>
+      </div>
+
+      <!-- Tab nav -->
+      <nav class="flex gap-0.5 overflow-x-auto no-scrollbar" aria-label="Main navigation">
+        <button data-tab="generator"
+          class="tab-btn active px-4 py-2.5 rounded-t-xl text-sm font-medium whitespace-nowrap">🎨 Generator</button>
+        <button data-tab="palette" class="tab-btn px-4 py-2.5 rounded-t-xl text-sm font-medium whitespace-nowrap">🖌
+          Palette</button>
+        <button data-tab="code" class="tab-btn px-4 py-2.5 rounded-t-xl text-sm font-medium whitespace-nowrap">💻 Code
+          &amp; Exports</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ════════════════════════ MAIN ════════════════════════ -->
+  <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ══ TAB: GENERATOR — 3-column layout ══ -->
+    <section id="tab-generator" class="tab-panel">
+      <div class="three-col-layout">
+
+        <!-- ▌LEFT SIDEBAR — Color inputs & presets ▐ -->
+        <aside class="left-sidebar space-y-4">
+
+          <!-- Section label -->
+          <p class="sidebar-label">⚙ Color Controls</p>
+
+          <!-- Color Picker card -->
+          <div class="card p-4">
+            <h2 class="card-title mb-3">Base Color</h2>
+
+            <!-- Picker + Hex -->
+            <div class="flex items-center gap-3 mb-4">
+              <input type="color" id="color-picker" value="#7c3aed"
+                class="color-swatch w-14 h-14 rounded-2xl cursor-pointer border-2 border-white/10 shrink-0" />
+              <div class="flex-1 min-w-0">
+                <input type="text" id="hex-input" value="#7C3AED" placeholder="#7C3AED"
+                  class="input-field w-full px-3 py-2 rounded-xl text-sm font-mono uppercase" />
+                <p id="color-name-label" class="text-[11px] text-gray-500 mt-1.5 pl-1 truncate">HSL(262°, 83%, 58%)</p>
+              </div>
+            </div>
+
+            <!-- HSL sliders -->
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                  <span>Hue</span><span id="hue-val" class="font-mono">262°</span>
+                </div>
+                <input type="range" id="hue-slider" min="0" max="360" value="262"
+                  class="hue-slider w-full h-2 rounded-full appearance-none cursor-pointer" />
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                  <span>Saturation</span><span id="sat-val" class="font-mono">83%</span>
+                </div>
+                <input type="range" id="sat-slider" min="0" max="100" value="83"
+                  class="sat-slider w-full h-2 rounded-full appearance-none cursor-pointer" />
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-gray-500 mb-1">
+                  <span>Lightness</span><span id="lit-val" class="font-mono">58%</span>
+                </div>
+                <input type="range" id="lit-slider" min="5" max="95" value="58"
+                  class="lit-slider w-full h-2 rounded-full appearance-none cursor-pointer" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Harmony Mode card -->
+          <div class="card p-4">
+            <h2 class="card-title mb-3">Harmony Mode</h2>
+            <div class="grid grid-cols-2 gap-1.5" id="harmony-grid">
+              <button data-harmony="monochromatic" class="harmony-btn active">🎯 Mono</button>
+              <button data-harmony="complementary" class="harmony-btn">🔄 Complementary</button>
+              <button data-harmony="analogous" class="harmony-btn">🌈 Analogous</button>
+              <button data-harmony="triadic" class="harmony-btn">🔺 Triadic</button>
+              <button data-harmony="split" class="harmony-btn">✂️ Split-Comp</button>
+              <button data-harmony="tetradic" class="harmony-btn">⬛ Tetradic</button>
+            </div>
+          </div>
+
+          <!-- Presets card -->
+          <div class="card p-4">
+            <h2 class="card-title mb-3">Presets</h2>
+            <div class="space-y-1" id="preset-list"></div>
+          </div>
+
+          <!-- ✦ AI Color Refiner -->
+          <div class="card p-4">
+            <!-- Header row -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-sm">🤖</span>
+                <div>
+                  <h2 class="text-sm font-bold text-white leading-none">Make it Better</h2>
+                  <p class="text-[10px] text-gray-500 mt-0.5">AI-style HSL refinements</p>
+                </div>
+              </div>
+              <button id="refine-undo-btn" onclick="undoRefine()" disabled class="refine-undo-btn"
+                title="Undo last refinement">
+                ↩ Undo
+              </button>
+            </div>
+
+            <!-- Refinement buttons grid -->
+            <div class="grid grid-cols-2 gap-1.5 mb-3">
+              <button data-refine="premium" onclick="applyRefinement('premium')" class="refine-btn">
+                <span class="refine-btn-emoji">👑</span>
+                <span class="refine-btn-label">More Premium</span>
+                <span class="refine-btn-desc">Deeper & exclusive</span>
+              </button>
+              <button data-refine="energetic" onclick="applyRefinement('energetic')" class="refine-btn">
+                <span class="refine-btn-emoji">⚡</span>
+                <span class="refine-btn-label">More Energetic</span>
+                <span class="refine-btn-desc">Vivid & high-impact</span>
+              </button>
+              <button data-refine="professional" onclick="applyRefinement('professional')" class="refine-btn">
+                <span class="refine-btn-emoji">💼</span>
+                <span class="refine-btn-label">More Professional</span>
+                <span class="refine-btn-desc">Trustworthy authority</span>
+              </button>
+              <button data-refine="contrast" onclick="applyRefinement('contrast')" class="refine-btn">
+                <span class="refine-btn-emoji">◐</span>
+                <span class="refine-btn-label">Higher Contrast</span>
+                <span class="refine-btn-desc">Punchier & readable</span>
+              </button>
+              <button data-refine="warmer" onclick="applyRefinement('warmer')" class="refine-btn refine-btn-warm">
+                <span class="refine-btn-emoji">🔥</span>
+                <span class="refine-btn-label">Warmer</span>
+                <span class="refine-btn-desc">Inviting & human</span>
+              </button>
+              <button data-refine="cooler" onclick="applyRefinement('cooler')" class="refine-btn refine-btn-cool">
+                <span class="refine-btn-emoji">🧊</span>
+                <span class="refine-btn-label">Cooler</span>
+                <span class="refine-btn-desc">Calm & composed</span>
+              </button>
+            </div>
+
+            <!-- Before/after diff panel -->
+            <div id="refine-diff" class="hidden mb-2"></div>
+
+            <!-- History trail -->
+            <div id="refine-trail-wrap" class="hidden">
+              <p class="sidebar-label mb-1.5">History trail — click to copy</p>
+              <div id="refine-trail" class="flex items-center gap-1 flex-wrap"></div>
+            </div>
+          </div>
+
+          <!-- Mobile randomize -->
+          <button id="randomize-btn-mobile"
+            class="sm:hidden w-full btn-secondary py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2">
+            🎲 Randomize
+          </button>
+
+          <!-- ✨ MOOD → PALETTE CARD -->
+          <div class="card p-4">
+            <!-- Header -->
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-base">✨</span>
+              <div>
+                <h2 class="text-sm font-bold text-white leading-none">Mood → Palette</h2>
+                <p class="text-[10px] text-gray-500 mt-0.5">Type a vibe, get a palette</p>
+              </div>
+            </div>
+
+            <!-- Text input -->
+            <div class="relative mb-2">
+              <input id="vibe-input" type="text" placeholder='e.g. "cyberpunk", "calm saas", "luxury"'
+                class="input-field w-full pl-3 pr-20 py-2.5 rounded-xl text-sm" autocomplete="off" />
+              <button id="vibe-submit"
+                class="absolute right-1.5 top-1/2 -translate-y-1/2 btn-primary text-xs px-3 py-1.5 rounded-lg font-semibold">
+                Apply
+              </button>
+            </div>
+
+            <!-- Live hint -->
+            <p id="vibe-hint" class="hidden text-[11px] text-violet-400 font-medium pl-1 mb-2 truncate transition-all">
+            </p>
+
+            <!-- Supported moods (auto-generated from MOOD_RULES) -->
+            <div class="mb-3">
+              <div class="flex items-center justify-between mb-1.5">
+                <p class="sidebar-label !mb-0">Supported moods</p>
+                <span class="text-[10px] text-gray-500">click to apply</span>
+              </div>
+              <div id="mood-keywords"
+                class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1 rounded-lg border border-white/5 bg-white/[0.02] p-2">
+              </div>
+            </div>
+
+            <!-- Brand presets -->
+            <p class="sidebar-label mb-2">Popular brands</p>
+            <div id="brand-presets" class="flex flex-wrap gap-1.5"></div>
+
+            <!-- Result panel -->
+            <div id="mood-result" class="hidden mt-3"></div>
+          </div>
+
+        </aside>
+
+
+        <!-- ▌CENTER — Live Preview ▐ -->
+        <div class="center-area space-y-4">
+
+          <p class="sidebar-label">👁 Live Preview</p>
+
+          <!-- Shade strip -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="card-title">Shade Scale</h2>
+              <span class="text-[11px] text-gray-600 font-mono">50 → 950</span>
+            </div>
+            <div id="shade-strip" class="grid grid-cols-11 gap-1 rounded-xl overflow-hidden"></div>
+            <div class="grid grid-cols-11 gap-1 mt-1.5">
+              <span class="text-[9px] text-center text-gray-600">50</span>
+              <span class="text-[9px] text-center text-gray-600">100</span>
+              <span class="text-[9px] text-center text-gray-600">200</span>
+              <span class="text-[9px] text-center text-gray-600">300</span>
+              <span class="text-[9px] text-center text-gray-600">400</span>
+              <span class="text-[9px] text-center text-gray-600">500</span>
+              <span class="text-[9px] text-center text-gray-600">600</span>
+              <span class="text-[9px] text-center text-gray-600">700</span>
+              <span class="text-[9px] text-center text-gray-600">800</span>
+              <span class="text-[9px] text-center text-gray-600">900</span>
+              <span class="text-[9px] text-center text-gray-600">950</span>
+            </div>
+          </div>
+
+          <!-- Harmony colors -->
+          <div class="card p-4">
+            <h2 class="card-title mb-3">Harmony Colors</h2>
+            <div id="harmony-colors" class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-3"></div>
+          </div>
+
+          <!-- Live UI preview -->
+          <div class="card p-4">
+            <!-- Toolbar -->
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <h2 class="card-title">Live UI Component Preview</h2>
+              <div class="flex items-center gap-2">
+                <!-- Light/Dark toggle -->
+                <div class="flex rounded-lg overflow-hidden border border-white/10">
+                  <button onclick="setPreviewMode(false)" class="px-3 py-1.5 text-xs font-semibold transition-all"
+                    style="background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.6)" id="prev-light-btn">
+                    ☀️ Light
+                  </button>
+                  <button onclick="setPreviewMode(true)" class="px-3 py-1.5 text-xs font-semibold transition-all"
+                    style="background:rgba(124,58,237,0.3);color:#c4b5fd" id="prev-dark-btn">
+                    🌙 Dark
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Color Blindness Simulation -->
+            <div class="mb-3">
+              <p class="card-title mb-1.5">Color Blindness Simulation</p>
+              <div class="flex flex-wrap gap-1.5">
+                <button data-cb="none" onclick="applyCBFilter('none')" class="cb-sim-btn cb-btn-active">Normal</button>
+                <button data-cb="protanopia" onclick="applyCBFilter('protanopia')"
+                  class="cb-sim-btn">Protanopia</button>
+                <button data-cb="deuteranopia" onclick="applyCBFilter('deuteranopia')"
+                  class="cb-sim-btn">Deuteranopia</button>
+                <button data-cb="tritanopia" onclick="applyCBFilter('tritanopia')"
+                  class="cb-sim-btn">Tritanopia</button>
+                <button data-cb="protanomaly" onclick="applyCBFilter('protanomaly')"
+                  class="cb-sim-btn">Protanomaly</button>
+                <button data-cb="achromatopsia" onclick="applyCBFilter('achromatopsia')"
+                  class="cb-sim-btn">Achromato.</button>
+              </div>
+            </div>
+
+            <!-- Preview Frame -->
+            <div id="ui-preview-wrapper" class="rounded-xl overflow-hidden border border-white/5 preview-frame">
+              <div id="preview-root" class="cd-root"></div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- ▌RIGHT SIDEBAR — Tools & Exports ▐ -->
+        <aside class="right-sidebar space-y-4">
+
+          <p class="sidebar-label">🛠 Tools &amp; Exports</p>
+
+          <!-- ── Component Playground ── -->
+          <div class="card p-0 overflow-hidden" id="pg-panel">
+            <!-- Header -->
+            <div class="flex items-center gap-2.5 px-4 pt-4 pb-3 border-b border-white/5">
+              <span class="text-base">🎮</span>
+              <div class="flex-1 min-w-0">
+                <h2 class="text-sm font-bold text-white leading-none">Component Playground</h2>
+                <p id="pg-selection-label" class="text-[10px] text-gray-500 mt-0.5 truncate transition-colors">
+                  Click any element in preview →
+                </p>
+              </div>
+              <span class="text-[9px] text-gray-600 font-mono bg-white/5 px-2 py-0.5 rounded-full whitespace-nowrap">
+                Live CSS
+              </span>
+            </div>
+
+            <!-- Style Presets -->
+            <div class="px-3 pt-4 pb-2">
+              <p class="sidebar-label mb-2">Design Presets</p>
+              <div class="grid grid-cols-5 gap-1.5">
+                <button data-pg-preset="minimal" onclick="applyPGPreset('minimal')"
+                  class="pg-preset-btn">◻<span>Minimal</span></button>
+                <button data-pg-preset="softui" onclick="applyPGPreset('softui')" class="pg-preset-btn">☁<span>Soft
+                    UI</span></button>
+                <button data-pg-preset="neumorphism" onclick="applyPGPreset('neumorphism')"
+                  class="pg-preset-btn">💎<span>Neuro</span></button>
+                <button data-pg-preset="glassmorphism" onclick="applyPGPreset('glassmorphism')"
+                  class="pg-preset-btn">🔮<span>Glass</span></button>
+                <button data-pg-preset="brutalism" onclick="applyPGPreset('brutalism')"
+                  class="pg-preset-btn">🪨<span>Brutal</span></button>
+              </div>
+            </div>
+
+            <!-- Sliders -->
+            <div class="px-3 pb-4 space-y-3 border-t border-white/5 pt-3">
+              <p class="sidebar-label">Fine-Tune</p>
+
+              <!-- Border Radius -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Border Radius</span>
+                  <span id="pg-radius-val" class="pg-slider-val">12px</span>
+                </div>
+                <input type="range" id="pg-radius-slider" min="0" max="40" value="12" class="pg-slider" />
+                <div class="pg-slider-ticks"><span>Square</span><span>Pill</span></div>
+              </div>
+
+              <!-- Shadow Depth -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Shadow Depth</span>
+                  <span id="pg-shadow-y-val" class="pg-slider-val">8px</span>
+                </div>
+                <input type="range" id="pg-shadow-y-slider" min="0" max="32" value="8" class="pg-slider" />
+              </div>
+
+              <!-- Shadow Blur -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Shadow Blur</span>
+                  <span id="pg-blur-val" class="pg-slider-val">24px</span>
+                </div>
+                <input type="range" id="pg-blur-slider" min="0" max="60" value="24" class="pg-slider" />
+              </div>
+
+              <!-- Shadow Opacity -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Shadow Opacity</span>
+                  <span id="pg-sop-val" class="pg-slider-val">30%</span>
+                </div>
+                <input type="range" id="pg-sop-slider" min="0" max="100" value="30" class="pg-slider" />
+              </div>
+
+              <!-- Frost / Blur -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Frost / Blur ✦</span>
+                  <span id="pg-frost-val" class="pg-slider-val">0px</span>
+                </div>
+                <input type="range" id="pg-frost-slider" min="0" max="24" value="0" class="pg-slider pg-slider-frost" />
+                <div class="pg-slider-ticks"><span>Clear</span><span>Frosted</span></div>
+              </div>
+
+              <!-- Border Width -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>Border Width</span>
+                  <span id="pg-border-val" class="pg-slider-val">0px</span>
+                </div>
+                <input type="range" id="pg-border-slider" min="0" max="4" step="0.5" value="0" class="pg-slider" />
+              </div>
+
+              <!-- BG Opacity -->
+              <div class="pg-slider-row">
+                <div class="pg-slider-label">
+                  <span>BG Opacity</span>
+                  <span id="pg-bgop-val" class="pg-slider-val">100%</span>
+                </div>
+                <input type="range" id="pg-bgop-slider" min="0" max="100" value="100" class="pg-slider" />
+              </div>
+            </div>
+          </div>
+
+
+          <!-- ── Advanced Exports ── -->
+          <div class="card p-0 overflow-hidden">
+            <div class="flex items-center gap-2.5 px-4 pt-4 pb-3 border-b border-white/5">
+              <span class="text-base">📦</span>
+              <div>
+                <h2 class="text-sm font-bold text-white leading-none">Advanced Exports</h2>
+                <p class="text-[10px] text-gray-500 mt-0.5">8 formats — copy or download</p>
+              </div>
+            </div>
+            <div class="p-3 grid grid-cols-2 gap-1.5">
+              <button onclick="copyAdvExport('tailwind-next')" class="adv-export-btn" data-adv="tailwind-next">
+                <span class="adv-export-icon">🌊</span>
+                <span class="adv-export-name">Tailwind</span>
+                <span class="adv-export-sub">Next.js / Vite</span>
+              </button>
+              <button onclick="copyAdvExport('shadcn')" class="adv-export-btn" data-adv="shadcn">
+                <span class="adv-export-icon">🔲</span>
+                <span class="adv-export-name">Shadcn/ui</span>
+                <span class="adv-export-sub">React HSL vars</span>
+              </button>
+              <button onclick="copyAdvExport('angular-tailwind')" class="adv-export-btn" data-adv="angular-tailwind">
+                <span class="adv-export-icon">🅰️</span>
+                <span class="adv-export-name">Angular+TW</span>
+                <span class="adv-export-sub">tailwind.config</span>
+              </button>
+              <button onclick="copyAdvExport('angular-standalone')" class="adv-export-btn"
+                data-adv="angular-standalone">
+                <span class="adv-export-icon">⚙️</span>
+                <span class="adv-export-name">Angular</span>
+                <span class="adv-export-sub">Standalone</span>
+              </button>
+              <button onclick="copyAdvExport('daisyui')" class="adv-export-btn" data-adv="daisyui">
+                <span class="adv-export-icon">🌼</span>
+                <span class="adv-export-name">DaisyUI</span>
+                <span class="adv-export-sub">Theme object</span>
+              </button>
+              <button onclick="copyAdvExport('css-vars')" class="adv-export-btn" data-adv="css-vars">
+                <span class="adv-export-icon">🎨</span>
+                <span class="adv-export-name">CSS Vars</span>
+                <span class="adv-export-sub">:root tokens</span>
+              </button>
+              <button onclick="copyAdvExport('react-component')" class="adv-export-btn" data-adv="react-component">
+                <span class="adv-export-icon">⚛️</span>
+                <span class="adv-export-name">React</span>
+                <span class="adv-export-sub">Full component</span>
+              </button>
+              <button onclick="copyAdvExport('json')" class="adv-export-btn" data-adv="json">
+                <span class="adv-export-icon">📊</span>
+                <span class="adv-export-name">JSON</span>
+                <span class="adv-export-sub">Design tokens</span>
+              </button>
+            </div>
+            <div id="adv-export-toast" class="hidden px-3 pb-3">
+              <div class="adv-export-result">
+                <span id="adv-export-result-label">✅ Copied to clipboard!</span>
+                <button onclick="downloadAdvExport()" class="adv-export-dl-btn">⬇ Download</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Themes card -->
+          <div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="card-title">My Themes</h2>
+              <button onclick="saveCurrentTheme()" class="btn-accent text-[10px] px-2.5 py-1 rounded-lg font-semibold">+
+                Save</button>
+            </div>
+            <div id="my-themes-list">
+              <p class="text-xs text-gray-600 text-center py-4">No saved themes yet.</p>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+    </section>
+
+    <!-- ══ TAB: PALETTE ══ -->
+    <section id="tab-palette" class="tab-panel hidden">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-xl font-bold text-white">Full Palette Explorer</h2>
+          <p class="text-xs text-gray-500 mt-0.5">Click any swatch to copy its hex value</p>
+        </div>
+        <button id="copy-all-colors-btn" class="btn-secondary px-4 py-2 rounded-xl text-sm font-semibold">📋 Copy
+          All</button>
+      </div>
+      <div id="full-palette-grid" class="space-y-5"></div>
+    </section>
+
+    <!-- ══ TAB: CODE & EXPORTS ══ -->
+    <section id="tab-code" class="tab-panel hidden">
+      <div class="mb-5">
+        <h2 class="text-xl font-bold text-white">Code &amp; Exports Dashboard</h2>
+        <p class="text-xs text-gray-500 mt-0.5">High-fidelity design tokens and components for your tech stack</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="card-title">tailwind.config.js</h3>
+            <div class="flex gap-2">
+              <button id="copy-tw-btn" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋
+                Copy</button>
+              <button id="dl-tw-btn-tab" class="btn-primary px-3 py-1.5 rounded-lg text-xs font-semibold"
+                onclick="document.getElementById('dl-tw-btn').click()">⬇ DL</button>
+            </div>
+          </div>
+          <pre id="tw-config-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="card-title">CSS Variables</h3>
+            <div class="flex gap-2">
+              <button id="copy-css-btn" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋
+                Copy</button>
+              <button id="dl-css-btn-tab" class="btn-primary px-3 py-1.5 rounded-lg text-xs font-semibold"
+                onclick="document.getElementById('dl-css-btn').click()">⬇ DL</button>
+            </div>
+          </div>
+          <pre id="css-vars-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="card-title">SCSS Variables</h3>
+            <button id="copy-scss-btn" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋
+              Copy</button>
+          </div>
+          <pre id="scss-vars-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="card-title">JS / TS Tokens</h3>
+            <button id="copy-js-btn" class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="js-tokens-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+
+        <!-- ── Advanced Export Panels ── -->
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">🔲 Shadcn/ui (React)</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">HSL CSS variables — drop into globals.css</p>
+            </div>
+            <button onclick="copyAdvExport('shadcn')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-shadcn-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">🅰️ Angular + Tailwind</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">tailwind.config.js with Angular content paths</p>
+            </div>
+            <button onclick="copyAdvExport('angular-tailwind')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-angular-tailwind-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">⚙️ Angular Standalone</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">Ready-to-paste @Component with :host CSS vars</p>
+            </div>
+            <button onclick="copyAdvExport('angular-standalone')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-angular-standalone-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">🌼 DaisyUI Theme</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">tailwind.config with daisyui theme object</p>
+            </div>
+            <button onclick="copyAdvExport('daisyui')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-daisyui-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-96 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">⚛️ React Component</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">Themed component with inline CSS vars</p>
+            </div>
+            <button onclick="copyAdvExport('react-component')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-react-component-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-60 overflow-auto"></pre>
+        </div>
+        <div class="card p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="card-title">📦 JSON Tokens</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">W3C-compliant design token format</p>
+            </div>
+            <button onclick="copyAdvExport('json')"
+              class="btn-secondary px-3 py-1.5 rounded-lg text-xs font-semibold">📋 Copy</button>
+          </div>
+          <pre id="adv-json-output"
+            class="code-block text-xs leading-relaxed rounded-xl p-4 max-h-60 overflow-auto"></pre>
+        </div>
+      </div>
+    </section>
+
+    </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════ TOAST ════════════════════════ -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- ════════════════════════ FOOTER ════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-copyright">© LiDa PaletteForge.</p>
+      <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity
+        enthusiasts</p>
+
+      <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+        Discover More Features
+      </a>
+
+      <div class="footer-bottom">
+        <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free and open source.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

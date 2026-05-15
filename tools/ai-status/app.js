@@ -132,7 +132,7 @@ const PROVIDERS = [
 /* ══════════════════════════════════════════════════════
    BACKEND CONFIG
 ══════════════════════════════════════════════════════ */
-const API_BASE = 'https://www.benzotracker.support/api/ai-status';
+const API_BASE = 'https://lidabenzotracker.onrender.com/api/ai-status';
 const API_LATEST = `${API_BASE}/latest`;
 const API_HISTORY = `${API_BASE}/history`;
 
