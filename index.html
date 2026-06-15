@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -156,7 +156,6 @@
       font-weight: 500;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
-      padding: 8px 16px;
       border-radius: 8px;
     }
 
@@ -590,6 +589,76 @@
       color: #fff;
       gap: 12px;
       transform: translateX(4px);
+    }
+
+    /* Categories & Tags */
+    .category-container {
+      margin-bottom: 70px;
+    }
+    .category-title {
+      font-size: 1.6em;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: linear-gradient(180deg, #667eea, #a78bfa);
+      border-radius: 2px;
+    }
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .tool-tag {
+      font-size: 0.72em;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 99px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .tag-local {
+      background: rgba(102, 126, 234, 0.12);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      color: #818cf8;
+    }
+    .tag-utility {
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      color: #a78bfa;
+    }
+    .tag-ai {
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fb7185;
+    }
+    .tag-validator {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+    .tag-formatter {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+    }
+    .tag-chrome {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+      color: #38bdf8;
     }
 
     /* Project Links Container */
@@ -2143,6 +2212,231 @@
     .project-card:hover .tool-usage .usage-dot {
       background: #a78bfa;
     }
+
+    /* ── Mobile: Category Sections & Tool Tags ── */
+    @media (max-width: 768px) {
+      .category-container {
+        margin-bottom: 48px;
+      }
+      .category-title {
+        font-size: 1.25em;
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+      }
+      .tool-tags {
+        gap: 6px;
+        margin-bottom: 18px;
+      }
+      .tool-tag {
+        font-size: 0.68em;
+        padding: 3px 8px;
+      }
+      /* Projects section padding */
+      .projects-section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      /* Prevent nav-social icons from causing horizontal overflow */
+      .nav-social {
+        gap: 6px;
+      }
+      .nav-social a svg {
+        width: 18px;
+        height: 18px;
+      }
+      /* Featured section heading */
+      .section-title {
+        font-size: 1.9em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-title {
+        font-size: 1.1em;
+      }
+      .tool-tag {
+        font-size: 0.65em;
+        padding: 3px 7px;
+      }
+      /* Stack CTA buttons */
+      .hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      /* Prevent long nav link text from overflowing mobile drawer */
+      .nav-links a {
+        font-size: 0.95em;
+      }
+    }
+
+    /* ── Overflow prevention ── */
+    img, svg, video { max-width: 100%; }
+    * { word-break: break-word; }
+
+    /* ── Command Center trigger ── */
+    .cmd-trigger-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .cmd-trigger-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 16px 10px 14px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.05);
+      border: none;
+      cursor: pointer; transition: background .2s, box-shadow .2s;
+      font-family: inherit; width: 220px; max-width: 90vw;
+    }
+    .cmd-trigger-btn:hover {
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 1px rgba(167,139,250,.25);
+    }
+    .cmd-trigger-btn svg {
+      width: 15px; height: 15px; stroke: #64748b;
+      fill: none; stroke-width: 2; flex-shrink: 0;
+    }
+    .cmd-trigger-label {
+      flex: 1; text-align: left;
+      font-size: 13px; font-weight: 400;
+      color: #64748b; letter-spacing: 0;
+    }
+    .cmd-trigger-kb {
+      font-size: 11px; font-weight: 600; color: #475569;
+      background: rgba(255,255,255,.07);
+      padding: 2px 7px; border-radius: 5px;
+      font-family: inherit; flex-shrink: 0;
+      letter-spacing: .02em;
+    }
+
+    /* overlay */
+    .cmd-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(5,5,12,.8); backdrop-filter: blur(10px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 80px 16px 16px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .cmd-overlay.open { opacity: 1; pointer-events: all; }
+    @media(max-width: 600px) {
+      .cmd-overlay { align-items: flex-end; padding: 0; }
+    }
+
+    /* panel */
+    .cmd-panel {
+      width: 100%; max-width: 640px; max-height: calc(100vh - 120px);
+      background: #0f0f1a; border: 1px solid rgba(102,126,234,.25);
+      border-radius: 16px; display: flex; flex-direction: column;
+      box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(102,126,234,.1);
+      transform: translateY(-16px); opacity: 0; overflow: hidden;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+    }
+    .cmd-overlay.open .cmd-panel { transform: translateY(0); opacity: 1; }
+    @media(max-width: 600px) {
+      .cmd-panel { max-height: 88vh; border-radius: 16px 16px 0 0; max-width: 100%; }
+    }
+    @media(prefers-reduced-motion: reduce) {
+      .cmd-overlay, .cmd-panel { transition: none; }
+    }
+
+    /* search bar */
+    .cmd-search-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,.07);
+      flex-shrink: 0;
+    }
+    .cmd-search-icon { color: #667eea; flex-shrink: 0; }
+    .cmd-search-icon svg { width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2; }
+    #cmdInput {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-size: 15px; font-weight: 500; color: #e2e8f0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      caret-color: #667eea; min-width: 0;
+    }
+    #cmdInput::placeholder { color: #475569; }
+    .cmd-close-btn {
+      width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,.1);
+      background: transparent; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; color: #94a3b8; transition: all .2s; flex-shrink: 0;
+    }
+    .cmd-close-btn:hover { background: rgba(255,255,255,.07); color: #fff; }
+    .cmd-close-btn svg { width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2; }
+
+    /* results */
+    .cmd-results { overflow-y: auto; flex: 1; padding: 8px 0 10px; }
+    .cmd-group-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: #475569;
+      padding: 10px 18px 5px;
+    }
+    .cmd-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 18px; cursor: pointer; text-decoration: none;
+      border-radius: 0; transition: background .15s;
+      outline: none; min-height: 44px;
+    }
+    .cmd-item:hover, .cmd-item:focus, .cmd-item.active {
+      background: rgba(102,126,234,.1);
+    }
+    .cmd-item-icon {
+      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(102,126,234,.1); border: 1px solid rgba(102,126,234,.2);
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .cmd-item-icon svg { width:15px;height:15px;stroke:var(--icon-color,#667eea);fill:none;stroke-width:1.8; }
+    .cmd-item-icon.green { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.2); }
+    .cmd-item-icon.green svg { stroke: #4ade80; }
+    .cmd-item-icon.amber { background: rgba(251,191,36,.1); border-color: rgba(251,191,36,.2); }
+    .cmd-item-icon.amber svg { stroke: #fbbf24; }
+    .cmd-item-icon.purple { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.2); }
+    .cmd-item-icon.purple svg { stroke: #a78bfa; }
+    .cmd-item-body { flex: 1; min-width: 0; }
+    .cmd-item-title { font-size: 13.5px; font-weight: 600; color: #e2e8f0; line-height: 1.35; }
+    .cmd-item-desc { font-size: 11.5px; color: #64748b; line-height: 1.45; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cmd-item-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 99px; letter-spacing: .06em; flex-shrink: 0;
+      align-self: center; margin-top: 1px;
+    }
+    .tag-tool { background: rgba(102,126,234,.12); border: 1px solid rgba(102,126,234,.25); color: #818cf8; }
+    .tag-eng  { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.2); color: #a78bfa; }
+    .tag-svc  { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.2); color: #fbbf24; }
+    .tag-cta  { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25); color: #4ade80; }
+
+    /* spotlight item */
+    .cmd-spotlight {
+      margin: 8px 10px 4px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(102,126,234,.12) 0%, rgba(167,139,250,.09) 100%);
+      border: 1px solid rgba(102,126,234,.3);
+    }
+    .cmd-spotlight .cmd-item-title { color: #c4b5fd; }
+    .cmd-spotlight .cmd-item-desc { color: #818cf8; white-space: normal; }
+
+    /* empty state */
+    .cmd-empty {
+      padding: 40px 20px; text-align: center;
+      font-size: 13px; color: #475569;
+    }
+
+    /* footer hint */
+    .cmd-footer {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 8px 18px; display: flex; gap: 16px; align-items: center;
+      flex-shrink: 0;
+    }
+    .cmd-footer-hint {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11px; color: #334155;
+    }
+    .cmd-footer-hint kbd {
+      display: inline-block; padding: 2px 5px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 4px; font-size: 10px;
+      background: rgba(255,255,255,.04);
+      color: #64748b; font-family: inherit;
+    }
   </style>
   <script type="application/ld+json">
     {
@@ -2240,13 +2534,14 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#projects">Projects</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="engineering.html">Engineering</a></li>
         <li><a href="#contact">Contact</a></li>
         <!-- <li><a href="tutorials/index.html">Tutorials</a></li> -->
         <li><a href="powers-your-business/you-business.html">Payment Solutions</a></li>
         <li><a href="dev-news.html" style="display:flex;align-items:center;gap:6px;color:#22c55e !important">
             <span
               style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,0.8);animation:blink-dot 1.5s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
-            Dev Feed
+            Changelog
           </a></li>
 
         <div class="nav-social">
@@ -2292,6 +2587,13 @@
             <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
           </svg>
         </a>
+        <div class="cmd-trigger-row">
+          <button class="cmd-trigger-btn" id="cmdTrigger" aria-haspopup="dialog" aria-expanded="false" aria-label="Open command center">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <span class="cmd-trigger-label">Jump to...</span>
+            <span class="cmd-trigger-kb" id="cmdKbHint">Ctrl K</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -2426,478 +2728,519 @@
   <!-- Projects Section -->
   <section class="projects-section" id="projects">
     <div class="container">
-      <h2 class="section-title">Free Developer Tools I Actually Use</h2>
+      <h2 class="section-title">Developer Tools</h2>
       <p class="section-subtitle">
-        Small, practical tools built to solve real dev annoyances. No paywalls. No fluff.
+        Practical tools for everyday engineering tasks.
       </p>
 
-      <div class="projects-grid">
-
-        <!-- Book Project -->
-        <div class="project-card fade-in">
-          <div class="project-badge-book">eBook</div>
-          <div class="project-icon">🤖</div>
-          <h3 class="project-title">Coding with Robots</h3>
-          <p class="project-description">
-            Built to cut through AI hype. Short, practical examples showing how developers actually use AI in real
-            projects.
-          </p>
-          <a href="book.html" class="project-link">
-            Get the Free eBook →
-          </a>
-          <a href="codding-with-robots.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the book
+      <!-- Featured Tools -->
+      <div class="category-container">
+        <h3 class="category-title">Featured Tools</h3>
+        <div class="projects-grid">
+          
+          <!-- Lida PaletteForge -->
+          <div class="project-card fade-in" id="tool-palette-forge">
+            <div class="project-icon">🎨</div>
+            <h3 class="project-title">Lida PaletteForge</h3>
+            <p class="project-description">
+              Advanced color palette generator and sandbox for user interface design.
             </p>
-          </a>
-          <div class="tool-usage" data-usage-min="380" data-usage-max="820" data-usage-label="reads this month"><span
-              class="usage-dot"></span> <span class="usage-count"></span></div>
-        </div>
+            <div class="tool-tags">
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="palette-forge/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="450" data-usage-max="1200" data-usage-label="palettes forged this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
 
-        <!-- Advanced Link Manager -->
-        <div class="project-card fade-in">
-          <div class="project-badge-chrome-ex">Chrome extension</div>
-          <div class="project-icon">🔗</div>
-          <h3 class="project-title">Advanced Link Manager</h3>
-          <p class="project-description">
-            Built after drowning in bookmarks. Turns messy links into a clean, fast dashboard you actually use.
-          </p>
-          <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
-            class="project-link">
-            Try the Chrome extension →
-          </a>
-          <a href="link-manager.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the extension
+          <!-- AI Code Diff Viewer -->
+          <div class="project-card fade-in" id="tool-ai-diff">
+            <div class="project-icon">🐛</div>
+            <h3 class="project-title">AI Code Diff Viewer</h3>
+            <p class="project-description">
+              Compare and analyze code changes generated by AI assistant models.
             </p>
-          </a>
-        </div>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="520" data-usage-max="1600" data-usage-label="diffs reviewed this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
 
-        <!-- Dev Toolbox -->
-        <div class="project-card fade-in">
-          <div class="project-badge-ai">Web App</div>
-          <div class="project-icon">🧰</div>
-          <h3 class="project-title">Dev Toolbox</h3>
-          <p class="project-description">
-            Built as a curated map of tools developers actually need. Search, filter, and discover without noise.
-          </p>
-          <a href="https://www.lidasoftware.online/tools/toolSList/tools.html" class="project-link">
-            Explore the directory →
-          </a>
-          <div class="tool-usage" data-usage-min="620" data-usage-max="1400" data-usage-label="visits this month"><span
-              class="usage-dot"></span> <span class="usage-count"></span></div>
-        </div>
-
-        <!-- PaletteForge -->
-        <div class="project-card fade-in" id="tool-palette-forge">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🎨</div>
-          <h3 class="project-title">Lida PaletteForge</h3>
-          <p class="project-description">
-            Advanced palette generator and design sandbox. Built to help developers create, test, and export professional color systems with real-time UI previews and multiple framework exports.
-          </p>
-          <a href="palette-forge/index.html" class="project-link">
-            Try PaletteForge →
-          </a>
-          <a href="usecase-palette-forge.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
+          <!-- Environment Variable Validator -->
+          <div class="project-card fade-in" id="tool-env-validator">
+            <div class="project-icon">🔒</div>
+            <h3 class="project-title">Environment Variable Validator</h3>
+            <p class="project-description">
+              Check environment variable configurations and check for leaked secrets.
             </p>
-          </a>
-          <div class="tool-usage" data-usage-min="450" data-usage-max="1200"
-            data-usage-label="palettes forged this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
+            <div class="tool-tags">
+              <span class="tool-tag tag-validator">Validator</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/envValidator/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="290" data-usage-max="880" data-usage-label=".env files validated this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
 
-        <!-- Json to Zod -->
-        <div class="project-card fade-in">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🧬</div>
-          <h3 class="project-title">Json to Zod Converter</h3>
-          <p class="project-description">
-            Built after rewriting the same schemas by hand too many times. Paste JSON, get a ready-to-use Zod schema.
-          </p>
-          <a href="tools/jsonToZod/json-to-zod-converter.html" class="project-link">
-            Try Json to Zod Converter →
-          </a>
-          <div class="tool-usage" data-usage-min="900" data-usage-max="2200"
-            data-usage-label="schemas generated this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- JSON to Protobuf -->
-        <div class="project-card fade-in">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">⚡</div>
-          <h3 class="project-title">JSON to Protobuf Architect</h3>
-          <p class="project-description">
-            Built for gRPC developers tired of writing .proto files by hand. Paste JSON, get production-ready Protocol
-            Buffer schemas with smart type inference.
-          </p>
-          <a href="tools/jsonToProtobuf/index.html" class="project-link">
-            Try JSON to Protobuf →
-          </a>
-          <a href="usecase-json-to-protobuf.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
+          <!-- Advanced Link Manager -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🔗</div>
+            <h3 class="project-title">Advanced Link Manager</h3>
+            <p class="project-description">
+              Browser extension to organize, categorize, and access bookmarks efficiently.
             </p>
-          </a>
-          <div class="tool-usage" data-usage-min="200" data-usage-max="650"
-            data-usage-label=".proto files built this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
+            <div class="tool-tags">
+              <span class="tool-tag tag-chrome">Chrome Extension</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Productivity</span>
+            </div>
+            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">Open Extension →</a>
+          </div>
+
         </div>
-
-        <!-- JSON Wizard -->
-        <div class="project-card fade-in" id="tool-json-wizard">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🧩</div>
-          <h3 class="project-title">JSON Wizard</h3>
-          <p class="project-description">
-            Built for those moments when one broken comma ruins your debug session. Clean and understand JSON fast.
-          </p>
-          <a href="tools/jsonBeautifier/json-beautifier.html" class="project-link">
-            Try JSON Wizard →
-          </a>
-          <div class="tool-usage" data-usage-min="1800" data-usage-max="4500"
-            data-usage-label="JSONs cleaned this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- Jenkins -->
-        <div class="project-card fade-in" id="tool-jenkins">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🛠️</div>
-          <h3 class="project-title">Jenkins Pipeline Visualizer</h3>
-          <p class="project-description">
-            Built to understand messy Jenkinsfiles faster when CI breaks. Paste your pipeline and see the real flow.
-          </p>
-          <a href="tools/jenkinsPipelineVisualizer/index.html" class="project-link">
-            Try Jenkins Pipeline Visualizer →
-          </a>
-          <div class="tool-usage" data-usage-min="280" data-usage-max="780"
-            data-usage-label="pipelines visualized this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- Timestamp -->
-        <div class="project-card fade-in" id="tool-timestamp">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">⏱️</div>
-          <h3 class="project-title">Timestamp Converter</h3>
-          <p class="project-description">
-            Built because timestamps are never where you need them. Convert and debug time data without thinking.
-          </p>
-          <a href="tools/timeStampConvert/time-stamp-convert.html" class="project-link">
-            Try Timestamp Converter →
-          </a>
-          <div class="tool-usage" data-usage-min="1100" data-usage-max="3100"
-            data-usage-label="timestamps decoded this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- PromptPilot -->
-        <div class="project-card fade-in">
-          <div class="project-badge-ai">Web App</div>
-          <div class="project-icon">🪄</div>
-          <h3 class="project-title">PromptPilot</h3>
-          <p class="project-description">
-            Built after wasting too much time rewriting prompts. A focused set of battle-tested templates for real work.
-          </p>
-          <a href="tools/promptPilot/index.html" class="project-link">
-            Try PromptPilot →
-          </a>
-          <a href="tools/promptPilot/landing.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the tool
-            </p>
-          </a>
-          <div class="tool-usage" data-usage-min="480" data-usage-max="1300" data-usage-label="prompts used this month">
-            <span class="usage-dot"></span> <span class="usage-count"></span></div>
-        </div>
-
-        <div class="project-card fade-in">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">📈</div>
-          <h3 class="project-title">Architecture Compatibility Tool</h3>
-          <p class="project-description">
-            Learn how to analyze and validate your web architecture stack using the free Architecture Compatibility
-            Tool. Get expert recommendations, cost estimates, and shareable reports for your tech stack.
-          </p>
-          <a href="tools/architecture-compatibility-tool/architecture-compatibility.html" class="project-link">
-            Try Architecture Compatibility→
-          </a>
-          <div class="tool-usage" data-usage-min="90" data-usage-max="340"
-            data-usage-label="stacks analyzed this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- AI Code Diff -->
-        <div class="project-card fade-in" id="tool-ai-diff">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🐛</div>
-          <h3 class="project-title">AI Code Diff Viewer</h3>
-          <p class="project-description">
-            Built to understand what AI actually changed in your code. Clear diffs and zero guesswork.
-          </p>
-          <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">
-            Try AI Code Diff Viewer →
-          </a>
-          <div class="tool-usage" data-usage-min="520" data-usage-max="1600"
-            data-usage-label="diffs reviewed this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-        <!-- AI Hallucination Spotter -->
-        <div class="project-card fade-in">
-          <div class="project-badge-ai">Web Tool</div>
-          <div class="project-icon">🕵️</div>
-          <h3 class="project-title">AI Hallucination Spotter</h3>
-          <p class="project-description">
-            Built after trusting AI code one too many times. Paste AI-generated code and catch fake imports, wrong
-            functions, and logic errors in seconds.
-          </p>
-          <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="project-link">
-            Try AI Hallucination Spotter →
-          </a>
-          <div class="tool-usage" data-usage-min="700" data-usage-max="2100"
-            data-usage-label="hallucinations caught this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- AI Model Selector -->
-        <div class="project-card fade-in">
-          <div class="project-badge-ai">Web Tool</div>
-          <div class="project-icon">⚖️</div>
-          <h3 class="project-title">AI Model Selector</h3>
-          <p class="project-description">
-            Built to stop guessing which model is best. Compare costs, speed, and intelligence of top LLMs like GPT-5
-            and Claude 3.5 for your specific use case.
-          </p>
-          <a href="tools/ai-selector/index.html" class="project-link">
-            Try AI Model Selector →
-          </a>
-          <a href="usecase-ai-model-selector.html" class="project-link">
-
-          </a>
-          <div class="tool-usage" data-usage-min="1200" data-usage-max="3200"
-            data-usage-label="model comparisons this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- MCP Blueprint Generator -->
-        <div class="project-card fade-in" id="tool-mcp-blueprint">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-badge-tools"
-            style="right: 120px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);">Pro</div>
-          <div class="project-icon">🏗️</div>
-          <h3 class="project-title">MCP Blueprint Generator</h3>
-          <p class="project-description">
-            Force good MCP thinking before bad MCP code exists. Generate professional MCP server architecture with
-            senior architect rules and separation of concerns.
-          </p>
-          <a href="tools/mcp-blueprint-generator/mcp-blueprint-generator.html" class="project-link">
-            Try MCP Blueprint Generator→
-          </a>
-          <a href="usecase-mcp-blueprint-generator.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
-            </p>
-          </a>
-          <div class="tool-usage" data-usage-min="140" data-usage-max="420"
-            data-usage-label="blueprints generated this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- Graph Visualizer -->
-        <!-- <div class="project-card fade-in" id="tool-ai-diff">
-         <!-- Graph Visualizer -->
-        <div class="project-card fade-in" id="tool-ai-diff">
-
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">📊</div>
-          <h3 class="project-title">Graph Visualizer</h3>
-          <p class="project-description">
-            Built to visualize system graphs and understand complex relationships in your architecture.
-            <a href="tools/graphVisualizer/graph-app.html" class="project-link">
-              Try Graph Visualizer →
-            </a>
-            <a href="tools/graphVisualizer/graph-visualizer.html" class="project-link">
-              <p class="project-description-link">
-                <br>
-                Learn more about the tool
-              </p>
-            </a>
-        </div>
-
-        <!-- Git Cheat Sheet -->
-        <div class="project-card fade-in">
-          <div class="project-badge-cheat">cheat sheet plus</div>
-          <div class="project-icon">🌿</div>
-          <h3 class="project-title">Git Cheat Sheet</h3>
-          <p class="project-description">
-            Built as a fast reference when you know Git exists but your brain refuses to remember the command.
-          </p>
-          <a href="tools/gitCheat/git-cheat.html" class="project-link">
-            Try Git Cheat Sheet →
-          </a>
-          <div class="tool-usage" data-usage-min="1300" data-usage-max="3800"
-            data-usage-label="commands looked up this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- Environment Variable Validator -->
-        <div class="project-card fade-in" id="tool-env-validator">
-          <div class="project-badge-tools">Web Tool</div>
-          <div class="project-icon">🔒</div>
-          <h3 class="project-title">Environment Variable Validator</h3>
-          <p class="project-description">
-            Built after production broke due to missing env vars. Compare .env files, detect secrets, and prevent
-            deployment errors before they happen.
-          </p>
-          <a href="tools/envValidator/index.html" class="project-link">
-            Try Environment Variable Validator →
-          </a>
-          <a href="usecase-env-validator.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
-            </p>
-          </a>
-          <div class="tool-usage" data-usage-min="290" data-usage-max="880"
-            data-usage-label=".env files validated this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- Dummy Data -->
-        <div class="project-card fade-in">
-          <div class="project-badge-chrome-ex">Chrome extension</div>
-          <div class="project-icon">🎨</div>
-          <h3 class="project-title">Dummy Data Generator</h3>
-          <p class="project-description">
-            Built to generate realistic test data without writing mocks by hand. Paste code, get usable objects.
-          </p>
-          <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en"
-            class="project-link">
-            Try the Chrome extension →
-          </a>
-          <a href="dummy-generate.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the extension
-            </p>
-          </a>
-        </div>
-
-        <!-- Local Storage -->
-        <div class="project-card fade-in">
-          <div class="project-badge-chrome-ex">Chrome extension</div>
-          <div class="project-icon">🔍</div>
-          <h3 class="project-title">Local Storage Viewer</h3>
-          <p class="project-description">
-            Built for debugging storage without digging through DevTools. View, edit, and clean data instantly.
-          </p>
-          <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej"
-            class="project-link">
-            Try the Chrome extension →
-          </a>
-          <a href="local-storage.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the extension
-            </p>
-          </a>
-        </div>
-
-        <!-- API Data -->
-        <div class="project-card fade-in" id="tool-api-data">
-          <div class="project-badge-chrome-ex">Chrome extension</div>
-          <div class="project-icon">📈</div>
-          <h3 class="project-title">API Data</h3>
-          <p class="project-description">
-            Built to inspect API traffic even after refresh. Capture, replay, analyze, and debug requests cleanly.
-          </p>
-          <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh"
-            class="project-link">
-            Try the Chrome extension →
-          </a>
-          <a href="api-Monitor.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about the extension
-            </p>
-          </a>
-        </div>
-
-        <!-- Community -->
-        <div class="project-card fade-in">
-          <div class="project-badge-community">Community Project</div>
-          <div class="project-icon">💊</div>
-          <h3 class="project-title">Benzodiazepines Tracker</h3>
-          <p class="project-description">
-            Built to help people track and reduce usage safely. Simple, private, and supportive by design.
-          </p>
-          <a href="https://lidabenzotracker.onrender.com/" class="project-link">
-            Try Benzo Tracker →
-          </a>
-          <a href="benzo-tracker.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
-            </p>
-          </a>
-          <div class="tool-usage" data-usage-min="80" data-usage-max="220"
-            data-usage-label="people tracking this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
-        <!-- LidaMixPlay -->
-        <div class="project-card fade-in" id="tool-lida-mix-play">
-          <div class="project-badge-tools">Desktop App</div>
-          <div class="project-icon">🎧</div>
-          <h3 class="project-title">LidaMixPlay</h3>
-          <p class="project-description">
-            Built for people who own their music. A free desktop player for Windows &amp; Mac with smart genre library,
-            live synced lyrics, audio visualizer, crossfade, and full offline privacy — no subscription, no cloud.
-          </p>
-          <a href="/lidamixplay" class="project-link">
-            Try LidaMixPlay →
-          </a>
-          <a href="https://www.lidasoftware.online/lida-mix-play/index.html" class="project-link">
-            <p class="project-description-link">
-              <br>
-              Learn more about this tool
-            </p>
-          </a>
-        </div>
-
-        <!-- AI API Status Dashboard -->
-        <div class="project-card fade-in">
-          <div class="project-badge-ai">Web Tool</div>
-          <div class="project-icon">🟢</div>
-          <h3 class="project-title">AI API Status Dashboard</h3>
-          <p class="project-description">
-            Is it down or is it me? Real-time status monitoring for OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek,
-            Perplexity, and xAI — live feed from official status APIs, auto-refreshes every 60 seconds.
-          </p>
-          <a href="tools/ai-status/index.html" class="project-link">
-            Check AI Status →
-          </a>
-          <div class="tool-usage" data-usage-min="320" data-usage-max="1100"
-            data-usage-label="status checks this month"><span class="usage-dot"></span> <span
-              class="usage-count"></span></div>
-        </div>
-
       </div>
+
+      <!-- Formatting & Validation -->
+      <div class="category-container">
+        <h3 class="category-title">Formatting & Validation</h3>
+        <div class="projects-grid">
+
+          <!-- Json to Zod Converter -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🧬</div>
+            <h3 class="project-title">Json to Zod Converter</h3>
+            <p class="project-description">
+              Generate TypeScript Zod validation schemas directly from JSON data.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-formatter">Formatter</span>
+              <span class="tool-tag tag-validator">Validator</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/jsonToZod/json-to-zod-converter.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="900" data-usage-max="2200" data-usage-label="schemas generated this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- JSON to Protobuf Architect -->
+          <div class="project-card fade-in">
+            <div class="project-icon">⚡</div>
+            <h3 class="project-title">JSON to Protobuf Architect</h3>
+            <p class="project-description">
+              Convert JSON structures into production-ready Protocol Buffer schemas.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-formatter">Formatter</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/jsonToProtobuf/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="200" data-usage-max="650" data-usage-label=".proto files built this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- JSON Wizard -->
+          <div class="project-card fade-in" id="tool-json-wizard">
+            <div class="project-icon">🧩</div>
+            <h3 class="project-title">JSON Wizard</h3>
+            <p class="project-description">
+              Format, clean, and validate JSON inputs with syntax error highlighting.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-formatter">Formatter</span>
+              <span class="tool-tag tag-validator">Validator</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/jsonBeautifier/json-beautifier.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="1800" data-usage-max="4500" data-usage-label="JSONs cleaned this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Environment Variable Validator -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🔒</div>
+            <h3 class="project-title">Environment Variable Validator</h3>
+            <p class="project-description">
+              Check environment variable configurations and check for leaked secrets.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-validator">Validator</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/envValidator/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="290" data-usage-max="880" data-usage-label=".env files validated this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- AI Assisted Workflows -->
+      <div class="category-container">
+        <h3 class="category-title">AI Assisted Workflows</h3>
+        <div class="projects-grid">
+
+          <!-- AI Code Diff Viewer -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🐛</div>
+            <h3 class="project-title">AI Code Diff Viewer</h3>
+            <p class="project-description">
+              Compare and analyze code changes generated by AI assistant models.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="520" data-usage-max="1600" data-usage-label="diffs reviewed this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- AI Hallucination Spotter -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🕵️</div>
+            <h3 class="project-title">AI Hallucination Spotter</h3>
+            <p class="project-description">
+              Detect invalid imports, outdated package references, and wrong functions in AI code.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="700" data-usage-max="2100" data-usage-label="hallucinations caught this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- AI Model Selector -->
+          <div class="project-card fade-in">
+            <div class="project-icon">⚖️</div>
+            <h3 class="project-title">AI Model Selector</h3>
+            <p class="project-description">
+              Evaluate cost, speed, and capabilities of LLMs for engineering tasks.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/ai-selector/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="1200" data-usage-max="3200" data-usage-label="model comparisons this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- MCP Blueprint Generator -->
+          <div class="project-card fade-in" id="tool-mcp-blueprint">
+            <div class="project-icon">🏗️</div>
+            <h3 class="project-title">MCP Blueprint Generator</h3>
+            <p class="project-description">
+              Generate Model Context Protocol server boilerplate scaffolding with clean architecture.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/mcp-blueprint-generator/mcp-blueprint-generator.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="140" data-usage-max="420" data-usage-label="blueprints generated this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- PromptPilot -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🪄</div>
+            <h3 class="project-title">PromptPilot</h3>
+            <p class="project-description">
+              Standardized, developer-focused prompt templates for software engineering.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/promptPilot/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="480" data-usage-max="1300" data-usage-label="prompts used this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- AI API Status Dashboard -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🟢</div>
+            <h3 class="project-title">AI API Status Dashboard</h3>
+            <p class="project-description">
+              Check status and uptime of leading AI provider endpoints in real-time.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/ai-status/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="320" data-usage-max="1100" data-usage-label="status checks this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Coding with Robots -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🤖</div>
+            <h3 class="project-title">Coding with Robots</h3>
+            <p class="project-description">
+              A practical guide to implementing AI agents and tools in development workflows.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-ai">AI</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="book.html" class="project-link">Open Ebook →</a>
+            <div class="tool-usage" data-usage-min="380" data-usage-max="820" data-usage-label="reads this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Productivity -->
+      <div class="category-container">
+        <h3 class="category-title">Productivity</h3>
+        <div class="projects-grid">
+
+          <!-- Advanced Link Manager -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🔗</div>
+            <h3 class="project-title">Advanced Link Manager</h3>
+            <p class="project-description">
+              Browser extension to organize, categorize, and access bookmarks efficiently.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-chrome">Chrome Extension</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Productivity</span>
+            </div>
+            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">Open Extension →</a>
+          </div>
+
+          <!-- Dev Toolbox -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🧰</div>
+            <h3 class="project-title">Dev Toolbox</h3>
+            <p class="project-description">
+              A curated list of developer utilities, frameworks, and resource links.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="https://www.lidasoftware.online/tools/toolSList/tools.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="620" data-usage-max="1400" data-usage-label="visits this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- PaletteForge -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🎨</div>
+            <h3 class="project-title">Lida PaletteForge</h3>
+            <p class="project-description">
+              Advanced color palette generator and sandbox for user interface design.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="palette-forge/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="450" data-usage-max="1200" data-usage-label="palettes forged this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Jenkins Pipeline Visualizer -->
+          <div class="project-card fade-in" id="tool-jenkins">
+            <div class="project-icon">🛠️</div>
+            <h3 class="project-title">Jenkins Pipeline Visualizer</h3>
+            <p class="project-description">
+              Visualize Jenkins build pipeline flows directly from Jenkinsfile text.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/jenkinsPipelineVisualizer/index.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="280" data-usage-max="780" data-usage-label="pipelines visualized this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Graph Visualizer -->
+          <div class="project-card fade-in">
+            <div class="project-icon">📊</div>
+            <h3 class="project-title">Graph Visualizer</h3>
+            <p class="project-description">
+              Render flowcharts, connection routes, and node graphs for architectural planning.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/graphVisualizer/graph-app.html" class="project-link">Open Tool →</a>
+          </div>
+
+          <!-- Git Cheat Sheet -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🌿</div>
+            <h3 class="project-title">Git Cheat Sheet</h3>
+            <p class="project-description">
+              Fast reference guide for common and advanced Git version control commands.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/gitCheat/git-cheat.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="1300" data-usage-max="3800" data-usage-label="commands looked up this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Dummy Data Generator -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🎨</div>
+            <h3 class="project-title">Dummy Data Generator</h3>
+            <p class="project-description">
+              Chrome extension to generate structured mock datasets for API and database testing.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-chrome">Chrome Extension</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Productivity</span>
+            </div>
+            <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en" class="project-link">Open Extension →</a>
+          </div>
+
+          <!-- Local Storage Viewer -->
+          <div class="project-card fade-in">
+            <div class="project-icon">🔍</div>
+            <h3 class="project-title">Local Storage Viewer</h3>
+            <p class="project-description">
+              Chrome extension to inspect, manage, and edit browser storage namespaces.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-chrome">Chrome Extension</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Productivity</span>
+            </div>
+            <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej" class="project-link">Open Extension →</a>
+          </div>
+
+          <!-- API Data -->
+          <div class="project-card fade-in" id="tool-api-data">
+            <div class="project-icon">📈</div>
+            <h3 class="project-title">API Data</h3>
+            <p class="project-description">
+              Chrome extension to log, filter, and inspect client-side API requests.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-chrome">Chrome Extension</span>
+              <span class="tool-tag tag-local">Local</span>
+              <span class="tool-tag tag-utility">Productivity</span>
+            </div>
+            <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh" class="project-link">Open Extension →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Utilities -->
+      <div class="category-container">
+        <h3 class="category-title">Utilities</h3>
+        <div class="projects-grid">
+
+          <!-- Timestamp Converter -->
+          <div class="project-card fade-in" id="tool-timestamp">
+            <div class="project-icon">⏱️</div>
+            <h3 class="project-title">Timestamp Converter</h3>
+            <p class="project-description">
+              Convert UNIX timestamps to standard calendar datetimes and UTC values.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="tools/timeStampConvert/time-stamp-convert.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="1100" data-usage-max="3100" data-usage-label="timestamps decoded this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Architecture Compatibility Tool -->
+          <div class="project-card fade-in">
+            <div class="project-icon">📈</div>
+            <h3 class="project-title">Architecture Compatibility</h3>
+            <p class="project-description">
+              Verify infrastructure compatibility and get stack recommendations.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+            </div>
+            <a href="tools/architecture-compatibility-tool/architecture-compatibility.html" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="90" data-usage-max="340" data-usage-label="stacks analyzed this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- Benzodiazepines Tracker -->
+          <div class="project-card fade-in">
+            <div class="project-icon">💊</div>
+            <h3 class="project-title">Benzodiazepines Tracker</h3>
+            <p class="project-description">
+              Private, secure application for medication log entries and dose tracking.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="https://lidabenzotracker.onrender.com/" class="project-link">Open Tool →</a>
+            <div class="tool-usage" data-usage-min="80" data-usage-max="220" data-usage-label="people tracking this month">
+              <span class="usage-dot"></span> <span class="usage-count"></span>
+            </div>
+          </div>
+
+          <!-- LidaMixPlay -->
+          <div class="project-card fade-in" id="tool-lida-mix-play">
+            <div class="project-icon">🎧</div>
+            <h3 class="project-title">LidaMixPlay</h3>
+            <p class="project-description">
+              Desktop player for Windows and macOS with lyrics, audio library, and visualizer.
+            </p>
+            <div class="tool-tags">
+              <span class="tool-tag tag-utility">Utility</span>
+              <span class="tool-tag tag-local">Local</span>
+            </div>
+            <a href="/lidamixplay" class="project-link">Open App →</a>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
-
-
-
   <!-- Stats Section -->
   <section class="stats-section">
     <div class="container">
@@ -2949,26 +3292,20 @@
       <div class="about-content">
         <h2 class="about-title">About LiDa Software</h2>
 
-
         <p class="about-text">
-          LiDa Software started as a small side project by Hen Faibish, a developer who just couldn’t stop building
-          things, even on weekends.
-          It’s not a company with investors, slogans, or slides full of buzzwords. It’s just one guy who really loves
-          code and believes good ideas should be shared, not locked behind paywalls or jargon.
-
-
-          LiDa creates small, useful, sometimes weird tools... the kind that make developers smile, save time, or say
-          “oh, that’s actually clever.”
-          No hype. No AI drama. Just clean code, curiosity, and the joy of making things work (eventually).
-
-
-          When Hen isn’t coding, he’s probably testing another idea, writing about software, or explaining to his kids
-          why “just five more minutes” of debugging can actually mean an hour.
-
-
+          LiDa Software is a personal developer tools platform built and maintained by Hen Faibish.
         </p>
-        <p>
-          ⚡ Motto: build cool stuff, keep it simple, and share what you learn.
+        <p class="about-text">
+          The project started from a simple idea: build practical tools that solve real problems developers face every day, without unnecessary accounts, tracking, paywalls, or noise.
+        </p>
+        <p class="about-text">
+          The tools focus on clean workflows, fast usage, and real engineering utility, including formatting, validation, automation, AI-assisted productivity, and developer experience improvements.
+        </p>
+        <p class="about-text">
+          LiDa Software is also a long-term engineering project where I explore product thinking, frontend architecture, reusable components, local-first behavior, AI integrations, and continuous improvement.
+        </p>
+        <p class="about-text" style="color: #a78bfa; font-weight: 600; margin-top: 20px;">
+          ⚡ Motto: build useful tools, keep them simple, and improve them over time.
         </p>
       </div>
     </div>
@@ -3428,6 +3765,267 @@
       });
     })();
   </script>
+
+<!-- ── LiDa Command Center ── -->
+<div class="cmd-overlay" id="cmdOverlay" role="dialog" aria-modal="true" aria-label="LiDa Command Center">
+  <div class="cmd-panel" id="cmdPanel">
+    <div class="cmd-search-row">
+      <span class="cmd-search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+      <input id="cmdInput" type="text" placeholder="Search tools, pages, services..." autocomplete="off" spellcheck="false" aria-label="Command search"/>
+      <button class="cmd-close-btn" id="cmdClose" aria-label="Close command center">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cmd-results" id="cmdResults" role="listbox"></div>
+    <div class="cmd-footer">
+      <span class="cmd-footer-hint"><kbd>&uarr;&darr;</kbd> navigate</span>
+      <span class="cmd-footer-hint"><kbd>Enter</kbd> open</span>
+      <span class="cmd-footer-hint"><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var overlay=document.getElementById('cmdOverlay');
+var trigger=document.getElementById('cmdTrigger');
+var closeBtn=document.getElementById('cmdClose');
+var input=document.getElementById('cmdInput');
+var results=document.getElementById('cmdResults');
+var lastFocus=null;
+var activeIdx=-1;
+
+// Detect Mac for keyboard hint
+if(/Mac|iPhone|iPad|iPod/.test(navigator.platform||navigator.userAgent||'')){
+  var hint=document.getElementById('cmdKbHint');
+  if(hint) hint.textContent='\u2318K';
+}
+
+// ── Data ──
+var BASE='https://www.lidasoftware.online/';
+var ITEMS=[
+  // Developer Tools — real paths from the live site
+  {g:'Developer Tools',title:'JSON Beautifier',desc:'Format and prettify JSON with syntax highlighting.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonBeautifier/json-beautifier.html'},
+  {g:'Developer Tools',title:'AI Code Diff Viewer',desc:'Compare code changes with AI-powered insights.',tag:'Tool',icon:'ai',href:BASE+'tools/aiCodeDiff/the-code-diff-viewer.html'},
+  {g:'Developer Tools',title:'JSON to Zod Converter',desc:'Generate Zod schemas from JSON automatically.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonToZod/json-to-zod-converter.html'},
+  {g:'Developer Tools',title:'JSON to Protobuf',desc:'Convert JSON structures to Protobuf definitions.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonToProtobuf/index.html'},
+  {g:'Developer Tools',title:'Environment Variable Validator',desc:'Validate .env files against a required schema.',tag:'Tool',icon:'tool',href:BASE+'tools/envValidator/index.html'},
+  {g:'Developer Tools',title:'AI Hallucination Spotter',desc:'Detect inconsistencies and hallucinations in AI output.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-hallucination-spotter/ai-hallucination-spotter.html'},
+  {g:'Developer Tools',title:'AI Model Selector',desc:'Compare and choose the right AI model for your task.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-selector/index.html'},
+  {g:'Developer Tools',title:'MCP Blueprint Generator',desc:'Generate Model Context Protocol blueprints.',tag:'Tool',icon:'ai',href:BASE+'tools/mcp-blueprint-generator/mcp-blueprint-generator.html'},
+  {g:'Developer Tools',title:'PromptPilot',desc:'Design, test, and refine AI prompts.',tag:'Tool',icon:'ai',href:BASE+'tools/promptPilot/index.html'},
+  {g:'Developer Tools',title:'PaletteForge',desc:'Generate and export design colour palettes.',tag:'Tool',icon:'tool',href:BASE+'palette-forge/index.html'},
+  {g:'Developer Tools',title:'Dummy Data Generator',desc:'Generate realistic test data instantly.',tag:'Tool',icon:'tool',href:BASE+'dummy-generate.html'},
+  {g:'Developer Tools',title:'Timestamp Converter',desc:'Convert between Unix timestamps and human dates.',tag:'Tool',icon:'tool',href:BASE+'tools/timeStampConvert/time-stamp-convert.html'},
+  {g:'Developer Tools',title:'Local Storage Viewer',desc:'Inspect and manage localStorage in the browser.',tag:'Tool',icon:'tool',href:BASE+'local-storage.html'},
+  {g:'Developer Tools',title:'Jenkins Pipeline Visualizer',desc:'Visualize Jenkins CI/CD pipeline stages.',tag:'Tool',icon:'tool',href:BASE+'tools/jenkinsPipelineVisualizer/index.html'},
+  {g:'Developer Tools',title:'Graph Visualizer',desc:'Visualize system architecture as an interactive graph.',tag:'Tool',icon:'tool',href:BASE+'tools/graphVisualizer/graph-app.html'},
+  {g:'Developer Tools',title:'Architecture Compatibility Tool',desc:'Check compatibility between system components.',tag:'Tool',icon:'tool',href:BASE+'tools/architecture-compatibility-tool/architecture-compatibility.html'},
+  {g:'Developer Tools',title:'Git Cheat Sheet',desc:'Quick reference for common Git commands and workflows.',tag:'Tool',icon:'tool',href:BASE+'tools/gitCheat/git-cheat.html'},
+  {g:'Developer Tools',title:'AI Status Dashboard',desc:'Monitor AI API and service availability.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-status/index.html'},
+  {g:'Developer Tools',title:'Virtual Team Kit',desc:'Templates and tools for remote engineering teams.',tag:'Tool',icon:'tool',href:BASE+'virtual-team-kit.html'},
+  {g:'Developer Tools',title:'LiDa Mix Play',desc:'Creative audio mixing and playback tool.',tag:'Tool',icon:'tool',href:BASE+'lida-mix-play/index.html'},
+  {g:'Developer Tools',title:'Dev News',desc:'Latest developer news and engineering updates.',tag:'Tool',icon:'tool',href:BASE+'dev-news.html'},
+  {g:'Developer Tools',title:'All Tools List',desc:'Browse the full catalogue of LiDa developer tools.',tag:'Tool',icon:'tool',href:BASE+'tools/toolSList/tools.html'},
+  // Engineering
+  {g:'Project & Engineering',title:'Engineering Behind LiDa Software',desc:'Architecture, product decisions, AI integration, and roadmap.',tag:'Engineering',icon:'eng',href:BASE+'engineering.html',keywords:'case study portfolio'},
+  {g:'Project & Engineering',title:'Review LiDa in 60 seconds',desc:'A quick overview of what was built, why it matters, and what it demonstrates.',tag:'Engineering',icon:'star',href:BASE+'engineering.html',special:true,keywords:'interview recruiter cto review'},
+  {g:'Project & Engineering',title:'About LiDa Software',desc:'The story, philosophy, and platform behind the tools.',tag:'Engineering',icon:'eng',href:BASE+'about/index.html'},
+  // Services
+  {g:'Services',title:'Software Engineering & AI Solutions',desc:'Freelance and contract engineering for businesses and startups.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html'},
+  {g:'Services',title:'Backend Development',desc:'APIs, microservices, integrations — Java, Node.js, Spring Boot.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'Frontend Development',desc:'Angular, React, TypeScript — dashboards, admin panels, web apps.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'AI Integration',desc:'LLM workflows, structured outputs, RAG, prompt engineering.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'Cloud & DevOps',desc:'GCP, AWS, Docker, Kubernetes, CI/CD.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'Automation Solutions',desc:'Workflow automation, data pipelines, scheduled jobs.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  // Contact
+  {g:'Contact',title:'Contact on WhatsApp',desc:'Start a conversation directly.',tag:'Contact',icon:'contact',href:'https://wa.me/40753358749?text=Hi%20Hen%2C%20I%27d%20like%20to%20get%20in%20touch.',ext:true},
+  {g:'Contact',title:'Send Email',desc:'bandel79@gmail.com',tag:'Contact',icon:'contact',href:'mailto:bandel79@gmail.com',ext:true},
+  {g:'Contact',title:'LinkedIn',desc:'View professional profile.',tag:'Contact',icon:'contact',href:'https://www.linkedin.com/in/hen-faibish/',ext:true}
+];
+
+var RECRUITER_TERMS=['interview','recruiter','cto','review','hire','hiring','job'];
+
+var GROUP_ORDER=['Developer Tools','Project & Engineering','Services','Contact'];
+
+function iconSvg(type){
+  var icons={
+    tool:'<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>',
+    ai:'<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+    eng:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+    svc:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+    contact:'<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+    star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
+  };
+  return '<svg viewBox="0 0 24 24">'+(icons[type]||icons.tool)+'</svg>';
+}
+
+function iconClass(type){
+  if(type==='ai'||type==='star') return 'purple';
+  if(type==='contact') return 'green';
+  if(type==='svc') return 'amber';
+  return '';
+}
+
+function tagClass(tag){
+  if(tag==='Tool') return 'tag-tool';
+  if(tag==='Engineering') return 'tag-eng';
+  if(tag==='Services') return 'tag-svc';
+  return 'tag-cta';
+}
+
+function makeItem(item, spotlight){
+  var el=document.createElement('a');
+  el.className='cmd-item'+(spotlight?' cmd-spotlight':'');
+  el.href=item.href;
+  if(item.ext){ el.target='_blank'; el.rel='noopener noreferrer'; }
+  el.setAttribute('role','option');
+  el.dataset.href=item.href;
+  el.dataset.ext=item.ext?'1':'';
+  el.innerHTML=
+    '<span class="cmd-item-icon '+iconClass(item.icon)+'">'+iconSvg(item.icon)+'</span>'+
+    '<span class="cmd-item-body">'+
+      '<span class="cmd-item-title">'+item.title+'</span>'+
+      '<span class="cmd-item-desc">'+item.desc+'</span>'+
+    '</span>'+
+    '<span class="cmd-item-tag '+tagClass(item.tag)+'">'+item.tag+'</span>';
+  el.addEventListener('click', function(){
+    if(item.special){
+      // open review modal on engineering page or trigger if on same page
+      closeCmd();
+    } else {
+      closeCmd();
+    }
+  });
+  return el;
+}
+
+function makeGroup(label){
+  var d=document.createElement('div');
+  d.className='cmd-group-label';
+  d.textContent=label;
+  return d;
+}
+
+function renderResults(q){
+  results.innerHTML='';
+  activeIdx=-1;
+  var query=(q||'').toLowerCase().trim();
+  var filtered;
+
+  // Check if recruiter-type query
+  var isRecruiter=RECRUITER_TERMS.some(function(t){return query.indexOf(t)!==-1;});
+
+  if(!query){
+    // Default: show all groups
+    filtered=ITEMS;
+  } else {
+    filtered=ITEMS.filter(function(item){
+      var haystack=(item.title+' '+item.desc+' '+(item.keywords||'')+' '+item.g).toLowerCase();
+      return haystack.indexOf(query)!==-1;
+    });
+  }
+
+  if(isRecruiter && query){
+    // Inject spotlight at top
+    var spotlight=ITEMS.filter(function(i){return i.special;})[0];
+    if(spotlight){
+      results.appendChild(makeItem(spotlight,true));
+    }
+  }
+
+  if(!filtered.length){
+    var empty=document.createElement('div');
+    empty.className='cmd-empty';
+    empty.textContent='No results for \"'+q+'\"';
+    results.appendChild(empty);
+    return;
+  }
+
+  // Group
+  var groups={};
+  filtered.forEach(function(item){
+    if(!groups[item.g]) groups[item.g]=[];
+    groups[item.g].push(item);
+  });
+
+  GROUP_ORDER.forEach(function(g){
+    if(!groups[g]||!groups[g].length) return;
+    results.appendChild(makeGroup(g));
+    groups[g].forEach(function(item){
+      results.appendChild(makeItem(item,false));
+    });
+  });
+}
+
+function getItems(){
+  return Array.from(results.querySelectorAll('.cmd-item'));
+}
+
+function setActive(idx){
+  var items=getItems();
+  items.forEach(function(el,i){
+    el.classList.toggle('active',i===idx);
+    if(i===idx) el.scrollIntoView({block:'nearest'});
+  });
+  activeIdx=idx;
+}
+
+function openCmd(){
+  lastFocus=document.activeElement;
+  overlay.classList.add('open');
+  trigger.setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+  renderResults('');
+  setTimeout(function(){input.focus();},80);
+}
+
+function closeCmd(){
+  overlay.classList.remove('open');
+  trigger.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+  input.value='';
+  if(lastFocus) lastFocus.focus();
+}
+
+trigger.addEventListener('click', openCmd);
+closeBtn.addEventListener('click', closeCmd);
+
+overlay.addEventListener('click', function(e){
+  if(e.target===overlay) closeCmd();
+});
+
+input.addEventListener('input', function(){
+  renderResults(input.value);
+});
+
+document.addEventListener('keydown', function(e){
+  // Ctrl+K / Cmd+K
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){
+    e.preventDefault();
+    overlay.classList.contains('open') ? closeCmd() : openCmd();
+    return;
+  }
+  if(!overlay.classList.contains('open')) return;
+  var items=getItems();
+  if(e.key==='Escape'){ e.preventDefault(); closeCmd(); }
+  else if(e.key==='ArrowDown'){
+    e.preventDefault();
+    setActive(Math.min(activeIdx+1, items.length-1));
+  }
+  else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    setActive(Math.max(activeIdx-1, 0));
+  }
+  else if(e.key==='Enter' && activeIdx>=0 && items[activeIdx]){
+    e.preventDefault();
+    items[activeIdx].click();
+  }
+});
+
+})();
+</script>
 </body>
 
 

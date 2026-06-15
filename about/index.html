@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - LiDa Software</title>
     <meta name="description"
-        content="LiDa Software builds developer-focused AI tools with a focus on practical utility, control, and verification.">
+        content="LiDa Software is a personal developer tools platform built and maintained by Hen Faibish. Practical tools for real developer workflows.">
 
     <!-- JSON-LD for Branding -->
     <script type="application/ld+json">
@@ -70,7 +70,39 @@
             font-size: 1.125rem;
             line-height: 1.6;
             color: #b0b0d0;
+            margin-bottom: 16px;
+        }
+
+        p:last-child {
             margin-bottom: 0;
+        }
+
+        .motto {
+            margin-top: 8px;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 32px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color .2s;
+        }
+        a.back-link:hover { color: #a78bfa; }
+
+        @media (max-width: 480px) {
+            body { padding: 20px 16px; }
+            h1 { font-size: 1.9rem; margin-bottom: 18px; }
+            p { font-size: 1rem; line-height: 1.65; }
+            .logo { width: 90px; margin-bottom: 24px; }
+        }
+        @media (max-width: 360px) {
+            h1 { font-size: 1.65rem; }
+            p { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -82,10 +114,21 @@
         <h1>LiDa Software</h1>
 
         <p>
-            LiDa Software builds developer-focused AI tools.
-            We focus on creating practical utilities that provide control and verification,
-            empowering engineers to build with confidence and precision.
+            LiDa Software is a personal developer tools platform built and maintained by Hen Faibish.
         </p>
+        <p>
+            The project started from a simple idea: build practical tools that solve real problems developers face every day, without unnecessary accounts, tracking, paywalls, or noise.
+        </p>
+        <p>
+            The tools focus on clean workflows, fast usage, and real engineering utility, including formatting, validation, automation, AI-assisted productivity, and developer experience improvements.
+        </p>
+        <p>
+            LiDa Software is also a long-term engineering project where I explore product thinking, frontend architecture, reusable components, local-first behavior, AI integrations, and continuous improvement.
+        </p>
+        <p class="motto">
+            ⚡ Motto: build useful tools, keep them simple, and improve them over time.
+        </p>
+        <a href="../index.html" class="back-link">← Back to LiDa Software</a>
     </div>
 </body>
 

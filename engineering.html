@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Engineering Behind LiDa Software | LiDa Software</title>
+<meta name="description" content="A technical overview of LiDa Software — a personal developer tools platform focused on practical workflows, clean UX, AI-assisted productivity, and maintainable architecture."/>
+<meta name="author" content="Hen Faibish"/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://www.lidasoftware.online/engineering.html"/>
+<link rel="icon" type="image/x-icon" href="/favicon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.lidasoftware.online/engineering.html"/>
+<meta property="og:title" content="Engineering Behind LiDa Software"/>
+<meta property="og:description" content="A personal developer tools platform — architecture, product decisions, AI integration, and roadmap."/>
+<meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --surface:rgba(255,255,255,0.03);
+  --surface-h:rgba(255,255,255,0.055);
+  --border:rgba(255,255,255,0.07);
+  --border-h:rgba(255,255,255,0.14);
+  --text:#e2e8f0;--muted:#94a3b8;--dim:#475569;
+  --accent:#667eea;--accent2:#a78bfa;--green:#22c55e;
+  --r:14px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(circle at 20% 10%,rgba(102,126,234,.07) 0%,transparent 50%),
+    radial-gradient(circle at 80% 80%,rgba(167,139,250,.05) 0%,transparent 50%);
+  color:var(--text);font-family:'Inter',-apple-system,sans-serif;
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:64px;
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#667eea,#a78bfa);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;padding:0 24px;
+  border-bottom:1px solid var(--border);background:rgba(10,10,15,.92);
+  backdrop-filter:blur(20px);display:flex;align-items:center;gap:14px}
+.nav-back{display:flex;align-items:center;gap:8px;color:var(--muted);
+  text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-back:hover{color:var(--text)}
+.nav-back svg{width:15px;height:15px}
+.nav-sep{color:var(--dim)}
+.nav-title{font-size:14px;font-weight:600;color:var(--text)}
+.nav-cta{margin-left:auto;font-size:13px;color:var(--muted);text-decoration:none;
+  font-weight:500;padding:6px 16px;border:1px solid var(--border);border-radius:8px;
+  transition:all .2s}
+.nav-cta:hover{color:var(--text);border-color:rgba(102,126,234,.4);
+  background:rgba(102,126,234,.08)}
+
+/* LAYOUT */
+.page{max-width:1000px;margin:0 auto;padding:0 24px 120px}
+
+/* HERO */
+.hero{padding:80px 0 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;left:-200px;width:600px;height:600px;
+  background:radial-gradient(circle,rgba(102,126,234,.08) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:22px}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--accent2);
+  box-shadow:0 0 8px rgba(167,139,250,.6)}
+.hero h1{font-size:clamp(30px,5.5vw,52px);font-weight:800;letter-spacing:-.03em;
+  line-height:1.08;margin-bottom:20px;
+  background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;color:var(--muted);line-height:1.7;max-width:700px;margin-bottom:16px}
+.hero-note{font-size:13px;color:var(--dim);font-weight:500;letter-spacing:.01em;
+  font-family:'JetBrains Mono',monospace;padding:10px 16px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;display:inline-block}
+
+/* SECTION */
+.section{margin-bottom:80px}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px}
+.sec-title{font-size:26px;font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:14px}
+.sec-body{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:12px}
+.sec-body:last-child{margin-bottom:0}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:72px 0}
+
+/* SNAPSHOT CARDS */
+.snap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-top:28px}
+.snap-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px 20px;transition:border-color .25s,background .25s,transform .25s}
+.snap-card:hover{border-color:rgba(102,126,234,.3);background:var(--surface-h);transform:translateY(-2px)}
+.snap-num{font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:6px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.snap-label{font-size:12px;color:var(--muted);font-weight:500;line-height:1.4}
+.snap-card.text .snap-num{font-size:18px;font-weight:700;color:#fff;
+  -webkit-text-fill-color:#fff;background:none;margin-bottom:8px}
+
+/* ARCH FLOW */
+.arch-flow{display:flex;align-items:stretch;gap:0;margin-top:32px;flex-wrap:wrap}
+.arch-node{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px 18px;flex:1;min-width:130px;transition:border-color .25s,background .25s}
+.arch-node:hover{border-color:rgba(102,126,234,.35);background:var(--surface-h)}
+.arch-node-icon{width:32px;height:32px;border-radius:8px;margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(102,126,234,.12);border:1px solid rgba(102,126,234,.2)}
+.arch-node-icon svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.8}
+.arch-node-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
+.arch-node-desc{font-size:11.5px;color:var(--dim);line-height:1.5}
+.arch-arrow{display:flex;align-items:center;padding:0 6px;color:var(--dim);flex-shrink:0}
+.arch-arrow svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5}
+@media(max-width:700px){
+  .arch-flow{flex-direction:column}
+  .arch-arrow{transform:rotate(90deg);padding:6px 0;align-self:center}
+}
+
+/* DECISION CARDS */
+.decision-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px}
+.decision-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:24px 26px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s}
+.decision-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.decision-card:hover{border-color:rgba(102,126,234,.3);transform:translateY(-2px)}
+.decision-card:hover::before{transform:scaleX(1)}
+.decision-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px}
+.decision-body{font-size:13.5px;color:var(--muted);line-height:1.6}
+.decision-quote{font-size:12px;color:var(--accent);font-weight:600;margin-top:10px;
+  font-style:italic;opacity:.85}
+
+/* LIFECYCLE */
+.lifecycle{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:0;margin-top:32px;position:relative}
+.lifecycle::before{content:'';position:absolute;top:28px;left:60px;right:60px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(102,126,234,.3),transparent);
+  pointer-events:none}
+.lc-step{display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:0 8px;position:relative;z-index:1}
+.lc-dot{width:56px;height:56px;border-radius:50%;border:1px solid rgba(102,126,234,.3);
+  background:var(--surface);display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;transition:border-color .25s,background .25s,box-shadow .25s;flex-shrink:0}
+.lc-step:hover .lc-dot{border-color:rgba(102,126,234,.6);background:rgba(102,126,234,.1);
+  box-shadow:0 0 20px rgba(102,126,234,.2)}
+.lc-dot svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8}
+.lc-label{font-size:12px;font-weight:600;color:var(--muted)}
+@media(max-width:640px){
+  .lifecycle{grid-template-columns:repeat(2,1fr);gap:20px}
+  .lifecycle::before{display:none}
+}
+
+/* AI FLOW */
+.ai-flow{display:flex;flex-direction:column;gap:0;margin-top:28px}
+.ai-step{display:flex;align-items:flex-start;gap:20px;padding:20px 24px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:4px;transition:border-color .25s,background .25s}
+.ai-step:hover{border-color:rgba(102,126,234,.3);background:var(--surface-h)}
+.ai-step-num{width:28px;height:28px;border-radius:50%;background:rgba(102,126,234,.15);
+  border:1px solid rgba(102,126,234,.3);display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0}
+.ai-step-content{flex:1}
+.ai-step-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.ai-step-desc{font-size:13px;color:var(--muted);line-height:1.55}
+.ai-connector{width:1px;height:12px;background:rgba(102,126,234,.2);margin-left:37px}
+.ai-note{margin-top:20px;padding:18px 22px;background:rgba(102,126,234,.07);
+  border:1px solid rgba(102,126,234,.2);border-radius:var(--r);
+  font-size:14px;color:#818cf8;font-style:italic;line-height:1.6;font-weight:500}
+
+/* PRINCIPLES */
+.principles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:28px}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px 22px;display:flex;align-items:flex-start;gap:14px;
+  transition:border-color .25s,background .25s}
+.principle:hover{border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.03)}
+.principle-check{width:20px;height:20px;border-radius:50%;background:rgba(34,197,94,.12);
+  border:1px solid rgba(34,197,94,.3);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:2px}
+.principle-check svg{width:10px;height:10px;stroke:#4ade80;fill:none;stroke-width:2.5}
+.principle-body{}
+.principle-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.principle-desc{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ROADMAP */
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.rm-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px}
+.rm-col.now{border-color:rgba(34,197,94,.2)}
+.rm-col.next{border-color:rgba(102,126,234,.2)}
+.rm-col.later{border-color:rgba(167,139,250,.2)}
+.rm-badge{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 12px;border-radius:99px;display:inline-block;margin-bottom:18px}
+.rm-badge.now{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#4ade80}
+.rm-badge.next{background:rgba(102,126,234,.1);border:1px solid rgba(102,126,234,.3);color:#818cf8}
+.rm-badge.later{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);color:#c084fc}
+.rm-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rm-col li{font-size:13px;color:var(--muted);line-height:1.5;display:flex;
+  align-items:flex-start;gap:8px}
+.rm-col li::before{content:'';width:4px;height:4px;border-radius:50%;
+  background:var(--dim);flex-shrink:0;margin-top:7px}
+.rm-col.now li::before{background:#4ade80}
+.rm-col.next li::before{background:#818cf8}
+.rm-col.later li::before{background:#c084fc}
+@media(max-width:640px){.roadmap{grid-template-columns:1fr}}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  .page{padding:0 16px 80px}
+  .hero{padding:48px 0 44px}
+  .hero h1{font-size:clamp(26px,7vw,36px);line-height:1.12}
+  .hero-sub{font-size:15px}
+  .hero-note{font-size:12px;padding:8px 12px}
+  .section{margin-bottom:56px}
+  .divider{margin:48px 0}
+  .sec-title{font-size:22px}
+  .sec-body{font-size:14px}
+  .snap-grid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+  .snap-num{font-size:26px}
+  .snap-card.text .snap-num{font-size:15px}
+  .snap-label{font-size:11px}
+  .snap-card{padding:16px 14px}
+  .card-grid{grid-template-columns:1fr}
+  .decision-grid{grid-template-columns:1fr;gap:12px;margin-top:20px}
+  .decision-card{padding:18px 20px}
+  .principles-grid{grid-template-columns:1fr;gap:10px;margin-top:20px}
+  .roadmap{gap:12px;margin-top:20px}
+  .rm-col{padding:18px}
+  .ai-step{padding:14px 16px;gap:14px}
+  .ai-note{font-size:13px;padding:14px 16px}
+  nav{padding:0 16px;gap:10px}
+  .nav-title{font-size:13px}
+  .nav-cta{padding:5px 12px;font-size:12px}
+  footer{padding:24px 16px;font-size:12px}
+}
+@media(max-width:480px){
+  .snap-grid{grid-template-columns:1fr;gap:8px}
+  .lifecycle{grid-template-columns:repeat(2,1fr);gap:16px}
+  .lc-dot{width:44px;height:44px}
+  .lc-dot svg{width:16px;height:16px}
+  .lc-label{font-size:11px}
+  .arch-node{padding:14px}
+  .arch-node-title{font-size:12px}
+  .arch-node-desc{font-size:11px}
+  .hero-eyebrow{font-size:10px}
+}
+@media(max-width:360px){
+  .page{padding:0 12px 60px}
+  nav{gap:6px}
+  .nav-back{font-size:12px}
+}
+/* Overflow guard */
+*{word-break:break-word}
+img,svg,video{max-width:100%}
+
+/* ── Review Modal ── */
+.review-trigger{display:inline-flex;align-items:center;gap:9px;margin-top:24px;
+  padding:11px 22px;border-radius:10px;font-size:13px;font-weight:700;
+  color:#c4b5fd;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);
+  cursor:pointer;transition:all .25s;letter-spacing:.01em;font-family:inherit}
+.review-trigger:hover{background:rgba(167,139,250,.18);border-color:rgba(167,139,250,.5);
+  box-shadow:0 0 24px rgba(167,139,250,.15);transform:translateY(-1px)}
+.review-trigger svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.review-pulse{width:7px;height:7px;border-radius:50%;background:#a78bfa;flex-shrink:0;
+  animation:rpulse 2s ease-in-out infinite}
+@keyframes rpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+@media(prefers-reduced-motion:reduce){.review-pulse{animation:none}}
+
+.review-overlay{position:fixed;inset:0;z-index:500;background:rgba(5,5,10,.75);
+  backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s ease;display:flex;
+  align-items:flex-end;justify-content:center;padding:0}
+.review-overlay.open{opacity:1;pointer-events:all}
+
+.review-panel{width:100%;max-width:720px;max-height:90vh;overflow-y:auto;
+  background:#0f0f18;border:1px solid rgba(167,139,250,.2);
+  border-radius:20px 20px 0 0;padding:0;transform:translateY(40px);opacity:0;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .3s ease;
+  box-shadow:0 -8px 64px rgba(102,126,234,.18)}
+.review-overlay.open .review-panel{transform:translateY(0);opacity:1}
+@media(prefers-reduced-motion:reduce){.review-panel,.review-overlay{transition:none}}
+
+.review-header{display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px 0;position:sticky;top:0;z-index:10;
+  background:#0f0f18;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:16px}
+.review-header-left{display:flex;align-items:center;gap:10px}
+.review-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#a78bfa;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);
+  padding:4px 10px;border-radius:99px}
+.review-title-h{font-size:15px;font-weight:700;color:#fff}
+.review-close{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:#94a3b8;transition:all .2s;font-size:18px;line-height:1;flex-shrink:0}
+.review-close:hover{background:rgba(255,255,255,.07);color:#fff;border-color:rgba(255,255,255,.2)}
+.review-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+.review-body{padding:24px 28px 32px;display:flex;flex-direction:column;gap:20px}
+
+.rv-section{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;padding:18px 20px}
+.rv-label{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#667eea;margin-bottom:5px}
+.rv-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:7px}
+.rv-copy{font-size:13px;color:#94a3b8;line-height:1.65}
+
+.rv-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.rv-chip{font-size:11.5px;font-weight:600;padding:5px 13px;border-radius:99px;
+  background:rgba(102,126,234,.1);border:1px solid rgba(102,126,234,.25);color:#818cf8}
+
+.rv-bullets{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.rv-bullet{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:#94a3b8;line-height:1.5}
+.rv-bullet::before{content:'';width:5px;height:5px;border-radius:50%;background:#667eea;
+  flex-shrink:0;margin-top:6px}
+
+.rv-shipped{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.rv-ship-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#94a3b8;line-height:1.5}
+.rv-ship-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;flex-shrink:0;margin-top:6px}
+
+.review-footer{padding:0 28px 28px;display:flex;flex-wrap:wrap;gap:10px}
+.rv-cta-primary{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;
+  background:linear-gradient(135deg,#667eea,#a78bfa);border-radius:9px;color:#fff;
+  font-weight:700;font-size:13px;text-decoration:none;transition:all .25s;
+  box-shadow:0 4px 16px rgba(102,126,234,.25)}
+.rv-cta-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(102,126,234,.35)}
+.rv-cta-secondary{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;
+  border:1px solid rgba(255,255,255,.12);border-radius:9px;color:#94a3b8;
+  font-weight:600;font-size:13px;text-decoration:none;transition:all .25s}
+.rv-cta-secondary:hover{color:#fff;border-color:rgba(102,126,234,.4);background:rgba(102,126,234,.08)}
+
+@media(max-width:600px){
+  .review-panel{border-radius:16px 16px 0 0;max-height:95vh}
+  .review-header,.review-body{padding-left:18px;padding-right:18px}
+  .review-footer{padding:0 18px 24px}
+  .rv-cta-primary,.rv-cta-secondary{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    LiDa Software
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-title">Engineering</span>
+  <a href="index.html#projects" class="nav-cta">View Tools</a>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="hero-dot"></span>Engineering Overview</div>
+    <h1>Engineering Behind<br>LiDa Software</h1>
+    <p class="hero-sub">A personal developer tools platform focused on practical workflows, clean UX, AI-assisted productivity, and maintainable architecture.</p>
+    <span class="hero-note">// Built by one engineer as a real product, not a demo.</span>
+    <button class="review-trigger" id="reviewTrigger" aria-haspopup="dialog" aria-expanded="false">
+      <span class="review-pulse"></span>
+      Review LiDa in 60 seconds
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="section">
+  <div class="sec-label">Project Snapshot</div>
+  <div class="sec-title">By the numbers</div>
+  <div class="snap-grid">
+    <div class="snap-card">
+      <div class="snap-num">24+</div>
+      <div class="snap-label">Tools across four categories</div>
+    </div>
+    <div class="snap-card">
+      <div class="snap-num">7</div>
+      <div class="snap-label">AI-assisted workflow tools</div>
+    </div>
+    <div class="snap-card">
+      <div class="snap-num">4</div>
+      <div class="snap-label">Chrome extensions published</div>
+    </div>
+    <div class="snap-card">
+      <div class="snap-num">4</div>
+      <div class="snap-label">Tool categories</div>
+    </div>
+    <div class="snap-card text">
+      <div class="snap-num">One engineer</div>
+      <div class="snap-label">Full design, engineering, and product</div>
+    </div>
+    <div class="snap-card text">
+      <div class="snap-num">No login required</div>
+      <div class="snap-label">Zero account friction, immediate access</div>
+    </div>
+    <div class="snap-card text">
+      <div class="snap-num">No tracking</div>
+      <div class="snap-label">No analytics, no behavioral data</div>
+    </div>
+    <div class="snap-card text">
+      <div class="snap-num">Actively maintained</div>
+      <div class="snap-label">Continuous improvement, real production use</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
+<div class="section">
+  <div class="sec-label">Architecture</div>
+  <div class="sec-title">Platform structure</div>
+  <p class="sec-body">Each tool is a self-contained module. Shared layout patterns, design tokens, and component conventions make the platform feel unified without coupling tools together. Core logic is separated from presentation so each layer can evolve independently.</p>
+  <div class="arch-flow">
+    <div class="arch-node">
+      <div class="arch-node-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg></div>
+      <div class="arch-node-title">Developer</div>
+      <div class="arch-node-desc">Opens a tool directly — no signup, no onboarding</div>
+    </div>
+    <div class="arch-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    <div class="arch-node">
+      <div class="arch-node-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="arch-node-title">Tool Page</div>
+      <div class="arch-node-desc">Shared nav, consistent card layout, standard UX patterns</div>
+    </div>
+    <div class="arch-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    <div class="arch-node">
+      <div class="arch-node-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="arch-node-title">Tool Logic</div>
+      <div class="arch-node-desc">Dedicated JS module — separated from the UI layer</div>
+    </div>
+    <div class="arch-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    <div class="arch-node">
+      <div class="arch-node-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div class="arch-node-title">Processing</div>
+      <div class="arch-node-desc">Local browser execution or AI API call — no middleman server</div>
+    </div>
+    <div class="arch-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    <div class="arch-node">
+      <div class="arch-node-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div class="arch-node-title">Output</div>
+      <div class="arch-node-desc">Formatted result, copy action, or export — clean and immediate</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+</div>
+<!-- DECISIONS — appended outside .page so we reopen it -->
+<div class="page">
+
+<!-- ENGINEERING DECISIONS -->
+<div class="section">
+  <div class="sec-label">Engineering Decisions</div>
+  <div class="sec-title">Why things are built the way they are</div>
+  <p class="sec-body">Each architectural choice reflects a deliberate tradeoff between simplicity, speed, and maintainability. These are not defaults — they are decisions made with specific developer workflows in mind.</p>
+  <div class="decision-grid">
+    <div class="decision-card">
+      <div class="decision-title">No login by default</div>
+      <div class="decision-body">Authentication adds friction without adding value for tools that don't require persistence. A developer should be able to open a tool and use it in under five seconds.</div>
+      <div class="decision-quote">"Fast access beats account friction."</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-title">Local-first where possible</div>
+      <div class="decision-body">When a tool can run entirely in the browser, it should. No server round-trip means faster results, better privacy, and simpler infrastructure.</div>
+      <div class="decision-quote">"Simple tools should feel instant and private."</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-title">AI only when useful</div>
+      <div class="decision-body">AI features are included only where a language model genuinely improves the workflow — not as decoration. Formatters and converters run locally. AI tools handle tasks where generative output is actually the point.</div>
+      <div class="decision-quote">"AI is used for real workflow value, not decoration."</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-title">Reusable tool structure</div>
+      <div class="decision-body">Nav, layout, card patterns, and interaction behaviors are defined once and reused consistently. This makes every new tool faster to build and easier to maintain.</div>
+      <div class="decision-quote">"New tools should be easy to add, maintain, and polish."</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-title">Single-purpose UX</div>
+      <div class="decision-body">Each tool does one thing and does it clearly. No nested features, no hidden options, no ambiguity about what the tool is for. The interface reflects the task.</div>
+      <div class="decision-quote">"Each tool should solve one problem clearly."</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-title">Static deployment</div>
+      <div class="decision-body">Pure HTML, CSS, and JavaScript means zero build pipeline complexity per tool, instant deployments, and no runtime server to maintain. Complexity is added only when it earns its place.</div>
+      <div class="decision-quote">"Deploy instantly. Iterate quickly. Keep it simple."</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TOOL LIFECYCLE -->
+<div class="section">
+  <div class="sec-label">Tool Lifecycle</div>
+  <div class="sec-title">From idea to production</div>
+  <p class="sec-body">Every tool in the platform follows a consistent lifecycle. This predictability is what makes it possible to build and maintain a large number of tools as a solo engineer without losing quality.</p>
+  <div class="lifecycle">
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <div class="lc-label">Idea</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="lc-label">Definition</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="lc-label">Shared UI</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="lc-label">Input / Output</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></div>
+      <div class="lc-label">Copy / Export</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="lc-label">Changelog</div>
+    </div>
+    <div class="lc-step">
+      <div class="lc-dot"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg></div>
+      <div class="lc-label">Improvement</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- AI INTEGRATION -->
+<div class="section">
+  <div class="sec-label">AI Integration</div>
+  <div class="sec-title">How AI fits into the workflow</div>
+  <p class="sec-body">AI is treated as one processing option among several — not as the product itself. The integration is intentionally narrow: AI is used where it replaces work that would otherwise require significant developer effort or contextual judgment.</p>
+  <div class="ai-flow">
+    <div class="ai-step">
+      <div class="ai-step-num">1</div>
+      <div class="ai-step-content">
+        <div class="ai-step-title">Developer input</div>
+        <div class="ai-step-desc">Raw code, a prompt, a diff, or a configuration snippet — whatever the tool accepts as its input.</div>
+      </div>
+    </div>
+    <div class="ai-connector"></div>
+    <div class="ai-step">
+      <div class="ai-step-num">2</div>
+      <div class="ai-step-content">
+        <div class="ai-step-title">Prompt shaping</div>
+        <div class="ai-step-desc">The tool constructs a structured, task-specific prompt. This is where most of the tool's value lives — a well-formed prompt produces reliably useful output.</div>
+      </div>
+    </div>
+    <div class="ai-connector"></div>
+    <div class="ai-step">
+      <div class="ai-step-num">3</div>
+      <div class="ai-step-content">
+        <div class="ai-step-title">AI processing</div>
+        <div class="ai-step-desc">The request is sent directly from the browser to the AI provider. No proxy, no server intermediary, no data retention on the platform side.</div>
+      </div>
+    </div>
+    <div class="ai-connector"></div>
+    <div class="ai-step">
+      <div class="ai-step-num">4</div>
+      <div class="ai-step-content">
+        <div class="ai-step-title">Structured output</div>
+        <div class="ai-step-desc">The response is parsed and rendered in a readable, actionable format — not dumped as raw text. The tool controls the output presentation.</div>
+      </div>
+    </div>
+    <div class="ai-connector"></div>
+    <div class="ai-step">
+      <div class="ai-step-num">5</div>
+      <div class="ai-step-content">
+        <div class="ai-step-title">Developer review</div>
+        <div class="ai-step-desc">The developer reads, copies, or acts on the output. AI assists the decision — it does not replace it. Review is always the final step.</div>
+      </div>
+    </div>
+  </div>
+  <div class="ai-note">"AI is treated as part of the workflow, not as the product itself."</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRIVACY + PRINCIPLES -->
+<div class="section">
+  <div class="sec-label">Privacy and Principles</div>
+  <div class="sec-title">What the platform does not do</div>
+  <p class="sec-body">These are not marketing claims — they are implementation decisions. Each one was made to reduce friction, protect the developer, or keep the codebase simpler.</p>
+  <div class="principles-grid">
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">No unnecessary accounts</div>
+        <div class="principle-desc">Tools open and run immediately. No email, no OAuth, no session management.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">No tracking</div>
+        <div class="principle-desc">No behavioral analytics, no heatmaps, no third-party telemetry scripts.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">No paywalls</div>
+        <div class="principle-desc">Every tool is fully accessible. No tiers, no credits, no upgrade prompts.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">Local processing when possible</div>
+        <div class="principle-desc">Formatters, validators, and converters run entirely in the browser — no data leaves the device.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">Clear output actions</div>
+        <div class="principle-desc">Every tool result is copyable, exportable, or actionable. No dead ends.</div>
+      </div>
+    </div>
+    <div class="principle">
+      <div class="principle-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="principle-body">
+        <div class="principle-title">Developer-focused UX</div>
+        <div class="principle-desc">Interfaces are designed for engineers — dense, functional, and free of consumer-UI patterns.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<div class="section">
+  <div class="sec-label">Roadmap</div>
+  <div class="sec-title">Engineering direction</div>
+  <p class="sec-body">The roadmap reflects real priorities, not a launch calendar. Each phase is about strengthening foundations before expanding scope.</p>
+  <div class="roadmap">
+    <div class="rm-col now">
+      <span class="rm-badge now">Now</span>
+      <ul>
+        <li>Polish core tool quality and stability</li>
+        <li>Improve UX consistency across all tools</li>
+        <li>Refine copy and tool descriptions</li>
+        <li>Add better usage examples</li>
+      </ul>
+    </div>
+    <div class="rm-col next">
+      <span class="rm-badge next">Next</span>
+      <ul>
+        <li>Expand AI-assisted developer workflows</li>
+        <li>Improve copy and export flows</li>
+        <li>Add local usage history where useful</li>
+        <li>Improve mobile usability</li>
+      </ul>
+    </div>
+    <div class="rm-col later">
+      <span class="rm-badge later">Later</span>
+      <ul>
+        <li>Optional saved workspaces</li>
+        <li>Public API for select tools</li>
+        <li>Advanced automation tools</li>
+        <li>CLI companion for common tools</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<footer>
+  <p><a href="index.html">LiDa Software</a> &middot; Built and maintained by Hen Faibish &middot; <a href="index.html#projects">View Tools</a></p>
+</footer>
+
+<!-- REVIEW MODAL -->
+<div class="review-overlay" id="reviewOverlay" role="dialog" aria-modal="true" aria-label="Review LiDa Software in 60 seconds">
+  <div class="review-panel" id="reviewPanel">
+    <div class="review-header">
+      <div class="review-header-left">
+        <span class="review-badge">60-second overview</span>
+        <span class="review-title-h">LiDa Software</span>
+      </div>
+      <button class="review-close" id="reviewClose" aria-label="Close review panel">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="review-body">
+
+      <div class="rv-section">
+        <div class="rv-label">1. What I built</div>
+        <div class="rv-title">Developer Tools Platform</div>
+        <div class="rv-copy">LiDa Software is a personal developer tools platform built to solve real daily engineering workflows. It includes formatting, validation, AI-assisted productivity, and automation tools — all without login, tracking, or paywalls.</div>
+      </div>
+
+      <div class="rv-section">
+        <div class="rv-label">2. Why I built it</div>
+        <div class="rv-title">Built for real usage</div>
+        <div class="rv-copy">The goal is to create practical tools with fast access, clean developer-focused UX, and no unnecessary friction. Tools run locally where possible, and AI is used only where it adds genuine workflow value.</div>
+      </div>
+
+      <div class="rv-section">
+        <div class="rv-label">3. Key engineering decisions</div>
+        <div class="rv-chips">
+          <span class="rv-chip">Local-first where possible</span>
+          <span class="rv-chip">Reusable tool structure</span>
+          <span class="rv-chip">AI only where useful</span>
+          <span class="rv-chip">Simple output actions</span>
+          <span class="rv-chip">Static deployment</span>
+          <span class="rv-chip">No unnecessary accounts</span>
+        </div>
+      </div>
+
+      <div class="rv-section">
+        <div class="rv-label">4. What it demonstrates</div>
+        <div class="rv-bullets">
+          <span class="rv-bullet">Product thinking — solving real problems with clear, focused tools</span>
+          <span class="rv-bullet">Frontend architecture — shared layout patterns, design tokens, consistent UX</span>
+          <span class="rv-bullet">AI integration — structured prompts, direct API calls, reviewed output</span>
+          <span class="rv-bullet">Developer experience — fast access, clean output, zero friction</span>
+          <span class="rv-bullet">Maintainability — modular tools, separation of logic and presentation</span>
+          <span class="rv-bullet">Continuous improvement — active changelog, ongoing polish</span>
+        </div>
+      </div>
+
+      <div class="rv-section">
+        <div class="rv-label">5. Recently shipped</div>
+        <div class="rv-shipped">
+          <div class="rv-ship-item"><span class="rv-ship-dot"></span>Improved public-facing presentation and branding across all pages</div>
+          <div class="rv-ship-item"><span class="rv-ship-dot"></span>Added Engineering case-study page with architecture, decisions, and roadmap</div>
+          <div class="rv-ship-item"><span class="rv-ship-dot"></span>Full mobile responsiveness audit and polish across all main pages</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="review-footer">
+      <a href="#" class="rv-cta-primary" id="rvCtaEngineering"
+         onclick="document.getElementById('reviewOverlay').classList.remove('open');document.getElementById('reviewTrigger').setAttribute('aria-expanded','false');return false;">
+        Explore the Engineering Page
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </a>
+      <a href="index.html#projects" class="rv-cta-secondary" onclick="document.getElementById('reviewOverlay').classList.remove('open');document.getElementById('reviewTrigger').setAttribute('aria-expanded','false');">
+        View Developer Tools
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('reviewOverlay');
+  var trigger = document.getElementById('reviewTrigger');
+  var closeBtn = document.getElementById('reviewClose');
+  var panel = document.getElementById('reviewPanel');
+  var ctaEngineering = document.getElementById('rvCtaEngineering');
+  var lastFocus;
+
+  function openReview(){
+    lastFocus = document.activeElement;
+    overlay.classList.add('open');
+    trigger.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+    setTimeout(function(){closeBtn.focus();},350);
+  }
+
+  function closeReview(){
+    overlay.classList.remove('open');
+    trigger.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+  }
+
+  trigger.addEventListener('click', openReview);
+  closeBtn.addEventListener('click', closeReview);
+
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeReview();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeReview();
+  });
+
+  /* Fix the "Explore Engineering" CTA to close the modal and scroll to top */
+  ctaEngineering.addEventListener('click', function(e){
+    e.preventDefault();
+    closeReview();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
