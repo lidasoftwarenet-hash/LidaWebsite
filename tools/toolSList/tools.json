@@ -18,7 +18,7 @@
     "id": "ai-status",
     "category": "AI & Coding Assistants",
     "name": "AI API Status Dashboard",
-    "description": "Real-time monitoring dashboard for 8 major AI APIs — OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Auto-refreshes every 60 seconds from official status feeds.",
+    "description": "Real-time monitoring dashboard for 8 major AI APIs ,  OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Auto-refreshes every 60 seconds from official status feeds.",
     "useCase": "Know before your users do when an AI API goes down. Live status, 90-day history, and a mission-control UX.",
     "url": "../../tools/ai-status/index.html",
     "tags": [
@@ -154,7 +154,7 @@
     "id": "sourcegraph-cody",
     "category": "AI & Coding Assistants",
     "name": "Sourcegraph Cody",
-    "description": "An AI assistant that uses the full context of your codebase to answer questions and write code. Consumer plans discontinued in 2025 — now focused on enterprise teams.",
+    "description": "An AI assistant that uses the full context of your codebase to answer questions and write code. Consumer plans discontinued in 2025 ,  now focused on enterprise teams.",
     "useCase": "Large-scale enterprise repositories where cross-file context and security compliance are essential.",
     "url": "https://sourcegraph.com/cody",
     "tags": [
@@ -214,7 +214,7 @@
     "id": "kiro-aws-ide",
     "category": "AI & Coding Assistants",
     "name": "Kiro IDE",
-    "description": "Agentic IDE by AWS (launched July 2025) built on VS Code. Uses spec-driven development to convert prompts into structured specs, user stories, and tasks — bridging the gap between vibe coding and production readiness.",
+    "description": "Agentic IDE by AWS (launched July 2025) built on VS Code. Uses spec-driven development to convert prompts into structured specs, user stories, and tasks ,  bridging the gap between vibe coding and production readiness.",
     "useCase": "AWS-centric development where you want to go from natural language to production-ready code with automated testing, documentation, and deployment hooks.",
     "url": "https://kiro.dev",
     "tags": [
@@ -240,7 +240,6 @@
     ],
     "pricing": "Paid"
   },
-
   {
     "id": "codeium",
     "category": "AI & Coding Assistants",
@@ -727,7 +726,7 @@
     "category": "IDE & Code Editors",
     "name": "Fleet",
     "description": "⚠️ Discontinued Dec 2025. JetBrains shut this down. Use IntelliJ-based IDEs or look out for their upcoming agentic IDE.",
-    "useCase": "N/A — discontinued.",
+    "useCase": "N/A ,  discontinued.",
     "url": "https://www.jetbrains.com/",
     "tags": [
       "ide",
@@ -1006,7 +1005,6 @@
     ],
     "pricing": "Freemium"
   },
-
   {
     "id": "pieces-dev",
     "category": "AI & Productivity Tools",
@@ -1837,7 +1835,7 @@
     "category": "Cloud & DevOps Tools",
     "name": "Pulumi",
     "description": "Infrastructure as Code using real programming languages (TypeScript, Python, Go, C#) instead of HCL. Deploy to AWS, Azure, GCP, and Kubernetes.",
-    "useCase": "Defining complex, reusable cloud infrastructure with full programming language features — loops, functions, types — instead of declarative config files.",
+    "useCase": "Defining complex, reusable cloud infrastructure with full programming language features ,  loops, functions, types ,  instead of declarative config files.",
     "url": "https://www.pulumi.com/",
     "tags": [
       "iac",

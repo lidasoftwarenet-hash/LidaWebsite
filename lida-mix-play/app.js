@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   LidaMixPlay Landing Page — app.js
+   LidaMixPlay Landing Page ,  app.js
    Scroll animations, particles, tabs, counters
 ═══════════════════════════════════════════════ */
 
@@ -32,8 +32,8 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ── Mobile nav burger ─────────────────────────
-const burger  = document.getElementById('navBurger');
-const navMob  = document.getElementById('navMobile');
+const burger = document.getElementById('navBurger');
+const navMob = document.getElementById('navMobile');
 burger?.addEventListener('click', () => {
     navMob.classList.toggle('open');
     burger.classList.toggle('open');
@@ -76,7 +76,7 @@ const counterObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
 
 // ── Screenshot tabs ───────────────────────────
-const tabBtns  = document.querySelectorAll('.tab-btn');
+const tabBtns = document.querySelectorAll('.tab-btn');
 const tabSlides = document.querySelectorAll('.screenshot-slide');
 
 tabBtns.forEach(btn => {
@@ -108,7 +108,7 @@ tabBtns.forEach(btn => {
     const COLORS = ['rgba(155,93,229,', 'rgba(34,211,238,', 'rgba(244,114,182,', 'rgba(96,165,250,'];
 
     function resize() {
-        W = canvas.width  = canvas.offsetWidth;
+        W = canvas.width = canvas.offsetWidth;
         H = canvas.height = canvas.offsetHeight;
     }
 

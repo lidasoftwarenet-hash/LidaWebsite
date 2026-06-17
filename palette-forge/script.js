@@ -1,4 +1,4 @@
-/* ═══════════════ PaletteForge — script.js ═══════════════ */
+/* ═══════════════ PaletteForge ,  script.js ═══════════════ */
 'use strict';
 
 // ── State ──────────────────────────────────────────────
@@ -411,23 +411,23 @@ function renderRoleSuggestions(shades, baseHex) {
     ${[
       {
         rank: '1st', label: 'Primary CTA', bg: cta, fg: ctaFg, border: 'none',
-        note: `<code>${cta}</code> — solid, highest visual weight. Hover: <code>${ctaHov}</code>`
+        note: `<code>${cta}</code> ,  solid, highest visual weight. Hover: <code>${ctaHov}</code>`
       },
       {
         rank: '2nd', label: 'Secondary', bg: sec, fg: secFg, border: 'none',
-        note: `<code>${sec}</code> — darker fill, supporting actions`
+        note: `<code>${sec}</code> ,  darker fill, supporting actions`
       },
       {
         rank: '3rd', label: 'Outline', bg: 'transparent', fg: outline, border: `1.5px solid ${outline}`,
-        note: `Transparent + <code>${outline}</code> border — tertiary or cancel`
+        note: `Transparent + <code>${outline}</code> border ,  tertiary or cancel`
       },
       {
         rank: '4th', label: 'Ghost/Link', bg: 'transparent', fg: ghost, border: 'none',
-        note: `Text-only in <code>${ghost}</code> — nav links, lowest priority`
+        note: `Text-only in <code>${ghost}</code> ,  nav links, lowest priority`
       },
       {
         rank: '✕', label: 'Destructive', bg: '#ef4444', fg: '#fff', border: 'none',
-        note: `Fixed <code>#ef4444</code> — delete, remove, irreversible actions`, danger: true
+        note: `Fixed <code>#ef4444</code> ,  delete, remove, irreversible actions`, danger: true
       },
     ].map(b => `
       <div class="srs-btn-row">
@@ -816,7 +816,7 @@ function initEventListeners() {
   listen('share-twitter', 'click', (e) => {
     e.preventDefault();
     const shareUrl = window.location.href;
-    const shareText = 'Check out PaletteForge by LiDa Software — color palette + Tailwind generator';
+    const shareText = 'Check out PaletteForge by LiDa Software ,  color palette + Tailwind generator';
     window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank', 'width=600,height=400');
   });
 
@@ -881,7 +881,7 @@ function downloadFile(name, content) {
 }
 
 
-// Legacy download buttons — guarded in case elements were removed
+// Legacy download buttons ,  guarded in case elements were removed
 function setupLegacyDownloads() {
   const listen = (id, evt, fn) => { const el = $(id); if (el) el.addEventListener(evt, fn); };
   listen('dl-tw-btn', 'click', () => downloadFile('tailwind.config.js', $('tw-config-output')?.textContent || ''));
@@ -894,7 +894,7 @@ function doExportAll() {
 }
 
 // ══════════════════════════════════════════════════════════
-// STEP 3 — Core Functionality
+// STEP 3 ,  Core Functionality
 // ══════════════════════════════════════════════════════════
 
 /**
@@ -1024,7 +1024,7 @@ function applyCSSVars() {
   }
 }
 
-// ── updateLivePreview() — CSS-variable-driven demo ────
+// ── updateLivePreview() ,  CSS-variable-driven demo ────
 function updateLivePreview() {
   if (!fullTheme) return;
   const root = $('preview-root');
@@ -1137,7 +1137,7 @@ function updateLivePreview() {
 </div>`;
 }
 
-// ── Image Upload — Canvas dominant color ───────────────
+// ── Image Upload ,  Canvas dominant color ───────────────
 function extractDominantColor(file) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -1443,7 +1443,7 @@ function updateSavedCount() {
 
 
 // ══════════════════════════════════════════════════════════
-// STEP 4 — UI Enhancements
+// STEP 4 ,  UI Enhancements
 // ══════════════════════════════════════════════════════════
 
 // ── Preview Light/Dark Toggle ──────────────────────────
@@ -1563,7 +1563,7 @@ function applyMood(text) {
   if (!text.trim()) { toast('Type a vibe first!', 'info'); return; }
   const mood = parseMood(text.trim());
   if (!mood) {
-    toast('No vibe match — try keywords like "cyberpunk" or "calm saas"', 'info');
+    toast('No vibe match ,  try keywords like "cyberpunk" or "calm saas"', 'info');
     return;
   }
 
@@ -1627,7 +1627,7 @@ function applyBrandPreset(name) {
       <div class="mood-result-card">
         <div class="mood-swatch" style="background:${p.hex}"></div>
         <div>
-          <p class="mood-result-title">${name} — ${p.desc}</p>
+          <p class="mood-result-title">${name} ,  ${p.desc}</p>
           <p class="mood-result-meta">
             <span class="mood-tag">${p.harmony}</span>
             <span class="mood-tag">${p.hex}</span>
@@ -2185,7 +2185,7 @@ function genShadcn(d) {
   const toHslVal = hex => { const [hh, ss, ll] = hexToHsl(hex); return `${hh} ${ss}% ${ll}%`; };
   const p5 = d.shadObj[500], p9 = d.shadObj[900], p1 = d.shadObj[50];
   const fg = contrastColor(p5) === '#ffffff' ? '0 0% 100%' : '222 47% 11%';
-  return `/* globals.css — Shadcn/ui compatible */
+  return `/* globals.css ,  Shadcn/ui compatible */
 /* Generated by PaletteForge · primary: ${d.baseHex} */
 
 @layer base {
@@ -2247,7 +2247,7 @@ function genAngularTailwind(d) {
     `          ${name}: {\n` +
     Object.entries(obj).map(([k, v]) => `            '${k}': '${v}',`).join('\n') +
     `\n          },`;
-  return `/** tailwind.config.js — Angular project */
+  return `/** tailwind.config.js ,  Angular project */
 // Compatible: Angular 17+ · Standalone · NX workspaces
 
 const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
@@ -2292,7 +2292,7 @@ ${block('error', d.errObj)}
 function genAngularStandalone(d) {
   const p5 = d.shadObj[500], p6 = d.shadObj[600], p1 = d.shadObj[50];
   const fg = contrastColor(p5);
-  return `// theme.component.ts — Angular Standalone Component
+  return `// theme.component.ts ,  Angular Standalone Component
 // Generated by PaletteForge · base: ${d.baseHex}
 
 import { Component, OnInit } from '@angular/core';
@@ -2351,7 +2351,7 @@ import { RouterModule }      from '@angular/router';
   \`],
 })
 export class ThemeDemoComponent implements OnInit {
-  ngOnInit(): void { console.log('Theme loaded — primary: ${p5}'); }
+  ngOnInit(): void { console.log('Theme loaded ,  primary: ${p5}'); }
   onPrimary():   void { /* your action */ }
   onSecondary(): void { /* your action */ }
 }`;
@@ -2359,7 +2359,7 @@ export class ThemeDemoComponent implements OnInit {
 
 // ── Format: DaisyUI ───────────────────────────────────
 function genDaisyUI(d) {
-  return `/** tailwind.config.js — DaisyUI theme */
+  return `/** tailwind.config.js ,  DaisyUI theme */
 // Run: npm install daisyui@latest
 
 /** @type {import('tailwindcss').Config} */
@@ -2419,7 +2419,7 @@ module.exports = {
 function genCSSVars(d) {
   const lines = (prefix, obj) =>
     Object.entries(obj).map(([k, v]) => `  --${prefix}-${k}: ${v};`).join('\n');
-  return `/* PaletteForge — CSS Custom Properties */
+  return `/* PaletteForge ,  CSS Custom Properties */
 /* Base: ${d.baseHex} */
 
 :root {
@@ -2465,7 +2465,7 @@ ${lines('color-accent', d.accObj)}
 function genReactComponent(d) {
   const p5 = d.shadObj[500], p6 = d.shadObj[600], p9 = d.shadObj[900], p1 = d.shadObj[50];
   const fg = contrastColor(p5);
-  return `// ThemeProvider.jsx — Full React Component
+  return `// ThemeProvider.jsx ,  Full React Component
 // Generated by PaletteForge · base: ${d.baseHex}
 // Usage: import ThemeProvider from './ThemeProvider';
 

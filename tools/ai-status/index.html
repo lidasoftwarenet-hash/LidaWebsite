@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#08080f" />
   <meta name="language" content="en" />
-  <title>AI API Status — Is it Down? | LiDa Software</title>
-  <meta name="description" content="Real-time status dashboard for 8 major AI APIs — OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Status data refreshes once every two days." />
-  <meta name="keywords" content="AI API status, OpenAI status, Anthropic status, Claude down, GPT down, Gemini status, Groq status, DeepSeek status, Mistral status, Perplexity status, AI downtime, API monitoring, is ChatGPT down" />
+  <title>AI API Status , Is it Down? | LiDa Software</title>
+  <meta name="description"
+    content="Real-time status dashboard for 8 major AI APIs ,  OpenAI, Anthropic Claude, Google Gemini, Mistral, Groq, DeepSeek, Perplexity, xAI. Status data refreshes once every two days." />
+  <meta name="keywords"
+    content="AI API status, OpenAI status, Anthropic status, Claude down, GPT down, Gemini status, Groq status, DeepSeek status, Mistral status, Perplexity status, AI downtime, API monitoring, is ChatGPT down" />
   <meta name="author" content="LiDa Software" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.lidasoftware.online/tools/ai-status/" />
@@ -16,15 +19,17 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.lidasoftware.online/tools/ai-status/" />
-  <meta property="og:title" content="AI API Status — Is it Down? | LiDa Software" />
-  <meta property="og:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
+  <meta property="og:title" content="AI API Status ,  Is it Down? | LiDa Software" />
+  <meta property="og:description"
+    content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
   <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
   <meta property="og:site_name" content="LiDa Software" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI API Status — Is it Down?" />
-  <meta name="twitter:description" content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
+  <meta name="twitter:title" content="AI API Status ,  Is it Down?" />
+  <meta name="twitter:description"
+    content="Live status of OpenAI, Anthropic, Gemini, Mistral, Groq, DeepSeek, Perplexity and xAI. Status data refreshes once every two days." />
   <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
 
   <!-- JSON-LD Structured Data -->
@@ -48,9 +53,12 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 
@@ -134,20 +142,27 @@
       <div class="stat-item">
         <div class="countdown-ring-wrap" title="Status update cycle">
           <svg viewBox="0 0 36 36" fill="none" class="countdown-svg">
-            <circle cx="18" cy="18" r="14" class="countdown-arc-track"/>
-            <circle cx="18" cy="18" r="14" class="countdown-arc-fill" id="countdownArc"
-                    stroke-dasharray="87.96" stroke-dashoffset="0"/>
+            <circle cx="18" cy="18" r="14" class="countdown-arc-track" />
+            <circle cx="18" cy="18" r="14" class="countdown-arc-fill" id="countdownArc" stroke-dasharray="87.96"
+              stroke-dashoffset="0" />
           </svg>
           <span class="stat-countdown" id="countdown">48h</span>
         </div>
         <span class="stat-next-label">Update cycle</span>
       </div>
       <div class="stat-item">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/><path d="M8 5v4"/><circle cx="8" cy="11" r=".5" fill="currentColor"/></svg>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 2C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z" />
+          <path d="M8 5v4" />
+          <circle cx="8" cy="11" r=".5" fill="currentColor" />
+        </svg>
         <span id="updatedLabel" class="stat-value">—</span>
       </div>
       <div class="stat-item">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M6 7h4M6 10h2"/></svg>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="3" width="12" height="10" rx="2" />
+          <path d="M6 7h4M6 10h2" />
+        </svg>
         <span class="stat-value" id="operationalCount">—</span>&nbsp;providers checked
       </div>
     </div>
@@ -177,7 +192,8 @@
     <span class="legend-label">Legend</span>
     <div class="legend-items">
       <div class="legend-item"><span class="legend-dot" style="background:rgba(34,197,94,.7)"></span>Operational</div>
-      <div class="legend-item"><span class="legend-dot" style="background:rgba(245,158,11,.7);height:60%;align-self:center"></span>Minor issue</div>
+      <div class="legend-item"><span class="legend-dot"
+          style="background:rgba(245,158,11,.7);height:60%;align-self:center"></span>Minor issue</div>
       <div class="legend-item"><span class="legend-dot" style="background:rgba(239,68,68,.8)"></span>Outage</div>
       <div class="legend-item"><span class="legend-dot" style="background:rgba(71,85,105,.4)"></span>No data</div>
       <span style="font-size:11px;color:var(--dim);margin-left:8px">← 90-day history (left = oldest)</span>
@@ -187,10 +203,14 @@
   <!-- DISCLAIMER -->
   <div class="disclaimer-wrap">
     <div class="disclaimer-inner">
-      <strong>Data sources:</strong> Status is fetched directly from each provider's official public status feed (Atlassian Statuspage JSON API) where available.
-      Providers marked <em>manual check</em> don't expose a public machine-readable status API — links go to their status pages.
-      <strong>Response time</strong> reflects the latency measured fetching the status endpoint — not AI inference latency.
-      <strong>Typical latency</strong> shows average Time-to-First-Token benchmarks from public sources (Artificial Analysis, etc.), updated quarterly.
+      <strong>Data sources:</strong> Status is fetched directly from each provider's official public status feed
+      (Atlassian Statuspage JSON API) where available.
+      Providers marked <em>manual check</em> don't expose a public machine-readable status API , links go to their
+      status pages.
+      <strong>Response time</strong> reflects the latency measured fetching the status endpoint , not AI inference
+      latency.
+      <strong>Typical latency</strong> shows average Time-to-First-Token benchmarks from public sources (Artificial
+      Analysis, etc.), updated quarterly.
       90-day history is generated from provider-specific uptime reports where available.
     </div>
   </div>
@@ -220,4 +240,5 @@
   <script defer src="/_vercel/insights/script.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>

@@ -11,7 +11,7 @@ const templateConfigs = {
             currentProblem: { label: "Sprint Goals & Challenges", placeholder: "What are the main objectives? Which epics are in scope? Any unresolved tech debt that must be addressed?" },
             desiredOutcome: { label: "Sprint Success Criteria", placeholder: "What does done look like? Which KPIs or outcomes define success for this sprint?" },
             mustHave: { placeholder: "User stories or tasks that absolutely must ship (P0 items)" },
-            niceToHave: { placeholder: "Stretch goals — only if velocity allows" }
+            niceToHave: { placeholder: "Stretch goals ,  only if velocity allows" }
         }
     },
     architecture: {
@@ -21,7 +21,7 @@ const templateConfigs = {
             technology: { placeholder: "e.g., Kubernetes, Docker, AWS, GraphQL, Kafka" },
             context: { placeholder: "Current architecture state, biggest pain points, scalability floor, what broke last..." },
             currentProblem: { label: "Architecture Challenges", placeholder: "What specific architectural issues need solving? Coupling, latency, data consistency, blast radius on failure..." },
-            desiredOutcome: { label: "Target Architecture", placeholder: "Describe the ideal end state. What qualities and principles matter most — simplicity, scalability, observability?" },
+            desiredOutcome: { label: "Target Architecture", placeholder: "Describe the ideal end state. What qualities and principles matter most ,  simplicity, scalability, observability?" },
             technicalConstraints: { placeholder: "e.g., Must support 100k RPS, 99.95% SLA, must integrate with legacy SAP system" },
             mustHave: { placeholder: "Non-negotiable architectural requirements (security, compliance, performance SLAs, team autonomy)" }
         }
@@ -68,7 +68,7 @@ const templateConfigs = {
             projectName: { placeholder: "e.g., Internal Developer Portal Docs" },
             projectType: { placeholder: "e.g., Diátaxis-structured docs, ADR library, API reference, Architecture diagrams" },
             technology: { placeholder: "e.g., Markdown + Docusaurus, Confluence, OpenAPI/Swagger, C4 diagrams, Mermaid" },
-            context: { placeholder: "Who reads this? Developers onboarding? External API consumers? Support team? Current docs state — outdated, missing, or not trusted?" },
+            context: { placeholder: "Who reads this? Developers onboarding? External API consumers? Support team? Current docs state ,  outdated, missing, or not trusted?" },
             currentProblem: { label: "Documentation Gaps", placeholder: "What's missing or confusing? Missing getting-started guide, outdated API reference, no architecture decision records (ADRs), docs not maintained in sync with code..." },
             desiredOutcome: { label: "Documentation Goals", placeholder: "Docs-as-code workflow, Diátaxis structure (tutorials, how-tos, reference, explanation), AI-friendly for code copilots, auto-generated from code where possible..." },
             mustHave: { placeholder: "Core sections: getting started, API reference with examples, deployment guide, troubleshooting" },
@@ -101,7 +101,7 @@ const templateConfigs = {
     },
     performance: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Core Web Vitals Improvement — Landing Page" },
+            projectName: { placeholder: "e.g., Core Web Vitals Improvement ,  Landing Page" },
             projectType: { placeholder: "e.g., Next.js App Router, React SPA, Node.js API, Mobile app" },
             technology: { placeholder: "e.g., Next.js 15, React 19, TurboPack, Cloudflare CDN, Vercel Edge" },
             context: { placeholder: "Current Lighthouse scores, Core Web Vitals (LCP/CLS/INP), real user monitoring data (RUM), DevTools waterfall observations, bundle size..." },
@@ -113,7 +113,7 @@ const templateConfigs = {
     },
     refactoring: {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Payments Service — Express to Fastify Migration" },
+            projectName: { placeholder: "e.g., Payments Service ,  Express to Fastify Migration" },
             projectType: { placeholder: "e.g., Monolith decomposition, Framework upgrade, TypeScript migration, Module federation" },
             technology: { placeholder: "e.g., Legacy: Express + JS, Target: Fastify + TypeScript + Zod" },
             context: { placeholder: "Why now? Recent incident? New team? Performance cliff? Compliance change? What's the blast radius if refactoring goes wrong?" },
@@ -173,10 +173,10 @@ const templateConfigs = {
     },
     'observability': {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Observability Overhaul — E-commerce Platform" },
+            projectName: { placeholder: "e.g., Observability Overhaul ,  E-commerce Platform" },
             projectType: { placeholder: "e.g., Distributed tracing, SLO/SLA setup, Log aggregation, Alerting strategy" },
             technology: { placeholder: "e.g., OpenTelemetry, Grafana, Loki, Tempo, Prometheus, Datadog, Jaeger" },
-            context: { placeholder: "Current observability gaps: only logs? No traces? Alert fatigue? How many services? What's the biggest pain — finding the root cause of incidents takes hours?" },
+            context: { placeholder: "Current observability gaps: only logs? No traces? Alert fatigue? How many services? What's the biggest pain ,  finding the root cause of incidents takes hours?" },
             currentProblem: { label: "Observability Challenges", placeholder: "Specific gaps: no distributed tracing across services, logs not correlated with traces, too many undefined alerts, no SLOs defined, MTTR > 2 hours, dashboards nobody trusts..." },
             desiredOutcome: { label: "Observability Goals", placeholder: "Full OTel instrumentation, SLO-based alerting (not threshold-based), correlated logs+traces+metrics, auto-dashboards, error budget tracking, <30min MTTR" },
             mustHave: { placeholder: "OpenTelemetry SDK in all services, structured logging, distributed trace IDs, 3 golden signals (latency, traffic, errors) per service, on-call runbook link in every alert" }
@@ -188,7 +188,7 @@ const prompts = [
     {
         id: 1,
         title: "Sprint Planning Assistant",
-        description: "Generate a structured sprint plan with task breakdown, dependency mapping, effort estimation, and risk flags — ready to paste into Jira or Linear.",
+        description: "Generate a structured sprint plan with task breakdown, dependency mapping, effort estimation, and risk flags ,  ready to paste into Jira or Linear.",
         category: "planning",
         difficulty: "beginner",
         icon: "event_note",
@@ -197,7 +197,7 @@ const prompts = [
     {
         id: 2,
         title: "System Architecture Review",
-        description: "Get a senior architect's take on your system design — trade-off analysis, bottleneck identification, and a concrete improvement roadmap.",
+        description: "Get a senior architect's take on your system design ,  trade-off analysis, bottleneck identification, and a concrete improvement roadmap.",
         category: "development",
         difficulty: "advanced",
         icon: "architecture",
@@ -224,7 +224,7 @@ const prompts = [
     {
         id: 5,
         title: "GitOps CI/CD Pipeline Design",
-        description: "Design a GitOps-based pipeline with GitHub Actions, ArgoCD, and Terraform — including canary deploys, rollback, and SLO-gated promotions.",
+        description: "Design a GitOps-based pipeline with GitHub Actions, ArgoCD, and Terraform ,  including canary deploys, rollback, and SLO-gated promotions.",
         category: "devops",
         difficulty: "intermediate",
         icon: "cloud",
@@ -296,7 +296,7 @@ const prompts = [
     {
         id: 13,
         title: "LLM App Architecture",
-        description: "Design a production-ready LLM application — choose between RAG, agents, or fine-tuning, with cost/latency/accuracy trade-off analysis.",
+        description: "Design a production-ready LLM application ,  choose between RAG, agents, or fine-tuning, with cost/latency/accuracy trade-off analysis.",
         category: "ai",
         difficulty: "advanced",
         icon: "smart_toy",
@@ -305,7 +305,7 @@ const prompts = [
     {
         id: 14,
         title: "Prompt Engineering Workbench",
-        description: "Craft a high-performance prompt for GPT-5, Claude 4, or Gemini 2.5 — with role priming, chain-of-thought, few-shot examples, and structured output.",
+        description: "Craft a high-performance prompt for GPT-5, Claude 4, or Gemini 2.5 ,  with role priming, chain-of-thought, few-shot examples, and structured output.",
         category: "prompts",
         difficulty: "intermediate",
         icon: "psychology",
@@ -350,7 +350,7 @@ const prompts = [
     {
         id: 19,
         title: "Few-Shot Prompt Designer",
-        description: "Build a few-shot prompt with carefully selected examples that generalize well — for classification, extraction, or transformation tasks.",
+        description: "Build a few-shot prompt with carefully selected examples that generalize well ,  for classification, extraction, or transformation tasks.",
         category: "prompts",
         difficulty: "intermediate",
         icon: "format_list_numbered",
@@ -383,7 +383,7 @@ const followupSuggestions = {
     refine: [
         {
             icon: "compress",
-            text: "Make it shorter — remove fluff",
+            text: "Make it shorter ,  remove fluff",
             action: "\n\n---\n\n**REFINEMENT REQUEST:** Rewrite the above prompt to be 40% shorter while keeping all critical information. Remove filler phrases, redundant context, and anything the model can reasonably infer. Keep every constraint and output format instruction intact."
         },
         {
@@ -406,7 +406,7 @@ const followupSuggestions = {
         {
             icon: "hub",
             text: "Design as a multi-step agent prompt",
-            action: "\n\n---\n\n**EXTENSION REQUEST:** Refactor the above into a multi-step agentic workflow. Break it into: (1) Planning step — identify what to do, (2) Execution steps — each with a specific tool or action, (3) Verification step — self-check the output. Format each step as a separate prompt with clear handoff context."
+            action: "\n\n---\n\n**EXTENSION REQUEST:** Refactor the above into a multi-step agentic workflow. Break it into: (1) Planning step ,  identify what to do, (2) Execution steps ,  each with a specific tool or action, (3) Verification step ,  self-check the output. Format each step as a separate prompt with clear handoff context."
         },
         {
             icon: "security",
@@ -500,7 +500,7 @@ const platformSelectorBtn = document.getElementById("platformSelectorBtn");
 const platformDropdown = document.getElementById("platformDropdown");
 const selectedPlatformLabel = document.getElementById("selectedPlatformLabel");
 
-// AI Platform Configuration with Prompt Profiles — updated for 2026 models
+// AI Platform Configuration with Prompt Profiles ,  updated for 2026 models
 const defaultPlatformProfiles = {
     chatgpt: {
         id: "chatgpt",
@@ -548,7 +548,7 @@ const defaultPlatformProfiles = {
         id: "grok",
         name: "Grok 3",
         url: "https://grok.x.ai",
-        prefix: "You are a sharp, technically deep AI assistant. Cut through the noise and give the real answer — not the textbook answer — for the following technical challenge:\n\n",
+        prefix: "You are a sharp, technically deep AI assistant. Cut through the noise and give the real answer ,  not the textbook answer ,  for the following technical challenge:\n\n",
         suffix: "\n\nBe direct, precise, and opinionated where appropriate. Call out what's commonly done wrong. Give the recommendation you'd actually give a senior engineer colleague."
     },
     custom: {
@@ -747,7 +747,7 @@ function resetWizard() {
 // ===== AI REACTION FEEDBACK =====
 const aiReactionInsights = [
     "💬 This prompt is clear but could use more context about the team's experience level.",
-    "💬 Good structure — consider specifying the expected timeline more explicitly.",
+    "💬 Good structure ,  consider specifying the expected timeline more explicitly.",
     "💬 Well-defined problem! Adding success metrics would make this even stronger.",
     "💬 Nice detail level. You might want to clarify the priority of requirements.",
     "💬 Solid prompt! Consider adding examples of what you're looking for.",
@@ -771,16 +771,16 @@ const aiReactionInsights = [
 function showAIReaction() {
     const aiReactionBox = document.getElementById('aiReactionBox');
     const aiReactionText = document.getElementById('aiReactionText');
-    
+
     // Select a random insight
     const randomInsight = aiReactionInsights[Math.floor(Math.random() * aiReactionInsights.length)];
-    
+
     // Set the text
     aiReactionText.textContent = randomInsight;
-    
+
     // Show the box with animation
     aiReactionBox.style.display = 'block';
-    
+
     // Reset animation by removing and re-adding
     aiReactionBox.style.animation = 'none';
     setTimeout(() => {
@@ -794,11 +794,11 @@ function typewriterEffect(text, element, callback) {
     if (typewriterTimeout) {
         clearTimeout(typewriterTimeout);
     }
-    
+
     // Check if fast mode is enabled
     const fastModeToggle = document.getElementById('fastModeToggle');
     const isFastMode = fastModeToggle && fastModeToggle.checked;
-    
+
     if (isFastMode) {
         // Fast mode: display all text immediately
         element.textContent = text;
@@ -806,33 +806,33 @@ function typewriterEffect(text, element, callback) {
         if (callback) callback();
         return;
     }
-    
+
     // Typewriter mode
     typewriterActive = true;
     element.textContent = '';
-    
+
     // Create cursor element
     const cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     cursor.textContent = '|';
     element.appendChild(cursor);
-    
+
     let index = 0;
     const delay = Math.floor(Math.random() * (15 - 10 + 1)) + 10; // Random delay between 10-15ms (much faster)
-    
+
     function typeNextChar() {
         if (index < text.length) {
             // Remove cursor temporarily
             if (cursor.parentNode) {
                 cursor.remove();
             }
-            
+
             // Add next character
             element.textContent += text.charAt(index);
-            
+
             // Re-add cursor
             element.appendChild(cursor);
-            
+
             index++;
             typewriterTimeout = setTimeout(typeNextChar, delay);
         } else {
@@ -844,7 +844,7 @@ function typewriterEffect(text, element, callback) {
             if (callback) callback();
         }
     }
-    
+
     typeNextChar();
 }
 
@@ -854,11 +854,11 @@ function stopTypewriter() {
         typewriterTimeout = null;
     }
     typewriterActive = false;
-    
+
     // Remove any cursor elements
     const cursors = promptOutput.querySelectorAll('.typewriter-cursor');
     cursors.forEach(cursor => cursor.remove());
-    
+
     // Display full text immediately
     if (generatedPromptText) {
         promptOutput.textContent = generatedPromptText;
@@ -868,7 +868,7 @@ function stopTypewriter() {
 // ===== PROMPT BREAKDOWN =====
 function generatePromptBreakdown(data) {
     const breakdownItems = [];
-    
+
     // Project Info
     if (data.projectName || data.projectType) {
         breakdownItems.push({
@@ -878,7 +878,7 @@ function generatePromptBreakdown(data) {
             content: `${data.projectName || 'Unnamed Project'}${data.projectType ? ` - ${data.projectType}` : ''}`
         });
     }
-    
+
     // Tech Stack
     if (data.technology) {
         breakdownItems.push({
@@ -888,14 +888,14 @@ function generatePromptBreakdown(data) {
             content: data.technology
         });
     }
-    
+
     // Context
     if (data.context || data.teamExperience || data.teamSize) {
         let contextText = [];
         if (data.context) contextText.push(data.context);
         if (data.teamExperience) contextText.push(`Team: ${data.teamExperience}`);
         if (data.teamSize) contextText.push(`Size: ${data.teamSize}`);
-        
+
         breakdownItems.push({
             type: 'context',
             icon: '📋',
@@ -903,7 +903,7 @@ function generatePromptBreakdown(data) {
             content: contextText.join(' • ')
         });
     }
-    
+
     // Problem
     if (data.currentProblem) {
         breakdownItems.push({
@@ -913,14 +913,14 @@ function generatePromptBreakdown(data) {
             content: data.currentProblem
         });
     }
-    
+
     // Constraints
     if (data.technicalConstraints || data.businessConstraints || data.budget) {
         let constraintsText = [];
         if (data.technicalConstraints) constraintsText.push(`Tech: ${data.technicalConstraints}`);
         if (data.businessConstraints) constraintsText.push(`Business: ${data.businessConstraints}`);
         if (data.budget) constraintsText.push(`Budget: ${data.budget}`);
-        
+
         breakdownItems.push({
             type: 'constraints',
             icon: '🔒',
@@ -928,7 +928,7 @@ function generatePromptBreakdown(data) {
             content: constraintsText.join(' • ')
         });
     }
-    
+
     // Goal
     if (data.desiredOutcome) {
         breakdownItems.push({
@@ -938,13 +938,13 @@ function generatePromptBreakdown(data) {
             content: data.desiredOutcome
         });
     }
-    
+
     // Requirements
     if (data.mustHave || data.niceToHave) {
         let reqText = [];
         if (data.mustHave) reqText.push(`Must: ${data.mustHave}`);
         if (data.niceToHave) reqText.push(`Nice: ${data.niceToHave}`);
-        
+
         breakdownItems.push({
             type: 'requirements',
             icon: '✅',
@@ -952,7 +952,7 @@ function generatePromptBreakdown(data) {
             content: reqText.join(' • ')
         });
     }
-    
+
     // Tone (if power user mode)
     if (data.powerUserMode && data.tone) {
         const toneLabels = {
@@ -960,7 +960,7 @@ function generatePromptBreakdown(data) {
             'casual': 'Casual & Conversational',
             'technical': 'Technical & Precise'
         };
-        
+
         breakdownItems.push({
             type: 'tone',
             icon: '🧠',
@@ -968,19 +968,19 @@ function generatePromptBreakdown(data) {
             content: toneLabels[data.tone] || data.tone
         });
     }
-    
+
     return breakdownItems;
 }
 
 function renderPromptBreakdown(breakdownItems) {
     const breakdownPanel = document.getElementById('promptBreakdown');
     const breakdownItemsEl = document.getElementById('breakdownItems');
-    
+
     if (breakdownItems.length === 0) {
         breakdownPanel.style.display = 'none';
         return;
     }
-    
+
     breakdownItemsEl.innerHTML = breakdownItems.map(item => `
         <div class="breakdown-item ${item.type}" data-type="${item.type}">
             <div class="breakdown-item-header">
@@ -990,9 +990,9 @@ function renderPromptBreakdown(breakdownItems) {
             <div class="breakdown-item-content">${item.content}</div>
         </div>
     `).join('');
-    
+
     breakdownPanel.style.display = 'block';
-    
+
     // Add click handlers to breakdown items
     document.querySelectorAll('.breakdown-item').forEach(item => {
         item.addEventListener('click', () => {
@@ -1001,7 +1001,7 @@ function renderPromptBreakdown(breakdownItems) {
             setTimeout(() => {
                 item.classList.remove('highlight');
             }, 600);
-            
+
             // Scroll prompt output to show relevant section
             // This is a visual feedback that the item was clicked
             showToast(`Viewing ${item.querySelector('.breakdown-item-label').textContent} section`, 'success');
@@ -1012,7 +1012,7 @@ function renderPromptBreakdown(breakdownItems) {
 function toggleBreakdownPanel() {
     const breakdownContent = document.getElementById('breakdownContent');
     const breakdownToggle = document.getElementById('breakdownToggle');
-    
+
     if (breakdownContent.classList.contains('collapsed')) {
         breakdownContent.classList.remove('collapsed');
         breakdownToggle.classList.remove('collapsed');
@@ -1025,7 +1025,7 @@ function toggleBreakdownPanel() {
 function toggleQualityMeter() {
     const qualityMeterContent = document.getElementById('qualityMeterContent');
     const qualityToggle = document.getElementById('qualityToggle');
-    
+
     if (qualityMeterContent.classList.contains('collapsed')) {
         qualityMeterContent.classList.remove('collapsed');
         qualityToggle.classList.remove('collapsed');
@@ -1042,7 +1042,7 @@ function calculatePromptQuality(data) {
     let score = 0;
     let maxScore = 100;
     let details = [];
-    
+
     // Core fields (10 points each)
     const coreFields = [
         { key: 'projectName', label: 'Project Name', points: 10 },
@@ -1050,7 +1050,7 @@ function calculatePromptQuality(data) {
         { key: 'currentProblem', label: 'Problem Statement', points: 10 },
         { key: 'desiredOutcome', label: 'Desired Outcome', points: 10 }
     ];
-    
+
     coreFields.forEach(field => {
         const isFilled = data[field.key] && data[field.key].trim().length > 0;
         if (isFilled) {
@@ -1062,14 +1062,14 @@ function calculatePromptQuality(data) {
             points: field.points
         });
     });
-    
+
     // Important fields (8 points each)
     const importantFields = [
         { key: 'technology', label: 'Technology Stack', points: 8 },
         { key: 'context', label: 'Background Context', points: 8 },
         { key: 'deadline', label: 'Timeline/Deadline', points: 8 }
     ];
-    
+
     importantFields.forEach(field => {
         const isFilled = data[field.key] && data[field.key].trim().length > 0;
         if (isFilled) {
@@ -1081,7 +1081,7 @@ function calculatePromptQuality(data) {
             points: field.points
         });
     });
-    
+
     // Supporting fields (6 points each)
     const supportingFields = [
         { key: 'technicalConstraints', label: 'Technical Constraints', points: 6 },
@@ -1089,7 +1089,7 @@ function calculatePromptQuality(data) {
         { key: 'successMetrics', label: 'Success Metrics', points: 6 },
         { key: 'mustHave', label: 'Must-Have Requirements', points: 6 }
     ];
-    
+
     supportingFields.forEach(field => {
         const isFilled = data[field.key] && data[field.key].trim().length > 0;
         if (isFilled) {
@@ -1101,10 +1101,10 @@ function calculatePromptQuality(data) {
             points: field.points
         });
     });
-    
+
     // Calculate percentage
     const percentage = Math.round((score / maxScore) * 100);
-    
+
     // Determine quality level
     let level, feedback, description, barClass;
     if (percentage >= 80) {
@@ -1123,7 +1123,7 @@ function calculatePromptQuality(data) {
         feedback = '🔴 Needs More Details';
         description = 'Consider adding more information to help the AI understand your requirements better and provide more accurate responses.';
     }
-    
+
     return {
         score: percentage,
         level,
@@ -1140,17 +1140,17 @@ function displayPromptQuality(qualityData) {
     const qualityBar = document.getElementById('qualityBar');
     const qualityFeedback = document.getElementById('qualityFeedback');
     const qualityDetails = document.getElementById('qualityDetails');
-    
+
     // Show the meter
     qualityMeter.style.display = 'block';
-    
+
     // Update score
     qualityScore.textContent = `${qualityData.score}%`;
-    
+
     // Update bar
     qualityBar.className = `quality-bar ${qualityData.barClass}`;
     qualityBar.style.width = `${qualityData.score}%`;
-    
+
     // Update feedback
     qualityFeedback.innerHTML = `
         <div class="quality-feedback-text">
@@ -1159,7 +1159,7 @@ function displayPromptQuality(qualityData) {
         </div>
         <div class="quality-feedback-description">${qualityData.description}</div>
     `;
-    
+
     // Update details
     qualityDetails.innerHTML = qualityData.details.map(detail => `
         <div class="quality-detail-item ${detail.filled ? 'filled' : 'missing'}">
@@ -1167,7 +1167,7 @@ function displayPromptQuality(qualityData) {
             <span>${detail.label} ${detail.filled ? `(+${detail.points})` : `(${detail.points})`}</span>
         </div>
     `).join('');
-    
+
     // Animate the meter
     setTimeout(() => {
         qualityMeter.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1204,11 +1204,11 @@ function generatePrompt() {
 
     // Get selected prompt style (default to 'analyst')
     const promptStyle = localStorage.getItem('promptStyle') || 'analyst';
-    
+
     // Get platform for profile wrapping
     const platform = localStorage.getItem('preferredAIPlatform') || 'chatgpt';
     const profile = platformProfiles[platform];
-    
+
     // Use the new intelligent prompt generation system
     let prompt;
     if (window.PromptLogic && window.PromptLogic.generateIntelligentPrompt) {
@@ -1221,7 +1221,7 @@ function generatePrompt() {
         console.warn('PromptLogic module not loaded, using fallback generation');
         prompt = generateFallbackPrompt(data);
     }
-    
+
     // Wrap with platform-specific prefix and suffix
     const finalPrompt = (profile.prefix || '') + prompt + (profile.suffix || '');
 
@@ -1234,17 +1234,17 @@ function generatePrompt() {
     // Calculate and display prompt quality
     const qualityData = calculatePromptQuality(data);
     displayPromptQuality(qualityData);
-    
+
     // Generate and render breakdown
     const breakdownItems = generatePromptBreakdown(data);
     renderPromptBreakdown(breakdownItems);
-    
+
     // Use typewriter effect to display the prompt
     typewriterEffect(finalPrompt, promptOutput, () => {
         // Callback after typewriter completes
         // Render follow-up suggestions
         renderFollowupSuggestions();
-        
+
         // Show AI Reaction
         showAIReaction();
     });
@@ -1296,7 +1296,7 @@ function applyFollowup(action) {
     generatedPromptText += decodedAction;
     promptOutput.textContent = generatedPromptText;
     showToast('Follow-up suggestion applied!', 'success');
-    
+
     // Scroll to bottom of prompt output
     promptOutput.scrollTop = promptOutput.scrollHeight;
 }
@@ -1305,7 +1305,7 @@ function applyFollowup(action) {
 function toggleEditMode() {
     isEditMode = !isEditMode;
     promptOutput.contentEditable = isEditMode;
-    
+
     if (isEditMode) {
         promptOutput.focus();
         editBtn.innerHTML = '<span class="material-symbols-outlined">check</span> Save';
@@ -1323,8 +1323,8 @@ function exportPrompt(format) {
     const data = collectFormData();
     const timestamp = new Date().toISOString();
     const templateName = currentTemplate ? currentTemplate.title : 'Custom';
-    
-    switch(format) {
+
+    switch (format) {
         case 'json':
             exportAsJSON(data, text, timestamp, templateName);
             break;
@@ -1368,7 +1368,7 @@ function exportAsMarkdown(prompt, data, timestamp, templateName) {
     let markdown = `# AI Prompt: ${templateName}\n\n`;
     markdown += `**Generated:** ${date}\n\n`;
     markdown += `## Prompt\n\n\`\`\`\n${prompt}\n\`\`\`\n\n`;
-    
+
     // Add form data if available
     if (data.projectName || data.projectType) {
         markdown += `## Project Details\n\n`;
@@ -1377,7 +1377,7 @@ function exportAsMarkdown(prompt, data, timestamp, templateName) {
         if (data.technology) markdown += `- **Tech Stack:** ${data.technology}\n`;
         markdown += '\n';
     }
-    
+
     const blob = new Blob([markdown], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1505,23 +1505,23 @@ function exportAsPDF(prompt, data, timestamp, templateName) {
         </body>
         </html>
     `;
-    
+
     // Open a new window with the print content
     const printWindow = window.open('', '_blank');
     printWindow.document.write(printContent);
     printWindow.document.close();
-    
+
     // Wait for content to load, then show print dialog
-    printWindow.onload = function() {
+    printWindow.onload = function () {
         // Show toast with instructions
         showToast('Opening print dialog. Select "Save as PDF" to download.', 'success');
-        
+
         // Small delay to ensure content is fully rendered
         setTimeout(() => {
             printWindow.print();
-            
+
             // Close window after printing
-            printWindow.onafterprint = function() {
+            printWindow.onafterprint = function () {
                 printWindow.close();
             };
         }, 500);
@@ -1540,7 +1540,7 @@ function exportAsText(prompt, data, timestamp, templateName) {
     let text = `AI Prompt: ${templateName}\n`;
     text += `Generated: ${date}\n\n`;
     text += `PROMPT:\n${prompt}\n\n`;
-    
+
     if (data.projectName || data.projectType) {
         text += `PROJECT DETAILS:\n`;
         if (data.projectName) text += `  Project: ${data.projectName}\n`;
@@ -1548,9 +1548,9 @@ function exportAsText(prompt, data, timestamp, templateName) {
         if (data.technology) text += `  Tech Stack: ${data.technology}\n`;
         text += '\n';
     }
-    
+
     text += `Generated with LiDa Prompt Pilot • ${window.location.origin}`;
-    
+
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1583,14 +1583,14 @@ function copyAndOpenAI() {
     // Get the final prompt text (already includes prefix/suffix from generation)
     const text = promptOutput.textContent;
     const platform = localStorage.getItem('preferredAIPlatform') || 'chatgpt';
-    
+
     // Copy to clipboard
     navigator.clipboard.writeText(text).then(() => {
         showToast(`Prompt copied! Opening ${platformNames[platform]}...`, 'success');
-        
+
         // Open AI platform
         let url = platformURLs[platform];
-        
+
         if (platform === 'custom') {
             url = localStorage.getItem('customPlatformURL');
             if (!url) {
@@ -1598,7 +1598,7 @@ function copyAndOpenAI() {
                 return;
             }
         }
-        
+
         window.open(url, '_blank');
     }).catch(() => {
         showToast('Failed to copy to clipboard', 'error');
@@ -1614,53 +1614,53 @@ function showCustomUrlDialog() {
     const customUrlInput = document.getElementById('customUrlInput');
     const saveCustomUrlBtn = document.getElementById('saveCustomUrl');
     const cancelCustomUrlBtn = document.getElementById('cancelCustomUrl');
-    
+
     // Pre-fill with existing URL if available
     const existingUrl = localStorage.getItem('customPlatformURL') || '';
     customUrlInput.value = existingUrl;
-    
+
     // Show dialog
     customUrlDialog.style.display = 'block';
     dialogOverlay.classList.add('active');
-    
+
     // Focus input
     setTimeout(() => customUrlInput.focus(), 100);
-    
+
     // Handle save
     const handleSave = () => {
         const url = customUrlInput.value.trim();
-        
+
         // Validate URL
         if (!url) {
             showToast('Please enter a URL', 'error');
             customUrlInput.focus();
             return;
         }
-        
+
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             showToast('URL must start with http:// or https://', 'error');
             customUrlInput.focus();
             return;
         }
-        
+
         // Save URL
         localStorage.setItem('customPlatformURL', url);
         platformURLs.custom = url;
         updateSelectedPlatform('custom');
         hideCustomUrlDialog();
         showToast('Custom URL saved successfully!', 'success');
-        
+
         // If we came from copyAndOpenAI, execute it now
         if (generatedSection.style.display !== 'none') {
             copyAndOpenAI();
         }
     };
-    
+
     // Handle cancel
     const handleCancel = () => {
         hideCustomUrlDialog();
     };
-    
+
     // Handle Enter key
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -1669,15 +1669,15 @@ function showCustomUrlDialog() {
             handleCancel();
         }
     };
-    
+
     // Remove old listeners
     saveCustomUrlBtn.replaceWith(saveCustomUrlBtn.cloneNode(true));
     cancelCustomUrlBtn.replaceWith(cancelCustomUrlBtn.cloneNode(true));
-    
+
     // Get new references
     const newSaveBtn = document.getElementById('saveCustomUrl');
     const newCancelBtn = document.getElementById('cancelCustomUrl');
-    
+
     // Add new listeners
     newSaveBtn.addEventListener('click', handleSave);
     newCancelBtn.addEventListener('click', handleCancel);
@@ -1716,10 +1716,10 @@ function saveAsJSON() {
 function savePromptToHistory(data, prompt) {
     try {
         const history = JSON.parse(localStorage.getItem('promptHistory') || '[]');
-        
+
         // Create title from project name or template
         const title = data.projectName || (currentTemplate ? currentTemplate.title : 'Untitled Prompt');
-        
+
         history.unshift({
             id: Date.now(),
             timestamp: new Date().toISOString(),
@@ -1728,14 +1728,14 @@ function savePromptToHistory(data, prompt) {
             data: data,
             prompt: prompt
         });
-        
+
         // Keep only last 5 prompts
         if (history.length > 5) {
             history.length = 5;
         }
-        
+
         localStorage.setItem('promptHistory', JSON.stringify(history));
-        
+
         // Re-render recent prompts list
         renderRecentPrompts();
     } catch (e) {
@@ -1770,22 +1770,22 @@ function loadPromptFromHistory(id) {
     try {
         const history = getRecentPrompts();
         const item = history.find(h => h.id === id);
-        
+
         if (!item) {
             showToast('Prompt not found', 'error');
             return;
         }
-        
+
         // Set current template if it exists
         if (item.template !== 'Custom') {
             currentTemplate = prompts.find(p => p.title === item.template) || null;
         } else {
             currentTemplate = null;
         }
-        
+
         // Open modal
         openModal();
-        
+
         // Wait for modal to open, then populate fields
         setTimeout(() => {
             // Populate all form fields
@@ -1803,7 +1803,7 @@ function loadPromptFromHistory(id) {
                     }
                 }
             });
-            
+
             // Go to last step and show the generated prompt
             updateWizardStep(totalSteps);
             generatedPromptText = item.prompt;
@@ -1812,7 +1812,7 @@ function loadPromptFromHistory(id) {
             regenerateBtn.style.display = 'flex';
             generateBtn.style.display = 'none';
             renderFollowupSuggestions();
-            
+
             showToast('Prompt loaded successfully!', 'success');
         }, 300);
     } catch (e) {
@@ -1823,17 +1823,17 @@ function loadPromptFromHistory(id) {
 
 function renderRecentPrompts() {
     const history = getRecentPrompts();
-    
+
     if (history.length === 0) {
         recentPromptsList.innerHTML = '<p class="empty-state">No recent prompts yet</p>';
         return;
     }
-    
+
     recentPromptsList.innerHTML = history.map(item => {
         const date = new Date(item.timestamp);
         const timeAgo = getTimeAgo(date);
         const preview = item.prompt.substring(0, 100).replace(/\n/g, ' ');
-        
+
         return `
             <div class="recent-prompt-item" data-id="${item.id}">
                 <div class="recent-prompt-header">
@@ -1859,7 +1859,7 @@ function getTimeAgo(date) {
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
-    
+
     if (diffDays > 0) {
         return `${diffDays}d ago`;
     } else if (diffHours > 0) {
@@ -1880,7 +1880,7 @@ function loadPreferredPlatform() {
 function updateSelectedPlatform(platform) {
     localStorage.setItem('preferredAIPlatform', platform);
     selectedPlatformLabel.textContent = `Preferred AI: ${platformNames[platform]}`;
-    
+
     // Update selected state in dropdown
     document.querySelectorAll('.platform-option').forEach(option => {
         option.classList.remove('selected');
@@ -1892,7 +1892,7 @@ function updateSelectedPlatform(platform) {
 
 function togglePlatformDropdown() {
     const isOpen = platformDropdown.style.display === 'block';
-    
+
     if (isOpen) {
         platformDropdown.style.display = 'none';
         platformSelectorBtn.classList.remove('active');
@@ -1989,7 +1989,7 @@ function saveDraftToCache() {
         currentStep: currentStep,
         formData: data
     };
-    
+
     try {
         const draftKey = getDraftKey();
         localStorage.setItem(draftKey, JSON.stringify(draft));
@@ -2006,7 +2006,7 @@ function loadDraftFromCache() {
         const draft = localStorage.getItem(draftKey);
         if (draft) {
             const parsed = JSON.parse(draft);
-            
+
             // Restore form data
             Object.keys(parsed.formData).forEach(key => {
                 const el = document.getElementById(key);
@@ -2014,12 +2014,12 @@ function loadDraftFromCache() {
                     el.value = parsed.formData[key];
                 }
             });
-            
+
             // Restore step
             if (parsed.currentStep) {
                 updateWizardStep(parsed.currentStep);
             }
-            
+
             return true;
         }
     } catch (e) {
@@ -2041,24 +2041,24 @@ function applyTemplateFieldOverrides() {
     if (!currentTemplate || !currentTemplate.template) {
         return;
     }
-    
+
     const config = templateConfigs[currentTemplate.template];
     if (!config || !config.fieldOverrides) {
         return;
     }
-    
+
     // Apply field overrides
     Object.keys(config.fieldOverrides).forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (!field) return;
-        
+
         const override = config.fieldOverrides[fieldId];
-        
+
         // Update placeholder
         if (override.placeholder) {
             field.placeholder = override.placeholder;
         }
-        
+
         // Update label if specified
         if (override.label) {
             const label = field.closest('.form-group')?.querySelector('label');
@@ -2066,8 +2066,8 @@ function applyTemplateFieldOverrides() {
                 // Preserve the required asterisk if it exists
                 const hasRequired = label.innerHTML.includes('<span class="required">*</span>');
                 const labelText = override.label;
-                label.innerHTML = hasRequired ? 
-                    `${labelText} <span class="required">*</span>` : 
+                label.innerHTML = hasRequired ?
+                    `${labelText} <span class="required">*</span>` :
                     labelText;
             }
         }
@@ -2087,25 +2087,25 @@ function resetFieldOverrides() {
         mustHave: { label: 'Must-Have Requirements', placeholder: 'Critical requirements that must be met...' },
         niceToHave: { label: 'Nice-to-Have Features', placeholder: 'Optional features or enhancements...' }
     };
-    
+
     Object.keys(defaultFields).forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (!field) return;
-        
+
         const defaults = defaultFields[fieldId];
-        
+
         // Reset placeholder
         if (defaults.placeholder) {
             field.placeholder = defaults.placeholder;
         }
-        
+
         // Reset label
         if (defaults.label) {
             const label = field.closest('.form-group')?.querySelector('label');
             if (label) {
                 const hasRequired = label.innerHTML.includes('<span class="required">*</span>');
-                label.innerHTML = hasRequired ? 
-                    `${defaults.label} <span class="required">*</span>` : 
+                label.innerHTML = hasRequired ?
+                    `${defaults.label} <span class="required">*</span>` :
                     defaults.label;
             }
         }
@@ -2116,14 +2116,14 @@ function openModal() {
     modalTitle.textContent = currentTemplate ? currentTemplate.title : "AI Prompt Wizard";
     modalOverlay.classList.add("active");
     document.body.style.overflow = "hidden";
-    
+
     // Apply template-specific field customizations
     if (currentTemplate) {
         applyTemplateFieldOverrides();
     } else {
         resetFieldOverrides();
     }
-    
+
     // Check if there's a saved draft for THIS specific template
     const draftKey = getDraftKey();
     const draftData = localStorage.getItem(draftKey);
@@ -2146,7 +2146,7 @@ function showLoadDraftDialog(draftData) {
         const diffMins = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMins / 60);
         const diffDays = Math.floor(diffHours / 24);
-        
+
         let timeAgo = '';
         if (diffDays > 0) {
             timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
@@ -2157,12 +2157,12 @@ function showLoadDraftDialog(draftData) {
         } else {
             timeAgo = 'just now';
         }
-        
+
         draftTimestamp.innerHTML = `
             <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 8px; color: var(--primary);">schedule</span>
             <strong>Last saved:</strong> ${timeAgo} • <strong>Template:</strong> ${draft.template || 'Custom'}
         `;
-        
+
         loadDraftDialog.style.display = 'block';
         dialogOverlay.classList.add('active');
     } catch (e) {
@@ -2197,25 +2197,25 @@ function sharePrompt() {
     const data = collectFormData();
     const templateName = currentTemplate ? currentTemplate.title : 'Custom';
     const timestamp = new Date().toLocaleString();
-    
+
     // Create shareable content with attribution
     let shareContent = `🤖 AI Prompt: ${templateName}\n\n`;
     shareContent += `Generated with LiDa Prompt Pilot\n`;
     shareContent += `🔗 ${window.location.origin}\n\n`;
     shareContent += `📅 ${timestamp}\n\n`;
-    
+
     if (data.projectName) {
         shareContent += `📁 Project: ${data.projectName}\n`;
     }
     if (data.projectType) {
         shareContent += `📋 Type: ${data.projectType}\n`;
     }
-    
+
     shareContent += `\n--- PROMPT ---\n\n`;
     shareContent += `${promptText}\n\n`;
     shareContent += `--- END PROMPT ---\n\n`;
     shareContent += `✨ Try it yourself: ${window.location.href}`;
-    
+
     // Check if Web Share API is available
     if (navigator.share) {
         navigator.share({
@@ -2223,13 +2223,13 @@ function sharePrompt() {
             text: shareContent,
             url: window.location.href
         })
-        .then(() => {
-            showToast('Prompt shared successfully!', 'success');
-        })
-        .catch((error) => {
-            console.error('Error sharing:', error);
-            fallbackShare(shareContent);
-        });
+            .then(() => {
+                showToast('Prompt shared successfully!', 'success');
+            })
+            .catch((error) => {
+                console.error('Error sharing:', error);
+                fallbackShare(shareContent);
+            });
     } else {
         fallbackShare(shareContent);
     }
@@ -2239,7 +2239,7 @@ function fallbackShare(shareContent) {
     // Copy to clipboard as fallback
     navigator.clipboard.writeText(shareContent).then(() => {
         showToast('Prompt copied to clipboard! Share it anywhere.', 'success');
-        
+
         // Show a message about where to share
         const shareOptions = [
             '📧 Email',
@@ -2248,7 +2248,7 @@ function fallbackShare(shareContent) {
             '💼 LinkedIn',
             '📱 WhatsApp/Telegram'
         ];
-        
+
         const shareMessage = `Prompt copied! You can paste it in:\n\n${shareOptions.join('\n')}`;
         alert(shareMessage);
     }).catch(() => {
@@ -2262,14 +2262,14 @@ function initializeExportDropdown() {
     const exportDropdown = document.querySelector('.export-dropdown');
     const saveBtn = document.getElementById('saveBtn');
     const exportOptions = document.getElementById('exportOptions');
-    
+
     if (!exportDropdown || !saveBtn || !exportOptions) return;
-    
+
     // Toggle dropdown on button click
     saveBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = exportOptions.style.display === 'block';
-        
+
         if (isOpen) {
             exportOptions.style.display = 'none';
             exportDropdown.classList.remove('active');
@@ -2278,20 +2278,20 @@ function initializeExportDropdown() {
             exportDropdown.classList.add('active');
         }
     });
-    
+
     // Handle export option selection
     exportOptions.addEventListener('click', (e) => {
         const option = e.target.closest('.export-option');
         if (option) {
             const format = option.dataset.format;
             exportPrompt(format);
-            
+
             // Close dropdown
             exportOptions.style.display = 'none';
             exportDropdown.classList.remove('active');
         }
     });
-    
+
     // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!exportDropdown.contains(e.target)) {
@@ -2410,7 +2410,7 @@ function attachEventListeners() {
 
     // Copy + Open AI button
     copyOpenBtn.addEventListener("click", copyAndOpenAI);
-    
+
     // Share button
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
@@ -2428,7 +2428,7 @@ function attachEventListeners() {
         const option = e.target.closest('.platform-option');
         if (option) {
             const platform = option.dataset.platform;
-            
+
             if (platform === 'custom') {
                 closePlatformDropdown();
                 promptCustomURL();
@@ -2514,7 +2514,7 @@ function attachEventListeners() {
             deleteRecentPrompt(id);
             return;
         }
-        
+
         const item = e.target.closest(".recent-prompt-item");
         if (item) {
             const id = parseInt(item.dataset.id);
@@ -2588,11 +2588,11 @@ function attachEventListeners() {
 function showPromptProfileDialog() {
     const promptProfileDialog = document.getElementById('promptProfileDialog');
     const profilePlatformSelect = document.getElementById('profilePlatformSelect');
-    
+
     // Show dialog
     promptProfileDialog.style.display = 'block';
     dialogOverlay.classList.add('active');
-    
+
     // Load current platform's profile
     const currentPlatform = localStorage.getItem('preferredAIPlatform') || 'chatgpt';
     profilePlatformSelect.value = currentPlatform;
@@ -2608,7 +2608,7 @@ function hidePromptProfileDialog() {
 function loadProfileForPlatform(platformId) {
     const profilePrefix = document.getElementById('profilePrefix');
     const profileSuffix = document.getElementById('profileSuffix');
-    
+
     const profile = platformProfiles[platformId];
     if (profile) {
         profilePrefix.value = profile.prefix || '';
@@ -2620,13 +2620,13 @@ function saveCurrentProfile() {
     const profilePlatformSelect = document.getElementById('profilePlatformSelect');
     const profilePrefix = document.getElementById('profilePrefix');
     const profileSuffix = document.getElementById('profileSuffix');
-    
+
     const platformId = profilePlatformSelect.value;
-    
+
     // Update the profile
     platformProfiles[platformId].prefix = profilePrefix.value;
     platformProfiles[platformId].suffix = profileSuffix.value;
-    
+
     // Save to localStorage
     if (savePlatformProfiles(platformProfiles)) {
         hidePromptProfileDialog();
@@ -2639,15 +2639,15 @@ function saveCurrentProfile() {
 function resetCurrentProfile() {
     const profilePlatformSelect = document.getElementById('profilePlatformSelect');
     const platformId = profilePlatformSelect.value;
-    
+
     // Get default profile
     const defaultProfile = defaultPlatformProfiles[platformId];
-    
+
     if (defaultProfile) {
         // Reset to default
         platformProfiles[platformId].prefix = defaultProfile.prefix;
         platformProfiles[platformId].suffix = defaultProfile.suffix;
-        
+
         // Save to localStorage
         if (savePlatformProfiles(platformProfiles)) {
             // Reload the form
@@ -2666,11 +2666,11 @@ let previewUpdateTimeout = null;
 function initializeLivePreview() {
     const livePreviewToggle = document.getElementById('livePreviewToggle');
     const livePreviewPanel = document.getElementById('livePreviewPanel');
-    
+
     // Toggle live preview on/off
     livePreviewToggle.addEventListener('change', () => {
         livePreviewEnabled = livePreviewToggle.checked;
-        
+
         if (livePreviewEnabled) {
             livePreviewPanel.style.display = 'block';
             updateLivePreview();
@@ -2680,7 +2680,7 @@ function initializeLivePreview() {
             showToast('Live Preview disabled', 'success');
         }
     });
-    
+
     // Attach input listeners to all form fields
     const formFields = [
         'projectName', 'projectType', 'technology', 'teamSize', 'timeframe',
@@ -2690,7 +2690,7 @@ function initializeLivePreview() {
         'outputFormat', 'additionalInstructions',
         'tone', 'responseFormat'
     ];
-    
+
     formFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (field) {
@@ -2699,7 +2699,7 @@ function initializeLivePreview() {
                     debouncedUpdateLivePreview();
                 }
             });
-            
+
             field.addEventListener('change', () => {
                 if (livePreviewEnabled) {
                     debouncedUpdateLivePreview();
@@ -2714,7 +2714,7 @@ function debouncedUpdateLivePreview() {
     if (previewUpdateTimeout) {
         clearTimeout(previewUpdateTimeout);
     }
-    
+
     // Set new timeout for 300ms after user stops typing
     previewUpdateTimeout = setTimeout(() => {
         updateLivePreview();
@@ -2723,33 +2723,33 @@ function debouncedUpdateLivePreview() {
 
 function updateLivePreview() {
     const livePreviewContent = document.getElementById('livePreviewContent');
-    
+
     if (!livePreviewEnabled) {
         return;
     }
-    
+
     // Add updating flash effect
     livePreviewContent.classList.add('updating');
     setTimeout(() => {
         livePreviewContent.classList.remove('updating');
     }, 300);
-    
+
     // Collect current form data
     const data = collectFormData();
-    
+
     // Check if there's any content
-    const hasContent = Object.values(data).some(value => 
+    const hasContent = Object.values(data).some(value =>
         value && typeof value === 'string' && value.trim().length > 0
     );
-    
+
     if (!hasContent) {
         livePreviewContent.innerHTML = '<p class="preview-placeholder">Start filling out the form to see your prompt preview...</p>';
         return;
     }
-    
+
     // Build preview prompt (similar to generatePrompt but simplified)
     let preview = '';
-    
+
     // Project Context
     if (data.projectName || data.projectType || data.technology) {
         preview += '<div class="preview-section">';
@@ -2760,7 +2760,7 @@ function updateLivePreview() {
         if (data.technology) preview += `<strong>Tech Stack:</strong> ${escapeHtml(data.technology)}<br>`;
         preview += '</div></div>';
     }
-    
+
     // Team & Timeline
     if (data.teamSize || data.teamExperience || data.timeframe || data.deadline) {
         preview += '<div class="preview-section">';
@@ -2772,7 +2772,7 @@ function updateLivePreview() {
         if (data.deadline) preview += `<strong>Deadline:</strong> ${escapeHtml(data.deadline)}<br>`;
         preview += '</div></div>';
     }
-    
+
     // Context
     if (data.context) {
         preview += '<div class="preview-section">';
@@ -2781,7 +2781,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.context).replace(/\n/g, '<br>');
         preview += '</div></div>';
     }
-    
+
     // Problem Statement
     if (data.currentProblem) {
         preview += '<div class="preview-section">';
@@ -2790,7 +2790,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.currentProblem).replace(/\n/g, '<br>');
         preview += '</div></div>';
     }
-    
+
     // Constraints
     if (data.technicalConstraints || data.businessConstraints || data.budget || data.resources) {
         preview += '<div class="preview-section">';
@@ -2802,7 +2802,7 @@ function updateLivePreview() {
         if (data.resources) preview += `<strong>Resources:</strong> ${escapeHtml(data.resources)}<br>`;
         preview += '</div></div>';
     }
-    
+
     // Desired Outcome
     if (data.desiredOutcome) {
         preview += '<div class="preview-section">';
@@ -2811,7 +2811,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.desiredOutcome).replace(/\n/g, '<br>');
         preview += '</div></div>';
     }
-    
+
     // Success Metrics
     if (data.successMetrics) {
         preview += '<div class="preview-section">';
@@ -2820,7 +2820,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.successMetrics).replace(/\n/g, '<br>');
         preview += '</div></div>';
     }
-    
+
     // Requirements
     if (data.mustHave || data.niceToHave) {
         preview += '<div class="preview-section">';
@@ -2830,7 +2830,7 @@ function updateLivePreview() {
         if (data.niceToHave) preview += `<strong>Nice-to-Have:</strong><br>${escapeHtml(data.niceToHave).replace(/\n/g, '<br>')}<br>`;
         preview += '</div></div>';
     }
-    
+
     // Stakeholders
     if (data.stakeholders) {
         preview += '<div class="preview-section">';
@@ -2839,7 +2839,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.stakeholders);
         preview += '</div></div>';
     }
-    
+
     // Output Format
     if (data.outputFormat) {
         preview += '<div class="preview-section">';
@@ -2856,7 +2856,7 @@ function updateLivePreview() {
         preview += formatLabels[data.outputFormat] || data.outputFormat;
         preview += '</div></div>';
     }
-    
+
     // Additional Instructions
     if (data.additionalInstructions) {
         preview += '<div class="preview-section">';
@@ -2865,7 +2865,7 @@ function updateLivePreview() {
         preview += escapeHtml(data.additionalInstructions).replace(/\n/g, '<br>');
         preview += '</div></div>';
     }
-    
+
     // Power User Options
     if (data.powerUserMode && (data.tone || data.responseFormat)) {
         preview += '<div class="preview-section">';
@@ -2889,10 +2889,10 @@ function updateLivePreview() {
         }
         preview += '</div></div>';
     }
-    
+
     // Update the preview content
     livePreviewContent.innerHTML = preview;
-    
+
     // Scroll to bottom of preview to show latest additions
     livePreviewContent.scrollTop = livePreviewContent.scrollHeight;
 }
@@ -2935,30 +2935,30 @@ function initializeAIAvatar() {
     const aiAvatar = document.getElementById('aiAvatar');
     const aiTipBubble = document.getElementById('aiTipBubble');
     const aiTipText = document.getElementById('aiTipText');
-    
+
     if (!aiAvatar || !aiTipBubble || !aiTipText) {
         return;
     }
-    
+
     // Show tip on hover
     aiAvatar.addEventListener('mouseenter', () => {
         showAITip();
     });
-    
+
     // Hide tip when mouse leaves
     aiAvatar.addEventListener('mouseleave', () => {
         hideAITip();
     });
-    
+
     // Click to cycle through tips
     aiAvatar.addEventListener('click', () => {
         currentTipIndex = (currentTipIndex + 1) % aiAvatarTips.length;
         showAITip();
     });
-    
+
     // Auto-rotate tips every 15 seconds when visible
     startTipRotation();
-    
+
     // Show first tip after 3 seconds
     setTimeout(() => {
         showAITip();
@@ -2971,22 +2971,22 @@ function initializeAIAvatar() {
 function showAITip() {
     const aiTipBubble = document.getElementById('aiTipBubble');
     const aiTipText = document.getElementById('aiTipText');
-    
+
     if (!aiTipBubble || !aiTipText) {
         return;
     }
-    
+
     // Clear any existing timeout
     if (tipDisplayTimeout) {
         clearTimeout(tipDisplayTimeout);
     }
-    
+
     // Set the tip text
     aiTipText.textContent = aiAvatarTips[currentTipIndex];
-    
+
     // Show the bubble
     aiTipBubble.style.display = 'block';
-    
+
     // Auto-hide after 8 seconds
     tipDisplayTimeout = setTimeout(() => {
         hideAITip();
@@ -2995,13 +2995,13 @@ function showAITip() {
 
 function hideAITip() {
     const aiTipBubble = document.getElementById('aiTipBubble');
-    
+
     if (!aiTipBubble) {
         return;
     }
-    
+
     aiTipBubble.style.display = 'none';
-    
+
     // Clear timeout
     if (tipDisplayTimeout) {
         clearTimeout(tipDisplayTimeout);
@@ -3014,14 +3014,14 @@ function startTipRotation() {
     if (tipRotationInterval) {
         clearInterval(tipRotationInterval);
     }
-    
+
     // Rotate tips every 20 seconds
     tipRotationInterval = setInterval(() => {
         // Only auto-show if modal is not open
         if (!modalOverlay.classList.contains('active')) {
             currentTipIndex = (currentTipIndex + 1) % aiAvatarTips.length;
             showAITip();
-            
+
             // Auto-hide after 5 seconds
             setTimeout(() => {
                 hideAITip();
@@ -3048,7 +3048,7 @@ function pauseTipsWhenModalOpen() {
             }
         });
     });
-    
+
     observer.observe(modalOverlay, {
         attributes: true,
         attributeFilter: ['class']
@@ -3061,23 +3061,23 @@ function initializeHelpGuide() {
     const helpGuideModal = document.getElementById('helpGuideModal');
     const closeHelpGuide = document.getElementById('closeHelpGuide');
     const closeHelpGuideBtn = document.getElementById('closeHelpGuideBtn');
-    
+
     if (!helpButton || !helpGuideModal) {
         return;
     }
-    
+
     // Open help guide
     helpButton.addEventListener('click', () => {
         showHelpGuide();
     });
-    
+
     // Close help guide with X button
     if (closeHelpGuide) {
         closeHelpGuide.addEventListener('click', () => {
             hideHelpGuide();
         });
     }
-    
+
     // Close help guide with "Got It!" button
     if (closeHelpGuideBtn) {
         closeHelpGuideBtn.addEventListener('click', () => {
@@ -3090,13 +3090,13 @@ function showHelpGuide() {
     const helpGuideModal = document.getElementById('helpGuideModal');
     if (helpGuideModal) {
         helpGuideModal.style.display = 'flex';
-        
+
         // Reset scroll position to top
         const helpGuideBody = helpGuideModal.querySelector('.help-guide-body');
         if (helpGuideBody) {
             helpGuideBody.scrollTop = 0;
         }
-        
+
         setTimeout(() => {
             helpGuideModal.classList.add('active');
         }, 10);
@@ -3119,17 +3119,17 @@ function hideHelpGuide() {
 function initializeThemeToggle() {
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
-    
+
     if (!themeToggle) return;
-    
+
     // Load saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     // Set initial theme
     let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
     applyTheme(currentTheme);
-    
+
     // Toggle theme on click
     themeToggle.addEventListener('click', () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -3137,7 +3137,7 @@ function initializeThemeToggle() {
         localStorage.setItem('theme', currentTheme);
         showToast(`${currentTheme === 'dark' ? 'Dark' : 'Light'} mode enabled!`, 'success');
     });
-    
+
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem('theme')) {
@@ -3151,10 +3151,10 @@ function initializeThemeToggle() {
 function applyTheme(theme) {
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle?.querySelector('.material-symbols-outlined');
-    
+
     // Set data-theme attribute on root
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     // Update icon
     if (themeIcon) {
         themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
@@ -3169,9 +3169,9 @@ function initializeKeyboardShortcuts() {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
             return;
         }
-        
+
         const isCtrl = e.ctrlKey || e.metaKey; // metaKey for Mac Command key
-        
+
         // Ctrl/Cmd + Enter: Generate prompt or go to next step
         if (isCtrl && e.key === 'Enter') {
             e.preventDefault();
@@ -3183,7 +3183,7 @@ function initializeKeyboardShortcuts() {
                 }
             }
         }
-        
+
         // Ctrl/Cmd + S: Save as JSON
         if (isCtrl && e.key === 's') {
             e.preventDefault();
@@ -3191,7 +3191,7 @@ function initializeKeyboardShortcuts() {
                 saveAsJSON();
             }
         }
-        
+
         // Ctrl/Cmd + C: Copy prompt
         if (isCtrl && e.key === 'c') {
             e.preventDefault();
@@ -3199,13 +3199,13 @@ function initializeKeyboardShortcuts() {
                 copyToClipboard();
             }
         }
-        
+
         // Ctrl/Cmd + K: Focus search
         if (isCtrl && e.key === 'k') {
             e.preventDefault();
             searchInput.focus();
         }
-        
+
         // Escape: Close modal or dialog
         if (e.key === 'Escape') {
             if (modalOverlay.classList.contains('active') && !dialogOverlay.classList.contains('active')) {
@@ -3227,7 +3227,7 @@ function initializeKeyboardShortcuts() {
                 hideHelpGuide();
             }
         }
-        
+
         // Ctrl/Cmd + /: Toggle help guide
         if (isCtrl && e.key === '/') {
             e.preventDefault();
@@ -3238,7 +3238,7 @@ function initializeKeyboardShortcuts() {
                 showHelpGuide();
             }
         }
-        
+
         // Ctrl/Cmd + T: Toggle theme
         if (isCtrl && e.key === 't') {
             e.preventDefault();
@@ -3247,7 +3247,7 @@ function initializeKeyboardShortcuts() {
                 themeToggle.click();
             }
         }
-        
+
         // Ctrl/Cmd + F: Toggle fast mode
         if (isCtrl && e.key === 'f') {
             e.preventDefault();
@@ -3274,12 +3274,12 @@ function showKeyboardShortcutsHelp() {
         { key: 'Ctrl/Cmd + F', action: 'Toggle fast mode' },
         { key: 'Escape', action: 'Close modal/dialog' }
     ];
-    
+
     let helpText = 'Keyboard Shortcuts:\n\n';
     shortcuts.forEach(shortcut => {
         helpText += `${shortcut.key}: ${shortcut.action}\n`;
     });
-    
+
     alert(helpText);
 }
 
@@ -3287,10 +3287,10 @@ function showKeyboardShortcutsHelp() {
 function addKeyboardShortcutsToHelpGuide() {
     const helpGuideBody = document.querySelector('.help-guide-body');
     if (!helpGuideBody) return;
-    
+
     // Check if shortcuts section already exists
     if (document.getElementById('keyboard-shortcuts-section')) return;
-    
+
     const shortcutsSection = document.createElement('div');
     shortcutsSection.id = 'keyboard-shortcuts-section';
     shortcutsSection.className = 'help-section';
@@ -3338,7 +3338,7 @@ function addKeyboardShortcutsToHelpGuide() {
             <p class="help-tip"><span class="material-symbols-outlined">lightbulb</span> <strong>Tip:</strong> Press <kbd>Ctrl</kbd> + <kbd>/</kbd> anytime to see this help!</p>
         </div>
     `;
-    
+
     // Insert before the footer
     const helpFooter = helpGuideBody.querySelector('.help-footer');
     if (helpFooter) {
@@ -3346,7 +3346,7 @@ function addKeyboardShortcutsToHelpGuide() {
     } else {
         helpGuideBody.appendChild(shortcutsSection);
     }
-    
+
     // Add CSS for shortcuts grid
     const style = document.createElement('style');
     style.textContent = `

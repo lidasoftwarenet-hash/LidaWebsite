@@ -2309,6 +2309,209 @@
       letter-spacing: .02em;
     }
 
+    /* ── Promo Video Section ── */
+    .video-section {
+      margin-top: 56px;
+      width: 100%;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    .video-section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      margin-bottom: 14px;
+    }
+    .video-section-eyebrow svg {
+      width: 13px; height: 13px;
+      fill: #a78bfa;
+    }
+    .video-section-title {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+      letter-spacing: -.01em;
+      background: none;
+      -webkit-text-fill-color: #e2e8f0;
+    }
+    .video-section-sub {
+      font-size: 0.92rem;
+      color: #64748b;
+      margin-bottom: 22px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    /* Card wrapper */
+    .video-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(102,126,234,.22);
+      box-shadow:
+        0 0 0 1px rgba(167,139,250,.06),
+        0 8px 32px rgba(0,0,0,.45),
+        0 0 60px rgba(102,126,234,.08);
+      background: #0f0f1a;
+      transition: box-shadow .35s ease, transform .35s ease;
+    }
+    .video-card:hover {
+      box-shadow:
+        0 0 0 1px rgba(167,139,250,.2),
+        0 16px 48px rgba(0,0,0,.55),
+        0 0 80px rgba(102,126,234,.18);
+      transform: translateY(-3px);
+    }
+    /* 16:9 aspect ratio wrapper */
+    .video-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      background: #050508;
+    }
+    /* Thumbnail */
+    .video-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease, filter .5s ease;
+    }
+    .video-card:hover .video-thumb {
+      transform: scale(1.03);
+      filter: brightness(.85);
+    }
+    /* Gradient overlay on thumbnail */
+    .video-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(5,5,12,.1) 0%,
+        rgba(5,5,12,.35) 60%,
+        rgba(5,5,12,.7) 100%
+      );
+      pointer-events: none;
+    }
+    /* Play button */
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 6px rgba(167,139,250,.15),
+        0 8px 24px rgba(102,126,234,.5);
+      transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease;
+      z-index: 2;
+    }
+    .video-play-btn:hover,
+    .video-play-btn:focus-visible {
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow:
+        0 0 0 10px rgba(167,139,250,.2),
+        0 12px 32px rgba(102,126,234,.65);
+      outline: none;
+    }
+    .video-play-btn:focus-visible {
+      outline: 2px solid #a78bfa;
+      outline-offset: 4px;
+    }
+    .video-play-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #fff;
+      margin-left: 4px; /* optical offset for play triangle */
+    }
+    /* Bottom label strip */
+    .video-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .video-card-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.75);
+      letter-spacing: .02em;
+    }
+    .video-card-label-cta {
+      font-size: 11px;
+      font-weight: 700;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+    /* Iframe (hidden until clicked) */
+    .video-iframe-wrap {
+      position: absolute;
+      inset: 0;
+      display: none;
+    }
+    .video-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      .video-section {
+        margin-top: 40px;
+      }
+      .video-play-btn {
+        width: 60px;
+        height: 60px;
+      }
+      .video-play-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+    @media (max-width: 480px) {
+      .video-section {
+        margin-top: 32px;
+      }
+      .video-section-title {
+        font-size: 1.05rem;
+      }
+      .video-play-btn {
+        width: 52px;
+        height: 52px;
+      }
+      .video-play-btn svg {
+        width: 19px;
+        height: 19px;
+      }
+    }
+
     /* overlay */
     .cmd-overlay {
       position: fixed; inset: 0; z-index: 900;
@@ -2594,6 +2797,54 @@
             <span class="cmd-trigger-kb" id="cmdKbHint">Ctrl K</span>
           </button>
         </div>
+
+        <!-- ── Promo Video Section ── -->
+        <div class="video-section" id="videoSection">
+          <div class="video-section-eyebrow">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+            LiDa Software
+          </div>
+          <h2 class="video-section-title">Watch the LiDa Software Intro</h2>
+          <p class="video-section-sub">A quick look at the tools, engineering approach, and software solutions behind LiDa Software.</p>
+
+          <div class="video-card" id="videoCard">
+            <div class="video-ratio">
+              <!-- Thumbnail preview -->
+              <img
+                id="videoThumb"
+                class="video-thumb"
+                src="https://img.youtube.com/vi/rGqDcWYv114/maxresdefault.jpg"
+                alt="LiDa Software Intro Video preview thumbnail"
+                loading="lazy"
+                onerror="this.src='https://img.youtube.com/vi/rGqDcWYv114/hqdefault.jpg'"
+              />
+              <div class="video-thumb-overlay"></div>
+
+              <!-- Play button -->
+              <button
+                class="video-play-btn"
+                id="videoPlayBtn"
+                aria-label="Play LiDa Software intro video"
+                type="button"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+
+              <!-- Bottom label -->
+              <div class="video-card-label">
+                <span class="video-card-label-text">LiDa Software &mdash; Intro</span>
+                <span class="video-card-label-cta">Play Video</span>
+              </div>
+
+              <!-- iframe injected on play -->
+              <div class="video-iframe-wrap" id="videoIframeWrap"></div>
+            </div>
+          </div>
+        </div>
+        <!-- ── End Video Section ── -->
+
       </div>
     </div>
   </section>
@@ -3718,10 +3969,10 @@
   <!-- Dynamic weekly-seeded usage counts -->
   <script>
     (function () {
-      // Seeded PRNG — deterministic per week+tool so numbers change weekly but stay
+      // Seeded PRNG ,  deterministic per week+tool so numbers change weekly but stay
       // consistent for all visitors in the same week.
       function seededRandom(seed) {
-        // Wang hash — simple, fast, good distribution
+        // Wang hash ,  simple, fast, good distribution
         seed = (seed ^ 61) ^ (seed >>> 16);
         seed += (seed << 3);
         seed ^= (seed >>> 4);
@@ -3805,7 +4056,7 @@ if(/Mac|iPhone|iPad|iPod/.test(navigator.platform||navigator.userAgent||'')){
 // ── Data ──
 var BASE='https://www.lidasoftware.online/';
 var ITEMS=[
-  // Developer Tools — real paths from the live site
+  // Developer Tools ,  real paths from the live site
   {g:'Developer Tools',title:'JSON Beautifier',desc:'Format and prettify JSON with syntax highlighting.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonBeautifier/json-beautifier.html'},
   {g:'Developer Tools',title:'AI Code Diff Viewer',desc:'Compare code changes with AI-powered insights.',tag:'Tool',icon:'ai',href:BASE+'tools/aiCodeDiff/the-code-diff-viewer.html'},
   {g:'Developer Tools',title:'JSON to Zod Converter',desc:'Generate Zod schemas from JSON automatically.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonToZod/json-to-zod-converter.html'},
@@ -3834,8 +4085,8 @@ var ITEMS=[
   {g:'Project & Engineering',title:'About LiDa Software',desc:'The story, philosophy, and platform behind the tools.',tag:'Engineering',icon:'eng',href:BASE+'about/index.html'},
   // Services
   {g:'Services',title:'Software Engineering & AI Solutions',desc:'Freelance and contract engineering for businesses and startups.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html'},
-  {g:'Services',title:'Backend Development',desc:'APIs, microservices, integrations — Java, Node.js, Spring Boot.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  {g:'Services',title:'Frontend Development',desc:'Angular, React, TypeScript — dashboards, admin panels, web apps.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'Backend Development',desc:'APIs, microservices, integrations ,  Java, Node.js, Spring Boot.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
+  {g:'Services',title:'Frontend Development',desc:'Angular, React, TypeScript ,  dashboards, admin panels, web apps.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
   {g:'Services',title:'AI Integration',desc:'LLM workflows, structured outputs, RAG, prompt engineering.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
   {g:'Services',title:'Cloud & DevOps',desc:'GCP, AWS, Docker, Kubernetes, CI/CD.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
   {g:'Services',title:'Automation Solutions',desc:'Workflow automation, data pipelines, scheduled jobs.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
@@ -4025,6 +4276,53 @@ document.addEventListener('keydown', function(e){
 });
 
 })();
+</script>
+
+<script>
+/* ── Video play handler ── */
+(function () {
+  'use strict';
+  var playBtn      = document.getElementById('videoPlayBtn');
+  var thumb        = document.getElementById('videoThumb');
+  var overlay      = document.querySelector('.video-thumb-overlay');
+  var iframeWrap   = document.getElementById('videoIframeWrap');
+  var cardLabel    = document.querySelector('.video-card-label');
+  var EMBED_SRC    = 'https://www.youtube.com/embed/rGqDcWYv114?autoplay=1&rel=0';
+
+  if (!playBtn || !iframeWrap) return;
+
+  function activateVideo() {
+    // Build iframe
+    var iframe = document.createElement('iframe');
+    iframe.src               = EMBED_SRC;
+    iframe.title             = 'LiDa Software Intro Video';
+    iframe.allow             = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen   = true;
+    iframe.loading           = 'lazy';
+
+    // Inject iframe
+    iframeWrap.appendChild(iframe);
+    iframeWrap.style.display = 'block';
+
+    // Hide preview elements (no layout shift ,  all absolute positioned)
+    if (thumb)      { thumb.style.display      = 'none'; }
+    if (overlay)    { overlay.style.display    = 'none'; }
+    if (playBtn)    { playBtn.style.display    = 'none'; }
+    if (cardLabel)  { cardLabel.style.display  = 'none'; }
+
+    // Move focus into iframe for a11y
+    iframe.focus();
+  }
+
+  playBtn.addEventListener('click', activateVideo);
+
+  playBtn.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      activateVideo();
+    }
+  });
+}());
 </script>
 </body>
 

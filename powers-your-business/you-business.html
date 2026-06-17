@@ -1,436 +1,1318 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Software Engineering & AI Solutions | LiDa Software</title>
-<meta name="description" content="Freelance and contract software engineering — backend, frontend, AI, cloud, DevOps, automation, and developer tooling by Hen Faibish."/>
-<meta name="author" content="Hen Faibish"/><meta name="robots" content="index,follow"/>
-<link rel="canonical" href="https://www.lidasoftware.online/powers-your-business/you-business.html"/>
-<link rel="icon" type="image/x-icon" href="/favicon.png"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0a0a0f;--sf:rgba(255,255,255,.03);--sfh:rgba(255,255,255,.055);--bd:rgba(255,255,255,.07);--bdh:rgba(255,255,255,.14);--tx:#e2e8f0;--mt:#94a3b8;--dm:#475569;--ac:#667eea;--ac2:#a78bfa;--gn:#22c55e;--r:14px}
-html{scroll-behavior:smooth}
-body{background:var(--bg);background-image:radial-gradient(circle at 20% 15%,rgba(102,126,234,.07) 0%,transparent 50%),radial-gradient(circle at 80% 85%,rgba(167,139,250,.05) 0%,transparent 50%);color:var(--tx);font-family:'Inter',-apple-system,sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;padding-top:64px}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#667eea,#a78bfa);border-radius:3px}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;padding:0 24px;border-bottom:1px solid var(--bd);background:rgba(10,10,15,.92);backdrop-filter:blur(20px);display:flex;align-items:center;gap:12px}
-.nav-back{display:flex;align-items:center;gap:7px;color:var(--mt);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}.nav-back:hover{color:var(--tx)}
-.nav-back svg,.nav-cta-arrow{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
-.nav-sep{color:var(--dm)}.nav-title{font-size:14px;font-weight:600;color:var(--tx)}
-.nav-cta{margin-left:auto;font-size:13px;color:var(--mt);text-decoration:none;font-weight:500;padding:6px 16px;border:1px solid var(--bd);border-radius:8px;transition:all .2s}.nav-cta:hover{color:var(--tx);border-color:rgba(102,126,234,.4);background:rgba(102,126,234,.08)}
-.page{max-width:1080px;margin:0 auto;padding:0 24px 120px}
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--bd),transparent);margin:72px 0}
-.sec-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
-.sec-title{font-size:28px;font-weight:800;letter-spacing:-.025em;color:#fff;margin-bottom:12px}
-.sec-sub{font-size:16px;color:var(--mt);line-height:1.7;max-width:720px;margin-bottom:36px}
-/* HERO */
-.hero{padding:88px 0 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-150px;left:-250px;width:700px;height:700px;background:radial-gradient(circle,rgba(102,126,234,.08) 0%,transparent 65%);pointer-events:none}
-.hero-inner{position:relative;z-index:1}
-.hero-eye{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:22px}
-.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--ac2);box-shadow:0 0 8px rgba(167,139,250,.6)}
-.hero h1{font-size:clamp(32px,5.5vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.07;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:18px;color:var(--mt);line-height:1.7;max-width:680px;margin-bottom:12px}
-.hero-copy{font-size:14px;color:var(--dm);line-height:1.7;max-width:640px;margin-bottom:32px}
-.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:10px;color:#fff;font-weight:700;font-size:14px;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(102,126,234,.25)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(102,126,234,.35)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border:1px solid var(--bdh);border-radius:10px;color:var(--mt);font-weight:600;font-size:14px;text-decoration:none;transition:all .25s}.btn-secondary:hover{color:var(--tx);border-color:rgba(102,126,234,.4);background:rgba(102,126,234,.07)}
-.badge-row{display:flex;flex-wrap:wrap;gap:8px}
-.badge{font-size:11px;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid rgba(102,126,234,.3);background:rgba(102,126,234,.08);color:#818cf8}
-/* SERVICE CARDS */
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.svc-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:26px 28px;position:relative;overflow:hidden;transition:border-color .25s,background .25s,transform .25s}
-.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.svc-card:hover{border-color:rgba(102,126,234,.3);background:var(--sfh);transform:translateY(-3px)}.svc-card:hover::before{transform:scaleX(1)}
-.svc-icon{width:40px;height:40px;border-radius:10px;background:rgba(102,126,234,.1);border:1px solid rgba(102,126,234,.2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
-.svc-icon svg{width:20px;height:20px;stroke:var(--ac);fill:none;stroke-width:1.8}
-.svc-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
-.svc-desc{font-size:13.5px;color:var(--mt);line-height:1.65;margin-bottom:14px}
-.tag-row{display:flex;flex-wrap:wrap;gap:6px}
-.tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--bd);color:var(--dm)}
-/* TECH STACK */
-.tech-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.tech-group{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:22px 24px;transition:border-color .2s}
-.tech-group:hover{border-color:rgba(102,126,234,.25)}
-.tech-group-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:12px}
-/* ENGAGEMENT */
-.eng-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.eng-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;transition:border-color .25s,background .25s,transform .25s}
-.eng-card:hover{border-color:rgba(102,126,234,.3);background:var(--sfh);transform:translateY(-3px)}
-.eng-card.featured{border-color:rgba(102,126,234,.3);background:rgba(102,126,234,.05)}
-.eng-title{font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
-.eng-desc{font-size:13.5px;color:var(--mt);line-height:1.65;margin-bottom:18px}
-.eng-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;flex:1}
-.eng-list li{font-size:13px;color:var(--mt);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
-.eng-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ac);flex-shrink:0;margin-top:6px}
-.eng-price{font-size:12px;color:var(--dm);font-weight:500;margin-bottom:16px;font-family:'JetBrains Mono',monospace}
-.eng-cta{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--ac);text-decoration:none;padding:10px 20px;border:1px solid rgba(102,126,234,.3);border-radius:8px;transition:all .2s;align-self:flex-start}
-.eng-cta:hover{background:rgba(102,126,234,.1);border-color:rgba(102,126,234,.5)}
-/* PROCESS */
-.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;margin-top:32px;position:relative}
-.process-steps::before{content:'';position:absolute;top:28px;left:80px;right:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(102,126,234,.3),transparent);pointer-events:none}
-.proc-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;position:relative;z-index:1}
-.proc-num{width:56px;height:56px;border-radius:50%;border:1px solid rgba(102,126,234,.3);background:var(--sf);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:15px;font-weight:800;color:var(--ac);transition:all .25s;flex-shrink:0}
-.proc-step:hover .proc-num{border-color:rgba(102,126,234,.7);background:rgba(102,126,234,.1);box-shadow:0 0 20px rgba(102,126,234,.2)}
-.proc-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
-.proc-desc{font-size:12px;color:var(--dm);line-height:1.5}
-@media(max-width:640px){.process-steps{grid-template-columns:repeat(2,1fr);gap:24px}.process-steps::before{display:none}}
-/* WHY CARDS */
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.why-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:22px 24px;transition:border-color .25s,background .25s}
-.why-card:hover{border-color:rgba(102,126,234,.25);background:var(--sfh)}
-.why-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:6px}
-.why-desc{font-size:13px;color:var(--mt);line-height:1.6}
-/* PLATFORM CTA */
-.platform-box{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.platform-box:hover{border-color:rgba(102,126,234,.25)}
-.platform-text{}
-.platform-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px}
-.platform-desc{font-size:14px;color:var(--mt);line-height:1.65;max-width:560px}
-/* FINAL CTA */
-.final-cta{background:linear-gradient(135deg,rgba(102,126,234,.08) 0%,rgba(167,139,250,.06) 100%);border:1px solid rgba(102,126,234,.2);border-radius:20px;padding:56px 48px;text-align:center}
-.final-cta h2{font-size:30px;font-weight:800;letter-spacing:-.025em;color:#fff;margin-bottom:14px}
-.final-cta p{font-size:16px;color:var(--mt);line-height:1.7;max-width:640px;margin:0 auto 32px}
-.final-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
-/* FOOTER */
-footer{border-top:1px solid var(--bd);padding:32px 24px;text-align:center;font-size:13px;color:var(--dm);max-width:1080px;margin:0 auto}
-footer a{color:var(--mt);text-decoration:none;transition:color .2s}
-footer a:hover{color:var(--tx)}
-/* ── Mobile ── */
-@media(max-width:768px){
-  .page{padding:0 16px 80px}
-  .hero{padding:52px 0 48px}
-  .hero h1{font-size:clamp(28px,7vw,38px);line-height:1.1}
-  .hero-sub{font-size:15px}
-  .hero-copy{font-size:13px}
-  .hero-btns{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:28px}
-  .btn-primary,.btn-secondary{width:100%;justify-content:center;padding:14px 20px}
-  .badge-row{gap:6px}
-  .badge{font-size:10px;padding:4px 10px}
-  .divider{margin:48px 0}
-  .sec-title{font-size:22px}
-  .sec-sub{font-size:14px;margin-bottom:24px}
-  .svc-grid{grid-template-columns:1fr;gap:12px}
-  .svc-card{padding:20px}
-  .tech-groups{grid-template-columns:1fr;gap:10px}
-  .tech-group{padding:16px 18px}
-  .eng-grid{grid-template-columns:1fr;gap:12px}
-  .eng-card{padding:20px}
-  .process-steps{grid-template-columns:repeat(2,1fr);gap:20px}
-  .process-steps::before{display:none}
-  .proc-num{width:48px;height:48px;font-size:13px}
-  .why-grid{grid-template-columns:1fr;gap:10px}
-  .why-card{padding:18px 20px}
-  .platform-box{flex-direction:column;align-items:flex-start;padding:24px}
-  .platform-box .btn-primary{width:100%;justify-content:center}
-  .platform-title{font-size:18px}
-  .final-cta{padding:32px 20px;border-radius:14px}
-  .final-cta h2{font-size:22px}
-  .final-cta p{font-size:14px;margin-bottom:24px}
-  .final-btns{flex-direction:column;align-items:center;gap:10px}
-  .final-btns .btn-primary,.final-btns .btn-secondary{width:100%;max-width:320px;justify-content:center}
-  nav{padding:0 16px;gap:8px}
-  .nav-title{font-size:13px}
-  .nav-cta{padding:5px 12px;font-size:12px}
-  footer{padding:24px 16px;font-size:12px}
-  footer p{line-height:1.8}
-}
-@media(max-width:480px){
-  .hero h1{font-size:clamp(24px,8vw,32px)}
-  .process-steps{grid-template-columns:1fr;gap:16px}
-  .proc-step{flex-direction:row;text-align:left;align-items:flex-start;gap:14px}
-  .proc-num{flex-shrink:0;margin-bottom:0}
-  .proc-title{margin-bottom:3px}
-  .tag{font-size:10px;padding:2px 7px}
-}
-@media(max-width:360px){
-  .page{padding:0 12px 60px}
-  nav{gap:4px}
-  .nav-back{font-size:12px}
-  .nav-title{display:none}
-}
-/* Overflow guard */
-*{word-break:break-word}
-img,svg,video{max-width:100%}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Software Engineering & AI Solutions | LiDa Software</title>
+  <meta name="description"
+    content="Freelance and contract software engineering ,  backend, frontend, AI, cloud, DevOps, automation, and developer tooling by Hen Faibish." />
+  <meta name="author" content="Hen Faibish" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://www.lidasoftware.online/powers-your-business/you-business.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --sf: rgba(255, 255, 255, .03);
+      --sfh: rgba(255, 255, 255, .055);
+      --bd: rgba(255, 255, 255, .07);
+      --bdh: rgba(255, 255, 255, .14);
+      --tx: #e2e8f0;
+      --mt: #94a3b8;
+      --dm: #475569;
+      --ac: #667eea;
+      --ac2: #a78bfa;
+      --gn: #22c55e;
+      --r: 14px
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      background-image: radial-gradient(circle at 20% 15%, rgba(102, 126, 234, .07) 0%, transparent 50%), radial-gradient(circle at 80% 85%, rgba(167, 139, 250, .05) 0%, transparent 50%);
+      color: var(--tx);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 64px
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #667eea, #a78bfa);
+      border-radius: 3px
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: 64px;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--bd);
+      background: rgba(10, 10, 15, .92);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--mt);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .2s
+    }
+
+    .nav-back:hover {
+      color: var(--tx)
+    }
+
+    .nav-back svg,
+    .nav-cta-arrow {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2
+    }
+
+    .nav-sep {
+      color: var(--dm)
+    }
+
+    .nav-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tx)
+    }
+
+    .nav-cta {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--mt);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 16px;
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      transition: all .2s
+    }
+
+    .nav-cta:hover {
+      color: var(--tx);
+      border-color: rgba(102, 126, 234, .4);
+      background: rgba(102, 126, 234, .08)
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 120px
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--bd), transparent);
+      margin: 72px 0
+    }
+
+    .sec-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ac);
+      margin-bottom: 8px
+    }
+
+    .sec-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: #fff;
+      margin-bottom: 12px
+    }
+
+    .sec-sub {
+      font-size: 16px;
+      color: var(--mt);
+      line-height: 1.7;
+      max-width: 720px;
+      margin-bottom: 36px
+    }
+
+    /* HERO */
+    .hero {
+      padding: 88px 0 80px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      left: -250px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(102, 126, 234, .08) 0%, transparent 65%);
+      pointer-events: none
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-eye {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ac);
+      margin-bottom: 22px
+    }
+
+    .hero-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ac2);
+      box-shadow: 0 0 8px rgba(167, 139, 250, .6)
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5.5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.07;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--mt);
+      line-height: 1.7;
+      max-width: 680px;
+      margin-bottom: 12px
+    }
+
+    .hero-copy {
+      font-size: 14px;
+      color: var(--dm);
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 32px
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      background: linear-gradient(135deg, var(--ac), var(--ac2));
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all .25s;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, .25)
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(102, 126, 234, .35)
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border: 1px solid var(--bdh);
+      border-radius: 10px;
+      color: var(--mt);
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all .25s
+    }
+
+    .btn-secondary:hover {
+      color: var(--tx);
+      border-color: rgba(102, 126, 234, .4);
+      background: rgba(102, 126, 234, .07)
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid rgba(102, 126, 234, .3);
+      background: rgba(102, 126, 234, .08);
+      color: #818cf8
+    }
+
+    /* SERVICE CARDS */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px
+    }
+
+    .svc-card {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: var(--r);
+      padding: 26px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, background .25s, transform .25s
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ac), var(--ac2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s
+    }
+
+    .svc-card:hover {
+      border-color: rgba(102, 126, 234, .3);
+      background: var(--sfh);
+      transform: translateY(-3px)
+    }
+
+    .svc-card:hover::before {
+      transform: scaleX(1)
+    }
+
+    .svc-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(102, 126, 234, .1);
+      border: 1px solid rgba(102, 126, 234, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px
+    }
+
+    .svc-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--ac);
+      fill: none;
+      stroke-width: 1.8
+    }
+
+    .svc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px
+    }
+
+    .svc-desc {
+      font-size: 13.5px;
+      color: var(--mt);
+      line-height: 1.65;
+      margin-bottom: 14px
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .tag {
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--bd);
+      color: var(--dm)
+    }
+
+    /* TECH STACK */
+    .tech-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px
+    }
+
+    .tech-group {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: var(--r);
+      padding: 22px 24px;
+      transition: border-color .2s
+    }
+
+    .tech-group:hover {
+      border-color: rgba(102, 126, 234, .25)
+    }
+
+    .tech-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ac);
+      margin-bottom: 12px
+    }
+
+    /* ENGAGEMENT */
+    .eng-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px
+    }
+
+    .eng-card {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: var(--r);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .25s, background .25s, transform .25s
+    }
+
+    .eng-card:hover {
+      border-color: rgba(102, 126, 234, .3);
+      background: var(--sfh);
+      transform: translateY(-3px)
+    }
+
+    .eng-card.featured {
+      border-color: rgba(102, 126, 234, .3);
+      background: rgba(102, 126, 234, .05)
+    }
+
+    .eng-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px
+    }
+
+    .eng-desc {
+      font-size: 13.5px;
+      color: var(--mt);
+      line-height: 1.65;
+      margin-bottom: 18px
+    }
+
+    .eng-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex: 1
+    }
+
+    .eng-list li {
+      font-size: 13px;
+      color: var(--mt);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5
+    }
+
+    .eng-list li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--ac);
+      flex-shrink: 0;
+      margin-top: 6px
+    }
+
+    .eng-price {
+      font-size: 12px;
+      color: var(--dm);
+      font-weight: 500;
+      margin-bottom: 16px;
+      font-family: 'JetBrains Mono', monospace
+    }
+
+    .eng-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ac);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid rgba(102, 126, 234, .3);
+      border-radius: 8px;
+      transition: all .2s;
+      align-self: flex-start
+    }
+
+    .eng-cta:hover {
+      background: rgba(102, 126, 234, .1);
+      border-color: rgba(102, 126, 234, .5)
+    }
+
+    /* PROCESS */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0;
+      margin-top: 32px;
+      position: relative
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 80px;
+      right: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, .3), transparent);
+      pointer-events: none
+    }
+
+    .proc-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 12px;
+      position: relative;
+      z-index: 1
+    }
+
+    .proc-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(102, 126, 234, .3);
+      background: var(--sf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ac);
+      transition: all .25s;
+      flex-shrink: 0
+    }
+
+    .proc-step:hover .proc-num {
+      border-color: rgba(102, 126, 234, .7);
+      background: rgba(102, 126, 234, .1);
+      box-shadow: 0 0 20px rgba(102, 126, 234, .2)
+    }
+
+    .proc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 5px
+    }
+
+    .proc-desc {
+      font-size: 12px;
+      color: var(--dm);
+      line-height: 1.5
+    }
+
+    @media(max-width:640px) {
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px
+      }
+
+      .process-steps::before {
+        display: none
+      }
+    }
+
+    /* WHY CARDS */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px
+    }
+
+    .why-card {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: var(--r);
+      padding: 22px 24px;
+      transition: border-color .25s, background .25s
+    }
+
+    .why-card:hover {
+      border-color: rgba(102, 126, 234, .25);
+      background: var(--sfh)
+    }
+
+    .why-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px
+    }
+
+    .why-desc {
+      font-size: 13px;
+      color: var(--mt);
+      line-height: 1.6
+    }
+
+    /* PLATFORM CTA */
+    .platform-box {
+      background: var(--sf);
+      border: 1px solid var(--bd);
+      border-radius: var(--r);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .platform-box:hover {
+      border-color: rgba(102, 126, 234, .25)
+    }
+
+    .platform-text {}
+
+    .platform-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px
+    }
+
+    .platform-desc {
+      font-size: 14px;
+      color: var(--mt);
+      line-height: 1.65;
+      max-width: 560px
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: linear-gradient(135deg, rgba(102, 126, 234, .08) 0%, rgba(167, 139, 250, .06) 100%);
+      border: 1px solid rgba(102, 126, 234, .2);
+      border-radius: 20px;
+      padding: 56px 48px;
+      text-align: center
+    }
+
+    .final-cta h2 {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: #fff;
+      margin-bottom: 14px
+    }
+
+    .final-cta p {
+      font-size: 16px;
+      color: var(--mt);
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto 32px
+    }
+
+    .final-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--bd);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--dm);
+      max-width: 1080px;
+      margin: 0 auto
+    }
+
+    footer a {
+      color: var(--mt);
+      text-decoration: none;
+      transition: color .2s
+    }
+
+    footer a:hover {
+      color: var(--tx)
+    }
+
+    /* ── Mobile ── */
+    @media(max-width:768px) {
+      .page {
+        padding: 0 16px 80px
+      }
+
+      .hero {
+        padding: 52px 0 48px
+      }
+
+      .hero h1 {
+        font-size: clamp(28px, 7vw, 38px);
+        line-height: 1.1
+      }
+
+      .hero-sub {
+        font-size: 15px
+      }
+
+      .hero-copy {
+        font-size: 13px
+      }
+
+      .hero-btns {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 28px
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px
+      }
+
+      .badge-row {
+        gap: 6px
+      }
+
+      .badge {
+        font-size: 10px;
+        padding: 4px 10px
+      }
+
+      .divider {
+        margin: 48px 0
+      }
+
+      .sec-title {
+        font-size: 22px
+      }
+
+      .sec-sub {
+        font-size: 14px;
+        margin-bottom: 24px
+      }
+
+      .svc-grid {
+        grid-template-columns: 1fr;
+        gap: 12px
+      }
+
+      .svc-card {
+        padding: 20px
+      }
+
+      .tech-groups {
+        grid-template-columns: 1fr;
+        gap: 10px
+      }
+
+      .tech-group {
+        padding: 16px 18px
+      }
+
+      .eng-grid {
+        grid-template-columns: 1fr;
+        gap: 12px
+      }
+
+      .eng-card {
+        padding: 20px
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px
+      }
+
+      .process-steps::before {
+        display: none
+      }
+
+      .proc-num {
+        width: 48px;
+        height: 48px;
+        font-size: 13px
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+        gap: 10px
+      }
+
+      .why-card {
+        padding: 18px 20px
+      }
+
+      .platform-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px
+      }
+
+      .platform-box .btn-primary {
+        width: 100%;
+        justify-content: center
+      }
+
+      .platform-title {
+        font-size: 18px
+      }
+
+      .final-cta {
+        padding: 32px 20px;
+        border-radius: 14px
+      }
+
+      .final-cta h2 {
+        font-size: 22px
+      }
+
+      .final-cta p {
+        font-size: 14px;
+        margin-bottom: 24px
+      }
+
+      .final-btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px
+      }
+
+      .final-btns .btn-primary,
+      .final-btns .btn-secondary {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center
+      }
+
+      nav {
+        padding: 0 16px;
+        gap: 8px
+      }
+
+      .nav-title {
+        font-size: 13px
+      }
+
+      .nav-cta {
+        padding: 5px 12px;
+        font-size: 12px
+      }
+
+      footer {
+        padding: 24px 16px;
+        font-size: 12px
+      }
+
+      footer p {
+        line-height: 1.8
+      }
+    }
+
+    @media(max-width:480px) {
+      .hero h1 {
+        font-size: clamp(24px, 8vw, 32px)
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .proc-step {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
+        gap: 14px
+      }
+
+      .proc-num {
+        flex-shrink: 0;
+        margin-bottom: 0
+      }
+
+      .proc-title {
+        margin-bottom: 3px
+      }
+
+      .tag {
+        font-size: 10px;
+        padding: 2px 7px
+      }
+    }
+
+    @media(max-width:360px) {
+      .page {
+        padding: 0 12px 60px
+      }
+
+      nav {
+        gap: 4px
+      }
+
+      .nav-back {
+        font-size: 12px
+      }
+
+      .nav-title {
+        display: none
+      }
+    }
+
+    /* Overflow guard */
+    * {
+      word-break: break-word
+    }
+
+    img,
+    svg,
+    video {
+      max-width: 100%
+    }
+  </style>
 </head>
+
 <body>
-<nav>
-  <a href="../index.html" class="nav-back"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>LiDa Software</a>
-  <span class="nav-sep">/</span>
-  <span class="nav-title">Services</span>
-  <a href="#contact" class="nav-cta">Start a Project</a>
-</nav>
-<div class="page">
+  <nav>
+    <a href="../index.html" class="nav-back"><svg viewBox="0 0 24 24">
+        <path d="M19 12H5M12 5l-7 7 7 7" />
+      </svg>LiDa Software</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-title">Services</span>
+    <a href="#contact" class="nav-cta">Start a Project</a>
+  </nav>
+  <div class="page">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-eye"><span class="hero-dot"></span>Freelance &amp; Contract Engineering</div>
-    <h1>Software Engineering<br>&amp; AI Solutions</h1>
-    <p class="hero-sub">Practical, production-minded software solutions for businesses, startups, and teams that need to build, automate, integrate, or scale.</p>
-    <p class="hero-copy">LiDa Software offers freelance and contract engineering services across backend, frontend, cloud, DevOps, automation, AI integrations, and developer productivity workflows.</p>
-    <div class="hero-btns">
-      <a href="#contact" class="btn-primary">Start a Project<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#services" class="btn-secondary">Explore Services</a>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-eye"><span class="hero-dot"></span>Freelance &amp; Contract Engineering</div>
+        <h1>Software Engineering<br>&amp; AI Solutions</h1>
+        <p class="hero-sub">Practical, production-minded software solutions for businesses, startups, and teams that
+          need to build, automate, integrate, or scale.</p>
+        <p class="hero-copy">LiDa Software offers freelance and contract engineering services across backend, frontend,
+          cloud, DevOps, automation, AI integrations, and developer productivity workflows.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">Start a Project<svg width="14" height="14" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></a>
+          <a href="#services" class="btn-secondary">Explore Services</a>
+        </div>
+        <div class="badge-row">
+          <span class="badge">Full-Stack Engineering</span>
+          <span class="badge">AI &amp; Automation</span>
+          <span class="badge">Cloud &amp; DevOps</span>
+          <span class="badge">Production-Minded Delivery</span>
+        </div>
+      </div>
     </div>
-    <div class="badge-row">
-      <span class="badge">Full-Stack Engineering</span>
-      <span class="badge">AI &amp; Automation</span>
-      <span class="badge">Cloud &amp; DevOps</span>
-      <span class="badge">Production-Minded Delivery</span>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- SERVICES -->
-<div id="services" style="margin-bottom:80px">
-  <div class="sec-label">Services</div>
-  <div class="sec-title">End-to-End Technical Solutions</div>
-  <p class="sec-sub">From idea to production — design, build, improve, and automate real software systems.</p>
-  <div class="svc-grid">
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-      <div class="svc-title">Backend Development</div>
-      <div class="svc-desc">Design and build reliable backend services, APIs, microservices, integrations, scheduled jobs, and business logic using modern server-side technologies.</div>
-      <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">NestJS</span><span class="tag">REST APIs</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Elasticsearch</span></div>
+    <!-- SERVICES -->
+    <div id="services" style="margin-bottom:80px">
+      <div class="sec-label">Services</div>
+      <div class="sec-title">End-to-End Technical Solutions</div>
+      <p class="sec-sub">From idea to production , design, build, improve, and automate real software systems.</p>
+      <div class="svc-grid">
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg></div>
+          <div class="svc-title">Backend Development</div>
+          <div class="svc-desc">Design and build reliable backend services, APIs, microservices, integrations, scheduled
+            jobs, and business logic using modern server-side technologies.</div>
+          <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring Boot</span><span
+              class="tag">Node.js</span><span class="tag">NestJS</span><span class="tag">REST APIs</span><span
+              class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Elasticsearch</span></div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg></div>
+          <div class="svc-title">Frontend Development</div>
+          <div class="svc-desc">Build clean, responsive, user-friendly web applications, dashboards, admin panels, and
+            internal tools with modern frontend frameworks.</div>
+          <div class="tag-row"><span class="tag">Angular</span><span class="tag">React</span><span
+              class="tag">TypeScript</span><span class="tag">UI/UX</span><span class="tag">Component
+              Architecture</span><span class="tag">Responsive Design</span></div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg></div>
+          <div class="svc-title">AI Integration</div>
+          <div class="svc-desc">Integrate AI into real workflows , prompt-based tools, structured outputs, document
+            processing, developer productivity tools, and automation flows.</div>
+          <div class="tag-row"><span class="tag">LLMs</span><span class="tag">OpenAI API</span><span class="tag">Prompt
+              Engineering</span><span class="tag">RAG</span><span class="tag">Vector Search</span><span
+              class="tag">Structured Output</span></div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg></div>
+          <div class="svc-title">Automation Solutions</div>
+          <div class="svc-desc">Automate repetitive business and engineering workflows , data processing, notifications,
+            reporting, integrations, and internal operations.</div>
+          <div class="tag-row"><span class="tag">Workflow Automation</span><span class="tag">Scripts</span><span
+              class="tag">Webhooks</span><span class="tag">Scheduled Jobs</span><span class="tag">Data Pipelines</span>
+          </div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg></div>
+          <div class="svc-title">Cloud &amp; DevOps</div>
+          <div class="svc-desc">Improve deployment, infrastructure, observability, and production readiness using
+            cloud-native tools and practical DevOps workflows.</div>
+          <div class="tag-row"><span class="tag">GCP</span><span class="tag">AWS</span><span
+              class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span
+              class="tag">Monitoring</span><span class="tag">Infrastructure</span></div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon"><svg viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+            </svg></div>
+          <div class="svc-title">Developer Tools &amp; Internal Platforms</div>
+          <div class="svc-desc">Build tools that help engineering teams move faster, reduce manual work, validate data,
+            generate outputs, and improve day-to-day developer experience.</div>
+          <div class="tag-row"><span class="tag">Internal Tools</span><span class="tag">CLIs</span><span
+              class="tag">Dashboards</span><span class="tag">Validators</span><span class="tag">Generators</span></div>
+        </div>
+      </div>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-      <div class="svc-title">Frontend Development</div>
-      <div class="svc-desc">Build clean, responsive, user-friendly web applications, dashboards, admin panels, and internal tools with modern frontend frameworks.</div>
-      <div class="tag-row"><span class="tag">Angular</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">UI/UX</span><span class="tag">Component Architecture</span><span class="tag">Responsive Design</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <div class="svc-title">AI Integration</div>
-      <div class="svc-desc">Integrate AI into real workflows — prompt-based tools, structured outputs, document processing, developer productivity tools, and automation flows.</div>
-      <div class="tag-row"><span class="tag">LLMs</span><span class="tag">OpenAI API</span><span class="tag">Prompt Engineering</span><span class="tag">RAG</span><span class="tag">Vector Search</span><span class="tag">Structured Output</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-      <div class="svc-title">Automation Solutions</div>
-      <div class="svc-desc">Automate repetitive business and engineering workflows — data processing, notifications, reporting, integrations, and internal operations.</div>
-      <div class="tag-row"><span class="tag">Workflow Automation</span><span class="tag">Scripts</span><span class="tag">Webhooks</span><span class="tag">Scheduled Jobs</span><span class="tag">Data Pipelines</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-      <div class="svc-title">Cloud &amp; DevOps</div>
-      <div class="svc-desc">Improve deployment, infrastructure, observability, and production readiness using cloud-native tools and practical DevOps workflows.</div>
-      <div class="tag-row"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span class="tag">Monitoring</span><span class="tag">Infrastructure</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
-      <div class="svc-title">Developer Tools &amp; Internal Platforms</div>
-      <div class="svc-desc">Build tools that help engineering teams move faster, reduce manual work, validate data, generate outputs, and improve day-to-day developer experience.</div>
-      <div class="tag-row"><span class="tag">Internal Tools</span><span class="tag">CLIs</span><span class="tag">Dashboards</span><span class="tag">Validators</span><span class="tag">Generators</span></div>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- TECH STACK -->
-<div style="margin-bottom:80px">
-  <div class="sec-label">Technology Stack</div>
-  <div class="sec-title">Modern Technology Stack</div>
-  <p class="sec-sub">Flexible engineering across modern backend, frontend, cloud, AI, and automation technologies.</p>
-  <div class="tech-groups">
-    <div class="tech-group">
-      <div class="tech-group-label">Backend</div>
-      <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Node.js</span><span class="tag">NestJS</span><span class="tag">Python</span><span class="tag">REST APIs</span><span class="tag">GraphQL</span><span class="tag">Microservices</span><span class="tag">Event-Driven</span></div>
+    <!-- TECH STACK -->
+    <div style="margin-bottom:80px">
+      <div class="sec-label">Technology Stack</div>
+      <div class="sec-title">Modern Technology Stack</div>
+      <p class="sec-sub">Flexible engineering across modern backend, frontend, cloud, AI, and automation technologies.
+      </p>
+      <div class="tech-groups">
+        <div class="tech-group">
+          <div class="tech-group-label">Backend</div>
+          <div class="tag-row"><span class="tag">Java</span><span class="tag">Spring Boot</span><span
+              class="tag">Node.js</span><span class="tag">NestJS</span><span class="tag">Python</span><span
+              class="tag">REST APIs</span><span class="tag">GraphQL</span><span class="tag">Microservices</span><span
+              class="tag">Event-Driven</span></div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Frontend</div>
+          <div class="tag-row"><span class="tag">Angular</span><span class="tag">React</span><span
+              class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span
+              class="tag">CSS</span><span class="tag">Responsive UI</span><span class="tag">Component Design</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Databases &amp; Search</div>
+          <div class="tag-row"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span
+              class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">Elasticsearch</span><span
+              class="tag">BigQuery</span></div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Cloud &amp; DevOps</div>
+          <div class="tag-row"><span class="tag">GCP</span><span class="tag">AWS</span><span
+              class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span
+              class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span
+              class="tag">Serverless</span></div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">AI &amp; Automation</div>
+          <div class="tag-row"><span class="tag">OpenAI API</span><span class="tag">LLM Workflows</span><span
+              class="tag">Prompt Engineering</span><span class="tag">RAG</span><span class="tag">Vector
+              Search</span><span class="tag">AI Agents</span><span class="tag">Structured Outputs</span></div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Integrations</div>
+          <div class="tag-row"><span class="tag">Third-party APIs</span><span class="tag">Webhooks</span><span
+              class="tag">Payment APIs</span><span class="tag">CRM APIs</span><span class="tag">SaaS
+              Integrations</span><span class="tag">Email/WhatsApp</span></div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Observability &amp; Reliability</div>
+          <div class="tag-row"><span class="tag">Logging</span><span class="tag">Metrics</span><span
+              class="tag">Tracing</span><span class="tag">Datadog</span><span class="tag">Error Handling</span><span
+              class="tag">Monitoring</span><span class="tag">Performance</span></div>
+        </div>
+      </div>
     </div>
-    <div class="tech-group">
-      <div class="tech-group-label">Frontend</div>
-      <div class="tag-row"><span class="tag">Angular</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Responsive UI</span><span class="tag">Component Design</span></div>
-    </div>
-    <div class="tech-group">
-      <div class="tech-group-label">Databases &amp; Search</div>
-      <div class="tag-row"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">Elasticsearch</span><span class="tag">BigQuery</span></div>
-    </div>
-    <div class="tech-group">
-      <div class="tech-group-label">Cloud &amp; DevOps</div>
-      <div class="tag-row"><span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">Serverless</span></div>
-    </div>
-    <div class="tech-group">
-      <div class="tech-group-label">AI &amp; Automation</div>
-      <div class="tag-row"><span class="tag">OpenAI API</span><span class="tag">LLM Workflows</span><span class="tag">Prompt Engineering</span><span class="tag">RAG</span><span class="tag">Vector Search</span><span class="tag">AI Agents</span><span class="tag">Structured Outputs</span></div>
-    </div>
-    <div class="tech-group">
-      <div class="tech-group-label">Integrations</div>
-      <div class="tag-row"><span class="tag">Third-party APIs</span><span class="tag">Webhooks</span><span class="tag">Payment APIs</span><span class="tag">CRM APIs</span><span class="tag">SaaS Integrations</span><span class="tag">Email/WhatsApp</span></div>
-    </div>
-    <div class="tech-group">
-      <div class="tech-group-label">Observability &amp; Reliability</div>
-      <div class="tag-row"><span class="tag">Logging</span><span class="tag">Metrics</span><span class="tag">Tracing</span><span class="tag">Datadog</span><span class="tag">Error Handling</span><span class="tag">Monitoring</span><span class="tag">Performance</span></div>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- ENGAGEMENT MODELS -->
-<div id="engagement" style="margin-bottom:80px">
-  <div class="sec-label">Engagement Models</div>
-  <div class="sec-title">Flexible Engagement Models</div>
-  <p class="sec-sub">Choose the working model that fits your project size, urgency, and ongoing needs.</p>
-  <div class="eng-grid">
-    <div class="eng-card">
-      <div class="eng-title">Hourly Work</div>
-      <div class="eng-desc">Best for focused tasks, technical advice, debugging, small improvements, code reviews, or short implementation work.</div>
-      <ul class="eng-list">
-        <li>Pay per hour of work</li>
-        <li>Flexible scope and timing</li>
-        <li>Good for small tasks or urgent help</li>
-        <li>Clear communication and progress updates</li>
-      </ul>
-      <div class="eng-price">Contact for pricing</div>
-      <a href="#contact" class="eng-cta">Ask About Hourly Work</a>
+    <!-- ENGAGEMENT MODELS -->
+    <div id="engagement" style="margin-bottom:80px">
+      <div class="sec-label">Engagement Models</div>
+      <div class="sec-title">Flexible Engagement Models</div>
+      <p class="sec-sub">Choose the working model that fits your project size, urgency, and ongoing needs.</p>
+      <div class="eng-grid">
+        <div class="eng-card">
+          <div class="eng-title">Hourly Work</div>
+          <div class="eng-desc">Best for focused tasks, technical advice, debugging, small improvements, code reviews,
+            or short implementation work.</div>
+          <ul class="eng-list">
+            <li>Pay per hour of work</li>
+            <li>Flexible scope and timing</li>
+            <li>Good for small tasks or urgent help</li>
+            <li>Clear communication and progress updates</li>
+          </ul>
+          <div class="eng-price">Contact for pricing</div>
+          <a href="#contact" class="eng-cta">Ask About Hourly Work</a>
+        </div>
+        <div class="eng-card featured">
+          <div class="eng-title">Prepaid Hours Package</div>
+          <div class="eng-desc">Best for businesses that need ongoing development help but want a controlled,
+            predictable budget.</div>
+          <ul class="eng-list">
+            <li>Buy a block of hours in advance</li>
+            <li>Use across development, automation, AI, DevOps, or consulting</li>
+            <li>Better planning and guaranteed availability</li>
+            <li>Suitable for small projects and continuous improvements</li>
+          </ul>
+          <div class="eng-price">Custom pricing based on scope</div>
+          <a href="#contact" class="eng-cta">Discuss a Hours Package</a>
+        </div>
+        <div class="eng-card">
+          <div class="eng-title">Monthly Retainer</div>
+          <div class="eng-desc">Best for ongoing technical support, product development, automation, maintenance, and
+            continuous improvements.</div>
+          <ul class="eng-list">
+            <li>Reserved monthly availability</li>
+            <li>Ongoing development and support</li>
+            <li>Prioritized work and faster turnaround</li>
+            <li>Ideal for startups and founders without a full-time engineering team</li>
+          </ul>
+          <div class="eng-price">Custom pricing based on scope</div>
+          <a href="#contact" class="eng-cta">Discuss Monthly Retainer</a>
+        </div>
+      </div>
     </div>
-    <div class="eng-card featured">
-      <div class="eng-title">Prepaid Hours Package</div>
-      <div class="eng-desc">Best for businesses that need ongoing development help but want a controlled, predictable budget.</div>
-      <ul class="eng-list">
-        <li>Buy a block of hours in advance</li>
-        <li>Use across development, automation, AI, DevOps, or consulting</li>
-        <li>Better planning and guaranteed availability</li>
-        <li>Suitable for small projects and continuous improvements</li>
-      </ul>
-      <div class="eng-price">Custom pricing based on scope</div>
-      <a href="#contact" class="eng-cta">Discuss a Hours Package</a>
-    </div>
-    <div class="eng-card">
-      <div class="eng-title">Monthly Retainer</div>
-      <div class="eng-desc">Best for ongoing technical support, product development, automation, maintenance, and continuous improvements.</div>
-      <ul class="eng-list">
-        <li>Reserved monthly availability</li>
-        <li>Ongoing development and support</li>
-        <li>Prioritized work and faster turnaround</li>
-        <li>Ideal for startups and founders without a full-time engineering team</li>
-      </ul>
-      <div class="eng-price">Custom pricing based on scope</div>
-      <a href="#contact" class="eng-cta">Discuss Monthly Retainer</a>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- PROCESS -->
-<div style="margin-bottom:80px">
-  <div class="sec-label">Work Process</div>
-  <div class="sec-title">How Projects Work</div>
-  <p class="sec-sub">A clear, predictable process from the first conversation to final delivery.</p>
-  <div class="process-steps">
-    <div class="proc-step">
-      <div class="proc-num">1</div>
-      <div class="proc-title">Understand</div>
-      <div class="proc-desc">Clarify the business need, technical constraints, current system, and success criteria.</div>
+    <!-- PROCESS -->
+    <div style="margin-bottom:80px">
+      <div class="sec-label">Work Process</div>
+      <div class="sec-title">How Projects Work</div>
+      <p class="sec-sub">A clear, predictable process from the first conversation to final delivery.</p>
+      <div class="process-steps">
+        <div class="proc-step">
+          <div class="proc-num">1</div>
+          <div class="proc-title">Understand</div>
+          <div class="proc-desc">Clarify the business need, technical constraints, current system, and success criteria.
+          </div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">2</div>
+          <div class="proc-title">Plan</div>
+          <div class="proc-desc">Define scope, architecture, priorities, timeline, and delivery approach.</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">3</div>
+          <div class="proc-title">Build</div>
+          <div class="proc-desc">Implement with clean code, practical architecture, and maintainability in mind.</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">4</div>
+          <div class="proc-title">Validate</div>
+          <div class="proc-desc">Test the flow, handle edge cases, improve UX, and verify the solution works as
+            expected.</div>
+        </div>
+        <div class="proc-step">
+          <div class="proc-num">5</div>
+          <div class="proc-title">Deliver &amp; Improve</div>
+          <div class="proc-desc">Deploy, document, monitor, and continue improving based on real usage.</div>
+        </div>
+      </div>
     </div>
-    <div class="proc-step">
-      <div class="proc-num">2</div>
-      <div class="proc-title">Plan</div>
-      <div class="proc-desc">Define scope, architecture, priorities, timeline, and delivery approach.</div>
-    </div>
-    <div class="proc-step">
-      <div class="proc-num">3</div>
-      <div class="proc-title">Build</div>
-      <div class="proc-desc">Implement with clean code, practical architecture, and maintainability in mind.</div>
-    </div>
-    <div class="proc-step">
-      <div class="proc-num">4</div>
-      <div class="proc-title">Validate</div>
-      <div class="proc-desc">Test the flow, handle edge cases, improve UX, and verify the solution works as expected.</div>
-    </div>
-    <div class="proc-step">
-      <div class="proc-num">5</div>
-      <div class="proc-title">Deliver &amp; Improve</div>
-      <div class="proc-desc">Deploy, document, monitor, and continue improving based on real usage.</div>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- WHY LIDA -->
-<div style="margin-bottom:80px">
-  <div class="sec-label">Why LiDa Software</div>
-  <div class="sec-title">Why Work With LiDa Software?</div>
-  <p class="sec-sub">A practical engineering background, not just a list of technologies.</p>
-  <div class="why-grid">
-    <div class="why-card">
-      <div class="why-title">Real Engineering Experience</div>
-      <div class="why-desc">Hands-on experience building and maintaining production systems, microservices, cloud services, automation flows, and developer tools.</div>
+    <!-- WHY LIDA -->
+    <div style="margin-bottom:80px">
+      <div class="sec-label">Why LiDa Software</div>
+      <div class="sec-title">Why Work With LiDa Software?</div>
+      <p class="sec-sub">A practical engineering background, not just a list of technologies.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-title">Real Engineering Experience</div>
+          <div class="why-desc">Hands-on experience building and maintaining production systems, microservices, cloud
+            services, automation flows, and developer tools.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-title">Product-Minded Development</div>
+          <div class="why-desc">Focus on practical value, not just code. Every solution should solve a real problem
+            clearly and be maintainable over time.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-title">AI Where It Makes Sense</div>
+          <div class="why-desc">AI is used to improve workflows, automation, productivity, and output quality , not
+            added as a feature for its own sake.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-title">Clear Communication</div>
+          <div class="why-desc">Work is broken into clear steps with realistic scope, direct communication, and visible
+            progress throughout.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-title">Practical Architecture</div>
+          <div class="why-desc">Solutions are designed to be maintainable, understandable, and easy to extend , not just
+            clever in the short term.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-title">Full-Stack Ownership</div>
+          <div class="why-desc">Backend, frontend, cloud, and automation , a single engineer who can take a feature from
+            design to production without handoff gaps.</div>
+        </div>
+      </div>
     </div>
-    <div class="why-card">
-      <div class="why-title">Product-Minded Development</div>
-      <div class="why-desc">Focus on practical value, not just code. Every solution should solve a real problem clearly and be maintainable over time.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-title">AI Where It Makes Sense</div>
-      <div class="why-desc">AI is used to improve workflows, automation, productivity, and output quality — not added as a feature for its own sake.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-title">Clear Communication</div>
-      <div class="why-desc">Work is broken into clear steps with realistic scope, direct communication, and visible progress throughout.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-title">Practical Architecture</div>
-      <div class="why-desc">Solutions are designed to be maintainable, understandable, and easy to extend — not just clever in the short term.</div>
-    </div>
-    <div class="why-card">
-      <div class="why-title">Full-Stack Ownership</div>
-      <div class="why-desc">Backend, frontend, cloud, and automation — a single engineer who can take a feature from design to production without handoff gaps.</div>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- PLATFORM -->
-<div style="margin-bottom:80px">
-  <div class="sec-label">LiDa Software Platform</div>
-  <div class="sec-title">Built Around Real Developer Workflows</div>
-  <p class="sec-sub" style="margin-bottom:24px">The services offered here are backed by a real, working developer tools platform — not just a consulting landing page.</p>
-  <div class="platform-box">
-    <div class="platform-text">
-      <div class="platform-title">Developer Tools Platform</div>
-      <p class="platform-desc">LiDa Software includes a growing platform of tools built to solve real engineering problems: formatting, validation, automation, AI-assisted workflows, and productivity tools. These tools are actively maintained and used.</p>
+    <!-- PLATFORM -->
+    <div style="margin-bottom:80px">
+      <div class="sec-label">LiDa Software Platform</div>
+      <div class="sec-title">Built Around Real Developer Workflows</div>
+      <p class="sec-sub" style="margin-bottom:24px">The services offered here are backed by a real, working developer
+        tools platform , not just a consulting landing page.</p>
+      <div class="platform-box">
+        <div class="platform-text">
+          <div class="platform-title">Developer Tools Platform</div>
+          <p class="platform-desc">LiDa Software includes a growing platform of tools built to solve real engineering
+            problems: formatting, validation, automation, AI-assisted workflows, and productivity tools. These tools are
+            actively maintained and used.</p>
+        </div>
+        <a href="../index.html#projects" class="btn-primary" style="flex-shrink:0">Explore Developer Tools<svg
+            width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></a>
+      </div>
     </div>
-    <a href="../index.html#projects" class="btn-primary" style="flex-shrink:0">Explore Developer Tools<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-  </div>
-</div>
 
-<div class="divider"></div>
+    <div class="divider"></div>
 
-<!-- FINAL CTA -->
-<div id="contact" style="margin-bottom:0">
-  <div class="final-cta">
-    <h2>Need a technical solution built properly?</h2>
-    <p>Whether you need a small automation, a backend service, a frontend dashboard, AI integration, cloud improvement, or ongoing engineering support — LiDa Software can help turn it into a working solution.</p>
-    <div class="final-btns">
-      <a href="https://wa.me/40753358749?text=Hi%20Hen%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20LiDa%20Software." target="_blank" rel="noopener noreferrer" class="btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
-        Contact on WhatsApp
-      </a>
-      <a href="mailto:bandel79@gmail.com" class="btn-secondary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Send Email
-      </a>
+    <!-- FINAL CTA -->
+    <div id="contact" style="margin-bottom:0">
+      <div class="final-cta">
+        <h2>Need a technical solution built properly?</h2>
+        <p>Whether you need a small automation, a backend service, a frontend dashboard, AI integration, cloud
+          improvement, or ongoing engineering support , LiDa Software can help turn it into a working solution.</p>
+        <div class="final-btns">
+          <a href="https://wa.me/40753358749?text=Hi%20Hen%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20LiDa%20Software."
+            target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+            </svg>
+            Contact on WhatsApp
+          </a>
+          <a href="mailto:bandel79@gmail.com" class="btn-secondary">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Send Email
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-</div><!-- end .page -->
+  </div><!-- end .page -->
 
-<footer>
-  <p><a href="../index.html">LiDa Software</a> &middot; Building practical software, automation, AI, and developer tools for the modern web. &middot; <a href="../index.html#projects">View Tools</a> &middot; <a href="../engineering.html">Engineering</a></p>
-</footer>
+  <footer>
+    <p><a href="../index.html">LiDa Software</a> &middot; Building practical software, automation, AI, and developer
+      tools for the modern web. &middot; <a href="../index.html#projects">View Tools</a> &middot; <a
+        href="../engineering.html">Engineering</a></p>
+  </footer>
 </body>
+
 </html>

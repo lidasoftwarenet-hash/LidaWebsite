@@ -12,7 +12,7 @@ function handleLogoError(img) {
 }
 
 /* ══════════════════════════════════════════════════════
-   PROVIDER CONFIGURATION  (metadata only — no direct fetching)
+   PROVIDER CONFIGURATION  (metadata only ,  no direct fetching)
 ══════════════════════════════════════════════════════ */
 const PROVIDERS = [
   {
@@ -207,7 +207,7 @@ function buildHistoryHtml(backendId) {
   const days = state.history[backendId] || [];
 
   if (days.length === 0) {
-    // No data yet — show 90 neutral blocks
+    // No data yet ,  show 90 neutral blocks
     return Array(90).fill('<div class="hb uk" title="No data"></div>').join('');
   }
 
@@ -438,7 +438,7 @@ function updateGlobalBanner() {
 
   if (hasOutage) {
     banner.className = 'outage';
-    text.textContent = '🔴  Active outage detected — check cards below';
+    text.textContent = '🔴  Active outage detected ,  check cards below';
   } else if (hasDegraded) {
     banner.className = 'degraded';
     text.textContent = '🟡  Some providers reporting issues';
@@ -503,7 +503,7 @@ function loadCache() {
 }
 
 /* ══════════════════════════════════════════════════════
-   REFRESH — fetch from backend only
+   REFRESH ,  fetch from backend only
 ══════════════════════════════════════════════════════ */
 async function refreshAll(isManual = false) {
   if (state.isRefreshing) return;
@@ -531,7 +531,7 @@ async function refreshAll(isManual = false) {
           state.statuses[p.id] = { state: 'unknown', label: 'Unavailable' };
         }
       });
-      showToast('⚠ Could not reach backend — showing last known data');
+      showToast('⚠ Could not reach backend ,  showing last known data');
     } else {
       if (latestArr !== null) {
         const byBackendId = normalizeLatest(latestArr);
@@ -567,50 +567,50 @@ async function refreshAll(isManual = false) {
 }
 
 function updateRightStatsManual() {
-    const nextEl = document.getElementById('csNext');
-    const countEl = document.getElementById('countdown');
-    if (nextEl) nextEl.textContent = '48h';
-    if (countEl) countEl.textContent = '48h';
-    setArc(60); // Keep arc full
-  }
+  const nextEl = document.getElementById('csNext');
+  const countEl = document.getElementById('countdown');
+  if (nextEl) nextEl.textContent = '48h';
+  if (countEl) countEl.textContent = '48h';
+  setArc(60); // Keep arc full
+}
 
-  /* ══════════════════════════════════════════════════════
-     COUNTDOWN
-  ══════════════════════════════════════════════════════ */
-  function resetCountdown() {
-    // Disabled automatic 60s refresh.
-    // The data now refreshes once every two days on the backend.
-    updateRightStatsManual();
-  }
+/* ══════════════════════════════════════════════════════
+   COUNTDOWN
+══════════════════════════════════════════════════════ */
+function resetCountdown() {
+  // Disabled automatic 60s refresh.
+  // The data now refreshes once every two days on the backend.
+  updateRightStatsManual();
+}
 
-  /* ══════════════════════════════════════════════════════
-     UTILITIES
-  ══════════════════════════════════════════════════════ */
-  function timeAgo(ts) {
-    const sec = Math.round((Date.now() - ts) / 1000);
-    if (sec < 5) return 'just now';
-    if (sec < 60) return `${sec}s ago`;
-    if (sec < 3600) return `${Math.floor(sec / 60)}m ago`;
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    return m > 0 ? `${h}h ${m}m ago` : `${h}h ago`;
-  }
+/* ══════════════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════════════ */
+function timeAgo(ts) {
+  const sec = Math.round((Date.now() - ts) / 1000);
+  if (sec < 5) return 'just now';
+  if (sec < 60) return `${sec}s ago`;
+  if (sec < 3600) return `${Math.floor(sec / 60)}m ago`;
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  return m > 0 ? `${h}h ${m}m ago` : `${h}h ago`;
+}
 
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
-  }
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
 
-  let _networkModalShown = false;
-  function showNetworkBlockModal() {
-    if (_networkModalShown) return;
-    _networkModalShown = true;
+let _networkModalShown = false;
+function showNetworkBlockModal() {
+  if (_networkModalShown) return;
+  _networkModalShown = true;
 
-    const el = document.createElement('div');
-    el.id = 'networkBlockModal';
-    el.innerHTML = `
+  const el = document.createElement('div');
+  el.id = 'networkBlockModal';
+  el.innerHTML = `
     <div class="nbm-backdrop" id="nbmBackdrop"></div>
     <div class="nbm-panel" role="alertdialog" aria-modal="true" aria-labelledby="nbmTitle">
       <div class="nbm-icon-wrap">
@@ -657,207 +657,207 @@ function updateRightStatsManual() {
 
       <button class="nbm-close-btn" id="nbmCloseBtn">Got it, continue anyway</button>
     </div>`;
-    document.body.appendChild(el);
+  document.body.appendChild(el);
 
-    requestAnimationFrame(() => el.classList.add('open'));
+  requestAnimationFrame(() => el.classList.add('open'));
 
-    const close = () => {
-      el.classList.remove('open');
-      setTimeout(() => el.remove(), 300);
-    };
-    document.getElementById('nbmCloseBtn').addEventListener('click', close);
-    document.getElementById('nbmBackdrop').addEventListener('click', close);
-    document.addEventListener('keydown', function handler(e) {
-      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
-    });
+  const close = () => {
+    el.classList.remove('open');
+    setTimeout(() => el.remove(), 300);
+  };
+  document.getElementById('nbmCloseBtn').addEventListener('click', close);
+  document.getElementById('nbmBackdrop').addEventListener('click', close);
+  document.addEventListener('keydown', function handler(e) {
+    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+async function init() {
+  startSysClock();
+  renderShareButtons();
+  // Instant render from cache if fresh
+  if (loadCache()) {
+    renderAllCards();
+    updateGlobalBanner();
+    updateStats();
+    // Refresh in background after 1s so user sees data immediately
+    setTimeout(() => refreshAll(), 1000);
+  } else {
+    await refreshAll();
+  }
+  resetCountdown();
+
+  // Keep "updated X ago" label ticking
+  setInterval(updateStats, 10000);
+}
+
+init();
+
+/* ══════════════════════════════════════════════════════
+   MISSION CONTROL ,  COMMAND STRIP (Stock-terminal style)
+══════════════════════════════════════════════════════ */
+
+function startSysClock() { initCommandStrip(); } // backward-compat alias
+
+function initCommandStrip() {
+  // ── Clock ──
+  const clockEl = document.getElementById('sysTime');
+  if (clockEl) {
+    const tick = () => { clockEl.textContent = new Date().toTimeString().slice(0, 8); };
+    tick(); setInterval(tick, 1000);
   }
 
-  /* ══════════════════════════════════════════════════════
-     INIT
-  ══════════════════════════════════════════════════════ */
-  async function init() {
-    startSysClock();
-    renderShareButtons();
-    // Instant render from cache if fresh
-    if (loadCache()) {
-      renderAllCards();
-      updateGlobalBanner();
-      updateStats();
-      // Refresh in background after 1s so user sees data immediately
-      setTimeout(() => refreshAll(), 1000);
-    } else {
-      await refreshAll();
+  // ── Initial ticker text (before data loads) ──
+  _buildTicker();
+
+  // ── Refresh strip every 10s so chips stay live ──
+  setInterval(updateCommandStrip, 10000);
+}
+
+function updateCommandStrip() {
+  _buildChips();
+  _buildTicker();
+  _updateRightStats();
+}
+
+/* Build provider status chips */
+function _buildChips() {
+  const wrap = document.getElementById('csChips');
+  if (!wrap) return;
+
+  const shortNames = {
+    openai: 'GPT', anthropic: 'CLDE', google: 'GEMN',
+    mistral: 'MSTR', groq: 'GROQ', deepseek: 'DSKP',
+    perplexity: 'PPLX', xai: 'XAI'
+  };
+
+  wrap.innerHTML = PROVIDERS.map(p => {
+    const s = state.statuses[p.id];
+    let cls = 'unk', latTxt = '—';
+    if (s) {
+      cls = s.state === 'operational' ? 'op'
+        : s.state === 'degraded' ? 'deg'
+          : s.state === 'outage' ? 'out'
+            : 'unk';
+      if (s.latency != null) latTxt = s.latency + 'ms';
     }
-    resetCountdown();
-
-    // Keep "updated X ago" label ticking
-    setInterval(updateStats, 10000);
-  }
-
-  init();
-
-  /* ══════════════════════════════════════════════════════
-     MISSION CONTROL — COMMAND STRIP (Stock-terminal style)
-  ══════════════════════════════════════════════════════ */
-
-  function startSysClock() { initCommandStrip(); } // backward-compat alias
-
-  function initCommandStrip() {
-    // ── Clock ──
-    const clockEl = document.getElementById('sysTime');
-    if (clockEl) {
-      const tick = () => { clockEl.textContent = new Date().toTimeString().slice(0, 8); };
-      tick(); setInterval(tick, 1000);
-    }
-
-    // ── Initial ticker text (before data loads) ──
-    _buildTicker();
-
-    // ── Refresh strip every 10s so chips stay live ──
-    setInterval(updateCommandStrip, 10000);
-  }
-
-  function updateCommandStrip() {
-    _buildChips();
-    _buildTicker();
-    _updateRightStats();
-  }
-
-  /* Build provider status chips */
-  function _buildChips() {
-    const wrap = document.getElementById('csChips');
-    if (!wrap) return;
-
-    const shortNames = {
-      openai: 'GPT', anthropic: 'CLDE', google: 'GEMN',
-      mistral: 'MSTR', groq: 'GROQ', deepseek: 'DSKP',
-      perplexity: 'PPLX', xai: 'XAI'
-    };
-
-    wrap.innerHTML = PROVIDERS.map(p => {
-      const s = state.statuses[p.id];
-      let cls = 'unk', latTxt = '—';
-      if (s) {
-        cls = s.state === 'operational' ? 'op'
-          : s.state === 'degraded' ? 'deg'
-            : s.state === 'outage' ? 'out'
-              : 'unk';
-        if (s.latency != null) latTxt = s.latency + 'ms';
-      }
-      const abbr = shortNames[p.id] || p.id.slice(0, 4).toUpperCase();
-      return `<div class="cs-chip ${cls}">
+    const abbr = shortNames[p.id] || p.id.slice(0, 4).toUpperCase();
+    return `<div class="cs-chip ${cls}">
       <span class="cs-chip-dot"></span>${abbr}<span class="cs-chip-lat">${latTxt}</span>
     </div>`;
-    }).join('');
+  }).join('');
+}
+
+/* Build scrolling ticker text from live data */
+function _buildTicker() {
+  const el = document.getElementById('csTicker');
+  if (!el) return;
+
+  const operational = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'operational').length;
+  const degraded = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'degraded').length;
+  const outages = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'outage').length;
+  const total = PROVIDERS.length;
+
+  // Build per-provider items
+  const providerItems = PROVIDERS.map(p => {
+    const s = state.statuses[p.id];
+    if (!s) return `${p.name.toUpperCase()}  CHECKING`;
+    const st = s.state === 'operational' ? '▲ OK'
+      : s.state === 'degraded' ? '▼ DEGRADED'
+        : s.state === 'outage' ? '✕ OUTAGE'
+          : '— N/A';
+    const lat = s.latency != null ? ` ${s.latency}ms` : '';
+    return `${p.name.toUpperCase()}${lat}  ${st}`;
+  }).join('    ·    ');
+
+  // System stats segment
+  const sysLine = [
+    `PROVIDERS ${total}`,
+    `OK ${operational}/${total}`,
+    degraded ? `⚠ DEGRADED ${degraded}` : null,
+    outages ? `✕ OUTAGE ${outages}` : null,
+    `REFRESH 2d`,
+    `SOURCES: STATUSPAGE.IO · GCP INCIDENTS · INSTATUS`,
+    `LIDA OPS DASHBOARD`
+  ].filter(Boolean).join('    ·    ');
+
+  const full = `${providerItems}    ◆    ${sysLine}`;
+  // Double the text so the translateX(-50%) loop is seamless
+  el.textContent = full + '          ' + full;
+  // Reset animation so the new text starts from the left
+  el.style.animation = 'none';
+  requestAnimationFrame(() => { el.style.animation = 'ticker-scroll 70s linear infinite'; });
+}
+
+/* Update UPTIME and NEXT cells */
+function _updateRightStats() {
+  const uptimeEl = document.getElementById('csUptime');
+  const nextEl = document.getElementById('csNext');
+
+  if (uptimeEl) {
+    const ops = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'operational').length;
+    const pct = Math.round((ops / PROVIDERS.length) * 100);
+    uptimeEl.textContent = pct + '%';
+    uptimeEl.className = `cs-stat-val ${pct === 100 ? 'green' : pct >= 75 ? 'amber' : 'red'}`;
   }
-
-  /* Build scrolling ticker text from live data */
-  function _buildTicker() {
-    const el = document.getElementById('csTicker');
-    if (!el) return;
-
-    const operational = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'operational').length;
-    const degraded = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'degraded').length;
-    const outages = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'outage').length;
-    const total = PROVIDERS.length;
-
-    // Build per-provider items
-    const providerItems = PROVIDERS.map(p => {
-      const s = state.statuses[p.id];
-      if (!s) return `${p.name.toUpperCase()}  CHECKING`;
-      const st = s.state === 'operational' ? '▲ OK'
-        : s.state === 'degraded' ? '▼ DEGRADED'
-          : s.state === 'outage' ? '✕ OUTAGE'
-            : '— N/A';
-      const lat = s.latency != null ? ` ${s.latency}ms` : '';
-      return `${p.name.toUpperCase()}${lat}  ${st}`;
-    }).join('    ·    ');
-
-    // System stats segment
-    const sysLine = [
-      `PROVIDERS ${total}`,
-      `OK ${operational}/${total}`,
-      degraded ? `⚠ DEGRADED ${degraded}` : null,
-      outages ? `✕ OUTAGE ${outages}` : null,
-      `REFRESH 2d`,
-      `SOURCES: STATUSPAGE.IO · GCP INCIDENTS · INSTATUS`,
-      `LIDA OPS DASHBOARD`
-    ].filter(Boolean).join('    ·    ');
-
-    const full = `${providerItems}    ◆    ${sysLine}`;
-    // Double the text so the translateX(-50%) loop is seamless
-    el.textContent = full + '          ' + full;
-    // Reset animation so the new text starts from the left
-    el.style.animation = 'none';
-    requestAnimationFrame(() => { el.style.animation = 'ticker-scroll 70s linear infinite'; });
+  if (nextEl) {
+    nextEl.textContent = '48h';
   }
-
-  /* Update UPTIME and NEXT cells */
-  function _updateRightStats() {
-    const uptimeEl = document.getElementById('csUptime');
-    const nextEl = document.getElementById('csNext');
-
-    if (uptimeEl) {
-      const ops = PROVIDERS.filter(p => state.statuses[p.id]?.state === 'operational').length;
-      const pct = Math.round((ops / PROVIDERS.length) * 100);
-      uptimeEl.textContent = pct + '%';
-      uptimeEl.className = `cs-stat-val ${pct === 100 ? 'green' : pct >= 75 ? 'amber' : 'red'}`;
-    }
-    if (nextEl) {
-      nextEl.textContent = '48h';
-    }
-  }
+}
 
 
-  // Drive SVG countdown arc (circumference = 2π × 14 ≈ 87.96)
-  function setArc(seconds) {
-    const arc = document.getElementById('countdownArc');
-    if (!arc) return;
-    const circ = 87.96;
-    // Always full arc now
-    arc.style.strokeDashoffset = '0';
-  }
+// Drive SVG countdown arc (circumference = 2π × 14 ≈ 87.96)
+function setArc(seconds) {
+  const arc = document.getElementById('countdownArc');
+  if (!arc) return;
+  const circ = 87.96;
+  // Always full arc now
+  arc.style.strokeDashoffset = '0';
+}
 
-  // Stagger cards in with spring entrance
-  function staggerCards(isInitial = false) {
-    document.querySelectorAll('.provider-card').forEach((card, i) => {
-      const delay = isInitial ? i * 65 : 25;
-      setTimeout(() => card.classList.add('card-visible'), delay);
+// Stagger cards in with spring entrance
+function staggerCards(isInitial = false) {
+  document.querySelectorAll('.provider-card').forEach((card, i) => {
+    const delay = isInitial ? i * 65 : 25;
+    setTimeout(() => card.classList.add('card-visible'), delay);
+  });
+}
+
+// Stagger history blocks per-row like telemetry data streaming in
+function staggerHistoryBlocks() {
+  document.querySelectorAll('.history-blocks').forEach(row => {
+    const blocks = row.querySelectorAll('.hb');
+    blocks.forEach((block, i) => {
+      block.classList.remove('hb-ready');
+      setTimeout(() => block.classList.add('hb-ready'), i * 4);
     });
-  }
+    // Blinking live-dot on the most recent (rightmost) block
+    const last = blocks[blocks.length - 1];
+    if (last && !last.querySelector('.hb-live-marker')) {
+      last.style.position = 'relative';
+      const dot = document.createElement('div');
+      dot.className = 'hb-live-marker';
+      last.appendChild(dot);
+    }
+  });
+}
 
-  // Stagger history blocks per-row like telemetry data streaming in
-  function staggerHistoryBlocks() {
-    document.querySelectorAll('.history-blocks').forEach(row => {
-      const blocks = row.querySelectorAll('.hb');
-      blocks.forEach((block, i) => {
-        block.classList.remove('hb-ready');
-        setTimeout(() => block.classList.add('hb-ready'), i * 4);
-      });
-      // Blinking live-dot on the most recent (rightmost) block
-      const last = blocks[blocks.length - 1];
-      if (last && !last.querySelector('.hb-live-marker')) {
-        last.style.position = 'relative';
-        const dot = document.createElement('div');
-        dot.className = 'hb-live-marker';
-        last.appendChild(dot);
-      }
-    });
-  }
+/* ══════════════════════════════════════════════════════
+   SOCIAL SHARE
+══════════════════════════════════════════════════════ */
 
-  /* ══════════════════════════════════════════════════════
-     SOCIAL SHARE
-  ══════════════════════════════════════════════════════ */
+function renderShareButtons() {
+  const container = document.getElementById('shareButtons');
+  if (!container) return;
 
-  function renderShareButtons() {
-    const container = document.getElementById('shareButtons');
-    if (!container) return;
+  const shareUrl = 'https://www.lidasoftware.online/tools/ai-status/';
+  const shareText = 'Check real-time status of OpenAI, Anthropic, Gemini, Groq, DeepSeek & more ,  live AI API monitor by @LiDaSoftware';
+  const shareTitle = 'AI API Status ,  Is it Down? | LiDa Software';
 
-    const shareUrl = 'https://www.lidasoftware.online/tools/ai-status/';
-    const shareText = 'Check real-time status of OpenAI, Anthropic, Gemini, Groq, DeepSeek & more — live AI API monitor by @LiDaSoftware';
-    const shareTitle = 'AI API Status — Is it Down? | LiDa Software';
-
-    container.innerHTML = `
+  container.innerHTML = `
     <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}"
        target="_blank" rel="noopener" class="social-share-btn share-x">
       <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -879,32 +879,32 @@ function updateRightStatsManual() {
     </button>
   `;
 
-    document.getElementById('shareCopyBtn').onclick = () => {
-      navigator.clipboard.writeText(shareUrl).then(() => showToast('Link copied to clipboard ✔'));
+  document.getElementById('shareCopyBtn').onclick = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => showToast('Link copied to clipboard ✔'));
+  };
+
+  // Native share on mobile
+  if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+    const btn = document.createElement('button');
+    btn.className = 'social-share-btn';
+    btn.innerHTML = '↗2️ Share';
+    btn.onclick = async () => {
+      try { await navigator.share({ title: shareTitle, text: shareText, url: shareUrl }); }
+      catch (e) { if (e.name !== 'AbortError') console.error(e); }
     };
-
-    // Native share on mobile
-    if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-      const btn = document.createElement('button');
-      btn.className = 'social-share-btn';
-      btn.innerHTML = '↗2️ Share';
-      btn.onclick = async () => {
-        try { await navigator.share({ title: shareTitle, text: shareText, url: shareUrl }); }
-        catch (e) { if (e.name !== 'AbortError') console.error(e); }
-      };
-      container.prepend(btn);
-    }
+    container.prepend(btn);
   }
+}
 
-  /* ══════════════════════════════════════════════════════
-     HISTORY MODAL + CANVAS CHART
-  ══════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   HISTORY MODAL + CANVAS CHART
+══════════════════════════════════════════════════════ */
 
-  // ── DOM scaffold (injected once) ─────────────────────────────
-  (function createModal() {
-    const el = document.createElement('div');
-    el.id = 'historyModal';
-    el.innerHTML = `
+// ── DOM scaffold (injected once) ─────────────────────────────
+(function createModal() {
+  const el = document.createElement('div');
+  el.id = 'historyModal';
+  el.innerHTML = `
     <div class="hm-backdrop" id="hmBackdrop"></div>
     <div class="hm-panel" role="dialog" aria-modal="true" aria-labelledby="hmTitle">
       <div class="hm-header">
@@ -917,7 +917,7 @@ function updateRightStatsManual() {
       </div>
       <div class="hm-stats" id="hmStats"></div>
       <div class="hm-chart-wrap">
-        <div class="hm-chart-title">Response latency (ms) — 90-day window</div>
+        <div class="hm-chart-title">Response latency (ms) ,  90-day window</div>
         <canvas id="historyCanvas" height="220"></canvas>
       </div>
       <div class="hm-timeline-wrap">
@@ -933,39 +933,39 @@ function updateRightStatsManual() {
       </div>
     </div>
     <div class="hm-tooltip" id="hmTooltip"></div>`;
-    document.body.appendChild(el);
+  document.body.appendChild(el);
 
-    document.getElementById('hmClose').addEventListener('click', closeHistoryModal);
-    document.getElementById('hmBackdrop').addEventListener('click', closeHistoryModal);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHistoryModal(); });
-  })();
+  document.getElementById('hmClose').addEventListener('click', closeHistoryModal);
+  document.getElementById('hmBackdrop').addEventListener('click', closeHistoryModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHistoryModal(); });
+})();
 
-  // ── Open / Close ────────────────────────────────────────────
-  function openHistoryModal(providerId) {
-    const p = PROVIDERS.find(x => x.id === providerId);
-    if (!p) return;
+// ── Open / Close ────────────────────────────────────────────
+function openHistoryModal(providerId) {
+  const p = PROVIDERS.find(x => x.id === providerId);
+  if (!p) return;
 
-    const days = state.history[p.backendId] || [];
+  const days = state.history[p.backendId] || [];
 
-    // ── Header
-    document.getElementById('hmIcon').textContent = p.icon;
-    document.getElementById('hmIcon').style.background = p.iconBg;
-    document.getElementById('hmTitle').textContent = p.name;
-    document.getElementById('hmSubtitle').textContent =
-      `${p.models} · Last 90 days`;
+  // ── Header
+  document.getElementById('hmIcon').textContent = p.icon;
+  document.getElementById('hmIcon').style.background = p.iconBg;
+  document.getElementById('hmTitle').textContent = p.name;
+  document.getElementById('hmSubtitle').textContent =
+    `${p.models} · Last 90 days`;
 
-    // ── Stats row
-    const latDays = days.filter(d => d.avg_latency != null);
-    const avgLat = latDays.length ? Math.round(latDays.reduce((a, d) => a + d.avg_latency, 0) / latDays.length) : null;
-    const minLat = latDays.length ? Math.min(...latDays.map(d => d.avg_latency)) : null;
-    const maxLat = latDays.length ? Math.max(...latDays.map(d => d.avg_latency)) : null;
-    const upDays = days.filter(d => d.status === 'operational').length;
-    const upPct = days.length ? ((upDays / days.length) * 100).toFixed(2) : null;
+  // ── Stats row
+  const latDays = days.filter(d => d.avg_latency != null);
+  const avgLat = latDays.length ? Math.round(latDays.reduce((a, d) => a + d.avg_latency, 0) / latDays.length) : null;
+  const minLat = latDays.length ? Math.min(...latDays.map(d => d.avg_latency)) : null;
+  const maxLat = latDays.length ? Math.max(...latDays.map(d => d.avg_latency)) : null;
+  const upDays = days.filter(d => d.status === 'operational').length;
+  const upPct = days.length ? ((upDays / days.length) * 100).toFixed(2) : null;
 
-    const latClass = avgLat == null ? '' : avgLat < 300 ? 'good' : avgLat < 700 ? '' : 'warn';
-    const upClass = upPct == null ? '' : upPct >= 99.9 ? 'good' : upPct >= 99 ? '' : 'warn';
+  const latClass = avgLat == null ? '' : avgLat < 300 ? 'good' : avgLat < 700 ? '' : 'warn';
+  const upClass = upPct == null ? '' : upPct >= 99.9 ? 'good' : upPct >= 99 ? '' : 'warn';
 
-    document.getElementById('hmStats').innerHTML = `
+  document.getElementById('hmStats').innerHTML = `
     <div class="hm-stat">
       <div class="hm-stat-label">Avg latency</div>
       <div class="hm-stat-value ${latClass}">${avgLat != null ? avgLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : '—'}</div>
@@ -983,270 +983,270 @@ function updateRightStatsManual() {
       <div class="hm-stat-value ${upClass}">${upPct != null ? upPct + '<small style="font-size:12px;font-weight:400;color:var(--dim)">%</small>' : '—'}</div>
     </div>`;
 
-    // ── Canvas latency chart
-    drawLatencyChart(days, p.color);
+  // ── Canvas latency chart
+  drawLatencyChart(days, p.color);
 
-    // ── Status timeline bars
-    const needed = 90 - days.length;
-    const padDays = Array(Math.max(0, needed)).fill({ status: 'unknown', date: '' });
-    const allDays = [...padDays, ...days];
+  // ── Status timeline bars
+  const needed = 90 - days.length;
+  const padDays = Array(Math.max(0, needed)).fill({ status: 'unknown', date: '' });
+  const allDays = [...padDays, ...days];
 
-    const tl = document.getElementById('hmTimeline');
-    const tooltip = document.getElementById('hmTooltip');
+  const tl = document.getElementById('hmTimeline');
+  const tooltip = document.getElementById('hmTooltip');
 
-    tl.innerHTML = allDays.map((d, i) => {
-      const cls = d.status === 'operational' ? 'op'
-        : d.status === 'degraded' ? 'mi'
-          : d.status === 'outage' ? 'ot'
-            : 'uk';
-      return `<div class="hm-bar ${cls}" data-i="${i}"></div>`;
-    }).join('');
+  tl.innerHTML = allDays.map((d, i) => {
+    const cls = d.status === 'operational' ? 'op'
+      : d.status === 'degraded' ? 'mi'
+        : d.status === 'outage' ? 'ot'
+          : 'uk';
+    return `<div class="hm-bar ${cls}" data-i="${i}"></div>`;
+  }).join('');
 
-    // Tooltip on bar hover
-    tl.querySelectorAll('.hm-bar').forEach((bar, i) => {
-      const d = allDays[i];
-      bar.addEventListener('mouseenter', e => {
-        if (!d.date) return;
-        tooltip.textContent = d.date +
-          (d.status ? '  ·  ' + d.status.charAt(0).toUpperCase() + d.status.slice(1) : '') +
-          (d.avg_latency ? '  ·  ' + d.avg_latency + 'ms avg' : '');
-        tooltip.classList.add('show');
-        positionTooltip(e);
-      });
-      bar.addEventListener('mousemove', positionTooltip);
-      bar.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  // Tooltip on bar hover
+  tl.querySelectorAll('.hm-bar').forEach((bar, i) => {
+    const d = allDays[i];
+    bar.addEventListener('mouseenter', e => {
+      if (!d.date) return;
+      tooltip.textContent = d.date +
+        (d.status ? '  ·  ' + d.status.charAt(0).toUpperCase() + d.status.slice(1) : '') +
+        (d.avg_latency ? '  ·  ' + d.avg_latency + 'ms avg' : '');
+      tooltip.classList.add('show');
+      positionTooltip(e);
     });
+    bar.addEventListener('mousemove', positionTooltip);
+    bar.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  });
 
-    // Date labels: oldest, midpoint, newest
-    const dl = document.getElementById('hmDateLabels');
-    const labels = allDays.filter(d => d.date);
-    const oldest = labels[0]?.date ?? '';
-    const mid = labels[Math.floor(labels.length / 2)]?.date ?? '';
-    const newest = labels[labels.length - 1]?.date ?? '';
-    dl.innerHTML = `<span>${oldest}</span><span>${mid}</span><span>${newest}</span>`;
+  // Date labels: oldest, midpoint, newest
+  const dl = document.getElementById('hmDateLabels');
+  const labels = allDays.filter(d => d.date);
+  const oldest = labels[0]?.date ?? '';
+  const mid = labels[Math.floor(labels.length / 2)]?.date ?? '';
+  const newest = labels[labels.length - 1]?.date ?? '';
+  dl.innerHTML = `<span>${oldest}</span><span>${mid}</span><span>${newest}</span>`;
 
-    // ── Open
-    document.getElementById('historyModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+  // ── Open
+  document.getElementById('historyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHistoryModal() {
+  document.getElementById('historyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function positionTooltip(e) {
+  const t = document.getElementById('hmTooltip');
+  if (t) {
+    t.style.left = (e.clientX + 14) + 'px';
+    t.style.top = (e.clientY - 36) + 'px';
+  }
+}
+
+
+// ── Canvas latency area chart ─────────────────────────────
+function drawLatencyChart(days, providerColor) {
+  const canvas = document.getElementById('historyCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.offsetWidth || canvas.parentElement.clientWidth || 800;
+  const H = 220;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.height = H + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const PAD = { top: 16, right: 24, bottom: 40, left: 58 };
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+
+  // ── Background
+  ctx.fillStyle = 'rgba(255,255,255,0.018)';
+  roundRect(ctx, 0, 0, W, H, 10);
+  ctx.fill();
+
+  // data with latency only
+  const latData = days
+    .map((d, i) => ({ i, val: d.avg_latency, date: d.date, status: d.status }))
+    .filter(d => d.val != null);
+
+  if (latData.length < 2) {
+    // Not enough data ,  draw friendly message
+    ctx.fillStyle = 'rgba(148,163,184,0.4)';
+    ctx.font = '14px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Not enough data yet', W / 2, H / 2);
+    return;
   }
 
-  function closeHistoryModal() {
-    document.getElementById('historyModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+  const totalSlots = Math.max(90, days.length);
+  const xOf = i => PAD.left + (i / (totalSlots - 1)) * cW;
 
-  function positionTooltip(e) {
-    const t = document.getElementById('hmTooltip');
-    if (t) {
-      t.style.left = (e.clientX + 14) + 'px';
-      t.style.top = (e.clientY - 36) + 'px';
-    }
-  }
+  const vals = latData.map(d => d.val);
+  const maxV = Math.max(...vals) * 1.15 || 1;
+  const yOf = v => PAD.top + cH - (v / maxV) * cH;
 
-
-  // ── Canvas latency area chart ─────────────────────────────
-  function drawLatencyChart(days, providerColor) {
-    const canvas = document.getElementById('historyCanvas');
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.offsetWidth || canvas.parentElement.clientWidth || 800;
-    const H = 220;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.height = H + 'px';
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-
-    const PAD = { top: 16, right: 24, bottom: 40, left: 58 };
-    const cW = W - PAD.left - PAD.right;
-    const cH = H - PAD.top - PAD.bottom;
-
-    // ── Background
-    ctx.fillStyle = 'rgba(255,255,255,0.018)';
-    roundRect(ctx, 0, 0, W, H, 10);
-    ctx.fill();
-
-    // data with latency only
-    const latData = days
-      .map((d, i) => ({ i, val: d.avg_latency, date: d.date, status: d.status }))
-      .filter(d => d.val != null);
-
-    if (latData.length < 2) {
-      // Not enough data — draw friendly message
-      ctx.fillStyle = 'rgba(148,163,184,0.4)';
-      ctx.font = '14px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Not enough data yet', W / 2, H / 2);
-      return;
-    }
-
-    const totalSlots = Math.max(90, days.length);
-    const xOf = i => PAD.left + (i / (totalSlots - 1)) * cW;
-
-    const vals = latData.map(d => d.val);
-    const maxV = Math.max(...vals) * 1.15 || 1;
-    const yOf = v => PAD.top + cH - (v / maxV) * cH;
-
-    // ── Y-axis grid lines + labels
-    const steps = 5;
-    for (let s = 0; s <= steps; s++) {
-      const v = (maxV / steps) * s;
-      const y = yOf(v);
-      ctx.beginPath();
-      ctx.strokeStyle = s === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)';
-      ctx.lineWidth = 1;
-      ctx.moveTo(PAD.left, y);
-      ctx.lineTo(PAD.left + cW, y);
-      ctx.stroke();
-
-      ctx.fillStyle = 'rgba(148,163,184,0.5)';
-      ctx.font = `10px 'JetBrains Mono', monospace`;
-      ctx.textAlign = 'right';
-      ctx.fillText(Math.round(v) + 'ms', PAD.left - 8, y + 3.5);
-    }
-
-    // ── Status band background (coloured regions per day)
-    days.forEach((d, i) => {
-      if (!d.status || d.status === 'unsupported' || d.status === 'unknown') return;
-      const x0 = xOf(i);
-      const x1 = xOf(i + 1);
-      const col = d.status === 'operational' ? 'rgba(34,197,94,0.04)'
-        : d.status === 'degraded' ? 'rgba(245,158,11,0.08)'
-          : 'rgba(239,68,68,0.10)';
-      ctx.fillStyle = col;
-      ctx.fillRect(x0, PAD.top, x1 - x0, cH);
-    });
-
-    // ── Gradient area fill
-    const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
-    grad.addColorStop(0, hexAlpha(providerColor, 0.35));
-    grad.addColorStop(1, hexAlpha(providerColor, 0.0));
-
+  // ── Y-axis grid lines + labels
+  const steps = 5;
+  for (let s = 0; s <= steps; s++) {
+    const v = (maxV / steps) * s;
+    const y = yOf(v);
     ctx.beginPath();
-    ctx.moveTo(xOf(latData[0].i), PAD.top + cH);  // baseline start
-    latData.forEach(d => ctx.lineTo(xOf(d.i), yOf(d.val)));
-    ctx.lineTo(xOf(latData[latData.length - 1].i), PAD.top + cH); // baseline end
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // ── Line
-    ctx.beginPath();
-    ctx.strokeStyle = providerColor;
-    ctx.lineWidth = 2.5;
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    latData.forEach((d, idx) => {
-      if (idx === 0) ctx.moveTo(xOf(d.i), yOf(d.val));
-      else ctx.lineTo(xOf(d.i), yOf(d.val));
-    });
-    ctx.stroke();
-
-    // ── Dots at each data point
-    latData.forEach(d => {
-      ctx.beginPath();
-      ctx.arc(xOf(d.i), yOf(d.val), 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = providerColor;
-      ctx.fill();
-      ctx.strokeStyle = '#0d0d1c';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    });
-
-    // ── Interactive hover tooltip via mouse move on canvas
-    canvas._latData = latData;
-    canvas._totalSlots = totalSlots;
-    canvas._PAD = PAD;
-    canvas._cW = cW;
-    canvas._cH = cH;
-    canvas._maxV = maxV;
-    canvas._providerColor = providerColor;
-    canvas._days = days;
-    canvas.onmousemove = canvasHover;
-    canvas.onmouseleave = () => {
-      const tip = document.getElementById('hmTooltip');
-      tip.classList.remove('show');
-      // Redraw to clear crosshair
-      drawLatencyChart(canvas._days, canvas._providerColor);
-    };
-  }
-
-  function canvasHover(e) {
-    const canvas = e.target;
-    const { _latData: latData, _totalSlots: totalSlots,
-      _PAD: PAD, _cW: cW, _cH: cH, _maxV: maxV,
-      _providerColor: color, _days: days } = canvas;
-
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-
-    // Find nearest data point
-    const xOf = i => PAD.left + (i / (totalSlots - 1)) * cW;
-    let nearest = null, nearestDist = Infinity;
-    latData.forEach(d => {
-      const dist = Math.abs(xOf(d.i) - mx);
-      if (dist < nearestDist) { nearestDist = dist; nearest = d; }
-    });
-    if (!nearest || nearestDist > cW / totalSlots * 2) return;
-
-    // Redraw to paint crosshair cleanly
-    drawLatencyChart(days, color);
-
-    const dpr = window.devicePixelRatio || 1;
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
-
-    const yOf = v => PAD.top + cH - (v / maxV) * cH;
-    const x = xOf(nearest.i);
-    const y = yOf(nearest.val);
-    const H = canvas.height / dpr;
-
-    // Vertical crosshair
-    ctx.beginPath();
-    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.strokeStyle = s === 0 ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)';
     ctx.lineWidth = 1;
-    ctx.setLineDash([4, 4]);
-    ctx.moveTo(x, PAD.top);
-    ctx.lineTo(x, PAD.top + cH);
+    ctx.moveTo(PAD.left, y);
+    ctx.lineTo(PAD.left + cW, y);
     ctx.stroke();
-    ctx.setLineDash([]);
 
-    // Highlight dot
+    ctx.fillStyle = 'rgba(148,163,184,0.5)';
+    ctx.font = `10px 'JetBrains Mono', monospace`;
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(v) + 'ms', PAD.left - 8, y + 3.5);
+  }
+
+  // ── Status band background (coloured regions per day)
+  days.forEach((d, i) => {
+    if (!d.status || d.status === 'unsupported' || d.status === 'unknown') return;
+    const x0 = xOf(i);
+    const x1 = xOf(i + 1);
+    const col = d.status === 'operational' ? 'rgba(34,197,94,0.04)'
+      : d.status === 'degraded' ? 'rgba(245,158,11,0.08)'
+        : 'rgba(239,68,68,0.10)';
+    ctx.fillStyle = col;
+    ctx.fillRect(x0, PAD.top, x1 - x0, cH);
+  });
+
+  // ── Gradient area fill
+  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
+  grad.addColorStop(0, hexAlpha(providerColor, 0.35));
+  grad.addColorStop(1, hexAlpha(providerColor, 0.0));
+
+  ctx.beginPath();
+  ctx.moveTo(xOf(latData[0].i), PAD.top + cH);  // baseline start
+  latData.forEach(d => ctx.lineTo(xOf(d.i), yOf(d.val)));
+  ctx.lineTo(xOf(latData[latData.length - 1].i), PAD.top + cH); // baseline end
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // ── Line
+  ctx.beginPath();
+  ctx.strokeStyle = providerColor;
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  latData.forEach((d, idx) => {
+    if (idx === 0) ctx.moveTo(xOf(d.i), yOf(d.val));
+    else ctx.lineTo(xOf(d.i), yOf(d.val));
+  });
+  ctx.stroke();
+
+  // ── Dots at each data point
+  latData.forEach(d => {
     ctx.beginPath();
-    ctx.arc(x, y, 6, 0, Math.PI * 2);
-    ctx.fillStyle = color;
+    ctx.arc(xOf(d.i), yOf(d.val), 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = providerColor;
     ctx.fill();
-    ctx.strokeStyle = '#fff';
+    ctx.strokeStyle = '#0d0d1c';
     ctx.lineWidth = 2;
     ctx.stroke();
+  });
 
-    // Tooltip
+  // ── Interactive hover tooltip via mouse move on canvas
+  canvas._latData = latData;
+  canvas._totalSlots = totalSlots;
+  canvas._PAD = PAD;
+  canvas._cW = cW;
+  canvas._cH = cH;
+  canvas._maxV = maxV;
+  canvas._providerColor = providerColor;
+  canvas._days = days;
+  canvas.onmousemove = canvasHover;
+  canvas.onmouseleave = () => {
     const tip = document.getElementById('hmTooltip');
-    tip.textContent = `${nearest.date}  ·  ${nearest.val}ms avg`;
-    tip.classList.add('show');
-    positionTooltip(e);
-  }
+    tip.classList.remove('show');
+    // Redraw to clear crosshair
+    drawLatencyChart(canvas._days, canvas._providerColor);
+  };
+}
 
-  // ── Helpers ───────────────────────────────────────────────────
-  function hexAlpha(hex, alpha) {
-    // Converts a CSS hex colour to rgba(r,g,b,alpha)
-    let c = hex.replace('#', '');
-    if (c.length === 3) c = c.split('').map(x => x + x).join('');
-    const r = parseInt(c.slice(0, 2), 16);
-    const g = parseInt(c.slice(2, 4), 16);
-    const b = parseInt(c.slice(4, 6), 16);
-    return `rgba(${r},${g},${b},${alpha})`;
-  }
+function canvasHover(e) {
+  const canvas = e.target;
+  const { _latData: latData, _totalSlots: totalSlots,
+    _PAD: PAD, _cW: cW, _cH: cH, _maxV: maxV,
+    _providerColor: color, _days: days } = canvas;
 
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.arcTo(x + w, y, x + w, y + r, r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
-    ctx.lineTo(x + r, y + h);
-    ctx.arcTo(x, y + h, x, y + h - r, r);
-    ctx.lineTo(x, y + r);
-    ctx.arcTo(x, y, x + r, y, r);
-    ctx.closePath();
-  }
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+
+  // Find nearest data point
+  const xOf = i => PAD.left + (i / (totalSlots - 1)) * cW;
+  let nearest = null, nearestDist = Infinity;
+  latData.forEach(d => {
+    const dist = Math.abs(xOf(d.i) - mx);
+    if (dist < nearestDist) { nearestDist = dist; nearest = d; }
+  });
+  if (!nearest || nearestDist > cW / totalSlots * 2) return;
+
+  // Redraw to paint crosshair cleanly
+  drawLatencyChart(days, color);
+
+  const dpr = window.devicePixelRatio || 1;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const yOf = v => PAD.top + cH - (v / maxV) * cH;
+  const x = xOf(nearest.i);
+  const y = yOf(nearest.val);
+  const H = canvas.height / dpr;
+
+  // Vertical crosshair
+  ctx.beginPath();
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+  ctx.moveTo(x, PAD.top);
+  ctx.lineTo(x, PAD.top + cH);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Highlight dot
+  ctx.beginPath();
+  ctx.arc(x, y, 6, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Tooltip
+  const tip = document.getElementById('hmTooltip');
+  tip.textContent = `${nearest.date}  ·  ${nearest.val}ms avg`;
+  tip.classList.add('show');
+  positionTooltip(e);
+}
+
+// ── Helpers ───────────────────────────────────────────────────
+function hexAlpha(hex, alpha) {
+  // Converts a CSS hex colour to rgba(r,g,b,alpha)
+  let c = hex.replace('#', '');
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  const r = parseInt(c.slice(0, 2), 16);
+  const g = parseInt(c.slice(2, 4), 16);
+  const b = parseInt(c.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.arcTo(x + w, y, x + w, y + r, r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+  ctx.lineTo(x + r, y + h);
+  ctx.arcTo(x, y + h, x, y + h - r, r);
+  ctx.lineTo(x, y + r);
+  ctx.arcTo(x, y, x + r, y, r);
+  ctx.closePath();
+}

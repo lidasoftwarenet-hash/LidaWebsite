@@ -1,5 +1,5 @@
 // ===== PROMPT LOGIC MODULE =====
-// Modern, adaptive prompt generation system — updated for 2026 LLM landscape
+// Modern, adaptive prompt generation system ,  updated for 2026 LLM landscape
 
 // ===== CATEGORY-AWARE ROLE DEFINITIONS =====
 // These are crafted to trigger the best performance from modern LLMs (GPT-5, Claude 4, Gemini 2.5, etc.)
@@ -61,7 +61,7 @@ const promptStyles = {
         tone: "analytical and evidence-driven",
         structure: "structured with clear reasoning sections",
         depth: "comprehensive with trade-off analysis",
-        emphasis: "Ground your recommendations in data, specific metrics, and concrete reasoning. Show your work — explain the 'why' behind each recommendation."
+        emphasis: "Ground your recommendations in data, specific metrics, and concrete reasoning. Show your work ,  explain the 'why' behind each recommendation."
     },
     creative: {
         name: "Creative Mode",
@@ -103,7 +103,7 @@ function buildOpeningBlock(template, style = 'analyst') {
     opening += `${roleInfo.role} ${roleInfo.context}\n\n`;
     opening += `**Your approach for this task should be:** ${roleInfo.approach}.\n\n`;
 
-    // Chain-of-thought priming — proven to improve output quality on all major models
+    // Chain-of-thought priming ,  proven to improve output quality on all major models
     if (roleInfo.chainOfThought) {
         opening += `**Reasoning approach:** ${roleInfo.chainOfThought}\n\n`;
     }
@@ -132,8 +132,8 @@ function buildContextBlock(data) {
         if (data.teamSize) {
             block += `- Size: ${data.teamSize}`;
             const n = extractNumber(data.teamSize);
-            if (n && n <= 3) block += ' *(small — prefer lightweight, low-overhead solutions)*';
-            else if (n && n >= 10) block += ' *(large — account for coordination, onboarding, and review throughput)*';
+            if (n && n <= 3) block += ' *(small ,  prefer lightweight, low-overhead solutions)*';
+            else if (n && n >= 10) block += ' *(large ,  account for coordination, onboarding, and review throughput)*';
             block += '\n';
         }
         if (data.teamExperience) block += `- Experience: ${data.teamExperience}\n`;
@@ -143,7 +143,7 @@ function buildContextBlock(data) {
         block += '\n**Timeline:**\n';
         if (data.timeframe) {
             block += `- Duration: ${data.timeframe}`;
-            if (isShortTimeframe(data.timeframe)) block += ' *(tight — prioritize quick wins and an MVP subset)*';
+            if (isShortTimeframe(data.timeframe)) block += ' *(tight ,  prioritize quick wins and an MVP subset)*';
             block += '\n';
         }
         if (data.deadline) block += `- Hard deadline: ${data.deadline}\n`;
@@ -166,7 +166,7 @@ function buildProblemBlock(data) {
     const constraints = [];
     if (data.technicalConstraints) constraints.push(`**Technical constraints:** ${data.technicalConstraints}`);
     if (data.businessConstraints) constraints.push(`**Business constraints:** ${data.businessConstraints}`);
-    if (data.budget) constraints.push(`**Budget:** ${data.budget} — favor cost-effective, high-ROI approaches`);
+    if (data.budget) constraints.push(`**Budget:** ${data.budget} ,  favor cost-effective, high-ROI approaches`);
     if (data.resources) constraints.push(`**Available resources:** ${data.resources}`);
 
     if (constraints.length > 0) {
@@ -225,7 +225,7 @@ function buildStakeholdersBlock(data) {
 }
 
 /**
- * Build the output format block — highly specific to drive predictable LLM output
+ * Build the output format block ,  highly specific to drive predictable LLM output
  */
 function buildFinalRequestBlock(data, style = 'analyst') {
     let block = '## 📤 Required Output Format\n\n';
@@ -241,7 +241,7 @@ function buildFinalRequestBlock(data, style = 'analyst') {
         if (data.tone) {
             const toneDescriptions = {
                 "formal": "Use **formal, executive-ready language** suitable for Slack announcements, design docs, or stakeholder presentations.",
-                "casual": "Use **direct, casual developer language** — like explaining to a senior colleague in a Slack DM.",
+                "casual": "Use **direct, casual developer language** ,  like explaining to a senior colleague in a Slack DM.",
                 "technical": "Use **precise technical language** with exact terminology. Assume a senior engineer audience."
             };
             block += `**Tone:** ${toneDescriptions[data.tone] || data.tone}\n`;
@@ -251,7 +251,7 @@ function buildFinalRequestBlock(data, style = 'analyst') {
             const formatInstructions = {
                 "markdown": "Format using **standard Markdown** (H2 headers, numbered lists for steps, code fences with language tags, bold for emphasis).",
                 "bullets": "Use **nested bullet points** as the primary structure. Each bullet should be a complete, actionable statement.",
-                "code-comments": "Present the response as **commented code** — code blocks with explanatory inline comments, ready to paste into source files."
+                "code-comments": "Present the response as **commented code** ,  code blocks with explanatory inline comments, ready to paste into source files."
             };
             block += `**Markup format:** ${formatInstructions[data.responseFormat] || data.responseFormat}\n`;
         }
@@ -263,7 +263,7 @@ function buildFinalRequestBlock(data, style = 'analyst') {
 }
 
 /**
- * Build the closing block — final reminders that reduce LLM omissions
+ * Build the closing block ,  final reminders that reduce LLM omissions
  */
 function buildClosingBlock(data, template) {
     let block = '---\n\n';
@@ -282,7 +282,7 @@ function buildClosingBlock(data, template) {
     }
 
     block += '**Final expectations:**\n';
-    block += '- Address every section in the prompt above — do not skip any\n';
+    block += '- Address every section in the prompt above ,  do not skip any\n';
     block += '- If a requirement is ambiguous, state your assumption and proceed\n';
     block += '- Call out risks, trade-offs, and potential failure points explicitly\n';
     block += '- End with a clear, prioritized "next steps" list the user can act on immediately\n';
@@ -293,7 +293,7 @@ function buildClosingBlock(data, template) {
 // ===== INTELLIGENT PROMPT GENERATION =====
 
 /**
- * Main function — generates adaptive, structured prompts tuned for modern LLMs
+ * Main function ,  generates adaptive, structured prompts tuned for modern LLMs
  */
 function generateIntelligentPrompt(data, template, options = {}) {
     const style = options.style || 'analyst';
@@ -354,7 +354,7 @@ function isShortTimeframe(timeframe) {
 }
 
 /**
- * Generate prompt variants — short / balanced / detailed
+ * Generate prompt variants ,  short / balanced / detailed
  */
 function generatePromptVariants(data, template, options = {}) {
     const basePrompt = generateIntelligentPrompt(data, template, options);
