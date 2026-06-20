@@ -188,7 +188,7 @@
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -218,7 +218,7 @@
 
         <h2>The Problem</h2>
         <p>
-            AI assistants like ChatGPT, Claude, and Copilot are amazing—until they lie to you. They confidently generate
+            AI assistants like ChatGPT, Claude, and Copilot are amazing,until they lie to you. They confidently generate
             code with:
         </p>
         <ul>
@@ -242,9 +242,11 @@
             <h3>🔍 What It Checks</h3>
             <ul>
                 <li><strong>Python:</strong> Fake methods like <code>list.push()</code>, wrong imports like
-                    <code>os.exists()</code>, Python 2 syntax</li>
+                    <code>os.exists()</code>, Python 2 syntax
+                </li>
                 <li><strong>JavaScript:</strong> Typos like <code>fs.existSync</code>, non-existent methods like
-                    <code>.contains()</code>, Python-style booleans</li>
+                    <code>.contains()</code>, Python-style booleans
+                </li>
                 <li><strong>Java & Go (Beta):</strong> Common AI mistakes in these languages</li>
             </ul>
         </div>
@@ -269,7 +271,7 @@ def process_data(file_path):
         <ol>
             <li><code>json.load()</code> expects a file object, not a string path</li>
             <li>Python lists use <code>.append()</code>, not <code>.push()</code></li>
-            <li><code>os.exists</code> doesn't exist—it's <code>os.path.exists</code></li>
+            <li><code>os.exists</code> doesn't exist,it's <code>os.path.exists</code></li>
         </ol>
 
         <h2>Real Example: JavaScript Hallucination</h2>
@@ -290,7 +292,7 @@ function saveData(data) {
         </p>
         <ol>
             <li><code>fs.existSync</code> should be <code>fs.existsSync</code> (with an 's')</li>
-            <li>Arrays don't have a <code>.remove()</code> method—use <code>.splice()</code> or <code>.filter()</code>
+            <li>Arrays don't have a <code>.remove()</code> method,use <code>.splice()</code> or <code>.filter()</code>
             </li>
         </ol>
 

@@ -263,7 +263,7 @@ function renderCard(provider, status) {
   const badgeLabel = isUnsupported ? 'No public API' : s.label;
 
   // Latency: show measured value only for live providers
-  const latencyValue = (isLive && s.latency != null) ? `${s.latency}ms` : '—';
+  const latencyValue = (isLive && s.latency != null) ? `${s.latency}ms` : ',';
   const latencyClass = !isLive ? 'dim'
     : s.latency < 300 ? 'good'
       : s.latency < 700 ? ''
@@ -273,7 +273,7 @@ function renderCard(provider, status) {
   const bmark = !isLive ? '<span class="bmark">est.</span>' : '';
 
   const uptimeClass = p.uptime90 >= 99.9 ? 'good' : p.uptime90 >= 99.5 ? '' : 'warn';
-  const checkedStr = s.checkedAt ? timeAgo(s.checkedAt) : '—';
+  const checkedStr = s.checkedAt ? timeAgo(s.checkedAt) : ',';
 
   // Caveat for unsupported providers
   const caveat = isUnsupported
@@ -736,7 +736,7 @@ function _buildChips() {
 
   wrap.innerHTML = PROVIDERS.map(p => {
     const s = state.statuses[p.id];
-    let cls = 'unk', latTxt = '—';
+    let cls = 'unk', latTxt = ',';
     if (s) {
       cls = s.state === 'operational' ? 'op'
         : s.state === 'degraded' ? 'deg'
@@ -768,7 +768,7 @@ function _buildTicker() {
     const st = s.state === 'operational' ? '▲ OK'
       : s.state === 'degraded' ? '▼ DEGRADED'
         : s.state === 'outage' ? '✕ OUTAGE'
-          : '— N/A';
+          : ', N/A';
     const lat = s.latency != null ? ` ${s.latency}ms` : '';
     return `${p.name.toUpperCase()}${lat}  ${st}`;
   }).join('    ·    ');
@@ -968,19 +968,19 @@ function openHistoryModal(providerId) {
   document.getElementById('hmStats').innerHTML = `
     <div class="hm-stat">
       <div class="hm-stat-label">Avg latency</div>
-      <div class="hm-stat-value ${latClass}">${avgLat != null ? avgLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : '—'}</div>
+      <div class="hm-stat-value ${latClass}">${avgLat != null ? avgLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : ','}</div>
     </div>
     <div class="hm-stat">
       <div class="hm-stat-label">Best day</div>
-      <div class="hm-stat-value good">${minLat != null ? minLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : '—'}</div>
+      <div class="hm-stat-value good">${minLat != null ? minLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : ','}</div>
     </div>
     <div class="hm-stat">
       <div class="hm-stat-label">Worst day</div>
-      <div class="hm-stat-value warn">${maxLat != null ? maxLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : '—'}</div>
+      <div class="hm-stat-value warn">${maxLat != null ? maxLat + '<small style="font-size:12px;font-weight:400;color:var(--dim)">ms</small>' : ','}</div>
     </div>
     <div class="hm-stat">
       <div class="hm-stat-label">Uptime</div>
-      <div class="hm-stat-value ${upClass}">${upPct != null ? upPct + '<small style="font-size:12px;font-weight:400;color:var(--dim)">%</small>' : '—'}</div>
+      <div class="hm-stat-value ${upClass}">${upPct != null ? upPct + '<small style="font-size:12px;font-weight:400;color:var(--dim)">%</small>' : ','}</div>
     </div>`;
 
   // ── Canvas latency chart

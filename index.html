@@ -115,7 +115,7 @@
 
 
     .nav-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 20px;
       display: flex;
@@ -595,6 +595,7 @@
     .category-container {
       margin-bottom: 70px;
     }
+
     .category-title {
       font-size: 1.6em;
       color: #fff;
@@ -607,6 +608,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .category-title::before {
       content: '';
       display: inline-block;
@@ -615,12 +617,14 @@
       background: linear-gradient(180deg, #667eea, #a78bfa);
       border-radius: 2px;
     }
+
     .tool-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 24px;
     }
+
     .tool-tag {
       font-size: 0.72em;
       font-weight: 600;
@@ -630,31 +634,37 @@
       text-transform: uppercase;
       display: inline-block;
     }
+
     .tag-local {
       background: rgba(102, 126, 234, 0.12);
       border: 1px solid rgba(102, 126, 234, 0.3);
       color: #818cf8;
     }
+
     .tag-utility {
       background: rgba(167, 139, 250, 0.12);
       border: 1px solid rgba(167, 139, 250, 0.3);
       color: #a78bfa;
     }
+
     .tag-ai {
       background: rgba(244, 63, 94, 0.12);
       border: 1px solid rgba(244, 63, 94, 0.3);
       color: #fb7185;
     }
+
     .tag-validator {
       background: rgba(16, 185, 129, 0.12);
       border: 1px solid rgba(16, 185, 129, 0.3);
       color: #34d399;
     }
+
     .tag-formatter {
       background: rgba(245, 158, 11, 0.12);
       border: 1px solid rgba(245, 158, 11, 0.3);
       color: #fbbf24;
     }
+
     .tag-chrome {
       background: rgba(14, 165, 233, 0.12);
       border: 1px solid rgba(14, 165, 233, 0.3);
@@ -2218,32 +2228,39 @@
       .category-container {
         margin-bottom: 48px;
       }
+
       .category-title {
         font-size: 1.25em;
         margin-bottom: 18px;
         padding-bottom: 10px;
       }
+
       .tool-tags {
         gap: 6px;
         margin-bottom: 18px;
       }
+
       .tool-tag {
         font-size: 0.68em;
         padding: 3px 8px;
       }
+
       /* Projects section padding */
       .projects-section {
         padding-left: 16px;
         padding-right: 16px;
       }
+
       /* Prevent nav-social icons from causing horizontal overflow */
       .nav-social {
         gap: 6px;
       }
+
       .nav-social a svg {
         width: 18px;
         height: 18px;
       }
+
       /* Featured section heading */
       .section-title {
         font-size: 1.9em;
@@ -2254,15 +2271,18 @@
       .category-title {
         font-size: 1.1em;
       }
+
       .tool-tag {
         font-size: 0.65em;
         padding: 3px 7px;
       }
+
       /* Stack CTA buttons */
       .hero-buttons {
         flex-direction: column;
         align-items: flex-start;
       }
+
       /* Prevent long nav link text from overflowing mobile drawer */
       .nav-links a {
         font-size: 0.95em;
@@ -2270,8 +2290,15 @@
     }
 
     /* ── Overflow prevention ── */
-    img, svg, video { max-width: 100%; }
-    * { word-break: break-word; }
+    img,
+    svg,
+    video {
+      max-width: 100%;
+    }
+
+    * {
+      word-break: break-word;
+    }
 
     /* ── Command Center trigger ── */
     .cmd-trigger-row {
@@ -2279,33 +2306,54 @@
       justify-content: center;
       margin-top: 24px;
     }
+
     .cmd-trigger-btn {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       padding: 10px 16px 10px 14px;
       border-radius: 99px;
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, .05);
       border: none;
-      cursor: pointer; transition: background .2s, box-shadow .2s;
-      font-family: inherit; width: 220px; max-width: 90vw;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      font-family: inherit;
+      width: 220px;
+      max-width: 90vw;
     }
+
     .cmd-trigger-btn:hover {
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 0 0 1px rgba(167,139,250,.25);
+      background: rgba(255, 255, 255, .08);
+      box-shadow: 0 0 0 1px rgba(167, 139, 250, .25);
     }
+
     .cmd-trigger-btn svg {
-      width: 15px; height: 15px; stroke: #64748b;
-      fill: none; stroke-width: 2; flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      stroke: #64748b;
+      fill: none;
+      stroke-width: 2;
+      flex-shrink: 0;
     }
+
     .cmd-trigger-label {
-      flex: 1; text-align: left;
-      font-size: 13px; font-weight: 400;
-      color: #64748b; letter-spacing: 0;
+      flex: 1;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 400;
+      color: #64748b;
+      letter-spacing: 0;
     }
+
     .cmd-trigger-kb {
-      font-size: 11px; font-weight: 600; color: #475569;
-      background: rgba(255,255,255,.07);
-      padding: 2px 7px; border-radius: 5px;
-      font-family: inherit; flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+      background: rgba(255, 255, 255, .07);
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-family: inherit;
+      flex-shrink: 0;
       letter-spacing: .02em;
     }
 
@@ -2318,6 +2366,7 @@
       margin-right: auto;
       text-align: center;
     }
+
     .video-section-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -2329,10 +2378,13 @@
       color: #a78bfa;
       margin-bottom: 14px;
     }
+
     .video-section-eyebrow svg {
-      width: 13px; height: 13px;
+      width: 13px;
+      height: 13px;
       fill: #a78bfa;
     }
+
     .video-section-title {
       font-size: clamp(1.15rem, 2.5vw, 1.45rem);
       font-weight: 700;
@@ -2342,6 +2394,7 @@
       background: none;
       -webkit-text-fill-color: #e2e8f0;
     }
+
     .video-section-sub {
       font-size: 0.92rem;
       color: #64748b;
@@ -2351,33 +2404,38 @@
       margin-right: auto;
       line-height: 1.6;
     }
+
     /* Card wrapper */
     .video-card {
       position: relative;
       border-radius: 18px;
       overflow: hidden;
-      border: 1px solid rgba(102,126,234,.22);
+      border: 1px solid rgba(102, 126, 234, .22);
       box-shadow:
-        0 0 0 1px rgba(167,139,250,.06),
-        0 8px 32px rgba(0,0,0,.45),
-        0 0 60px rgba(102,126,234,.08);
+        0 0 0 1px rgba(167, 139, 250, .06),
+        0 8px 32px rgba(0, 0, 0, .45),
+        0 0 60px rgba(102, 126, 234, .08);
       background: #0f0f1a;
       transition: box-shadow .35s ease, transform .35s ease;
     }
+
     .video-card:hover {
       box-shadow:
-        0 0 0 1px rgba(167,139,250,.2),
-        0 16px 48px rgba(0,0,0,.55),
-        0 0 80px rgba(102,126,234,.18);
+        0 0 0 1px rgba(167, 139, 250, .2),
+        0 16px 48px rgba(0, 0, 0, .55),
+        0 0 80px rgba(102, 126, 234, .18);
       transform: translateY(-3px);
     }
+
     /* 16:9 aspect ratio wrapper */
     .video-ratio {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 */
+      padding-top: 56.25%;
+      /* 16:9 */
       background: #050508;
     }
+
     /* Thumbnail */
     .video-thumb {
       position: absolute;
@@ -2388,22 +2446,23 @@
       display: block;
       transition: transform .5s ease, filter .5s ease;
     }
+
     .video-card:hover .video-thumb {
       transform: scale(1.03);
       filter: brightness(.85);
     }
+
     /* Gradient overlay on thumbnail */
     .video-thumb-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(5,5,12,.1) 0%,
-        rgba(5,5,12,.35) 60%,
-        rgba(5,5,12,.7) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(5, 5, 12, .1) 0%,
+          rgba(5, 5, 12, .35) 60%,
+          rgba(5, 5, 12, .7) 100%);
       pointer-events: none;
     }
+
     /* Play button */
     .video-play-btn {
       position: absolute;
@@ -2420,29 +2479,34 @@
       align-items: center;
       justify-content: center;
       box-shadow:
-        0 0 0 6px rgba(167,139,250,.15),
-        0 8px 24px rgba(102,126,234,.5);
-      transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease;
+        0 0 0 6px rgba(167, 139, 250, .15),
+        0 8px 24px rgba(102, 126, 234, .5);
+      transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s ease;
       z-index: 2;
     }
+
     .video-play-btn:hover,
     .video-play-btn:focus-visible {
       transform: translate(-50%, -50%) scale(1.12);
       box-shadow:
-        0 0 0 10px rgba(167,139,250,.2),
-        0 12px 32px rgba(102,126,234,.65);
+        0 0 0 10px rgba(167, 139, 250, .2),
+        0 12px 32px rgba(102, 126, 234, .65);
       outline: none;
     }
+
     .video-play-btn:focus-visible {
       outline: 2px solid #a78bfa;
       outline-offset: 4px;
     }
+
     .video-play-btn svg {
       width: 26px;
       height: 26px;
       fill: #fff;
-      margin-left: 4px; /* optical offset for play triangle */
+      margin-left: 4px;
+      /* optical offset for play triangle */
     }
+
     /* Bottom label strip */
     .video-card-label {
       position: absolute;
@@ -2456,12 +2520,14 @@
       gap: 8px;
       pointer-events: none;
     }
+
     .video-card-label-text {
       font-size: 12px;
       font-weight: 600;
-      color: rgba(255,255,255,.75);
+      color: rgba(255, 255, 255, .75);
       letter-spacing: .02em;
     }
+
     .video-card-label-cta {
       font-size: 11px;
       font-weight: 700;
@@ -2469,43 +2535,52 @@
       text-transform: uppercase;
       letter-spacing: .1em;
     }
+
     /* Iframe (hidden until clicked) */
     .video-iframe-wrap {
       position: absolute;
       inset: 0;
       display: none;
     }
+
     .video-iframe-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
     }
+
     /* Mobile tweaks */
     @media (max-width: 768px) {
       .video-section {
         margin-top: 40px;
       }
+
       .video-play-btn {
         width: 60px;
         height: 60px;
       }
+
       .video-play-btn svg {
         width: 22px;
         height: 22px;
       }
     }
+
     @media (max-width: 480px) {
       .video-section {
         margin-top: 32px;
       }
+
       .video-section-title {
         font-size: 1.05rem;
       }
+
       .video-play-btn {
         width: 52px;
         height: 52px;
       }
+
       .video-play-btn svg {
         width: 19px;
         height: 19px;
@@ -2514,131 +2589,330 @@
 
     /* overlay */
     .cmd-overlay {
-      position: fixed; inset: 0; z-index: 900;
-      background: rgba(5,5,12,.8); backdrop-filter: blur(10px);
-      display: flex; align-items: flex-start; justify-content: center;
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(5, 5, 12, .8);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
       padding: 80px 16px 16px;
-      opacity: 0; pointer-events: none;
+      opacity: 0;
+      pointer-events: none;
       transition: opacity .25s ease;
     }
-    .cmd-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cmd-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
     @media(max-width: 600px) {
-      .cmd-overlay { align-items: flex-end; padding: 0; }
+      .cmd-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
     }
 
     /* panel */
     .cmd-panel {
-      width: 100%; max-width: 640px; max-height: calc(100vh - 120px);
-      background: #0f0f1a; border: 1px solid rgba(102,126,234,.25);
-      border-radius: 16px; display: flex; flex-direction: column;
-      box-shadow: 0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(102,126,234,.1);
-      transform: translateY(-16px); opacity: 0; overflow: hidden;
-      transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s ease;
+      width: 100%;
+      max-width: 640px;
+      max-height: calc(100vh - 120px);
+      background: #0f0f1a;
+      border: 1px solid rgba(102, 126, 234, .25);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(102, 126, 234, .1);
+      transform: translateY(-16px);
+      opacity: 0;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(.22, 1, .36, 1), opacity .25s ease;
     }
-    .cmd-overlay.open .cmd-panel { transform: translateY(0); opacity: 1; }
+
+    .cmd-overlay.open .cmd-panel {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
     @media(max-width: 600px) {
-      .cmd-panel { max-height: 88vh; border-radius: 16px 16px 0 0; max-width: 100%; }
+      .cmd-panel {
+        max-height: 88vh;
+        border-radius: 16px 16px 0 0;
+        max-width: 100%;
+      }
     }
+
     @media(prefers-reduced-motion: reduce) {
-      .cmd-overlay, .cmd-panel { transition: none; }
+
+      .cmd-overlay,
+      .cmd-panel {
+        transition: none;
+      }
     }
 
     /* search bar */
     .cmd-search-row {
-      display: flex; align-items: center; gap: 10px;
-      padding: 16px 18px; border-bottom: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
       flex-shrink: 0;
     }
-    .cmd-search-icon { color: #667eea; flex-shrink: 0; }
-    .cmd-search-icon svg { width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2; }
+
+    .cmd-search-icon {
+      color: #667eea;
+      flex-shrink: 0;
+    }
+
+    .cmd-search-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
     #cmdInput {
-      flex: 1; background: transparent; border: none; outline: none;
-      font-size: 15px; font-weight: 500; color: #e2e8f0;
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      font-weight: 500;
+      color: #e2e8f0;
       font-family: 'Inter', -apple-system, sans-serif;
-      caret-color: #667eea; min-width: 0;
+      caret-color: #667eea;
+      min-width: 0;
     }
-    #cmdInput::placeholder { color: #475569; }
+
+    #cmdInput::placeholder {
+      color: #475569;
+    }
+
     .cmd-close-btn {
-      width: 28px; height: 28px; border-radius: 6px; border: 1px solid rgba(255,255,255,.1);
-      background: transparent; cursor: pointer; display: flex; align-items: center;
-      justify-content: center; color: #94a3b8; transition: all .2s; flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all .2s;
+      flex-shrink: 0;
     }
-    .cmd-close-btn:hover { background: rgba(255,255,255,.07); color: #fff; }
-    .cmd-close-btn svg { width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2; }
+
+    .cmd-close-btn:hover {
+      background: rgba(255, 255, 255, .07);
+      color: #fff;
+    }
+
+    .cmd-close-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
 
     /* results */
-    .cmd-results { overflow-y: auto; flex: 1; padding: 8px 0 10px; }
+    .cmd-results {
+      overflow-y: auto;
+      flex: 1;
+      padding: 8px 0 10px;
+    }
+
     .cmd-group-label {
-      font-size: 10px; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: #475569;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #475569;
       padding: 10px 18px 5px;
     }
+
     .cmd-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 10px 18px; cursor: pointer; text-decoration: none;
-      border-radius: 0; transition: background .15s;
-      outline: none; min-height: 44px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 0;
+      transition: background .15s;
+      outline: none;
+      min-height: 44px;
     }
-    .cmd-item:hover, .cmd-item:focus, .cmd-item.active {
-      background: rgba(102,126,234,.1);
+
+    .cmd-item:hover,
+    .cmd-item:focus,
+    .cmd-item.active {
+      background: rgba(102, 126, 234, .1);
     }
+
     .cmd-item-icon {
-      width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-      background: rgba(102,126,234,.1); border: 1px solid rgba(102,126,234,.2);
-      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      background: rgba(102, 126, 234, .1);
+      border: 1px solid rgba(102, 126, 234, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
     }
-    .cmd-item-icon svg { width:15px;height:15px;stroke:var(--icon-color,#667eea);fill:none;stroke-width:1.8; }
-    .cmd-item-icon.green { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.2); }
-    .cmd-item-icon.green svg { stroke: #4ade80; }
-    .cmd-item-icon.amber { background: rgba(251,191,36,.1); border-color: rgba(251,191,36,.2); }
-    .cmd-item-icon.amber svg { stroke: #fbbf24; }
-    .cmd-item-icon.purple { background: rgba(167,139,250,.1); border-color: rgba(167,139,250,.2); }
-    .cmd-item-icon.purple svg { stroke: #a78bfa; }
-    .cmd-item-body { flex: 1; min-width: 0; }
-    .cmd-item-title { font-size: 13.5px; font-weight: 600; color: #e2e8f0; line-height: 1.35; }
-    .cmd-item-desc { font-size: 11.5px; color: #64748b; line-height: 1.45; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .cmd-item-icon svg {
+      width: 15px;
+      height: 15px;
+      stroke: var(--icon-color, #667eea);
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .cmd-item-icon.green {
+      background: rgba(34, 197, 94, .1);
+      border-color: rgba(34, 197, 94, .2);
+    }
+
+    .cmd-item-icon.green svg {
+      stroke: #4ade80;
+    }
+
+    .cmd-item-icon.amber {
+      background: rgba(251, 191, 36, .1);
+      border-color: rgba(251, 191, 36, .2);
+    }
+
+    .cmd-item-icon.amber svg {
+      stroke: #fbbf24;
+    }
+
+    .cmd-item-icon.purple {
+      background: rgba(167, 139, 250, .1);
+      border-color: rgba(167, 139, 250, .2);
+    }
+
+    .cmd-item-icon.purple svg {
+      stroke: #a78bfa;
+    }
+
+    .cmd-item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cmd-item-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.35;
+    }
+
+    .cmd-item-desc {
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.45;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .cmd-item-tag {
-      font-size: 10px; font-weight: 700; padding: 2px 8px;
-      border-radius: 99px; letter-spacing: .06em; flex-shrink: 0;
-      align-self: center; margin-top: 1px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      letter-spacing: .06em;
+      flex-shrink: 0;
+      align-self: center;
+      margin-top: 1px;
     }
-    .tag-tool { background: rgba(102,126,234,.12); border: 1px solid rgba(102,126,234,.25); color: #818cf8; }
-    .tag-eng  { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.2); color: #a78bfa; }
-    .tag-svc  { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.2); color: #fbbf24; }
-    .tag-cta  { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25); color: #4ade80; }
+
+    .tag-tool {
+      background: rgba(102, 126, 234, .12);
+      border: 1px solid rgba(102, 126, 234, .25);
+      color: #818cf8;
+    }
+
+    .tag-eng {
+      background: rgba(167, 139, 250, .1);
+      border: 1px solid rgba(167, 139, 250, .2);
+      color: #a78bfa;
+    }
+
+    .tag-svc {
+      background: rgba(251, 191, 36, .08);
+      border: 1px solid rgba(251, 191, 36, .2);
+      color: #fbbf24;
+    }
+
+    .tag-cta {
+      background: rgba(34, 197, 94, .1);
+      border: 1px solid rgba(34, 197, 94, .25);
+      color: #4ade80;
+    }
 
     /* spotlight item */
     .cmd-spotlight {
       margin: 8px 10px 4px;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(102,126,234,.12) 0%, rgba(167,139,250,.09) 100%);
-      border: 1px solid rgba(102,126,234,.3);
+      background: linear-gradient(135deg, rgba(102, 126, 234, .12) 0%, rgba(167, 139, 250, .09) 100%);
+      border: 1px solid rgba(102, 126, 234, .3);
     }
-    .cmd-spotlight .cmd-item-title { color: #c4b5fd; }
-    .cmd-spotlight .cmd-item-desc { color: #818cf8; white-space: normal; }
+
+    .cmd-spotlight .cmd-item-title {
+      color: #c4b5fd;
+    }
+
+    .cmd-spotlight .cmd-item-desc {
+      color: #818cf8;
+      white-space: normal;
+    }
 
     /* empty state */
     .cmd-empty {
-      padding: 40px 20px; text-align: center;
-      font-size: 13px; color: #475569;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #475569;
     }
 
     /* footer hint */
     .cmd-footer {
-      border-top: 1px solid rgba(255,255,255,.06);
-      padding: 8px 18px; display: flex; gap: 16px; align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      padding: 8px 18px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
       flex-shrink: 0;
     }
+
     .cmd-footer-hint {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11px; color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #334155;
     }
+
     .cmd-footer-hint kbd {
-      display: inline-block; padding: 2px 5px;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 4px; font-size: 10px;
-      background: rgba(255,255,255,.04);
-      color: #64748b; font-family: inherit;
+      display: inline-block;
+      padding: 2px 5px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 4px;
+      font-size: 10px;
+      background: rgba(255, 255, 255, .04);
+      color: #64748b;
+      font-family: inherit;
     }
   </style>
   <script type="application/ld+json">
@@ -2738,6 +3012,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="engineering.html">Engineering</a></li>
+        <li><a href="interview-prep.html">Interview Prep</a></li>
         <li><a href="#contact">Contact</a></li>
         <!-- <li><a href="tutorials/index.html">Tutorials</a></li> -->
         <li><a href="powers-your-business/you-business.html">Payment Solutions</a></li>
@@ -2791,8 +3066,12 @@
           </svg>
         </a>
         <div class="cmd-trigger-row">
-          <button class="cmd-trigger-btn" id="cmdTrigger" aria-haspopup="dialog" aria-expanded="false" aria-label="Open command center">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <button class="cmd-trigger-btn" id="cmdTrigger" aria-haspopup="dialog" aria-expanded="false"
+            aria-label="Open command center">
+            <svg viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
             <span class="cmd-trigger-label">Jump to...</span>
             <span class="cmd-trigger-kb" id="cmdKbHint">Ctrl K</span>
           </button>
@@ -2801,34 +3080,29 @@
         <!-- ── Promo Video Section ── -->
         <div class="video-section" id="videoSection">
           <div class="video-section-eyebrow">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z" />
+            </svg>
             LiDa Software
           </div>
           <h2 class="video-section-title">Watch the LiDa Software Intro</h2>
-          <p class="video-section-sub">A quick look at the tools, engineering approach, and software solutions behind LiDa Software.</p>
+          <p class="video-section-sub">A quick look at the tools, engineering approach, and software solutions behind
+            LiDa Software.</p>
 
           <div class="video-card" id="videoCard">
             <div class="video-ratio">
               <!-- Thumbnail preview -->
-              <img
-                id="videoThumb"
-                class="video-thumb"
-                src="https://img.youtube.com/vi/rGqDcWYv114/maxresdefault.jpg"
-                alt="LiDa Software Intro Video preview thumbnail"
-                loading="lazy"
-                onerror="this.src='https://img.youtube.com/vi/rGqDcWYv114/hqdefault.jpg'"
-              />
+              <img id="videoThumb" class="video-thumb"
+                src="https://img.youtube.com/vi/rGqDcWYv114/maxresdefault.jpg?t=20260620"
+                alt="LiDa Software Intro Video preview thumbnail" loading="lazy"
+                onerror="this.src='https://img.youtube.com/vi/rGqDcWYv114/hqdefault.jpg?t=20260620'" />
               <div class="video-thumb-overlay"></div>
 
               <!-- Play button -->
-              <button
-                class="video-play-btn"
-                id="videoPlayBtn"
-                aria-label="Play LiDa Software intro video"
-                type="button"
-              >
+              <button class="video-play-btn" id="videoPlayBtn" aria-label="Play LiDa Software intro video"
+                type="button">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M8 5v14l11-7z"/>
+                  <path d="M8 5v14l11-7z" />
                 </svg>
               </button>
 
@@ -2988,7 +3262,7 @@
       <div class="category-container">
         <h3 class="category-title">Featured Tools</h3>
         <div class="projects-grid">
-          
+
           <!-- Lida PaletteForge -->
           <div class="project-card fade-in" id="tool-palette-forge">
             <div class="project-icon">🎨</div>
@@ -3001,7 +3275,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="palette-forge/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="450" data-usage-max="1200" data-usage-label="palettes forged this month">
+            <div class="tool-usage" data-usage-min="450" data-usage-max="1200"
+              data-usage-label="palettes forged this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3019,7 +3294,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="520" data-usage-max="1600" data-usage-label="diffs reviewed this month">
+            <div class="tool-usage" data-usage-min="520" data-usage-max="1600"
+              data-usage-label="diffs reviewed this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3037,7 +3313,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/envValidator/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="290" data-usage-max="880" data-usage-label=".env files validated this month">
+            <div class="tool-usage" data-usage-min="290" data-usage-max="880"
+              data-usage-label=".env files validated this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3054,7 +3331,8 @@
               <span class="tool-tag tag-local">Local</span>
               <span class="tool-tag tag-utility">Productivity</span>
             </div>
-            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">Open Extension →</a>
+            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
+              class="project-link">Open Extension →</a>
           </div>
 
         </div>
@@ -3078,7 +3356,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/jsonToZod/json-to-zod-converter.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="900" data-usage-max="2200" data-usage-label="schemas generated this month">
+            <div class="tool-usage" data-usage-min="900" data-usage-max="2200"
+              data-usage-label="schemas generated this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3095,7 +3374,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/jsonToProtobuf/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="200" data-usage-max="650" data-usage-label=".proto files built this month">
+            <div class="tool-usage" data-usage-min="200" data-usage-max="650"
+              data-usage-label=".proto files built this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3113,7 +3393,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/jsonBeautifier/json-beautifier.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="1800" data-usage-max="4500" data-usage-label="JSONs cleaned this month">
+            <div class="tool-usage" data-usage-min="1800" data-usage-max="4500"
+              data-usage-label="JSONs cleaned this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3131,7 +3412,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/envValidator/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="290" data-usage-max="880" data-usage-label=".env files validated this month">
+            <div class="tool-usage" data-usage-min="290" data-usage-max="880"
+              data-usage-label=".env files validated this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3157,7 +3439,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/aiCodeDiff/the-code-diff-viewer.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="520" data-usage-max="1600" data-usage-label="diffs reviewed this month">
+            <div class="tool-usage" data-usage-min="520" data-usage-max="1600"
+              data-usage-label="diffs reviewed this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3175,7 +3458,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/ai-hallucination-spotter/ai-hallucination-spotter.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="700" data-usage-max="2100" data-usage-label="hallucinations caught this month">
+            <div class="tool-usage" data-usage-min="700" data-usage-max="2100"
+              data-usage-label="hallucinations caught this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3192,7 +3476,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/ai-selector/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="1200" data-usage-max="3200" data-usage-label="model comparisons this month">
+            <div class="tool-usage" data-usage-min="1200" data-usage-max="3200"
+              data-usage-label="model comparisons this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3210,7 +3495,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/mcp-blueprint-generator/mcp-blueprint-generator.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="140" data-usage-max="420" data-usage-label="blueprints generated this month">
+            <div class="tool-usage" data-usage-min="140" data-usage-max="420"
+              data-usage-label="blueprints generated this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3227,7 +3513,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/promptPilot/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="480" data-usage-max="1300" data-usage-label="prompts used this month">
+            <div class="tool-usage" data-usage-min="480" data-usage-max="1300"
+              data-usage-label="prompts used this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3244,7 +3531,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="tools/ai-status/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="320" data-usage-max="1100" data-usage-label="status checks this month">
+            <div class="tool-usage" data-usage-min="320" data-usage-max="1100"
+              data-usage-label="status checks this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3286,7 +3574,8 @@
               <span class="tool-tag tag-local">Local</span>
               <span class="tool-tag tag-utility">Productivity</span>
             </div>
-            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn" class="project-link">Open Extension →</a>
+            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
+              class="project-link">Open Extension →</a>
           </div>
 
           <!-- Dev Toolbox -->
@@ -3317,7 +3606,8 @@
               <span class="tool-tag tag-utility">Utility</span>
             </div>
             <a href="palette-forge/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="450" data-usage-max="1200" data-usage-label="palettes forged this month">
+            <div class="tool-usage" data-usage-min="450" data-usage-max="1200"
+              data-usage-label="palettes forged this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3334,7 +3624,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/jenkinsPipelineVisualizer/index.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="280" data-usage-max="780" data-usage-label="pipelines visualized this month">
+            <div class="tool-usage" data-usage-min="280" data-usage-max="780"
+              data-usage-label="pipelines visualized this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3365,7 +3656,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/gitCheat/git-cheat.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="1300" data-usage-max="3800" data-usage-label="commands looked up this month">
+            <div class="tool-usage" data-usage-min="1300" data-usage-max="3800"
+              data-usage-label="commands looked up this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3382,7 +3674,8 @@
               <span class="tool-tag tag-local">Local</span>
               <span class="tool-tag tag-utility">Productivity</span>
             </div>
-            <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en" class="project-link">Open Extension →</a>
+            <a href="https://chromewebstore.google.com/detail/dummy-data-generator/adgalnbcaecfdbbagafmgoddfnkkolfe?hl=en"
+              class="project-link">Open Extension →</a>
           </div>
 
           <!-- Local Storage Viewer -->
@@ -3397,7 +3690,8 @@
               <span class="tool-tag tag-local">Local</span>
               <span class="tool-tag tag-utility">Productivity</span>
             </div>
-            <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej" class="project-link">Open Extension →</a>
+            <a href="https://chromewebstore.google.com/detail/local-storage-viewer-pro/onbcbaehcelemmnpdonchigjglokgaej"
+              class="project-link">Open Extension →</a>
           </div>
 
           <!-- API Data -->
@@ -3412,7 +3706,8 @@
               <span class="tool-tag tag-local">Local</span>
               <span class="tool-tag tag-utility">Productivity</span>
             </div>
-            <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh" class="project-link">Open Extension →</a>
+            <a href="https://chromewebstore.google.com/detail/api-data/kfjknlmcnjhfmdfhdeeaopibckcnfgmh"
+              class="project-link">Open Extension →</a>
           </div>
 
         </div>
@@ -3435,7 +3730,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="tools/timeStampConvert/time-stamp-convert.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="1100" data-usage-max="3100" data-usage-label="timestamps decoded this month">
+            <div class="tool-usage" data-usage-min="1100" data-usage-max="3100"
+              data-usage-label="timestamps decoded this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3450,8 +3746,10 @@
             <div class="tool-tags">
               <span class="tool-tag tag-utility">Utility</span>
             </div>
-            <a href="tools/architecture-compatibility-tool/architecture-compatibility.html" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="90" data-usage-max="340" data-usage-label="stacks analyzed this month">
+            <a href="tools/architecture-compatibility-tool/architecture-compatibility.html" class="project-link">Open
+              Tool →</a>
+            <div class="tool-usage" data-usage-min="90" data-usage-max="340"
+              data-usage-label="stacks analyzed this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3468,7 +3766,8 @@
               <span class="tool-tag tag-local">Local</span>
             </div>
             <a href="https://lidabenzotracker.onrender.com/" class="project-link">Open Tool →</a>
-            <div class="tool-usage" data-usage-min="80" data-usage-max="220" data-usage-label="people tracking this month">
+            <div class="tool-usage" data-usage-min="80" data-usage-max="220"
+              data-usage-label="people tracking this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
           </div>
@@ -3547,13 +3846,16 @@
           LiDa Software is a personal developer tools platform built and maintained by Hen Faibish.
         </p>
         <p class="about-text">
-          The project started from a simple idea: build practical tools that solve real problems developers face every day, without unnecessary accounts, tracking, paywalls, or noise.
+          The project started from a simple idea: build practical tools that solve real problems developers face every
+          day, without unnecessary accounts, tracking, paywalls, or noise.
         </p>
         <p class="about-text">
-          The tools focus on clean workflows, fast usage, and real engineering utility, including formatting, validation, automation, AI-assisted productivity, and developer experience improvements.
+          The tools focus on clean workflows, fast usage, and real engineering utility, including formatting,
+          validation, automation, AI-assisted productivity, and developer experience improvements.
         </p>
         <p class="about-text">
-          LiDa Software is also a long-term engineering project where I explore product thinking, frontend architecture, reusable components, local-first behavior, AI integrations, and continuous improvement.
+          LiDa Software is also a long-term engineering project where I explore product thinking, frontend architecture,
+          reusable components, local-first behavior, AI integrations, and continuous improvement.
         </p>
         <p class="about-text" style="color: #a78bfa; font-weight: 600; margin-top: 20px;">
           ⚡ Motto: build useful tools, keep them simple, and improve them over time.
@@ -4017,313 +4319,320 @@
     })();
   </script>
 
-<!-- ── LiDa Command Center ── -->
-<div class="cmd-overlay" id="cmdOverlay" role="dialog" aria-modal="true" aria-label="LiDa Command Center">
-  <div class="cmd-panel" id="cmdPanel">
-    <div class="cmd-search-row">
-      <span class="cmd-search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
-      <input id="cmdInput" type="text" placeholder="Search tools, pages, services..." autocomplete="off" spellcheck="false" aria-label="Command search"/>
-      <button class="cmd-close-btn" id="cmdClose" aria-label="Close command center">
-        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="cmd-results" id="cmdResults" role="listbox"></div>
-    <div class="cmd-footer">
-      <span class="cmd-footer-hint"><kbd>&uarr;&darr;</kbd> navigate</span>
-      <span class="cmd-footer-hint"><kbd>Enter</kbd> open</span>
-      <span class="cmd-footer-hint"><kbd>Esc</kbd> close</span>
+  <!-- ── LiDa Command Center ── -->
+  <div class="cmd-overlay" id="cmdOverlay" role="dialog" aria-modal="true" aria-label="LiDa Command Center">
+    <div class="cmd-panel" id="cmdPanel">
+      <div class="cmd-search-row">
+        <span class="cmd-search-icon"><svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg></span>
+        <input id="cmdInput" type="text" placeholder="Search tools, pages, services..." autocomplete="off"
+          spellcheck="false" aria-label="Command search" />
+        <button class="cmd-close-btn" id="cmdClose" aria-label="Close command center">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="cmd-results" id="cmdResults" role="listbox"></div>
+      <div class="cmd-footer">
+        <span class="cmd-footer-hint"><kbd>&uarr;&darr;</kbd> navigate</span>
+        <span class="cmd-footer-hint"><kbd>Enter</kbd> open</span>
+        <span class="cmd-footer-hint"><kbd>Esc</kbd> close</span>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-(function(){
-'use strict';
-var overlay=document.getElementById('cmdOverlay');
-var trigger=document.getElementById('cmdTrigger');
-var closeBtn=document.getElementById('cmdClose');
-var input=document.getElementById('cmdInput');
-var results=document.getElementById('cmdResults');
-var lastFocus=null;
-var activeIdx=-1;
+  <script>
+    (function () {
+      'use strict';
+      var overlay = document.getElementById('cmdOverlay');
+      var trigger = document.getElementById('cmdTrigger');
+      var closeBtn = document.getElementById('cmdClose');
+      var input = document.getElementById('cmdInput');
+      var results = document.getElementById('cmdResults');
+      var lastFocus = null;
+      var activeIdx = -1;
 
-// Detect Mac for keyboard hint
-if(/Mac|iPhone|iPad|iPod/.test(navigator.platform||navigator.userAgent||'')){
-  var hint=document.getElementById('cmdKbHint');
-  if(hint) hint.textContent='\u2318K';
-}
+      // Detect Mac for keyboard hint
+      if (/Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '')) {
+        var hint = document.getElementById('cmdKbHint');
+        if (hint) hint.textContent = '\u2318K';
+      }
 
-// ── Data ──
-var BASE='https://www.lidasoftware.online/';
-var ITEMS=[
-  // Developer Tools ,  real paths from the live site
-  {g:'Developer Tools',title:'JSON Beautifier',desc:'Format and prettify JSON with syntax highlighting.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonBeautifier/json-beautifier.html'},
-  {g:'Developer Tools',title:'AI Code Diff Viewer',desc:'Compare code changes with AI-powered insights.',tag:'Tool',icon:'ai',href:BASE+'tools/aiCodeDiff/the-code-diff-viewer.html'},
-  {g:'Developer Tools',title:'JSON to Zod Converter',desc:'Generate Zod schemas from JSON automatically.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonToZod/json-to-zod-converter.html'},
-  {g:'Developer Tools',title:'JSON to Protobuf',desc:'Convert JSON structures to Protobuf definitions.',tag:'Tool',icon:'tool',href:BASE+'tools/jsonToProtobuf/index.html'},
-  {g:'Developer Tools',title:'Environment Variable Validator',desc:'Validate .env files against a required schema.',tag:'Tool',icon:'tool',href:BASE+'tools/envValidator/index.html'},
-  {g:'Developer Tools',title:'AI Hallucination Spotter',desc:'Detect inconsistencies and hallucinations in AI output.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-hallucination-spotter/ai-hallucination-spotter.html'},
-  {g:'Developer Tools',title:'AI Model Selector',desc:'Compare and choose the right AI model for your task.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-selector/index.html'},
-  {g:'Developer Tools',title:'MCP Blueprint Generator',desc:'Generate Model Context Protocol blueprints.',tag:'Tool',icon:'ai',href:BASE+'tools/mcp-blueprint-generator/mcp-blueprint-generator.html'},
-  {g:'Developer Tools',title:'PromptPilot',desc:'Design, test, and refine AI prompts.',tag:'Tool',icon:'ai',href:BASE+'tools/promptPilot/index.html'},
-  {g:'Developer Tools',title:'PaletteForge',desc:'Generate and export design colour palettes.',tag:'Tool',icon:'tool',href:BASE+'palette-forge/index.html'},
-  {g:'Developer Tools',title:'Dummy Data Generator',desc:'Generate realistic test data instantly.',tag:'Tool',icon:'tool',href:BASE+'dummy-generate.html'},
-  {g:'Developer Tools',title:'Timestamp Converter',desc:'Convert between Unix timestamps and human dates.',tag:'Tool',icon:'tool',href:BASE+'tools/timeStampConvert/time-stamp-convert.html'},
-  {g:'Developer Tools',title:'Local Storage Viewer',desc:'Inspect and manage localStorage in the browser.',tag:'Tool',icon:'tool',href:BASE+'local-storage.html'},
-  {g:'Developer Tools',title:'Jenkins Pipeline Visualizer',desc:'Visualize Jenkins CI/CD pipeline stages.',tag:'Tool',icon:'tool',href:BASE+'tools/jenkinsPipelineVisualizer/index.html'},
-  {g:'Developer Tools',title:'Graph Visualizer',desc:'Visualize system architecture as an interactive graph.',tag:'Tool',icon:'tool',href:BASE+'tools/graphVisualizer/graph-app.html'},
-  {g:'Developer Tools',title:'Architecture Compatibility Tool',desc:'Check compatibility between system components.',tag:'Tool',icon:'tool',href:BASE+'tools/architecture-compatibility-tool/architecture-compatibility.html'},
-  {g:'Developer Tools',title:'Git Cheat Sheet',desc:'Quick reference for common Git commands and workflows.',tag:'Tool',icon:'tool',href:BASE+'tools/gitCheat/git-cheat.html'},
-  {g:'Developer Tools',title:'AI Status Dashboard',desc:'Monitor AI API and service availability.',tag:'Tool',icon:'ai',href:BASE+'tools/ai-status/index.html'},
-  {g:'Developer Tools',title:'Virtual Team Kit',desc:'Templates and tools for remote engineering teams.',tag:'Tool',icon:'tool',href:BASE+'virtual-team-kit.html'},
-  {g:'Developer Tools',title:'LiDa Mix Play',desc:'Creative audio mixing and playback tool.',tag:'Tool',icon:'tool',href:BASE+'lida-mix-play/index.html'},
-  {g:'Developer Tools',title:'Dev News',desc:'Latest developer news and engineering updates.',tag:'Tool',icon:'tool',href:BASE+'dev-news.html'},
-  {g:'Developer Tools',title:'All Tools List',desc:'Browse the full catalogue of LiDa developer tools.',tag:'Tool',icon:'tool',href:BASE+'tools/toolSList/tools.html'},
-  // Engineering
-  {g:'Project & Engineering',title:'Engineering Behind LiDa Software',desc:'Architecture, product decisions, AI integration, and roadmap.',tag:'Engineering',icon:'eng',href:BASE+'engineering.html',keywords:'case study portfolio'},
-  {g:'Project & Engineering',title:'Review LiDa in 60 seconds',desc:'A quick overview of what was built, why it matters, and what it demonstrates.',tag:'Engineering',icon:'star',href:BASE+'engineering.html',special:true,keywords:'interview recruiter cto review'},
-  {g:'Project & Engineering',title:'About LiDa Software',desc:'The story, philosophy, and platform behind the tools.',tag:'Engineering',icon:'eng',href:BASE+'about/index.html'},
-  // Services
-  {g:'Services',title:'Software Engineering & AI Solutions',desc:'Freelance and contract engineering for businesses and startups.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html'},
-  {g:'Services',title:'Backend Development',desc:'APIs, microservices, integrations ,  Java, Node.js, Spring Boot.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  {g:'Services',title:'Frontend Development',desc:'Angular, React, TypeScript ,  dashboards, admin panels, web apps.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  {g:'Services',title:'AI Integration',desc:'LLM workflows, structured outputs, RAG, prompt engineering.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  {g:'Services',title:'Cloud & DevOps',desc:'GCP, AWS, Docker, Kubernetes, CI/CD.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  {g:'Services',title:'Automation Solutions',desc:'Workflow automation, data pipelines, scheduled jobs.',tag:'Services',icon:'svc',href:BASE+'powers-your-business/you-business.html#services'},
-  // Contact
-  {g:'Contact',title:'Contact on WhatsApp',desc:'Start a conversation directly.',tag:'Contact',icon:'contact',href:'https://wa.me/40753358749?text=Hi%20Hen%2C%20I%27d%20like%20to%20get%20in%20touch.',ext:true},
-  {g:'Contact',title:'Send Email',desc:'bandel79@gmail.com',tag:'Contact',icon:'contact',href:'mailto:bandel79@gmail.com',ext:true},
-  {g:'Contact',title:'LinkedIn',desc:'View professional profile.',tag:'Contact',icon:'contact',href:'https://www.linkedin.com/in/hen-faibish/',ext:true}
-];
+      // ── Data ──
+      var BASE = 'https://www.lidasoftware.online/';
+      var ITEMS = [
+        // Developer Tools ,  real paths from the live site
+        { g: 'Developer Tools', title: 'JSON Beautifier', desc: 'Format and prettify JSON with syntax highlighting.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/jsonBeautifier/json-beautifier.html' },
+        { g: 'Developer Tools', title: 'AI Code Diff Viewer', desc: 'Compare code changes with AI-powered insights.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/aiCodeDiff/the-code-diff-viewer.html' },
+        { g: 'Developer Tools', title: 'JSON to Zod Converter', desc: 'Generate Zod schemas from JSON automatically.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/jsonToZod/json-to-zod-converter.html' },
+        { g: 'Developer Tools', title: 'JSON to Protobuf', desc: 'Convert JSON structures to Protobuf definitions.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/jsonToProtobuf/index.html' },
+        { g: 'Developer Tools', title: 'Environment Variable Validator', desc: 'Validate .env files against a required schema.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/envValidator/index.html' },
+        { g: 'Developer Tools', title: 'AI Hallucination Spotter', desc: 'Detect inconsistencies and hallucinations in AI output.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/ai-hallucination-spotter/ai-hallucination-spotter.html' },
+        { g: 'Developer Tools', title: 'AI Model Selector', desc: 'Compare and choose the right AI model for your task.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/ai-selector/index.html' },
+        { g: 'Developer Tools', title: 'MCP Blueprint Generator', desc: 'Generate Model Context Protocol blueprints.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/mcp-blueprint-generator/mcp-blueprint-generator.html' },
+        { g: 'Developer Tools', title: 'PromptPilot', desc: 'Design, test, and refine AI prompts.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/promptPilot/index.html' },
+        { g: 'Developer Tools', title: 'PaletteForge', desc: 'Generate and export design colour palettes.', tag: 'Tool', icon: 'tool', href: BASE + 'palette-forge/index.html' },
+        { g: 'Developer Tools', title: 'Dummy Data Generator', desc: 'Generate realistic test data instantly.', tag: 'Tool', icon: 'tool', href: BASE + 'dummy-generate.html' },
+        { g: 'Developer Tools', title: 'Timestamp Converter', desc: 'Convert between Unix timestamps and human dates.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/timeStampConvert/time-stamp-convert.html' },
+        { g: 'Developer Tools', title: 'Local Storage Viewer', desc: 'Inspect and manage localStorage in the browser.', tag: 'Tool', icon: 'tool', href: BASE + 'local-storage.html' },
+        { g: 'Developer Tools', title: 'Jenkins Pipeline Visualizer', desc: 'Visualize Jenkins CI/CD pipeline stages.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/jenkinsPipelineVisualizer/index.html' },
+        { g: 'Developer Tools', title: 'Graph Visualizer', desc: 'Visualize system architecture as an interactive graph.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/graphVisualizer/graph-app.html' },
+        { g: 'Developer Tools', title: 'Architecture Compatibility Tool', desc: 'Check compatibility between system components.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/architecture-compatibility-tool/architecture-compatibility.html' },
+        { g: 'Developer Tools', title: 'Git Cheat Sheet', desc: 'Quick reference for common Git commands and workflows.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/gitCheat/git-cheat.html' },
+        { g: 'Developer Tools', title: 'AI Status Dashboard', desc: 'Monitor AI API and service availability.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/ai-status/index.html' },
+        { g: 'Developer Tools', title: 'Virtual Team Kit', desc: 'Templates and tools for remote engineering teams.', tag: 'Tool', icon: 'tool', href: BASE + 'virtual-team-kit.html' },
+        { g: 'Developer Tools', title: 'LiDa Mix Play', desc: 'Creative audio mixing and playback tool.', tag: 'Tool', icon: 'tool', href: BASE + 'lida-mix-play/index.html' },
+        { g: 'Developer Tools', title: 'Dev News', desc: 'Latest developer news and engineering updates.', tag: 'Tool', icon: 'tool', href: BASE + 'dev-news.html' },
+        { g: 'Developer Tools', title: 'All Tools List', desc: 'Browse the full catalogue of LiDa developer tools.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/toolSList/tools.html' },
+        // Engineering
+        { g: 'Project & Engineering', title: 'Engineering Behind LiDa Software', desc: 'Architecture, product decisions, AI integration, and roadmap.', tag: 'Engineering', icon: 'eng', href: BASE + 'engineering.html', keywords: 'case study portfolio' },
+        { g: 'Project & Engineering', title: 'Review LiDa in 60 seconds', desc: 'A quick overview of what was built, why it matters, and what it demonstrates.', tag: 'Engineering', icon: 'star', href: BASE + 'engineering.html', special: true, keywords: 'interview recruiter cto review' },
+        { g: 'Project & Engineering', title: 'About LiDa Software', desc: 'The story, philosophy, and platform behind the tools.', tag: 'Engineering', icon: 'eng', href: BASE + 'about/index.html' },
+        { g: 'Project & Engineering', title: 'Interview Prep', desc: 'Guide for general and software developer job interviews, STAR, system design, algorithms.', tag: 'Engineering', icon: 'eng', href: BASE + 'interview-prep.html', keywords: 'interview prep behavioral star system design algorithms' },
+        // Services
+        { g: 'Services', title: 'Software Engineering & AI Solutions', desc: 'Freelance and contract engineering for businesses and startups.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html' },
+        { g: 'Services', title: 'Backend Development', desc: 'APIs, microservices, integrations ,  Java, Node.js, Spring Boot.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html#services' },
+        { g: 'Services', title: 'Frontend Development', desc: 'Angular, React, TypeScript ,  dashboards, admin panels, web apps.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html#services' },
+        { g: 'Services', title: 'AI Integration', desc: 'LLM workflows, structured outputs, RAG, prompt engineering.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html#services' },
+        { g: 'Services', title: 'Cloud & DevOps', desc: 'GCP, AWS, Docker, Kubernetes, CI/CD.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html#services' },
+        { g: 'Services', title: 'Automation Solutions', desc: 'Workflow automation, data pipelines, scheduled jobs.', tag: 'Services', icon: 'svc', href: BASE + 'powers-your-business/you-business.html#services' },
+        // Contact
+        { g: 'Contact', title: 'Contact on WhatsApp', desc: 'Start a conversation directly.', tag: 'Contact', icon: 'contact', href: 'https://wa.me/40753358749?text=Hi%20Hen%2C%20I%27d%20like%20to%20get%20in%20touch.', ext: true },
+        { g: 'Contact', title: 'Send Email', desc: 'bandel79@gmail.com', tag: 'Contact', icon: 'contact', href: 'mailto:bandel79@gmail.com', ext: true },
+        { g: 'Contact', title: 'LinkedIn', desc: 'View professional profile.', tag: 'Contact', icon: 'contact', href: 'https://www.linkedin.com/in/hen-faibish/', ext: true }
+      ];
 
-var RECRUITER_TERMS=['interview','recruiter','cto','review','hire','hiring','job'];
+      var RECRUITER_TERMS = ['interview', 'recruiter', 'cto', 'review', 'hire', 'hiring', 'job'];
 
-var GROUP_ORDER=['Developer Tools','Project & Engineering','Services','Contact'];
+      var GROUP_ORDER = ['Developer Tools', 'Project & Engineering', 'Services', 'Contact'];
 
-function iconSvg(type){
-  var icons={
-    tool:'<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>',
-    ai:'<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
-    eng:'<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
-    svc:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
-    contact:'<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
-    star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
-  };
-  return '<svg viewBox="0 0 24 24">'+(icons[type]||icons.tool)+'</svg>';
-}
+      function iconSvg(type) {
+        var icons = {
+          tool: '<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>',
+          ai: '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>',
+          eng: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+          svc: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>',
+          contact: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+          star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>'
+        };
+        return '<svg viewBox="0 0 24 24">' + (icons[type] || icons.tool) + '</svg>';
+      }
 
-function iconClass(type){
-  if(type==='ai'||type==='star') return 'purple';
-  if(type==='contact') return 'green';
-  if(type==='svc') return 'amber';
-  return '';
-}
+      function iconClass(type) {
+        if (type === 'ai' || type === 'star') return 'purple';
+        if (type === 'contact') return 'green';
+        if (type === 'svc') return 'amber';
+        return '';
+      }
 
-function tagClass(tag){
-  if(tag==='Tool') return 'tag-tool';
-  if(tag==='Engineering') return 'tag-eng';
-  if(tag==='Services') return 'tag-svc';
-  return 'tag-cta';
-}
+      function tagClass(tag) {
+        if (tag === 'Tool') return 'tag-tool';
+        if (tag === 'Engineering') return 'tag-eng';
+        if (tag === 'Services') return 'tag-svc';
+        return 'tag-cta';
+      }
 
-function makeItem(item, spotlight){
-  var el=document.createElement('a');
-  el.className='cmd-item'+(spotlight?' cmd-spotlight':'');
-  el.href=item.href;
-  if(item.ext){ el.target='_blank'; el.rel='noopener noreferrer'; }
-  el.setAttribute('role','option');
-  el.dataset.href=item.href;
-  el.dataset.ext=item.ext?'1':'';
-  el.innerHTML=
-    '<span class="cmd-item-icon '+iconClass(item.icon)+'">'+iconSvg(item.icon)+'</span>'+
-    '<span class="cmd-item-body">'+
-      '<span class="cmd-item-title">'+item.title+'</span>'+
-      '<span class="cmd-item-desc">'+item.desc+'</span>'+
-    '</span>'+
-    '<span class="cmd-item-tag '+tagClass(item.tag)+'">'+item.tag+'</span>';
-  el.addEventListener('click', function(){
-    if(item.special){
-      // open review modal on engineering page or trigger if on same page
-      closeCmd();
-    } else {
-      closeCmd();
-    }
-  });
-  return el;
-}
+      function makeItem(item, spotlight) {
+        var el = document.createElement('a');
+        el.className = 'cmd-item' + (spotlight ? ' cmd-spotlight' : '');
+        el.href = item.href;
+        if (item.ext) { el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+        el.setAttribute('role', 'option');
+        el.dataset.href = item.href;
+        el.dataset.ext = item.ext ? '1' : '';
+        el.innerHTML =
+          '<span class="cmd-item-icon ' + iconClass(item.icon) + '">' + iconSvg(item.icon) + '</span>' +
+          '<span class="cmd-item-body">' +
+          '<span class="cmd-item-title">' + item.title + '</span>' +
+          '<span class="cmd-item-desc">' + item.desc + '</span>' +
+          '</span>' +
+          '<span class="cmd-item-tag ' + tagClass(item.tag) + '">' + item.tag + '</span>';
+        el.addEventListener('click', function () {
+          if (item.special) {
+            // open review modal on engineering page or trigger if on same page
+            closeCmd();
+          } else {
+            closeCmd();
+          }
+        });
+        return el;
+      }
 
-function makeGroup(label){
-  var d=document.createElement('div');
-  d.className='cmd-group-label';
-  d.textContent=label;
-  return d;
-}
+      function makeGroup(label) {
+        var d = document.createElement('div');
+        d.className = 'cmd-group-label';
+        d.textContent = label;
+        return d;
+      }
 
-function renderResults(q){
-  results.innerHTML='';
-  activeIdx=-1;
-  var query=(q||'').toLowerCase().trim();
-  var filtered;
+      function renderResults(q) {
+        results.innerHTML = '';
+        activeIdx = -1;
+        var query = (q || '').toLowerCase().trim();
+        var filtered;
 
-  // Check if recruiter-type query
-  var isRecruiter=RECRUITER_TERMS.some(function(t){return query.indexOf(t)!==-1;});
+        // Check if recruiter-type query
+        var isRecruiter = RECRUITER_TERMS.some(function (t) { return query.indexOf(t) !== -1; });
 
-  if(!query){
-    // Default: show all groups
-    filtered=ITEMS;
-  } else {
-    filtered=ITEMS.filter(function(item){
-      var haystack=(item.title+' '+item.desc+' '+(item.keywords||'')+' '+item.g).toLowerCase();
-      return haystack.indexOf(query)!==-1;
-    });
-  }
+        if (!query) {
+          // Default: show all groups
+          filtered = ITEMS;
+        } else {
+          filtered = ITEMS.filter(function (item) {
+            var haystack = (item.title + ' ' + item.desc + ' ' + (item.keywords || '') + ' ' + item.g).toLowerCase();
+            return haystack.indexOf(query) !== -1;
+          });
+        }
 
-  if(isRecruiter && query){
-    // Inject spotlight at top
-    var spotlight=ITEMS.filter(function(i){return i.special;})[0];
-    if(spotlight){
-      results.appendChild(makeItem(spotlight,true));
-    }
-  }
+        if (isRecruiter && query) {
+          // Inject spotlight at top
+          var spotlight = ITEMS.filter(function (i) { return i.special; })[0];
+          if (spotlight) {
+            results.appendChild(makeItem(spotlight, true));
+          }
+        }
 
-  if(!filtered.length){
-    var empty=document.createElement('div');
-    empty.className='cmd-empty';
-    empty.textContent='No results for \"'+q+'\"';
-    results.appendChild(empty);
-    return;
-  }
+        if (!filtered.length) {
+          var empty = document.createElement('div');
+          empty.className = 'cmd-empty';
+          empty.textContent = 'No results for \"' + q + '\"';
+          results.appendChild(empty);
+          return;
+        }
 
-  // Group
-  var groups={};
-  filtered.forEach(function(item){
-    if(!groups[item.g]) groups[item.g]=[];
-    groups[item.g].push(item);
-  });
+        // Group
+        var groups = {};
+        filtered.forEach(function (item) {
+          if (!groups[item.g]) groups[item.g] = [];
+          groups[item.g].push(item);
+        });
 
-  GROUP_ORDER.forEach(function(g){
-    if(!groups[g]||!groups[g].length) return;
-    results.appendChild(makeGroup(g));
-    groups[g].forEach(function(item){
-      results.appendChild(makeItem(item,false));
-    });
-  });
-}
+        GROUP_ORDER.forEach(function (g) {
+          if (!groups[g] || !groups[g].length) return;
+          results.appendChild(makeGroup(g));
+          groups[g].forEach(function (item) {
+            results.appendChild(makeItem(item, false));
+          });
+        });
+      }
 
-function getItems(){
-  return Array.from(results.querySelectorAll('.cmd-item'));
-}
+      function getItems() {
+        return Array.from(results.querySelectorAll('.cmd-item'));
+      }
 
-function setActive(idx){
-  var items=getItems();
-  items.forEach(function(el,i){
-    el.classList.toggle('active',i===idx);
-    if(i===idx) el.scrollIntoView({block:'nearest'});
-  });
-  activeIdx=idx;
-}
+      function setActive(idx) {
+        var items = getItems();
+        items.forEach(function (el, i) {
+          el.classList.toggle('active', i === idx);
+          if (i === idx) el.scrollIntoView({ block: 'nearest' });
+        });
+        activeIdx = idx;
+      }
 
-function openCmd(){
-  lastFocus=document.activeElement;
-  overlay.classList.add('open');
-  trigger.setAttribute('aria-expanded','true');
-  document.body.style.overflow='hidden';
-  renderResults('');
-  setTimeout(function(){input.focus();},80);
-}
+      function openCmd() {
+        lastFocus = document.activeElement;
+        overlay.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        renderResults('');
+        setTimeout(function () { input.focus(); }, 80);
+      }
 
-function closeCmd(){
-  overlay.classList.remove('open');
-  trigger.setAttribute('aria-expanded','false');
-  document.body.style.overflow='';
-  input.value='';
-  if(lastFocus) lastFocus.focus();
-}
+      function closeCmd() {
+        overlay.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        input.value = '';
+        if (lastFocus) lastFocus.focus();
+      }
 
-trigger.addEventListener('click', openCmd);
-closeBtn.addEventListener('click', closeCmd);
+      trigger.addEventListener('click', openCmd);
+      closeBtn.addEventListener('click', closeCmd);
 
-overlay.addEventListener('click', function(e){
-  if(e.target===overlay) closeCmd();
-});
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeCmd();
+      });
 
-input.addEventListener('input', function(){
-  renderResults(input.value);
-});
+      input.addEventListener('input', function () {
+        renderResults(input.value);
+      });
 
-document.addEventListener('keydown', function(e){
-  // Ctrl+K / Cmd+K
-  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='k'){
-    e.preventDefault();
-    overlay.classList.contains('open') ? closeCmd() : openCmd();
-    return;
-  }
-  if(!overlay.classList.contains('open')) return;
-  var items=getItems();
-  if(e.key==='Escape'){ e.preventDefault(); closeCmd(); }
-  else if(e.key==='ArrowDown'){
-    e.preventDefault();
-    setActive(Math.min(activeIdx+1, items.length-1));
-  }
-  else if(e.key==='ArrowUp'){
-    e.preventDefault();
-    setActive(Math.max(activeIdx-1, 0));
-  }
-  else if(e.key==='Enter' && activeIdx>=0 && items[activeIdx]){
-    e.preventDefault();
-    items[activeIdx].click();
-  }
-});
+      document.addEventListener('keydown', function (e) {
+        // Ctrl+K / Cmd+K
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          overlay.classList.contains('open') ? closeCmd() : openCmd();
+          return;
+        }
+        if (!overlay.classList.contains('open')) return;
+        var items = getItems();
+        if (e.key === 'Escape') { e.preventDefault(); closeCmd(); }
+        else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setActive(Math.min(activeIdx + 1, items.length - 1));
+        }
+        else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setActive(Math.max(activeIdx - 1, 0));
+        }
+        else if (e.key === 'Enter' && activeIdx >= 0 && items[activeIdx]) {
+          e.preventDefault();
+          items[activeIdx].click();
+        }
+      });
 
-})();
-</script>
+    })();
+  </script>
 
-<script>
-/* ── Video play handler ── */
-(function () {
-  'use strict';
-  var playBtn      = document.getElementById('videoPlayBtn');
-  var thumb        = document.getElementById('videoThumb');
-  var overlay      = document.querySelector('.video-thumb-overlay');
-  var iframeWrap   = document.getElementById('videoIframeWrap');
-  var cardLabel    = document.querySelector('.video-card-label');
-  var EMBED_SRC    = 'https://www.youtube.com/embed/rGqDcWYv114?autoplay=1&rel=0';
+  <script>
+    /* ── Video play handler ── */
+    (function () {
+      'use strict';
+      var playBtn = document.getElementById('videoPlayBtn');
+      var thumb = document.getElementById('videoThumb');
+      var overlay = document.querySelector('.video-thumb-overlay');
+      var iframeWrap = document.getElementById('videoIframeWrap');
+      var cardLabel = document.querySelector('.video-card-label');
+      var EMBED_SRC = 'https://www.youtube.com/embed/rGqDcWYv114?autoplay=1&rel=0';
 
-  if (!playBtn || !iframeWrap) return;
+      if (!playBtn || !iframeWrap) return;
 
-  function activateVideo() {
-    // Build iframe
-    var iframe = document.createElement('iframe');
-    iframe.src               = EMBED_SRC;
-    iframe.title             = 'LiDa Software Intro Video';
-    iframe.allow             = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    iframe.allowFullscreen   = true;
-    iframe.loading           = 'lazy';
+      function activateVideo() {
+        // Build iframe
+        var iframe = document.createElement('iframe');
+        iframe.src = EMBED_SRC;
+        iframe.title = 'LiDa Software Intro Video';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.loading = 'lazy';
 
-    // Inject iframe
-    iframeWrap.appendChild(iframe);
-    iframeWrap.style.display = 'block';
+        // Inject iframe
+        iframeWrap.appendChild(iframe);
+        iframeWrap.style.display = 'block';
 
-    // Hide preview elements (no layout shift ,  all absolute positioned)
-    if (thumb)      { thumb.style.display      = 'none'; }
-    if (overlay)    { overlay.style.display    = 'none'; }
-    if (playBtn)    { playBtn.style.display    = 'none'; }
-    if (cardLabel)  { cardLabel.style.display  = 'none'; }
+        // Hide preview elements (no layout shift ,  all absolute positioned)
+        if (thumb) { thumb.style.display = 'none'; }
+        if (overlay) { overlay.style.display = 'none'; }
+        if (playBtn) { playBtn.style.display = 'none'; }
+        if (cardLabel) { cardLabel.style.display = 'none'; }
 
-    // Move focus into iframe for a11y
-    iframe.focus();
-  }
+        // Move focus into iframe for a11y
+        iframe.focus();
+      }
 
-  playBtn.addEventListener('click', activateVideo);
+      playBtn.addEventListener('click', activateVideo);
 
-  playBtn.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      activateVideo();
-    }
-  });
-}());
-</script>
+      playBtn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateVideo();
+        }
+      });
+    }());
+  </script>
 </body>
 
 
