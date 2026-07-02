@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+
+    <title>Understanding RAG: Retrieval-Augmented Generation | LiDa Software</title>
+    <meta name="description"
+        content="Learn how RAG retrieves relevant chunks, builds prompt context, and helps AI answer using external knowledge. Includes an interactive client-side RAG sandbox." />
+    <meta property="og:title" content="Understanding RAG: Retrieval-Augmented Generation | LiDa Software" />
+    <meta property="og:description"
+        content="Learn how RAG retrieves relevant chunks, builds prompt context, and helps AI answer using external knowledge. Includes an interactive client-side RAG sandbox." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/tutorials/rag/index.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/assets/og-image.jpg" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Understanding RAG: Retrieval-Augmented Generation | LiDa Software" />
+    <meta property="twitter:description"
+        content="Learn how RAG retrieves relevant chunks, builds prompt context, and helps AI answer using external knowledge. Includes an interactive client-side RAG sandbox." />
+    <meta property="twitter:image" content="https://www.lidasoftware.online/assets/og-image.jpg" />
+    <link rel="canonical" href="https://www.lidasoftware.online/tutorials/rag/index.html">
+    <link rel="preload" href="../../logo.png" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #202e1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #a78bfa);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a6fd8, #9575e6);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-header.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: 800; white-space: nowrap;
+            background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px; white-space: nowrap;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #b4b4d4;
+            text-decoration: none;
+            font-weight: 500; white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #a78bfa);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links li.active a {
+            color: #fff;
+        }
+
+        .nav-links li.active a::after {
+            width: 100%;
+        }
+
+        .nav-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-social a {
+            color: #9090b0;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-social a:hover {
+            color: #a78bfa;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #b4b4d4;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a3e 100%);
+            padding: 140px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5em;
+            font-weight: 800; white-space: nowrap;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25em;
+            color: #9090b0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Categories and Grids */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .category-container {
+            margin-bottom: 80px;
+        }
+
+        .category-container:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+            color: #a78bfa;
+        }
+
+        .category-title {
+            font-size: 1.8em;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .tutorial-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .tutorial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #a78bfa);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.35);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tutorial-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tutorial-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+        }
+
+        .tutorial-card-title {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .tutorial-card-desc {
+            color: #9090b0;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .tutorial-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-weight: 600;
+            background: rgba(102, 126, 234, 0.1);
+            color: #a78bfa;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .tutorial-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #a78bfa;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .tutorial-card:hover .tutorial-link-btn {
+            color: #fff;
+            gap: 10px;
+        }
+
+        /* Placeholder/Coming Soon Card Styles */
+        .tutorial-card.placeholder {
+            opacity: 0.65;
+            cursor: not-allowed;
+            border: 1px dashed rgba(102, 126, 234, 0.25);
+        }
+
+        .tutorial-card.placeholder:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: rgba(102, 126, 234, 0.25);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tutorial-card.placeholder::before {
+            display: none;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(167, 139, 250, 0.07);
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            color: #a78bfa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tutorial-link-btn.disabled {
+            color: #505070;
+            cursor: not-allowed;
+        }
+
+
+
+        /* Footer */
+        footer {
+            background: #06060a;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        footer p {
+            color: #7070a0;
+            margin-bottom: 15px;
+        }
+
+        .open-source-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #a78bfa;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .philosophy-statement {
+            font-size: 0.9rem;
+            color: #505070;
+            font-style: italic;
+        }
+
+        /* WhatsApp Popup */
+        .whatsapp-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 320px;
+            background: #182232;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            animation: popupSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popupSlideUp {
+            from {
+                transform: translateY(50px) scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .whatsapp-popup-content {
+            position: relative;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-popup:hover {
+            color: #fff;
+        }
+
+        .whatsapp-popup h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .whatsapp-popup p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .phone-number {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: #4ade80;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .whatsapp-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .whatsapp-btn {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .whatsapp-btn.primary {
+            background: #22c55e;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .whatsapp-btn.primary:hover {
+            background: #1a9f4a;
+        }
+
+        .whatsapp-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+
+        .whatsapp-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #a78bfa);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Featured Tutorial Card Styling */
+        .featured-section {
+            margin-bottom: 60px;
+        }
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px; white-space: nowrap;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(102, 126, 234, 0.03) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, #667eea, #a78bfa);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(102, 126, 234, 0.35);
+            box-shadow: 0 20px 45px rgba(102, 126, 234, 0.25);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(102, 126, 234, 0.05) 100%);
+        }
+
+        .featured-card:hover .tutorial-link-btn {
+            color: #fff;
+            gap: 12px;
+        }
+
+        .featured-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .featured-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .featured-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .featured-learn-title {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .featured-learn-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .featured-learn-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #9090b0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .featured-learn-item span {
+            color: #22c55e;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 991px) {
+            .featured-card {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px;
+            }
+
+            .featured-right {
+                border-left: none !important;
+                padding-left: 0 !important;
+                border-top: 1px solid rgba(102, 126, 234, 0.15);
+                padding-top: 30px;
+            }
+        }
+
+        /* Responsiveness */
+        @media (max-width: 991px) {
+            .hero-title {
+                font-size: 2.8em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .nav-container {
+                height: 70px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #0a0a0f;
+                flex-direction: column;
+                padding: 40px;
+                gap: 25px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-social {
+                margin-top: auto;
+            }
+
+            .hero {
+                padding: 80px 20px 50px;
+            }
+
+            .hero-title {
+                font-size: 2.2em;
+            }
+
+            .tutorials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-padding {
+                padding: 50px 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="rag.css">
+</head>
+
+<body>
+    <nav class="nav-header" id="navbar">
+        <div class="nav-container">
+            <a href="../../index.html" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
+                <div
+                    style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
+                    <img src="../../logo.png" alt="LiDa Software Logo" style="width: 30px; height: auto;">
+                </div>
+                LiDa Software
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../index.html#projects">Projects</a></li>
+                <li><a href="../../index.html#about">About</a></li>
+                <li><a href="../../engineering.html">Engineering</a></li>
+                <li><a href="../../interview-prep.html">Interview Prep</a></li>
+                <li class="active"><a href="../../guides.html">Tutorials</a></li>
+                <li><a href="../../index.html#contact">Contact</a></li>
+                <li><a href="../../powers-your-business/you-business.html">Payment Solutions</a></li>
+                <li><a href="../../Dev-news.html"
+                        style="display:flex;align-items:center;gap:6px;color:#22c55e !important">
+                        <span
+                            style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,0.8);animation:blink-dot 1.5s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
+                        Dev-news
+                    </a></li>
+
+                <div class="nav-social">
+                    <a href="https://www.linkedin.com/in/hen-faibish-0469931b0/" target="_blank"
+                        rel="noopener noreferrer" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61581626213032" target="_blank"
+                        rel="noopener noreferrer" title="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="#" onclick="openWhatsAppPopup(); return false;" title="WhatsApp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+                        </svg>
+                    </a>
+                </div>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+    <div id="desktop-share-buttons" class="hidden md:flex gap-2 items-center justify-center pb-2">
+        <span class="text-xs text-gray-500 mr-1">Share:</span>
+        <a href="#" id="share-facebook"
+            class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+            title="Share on Facebook" target="_blank" rel="noopener noreferrer">
+            Facebook
+        </a>
+        <a href="#" id="share-linkedin"
+            class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+            title="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+        </a>
+        <a href="#" id="share-twitter"
+            class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+            title="Share on X (Twitter)" target="_blank" rel="noopener noreferrer">
+            X
+        </a>
+        <button id="share-copy"
+            class="btn-secondary text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5"
+            title="Copy link">
+            Copy
+        </button>
+    </div>
+    <div id="rag-tutorial-root">
+        <nav class="sticky-nav" aria-label="Tutorial navigation">
+            <div class="page-shell">
+                <a href="#sandbox">Sandbox</a>
+                <a href="#pipeline">Pipeline</a>
+                <a href="#chunking">Chunking</a>
+                <a href="#settings">Settings</a>
+                <a href="#failures">Failures</a>
+                <a href="#faq">FAQ</a>
+                <a href="#glossary">Glossary</a>
+                <a href="#resources">Resources</a>
+            </div>
+        </nav>
+
+        <main>
+            <header class="hero page-shell">
+                <div class="hero-grid">
+                    <div>
+                        <span class="eyebrow">Interactive tutorial • No paid AI API</span>
+                        <h1 class="gradient-text">Understanding RAG</h1>
+                        <p>Learn how Retrieval-Augmented Generation retrieves the right context, builds a prompt, and
+                            helps an AI answer using external knowledge.</p>
+                        <div class="chips" aria-label="Topic tags">
+                            <span class="chip">RAG</span>
+                            <span class="chip">Retrieval</span>
+                            <span class="chip">Chunks</span>
+                            <span class="chip">Vector Search</span>
+                            <span class="chip">Prompt Context</span>
+                        </div>
+                        <div class="hero-actions" style="margin-top: 24px;">
+                            <a class="btn primary" href="#sandbox">Try the sandbox</a>
+                            <a class="btn" href="#pipeline">Learn the pipeline</a>
+                        </div>
+                    </div>
+
+                    <aside class="hero-card" aria-label="RAG pipeline preview">
+                        <div class="mini-pipeline">
+                            <div class="mini-step">
+                                <div class="dot">1</div><b>User question</b><span>“Can I work remotely?”</span>
+                            </div>
+                            <div class="mini-step">
+                                <div class="dot">2</div><b>Retrieve chunks</b><span>Top matches</span>
+                            </div>
+                            <div class="mini-step">
+                                <div class="dot">3</div><b>Build prompt</b><span>Context + question</span>
+                            </div>
+                            <div class="mini-step">
+                                <div class="dot">4</div><b>Answer grounded</b><span>Based on sources</span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </header>
+
+            <section class="page-shell">
+                <h2 class="section-title">What RAG actually solves</h2>
+                <p class="section-lead">A language model is powerful, but it does not automatically know your private
+                    docs, support tickets, latest product changes, or internal policies. RAG gives it the relevant
+                    context at answer time.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Private knowledge</h3>
+                        <p>Your company wiki, APIs, HR policies, and customer docs are not inside the model by default.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>Fresh knowledge</h3>
+                        <p>RAG can use updated documents without retraining the model every time something changes.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Grounded answers</h3>
+                        <p>The answer can be tied back to retrieved chunks instead of relying only on model memory.</p>
+                    </div>
+                </div>
+
+                <div class="callout" style="margin-top: 18px;">
+                    <strong>Key idea:</strong> RAG is not magic. It is a pipeline: retrieve the right context, then
+                    answer using that context.
+                </div>
+            </section>
+
+            <section class="page-shell">
+                <h2 class="section-title">What you will learn</h2>
+                <div class="grid-4">
+                    <div class="card metric-card">
+                        <div class="num">1</div>
+                        <div class="label">How chunks are retrieved</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="num">2</div>
+                        <div class="label">How Top K changes context</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="num">3</div>
+                        <div class="label">How threshold filters noise</div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="num">4</div>
+                        <div class="label">How prompt assembly works</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="sandbox">
+                <div class="sandbox">
+                    <div class="sandbox-head">
+                        <div>
+                            <h2>Interactive RAG Pipeline Sandbox</h2>
+                            <p>Client-side demo with predefined chunks and deterministic retrieval scores.</p>
+                        </div>
+                        <span class="chip">Local demo • No backend • No LLM call</span>
+                    </div>
+
+                    <div class="sandbox-body">
+                        <aside class="controls">
+                            <div class="control">
+                                <label for="kbSelect">Knowledge base</label>
+                                <select id="kbSelect"></select>
+                            </div>
+
+                            <div class="control">
+                                <label for="questionSelect">Question</label>
+                                <select id="questionSelect"></select>
+                            </div>
+
+                            <div class="control">
+                                <label for="topK"><span>Top K</span><span id="topKLabel">3 chunks</span></label>
+                                <input id="topK" type="range" min="1" max="6" step="1" value="3" />
+                                <div class="range-scale"><span>Focused</span><span>More context</span></div>
+                                <div class="hint" id="topKHint"></div>
+                            </div>
+
+                            <div class="control">
+                                <label for="threshold"><span>Similarity threshold</span><span
+                                        id="thresholdLabel">0.50</span></label>
+                                <input id="threshold" type="range" min="0" max="1" step="0.05" value="0.50" />
+                                <div class="range-scale"><span>Loose</span><span>Strict</span></div>
+                                <div class="hint" id="thresholdHint"></div>
+                            </div>
+
+                            <div class="control">
+                                <label for="retrievalMode">Retrieval mode</label>
+                                <select id="retrievalMode">
+                                    <option value="strict">Strict: raise threshold</option>
+                                    <option value="balanced" selected>Balanced: use selected threshold</option>
+                                    <option value="loose">Loose: lower threshold</option>
+                                </select>
+                                <div class="hint" id="modeHint"></div>
+                            </div>
+
+                            <div class="control">
+                                <label for="promptBudget">Prompt budget</label>
+                                <select id="promptBudget">
+                                    <option value="small">Small: cheapest, most focused</option>
+                                    <option value="medium" selected>Medium: balanced</option>
+                                    <option value="large">Large: more context, more noise risk</option>
+                                </select>
+                                <div class="hint" id="budgetHint"></div>
+                            </div>
+
+                            <button class="btn primary full" id="runBtn">Run RAG pipeline</button>
+
+                            <div style="margin-top: 22px;">
+                                <label>Fast experiments</label>
+                                <div class="scenario-list">
+                                    <button class="btn small" data-scenario="good">Good retrieval</button>
+                                    <button class="btn small" data-scenario="strict">Threshold too strict</button>
+                                    <button class="btn small" data-scenario="lowK">Top K too low</button>
+                                    <button class="btn small" data-scenario="noise">Too much noise</button>
+                                    <button class="btn small" data-scenario="budget">Prompt budget issue</button>
+                                    <button class="btn small" data-scenario="noanswer">No answer found</button>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <div class="results" id="results">
+                            <div class="empty-state" id="emptyState">
+                                <div>
+                                    <h3>Run the pipeline</h3>
+                                    <p>Choose a knowledge base and a question, then watch retrieval, filtering, prompt
+                                        assembly, and the final demo answer.</p>
+                                    <button class="btn primary" id="emptyRunBtn">Run default scenario</button>
+                                </div>
+                            </div>
+
+                            <div id="resultsContent" class="hidden">
+                                <div class="pipeline" aria-label="RAG pipeline progress">
+                                    <div class="pipe-step" id="p-question">Question<small>input</small></div>
+                                    <div class="pipe-step" id="p-embed">Embed<small>query vector</small></div>
+                                    <div class="pipe-step" id="p-search">Search<small>all chunks</small></div>
+                                    <div class="pipe-step" id="p-rank">Rank<small>by score</small></div>
+                                    <div class="pipe-step" id="p-filter">Filter<small>Top K + threshold</small></div>
+                                    <div class="pipe-step" id="p-prompt">Prompt<small>context</small></div>
+                                    <div class="pipe-step" id="p-answer">Answer<small>grounded</small></div>
+                                </div>
+
+                                <div class="status-panel" id="whatHappened">
+                                    <h3>What happened?</h3>
+                                    <p id="whatHappenedText"></p>
+                                </div>
+
+                                <div class="grid-4">
+                                    <div class="card metric-card">
+                                        <div class="num" id="mTotal">0</div>
+                                        <div class="label">chunks searched</div>
+                                    </div>
+                                    <div class="card metric-card">
+                                        <div class="num" id="mSelected">0</div>
+                                        <div class="label">chunks selected</div>
+                                    </div>
+                                    <div class="card metric-card">
+                                        <div class="num" id="mBest">0.00</div>
+                                        <div class="label">best score</div>
+                                    </div>
+                                    <div class="card metric-card">
+                                        <div class="num" id="mBudget">0%</div>
+                                        <div class="label">budget used</div>
+                                    </div>
+                                </div>
+
+                                <div class="two-columns">
+                                    <div>
+                                        <div class="mini-title">
+                                            <h3>Selected chunks</h3>
+                                            <span class="count-badge" id="selectedCount">0 included</span>
+                                        </div>
+                                        <div id="selectedChunks" class="chunk-grid"></div>
+                                    </div>
+                                    <div>
+                                        <div class="mini-title">
+                                            <h3>Rejected chunks</h3>
+                                            <span class="count-badge" id="rejectedCount">0 rejected</span>
+                                        </div>
+                                        <div id="rejectedChunks" class="chunk-grid"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="mini-title">
+                                        <h3>Prompt sent to the LLM</h3>
+                                        <button class="btn small" id="copyPromptBtn">Copy prompt</button>
+                                    </div>
+                                    <pre id="promptPreview"></pre>
+                                </div>
+
+                                <div class="answer-box" id="answerBox">
+                                    <h3 id="answerTitle">Generated demo answer</h3>
+                                    <p id="answerText"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="pipeline">
+                <h2 class="section-title">The RAG pipeline, step by step</h2>
+                <p class="section-lead">RAG is easier to understand when you separate it into two phases: preparing
+                    searchable knowledge, and answering a user question.</p>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>Phase 1: ingestion</h3>
+                        <ol>
+                            <li>Collect documents from PDFs, docs, tickets, code, or product pages.</li>
+                            <li>Clean the text and remove duplicate or useless content.</li>
+                            <li>Split documents into focused chunks.</li>
+                            <li>Create embeddings for each chunk.</li>
+                            <li>Store chunk text, vectors, and metadata.</li>
+                        </ol>
+                    </div>
+                    <div class="card">
+                        <h3>Phase 2: answering</h3>
+                        <ol>
+                            <li>Convert the user question into a query embedding.</li>
+                            <li>Search for nearby document vectors.</li>
+                            <li>Apply filters, Top K, thresholds, and optionally reranking.</li>
+                            <li>Build a prompt with the retrieved context.</li>
+                            <li>Ask the LLM to answer using that context.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="chunking">
+                <h2 class="section-title">Chunking explained</h2>
+                <p class="section-lead">Chunking is where many RAG systems quietly succeed or fail. Good chunks are
+                    focused enough to retrieve, but complete enough to answer.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Too small</h3>
+                        <p><strong>Bad:</strong> “It is allowed twice per week.” The chunk lost the subject, so
+                            retrieval and generation both suffer.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Too large</h3>
+                        <p><strong>Bad:</strong> a whole policy page with vacation, parking, sick leave, expense rules,
+                            and office hours mixed together.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Good chunk</h3>
+                        <p><strong>Better:</strong> “Remote work is allowed up to two days per week with manager
+                            approval.” Focused and complete.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="settings">
+                <h2 class="section-title">Retrieval knobs that matter</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Top K</h3>
+                        <p>The maximum number of chunks returned. Too low can miss context. Too high can add noise and
+                            waste tokens.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Threshold</h3>
+                        <p>The minimum similarity score required. Too strict returns nothing. Too loose sends irrelevant
+                            chunks to the model.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Prompt budget</h3>
+                        <p>The amount of retrieved text allowed into the prompt. Bigger is not always better because
+                            irrelevant context can confuse the answer.</p>
+                    </div>
+                </div>
+
+                <div class="callout" style="margin-top: 18px;">
+                    <strong>Where vector similarity fits:</strong> the query becomes a vector, each chunk has a vector,
+                    and retrieval ranks chunks by how close their vectors are.
+                    <br><br>
+                    If vector similarity is unclear, start with the <a href="../../tools/vector-sandbox/index.html"
+                        style="color: var(--accent-2); text-decoration: underline;">Vector Similarity tutorial</a>
+                    first.
+                </div>
+            </section>
+
+            <section class="page-shell">
+                <h2 class="section-title">RAG vs fine-tuning vs long context</h2>
+                <div class="table">
+                    <div class="table-row">
+                        <div class="table-cell"><b>RAG</b>Best for changing facts, private documentation, source-backed
+                            answers, and knowledge that should be updated without retraining.</div>
+                        <div class="table-cell"><b>Fine-tuning</b>Best for behavior, tone, repeated response patterns,
+                            or teaching a model how to perform a task format.</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell"><b>Long context</b>Useful when you can afford to pass a lot of text, but
+                            retrieval still helps reduce noise and cost.</div>
+                        <div class="table-cell"><b>Hybrid approach</b>Real systems can combine RAG, fine-tuning,
+                            reranking, metadata filters, and long context.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="failures">
+                <h2 class="section-title">Common RAG failure modes</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Wrong chunks retrieved</h3>
+                        <p>The answer fails before generation even starts because the model receives the wrong evidence.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3>No relevant chunks</h3>
+                        <p>Thresholds or bad embeddings may filter out the only useful context.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Chunks too noisy</h3>
+                        <p>Large or messy chunks can contain the answer but also a lot of distracting text.</p>
+                    </div>
+                    <div class="card">
+                        <h3>No source visibility</h3>
+                        <p>Users cannot verify whether the answer came from real retrieved content.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Outdated documents</h3>
+                        <p>The retrieval system may be correct, but the indexed content is stale.</p>
+                    </div>
+                    <div class="card">
+                        <h3>No evaluation</h3>
+                        <p>If you never measure retrieval quality, you will debug generated answers blindly.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell">
+                <h2 class="section-title">Production RAG checklist</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Data</h3>
+                        <ul>
+                            <li>Define sources</li>
+                            <li>Clean documents</li>
+                            <li>Attach metadata</li>
+                            <li>Handle stale content</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Retrieval</h3>
+                        <ul>
+                            <li>Choose chunk size</li>
+                            <li>Select embeddings</li>
+                            <li>Tune Top K</li>
+                            <li>Use metadata filters</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Quality</h3>
+                        <ul>
+                            <li>Add source citations</li>
+                            <li>Evaluate Recall@K</li>
+                            <li>Monitor bad answers</li>
+                            <li>Collect feedback</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="faq">
+                <h2 class="section-title">RAG FAQ</h2>
+                <p class="section-lead">Short answers to the questions developers usually hit when moving from “RAG
+                    sounds simple” to “why is my retrieval bad?”</p>
+                <div class="grid-2">
+                    <div>
+                        <details open>
+                            <summary>Is RAG the same as fine-tuning?</summary>
+                            <div class="detail-body">
+                                <p>No. RAG retrieves knowledge at runtime. Fine-tuning changes model behavior or
+                                    patterns. They solve different problems.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Does RAG stop hallucinations completely?</summary>
+                            <div class="detail-body">
+                                <p>No. It reduces hallucination risk when retrieval is good and the prompt forces
+                                    grounding, but bad retrieval can still cause bad answers.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Do I always need a vector database?</summary>
+                            <div class="detail-body">
+                                <p>No. For tiny datasets you can start simpler. A vector database becomes useful when
+                                    you need scalable semantic search.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What is Top K?</summary>
+                            <div class="detail-body">
+                                <p>Top K is how many matching chunks are returned. Top K = 3 means “return the 3 best
+                                    chunks.”</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What happens if Top K is too high?</summary>
+                            <div class="detail-body">
+                                <p>The prompt may include weak or irrelevant chunks, which can increase cost and confuse
+                                    the model.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What happens if Top K is too low?</summary>
+                            <div class="detail-body">
+                                <p>The system may miss supporting context, especially when the answer needs multiple
+                                    pieces of evidence.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What is a similarity threshold?</summary>
+                            <div class="detail-body">
+                                <p>A cutoff score. Chunks below the threshold are rejected even if they are in the top
+                                    results.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Why split documents into chunks?</summary>
+                            <div class="detail-body">
+                                <p>RAG retrieves focused pieces of text. Whole documents are often too large and too
+                                    noisy.</p>
+                            </div>
+                        </details>
+                    </div>
+                    <div>
+                        <details>
+                            <summary>What is chunk overlap?</summary>
+                            <div class="detail-body">
+                                <p>Overlap repeats a small part of neighboring chunks so important context is not lost
+                                    at chunk boundaries.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What is reranking?</summary>
+                            <div class="detail-body">
+                                <p>Reranking takes initial search results and reorders them with a slower but more
+                                    accurate scoring step.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Can RAG work with private documents?</summary>
+                            <div class="detail-body">
+                                <p>Yes. That is one of its strongest use cases, assuming access control and data privacy
+                                    are handled correctly.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Can RAG use fresh data?</summary>
+                            <div class="detail-body">
+                                <p>Yes. You update the index when documents change instead of retraining the model.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>Can RAG work without embeddings?</summary>
+                            <div class="detail-body">
+                                <p>Yes, you can use keyword or hybrid search. Embeddings are common because they capture
+                                    semantic similarity.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>How do I debug a bad RAG answer?</summary>
+                            <div class="detail-body">
+                                <p>First inspect retrieved chunks. If the right chunk is missing, fix retrieval before
+                                    blaming the LLM.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>What is grounding?</summary>
+                            <div class="detail-body">
+                                <p>Grounding means forcing the answer to be based on provided sources instead of model
+                                    memory.</p>
+                            </div>
+                        </details>
+                        <details>
+                            <summary>When should I not use RAG?</summary>
+                            <div class="detail-body">
+                                <p>When you need pure writing style, fixed classification behavior, or a tiny static
+                                    knowledge base that fits easily in one prompt.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-shell" id="glossary">
+                <h2 class="section-title">Glossary</h2>
+                <div class="grid-2">
+                    <details open>
+                        <summary>Retrieval</summary>
+                        <div class="detail-body">
+                            <p>Finding relevant information before generation. Example: search the HR policy before
+                                answering a vacation question.</p>
+                        </div>
+                    </details>
+                    <details open>
+                        <summary>Chunk</summary>
+                        <div class="detail-body">
+                            <p>A small piece of a larger document. Example: one paragraph from a product manual.</p>
+                        </div>
+                    </details>
+                    <details open>
+                        <summary>Embedding</summary>
+                        <div class="detail-body">
+                            <p>A vector representation of text. Example: turning “password reset” into a list of
+                                numbers.</p>
+                        </div>
+                    </details>
+                    <details open>
+                        <summary>Vector database</summary>
+                        <div class="detail-body">
+                            <p>A database optimized for storing vectors and finding nearest neighbors.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Query vector</summary>
+                        <div class="detail-body">
+                            <p>The vector created from the user question.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Document vector</summary>
+                        <div class="detail-body">
+                            <p>The vector created from a stored chunk or document.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Semantic search</summary>
+                        <div class="detail-body">
+                            <p>Search by meaning, not just exact words.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Hybrid search</summary>
+                        <div class="detail-body">
+                            <p>Combining keyword search and vector search.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Prompt assembly</summary>
+                        <div class="detail-body">
+                            <p>Building the final prompt from instructions, retrieved chunks, and the user question.</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Source citation</summary>
+                        <div class="detail-body">
+                            <p>Showing which source chunk supported the answer.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section class="page-shell" id="resources">
+                <h2 class="section-title">Learn more</h2>
+                <p class="section-lead">A small curated list of useful resources. This page is not a replacement for
+                    production documentation.</p>
+                <div class="grid-3">
+                    <a class="card resource-card" href="https://platform.openai.com/docs/guides/embeddings"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="source">OpenAI</div>
+                        <h3>Embeddings Guide</h3>
+                        <p>Useful for understanding text embeddings and similarity use cases.</p>
+                    </a>
+                    <a class="card resource-card"
+                        href="https://developers.google.com/machine-learning/crash-course/embeddings" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="source">Google ML</div>
+                        <h3>Embeddings</h3>
+                        <p>A beginner-friendly explanation of embeddings and vector representations.</p>
+                    </a>
+                    <a class="card resource-card" href="https://www.pinecone.io/learn/retrieval-augmented-generation/"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="source">Pinecone</div>
+                        <h3>RAG Guide</h3>
+                        <p>Practical vector database and RAG concepts.</p>
+                    </a>
+                    <a class="card resource-card"
+                        href="https://weaviate.io/developers/weaviate/concepts/search/vector-search" target="_blank"
+                        rel="noopener noreferrer">
+                        <div class="source">Weaviate</div>
+                        <h3>Vector Search</h3>
+                        <p>Good conceptual documentation about vector search.</p>
+                    </a>
+                    <a class="card resource-card" href="https://qdrant.tech/documentation/concepts/search/"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="source">Qdrant</div>
+                        <h3>Search Concepts</h3>
+                        <p>Useful docs about vector search and filtering.</p>
+                    </a>
+                    <a class="card resource-card" href="https://python.langchain.com/docs/tutorials/rag/"
+                        target="_blank" rel="noopener noreferrer">
+                        <div class="source">LangChain</div>
+                        <h3>RAG Tutorial</h3>
+                        <p>Implementation-oriented guide for building RAG flows.</p>
+                    </a>
+                </div>
+            </section>
+
+            <section class="page-shell">
+                <div class="callout">
+                    <strong>What this demo does not do:</strong> it does not call a real LLM, create real embeddings, or
+                    query a live vector database. It uses predefined scores so you can see the mechanics without API
+                    cost.
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        const knowledgeBases = {
+            hr: {
+                name: "Company HR Policy",
+                chunks: [
+                    { id: "hr-vacation", title: "Vacation policy", source: "HR Handbook", text: "Employees receive 20 paid vacation days per year. Vacation days accrue monthly and unused days may carry over up to 5 days." },
+                    { id: "hr-remote", title: "Remote work", source: "Remote Work Policy", text: "Remote work is allowed up to two days per week with manager approval. Fully remote work requires director approval." },
+                    { id: "hr-sick", title: "Sick leave", source: "HR Handbook", text: "Sick leave is available when employees are ill. A doctor's note is required after three consecutive sick days." },
+                    { id: "hr-expenses", title: "Expense reimbursement", source: "Finance Policy", text: "Expense reimbursement requests must be submitted within 30 days and include a valid receipt." },
+                    { id: "hr-parking", title: "Office parking", source: "Facilities Guide", text: "Office parking is available only for employees with assigned parking permits." },
+                    { id: "hr-hours", title: "Core hours", source: "Employee Guide", text: "Core working hours are 10:00 to 15:00 in the employee's local time zone." },
+                    { id: "hr-equipment", title: "Home office equipment", source: "Equipment Policy", text: "Employees may expense up to 500 dollars for approved home office equipment after manager approval." }
+                ],
+                questions: [
+                    { text: "How many vacation days do employees get?", needed: ["hr-vacation"], answer: "Employees receive 20 paid vacation days per year. They accrue monthly, and up to 5 unused days may carry over.", scores: { "hr-vacation": .96, "hr-remote": .35, "hr-sick": .42, "hr-expenses": .16, "hr-parking": .08, "hr-hours": .12, "hr-equipment": .15 } },
+                    { text: "Can employees work remotely?", needed: ["hr-remote"], answer: "Remote work is allowed up to two days per week with manager approval. Fully remote work requires director approval.", scores: { "hr-remote": .94, "hr-equipment": .48, "hr-hours": .40, "hr-vacation": .20, "hr-sick": .18, "hr-expenses": .10, "hr-parking": .05 } },
+                    { text: "When should expenses be submitted?", needed: ["hr-expenses"], answer: "Expense reimbursement requests must be submitted within 30 days and include a valid receipt.", scores: { "hr-expenses": .95, "hr-equipment": .58, "hr-vacation": .20, "hr-parking": .17, "hr-hours": .11, "hr-remote": .09, "hr-sick": .05 } },
+                    { text: "What is the sick leave policy?", needed: ["hr-sick"], answer: "Sick leave is available when employees are ill, and a doctor's note is required after three consecutive sick days.", scores: { "hr-sick": .94, "hr-vacation": .55, "hr-hours": .24, "hr-remote": .18, "hr-expenses": .08, "hr-parking": .05, "hr-equipment": .04 } }
+                ]
+            },
+            java: {
+                name: "Java Backend Notes",
+                chunks: [
+                    { id: "java-jwt", title: "JWT authentication", source: "Security Notes", text: "JWT is a signed token that represents authenticated user claims. Servers verify the signature before trusting the claims." },
+                    { id: "java-pool", title: "Connection pooling", source: "Database Notes", text: "Connection pooling reuses database connections instead of opening a new connection for every request." },
+                    { id: "java-controller", title: "Spring controller", source: "Spring Notes", text: "A Spring controller receives HTTP requests, validates input, and delegates business logic to services." },
+                    { id: "java-errors", title: "Global error handler", source: "API Guidelines", text: "A global error handler turns exceptions into consistent API responses and avoids leaking internal stack traces." },
+                    { id: "java-streams", title: "Java Streams", source: "Java Guide", text: "Java Streams process collections declaratively with operations such as map, filter, and reduce." },
+                    { id: "java-gc", title: "G1 GC", source: "JVM Notes", text: "The G1 Garbage Collector divides the heap into regions and prioritizes regions that contain the most reclaimable memory." }
+                ],
+                questions: [
+                    { text: "What is JWT authentication?", needed: ["java-jwt"], answer: "JWT authentication uses a signed token containing user claims. The server verifies the signature before trusting those claims.", scores: { "java-jwt": .96, "java-errors": .33, "java-controller": .22, "java-pool": .06, "java-streams": .05, "java-gc": .02 } },
+                    { text: "Why use connection pooling?", needed: ["java-pool"], answer: "Connection pooling improves performance by reusing database connections instead of creating a new connection for every request.", scores: { "java-pool": .95, "java-controller": .28, "java-errors": .18, "java-jwt": .11, "java-streams": .06, "java-gc": .05 } },
+                    { text: "What does a Spring controller do?", needed: ["java-controller"], answer: "A Spring controller receives HTTP requests, validates input, and delegates business logic to service classes.", scores: { "java-controller": .94, "java-errors": .48, "java-jwt": .20, "java-pool": .12, "java-streams": .08, "java-gc": .03 } },
+                    { text: "Why use a global error handler?", needed: ["java-errors"], answer: "A global error handler keeps API errors consistent and prevents internal stack traces from leaking to clients.", scores: { "java-errors": .94, "java-controller": .48, "java-jwt": .18, "java-pool": .10, "java-streams": .05, "java-gc": .02 } }
+                ]
+            },
+            product: {
+                name: "Product Documentation",
+                chunks: [
+                    { id: "prod-reset", title: "Password reset", source: "User Guide", text: "Users can reset their password from the login page by clicking Forgot Password and following the email link." },
+                    { id: "prod-export", title: "Report export", source: "Reports Guide", text: "Reports can be exported as CSV from the Reports dashboard using the Export button." },
+                    { id: "prod-webhooks", title: "Webhooks", source: "Developer Docs", text: "Webhooks send HTTP callbacks to customer-defined URLs when selected events happen." },
+                    { id: "prod-invite", title: "Team invitations", source: "Workspace Docs", text: "Admin users can invite new team members from the workspace settings page." },
+                    { id: "prod-keys", title: "API keys", source: "Developer Docs", text: "API keys can be rotated from the developer settings section. Old keys stop working immediately after rotation." },
+                    { id: "prod-roles", title: "Roles", source: "Admin Guide", text: "Workspace roles control which users can manage billing, invite members, and access developer settings." }
+                ],
+                questions: [
+                    { text: "How do I reset my password?", needed: ["prod-reset"], answer: "Use the Forgot Password link on the login page and follow the email reset link.", scores: { "prod-reset": .96, "prod-keys": .36, "prod-roles": .22, "prod-invite": .18, "prod-export": .05, "prod-webhooks": .04 } },
+                    { text: "Can I export reports?", needed: ["prod-export"], answer: "Yes. Reports can be exported as CSV from the Reports dashboard using the Export button.", scores: { "prod-export": .95, "prod-roles": .16, "prod-reset": .08, "prod-webhooks": .08, "prod-invite": .05, "prod-keys": .04 } },
+                    { text: "How do webhooks work?", needed: ["prod-webhooks"], answer: "Webhooks send HTTP callbacks to customer-defined URLs when selected events happen.", scores: { "prod-webhooks": .95, "prod-keys": .50, "prod-roles": .22, "prod-export": .11, "prod-reset": .07, "prod-invite": .05 } },
+                    { text: "Where can API keys be rotated?", needed: ["prod-keys"], answer: "API keys can be rotated from the developer settings section. Old keys stop working immediately after rotation.", scores: { "prod-keys": .95, "prod-webhooks": .45, "prod-roles": .35, "prod-reset": .14, "prod-invite": .10, "prod-export": .05 } }
+                ]
+            },
+            vector: {
+                name: "Vector Search Notes",
+                chunks: [
+                    { id: "vec-cosine", title: "Cosine similarity", source: "Vector Notes", text: "Cosine similarity measures whether two vectors point in a similar direction, which often maps to semantic closeness." },
+                    { id: "vec-topk", title: "Top K", source: "Retrieval Notes", text: "Top K controls how many matching chunks are returned from retrieval." },
+                    { id: "vec-chunk", title: "Chunking", source: "RAG Notes", text: "Documents are split into chunks so the system can retrieve focused pieces of context." },
+                    { id: "vec-embed", title: "Embeddings", source: "Embedding Notes", text: "Embeddings convert text into vectors that can be compared numerically." },
+                    { id: "vec-db", title: "Vector database", source: "Database Notes", text: "A vector database stores embeddings and performs nearest-neighbor search." },
+                    { id: "vec-hybrid", title: "Hybrid search", source: "Search Notes", text: "Hybrid search combines keyword search with vector search to improve retrieval quality." }
+                ],
+                questions: [
+                    { text: "What is cosine similarity?", needed: ["vec-cosine"], answer: "Cosine similarity measures whether two vectors point in a similar direction, which is often used as a signal for semantic closeness.", scores: { "vec-cosine": .96, "vec-embed": .46, "vec-db": .30, "vec-topk": .18, "vec-chunk": .12, "vec-hybrid": .10 } },
+                    { text: "What is Top K?", needed: ["vec-topk"], answer: "Top K controls how many matching chunks are returned from retrieval.", scores: { "vec-topk": .95, "vec-db": .31, "vec-hybrid": .28, "vec-cosine": .18, "vec-chunk": .14, "vec-embed": .11 } },
+                    { text: "Why split documents into chunks?", needed: ["vec-chunk"], answer: "Documents are split into chunks so retrieval can return focused pieces of context instead of entire noisy documents.", scores: { "vec-chunk": .95, "vec-embed": .42, "vec-db": .32, "vec-topk": .25, "vec-cosine": .10, "vec-hybrid": .08 } },
+                    { text: "What does a vector database do?", needed: ["vec-db"], answer: "A vector database stores embeddings and performs nearest-neighbor search to find semantically similar chunks.", scores: { "vec-db": .96, "vec-embed": .60, "vec-cosine": .45, "vec-hybrid": .34, "vec-topk": .25, "vec-chunk": .20 } }
+                ]
+            },
+            ecommerce: {
+                name: "E-commerce Support FAQ",
+                chunks: [
+                    { id: "ec-refund", title: "Refund timing", source: "Support FAQ", text: "Refunds are processed within 5 to 7 business days after the returned item is approved." },
+                    { id: "ec-return", title: "Return policy", source: "Support FAQ", text: "Items can be returned within 30 days of delivery if they are unused and in the original packaging." },
+                    { id: "ec-shipping", title: "Shipping time", source: "Delivery Guide", text: "Standard shipping takes 3 to 5 business days. Expedited shipping takes 1 to 2 business days." },
+                    { id: "ec-address", title: "Delivery address", source: "Orders Guide", text: "A delivery address can be changed before the order is shipped from the warehouse." },
+                    { id: "ec-damaged", title: "Damaged items", source: "Support FAQ", text: "If an item arrives damaged, contact support within 48 hours for a free replacement." },
+                    { id: "ec-payment", title: "Payment methods", source: "Checkout Guide", text: "The store accepts Visa, Mastercard, PayPal, and Apple Pay." }
+                ],
+                questions: [
+                    { text: "What is the refund policy?", needed: ["ec-refund", "ec-return"], answer: "Items can be returned within 30 days if unused and in original packaging. Approved refunds are processed within 5 to 7 business days.", scores: { "ec-refund": .91, "ec-return": .88, "ec-shipping": .20, "ec-address": .12, "ec-damaged": .38, "ec-payment": .08 } },
+                    { text: "How long does shipping take?", needed: ["ec-shipping"], answer: "Standard shipping takes 3 to 5 business days, while expedited shipping takes 1 to 2 business days.", scores: { "ec-shipping": .96, "ec-address": .38, "ec-return": .20, "ec-refund": .15, "ec-damaged": .10, "ec-payment": .05 } },
+                    { text: "Can I change my delivery address?", needed: ["ec-address"], answer: "You can change the delivery address before the order is shipped from the warehouse.", scores: { "ec-address": .94, "ec-shipping": .45, "ec-return": .16, "ec-refund": .08, "ec-damaged": .08, "ec-payment": .04 } },
+                    { text: "What happens if an item is damaged?", needed: ["ec-damaged"], answer: "If an item arrives damaged, contact support within 48 hours for a free replacement.", scores: { "ec-damaged": .96, "ec-return": .58, "ec-refund": .48, "ec-shipping": .22, "ec-address": .09, "ec-payment": .05 } }
+                ]
+            },
+            troubleshooting: {
+                name: "Troubleshooting Knowledge Base",
+                chunks: [
+                    { id: "tr-slow", title: "App slowness", source: "Ops Runbook", text: "If the app is slow, check database latency, external API latency, cache hit rate, and frontend bundle size." },
+                    { id: "tr-401", title: "401 errors", source: "Auth Runbook", text: "A 401 error usually means the request is missing a valid token or the token signature cannot be verified." },
+                    { id: "tr-deploy", title: "Deployment failure", source: "CI/CD Runbook", text: "Deployment can fail because of failed tests, missing environment variables, image pull errors, or failed health checks." },
+                    { id: "tr-logs", title: "Missing logs", source: "Observability Guide", text: "Missing logs can happen when log level is too high, the logging agent is down, or the service writes to the wrong output stream." },
+                    { id: "tr-db", title: "Database connections", source: "DB Runbook", text: "Database connection exhaustion often means the pool size is too small, connections are leaked, or traffic spiked." },
+                    { id: "tr-cors", title: "CORS issues", source: "Frontend Runbook", text: "CORS errors happen when the browser blocks requests because the server did not allow the calling origin." }
+                ],
+                questions: [
+                    { text: "Why is the app slow?", needed: ["tr-slow", "tr-db"], answer: "Check database latency, external API latency, cache hit rate, frontend bundle size, and database connection usage.", scores: { "tr-slow": .94, "tr-db": .74, "tr-deploy": .22, "tr-logs": .18, "tr-401": .08, "tr-cors": .06 } },
+                    { text: "Why am I getting a 401 error?", needed: ["tr-401"], answer: "A 401 usually means the request is missing a valid token or the token signature cannot be verified.", scores: { "tr-401": .96, "tr-cors": .40, "tr-logs": .18, "tr-deploy": .12, "tr-slow": .05, "tr-db": .04 } },
+                    { text: "Why did deployment fail?", needed: ["tr-deploy"], answer: "Deployment may fail due to failed tests, missing environment variables, image pull errors, or failed health checks.", scores: { "tr-deploy": .95, "tr-logs": .50, "tr-db": .18, "tr-cors": .14, "tr-slow": .12, "tr-401": .08 } },
+                    { text: "Why are logs missing?", needed: ["tr-logs"], answer: "Missing logs can happen when log level is too high, the logging agent is down, or the service writes to the wrong output stream.", scores: { "tr-logs": .95, "tr-deploy": .45, "tr-slow": .25, "tr-401": .12, "tr-cors": .09, "tr-db": .07 } }
+                ]
+            }
+        };
+
+        const ui = {
+            kbSelect: document.getElementById("kbSelect"),
+            questionSelect: document.getElementById("questionSelect"),
+            topK: document.getElementById("topK"),
+            topKLabel: document.getElementById("topKLabel"),
+            threshold: document.getElementById("threshold"),
+            thresholdLabel: document.getElementById("thresholdLabel"),
+            retrievalMode: document.getElementById("retrievalMode"),
+            promptBudget: document.getElementById("promptBudget"),
+            topKHint: document.getElementById("topKHint"),
+            thresholdHint: document.getElementById("thresholdHint"),
+            modeHint: document.getElementById("modeHint"),
+            budgetHint: document.getElementById("budgetHint"),
+            runBtn: document.getElementById("runBtn"),
+            emptyRunBtn: document.getElementById("emptyRunBtn"),
+            emptyState: document.getElementById("emptyState"),
+            resultsContent: document.getElementById("resultsContent"),
+            selectedChunks: document.getElementById("selectedChunks"),
+            rejectedChunks: document.getElementById("rejectedChunks"),
+            selectedCount: document.getElementById("selectedCount"),
+            rejectedCount: document.getElementById("rejectedCount"),
+            promptPreview: document.getElementById("promptPreview"),
+            answerBox: document.getElementById("answerBox"),
+            answerTitle: document.getElementById("answerTitle"),
+            answerText: document.getElementById("answerText"),
+            whatHappened: document.getElementById("whatHappened"),
+            whatHappenedText: document.getElementById("whatHappenedText"),
+            mTotal: document.getElementById("mTotal"),
+            mSelected: document.getElementById("mSelected"),
+            mBest: document.getElementById("mBest"),
+            mBudget: document.getElementById("mBudget"),
+            copyPromptBtn: document.getElementById("copyPromptBtn")
+
+        };
+
+        const budgetLimits = { small: 260, medium: 720, large: 2200 };
+        const modeDelta = { strict: 0.15, balanced: 0, loose: -0.18 };
+        const pipeIds = ["p-question", "p-embed", "p-search", "p-rank", "p-filter", "p-prompt", "p-answer"];
+
+        function init() {
+            Object.entries(knowledgeBases).forEach(([key, kb]) => {
+                const opt = document.createElement("option");
+                opt.value = key;
+                opt.textContent = kb.name;
+                ui.kbSelect.appendChild(opt);
+            });
+
+            ui.kbSelect.value = "hr";
+            updateQuestions();
+            updateHints();
+
+            ui.kbSelect.addEventListener("change", () => {
+                updateQuestions();
+                clearResults();
+            });
+            ui.questionSelect.addEventListener("change", clearResults);
+            [ui.topK, ui.threshold, ui.retrievalMode, ui.promptBudget].forEach(el => el.addEventListener("input", updateHints));
+            ui.runBtn.addEventListener("click", runPipeline);
+            ui.emptyRunBtn.addEventListener("click", runPipeline);
+            document.querySelectorAll("[data-scenario]").forEach(btn => btn.addEventListener("click", () => runScenario(btn.dataset.scenario)));
+            ui.copyPromptBtn.addEventListener("click", copyPrompt);
+        }
+
+        function updateQuestions() {
+            ui.questionSelect.innerHTML = "";
+            const kb = knowledgeBases[ui.kbSelect.value];
+            kb.questions.forEach((q, idx) => {
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.textContent = q.text;
+                ui.questionSelect.appendChild(opt);
+            });
+        }
+
+        function effectiveThreshold() {
+            const raw = Number(ui.threshold.value);
+            const adjusted = raw + modeDelta[ui.retrievalMode.value];
+            return Math.max(0, Math.min(1, adjusted));
+        }
+
+        function updateHints() {
+            const k = Number(ui.topK.value);
+            const t = Number(ui.threshold.value);
+            const mode = ui.retrievalMode.value;
+            const budget = ui.promptBudget.value;
+            ui.topKLabel.textContent = `${k} chunk${k === 1 ? "" : "s"}`;
+            ui.thresholdLabel.textContent = t.toFixed(2);
+
+            ui.topKHint.textContent = k === 1
+                ? "Very focused. Good for simple answers, risky for multi-part answers."
+                : k <= 3
+                    ? "Balanced. Usually a good starting point."
+                    : "More context, but more noise and token cost.";
+
+            ui.thresholdHint.textContent = t >= .8
+                ? "Strict. Useful chunks may disappear."
+                : t <= .3
+                    ? "Loose. Weakly related chunks may enter the prompt."
+                    : "Balanced. A practical demo default.";
+
+            ui.modeHint.textContent = mode === "strict"
+                ? `Effective threshold becomes ${effectiveThreshold().toFixed(2)}.`
+                : mode === "loose"
+                    ? `Effective threshold becomes ${effectiveThreshold().toFixed(2)}.`
+                    : "Uses the threshold exactly as selected.";
+
+            ui.budgetHint.textContent = budget === "small"
+                ? "Cheap and focused, but may drop useful context."
+                : budget === "large"
+                    ? "More context fits, but irrelevant chunks can creep in."
+                    : "Balanced budget for most demo cases.";
+        }
+
+        function clearResults() {
+            ui.emptyState.classList.remove("hidden");
+            ui.resultsContent.classList.add("hidden");
+        }
+
+        async function animatePipeline() {
+            pipeIds.forEach(id => {
+                document.getElementById(id).classList.remove("active", "done");
+            });
+
+            for (const id of pipeIds) {
+                const el = document.getElementById(id);
+                el.classList.add("active");
+                await new Promise(resolve => setTimeout(resolve, 120));
+                el.classList.remove("active");
+                el.classList.add("done");
+            }
+        }
+
+        async function runPipeline() {
+            ui.emptyState.classList.add("hidden");
+            ui.resultsContent.classList.remove("hidden");
+            ui.resultsContent.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            await animatePipeline();
+            const result = calculateRetrieval();
+            renderResult(result);
+        }
+
+        function calculateRetrieval() {
+            const kb = knowledgeBases[ui.kbSelect.value];
+            const q = kb.questions[Number(ui.questionSelect.value)];
+            const topK = Number(ui.topK.value);
+            const threshold = effectiveThreshold();
+            const budgetName = ui.promptBudget.value;
+            const charLimit = budgetLimits[budgetName];
+
+            const ranked = kb.chunks
+                .map(chunk => ({ ...chunk, score: q.scores[chunk.id] || 0 }))
+                .sort((a, b) => b.score - a.score);
+
+            const selected = [];
+            const rejected = [];
+            let usedChars = 0;
+
+            ranked.forEach((chunk, index) => {
+                const item = { ...chunk, rank: index + 1 };
+                if (chunk.score < threshold) {
+                    item.reason = `Rejected because score ${chunk.score.toFixed(2)} is below effective threshold ${threshold.toFixed(2)}.`;
+                    rejected.push(item);
+                    return;
+                }
+                if (selected.length >= topK) {
+                    item.reason = `Rejected because it is outside Top K = ${topK}.`;
+                    rejected.push(item);
+                    return;
+                }
+                if (usedChars + chunk.text.length > charLimit) {
+                    item.reason = `Rejected because the ${budgetName} prompt budget is full.`;
+                    rejected.push(item);
+                    return;
+                }
+
+                usedChars += chunk.text.length;
+                item.reason = `Selected because score ${chunk.score.toFixed(2)} passed threshold ${threshold.toFixed(2)} and fit Top K/budget.`;
+                selected.push(item);
+            });
+
+            const needed = q.needed;
+            const selectedIds = selected.map(c => c.id);
+            const matchedNeeded = needed.filter(id => selectedIds.includes(id));
+            const missingNeeded = needed.filter(id => !selectedIds.includes(id));
+            const lowQualityNoise = selected.some(c => c.score < .45);
+            const allNeededSelected = missingNeeded.length === 0;
+            const partialNeeded = matchedNeeded.length > 0 && missingNeeded.length > 0;
+            const budgetUsed = Math.min(100, Math.round((usedChars / charLimit) * 100));
+
+            let quality = "bad";
+            let title = "No reliable answer";
+            let answer = "I do not have enough information to answer that based on the retrieved context.";
+            let explanation = "The retrieval settings did not include the needed source chunk.";
+
+            if (selected.length === 0) {
+                quality = "bad";
+                title = "No answer generated";
+                explanation = "All chunks were filtered out. In a real RAG system, the model should refuse to answer instead of guessing.";
+            } else if (allNeededSelected && !lowQualityNoise) {
+                quality = "good";
+                title = "Good grounded answer";
+                answer = q.answer;
+                explanation = "The needed source chunk was retrieved and the prompt context is focused.";
+            } else if (allNeededSelected && lowQualityNoise) {
+                quality = "warn";
+                title = "Answer with noise warning";
+                answer = q.answer;
+                explanation = "The answer is available, but weakly related chunks also entered the prompt. This can increase hallucination risk.";
+            } else if (partialNeeded) {
+                quality = "warn";
+                title = "Partial answer risk";
+                answer = q.answer + " However, some supporting context was filtered out, so a real answer may be incomplete.";
+                explanation = "Some required chunks were included, but not all of them.";
+            }
+
+            return { kb, q, ranked, selected, rejected, topK, threshold, budgetName, charLimit, usedChars, budgetUsed, quality, title, answer, explanation, allNeededSelected, missingNeeded, lowQualityNoise };
+        }
+
+        function renderResult(result) {
+            const { selected, rejected, ranked, q, threshold, budgetUsed, quality, title, answer, explanation } = result;
+
+            ui.selectedChunks.innerHTML = selected.length ? selected.map(chunk => chunkMarkup(chunk, true)).join("") : emptyMini("No chunks entered the prompt.");
+            ui.rejectedChunks.innerHTML = rejected.length ? rejected.map(chunk => chunkMarkup(chunk, false)).join("") : emptyMini("No chunks were rejected.");
+            ui.selectedCount.textContent = `${selected.length} included`;
+            ui.rejectedCount.textContent = `${rejected.length} rejected`;
+
+            ui.mTotal.textContent = ranked.length;
+            ui.mSelected.textContent = selected.length;
+            ui.mBest.textContent = ranked[0] ? ranked[0].score.toFixed(2) : "0.00";
+            ui.mBudget.textContent = `${budgetUsed}%`;
+
+            const context = selected.length
+                ? selected.map((c, idx) => `[Chunk ${idx + 1} | ${c.source} | score ${c.score.toFixed(2)}]\n${c.text}`).join("\n\n")
+                : "[No chunks passed retrieval filters]";
+
+            ui.promptPreview.innerHTML =
+                `<span class="sys">System:
+Answer only using the provided context.
+If the answer is not in the context, say: "I do not have enough information."</span>
+
+<span class="ctx">Context:
+${escapeHtml(context)}</span>
+
+<span class="qst">Question:
+${escapeHtml(q.text)}</span>`;
+
+            ui.answerBox.className = "answer-box " + (quality === "good" ? "" : quality);
+            ui.answerTitle.textContent = title;
+            ui.answerText.textContent = answer;
+
+            ui.whatHappened.className = "status-panel " + quality;
+            ui.whatHappenedText.textContent = `${explanation} Effective threshold: ${threshold.toFixed(2)}. Selected ${selected.length} chunk(s).`;
+        }
+
+        function chunkMarkup(chunk, selected) {
+            const scoreClass = chunk.score >= .75 ? "good" : chunk.score >= .45 ? "warn" : "bad";
+            return `
+        <article class="chunk ${selected ? "selected" : "rejected"}">
+          <div class="chunk-top">
+            <div>
+              <div class="chunk-title">#${chunk.rank} ${escapeHtml(chunk.title)}</div>
+              <div class="chunk-source">${escapeHtml(chunk.source)}</div>
+            </div>
+            <span class="score-pill ${scoreClass}">${chunk.score.toFixed(2)}</span>
+          </div>
+          <p>${escapeHtml(chunk.text)}</p>
+          <div class="reason">${selected ? "✅" : "⛔"} ${escapeHtml(chunk.reason)}</div>
+        </article>`;
+        }
+
+        function emptyMini(text) {
+            return `<div class="chunk"><p>${escapeHtml(text)}</p></div>`;
+        }
+
+        function runScenario(type) {
+            const scenario = {
+                good: { kb: "hr", q: 0, k: 3, t: .50, mode: "balanced", budget: "medium" },
+                strict: { kb: "hr", q: 0, k: 5, t: .95, mode: "strict", budget: "medium" },
+                lowK: { kb: "ecommerce", q: 0, k: 1, t: .40, mode: "balanced", budget: "medium" },
+                noise: { kb: "java", q: 0, k: 6, t: .05, mode: "loose", budget: "large" },
+                budget: { kb: "troubleshooting", q: 0, k: 5, t: .30, mode: "balanced", budget: "small" },
+                noanswer: { kb: "product", q: 2, k: 3, t: .98, mode: "strict", budget: "medium" }
+            }[type];
+
+            ui.kbSelect.value = scenario.kb;
+            updateQuestions();
+            ui.questionSelect.value = scenario.q;
+            ui.topK.value = scenario.k;
+            ui.threshold.value = scenario.t;
+            ui.retrievalMode.value = scenario.mode;
+            ui.promptBudget.value = scenario.budget;
+            updateHints();
+            document.getElementById("sandbox").scrollIntoView({ behavior: "smooth" });
+            runPipeline();
+        }
+
+        function copyPrompt() {
+            const text = ui.promptPreview.innerText || ui.promptPreview.textContent;
+            navigator.clipboard?.writeText(text).then(() => {
+                const old = ui.copyPromptBtn.textContent;
+                ui.copyPromptBtn.textContent = "Copied";
+                setTimeout(() => ui.copyPromptBtn.textContent = old, 1200);
+            });
+        }
+
+        function escapeHtml(input) {
+            return String(input)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        window.addEventListener("DOMContentLoaded", init);
+    </script>
+    <footer>
+        <div class="container">
+            <p style="color: #7070a0;">© 2026 LiDa Software. All rights reserved.</p>
+            <div class="open-source-badge">
+                ❤️ Inspired by Open Source
+            </div>
+
+            <div class="philosophy-statement">
+                I build tools the same way I write code: small, boring, and useful.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Popup -->
+    <div id="whatsappPopup" class="whatsapp-popup">
+        <div class="whatsapp-popup-content">
+            <button class="close-popup" onclick="closeWhatsAppPopup()">&times;</button>
+            <h3>📱 Contact via WhatsApp</h3>
+            <p>Get in touch with us directly on WhatsApp for quick support and questions.</p>
+            <div class="phone-number">+40 753 358 749</div>
+            <div class="whatsapp-buttons">
+                <a href="https://wa.me/40753358749?text=Hi%20there!%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch."
+                    target="_blank" class="whatsapp-btn primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488" />
+                    </svg>
+                    Open WhatsApp
+                </a>
+                <button class="whatsapp-btn secondary" onclick="closeWhatsAppPopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+        </svg>
+    </button>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll to Top Button Visibility
+        const scrollToTop = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        function openWhatsAppPopup() {
+            document.getElementById('whatsappPopup').style.display = 'block';
+        }
+
+        function closeWhatsAppPopup() {
+            document.getElementById('whatsappPopup').style.display = 'none';
+        }
+
+        // Tutorials Hub Data Structure and Dynamic Rendering
+        function renderTutorialsHub() {
+            const mainContainer = document.getElementById('tutorials-hub-content');
+            if (!mainContainer) return;
+
+            mainContainer.innerHTML = '';
+
+            // Group tutorials by category
+            const categoriesMap = {};
+            tutorials.forEach(t => {
+                if (!categoriesMap[t.category]) {
+                    categoriesMap[t.category] = {
+                        name: t.category,
+                        icon: t.categoryIcon || 'book',
+                        items: []
+                    };
+                }
+                categoriesMap[t.category].items.push(t);
+            });
+
+            // Render Topic sections
+            let browseHTML = '';
+
+            let hasCategories = false;
+            Object.values(categoriesMap).forEach(cat => {
+                if (cat.items.length === 0) return;
+                hasCategories = true;
+
+                browseHTML += `
+                <section class="category-container" style="margin-bottom: 60px;">
+                  <div class="category-header">
+                    <span class="material-symbols-outlined category-icon">${cat.icon}</span>
+                    <h2 class="category-title">${cat.name}</h2>
+                  </div>
+                  <div class="tutorials-grid">
+                    ${cat.items.map(t => {
+                    if (t.placeholder) {
+                        return `
+                          <div class="tutorial-card placeholder">
+                            <span class="coming-soon-badge">Coming Soon</span>
+                            <div class="tutorial-icon">${t.icon}</div>
+                            <h3 class="tutorial-card-title">${t.title}</h3>
+                            <p class="tutorial-card-desc">${t.description}</p>
+                            <div class="tutorial-tags">
+                              ${t.tags.map(tag => `<span class="tutorial-tag">${tag}</span>`).join('')}
+                            </div>
+                            <span class="tutorial-link-btn disabled">Coming Soon <span class="material-symbols-outlined">hourglass_empty</span></span>
+                          </div>
+                        `;
+                    }
+                    return `
+                        <a href="${t.path}" class="tutorial-card">
+                          <div class="tutorial-icon">${t.icon}</div>
+                          <h3 class="tutorial-card-title">${t.title}</h3>
+                          <p class="tutorial-card-desc">${t.description}</p>
+                          <div class="tutorial-tags">
+                            ${t.tags.map(tag => `<span class="tutorial-tag">${tag}</span>`).join('')}
+                          </div>
+                          <span class="tutorial-link-btn">Start Tutorial <span class="material-symbols-outlined">arrow_forward</span></span>
+                        </a>
+                      `;
+                }).join('')}
+                  </div>
+                </section>
+            `;
+            });
+
+            if (hasCategories) {
+                mainContainer.insertAdjacentHTML('beforeend', browseHTML);
+            }
+
+            // Render "How these tutorials work" section
+            const howItWorksHTML = `
+            <section class="how-it-works-section" style="margin-top: 80px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 60px; margin-bottom: 20px;">
+              <h2 style="font-size: 2rem; color: #fff; font-weight: 800; white-space: nowrap; text-align: center; margin-bottom: 16px; letter-spacing: -0.02em;">How these tutorials work</h2>
+              <p style="text-align: center; color: #9090b0; max-width: 600px; margin: 0 auto 40px auto; font-size: 1.05rem;">
+                We design our learning guides with a strict focus on practicality and clear understanding.
+              </p>
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;">
+                <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 16px; padding: 24px; transition: all 0.3s ease;">
+                  <div style="font-size: 2rem; margin-bottom: 16px;">📝</div>
+                  <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Short explanations</h3>
+                  <p style="color: #9090b0; font-size: 0.9rem; line-height: 1.5; font-weight: 400;">No academic walls of text or unnecessary complexity. Just what you need to know to write code.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 16px; padding: 24px; transition: all 0.3s ease;">
+                  <div style="font-size: 2rem; margin-bottom: 16px;">🕹️</div>
+                  <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Interactive demos</h3>
+                  <p style="color: #9090b0; font-size: 0.9rem; line-height: 1.5; font-weight: 400;">Visualize math, models, and databases live in your browser instead of reading static slides.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 16px; padding: 24px; transition: all 0.3s ease;">
+                  <div style="font-size: 2rem; margin-bottom: 16px;">💻</div>
+                  <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Practical examples</h3>
+                  <p style="color: #9090b0; font-size: 0.9rem; line-height: 1.5; font-weight: 400;">Examples are modeled after real engineering decisions and real-world libraries.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 16px; padding: 24px; transition: all 0.3s ease;">
+                  <div style="font-size: 2rem; margin-bottom: 16px;">⚖️</div>
+                  <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Honest trade-offs</h3>
+                  <p style="color: #9090b0; font-size: 0.9rem; line-height: 1.5; font-weight: 400;">Every concept includes direct limitations, engineering costs, and operational trade-offs.</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid rgba(102, 126, 234, 0.1); border-radius: 16px; padding: 24px; transition: all 0.3s ease;">
+                  <div style="font-size: 2rem; margin-bottom: 16px;">✨</div>
+                  <h3 style="color: #fff; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">No fake AI magic</h3>
+                  <p style="color: #9090b0; font-size: 0.9rem; line-height: 1.5; font-weight: 400;">We explain exactly what models do mathematically, without buzzwords or black boxes.</p>
+                </div>
+              </div>
+            </section>
+        `;
+            mainContainer.insertAdjacentHTML('beforeend', howItWorksHTML);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderTutorialsHub);
+    </script>
+</body>
+
+</html>

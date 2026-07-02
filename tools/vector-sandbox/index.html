@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Distance & Similarity Sandbox - LiDa Software</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Interactive 2D Vector Distance & Similarity Sandbox. Visualize and calculate Cosine Similarity, Dot Product, and Euclidean Distance. Perfect for understanding RAG, vector embeddings, and LLM retrieval." />
+    <meta name="keywords"
+        content="vector similarity, cosine similarity, dot product, euclidean distance, vector embeddings, rag, retrieval augmented generation, vector databases, developer tools" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Vector Distance & Similarity Sandbox | LiDa Software" />
+    <meta property="og:description"
+        content="Interactive 2D visualization of Cosine Similarity, Dot Product, and Euclidean Distance. Master vector math for RAG and embeddings." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/vector-sandbox/index.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vector Distance & Similarity Sandbox | LiDa Software" />
+    <meta name="twitter:description"
+        content="Interactive playground for understanding vector distance and similarity metrics (Cosine, Euclidean, Dot Product) in 2D." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/vector-sandbox/index.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://www.lidasoftware.online/favicon.png" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.png" />
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css?v=2" />
+
+    <!-- JSON-LD Schema (SoftwareApplication) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Vector Distance & Similarity Sandbox",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "description": "Interactive 2D playground for visualizing and calculating vector similarity metrics including Cosine Similarity, Euclidean Distance, and Dot Product. Critical for understanding RAG and embeddings.",
+      "url": "https://www.lidasoftware.online/tools/vector-sandbox/index.html",
+      "author": {
+        "@type": "Organization",
+        "name": "LiDa Software",
+        "url": "https://www.lidasoftware.online"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GN0YLZXR8J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GN0YLZXR8J');
+    </script>
+
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation Header -->
+    <nav class="nav-header">
+        <div class="container nav-container">
+            <a href="../../index.html" class="nav-logo">
+                <img src="logo.png" alt="LiDa Logo"
+                    style="height: 32px; width: auto; filter: drop-shadow(0 2px 8px rgba(99, 102, 241, 0.3));">
+                <span
+                    style="font-weight: 800; background: linear-gradient(135deg, #667eea, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">LiDa
+                    Developer Hub</span>
+            </a>
+            <div class="nav-links">
+                <a href="../../index.html" class="btn-nav-home">
+                    <span class="material-symbols-outlined">home</span>
+                    Back to Hub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <header class="sandbox-hero">
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <div
+                style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 0.85rem; font-weight: 500;">
+                <a href="../../guides.html"
+                    style="color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: var(--transition);">
+                    <span class="material-symbols-outlined" style="font-size: 1rem;">school</span> Tutorials
+                </a>
+                <span style="color: var(--text-muted);">&gt;</span>
+                <span style="color: var(--accent-secondary); font-weight: 600;">Vector Similarity</span>
+            </div>
+
+            <!-- Hero Badges -->
+            <div class="hero-badges">
+                <span class="badge badge-indigo">Tutorial</span>
+                <span class="badge badge-purple">RAG</span>
+                <span class="badge badge-sky">Embeddings</span>
+                <span class="badge badge-pink">Vector Search</span>
+                <span class="badge badge-indigo"
+                    style="background: rgba(245, 158, 11, 0.1); color: var(--warning); border-color: rgba(245, 158, 11, 0.2);">Demo
+                    Mode</span>
+                <span class="badge badge-sky"
+                    style="background: rgba(16, 185, 129, 0.1); color: var(--success); border-color: rgba(16, 185, 129, 0.2);">No
+                    Paid API</span>
+            </div>
+
+            <h1 class="hero-title">Understanding Vector Similarity</h1>
+            <p class="hero-subtitle">Learn how embeddings, cosine similarity, dot product, and Euclidean distance are
+                used in RAG and semantic search.</p>
+
+
+
+            <!-- Social Share Dropdown/Desktop Widget -->
+            <div id="desktop-share-buttons"
+                style="display: none; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; margin-top: 16px;">
+                <span style="color: #64748b; font-size: 0.85rem; font-weight: 600;">Share:</span>
+                <a href="#" id="share-facebook" class="share-btn-inline fb">Facebook</a>
+                <a href="#" id="share-linkedin" class="share-btn-inline ln">LinkedIn</a>
+                <a href="#" id="share-twitter" class="share-btn-inline tw">X</a>
+                <button id="share-copy" class="share-btn-inline cp">Copy Link</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container" id="sandbox-workspace" style="scroll-margin-top: 100px;">
+
+        <!-- What are we learning here? Section -->
+        <div class="sandbox-card"
+            style="margin-bottom: 24px; padding: 24px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(167, 139, 250, 0.03)); border: 1px solid var(--border-color);">
+            <div class="card-title-bar" style="margin-bottom: 16px;">
+                <h2
+                    style="font-size: 1.35rem; display: flex; align-items: center; gap: 8px; color: var(--text-primary);">
+                    <span class="material-symbols-outlined"
+                        style="color: var(--accent-secondary); font-size: 1.75rem;">school</span>
+                    What are we learning here?
+                </h2>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">
+                In modern AI applications like ChatGPT and custom enterprise search engines, software doesn't just look
+                for exact word matches. Instead, it understands the <strong>meaning</strong> of your query. This is
+                called <strong>Semantic Search</strong>, and it relies entirely on vector math.
+            </p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 16px;">
+                <div
+                    style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 16px; border-radius: var(--radius-md);">
+                    <div
+                        style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 700; color: var(--accent-primary);">
+                        <span class="material-symbols-outlined" style="font-size: 1.15rem;">tag</span> Text as Vectors
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: block;">
+                        AI models convert sentences and paragraphs into lists of numbers (vectors) representing semantic
+                        features.
+                    </span>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 16px; border-radius: var(--radius-md);">
+                    <div
+                        style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 700; color: var(--accent-secondary);">
+                        <span class="material-symbols-outlined" style="font-size: 1.15rem;">compare_arrows</span>
+                        Meaning Closeness
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: block;">
+                        Sentences with similar meanings point in similar directions or are positioned close together in
+                        high-dimensional vector space.
+                    </span>
+                </div>
+                <div
+                    style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 16px; border-radius: var(--radius-md);">
+                    <div
+                        style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 700; color: var(--success);">
+                        <span class="material-symbols-outlined" style="font-size: 1.15rem;">database</span> RAG & Vector
+                        Search
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; display: block;">
+                        Retrieval-Augmented Generation (RAG) uses vector databases to fetch document chunks that match
+                        the query meaning, before feeding them to an LLM.
+                    </span>
+                </div>
+            </div>
+
+            <p
+                style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0; background: rgba(99, 102, 241, 0.05); padding: 12px 16px; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-primary);">
+                <strong>Predefined Dataset Sandbox:</strong> This page uses curated, predefined examples to stay free
+                and fast without needing paid API tokens. Under the hood, it queries a real API to retrieve actual
+                vector similarity values for these pairs. Use the sandbox below to see how these metrics respond!
+            </p>
+        </div>
+
+        <!-- Interactive Sandbox Section Header -->
+        <div style="margin-top: 32px; margin-bottom: 20px;">
+            <h2
+                style="font-size: 1.5rem; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined"
+                    style="color: var(--accent-primary); font-size: 2rem;">architecture</span>
+                Interactive Similarity Sandbox
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">Select a comparison example
+                below to dynamically calculate similarity scores across different metrics.</p>
+        </div>
+
+        <!-- Semantic Similarity Section -->
+        <div class="sandbox-grid" id="semantic-similarity-grid">
+
+            <!-- Left Column: Inputs & Preset Examples -->
+            <div class="sidebar-panel">
+
+                <!-- Preset Examples Card -->
+                <div class="sandbox-card">
+                    <div class="card-title-bar">
+                        <h2>
+                            <span class="material-symbols-outlined"
+                                style="color: var(--accent-primary)">menu_book</span>
+                            Choose a demo comparison
+                        </h2>
+                    </div>
+                    <p class="card-subtitle" style="margin-bottom: 16px; line-height: 1.4; font-size: 0.85rem;">
+                        This free educational sandbox uses predefined vector examples. It does not compare arbitrary
+                        text and does not call paid AI embedding APIs.
+                    </p>
+
+
+                    <!-- Search examples -->
+                    <div class="search-container" style="margin-bottom: 16px; position: relative;">
+                        <input type="text" id="search-examples" class="text-input-field"
+                            placeholder="Search examples..."
+                            style="padding-left: 36px; padding-right: 36px; min-height: 38px;">
+                        <span class="material-symbols-outlined"
+                            style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.15rem; pointer-events: none;">search</span>
+                        <button id="btn-clear-search"
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; display: none;">
+                            <span class="material-symbols-outlined" style="font-size: 1.15rem;">close</span>
+                        </button>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="filters-container"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                        <div class="filter-group">
+                            <label for="filter-category"
+                                style="display:block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; font-weight:600;">Category</label>
+                            <select id="filter-category" class="select-field">
+                                <option value="">All Categories</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-relation"
+                                style="display:block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; font-weight:600;">Relation</label>
+                            <select id="filter-relation" class="select-field">
+                                <option value="">All Relations</option>
+                                <option value="very_similar">Very Similar</option>
+                                <option value="related">Related</option>
+                                <option value="weakly_related">Weakly Related</option>
+                                <option value="opposite">Opposite</option>
+                                <option value="unrelated">Unrelated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="api-examples-loading" class="loading-state"
+                        style="text-align: center; padding: 20px; color: var(--text-muted);">
+                        <div class="spinner"
+                            style="display: inline-block; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--accent-primary); animation: spin 1s ease infinite; margin-bottom: 8px;">
+                        </div>
+                        <div>Loading examples...</div>
+                    </div>
+
+                    <div id="api-presets-container" class="presets-container"
+                        style="max-height: 420px; overflow-y: auto; padding-right: 4px; display: none;">
+                        <!-- Dynamic list of examples -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Results Dashboard -->
+            <div class="workspace-main" style="display: flex; flex-direction: column; gap: 24px;">
+
+                <!-- Selected Comparison Header -->
+                <div class="selected-comparison-header">
+                    <div class="selected-label">Selected Comparison</div>
+                    <div class="selected-display">
+                        <span class="text-pill" id="selected-text-a">-</span>
+                        <span class="vs-text">vs</span>
+                        <span class="text-pill" id="selected-text-b">-</span>
+                    </div>
+                    <div class="compare-action-row"
+                        style="margin-top: 16px; display: flex; gap: 12px; align-items: center; justify-content: center; width: 100%;">
+                        <button id="btn-random-example" class="btn-luxury">
+                            <span class="material-symbols-outlined">casino</span>
+                            Random Preset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Comparison Results Card -->
+                <div class="sandbox-card" id="comparison-results-card">
+                    <div class="card-title-bar">
+                        <h2>
+                            <span class="material-symbols-outlined"
+                                style="color: var(--accent-secondary)">insights</span>
+                            Semantic Similarity Analysis
+                        </h2>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="results-empty-state"
+                        style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 4rem; color: var(--border-hover); margin-bottom: 16px; display: block;">psychology</span>
+                        <h3
+                            style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;">
+                            No Predefined Pair Selected</h3>
+                        <p style="max-width: 420px; margin: 0 auto; font-size: 0.9rem; line-height: 1.5;">Select a
+                            curated demo pair from the explorer list on the left, or click the Random Preset button to
+                            populate values.</p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="results-loading-state"
+                        style="display: none; text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+                        <div class="spinner"
+                            style="display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--accent-primary); animation: spin 1s ease infinite; margin-bottom: 16px;">
+                        </div>
+                        <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-bottom: 8px;"
+                            id="compare-loading-title">Calculating Similarity...</h3>
+                        <p id="waking-up-message"
+                            style="color: var(--warning); display: none; font-weight: 500; font-size: 0.9rem; max-width: 400px; margin: 0 auto;">
+                            The demo API may take a moment to wake up.
+                        </p>
+                    </div>
+
+                    <!-- Error State / 422 State -->
+                    <div id="results-error-state"
+                        style="display: none; padding: 24px; border-radius: var(--radius-md); background: rgba(239, 68, 68, 0.03); border: 1px solid rgba(239, 68, 68, 0.15); margin-bottom: 20px;">
+                        <div style="display: flex; gap: 12px; align-items: flex-start;">
+                            <span class="material-symbols-outlined"
+                                style="color: var(--warning); font-size: 2rem;">help_outline</span>
+                            <div>
+                                <h3 id="error-title"
+                                    style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">
+                                    This pair is not in the demo dataset</h3>
+                                <p id="error-desc"
+                                    style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">This
+                                    sandbox only supports predefined examples so it can stay free and avoid paid
+                                    embedding API calls.</p>
+                            </div>
+                        </div>
+
+                        <!-- Suggestions (For 422 unsupported demo pair) -->
+                        <div id="unsupported-suggestions-box"
+                            style="display: none; margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px;">
+                            <span
+                                style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 8px;">Try
+                                one of these supported examples instead:</span>
+                            <div id="suggestions-list" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                <!-- Dynamic suggestions -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Success Content -->
+                    <div id="results-success-content" style="display: none;">
+
+                        <!-- Simple plain-English summary block -->
+                        <div id="compare-summary-top-box"
+                            style="background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius-md); padding: 18px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 14px;">
+                            <span class="material-symbols-outlined"
+                                style="font-size: 2.2rem; color: var(--accent-primary);">chat_bubble_outline</span>
+                            <div>
+                                <div id="compare-summary-top-label"
+                                    style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary);">
+                                    Interpretation Label</div>
+                                <p id="compare-summary-top-text"
+                                    style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="metrics-dashboard-grid" style="margin-bottom: 24px;">
+
+                            <!-- Cosine Similarity -->
+                            <div class="dashboard-metric-card"
+                                style="display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+                                <div>
+                                    <div class="metric-top" style="margin-bottom: 8px;">
+                                        <span class="metric-badge-label">Cosine Similarity</span>
+                                        <span class="interpretation-badge" id="compare-badge-cosine">Similar</span>
+                                    </div>
+                                    <div
+                                        style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 500;">
+                                        Measures how similar the direction/meaning is.
+                                    </div>
+                                    <div class="metric-value-large" id="compare-val-cosine">0.000</div>
+                                    <div class="metric-progress-wrapper" style="margin-top: 12px; margin-bottom: 12px;">
+                                        <div class="metric-bar-fill" id="compare-bar-cosine" style="width: 50%"></div>
+                                    </div>
+
+                                    <!-- One-line interpretation sentence -->
+                                    <div id="compare-summary-cosine"
+                                        style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 4px;">
+                                        -</div>
+                                    <!-- Range hint -->
+                                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">
+                                        Range: -1.0 to 1.0 (Strong relation starts around 0.70+)
+                                    </div>
+
+                                    <!-- Scale explanation helper -->
+                                    <div
+                                        style="font-size: 0.72rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 8px 12px; border-radius: var(--radius-sm); margin-bottom: 12px; line-height: 1.4;">
+                                        <strong>Scale Quick Reference:</strong><br>
+                                        • 1.0 = almost same meaning<br>
+                                        • 0.7+ = strongly related<br>
+                                        • around 0 = weak or no relation<br>
+                                        • below 0 = opposite direction
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic sentence -->
+                                <div id="compare-dynamic-cosine"
+                                    style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; margin-top: 8px; font-style: italic;">
+                                    Calculating...
+                                </div>
+                            </div>
+
+                            <!-- Dot Product -->
+                            <div class="dashboard-metric-card"
+                                style="display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+                                <div>
+                                    <div class="metric-top" style="margin-bottom: 8px;">
+                                        <span class="metric-badge-label">Dot Product</span>
+                                        <span class="interpretation-badge" id="compare-badge-dot">Aligned</span>
+                                    </div>
+                                    <div
+                                        style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 500;">
+                                        Measures overall alignment and magnitude.
+                                    </div>
+                                    <div class="metric-value-large" id="compare-val-dot">0.000</div>
+                                    <div style="height: 10px; margin-top: 12px; margin-bottom: 12px;"></div>
+                                    <!-- visual spacer to balance with bar -->
+
+                                    <!-- One-line interpretation sentence -->
+                                    <div id="compare-summary-dot"
+                                        style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 4px;">
+                                        -</div>
+                                    <!-- Range hint -->
+                                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">
+                                        Depends on vector sizes (Positive means similar direction)
+                                    </div>
+
+                                    <!-- Scale explanation helper -->
+                                    <div
+                                        style="font-size: 0.72rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 8px 12px; border-radius: var(--radius-sm); margin-bottom: 12px; line-height: 1.4;">
+                                        <strong>Scale Quick Reference:</strong><br>
+                                        • positive = generally aligned<br>
+                                        • near zero = weak alignment / orthogonal<br>
+                                        • negative = opposite tendency
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic sentence -->
+                                <div id="compare-dynamic-dot"
+                                    style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; margin-top: 8px; font-style: italic;">
+                                    Calculating...
+                                </div>
+                            </div>
+
+                            <!-- Euclidean Distance -->
+                            <div class="dashboard-metric-card"
+                                style="display: flex; flex-direction: column; justify-content: space-between; min-height: 380px;">
+                                <div>
+                                    <div class="metric-top" style="margin-bottom: 8px;">
+                                        <span class="metric-badge-label">Euclidean Distance</span>
+                                        <span class="interpretation-badge" id="compare-badge-euclidean">Moderate</span>
+                                    </div>
+                                    <div
+                                        style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 500;">
+                                        Measures how far apart the vectors are.
+                                    </div>
+                                    <div class="metric-value-large" id="compare-val-euclidean">0.000</div>
+                                    <div class="metric-progress-wrapper" style="margin-top: 12px; margin-bottom: 12px;">
+                                        <div class="metric-bar-fill" id="compare-bar-euclidean" style="width: 50%">
+                                        </div>
+                                    </div>
+
+                                    <!-- One-line interpretation sentence -->
+                                    <div id="compare-summary-euclidean"
+                                        style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 4px;">
+                                        -</div>
+                                    <!-- Range hint -->
+                                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">
+                                        Range: 0.0 to 2.5+ (Lower values mean closer vectors)
+                                    </div>
+
+                                    <!-- Scale explanation helper -->
+                                    <div
+                                        style="font-size: 0.72rem; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 8px 12px; border-radius: var(--radius-sm); margin-bottom: 12px; line-height: 1.4;">
+                                        <strong>Scale Quick Reference:</strong><br>
+                                        • lower value = closer / more similar<br>
+                                        • higher value = farther apart
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic sentence -->
+                                <div id="compare-dynamic-euclidean"
+                                    style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; margin-top: 8px; font-style: italic;">
+                                    Calculating...
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Recommended Takeaway Section -->
+                        <div
+                            style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+                            <span class="material-symbols-outlined"
+                                style="color: #10b981; font-size: 1.6rem; margin-top: 2px;">task_alt</span>
+                            <div>
+                                <span
+                                    style="font-size: 0.8rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Recommended
+                                    Takeaway</span>
+                                <p id="takeaway-text"
+                                    style="font-size: 0.9rem; color: var(--text-primary); line-height: 1.5; margin: 0;">
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Collapsible "How to read these metrics" help block -->
+                        <details class="advanced-text-details"
+                            style="margin-bottom: 24px; border-style: solid; border-color: rgba(99, 102, 241, 0.2); background: rgba(99, 102, 241, 0.02);">
+                            <summary class="advanced-text-summary"
+                                style="padding: 14px 18px; font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1.25rem; color: var(--accent-primary);">help_outline</span>
+                                    How to read these metrics
+                                </span>
+                                <span class="material-symbols-outlined adv-chevron">expand_more</span>
+                            </summary>
+                            <div
+                                style="padding: 16px 20px; border-top: 1px solid rgba(99, 102, 241, 0.15); line-height: 1.5; font-size: 0.85rem; color: var(--text-secondary);">
+                                <ul style="margin: 0; padding-left: 20px;">
+                                    <li style="margin-bottom: 8px;"><strong>Cosine similarity</strong> is usually the
+                                        easiest way to understand semantic closeness. It looks only at direction,
+                                        ignoring length.</li>
+                                    <li style="margin-bottom: 8px;"><strong>Euclidean distance</strong> shows how far
+                                        apart the vector endpoints are in space. Lower is closer.</li>
+                                    <li style="margin-bottom: 8px;"><strong>Dot product</strong> combines direction and
+                                        length. Positive values mean alignment.</li>
+                                    <li>In this educational demo, the most intuitive signal for meaning is usually
+                                        <strong>cosine similarity</strong>.</li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <!-- Meta Details & Interpretation Info -->
+                        <div
+                            style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px;">
+                            <div
+                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 16px;">
+                                <div>
+                                    <span
+                                        style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Dataset
+                                        Category</span>
+                                    <div id="compare-category"
+                                        style="font-size: 1rem; font-weight: 700; color: var(--accent-secondary); margin-top: 4px;">
+                                        -</div>
+                                </div>
+                                <div>
+                                    <span
+                                        style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Semantic
+                                        Relation</span>
+                                    <div id="compare-relation"
+                                        style="font-size: 1rem; font-weight: 700; color: var(--accent-primary); margin-top: 4px;">
+                                        -</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <span
+                                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Interpretation
+                                    Label</span>
+                                <div id="compare-label"
+                                    style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-top: 4px;">
+                                    -</div>
+                                <p id="compare-summary"
+                                    style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.5;">
+                                </p>
+                            </div>
+
+                            <div>
+                                <span
+                                    style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Semantic
+                                    Explanation</span>
+                                <p id="compare-explanation"
+                                    style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.5; font-style: italic;">
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                            <button id="btn-copy-compare-results" class="btn-luxury" style="min-width: 180px;">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                Copy Results
+                            </button>
+                            <span id="compare-disclaimer"
+                                style="font-size: 0.75rem; color: var(--text-muted); max-width: 60%; line-height: 1.4; text-align: right;">
+                                -
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Manual Inputs Drawer -->
+                <details class="advanced-text-details">
+                    <summary class="advanced-text-summary">
+                        <span style="display: flex; align-items: center; gap: 8px;">
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.2rem; color: var(--accent-secondary);">build</span>
+                            Try exact supported pair (Advanced)
+                        </span>
+                        <span class="material-symbols-outlined adv-chevron">expand_more</span>
+                    </summary>
+                    <div style="padding: 18px; border-top: 1px dashed var(--border-color);">
+                        <p
+                            style="margin-bottom: 12px; font-size: 0.8rem; color: var(--warning); line-height: 1.4; display: flex; gap: 6px; align-items: flex-start;">
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1rem; flex-shrink: 0;">warning</span>
+                            <span>Only predefined pairs are supported. Random text will return an unsupported demo pair
+                                message.</span>
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                            <div>
+                                <label for="text-input-a"
+                                    style="display: block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600;">Text
+                                    A</label>
+                                <input type="text" id="text-input-a" class="text-input-field" placeholder="e.g. Java"
+                                    style="min-height: 38px;">
+                            </div>
+                            <div>
+                                <label for="text-input-b"
+                                    style="display: block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600;">Text
+                                    B</label>
+                                <input type="text" id="text-input-b" class="text-input-field"
+                                    placeholder="e.g. JavaScript" style="min-height: 38px;">
+                            </div>
+                        </div>
+                        <button id="btn-compare" class="btn-action-primary" style="width: 100%; padding: 10px;">
+                            Run Manual Comparison
+                        </button>
+                    </div>
+                </details>
+
+            </div>
+
+        </div>
+
+        <!-- Vector Similarity Terms Glossary Section -->
+        <div class="sandbox-card" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="card-title-bar"
+                style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                <h2>
+                    <span class="material-symbols-outlined" style="color: var(--accent-primary)">menu_book</span>
+                    Vector Similarity Terms
+                </h2>
+                <p class="card-subtitle" style="margin-top: 4px;">A quick guide to the main concepts used in this demo.
+                </p>
+            </div>
+
+            <!-- Important Highlighted Note -->
+            <div
+                style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-start;">
+                <span class="material-symbols-outlined"
+                    style="color: #f59e0b; font-size: 1.6rem; margin-top: 2px;">warning_amber</span>
+                <div>
+                    <span
+                        style="font-size: 0.85rem; font-weight: 700; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Important:
+                        This is educational demo mode</span>
+                    <p style="font-size: 0.9rem; color: var(--text-primary); line-height: 1.5; margin: 0;">
+                        This sandbox uses predefined vector examples so it can stay free. It does not compare arbitrary
+                        text and does not call paid embedding APIs. The goal is to teach how vector similarity metrics
+                        behave.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Concepts (Start with these) -->
+            <div style="margin-bottom: 28px;">
+                <h3
+                    style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                    <span class="material-symbols-outlined"
+                        style="color: var(--accent-secondary); font-size: 1.25rem;">explore</span>
+                    Start with these key concepts:
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <!-- Embedding -->
+                    <div class="dashboard-metric-card"
+                        style="background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: space-between; min-height: auto;">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span
+                                    style="font-size: 1rem; font-weight: 700; color: var(--accent-secondary);">Embedding</span>
+                                <span class="badge badge-purple" style="font-size: 0.7rem; padding: 2px 6px;">Key
+                                    Concept</span>
+                            </div>
+                            <p
+                                style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 10px;">
+                                An embedding is a vector created from text by an AI model.
+                            </p>
+                            <div
+                                style="font-size: 0.75rem; background: rgba(255,255,255,0.02); padding: 6px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.04); margin-bottom: 10px;">
+                                <strong>Example:</strong> "dog" and "puppy" should get vectors that are close to each
+                                other.
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; font-style: italic;">
+                            <strong>Why it matters:</strong> Embeddings let software compare meaning, not just exact
+                            words.
+                        </div>
+                    </div>
+
+                    <!-- Cosine Similarity -->
+                    <div class="dashboard-metric-card"
+                        style="background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: space-between; min-height: auto;">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 1rem; font-weight: 700; color: var(--accent-primary);">Cosine
+                                    Similarity</span>
+                                <span class="badge badge-indigo" style="font-size: 0.7rem; padding: 2px 6px;">Key
+                                    Metric</span>
+                            </div>
+                            <p
+                                style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 10px;">
+                                Measures whether two vectors point in a similar direction.
+                            </p>
+                            <div
+                                style="font-size: 0.75rem; background: rgba(255,255,255,0.02); padding: 6px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.04); margin-bottom: 10px;">
+                                <strong>Example:</strong> A score close to 1 means very similar. Around 0 means weak
+                                relation. Negative means opposite direction.
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; font-style: italic;">
+                            <strong>Why it matters:</strong> This is often the easiest metric for understanding semantic
+                            similarity.
+                        </div>
+                    </div>
+
+                    <!-- Vector Search -->
+                    <div class="dashboard-metric-card"
+                        style="background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: space-between; min-height: auto;">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span style="font-size: 1rem; font-weight: 700; color: var(--success);">Vector
+                                    Search</span>
+                                <span class="badge badge-sky"
+                                    style="font-size: 0.7rem; padding: 2px 6px;">Application</span>
+                            </div>
+                            <p
+                                style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 10px;">
+                                Vector search finds items whose vectors are close to a query vector.
+                            </p>
+                            <div
+                                style="font-size: 0.75rem; background: rgba(255,255,255,0.02); padding: 6px 10px; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.04); margin-bottom: 10px;">
+                                <strong>Example:</strong> A search for "backend developer" may find "Spring Boot
+                                engineer".
+                            </div>
+                        </div>
+                        <div
+                            style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; font-style: italic;">
+                            <strong>Why it matters:</strong> This is how many AI search and recommendation systems work.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Terms Accordion -->
+            <div>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="color: var(--accent-primary); font-size: 1.25rem;">list</span>
+                        All Vector Similarity Terms (A-Z)
+                    </h3>
+                    <div style="display: flex; gap: 8px;">
+                        <button id="btn-expand-all-glossary" class="btn-hero-secondary"
+                            style="font-size: 0.75rem; padding: 6px 12px; min-height: auto; cursor: pointer;">Expand
+                            All</button>
+                        <button id="btn-collapse-all-glossary" class="btn-hero-secondary"
+                            style="font-size: 0.75rem; padding: 6px 12px; min-height: auto; cursor: pointer;">Collapse
+                            All</button>
+                    </div>
+                </div>
+
+                <!-- Quick navigation chips -->
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center;">
+                    <span
+                        style="font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Quick
+                        Jump:</span>
+                    <a href="#term-vector" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Vector</a>
+                    <a href="#term-embedding" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Embedding</a>
+                    <a href="#term-dimension" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Dimension</a>
+                    <a href="#term-cosine-similarity" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Cosine Similarity</a>
+                    <a href="#term-euclidean-distance" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Euclidean Distance</a>
+                    <a href="#term-dot-product" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Dot Product</a>
+                    <a href="#term-semantic-similarity" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Semantic Similarity</a>
+                    <a href="#term-string-similarity" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">String Similarity</a>
+                    <a href="#term-vector-search" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Vector Search</a>
+                    <a href="#term-rag" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">RAG</a>
+                    <a href="#term-query-vector" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Query Vector</a>
+                    <a href="#term-document-vector" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Document Vector</a>
+                    <a href="#term-chunk" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Chunk</a>
+                    <a href="#term-nearest-neighbor" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Nearest Neighbor</a>
+                    <a href="#term-high-dimensional-vector" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">High-Dimensional</a>
+                    <a href="#term-demo-dataset" class="suggestion-chip"
+                        style="text-decoration: none; padding: 4px 10px; font-size: 0.72rem;">Demo Dataset</a>
+                </div>
+
+                <!-- Accordion container -->
+                <div class="glossary-accordion" style="display: flex; flex-direction: column; gap: 8px;">
+
+                    <!-- Term 1: Vector -->
+                    <details class="glossary-details" id="term-vector">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Vector</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> A vector is a list of numbers
+                                that represents something, like a word, sentence, or document.</p>
+                            <div class="glossary-example"><strong>Example:</strong> "car" might become something like
+                                [0.2, 0.8, -0.1, ...]</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Vector databases compare these
+                                number lists to find similar meaning.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 2: Embedding -->
+                    <details class="glossary-details" id="term-embedding">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Embedding</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> An embedding is a vector
+                                created from text by an AI model.</p>
+                            <div class="glossary-example"><strong>Example:</strong> "dog" and "puppy" should get vectors
+                                that are close to each other.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Embeddings let software compare
+                                meaning, not just exact words.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 3: Dimension -->
+                    <details class="glossary-details" id="term-dimension">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Dimension</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> A dimension is one number
+                                inside the vector.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A 3D vector has 3 numbers. Real
+                                embeddings can have hundreds or thousands of dimensions.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> This demo uses simplified vectors,
+                                but real embedding systems use much larger ones.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 4: Cosine Similarity -->
+                    <details class="glossary-details" id="term-cosine-similarity">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Cosine Similarity</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> Measures whether two vectors
+                                point in a similar direction.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A score close to 1 means very
+                                similar. Around 0 means weak relation. Negative means opposite direction.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> This is often the easiest metric
+                                for understanding semantic similarity.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 5: Euclidean Distance -->
+                    <details class="glossary-details" id="term-euclidean-distance">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Euclidean Distance</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> Measures how far apart two
+                                vectors are.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A smaller distance means the vectors
+                                are closer.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Useful when you care about physical
+                                distance in vector space.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 6: Dot Product -->
+                    <details class="glossary-details" id="term-dot-product">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Dot Product</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> Measures alignment and
+                                strength between two vectors.</p>
+                            <div class="glossary-example"><strong>Example:</strong> Positive means generally aligned.
+                                Around zero means weak alignment. Negative means opposite tendency.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Some vector search systems use dot
+                                product for fast similarity scoring.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 7: Semantic Similarity -->
+                    <details class="glossary-details" id="term-semantic-similarity">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Semantic Similarity</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> Semantic similarity means
+                                similarity in meaning, not spelling.</p>
+                            <div class="glossary-example"><strong>Example:</strong> "car" and "vehicle" are semantically
+                                similar, even though the words look different.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> This is the core idea behind
+                                embeddings and vector search.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 8: String Similarity -->
+                    <details class="glossary-details" id="term-string-similarity">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">String Similarity</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> String similarity means the
+                                words look similar as text.</p>
+                            <div class="glossary-example"><strong>Example:</strong> "cache" and "cash" look similar, but
+                                they do not mean the same thing.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> This demo should show that spelling
+                                similarity is not the same as meaning similarity.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 9: Vector Search -->
+                    <details class="glossary-details" id="term-vector-search">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Vector Search</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> Vector search finds items
+                                whose vectors are close to a query vector.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A search for "backend developer" may
+                                find "Spring Boot engineer".</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> This is how many AI search and
+                                recommendation systems work.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 10: RAG -->
+                    <details class="glossary-details" id="term-rag">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">RAG (Retrieval-Augmented Generation)</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> RAG means Retrieval-Augmented
+                                Generation. It retrieves relevant documents before asking an AI model to answer.</p>
+                            <div class="glossary-example"><strong>Example:</strong> User asks a question, the system
+                                finds related chunks, then the AI uses them in the answer.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Vector similarity is often used to
+                                find the relevant chunks.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 11: Query Vector -->
+                    <details class="glossary-details" id="term-query-vector">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Query Vector</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> The vector created from the
+                                user's search or question.</p>
+                            <div class="glossary-example"><strong>Example:</strong> "How does JWT authentication work?"
+                                becomes a query vector.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> The system compares this vector
+                                against document vectors.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 12: Document Vector -->
+                    <details class="glossary-details" id="term-document-vector">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Document Vector</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> The vector created from a
+                                stored document, paragraph, or chunk.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A paragraph about JWT tokens gets
+                                converted into a document vector.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Documents with vectors close to the
+                                query vector are likely relevant.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 13: Chunk -->
+                    <details class="glossary-details" id="term-chunk">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Chunk</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> A chunk is a smaller piece of
+                                a larger document.</p>
+                            <div class="glossary-example"><strong>Example:</strong> A long article can be split into 20
+                                smaller chunks.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> RAG systems usually search chunks,
+                                not whole documents.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 14: Nearest Neighbor -->
+                    <details class="glossary-details" id="term-nearest-neighbor">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Nearest Neighbor</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> The nearest neighbor is the
+                                closest vector to the query vector.</p>
+                            <div class="glossary-example"><strong>Example:</strong> If "vehicle" is closest to "car", it
+                                may be returned first.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> Vector databases use
+                                nearest-neighbor search to find relevant results.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 15: High-Dimensional Vector -->
+                    <details class="glossary-details" id="term-high-dimensional-vector">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">High-Dimensional Vector</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> A vector with many dimensions.
+                            </p>
+                            <div class="glossary-example"><strong>Example:</strong> This demo may use 8 dimensions, but
+                                real embeddings can use hundreds or thousands.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> The UI is simplified, but the
+                                concept is the same.</p>
+                        </div>
+                    </details>
+
+                    <!-- Term 16: Demo Dataset -->
+                    <details class="glossary-details" id="term-demo-dataset">
+                        <summary class="glossary-summary">
+                            <span class="glossary-term-name">Demo Dataset</span>
+                            <span class="material-symbols-outlined glossary-chevron">expand_more</span>
+                        </summary>
+                        <div class="glossary-content">
+                            <p class="glossary-explanation"><strong>Explanation:</strong> This tool uses predefined
+                                educational examples, not live AI embeddings.</p>
+                            <div class="glossary-example"><strong>Example:</strong> Only supported pairs like "car vs
+                                vehicle" or "Java vs JavaScript" can be compared.</div>
+                            <p class="glossary-why"><strong>Why it matters:</strong> The site stays free and does not
+                                call paid AI APIs for every user.</p>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- How it works in a real RAG system Section -->
+        <div class="sandbox-card" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="card-title-bar"
+                style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                <h2>
+                    <span class="material-symbols-outlined" style="color: var(--accent-secondary)">hub</span>
+                    How this works in a real RAG system
+                </h2>
+                <p class="card-subtitle">An end-to-end view of retrieval-augmented generation using vector databases.
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: var(--accent-primary); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);">
+                        1</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.15rem; color: var(--accent-primary);">content_cut</span>
+                        Split Documents
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        Large documents are divided into smaller, logical text chunks (paragraphs or sections) so search
+                        results can point to highly specific passages.
+                    </p>
+                </div>
+
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: var(--accent-secondary); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(167, 139, 250, 0.4);">
+                        2</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.15rem; color: var(--accent-secondary);">psychology</span>
+                        Convert to Embeddings
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        An AI embedding model processes each text chunk, turning it into a high-dimensional vector
+                        containing numeric representations of the chunk's meaning.
+                    </p>
+                </div>
+
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: var(--success); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);">
+                        3</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.15rem; color: var(--success);">storage</span>
+                        Store in Vector DB
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        These vector embeddings are stored along with their original text inside indexing databases
+                        (like Pinecone, Qdrant, or Weaviate) optimized for quick lookup.
+                    </p>
+                </div>
+
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: var(--vector-a); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(56, 189, 248, 0.4);">
+                        4</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.15rem; color: var(--vector-a);">search</span>
+                        Vectorize User Query
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        When a user enters a question, the application passes that text to the exact same embedding
+                        model to obtain a real-time 'query embedding' vector.
+                    </p>
+                </div>
+
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: var(--vector-b); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4);">
+                        5</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 1.15rem; color: var(--vector-b);">compare</span>
+                        Nearest Neighbor Search
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        The vector database runs cosine similarity or dot product calculations to identify and retrieve
+                        the database chunks closest to the query vector.
+                    </p>
+                </div>
+
+                <div
+                    style="position: relative; padding: 20px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-md);">
+                    <div
+                        style="position: absolute; top: -12px; left: 20px; background: #8b5cf6; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);">
+                        6</div>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-top: 8px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined" style="font-size: 1.15rem; color: #8b5cf6;">chat</span>
+                        LLM Completion
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                        The app builds a prompt combining the user question and the retrieved text passages, prompting
+                        the LLM to write an accurate, context-grounded answer.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why spelling is not meaning Section -->
+        <div class="sandbox-card" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="card-title-bar"
+                style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                <h2>
+                    <span class="material-symbols-outlined" style="color: var(--vector-b)">spellcheck</span>
+                    Why spelling is not meaning
+                </h2>
+                <p class="card-subtitle">AI embeddings analyze conceptual relationships, not alphabetical alignment.</p>
+            </div>
+
+            <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+                Traditional search systems (like SQL <code>LIKE</code> queries or basic text filters) match exact
+                characters. If terms share several letters, character-matching algorithms consider them similar. But
+                meaning-based embeddings focus on context and relationships.
+            </p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 12px;">
+                <div>
+                    <h3
+                        style="font-size: 0.95rem; font-weight: 700; color: var(--accent-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                        <span class="material-symbols-outlined" style="font-size: 1.15rem;">close</span>
+                        High Spelling Similarity, Low Semantic Similarity
+                    </h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">
+                        Words look almost identical text-wise, but describe completely unrelated things:
+                    </p>
+                    <ul
+                        style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; padding-left: 20px; margin: 0;">
+                        <li><strong>cache vs cash:</strong> temporary storage device vs physical paper money</li>
+                        <li><strong>Java vs JavaScript:</strong> compiled backend OOP language vs client-side web
+                            scripting language</li>
+                        <li><strong>model vs modal:</strong> machine learning system model vs overlay UI modal popup
+                        </li>
+                        <li><strong>route vs root:</strong> URL router pathname path vs root system user administrator
+                        </li>
+                        <li><strong>docker vs doctor:</strong> container engine runtime vs medical health professional
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: rgba(99, 102, 241, 0.02); border: 1px dashed var(--border-color); padding: 20px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <span
+                            style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px;">Sandbox
+                            Experiment</span>
+                        <h4
+                            style="font-weight: 700; color: var(--text-primary); font-size: 1.05rem; margin-bottom: 8px;">
+                            Try spelling-similar preset comparisons</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                            We have predefined these exact pairs in our sandbox dataset. Filter the list to see how
+                            cosine similarity drops to near zero for spelling-similar words with separate meanings.
+                        </p>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <button onclick="window.filterSpellingExamples()" class="btn-luxury"
+                            style="width: 100%; justify-content: center; gap: 8px; height: 42px;">
+                            <span class="material-symbols-outlined">spellcheck</span>
+                            Filter & Compare Spelling Pairs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommended Learning Resources Section -->
+        <div class="sandbox-card" style="margin-top: 24px; margin-bottom: 24px;">
+            <div class="card-title-bar"
+                style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                <h2>
+                    <span class="material-symbols-outlined" style="color: var(--success)">local_library</span>
+                    Learn More
+                </h2>
+                <p class="card-subtitle">A curated list of reliable, official learning articles and documentation.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+
+                <!-- OpenAI -->
+                <a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" rel="noopener noreferrer"
+                    style="text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); transition: var(--transition);"
+                    class="resource-card">
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">OpenAI
+                                Embeddings Guide</span>
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.1rem; color: var(--text-muted);">open_in_new</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            Official guide explaining semantic vector embeddings, dimensionalities, API usage, and
+                            distance metrics.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Google -->
+                <a href="https://developers.google.com/machine-learning/crash-course/embeddings" target="_blank"
+                    rel="noopener noreferrer"
+                    style="text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); transition: var(--transition);"
+                    class="resource-card">
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Google ML
+                                Crash Course</span>
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.1rem; color: var(--text-muted);">open_in_new</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            Translate complex high-dimensional spaces to lower ones using Google's introductory machine
+                            learning curriculum.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Pinecone -->
+                <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank" rel="noopener noreferrer"
+                    style="text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); transition: var(--transition);"
+                    class="resource-card">
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Pinecone
+                                Vector Embeddings</span>
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.1rem; color: var(--text-muted);">open_in_new</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            A deep, developer-friendly guide detailing vector embedding algorithms, applications, and
+                            indexes.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Weaviate -->
+                <a href="https://weaviate.io/blog/vector-embeddings-explained" target="_blank" rel="noopener noreferrer"
+                    style="text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); transition: var(--transition);"
+                    class="resource-card">
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Weaviate:
+                                Embeddings Explained</span>
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.1rem; color: var(--text-muted);">open_in_new</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            Clear explanation of vector semantic structures, vector spaces, and how AI representations
+                            differ from raw strings.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Qdrant -->
+                <a href="https://qdrant.tech/documentation/concepts/search/" target="_blank" rel="noopener noreferrer"
+                    style="text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; background: rgba(255,255,255,0.01); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); transition: var(--transition);"
+                    class="resource-card">
+                    <div>
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-primary);">Qdrant
+                                Vector Search Concepts</span>
+                            <span class="material-symbols-outlined"
+                                style="font-size: 1.1rem; color: var(--text-muted);">open_in_new</span>
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin: 0;">
+                            Detailed system documentation describing how similarity metrics operate inside a
+                            production-grade vector database.
+                        </p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- What this demo does not do Section -->
+        <div
+            style="background: rgba(239, 68, 68, 0.02); border: 1px solid rgba(239, 68, 68, 0.15); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 32px; display: flex; gap: 12px; align-items: flex-start;">
+            <span class="material-symbols-outlined"
+                style="color: var(--danger); font-size: 1.6rem; margin-top: 2px;">info</span>
+            <div>
+                <span
+                    style="font-size: 0.8rem; font-weight: 700; color: var(--danger); text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">What
+                    this demo does not do</span>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                    This application is an educational demo utilizing predefined example pairs from a server dataset. It
+                    does not calculate embeddings for arbitrary user text input in real-time, nor does it make calls to
+                    paid external services like OpenAI or Cohere APIs. In real production search applications, you would
+                    run a dedicated embedding model (such as <code>text-embedding-3-small</code>) to generate vectors,
+                    then index them into a production vector database.
+                </p>
+            </div>
+        </div>
+
+        <!-- Manual 2D Math Playground Collapsible Section -->
+        <details class="manual-playground-details">
+            <summary class="manual-playground-summary">
+                <span style="display: flex; align-items: center; gap: 10px;">
+                    <span class="material-symbols-outlined" style="color: var(--accent-primary)">grid_on</span>
+                    Manual 2D Math Playground
+                </span>
+                <span class="material-symbols-outlined chevron">expand_more</span>
+            </summary>
+
+            <div class="manual-playground-content">
+                <!-- Main Sandbox Layout Grid (2D Playground) -->
+                <div class="sandbox-grid">
+
+                    <!-- Left Column: Controls & Presets -->
+                    <div class="sidebar-panel">
+
+                        <!-- Preset Examples Card -->
+                        <div class="sandbox-card">
+                            <div class="card-title-bar">
+                                <h2>
+                                    <span class="material-symbols-outlined"
+                                        style="color: var(--accent-secondary)">wb_incandescent</span>
+                                    Try a Preset Example
+                                </h2>
+                            </div>
+                            <p class="card-subtitle">Select a scenario to explore how direction and distance influence
+                                metrics.</p>
+                            <div class="presets-container">
+                                <button class="preset-btn" onclick="applyPreset('similar')" id="preset-similar">
+                                    <span class="preset-icon">↗️</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Similar Direction</span>
+                                        <span class="preset-coords">A: [4, 3] • B: [8, 6]</span>
+                                    </div>
+                                </button>
+                                <button class="preset-btn" onclick="applyPreset('opposite')" id="preset-opposite">
+                                    <span class="preset-icon">↔️</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Opposite Direction</span>
+                                        <span class="preset-coords">A: [4, 3] • B: [-4, -3]</span>
+                                    </div>
+                                </button>
+                                <button class="preset-btn" onclick="applyPreset('perpendicular')"
+                                    id="preset-perpendicular">
+                                    <span class="preset-icon">➕</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Perpendicular</span>
+                                        <span class="preset-coords">A: [5, 0] • B: [0, 5]</span>
+                                    </div>
+                                </button>
+                                <button class="preset-btn" onclick="applyPreset('close')" id="preset-close">
+                                    <span class="preset-icon">🤏</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Close Vectors</span>
+                                        <span class="preset-coords">A: [3, 4] • B: [4, 4]</span>
+                                    </div>
+                                </button>
+                                <button class="preset-btn" onclick="applyPreset('far')" id="preset-far">
+                                    <span class="preset-icon">🌌</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Far Apart</span>
+                                        <span class="preset-coords">A: [-8, -6] • B: [8, 6]</span>
+                                    </div>
+                                </button>
+                                <button class="preset-btn" onclick="applyPreset('zero')" id="preset-zero">
+                                    <span class="preset-icon">⚪</span>
+                                    <div class="preset-details">
+                                        <span class="preset-name">Zero Vector Case</span>
+                                        <span class="preset-coords">A: [0, 0] • B: [4, 3]</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Coordinate Sliders Card -->
+                        <div class="sandbox-card">
+                            <div class="card-title-bar">
+                                <h2>
+                                    <span class="material-symbols-outlined" style="color: var(--success)">tune</span>
+                                    Vector Parameters
+                                </h2>
+                            </div>
+
+                            <!-- Vector A Controls -->
+                            <div class="vector-control-box a">
+                                <div class="vector-header-info">
+                                    <span class="vector-dot" style="background: var(--vector-a)"></span>
+                                    <span class="vector-name">Vector A</span>
+                                    <span class="vector-coords-display" id="display-coords-a">(4.0, 3.0)</span>
+                                </div>
+                                <div class="control-group">
+                                    <label>X Coordinate</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="slider-ax" min="-10" max="10" step="0.1" value="4">
+                                        <span id="val-slider-ax" class="slider-value">4.0</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Y Coordinate</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="slider-ay" min="-10" max="10" step="0.1" value="3">
+                                        <span id="val-slider-ay" class="slider-value">3.0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vector B Controls -->
+                            <div class="vector-control-box b" style="margin-top: 24px;">
+                                <div class="vector-header-info">
+                                    <span class="vector-dot" style="background: var(--vector-b)"></span>
+                                    <span class="vector-name">Vector B</span>
+                                    <span class="vector-coords-display" id="display-coords-b">(2.0, -3.0)</span>
+                                </div>
+                                <div class="control-group">
+                                    <label>X Coordinate</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="slider-bx" min="-10" max="10" step="0.1" value="2">
+                                        <span id="val-slider-bx" class="slider-value">2.0</span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Y Coordinate</label>
+                                    <div class="slider-container">
+                                        <input type="range" id="slider-by" min="-10" max="10" step="0.1" value="-3">
+                                        <span id="val-slider-by" class="slider-value">-3.0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions Area -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px;">
+                                <button class="btn-action-primary" onclick="resetVectors()">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1.15rem;">restart_alt</span>
+                                    Reset
+                                </button>
+                                <button class="btn-action-primary" onclick="randomizeVectors()"
+                                    style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);">
+                                    <span class="material-symbols-outlined" style="font-size: 1.15rem;">casino</span>
+                                    Randomize
+                                </button>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                                <button class="btn-action-secondary" id="btn-copy-results" onclick="copyResults()">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1.15rem;">content_copy</span>
+                                    Copy Metrics
+                                </button>
+                                <button class="btn-action-secondary" id="btn-copy-json" onclick="copyJSON()">
+                                    <span class="material-symbols-outlined" style="font-size: 1.15rem;">code</span>
+                                    Copy JSON
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Interactive visualizer space and Live metrics dashboard -->
+                    <div class="workspace-main" style="display: flex; flex-direction: column; gap: 32px;">
+
+                        <!-- Visualizer space -->
+                        <div class="sandbox-card" style="padding: 24px;">
+                            <div class="card-title-bar">
+                                <h2>
+                                    <span class="material-symbols-outlined"
+                                        style="color: var(--accent-primary)">grid_on</span>
+                                    Interactive Visualizer Space
+                                </h2>
+                                <div class="canvas-legend">
+                                    <span class="legend-item"><span class="legend-dot"
+                                            style="background: var(--vector-a)"></span>Vector A</span>
+                                    <span class="legend-item"><span class="legend-dot"
+                                            style="background: var(--vector-b)"></span>Vector B</span>
+                                </div>
+                            </div>
+
+                            <div class="canvas-container"
+                                style="background: #06060a; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                                <svg id="vector-svg" viewBox="-12 -12 24 24"
+                                    style="width: 100%; height: 100%; display: block;">
+                                    <defs>
+                                        <marker id="arrow-a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6"
+                                            markerHeight="6" orient="auto-start-reverse">
+                                            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8" />
+                                        </marker>
+                                        <marker id="arrow-b" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6"
+                                            markerHeight="6" orient="auto-start-reverse">
+                                            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ec4899" />
+                                        </marker>
+                                    </defs>
+
+                                    <!-- Origin marker -->
+                                    <circle cx="0" cy="0" r="0.6" fill="rgba(255,255,255,0.06)"
+                                        stroke="rgba(255,255,255,0.2)" stroke-width="0.04" />
+                                    <circle cx="0" cy="0" r="0.15" fill="#ffffff" />
+
+                                    <!-- Grid lines -->
+                                    <g id="svg-grid-lines"></g>
+
+                                    <!-- Main Axes -->
+                                    <line x1="-12" y1="0" x2="12" y2="0" stroke="rgba(255, 255, 255, 0.25)"
+                                        stroke-width="0.08" />
+                                    <line x1="0" y1="-12" x2="0" y2="12" stroke="rgba(255, 255, 255, 0.25)"
+                                        stroke-width="0.08" />
+
+                                    <!-- Grid labels -->
+                                    <g id="svg-grid-labels"></g>
+
+                                    <!-- Dashed line between vector tips -->
+                                    <line id="svg-connection-line" x1="4" y1="-3" x2="2" y2="3"
+                                        stroke="rgba(255, 255, 255, 0.3)" stroke-dasharray="0.15, 0.15"
+                                        stroke-width="0.06" />
+
+                                    <!-- Vector A Line -->
+                                    <line id="svg-vector-a" x1="0" y1="0" x2="4" y2="-3" stroke="#38bdf8"
+                                        stroke-width="0.12" marker-end="url(#arrow-a)" />
+
+                                    <!-- Vector B Line -->
+                                    <line id="svg-vector-b" x1="0" y1="0" x2="2" y2="3" stroke="#ec4899"
+                                        stroke-width="0.12" marker-end="url(#arrow-b)" />
+
+                                    <!-- Draggable Handles -->
+                                    <circle id="svg-handle-a" cx="4" cy="-3" r="0.45" fill="#38bdf8" stroke="#ffffff"
+                                        stroke-width="0.08" style="cursor: grab;" />
+                                    <circle id="svg-handle-b" cx="2" cy="3" r="0.45" fill="#ec4899" stroke="#ffffff"
+                                        stroke-width="0.08" style="cursor: grab;" />
+
+                                    <!-- Interactive Labels -->
+                                    <text id="svg-label-a" x="4.6" y="-3.4" fill="#38bdf8" font-size="0.65"
+                                        font-family="'JetBrains Mono', monospace" font-weight="bold">A (4.0, 3.0)</text>
+                                    <text id="svg-label-b" x="2.6" y="3.4" fill="#ec4899" font-size="0.65"
+                                        font-family="'JetBrains Mono', monospace" font-weight="bold">B (2.0,
+                                        -3.0)</text>
+                                </svg>
+                            </div>
+
+                            <div class="visualizer-note"
+                                style="margin-top: 12px; text-align: center; font-size: 0.8rem; color: var(--text-muted); font-style: italic;">
+                                Real embeddings are high-dimensional. This chart is a simplified visual explanation.
+                            </div>
+                        </div>
+
+                        <!-- Live Similarity Metrics Card -->
+                        <div class="sandbox-card">
+                            <div class="card-title-bar">
+                                <h2>
+                                    <span class="material-symbols-outlined"
+                                        style="color: var(--accent-secondary)">insights</span>
+                                    Live Metric Interpretations
+                                </h2>
+                            </div>
+
+                            <div class="metrics-dashboard-grid">
+
+                                <!-- Cosine Similarity Card -->
+                                <div class="dashboard-metric-card" id="card-metric-cosine">
+                                    <div class="metric-top">
+                                        <span class="metric-badge-label">Cosine Similarity</span>
+                                        <span class="interpretation-badge status-similar"
+                                            id="badge-cosine">Similar</span>
+                                    </div>
+                                    <div class="metric-value-large" id="val-cosine">0.800</div>
+                                    <div class="metric-progress-wrapper">
+                                        <div class="metric-bar-fill" id="bar-cosine" style="width: 80%"></div>
+                                    </div>
+                                    <div class="metric-desc" id="desc-cosine">Vectors point in a very similar direction.
+                                    </div>
+                                    <div class="metric-formula">cos(θ) = (A · B) / (||A|| ||B||)</div>
+                                    <div id="zero-vector-warning"
+                                        style="display: none; color: var(--warning); font-size: 0.8rem; margin-top: 6px; font-weight: 500;">
+                                        ⚠️ Cosine similarity is undefined for a zero vector (magnitude = 0).
+                                    </div>
+                                </div>
+
+                                <!-- Dot Product Card -->
+                                <div class="dashboard-metric-card" id="card-metric-dot">
+                                    <div class="metric-top">
+                                        <span class="metric-badge-label">Dot Product</span>
+                                        <span class="interpretation-badge status-similar" id="badge-dot">Aligned</span>
+                                    </div>
+                                    <div class="metric-value-large" id="val-dot">14.00</div>
+                                    <div class="metric-desc" id="desc-dot">Positive alignment: vectors point in a
+                                        similar general direction.</div>
+                                    <div class="metric-formula">A · B = ∑ A_i B_i</div>
+                                </div>
+
+                                <!-- Euclidean Distance Card -->
+                                <div class="dashboard-metric-card" id="card-metric-euclidean">
+                                    <div class="metric-top">
+                                        <span class="metric-badge-label">Euclidean Distance</span>
+                                        <span class="interpretation-badge status-neutral"
+                                            id="badge-euclidean">Moderate</span>
+                                    </div>
+                                    <div class="metric-value-large" id="val-euclidean">6.32</div>
+                                    <div class="metric-progress-wrapper">
+                                        <div class="metric-bar-fill" id="bar-euclidean" style="width: 42%"></div>
+                                    </div>
+                                    <div class="metric-desc" id="desc-euclidean">Moderate spatial distance between
+                                        vector heads.</div>
+                                    <div class="metric-formula">d = √ ∑ (A_i - B_i)²</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </details>
+
+        <!-- RAG & Embeddings Relevance Card -->
+        <div class="rag-card" style="margin-top: 24px;">
+            <div class="rag-header">
+                <span class="material-symbols-outlined"
+                    style="font-size: 2.25rem; color: var(--accent-secondary);">psychology</span>
+                <h3 class="rag-title">How this relates to RAG and embeddings</h3>
+            </div>
+            <div class="rag-body">
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px;">
+                    In real Retrieval-Augmented Generation (RAG) systems, text and unstructured data are converted into
+                    high-dimensional vector embeddings. Vector databases compare these vectors using similarity or
+                    distance metrics to retrieve the most semantically relevant content. This sandbox is a simplified 2D
+                    visual version of what happens in high-dimensional embedding search.
+                </p>
+
+                <div class="rag-bullet-grid">
+                    <div class="rag-bullet">
+                        <h4 class="rag-bullet-title">
+                            <span class="material-symbols-outlined"
+                                style="color: var(--vector-a); font-size: 1.25rem;">database</span>
+                            Vector Embeddings
+                        </h4>
+                        <p class="rag-bullet-desc">Models (e.g. text-embedding-3) transform text chunks into lists of
+                            float coordinates. Direction represents semantic meaning, while length represents frequency
+                            or magnitude.</p>
+                    </div>
+                    <div class="rag-bullet">
+                        <h4 class="rag-bullet-title">
+                            <span class="material-symbols-outlined"
+                                style="color: var(--vector-b); font-size: 1.25rem;">compare_arrows</span>
+                            Similarity vs. Distance
+                        </h4>
+                        <p class="rag-bullet-desc"><strong>Cosine Similarity</strong> is standard for text comparison
+                            because it isolates semantic direction. <strong>Euclidean Distance</strong> measures
+                            absolute geometric separation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-world intuition section -->
+        <h2 class="section-headline"
+            style="margin-top: 48px; text-align: left; font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="color: var(--accent-primary)">lightbulb</span>
+            Real-world intuition
+        </h2>
+        <div class="edu-grid" style="margin-top: 24px; margin-bottom: 60px;">
+
+            <div class="edu-card">
+                <div class="edu-icon">🎯</div>
+                <h3>Query vs Relevant Document</h3>
+                <p>High cosine similarity (close to 1.0) indicates that the query vector and the document vector point
+                    in a very similar semantic direction. The document is highly relevant.</p>
+            </div>
+
+            <div class="edu-card">
+                <div class="edu-icon">❔</div>
+                <h3>Query vs Unrelated Document</h3>
+                <p>A cosine similarity around 0.0 means the vectors are orthogonal (perpendicular). There is no
+                    measurable semantic alignment between the search query and the target content.</p>
+            </div>
+
+            <div class="edu-card">
+                <div class="edu-icon">⛔</div>
+                <h3>Opposite Meaning or Direction</h3>
+                <p>Negative cosine similarity values (approaching -1.0) mean the vectors point in opposing directions in
+                    this simplified space, representing contradictory meaning or topics.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p class="footer-copyright">© LiDa Software Developer Hub. All rights reserved.</p>
+            <p class="footer-version">Vector Sandbox v2.0.0 | Client-side math visualization</p>
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn-discover">
+                <span class="material-symbols-outlined">explore</span>
+                Discover More Tools
+            </a>
+        </div>
+    </footer>
+
+    <script src="vectorSimilarityApi.js?v=2"></script>
+    <script src="script.js?v=2"></script>
+</body>
+
+</html>

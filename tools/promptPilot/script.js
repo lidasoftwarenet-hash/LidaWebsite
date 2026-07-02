@@ -144,7 +144,7 @@ const templateConfigs = {
             currentProblem: { label: "API Design Challenges", placeholder: "What's the core design question? Versioning strategy, resource modeling for complex domains, real-time (WebSockets vs SSE), auth patterns (API key vs OAuth2 PKCE), batch operations..." },
             desiredOutcome: { label: "API Design Goals", placeholder: "Developer-first API: predictable naming, consistent error codes (RFC 9457), idempotency, pagination (cursor-based), rate limiting, SDK-ready, auto-generated docs" },
             technicalConstraints: { placeholder: "e.g., Cannot break v1 consumers, must support 10k req/s, response time SLA <200ms p99" },
-            mustHave: { placeholder: "Must-haves: versioning strategy, auth + scopes, error format (RFC 9457), pagination, OpenAPI spec, changelog" }
+            mustHave: { placeholder: "Must-haves: versioning strategy, auth + scopes, error format (RFC 9457), pagination, OpenAPI spec, Dev-news" }
         }
     },
     'llm-app': {

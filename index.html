@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -3013,13 +3013,13 @@
         <li><a href="#about">About</a></li>
         <li><a href="engineering.html">Engineering</a></li>
         <li><a href="interview-prep.html">Interview Prep</a></li>
+        <li><a href="guides.html">Guides</a></li>
         <li><a href="#contact">Contact</a></li>
-        <!-- <li><a href="tutorials/index.html">Tutorials</a></li> -->
         <li><a href="powers-your-business/you-business.html">Payment Solutions</a></li>
-        <li><a href="dev-news.html" style="display:flex;align-items:center;gap:6px;color:#22c55e !important">
+        <li><a href="Dev-news.html" style="display:flex;align-items:center;gap:6px;color:#22c55e !important">
             <span
               style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,0.8);animation:blink-dot 1.5s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
-            Changelog
+            Dev-news
           </a></li>
 
         <div class="nav-social">
@@ -4374,6 +4374,7 @@
         { g: 'Developer Tools', title: 'AI Model Selector', desc: 'Compare and choose the right AI model for your task.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/ai-selector/index.html' },
         { g: 'Developer Tools', title: 'MCP Blueprint Generator', desc: 'Generate Model Context Protocol blueprints.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/mcp-blueprint-generator/mcp-blueprint-generator.html' },
         { g: 'Developer Tools', title: 'PromptPilot', desc: 'Design, test, and refine AI prompts.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/promptPilot/index.html' },
+        { g: 'Tutorials', title: 'Understanding Vector Similarity', desc: 'Learn how embeddings, cosine similarity, dot product, and Euclidean distance work in RAG and semantic search.', tag: 'Tutorial', icon: 'eng', href: BASE + 'tools/vector-sandbox/index.html' },
         { g: 'Developer Tools', title: 'PaletteForge', desc: 'Generate and export design colour palettes.', tag: 'Tool', icon: 'tool', href: BASE + 'palette-forge/index.html' },
         { g: 'Developer Tools', title: 'Dummy Data Generator', desc: 'Generate realistic test data instantly.', tag: 'Tool', icon: 'tool', href: BASE + 'dummy-generate.html' },
         { g: 'Developer Tools', title: 'Timestamp Converter', desc: 'Convert between Unix timestamps and human dates.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/timeStampConvert/time-stamp-convert.html' },
@@ -4385,7 +4386,7 @@
         { g: 'Developer Tools', title: 'AI Status Dashboard', desc: 'Monitor AI API and service availability.', tag: 'Tool', icon: 'ai', href: BASE + 'tools/ai-status/index.html' },
         { g: 'Developer Tools', title: 'Virtual Team Kit', desc: 'Templates and tools for remote engineering teams.', tag: 'Tool', icon: 'tool', href: BASE + 'virtual-team-kit.html' },
         { g: 'Developer Tools', title: 'LiDa Mix Play', desc: 'Creative audio mixing and playback tool.', tag: 'Tool', icon: 'tool', href: BASE + 'lida-mix-play/index.html' },
-        { g: 'Developer Tools', title: 'Dev News', desc: 'Latest developer news and engineering updates.', tag: 'Tool', icon: 'tool', href: BASE + 'dev-news.html' },
+        { g: 'Developer Tools', title: 'Dev News', desc: 'Latest developer news and engineering updates.', tag: 'Tool', icon: 'tool', href: BASE + 'Dev-news.html' },
         { g: 'Developer Tools', title: 'All Tools List', desc: 'Browse the full catalogue of LiDa developer tools.', tag: 'Tool', icon: 'tool', href: BASE + 'tools/toolSList/tools.html' },
         // Engineering
         { g: 'Project & Engineering', title: 'Engineering Behind LiDa Software', desc: 'Architecture, product decisions, AI integration, and roadmap.', tag: 'Engineering', icon: 'eng', href: BASE + 'engineering.html', keywords: 'case study portfolio' },
@@ -4407,7 +4408,7 @@
 
       var RECRUITER_TERMS = ['interview', 'recruiter', 'cto', 'review', 'hire', 'hiring', 'job'];
 
-      var GROUP_ORDER = ['Developer Tools', 'Project & Engineering', 'Services', 'Contact'];
+      var GROUP_ORDER = ['Developer Tools', 'Tutorials', 'Project & Engineering', 'Services', 'Contact'];
 
       function iconSvg(type) {
         var icons = {

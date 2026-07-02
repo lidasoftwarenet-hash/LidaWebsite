@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Understanding AI Agents | Interactive Developer Guide</title>
+  <meta name="description" content="A premium standalone HTML guide to AI agents with interactive simulations, code games, agent loops, tool calling, planning, memory, safety, and production checklists." />
+  <style>
+    :root {
+      --bg: #070812;
+      --bg2: #0d1020;
+      --surface: rgba(255,255,255,0.045);
+      --surface2: rgba(255,255,255,0.075);
+      --card: rgba(15, 18, 36, 0.86);
+      --card2: rgba(24, 28, 55, 0.82);
+      --line: rgba(157, 139, 255, 0.20);
+      --line2: rgba(255,255,255,0.09);
+      --text: #f5f7ff;
+      --muted: #a9b0d0;
+      --soft: #7780aa;
+      --violet: #a78bfa;
+      --violet2: #7c3aed;
+      --blue: #60a5fa;
+      --cyan: #22d3ee;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #fb7185;
+      --pink: #f472b6;
+      --shadow: 0 24px 70px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --radius2: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,0.22), transparent 32%),
+        radial-gradient(circle at 84% 18%, rgba(34,211,238,0.12), transparent 30%),
+        radial-gradient(circle at 55% 86%, rgba(244,114,182,0.09), transparent 34%),
+        linear-gradient(180deg, #070812 0%, #090b16 46%, #05060d 100%);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    button, select, input { font: inherit; }
+    .page { width: min(1200px, calc(100% - 36px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(7, 8, 18, 0.72);
+      border-bottom: 1px solid var(--line2);
+    }
+    .topbar-inner {
+      width: min(1200px, calc(100% - 36px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand { display:flex; align-items:center; gap: 12px; color: var(--text); text-decoration: none; font-weight: 900; letter-spacing: -0.02em; }
+    .brand-mark {
+      width: 38px; height: 38px; border-radius: 13px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(167,139,250,0.24), rgba(34,211,238,0.12));
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 30px rgba(124,58,237,0.16);
+    }
+    .nav { display:flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover { color: #fff; background: rgba(255,255,255,0.06); border-color: var(--line2); }
+
+    .hero { padding: 76px 0 40px; position: relative; }
+    .hero-grid { display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items: center; }
+    .eyebrow { display:flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .chip {
+      display:inline-flex; align-items:center; gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+      color: #d9d4ff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+      margin: 0 0 22px;
+    }
+    .gradient-text { background: linear-gradient(135deg, #fff, #c4b5fd 45%, #67e8f9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p { color: var(--muted); font-size: clamp(1.04rem, 2vw, 1.22rem); max-width: 720px; margin: 0 0 28px; }
+    .hero-actions { display:flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 16px;
+      cursor: pointer;
+      font-weight: 900;
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap: 8px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, var(--violet), var(--blue)); color: white; box-shadow: 0 18px 38px rgba(124,58,237,0.32); }
+    .btn-ghost { color: var(--text); background: rgba(255,255,255,0.055); border: 1px solid var(--line2); }
+    .btn-small { padding: 9px 11px; border-radius: 11px; font-size: 0.86rem; }
+
+    .agent-orb {
+      min-height: 440px;
+      position: relative;
+      border-radius: 34px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.075), rgba(255,255,255,0.02));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      padding: 24px;
+    }
+    .agent-orb:before {
+      content:"";
+      position:absolute; inset:-80px;
+      background: conic-gradient(from 180deg, rgba(167,139,250,.0), rgba(167,139,250,.22), rgba(34,211,238,.12), rgba(244,114,182,.16), rgba(167,139,250,.0));
+      filter: blur(18px);
+      animation: rotate 14s linear infinite;
+      opacity: .9;
+    }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    .agent-stage { position:relative; z-index:2; display:grid; place-items:center; min-height: 390px; }
+    .loop {
+      position: relative;
+      width: min(430px, 100%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,0.18);
+      display:grid; place-items:center;
+    }
+    .bot-face {
+      width: 142px; height: 142px;
+      border-radius: 36px;
+      background: linear-gradient(145deg, rgba(96,165,250,.18), rgba(167,139,250,.28));
+      border: 1px solid rgba(255,255,255,0.19);
+      display:grid; place-items:center;
+      font-size: 4.4rem;
+      box-shadow: 0 20px 55px rgba(124,58,237,.28);
+    }
+    .loop-node {
+      position:absolute;
+      width: 122px;
+      min-height: 58px;
+      border-radius: 16px;
+      background: rgba(5,6,13,.72);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      font-weight: 900;
+      font-size: .8rem;
+      display:grid; place-items:center;
+      text-align:center;
+      padding: 8px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.28);
+    }
+    .loop-node strong { display:block; color:#fff; }
+    .node-plan { top: 6%; left: 50%; transform: translateX(-50%); }
+    .node-tool { right: -2%; top: 40%; }
+    .node-obs { bottom: 8%; left: 50%; transform: translateX(-50%); }
+    .node-decide { left: -2%; top: 40%; }
+
+    section { padding: 34px 0; }
+    .section-head { margin-bottom: 22px; }
+    .section-kicker { color: var(--violet); font-size: .82rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 950; margin-bottom: 7px; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1; letter-spacing: -0.045em; margin: 0 0 12px; }
+    .section-head p { color: var(--muted); max-width: 820px; margin: 0; font-size: 1.05rem; }
+    .grid { display:grid; gap: 18px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line2);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 12px 45px rgba(0,0,0,.16);
+      position: relative;
+      overflow: hidden;
+    }
+    .card:before {
+      content:"";
+      position:absolute; left: 0; top: 0; width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(167,139,250,.6), transparent);
+      opacity: .55;
+    }
+    .card h3 { margin: 0 0 9px; font-size: 1.12rem; letter-spacing: -0.02em; }
+    .card p, .card li { color: var(--muted); }
+    .card p:last-child { margin-bottom: 0; }
+    .icon { font-size: 1.65rem; margin-bottom: 12px; display:block; }
+    .mini { color: var(--soft); font-size: .9rem; }
+    .list-clean { list-style: none; padding: 0; margin: 0; }
+    .list-clean li { padding: 11px 0; border-bottom: 1px solid var(--line2); }
+    .list-clean li:last-child { border-bottom: 0; }
+
+    .compare-table { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .compare-col { border: 1px solid var(--line2); border-radius: var(--radius); background: rgba(255,255,255,.035); padding: 18px; }
+    .compare-col h3 { margin-top: 0; }
+
+    .sandbox {
+      border: 1px solid rgba(167,139,250,.25);
+      background: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.025));
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .sandbox-top {
+      display:flex; align-items:center; justify-content: space-between; gap: 18px; flex-wrap:wrap;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line2);
+      background: rgba(255,255,255,.035);
+    }
+    .sandbox-top h2 { font-size: 1.55rem; margin: 0; }
+    .sandbox-layout { display:grid; grid-template-columns: 360px 1fr; }
+    .controls { padding: 22px; border-right: 1px solid var(--line2); background: rgba(0,0,0,.16); }
+    .result-zone { padding: 22px; min-height: 640px; }
+    .control { margin-bottom: 18px; }
+    .control label { display:flex; justify-content: space-between; gap: 10px; color: #d8dcff; font-weight: 850; font-size: .84rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    select, input[type="range"] {
+      width: 100%; border: 1px solid var(--line2); background: rgba(255,255,255,.06); color: var(--text);
+      border-radius: 14px; padding: 12px 13px; outline: none;
+    }
+    select:focus, input:focus { border-color: rgba(167,139,250,.65); box-shadow: 0 0 0 4px rgba(167,139,250,.12); }
+    select option { background: #11162b; color: white; }
+    input[type="range"] { padding: 0; height: 7px; accent-color: var(--violet); }
+    .two-btns { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .scenario-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .scenario-btn { background: rgba(255,255,255,.045); color: var(--text); border: 1px solid var(--line2); border-radius: 13px; padding: 11px; cursor:pointer; text-align:left; font-weight: 800; transition: .18s ease; }
+    .scenario-btn:hover { border-color: rgba(167,139,250,.5); transform: translateY(-1px); background: rgba(167,139,250,.10); }
+    .scenario-btn small { display:block; color: var(--muted); font-weight: 650; margin-top: 3px; }
+
+    .loop-steps { display:grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 18px; }
+    .sim-step { padding: 12px; border-radius: 16px; border: 1px solid var(--line2); background: rgba(255,255,255,.04); color: var(--muted); font-weight: 900; font-size: .84rem; text-align:center; transition: .2s ease; }
+    .sim-step.active { color: white; border-color: rgba(34,211,238,.55); background: rgba(34,211,238,.11); box-shadow: 0 0 0 4px rgba(34,211,238,.045); }
+    .sim-step.done { color: var(--green); border-color: rgba(52,211,153,.45); background: rgba(52,211,153,.08); }
+    .trace-grid { display:grid; grid-template-columns: 1.05fr .95fr; gap: 16px; }
+    .trace-card { border:1px solid var(--line2); background: rgba(0,0,0,.17); border-radius: var(--radius); padding: 16px; }
+    .trace-card h3 { margin: 0 0 10px; }
+    .trace-list { display:flex; flex-direction: column; gap: 10px; }
+    .trace-item { border: 1px solid var(--line2); background: rgba(255,255,255,.035); border-radius: 16px; padding: 13px; }
+    .trace-item-head { display:flex; justify-content:space-between; gap: 12px; align-items: center; margin-bottom: 7px; }
+    .trace-title { font-weight: 950; }
+    .badge { display:inline-flex; align-items:center; border-radius: 999px; padding: 4px 9px; font-size: .74rem; font-weight: 950; letter-spacing: .02em; border:1px solid; white-space: nowrap; }
+    .badge.green { color: var(--green); background: rgba(52,211,153,.09); border-color: rgba(52,211,153,.25); }
+    .badge.amber { color: var(--amber); background: rgba(251,191,36,.09); border-color: rgba(251,191,36,.25); }
+    .badge.red { color: var(--red); background: rgba(251,113,133,.09); border-color: rgba(251,113,133,.25); }
+    .badge.blue { color: var(--cyan); background: rgba(34,211,238,.09); border-color: rgba(34,211,238,.25); }
+    .badge.violet { color: var(--violet); background: rgba(167,139,250,.11); border-color: rgba(167,139,250,.3); }
+    .observation { color: var(--muted); font-size:.94rem; margin: 0; }
+    .codebox { background: #050712; border: 1px solid var(--line2); border-radius: 18px; padding: 16px; overflow:auto; color: #dce5ff; font-family: var(--mono); font-size: .9rem; white-space: pre-wrap; }
+    .answer { border-left: 4px solid var(--green); padding: 14px 14px 14px 16px; border-radius: 14px; background: rgba(52,211,153,.075); color: var(--text); }
+    .answer.warn { border-left-color: var(--amber); background: rgba(251,191,36,.08); }
+    .answer.danger { border-left-color: var(--red); background: rgba(251,113,133,.075); }
+    .score-grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+    .score { background: rgba(255,255,255,.04); border: 1px solid var(--line2); border-radius: 16px; padding: 12px; }
+    .score b { display:block; font-size: 1.45rem; letter-spacing:-.04em; }
+    .score span { color: var(--muted); font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+
+    .playground { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .game { background: var(--card); border: 1px solid var(--line2); border-radius: var(--radius); padding: 18px; }
+    .game h3 { margin-top: 0; }
+    .quiz-options { display:flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .quiz-options button { border:1px solid var(--line2); background: rgba(255,255,255,.045); color: var(--text); border-radius: 12px; padding: 10px 12px; cursor:pointer; font-weight:850; }
+    .quiz-options button:hover { border-color: var(--violet); }
+    .feedback { margin-top: 12px; padding: 12px; border-radius: 12px; background: rgba(255,255,255,.045); color: var(--muted); border:1px solid var(--line2); }
+    .feedback.good { color: #c7ffe9; border-color: rgba(52,211,153,.28); background: rgba(52,211,153,.08); }
+    .feedback.bad { color: #ffd3dc; border-color: rgba(251,113,133,.28); background: rgba(251,113,133,.08); }
+
+    details { border: 1px solid var(--line2); background: rgba(255,255,255,.035); border-radius: 16px; padding: 0; overflow:hidden; }
+    details + details { margin-top: 10px; }
+    summary { cursor:pointer; padding: 16px 18px; font-weight: 950; color: var(--text); }
+    details[open] summary { border-bottom: 1px solid var(--line2); color: var(--violet); }
+    .detail-body { padding: 15px 18px 18px; color: var(--muted); }
+    .checklist { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .check { background: rgba(255,255,255,.035); border: 1px solid var(--line2); border-radius: 16px; padding: 14px; color: var(--muted); }
+    .check b { color: var(--text); }
+    .resource { text-decoration:none; display:block; min-height:100%; }
+    .resource:hover { border-color: rgba(34,211,238,.45); transform: translateY(-2px); }
+    .footer-note { padding: 48px 0 70px; color: var(--soft); text-align: center; }
+
+    /* NAV SHELL */
+    .nav-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(10,10,15,.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(102,126,234,.15);
+      z-index: 1000;
+      transition: all .4s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    }
+    .nav-header.scrolled { background: rgba(10,10,15,.95); box-shadow: 0 8px 32px rgba(0,0,0,.4); border-bottom-color: rgba(102,126,234,.3); }
+    .nav-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 80px; }
+    .nav-logo { font-size: 1.5em; font-weight: 800; white-space: nowrap; background: linear-gradient(135deg,#667eea,#a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; transition: all .3s ease; letter-spacing: -.02em; display:flex; align-items:center; gap:10px; }
+    .nav-logo:hover { transform: scale(1.05); }
+    .nav-links { display: flex; gap: 20px; white-space: nowrap; align-items: center; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { color: #b4b4d4; text-decoration: none; font-weight: 500; white-space: nowrap; transition: all .3s cubic-bezier(.4,0,.2,1); position: relative; padding: 8px 16px; border-radius: 8px; }
+    .nav-links a:hover { color: #fff; background: rgba(102,126,234,.1); transform: translateY(-1px); }
+    .nav-social { display: flex; gap: 15px; }
+    .nav-social a { color: #9090b0; font-size: 1.2em; transition: all .3s ease; }
+    .nav-social a:hover { color: #a78bfa; transform: translateY(-2px); }
+    .mobile-menu-toggle { display: none; background: none; border: none; color: #b4b4d4; font-size: 1.5em; cursor: pointer; }
+    .share-bar { display: flex; gap: 8px; align-items: center; justify-content: center; padding-bottom: 8px; margin-top: 100px; }
+    .share-bar span { font-size: 12px; color: #a5b4c8; margin-right: 4px; }
+    .share-bar a, .share-bar button { background: rgba(15,23,42,.48); border: 1px solid rgba(148,163,184,.32); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; white-space: nowrap; text-decoration: none; cursor: pointer; transition: .2s ease; }
+    .share-bar a:hover, .share-bar button:hover { border-color: rgba(167,139,250,.5); color: #ddd6fe; }
+    footer { background: linear-gradient(135deg,#0a0a18,#1a1a2e); padding: 60px 20px 40px; text-align: center; border-top: 1px solid rgba(102,126,234,.15); position: relative; margin-top: 60px; }
+    footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg,transparent,rgba(102,126,234,.5),transparent); }
+    .open-source-badge { display:inline-block; margin-top:20px; padding:12px 30px; background:rgba(102,126,234,.1); backdrop-filter:blur(10px); border:1px solid rgba(102,126,234,.3); border-radius:30px; color:#a78bfa; font-weight:600; transition:all .3s ease; text-decoration:none; }
+    .open-source-badge:hover { background:rgba(102,126,234,.15); transform:translateY(-2px); }
+    .philosophy-statement { color:#9090b0; font-size:.9em; font-style:italic; margin-top:20px; max-width:600px; margin-left:auto; margin-right:auto; line-height:1.5; opacity:.8; }
+    .scroll-to-top { position:fixed; bottom:30px; right:30px; width:50px; height:50px; background:linear-gradient(135deg,#667eea,#764ba2); border:none; border-radius:50%; color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .3s cubic-bezier(.4,0,.2,1); opacity:0; visibility:hidden; z-index:999; box-shadow:0 4px 15px rgba(102,126,234,.4); }
+    .scroll-to-top.visible { opacity:1; visibility:visible; }
+    .scroll-to-top:hover { transform:translateY(-5px); box-shadow:0 8px 25px rgba(102,126,234,.6); }
+    .whatsapp-popup { display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); z-index:9999; backdrop-filter:blur(5px); }
+    .whatsapp-popup-content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:linear-gradient(135deg,#1a1a2e,#16213e); padding:40px; border-radius:20px; border:1px solid rgba(102,126,234,.3); text-align:center; max-width:400px; width:90%; box-shadow:0 20px 50px rgba(0,0,0,.5); animation:popupScale .3s cubic-bezier(.175,.885,.32,1.275); }
+    @keyframes popupScale { from{transform:translate(-50%,-50%) scale(.8);opacity:0} to{transform:translate(-50%,-50%) scale(1);opacity:1} }
+    .close-popup { position:absolute; top:15px; right:25px; background:none; border:none; color:#b4b4d4; font-size:24px; cursor:pointer; transition:color .3s; z-index:20; }
+    .close-popup:hover { color:#fff; }
+    .phone-number { font-size:1.8em; font-weight:700; color:#fff; margin:20px 0; letter-spacing:1px; }
+    .whatsapp-buttons { display:flex; flex-direction:column; gap:12px; }
+    .whatsapp-btn { padding:12px 24px; border-radius:8px; text-decoration:none; font-weight:600; transition:all .3s; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .whatsapp-btn.primary { background:#25D366; color:#fff; border:none; }
+    .whatsapp-btn.primary:hover { background:#128C7E; transform:translateY(-2px); }
+    .whatsapp-btn.secondary { background:transparent; border:1px solid #b4b4d4; color:#b4b4d4; }
+    .whatsapp-btn.secondary:hover { border-color:#fff; color:#fff; }
+    @media (max-width:768px) { body { padding-top:70px; } .nav-container { height:70px; } .mobile-menu-toggle { display:block; } .nav-links { position:fixed; top:70px; left:0; right:0; bottom:0; background:#0a0a0f; flex-direction:column; padding:40px; gap:25px; transform:translateX(100%); transition:transform .3s ease; z-index:999; } .nav-links.active { transform:translateX(0); } .nav-social { margin-top:auto; justify-content:center; width:100%; } }
+
+    @media (max-width: 1000px) {
+      .hero-grid, .sandbox-layout, .trace-grid, .playground, .compare-table { grid-template-columns: 1fr; }
+      .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .controls { border-right: 0; border-bottom: 1px solid var(--line2); }
+      .score-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .loop-steps { grid-template-columns: 1fr; }
+      .arrow { display:none; }
+      .agent-orb { min-height: 320px; }
+      .agent-stage { min-height: 280px; }
+      .loop-node { width: 105px; font-size:.74rem; }
+      .bot-face { width: 112px; height: 112px; font-size: 3.3rem; }
+    }
+    @media (max-width: 650px) {
+      .page, .topbar-inner { width: min(100% - 24px, 1200px); }
+      .nav { display:none; }
+      .hero { padding-top: 48px; }
+      .card, .controls, .result-zone { padding: 16px; }
+      .sandbox-top { padding: 18px; }
+      .scenario-grid, .two-btns, .checklist, .score-grid { grid-template-columns: 1fr; }
+      .loop-node { position: static; transform:none; margin: 6px; }
+      .loop { border-radius: 26px; aspect-ratio: auto; padding: 18px; display:flex; flex-wrap: wrap; justify-content:center; }
+      .bot-face { order:-1; width: 100%; height: 90px; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav-header" id="navbar">
+  <div class="nav-container">
+    <a href="../../index.html" class="nav-logo">
+      <div style="width:40px;height:40px;background:rgba(255,255,255,.05);border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(102,126,234,.2);">
+        <img src="../../logo.png" alt="LiDa Software Logo" style="width:30px;height:auto;">
+      </div>
+      LiDa Software
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#projects">Projects</a></li>
+      <li><a href="../../index.html#about">About</a></li>
+      <li><a href="../../engineering.html">Engineering</a></li>
+      <li><a href="../../interview-prep.html">Interview Prep</a></li>
+      <li class="active"><a href="../../guides.html">Tutorials</a></li>
+      <li><a href="../../index.html#contact">Contact</a></li>
+      <li><a href="../../powers-your-business/you-business.html">Payment Solutions</a></li>
+      <li><a href="../../Dev-news.html" style="display:flex;align-items:center;gap:6px;color:#22c55e !important">
+        <span style="width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,.8);animation:blink-dot 1.5s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
+        Dev-news
+      </a></li>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/hen-faibish-0469931b0/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61581626213032" target="_blank" rel="noopener noreferrer" title="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" onclick="openWhatsAppPopup();return false;" title="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+        </a>
+      </div>
+    </ul>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</nav>
+
+<div class="share-bar">
+  <span>Share:</span>
+  <a href="#" id="share-facebook" title="Share on Facebook">Facebook</a>
+  <a href="#" id="share-linkedin" title="Share on LinkedIn">LinkedIn</a>
+  <a href="#" id="share-twitter" title="Share on X (Twitter)">X</a>
+  <button id="share-copy">Copy link</button>
+</div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark">🤖</span><span>AI Agents Guide</span></a>
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#simulator">Simulator</a>
+        <a href="#games">Code Games</a>
+        <a href="#patterns">Patterns</a>
+        <a href="#faq">FAQ</a>
+        <a href="#glossary">Glossary</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="top" class="page">
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="chip">Interactive Guide</span>
+            <span class="chip">Tool Use</span>
+            <span class="chip">Planning</span>
+            <span class="chip">No API Calls</span>
+          </div>
+          <h1><span class="gradient-text">Understanding<br>AI Agents</span></h1>
+          <p>Learn what makes an AI agent different from a chatbot, workflow, or simple tool call. Then play with a deterministic agent simulator and watch planning, tool calls, observations, approvals, memory, and final answers unfold step by step.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#simulator">Start the simulator →</a>
+            <a class="btn btn-ghost" href="#mental-model">Learn the mental model</a>
+          </div>
+        </div>
+        <div class="agent-orb" aria-label="Agent loop illustration">
+          <div class="agent-stage">
+            <div class="loop">
+              <div class="bot-face">🤖</div>
+              <div class="loop-node node-plan"><strong>Plan</strong>Break goal into steps</div>
+              <div class="loop-node node-tool"><strong>Act</strong>Call tools safely</div>
+              <div class="loop-node node-obs"><strong>Observe</strong>Read tool output</div>
+              <div class="loop-node node-decide"><strong>Decide</strong>Continue or stop</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+        <section id="mental-model">
+      <div class="section-head">
+        <div class="section-kicker">Mental model</div>
+        <h2>An agent is not just a bigger prompt</h2>
+        <p>An agent is a system that can <strong>reason</strong> about a goal, <strong>choose actions</strong>, use tools, inspect results, and decide what to do next — repeatedly, until the task is done or the budget runs out. The key idea is the <em>loop</em>: goal → plan → act → observe → adjust → finish.</p>
+        <p style="color:var(--muted);margin-top:10px;">Unlike traditional software where <em>you</em> write the if/then logic, in an agentic system the <strong>LLM acts as the routing engine</strong>. It reads the tool result, weighs it against the goal, and decides the next move. This is powerful — and risky. The model can recover from surprises, but it can also go off-course if tools, constraints, or prompts are poorly designed. Think of an agent less like a program and more like a junior employee: capable, but needs guardrails, a clear brief, and approval on consequential decisions.</p>
+      </div>
+      <div class="compare-table">
+        <div class="compare-col">
+          <span class="icon">💬</span>
+          <h3>Chatbot</h3>
+          <p>Usually answers in one turn from the prompt and model knowledge. It may be helpful, but it is not automatically doing work in external systems. It has no agency to affect the real world.</p>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:8px;">Best for: Q&A, summarization, drafting. Not for: multi-step tasks, real-world actions.</p>
+          <span class="badge blue">Answer focused</span>
+        </div>
+        <div class="compare-col">
+          <span class="icon">🔁</span>
+          <h3>Workflow</h3>
+          <p>Follows a fixed path. Great for predictable automation. The logic decides the next step, not the model. If a step fails unexpectedly, the workflow usually breaks.</p>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:8px;">Best for: scheduled jobs, ETL pipelines, form processing. Not for: tasks with variable paths.</p>
+          <span class="badge violet">Fixed path</span>
+        </div>
+        <div class="compare-col">
+          <span class="icon">🤖</span>
+          <h3>Agent</h3>
+          <p>Chooses steps dynamically. It can call tools, read outputs, recover from partial failures, and stop when the goal is satisfied. It can adapt to edge cases.</p>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:8px;">Best for: open-ended research, debugging, triage. Requires: constraints, approvals, budgets.</p>
+          <span class="badge green">Goal directed</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="multi-agent">
+      <div class="section-head" style="margin-top: 40px;">
+        <div class="section-kicker">Architecture</div>
+        <h2>Multi-Agent Systems</h2>
+        <p>For complex tasks, a single agent often becomes overwhelmed or confused — too many tools, too long a context, too many competing sub-goals. <strong>Multi-agent systems</strong> solve this by splitting work among specialized sub-agents, each with their own prompt, tools, memory scope, and constraints. Think of it like a small engineering team: one person plans, others execute, a reviewer checks the output.</p>
+        <p style="color:var(--muted);margin-top:10px;">The tricky part is communication: agents must hand off structured results, not freeform prose. You also need to decide who has final authority, how failures bubble up, and how to prevent agents from contradicting each other. These systems are powerful but harder to debug — start single-agent, and only go multi when you hit a real complexity ceiling.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="icon">👑</span>
+          <h3>Supervisor / Orchestrator</h3>
+          <p>A main agent receives the user goal, breaks it into sub-tasks, and delegates each to a specialized worker agent. The supervisor collects results, resolves conflicts, and delivers the final answer. <em>Example:</em> a research supervisor delegates web search to a Search Agent, citation checking to a Fact Agent, and final synthesis to a Writer Agent.</p>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:8px;">Watch out for: supervisors that don't validate sub-agent output, leading to hallucinated citations or partial results being presented as complete.</p>
+        </div>
+        <div class="card">
+          <span class="icon">👥</span>
+          <h3>Network / Peer-to-Peer</h3>
+          <p>Agents communicate with each other directly to solve problems collaboratively. For example, a Coder Agent writes code, a Reviewer Agent critiques it, and a Tester Agent runs it — looping until all gates pass. There is no single boss; agents negotiate through shared state.</p>
+          <p style="color:var(--muted);font-size:.9rem;margin-top:8px;">Watch out for: infinite critique loops, runaway token cost, and agents that agree with each other too easily (echo chamber failure).</p>
+        </div>
+      </div>
+    </section>
+
+        <section>
+      <div class="section-head">
+        <div class="section-kicker">Core Building Blocks</div>
+        <h2>The parts that make agents work</h2>
+        <p>Before picking a framework, understand the primitives. Every agent — regardless of which library powers it — is assembled from these eight components. Miss one and you get surprising failures: runaway loops (no stop condition), data leaks (no guardrails), or useless plans (wrong tools). Master these and framework choice becomes secondary.</p>
+      </div>
+      <div class="grid grid-4">
+        <div class="card"><span class="icon">🎯</span><h3>Goal</h3><p>The user asks for an outcome, not just a text answer. A good goal is <em>specific and bounded</em> — "Find the failing test and draft a fix plan" is better than "help me with CI." Vague goals produce vague plans and wasted steps.</p></div>
+        <div class="card"><span class="icon">🧭</span><h3>Planner</h3><p>The model proposes a sequence of actions before executing. Making the plan <em>explicit</em> (not hidden in the prompt) lets your system inspect it, reject bad plans early, and show humans what the agent intends to do — before any tool is called.</p></div>
+        <div class="card"><span class="icon">🧰</span><h3>Tools</h3><p>Functions the agent can call: search docs, read calendar, query tickets, run tests, draft emails. Each tool needs a typed schema. <em>The fewer tools you expose, the easier it is to reason about safety.</em> Start with read-only tools and add writes one at a time.</p></div>
+        <div class="card"><span class="icon">👀</span><h3>Observation</h3><p>The raw result returned by a tool. The agent uses observations to update its understanding of the world before deciding the next step. Observations should be <em>structured</em> (JSON or typed output), not freeform text, so the model can parse them reliably.</p></div>
+        <div class="card"><span class="icon">🧠</span><h3>Memory</h3><p>Information saved across steps or sessions. <em>In-context memory</em> is everything in the current prompt window. <em>External memory</em> (vector stores, databases) lets agents recall past sessions. Risky if it stores sensitive or irrelevant data — always scope what gets remembered.</p></div>
+        <div class="card"><span class="icon">🧱</span><h3>Constraints</h3><p>Hard limits built into your code, not your prompt: allowed tools list, maximum step count, time-out per tool call, spending cap, and approval gates. Constraints enforced in software are reliable. Constraints written only in the system prompt can be bypassed.</p></div>
+        <div class="card"><span class="icon">🛡️</span><h3>Guardrails</h3><p>Security controls that intercept calls <em>before</em> execution: block disallowed tool names, validate argument schemas, strip prompt injection payloads from retrieved content, and rate-limit repeated identical calls. Guardrails are your last line of defense when the model reasons incorrectly.</p></div>
+        <div class="card"><span class="icon">🏁</span><h3>Stop condition</h3><p>The agent must have a clear way to finish — either a <em>final_answer</em> signal, a max-steps budget, or a goal-achieved check. Without one, agents loop, accumulate cost, and produce no result. Always define done before you define the plan.</p></div>
+      </div>
+    </section>
+
+    <section id="simulator">
+      <div class="section-head">
+        <div class="section-kicker">Interactive sandbox</div>
+        <h2>Agent Flow Simulator</h2>
+        <p>Pick a mission, set the autonomy level and safety policy, then run the agent. Everything is deterministic and client-side. No external APIs are called.</p>
+      </div>
+      <div class="sandbox">
+        <div class="sandbox-top">
+          <h2>Agent Simulator</h2>
+          <span class="chip">Local demo data • No model calls • Safe sandbox</span>
+        </div>
+        <div class="sandbox-layout">
+          <aside class="controls">
+            <div class="control">
+              <label for="scenarioSelect"><span>Mission</span></label>
+              <select id="scenarioSelect"></select>
+            </div>
+            <div class="control">
+              <label for="autonomySelect"><span>Autonomy</span></label>
+              <select id="autonomySelect">
+                <option value="assistive">Assistive - asks before actions</option>
+                <option value="supervised" selected>Supervised - approval for risky steps</option>
+                <option value="autonomous">Autonomous - acts when policy allows</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="toolPolicy"><span>Tool policy</span></label>
+              <select id="toolPolicy">
+                <option value="readonly">Read-only tools only</option>
+                <option value="approval" selected>Approval required for writes</option>
+                <option value="open">Open tool access</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="memoryMode"><span>Memory</span></label>
+              <select id="memoryMode">
+                <option value="none">No memory</option>
+                <option value="session" selected>Session memory</option>
+                <option value="long">Long-term memory</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="maxSteps"><span>Max steps</span><span id="maxStepsValue">5</span></label>
+              <input id="maxSteps" type="range" min="2" max="8" value="5" />
+            </div>
+            <div class="control">
+              <label for="riskTolerance"><span>Risk tolerance</span><span id="riskValue">Balanced</span></label>
+              <input id="riskTolerance" type="range" min="1" max="3" value="2" />
+            </div>
+            <button id="runAgent" class="btn btn-primary" style="width:100%; justify-content:center;">Run agent</button>
+            <div style="height:1px; background:var(--line2); margin:22px 0;"></div>
+            <div class="section-kicker">Preset experiments</div>
+            <div class="scenario-grid">
+              <button class="scenario-btn" data-preset="safe">Safe read-only<small>Good for low risk</small></button>
+              <button class="scenario-btn" data-preset="approval">Approval gate<small>Realistic default</small></button>
+              <button class="scenario-btn" data-preset="tooOpen">Too open<small>Shows risk</small></button>
+              <button class="scenario-btn" data-preset="lowBudget">Low step budget<small>Shows truncation</small></button>
+            </div>
+          </aside>
+          <section class="result-zone" aria-live="polite">
+            <div class="loop-steps" id="simSteps">
+              <div class="sim-step" data-step="goal">Goal</div>
+              <div class="sim-step" data-step="plan">Plan</div>
+              <div class="sim-step" data-step="tool">Tool Calls</div>
+              <div class="sim-step" data-step="observe">Observe</div>
+              <div class="sim-step" data-step="finish">Finish</div>
+            </div>
+            <div class="score-grid" id="scoreGrid"></div>
+            <div class="trace-grid">
+              <div class="trace-card">
+                <h3>Execution trace</h3>
+                <div id="traceList" class="trace-list"></div>
+              </div>
+              <div class="trace-card">
+                <h3>Agent plan</h3>
+                <pre id="planBox" class="codebox"></pre>
+                <h3>Final result</h3>
+                <div id="finalAnswer" class="answer"></div>
+              </div>
+            </div>
+            <div id="thinkingPanel" style="margin-top:16px;border:1px solid rgba(167,139,250,.25);border-radius:18px;background:rgba(124,58,237,.07);padding:16px;display:none;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <span style="font-size:1.3rem;">🧠</span>
+                <strong style="color:var(--violet);">Agent Thinking</strong>
+                <span id="thinkingDots" style="color:var(--muted);font-size:.85rem;"></span>
+              </div>
+              <div id="thinkingText" style="color:var(--muted);font-size:.92rem;line-height:1.6;font-family:var(--mono);white-space:pre-wrap;"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="section-head">
+        <div class="section-kicker">Code games</div>
+        <h2>Learn by making decisions</h2>
+        <p>These small games are intentionally simple. They teach the instincts behind good agent design: when to use an agent, how to pick a safe tool, and how to validate tool calls.</p>
+      </div>
+      <div class="playground">
+        <div class="game">
+          <h3>Game 1: Agent or workflow?</h3>
+          <p id="quizPrompt" class="mini"></p>
+          <div class="quiz-options">
+            <button onclick="answerAgentQuiz('chatbot')">Chatbot</button>
+            <button onclick="answerAgentQuiz('workflow')">Workflow</button>
+            <button onclick="answerAgentQuiz('agent')">Agent</button>
+          </div>
+          <div id="quizFeedback" class="feedback">Choose the best architecture.</div>
+          <button class="btn btn-ghost btn-small" onclick="nextAgentQuiz()" style="margin-top:12px;">Next scenario</button>
+        </div>
+        <div class="game">
+          <h3>Game 2: Pick the safe tool call</h3>
+          <p class="mini">Mission: help a user prepare for a meeting. The user mentions private notes and asks for a summary.</p>
+          <div class="quiz-options">
+            <button onclick="toolChoice('read_calendar')">read_calendar</button>
+            <button onclick="toolChoice('send_email')">send_email now</button>
+            <button onclick="toolChoice('delete_notes')">delete old notes</button>
+            <button onclick="toolChoice('read_notes')">read_notes with scope</button>
+          </div>
+          <div id="toolFeedback" class="feedback">Pick the safest next action.</div>
+        </div>
+        <div class="game">
+          <h3>Game 3: Validate a tool call</h3>
+          <p class="mini">The agent wants to call a tool. Decide if the call is valid for the schema.</p>
+          <pre class="codebox" id="schemaBox"></pre>
+          <div class="quiz-options">
+            <button onclick="schemaAnswer(true)">Valid</button>
+            <button onclick="schemaAnswer(false)">Invalid</button>
+          </div>
+          <div id="schemaFeedback" class="feedback">Check the JSON carefully.</div>
+          <button class="btn btn-ghost btn-small" onclick="nextSchemaGame()" style="margin-top:12px;">New tool call</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="patterns">
+      <div class="section-head">
+        <div class="section-kicker">Engineering patterns</div>
+        <h2>Useful agent patterns</h2>
+        <p>Most production systems are not fully autonomous agents. They combine deterministic software with small agentic loops where flexibility actually helps.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><span class="icon">🧩</span><h3>Router agent</h3><p>Classifies the request and sends it to the right workflow or specialized agent. Good for support, internal tools, and multi-domain assistants.</p></div>
+        <div class="card"><span class="icon">🔍</span><h3>Research agent</h3><p>Searches, reads, compares sources, and produces a grounded summary. Needs citations and strict source handling.</p></div>
+        <div class="card"><span class="icon">🧪</span><h3>Code investigation agent</h3><p>Reads files, runs tests, inspects logs, and proposes fixes. Write actions should require approval.</p></div>
+        <div class="card"><span class="icon">📬</span><h3>Inbox triage agent</h3><p>Groups emails, flags action items, drafts replies, and asks before sending. Great example of supervised autonomy.</p></div>
+        <div class="card"><span class="icon">🧾</span><h3>Form filling agent</h3><p>Extracts data and fills fields. Needs validation, confidence thresholds, and human review for sensitive fields.</p></div>
+        <div class="card"><span class="icon">🛠️</span><h3>Tool orchestrator</h3><p>Chains multiple tools together. The hard part is not calling tools, it is deciding when to stop and how to handle failures.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="section-kicker">Code view</div>
+        <h2>The basic agent loop</h2>
+        <p>This is the shape behind many agents. The model chooses an action, the app validates it, a tool runs, the observation returns, and the loop continues until done.</p>
+      </div>
+      <pre class="codebox">async function runAgent(goal, tools, policy) {
+  const state = { goal, observations: [], steps: 0 };
+
+  while (state.steps < policy.maxSteps) {
+    const decision = await model.decideNextAction(state, tools);
+
+    if (decision.type === "final_answer") {
+      return decision.answer;
+    }
+
+    const validation = policy.validate(decision.toolCall);
+    if (!validation.allowed) {
+      state.observations.push({
+        type: "blocked",
+        reason: validation.reason
+      });
+      continue;
+    }
+
+    const observation = await tools[decision.toolCall.name](decision.toolCall.args);
+    state.observations.push(observation);
+    state.steps++;
+  }
+
+  return "Stopped because the step budget was reached.";
+}</pre>
+    </section>
+
+        <section>
+      <div class="section-head">
+        <div class="section-kicker">Trade-offs</div>
+        <h2>Autonomy is not free</h2>
+        <p>More autonomy can solve harder tasks, but it also increases cost, latency, uncertainty, and risk. Good systems choose the smallest amount of autonomy that gets the job done. Don't build an autonomous agent when a simple script will do.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Low autonomy</h3><p>Best for high-risk work. The agent suggests actions but waits for the user. Slower, safer, easier to audit.</p><span class="badge green">Safe default</span></div>
+        <div class="card"><h3>Supervised autonomy</h3><p>Best for most internal assistants. Read actions can run automatically, write actions need approval. Perfect balance.</p><span class="badge violet">Practical default</span></div>
+        <div class="card"><h3>High autonomy</h3><p>Best only in narrow, well-tested domains. Requires strict tool scopes, monitoring, rollback, and rate limits.</p><span class="badge amber">Use carefully</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="section-kicker">Safety</div>
+        <h2>Agent risks and guardrails</h2>
+        <p>Once an AI can use tools, prompt quality is not enough. You need software controls around what tools exist, what arguments are allowed, and which actions need approval.</p>
+      </div>
+      <div class="checklist">
+        <div class="check"><b>Tool allowlist</b><br>Expose only the tools the agent truly needs.</div>
+        <div class="check"><b>Read vs write split</b><br>Reading data and changing data should have different policies.</div>
+        <div class="check"><b>Human approval</b><br>Require confirmation for sending, deleting, purchasing, deploying, or changing records.</div>
+        <div class="check"><b>Argument validation</b><br>Validate tool arguments with schemas before execution.</div>
+        <div class="check"><b>Scoped permissions</b><br>Use the user's real permissions. Do not give the agent admin power by default.</div>
+        <div class="check"><b>Audit log</b><br>Log goal, plan, tool calls, observations, approvals, and final result.</div>
+        <div class="check"><b>Step budget</b><br>Limit loops to avoid runaway actions and cost spikes.</div>
+        <div class="check"><b>Prompt injection defense</b><br>Treat retrieved content as untrusted data, not instructions.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="section-kicker">Production checklist</div>
+        <h2>Before shipping an agent</h2>
+        <p>Use this as a practical checklist before turning a demo into a real product feature.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Design</h3><ul class="list-clean"><li>Define the task boundary</li><li>Decide what counts as done</li><li>Choose the minimum autonomy</li><li>Design failure states</li></ul></div>
+        <div class="card"><h3>Tools</h3><ul class="list-clean"><li>Define schemas</li><li>Validate arguments</li><li>Separate read and write tools</li><li>Return clear observations</li></ul></div>
+        <div class="card"><h3>Safety</h3><ul class="list-clean"><li>Add approvals</li><li>Rate limit actions</li><li>Log every step</li><li>Test prompt injection cases</li></ul></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-head">
+        <div class="section-kicker">FAQ</div>
+        <h2>AI agents questions</h2>
+        <p>Short answers to the questions developers usually ask when they first build agents.</p>
+      </div>
+      <div class="grid grid-2">
+        <div>
+          <details open><summary>What makes something an agent?</summary><div class="detail-body">An agent can choose actions toward a goal, use tools, inspect results, and decide whether to continue or stop. A single tool call is not enough by itself.</div></details>
+          <details><summary>Is every chatbot an agent?</summary><div class="detail-body">No. A chatbot can answer text without controlling tools or running a loop. It becomes more agentic when it can plan and act.</div></details>
+          <details><summary>Do agents need memory?</summary><div class="detail-body">Not always. Memory helps with continuity, but it also adds risk. Many useful agents only need state during one task.</div></details>
+          <details><summary>What is tool calling?</summary><div class="detail-body">Tool calling is when the model requests a structured function call, such as searchDocs({ query: "JWT" }). Your app validates and executes it.</div></details>
+          <details><summary>What is an observation?</summary><div class="detail-body">The result returned by a tool. The observation becomes part of the agent's next decision.</div></details>
+          <details><summary>Why do agents loop?</summary><div class="detail-body">Because one action may not be enough. The agent may search, read, compare, ask for approval, then produce a final result.</div></details>
+        </div>
+        <div>
+          <details><summary>Why can agents be risky?</summary><div class="detail-body">They may call the wrong tool, trust malicious content, repeat actions, or change data without enough validation.</div></details>
+          <details><summary>What is the safest default?</summary><div class="detail-body">Read-only tools plus human approval for writes. That gives usefulness without uncontrolled side effects.</div></details>
+          <details><summary>How do I test an agent?</summary><div class="detail-body">Test successful tasks, missing information, tool failures, bad tool arguments, prompt injection, approval flows, and step budget limits.</div></details>
+          <details><summary>What is the difference between RAG and agents?</summary><div class="detail-body">RAG retrieves context for answering. An agent can use tools and make multi-step decisions. Many agents use RAG as one tool.</div></details>
+          <details><summary>Where does MCP fit?</summary><div class="detail-body">MCP standardizes how AI apps connect to tools, resources, and prompts. Agents can use MCP servers as their tool layer.</div></details>
+          <details><summary>Should agents be fully autonomous?</summary><div class="detail-body">Usually not at first. Start supervised, measure quality, add guardrails, then increase autonomy only in narrow, safe areas.</div></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="glossary">
+      <div class="section-head">
+        <div class="section-kicker">Glossary</div>
+        <h2>Agent terms in plain English</h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Agent</h3><p>A system that can pursue a goal by planning, using tools, reading results, and deciding the next step.</p></div>
+        <div class="card"><h3>Tool</h3><p>A function the agent can call, such as search, read file, query database, draft email, or run tests.</p></div>
+        <div class="card"><h3>Tool schema</h3><p>The contract that defines tool name, required arguments, allowed values, and expected output.</p></div>
+        <div class="card"><h3>Plan</h3><p>The agent's proposed steps. Plans are useful because humans and software can inspect them before actions happen.</p></div>
+        <div class="card"><h3>Observation</h3><p>The output from a tool call. The agent uses observations to update its next decision.</p></div>
+        <div class="card"><h3>Scratchpad</h3><p>Internal working state used during a task. In real products, avoid exposing private reasoning directly.</p></div>
+        <div class="card"><h3>Memory</h3><p>Stored information used later. It can be session-only or long-term.</p></div>
+        <div class="card"><h3>Guardrail</h3><p>A software rule that blocks unsafe or invalid actions.</p></div>
+        <div class="card"><h3>Approval gate</h3><p>A step where the user must confirm before the agent performs a sensitive action.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div class="section-kicker">Learn more</div>
+        <h2>Related concepts</h2>
+        <p>These cards are written as internal guide placeholders. Replace links with your real guide paths when integrating into the site.</p>
+      </div>
+      <div class="grid grid-3">
+        <a class="card resource" href="#"><h3>Understanding RAG</h3><p>Agents often use retrieval to collect context before deciding what to do.</p></a>
+        <a class="card resource" href="#"><h3>Understanding MCP</h3><p>MCP is a useful standard for exposing tools and resources to AI apps.</p></a>
+        <a class="card resource" href="#"><h3>LLM Guardrails</h3><p>The next natural topic after agents: prompt injection, approvals, validation, and safe tool access.</p></a>
+      </div>
+    </section>
+
+    <div class="footer-note">Standalone educational prototype. No external APIs. No paid model calls. Designed for integration into a developer guides section.</div>
+  </main>
+
+<footer>
+  <div class="container">
+    <p style="color:#7070a0;">© 2026 LiDa Software. All rights reserved.</p>
+    <a class="open-source-badge" href="https://github.com/" target="_blank" rel="noopener noreferrer">❤️ Inspired by Open Source</a>
+    <div class="philosophy-statement">I build tools the same way I write code: small, boring, and useful.</div>
+  </div>
+</footer>
+
+<div id="whatsappPopup" class="whatsapp-popup">
+  <div class="whatsapp-popup-content">
+    <button class="close-popup" onclick="closeWhatsAppPopup()">×</button>
+    <h3>📱 Contact via WhatsApp</h3>
+    <p>Get in touch with us directly on WhatsApp for quick support and questions.</p>
+    <div class="phone-number">+40 753 358 749</div>
+    <div class="whatsapp-buttons">
+      <a href="https://wa.me/40753358749?text=Hi%20there!%20I%20found%20your%20website%20and%20would%20like%20to%20get%20in%20touch." target="_blank" class="whatsapp-btn primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.488"/></svg>
+        Open WhatsApp
+      </a>
+      <button class="whatsapp-btn secondary" onclick="closeWhatsAppPopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+<button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+
+  <script>
+    const scenarios = {
+      deploy: {
+        title: "Debug a failed deployment",
+        goal: "Find why the deployment failed and prepare a safe fix plan.",
+        plan: [
+          "Read deployment logs",
+          "Search recent commits",
+          "Run failing test target",
+          "Draft a fix plan",
+          "Ask for approval before changing code"
+        ],
+        steps: [
+          { tool: "read_logs", type: "read", risk: "low", observation: "Deployment failed during migration step. Error: missing column customer_region.", value: 32 },
+          { tool: "search_commits", type: "read", risk: "low", observation: "Recent commit renamed region to customer_region in service code but not in migration.", value: 24 },
+          { tool: "run_tests", type: "read", risk: "medium", observation: "Integration test fails on schema mismatch. Unit tests pass.", value: 20 },
+          { tool: "edit_file", type: "write", risk: "high", observation: "Proposed migration fix requires human approval before writing.", value: 18 },
+          { tool: "create_pr_draft", type: "write", risk: "medium", observation: "Draft PR can be created after approval with migration patch and regression test.", value: 16 }
+        ],
+        final: "The likely root cause is a schema mismatch: code expects customer_region, but the migration did not create it. Recommended next step: approve a small migration patch and add an integration regression test."
+      },
+      inbox: {
+        title: "Triage support tickets",
+        goal: "Group new support tickets, identify urgent issues, and draft a summary.",
+        plan: ["Read ticket queue", "Group by product area", "Detect urgent issues", "Draft summary", "Do not reply automatically"],
+        steps: [
+          { tool: "list_tickets", type: "read", risk: "low", observation: "23 open tickets found. 5 mention login failures.", value: 35 },
+          { tool: "cluster_tickets", type: "read", risk: "low", observation: "Main clusters: login, billing export, webhook retries.", value: 26 },
+          { tool: "read_status_page", type: "read", risk: "low", observation: "No current outage reported.", value: 14 },
+          { tool: "draft_summary", type: "write", risk: "medium", observation: "Draft created locally. Sending requires approval.", value: 12 }
+        ],
+        final: "Ticket triage complete. Login failures are the largest cluster and should be investigated first. A summary draft is ready, but no customer replies were sent."
+      },
+      meeting: {
+        title: "Prepare for a meeting",
+        goal: "Create a short meeting brief from calendar, notes, and previous action items.",
+        plan: ["Read calendar event", "Read scoped notes", "Find open action items", "Draft brief", "Ask before sending"],
+        steps: [
+          { tool: "read_calendar", type: "read", risk: "low", observation: "Meeting: API migration sync, 30 minutes, 4 attendees.", value: 22 },
+          { tool: "read_notes", type: "read", risk: "medium", observation: "Last discussion: migration blocked by auth token refresh behavior.", value: 25 },
+          { tool: "search_tasks", type: "read", risk: "low", observation: "Open action: confirm rollout plan with DevOps.", value: 17 },
+          { tool: "draft_brief", type: "write", risk: "medium", observation: "Brief draft prepared. Send requires confirmation.", value: 10 }
+        ],
+        final: "Meeting brief prepared: focus on token refresh behavior, rollout plan, and DevOps confirmation. The brief is drafted but not sent."
+      },
+      docs: {
+        title: "Answer from internal docs",
+        goal: "Use internal documentation to answer a developer question with sources.",
+        plan: ["Search docs", "Read relevant pages", "Compare sources", "Answer with citations"],
+        steps: [
+          { tool: "search_docs", type: "read", risk: "low", observation: "Top results: JWT guide, auth service README, token lifecycle notes.", value: 28 },
+          { tool: "read_doc", type: "read", risk: "low", observation: "JWT guide explains signed claims and expiration handling.", value: 22 },
+          { tool: "read_doc", type: "read", risk: "low", observation: "Token lifecycle notes clarify refresh token rotation.", value: 18 },
+          { tool: "compose_answer", type: "write", risk: "low", observation: "Answer composed with source references.", value: 9 }
+        ],
+        final: "Answer ready with sources: JWTs carry signed claims and expire quickly; refresh tokens are rotated according to the token lifecycle policy."
+      },
+      pr: {
+        title: "Review a pull request",
+        goal: "Review a PR, identify risks, and write review comments without submitting them automatically.",
+        plan: ["Read PR diff", "Run static checks", "Identify risk areas", "Draft review comments", "Wait for approval"],
+        steps: [
+          { tool: "read_pr_diff", type: "read", risk: "low", observation: "PR changes controller validation and repository query logic.", value: 30 },
+          { tool: "run_lint", type: "read", risk: "low", observation: "Lint passes. One complexity warning.", value: 15 },
+          { tool: "run_tests", type: "read", risk: "medium", observation: "Unit tests pass, but no integration coverage for new query branch.", value: 21 },
+          { tool: "draft_review", type: "write", risk: "medium", observation: "Review comments drafted. Posting requires approval.", value: 12 }
+        ],
+        final: "PR review draft is ready. Main concern: missing integration coverage for the new query branch. No comments were posted automatically."
+      },
+      security: {
+        title: "Security audit of API surface",
+        goal: "Scan the public API surface for exposed sensitive fields, broken auth, and missing rate limits.",
+        plan: ["Fetch API schema", "Check auth headers on each endpoint", "Scan response fields for PII", "Test rate limiting", "Draft findings report", "Wait for human sign-off before sharing"],
+        steps: [
+          { tool: "fetch_openapi_schema", type: "read", risk: "low", observation: "47 endpoints found. 12 are public (no auth required).", value: 30 },
+          { tool: "check_auth_headers", type: "read", risk: "low", observation: "3 endpoints missing Authorization header enforcement. /admin/users is public.", value: 35 },
+          { tool: "scan_response_pii", type: "read", risk: "medium", observation: "GET /users returns full_name, email, phone_number, and internal_id in responses.", value: 30 },
+          { tool: "test_rate_limit", type: "read", risk: "medium", observation: "POST /auth/login has no rate limit. 1000 req/sec succeeded in test environment.", value: 28 },
+          { tool: "draft_findings_report", type: "write", risk: "medium", observation: "Findings report drafted: 3 auth gaps, 1 PII leak, 1 missing rate limit. Severity: HIGH.", value: 20 },
+          { tool: "notify_security_team", type: "write", risk: "high", observation: "Notification to security team requires human approval before sending.", value: 10 }
+        ],
+        final: "Security audit complete. Critical findings: /admin/users is publicly accessible, login endpoint has no rate limit, and user responses expose PII. Report drafted. Awaiting human approval before notifying the security team."
+      },
+      dataleak: {
+        title: "Detect a data leak in logs",
+        goal: "Scan application logs for signs of a data exfiltration attempt and identify the source.",
+        plan: ["Pull recent error logs", "Search for unusual outbound traffic patterns", "Cross-reference with user access logs", "Identify suspect accounts", "Freeze suspect accounts (requires approval)"],
+        steps: [
+          { tool: "pull_error_logs", type: "read", risk: "low", observation: "48,000 log entries in the last 6 hours. 312 entries flagged with HTTP 206 Partial Content on /export.", value: 28 },
+          { tool: "analyze_traffic_patterns", type: "read", risk: "low", observation: "Unusual spike: user ID 8821 made 4,400 export requests between 02:00-03:00 UTC.", value: 32 },
+          { tool: "read_access_logs", type: "read", risk: "medium", observation: "User 8821 last logged in from an IP in a country not matching their profile. Session token is still active.", value: 26 },
+          { tool: "freeze_user_account", type: "write", risk: "high", observation: "Account freeze is a write action. Requires explicit human approval before execution.", value: 18 }
+        ],
+        final: "Likely data exfiltration detected from user account 8821. Over 4,000 export requests in one hour from an unusual IP. Account freeze is prepared but has NOT been executed — awaiting security team approval."
+      }
+    };
+
+    const quizItems = [
+      { text: "A user asks: 'What is cosine similarity?' The system answers directly from its knowledge.", answer: "chatbot", why: "This is a simple answer. No tools or multi-step loop are required." },
+      { text: "Every morning at 8:00, send the same report using fixed SQL and a fixed email template.", answer: "workflow", why: "The steps are predictable and fixed. A deterministic workflow is better than an agent." },
+      { text: "Investigate why CI failed, read logs, search code, run tests, and propose a fix plan.", answer: "agent", why: "The next step depends on observations, so an agentic loop is useful." },
+      { text: "Validate a form and save it if all fields pass schema validation.", answer: "workflow", why: "This is deterministic validation. No agent needed." },
+      { text: "Search multiple docs, compare contradictory information, and write an answer with sources.", answer: "agent", why: "The system must decide what to read next based on partial results." }
+    ];
+
+    const schemaGames = [
+      {
+        valid: true,
+        code: `Tool schema:\nsearchDocs({ query: string, limit: number })\n\nAgent call:\nsearchDocs({ "query": "JWT refresh token", "limit": 5 })`,
+        why: "Valid. The required fields are present and the types match."
+      },
+      {
+        valid: false,
+        code: `Tool schema:\nreadCalendar({ date: string })\n\nAgent call:\nreadCalendar({ "date": 20260702 })`,
+        why: "Invalid. date must be a string, not a number."
+      },
+      {
+        valid: false,
+        code: `Tool schema:\nsendEmail({ to: string, subject: string, body: string })\n\nAgent call:\nsendEmail({ "to": "all-company", "subject": "Update" })`,
+        why: "Invalid. body is missing. Also, a broad recipient should require approval."
+      },
+      {
+        valid: true,
+        code: `Tool schema:\nrunTests({ target: string, timeoutSeconds: number })\n\nAgent call:\nrunTests({ "target": "auth-service", "timeoutSeconds": 120 })`,
+        why: "Valid. Running tests is usually safe if execution is sandboxed."
+      }
+    ];
+
+    const ui = {};
+    let quizIndex = 0;
+    let schemaIndex = 0;
+
+    function $(id) { return document.getElementById(id); }
+
+    function init() {
+      ui.scenarioSelect = $("scenarioSelect");
+      ui.autonomySelect = $("autonomySelect");
+      ui.toolPolicy = $("toolPolicy");
+      ui.memoryMode = $("memoryMode");
+      ui.maxSteps = $("maxSteps");
+      ui.maxStepsValue = $("maxStepsValue");
+      ui.riskTolerance = $("riskTolerance");
+      ui.riskValue = $("riskValue");
+      ui.traceList = $("traceList");
+      ui.planBox = $("planBox");
+      ui.finalAnswer = $("finalAnswer");
+      ui.scoreGrid = $("scoreGrid");
+
+      Object.entries(scenarios).forEach(([key, scenario]) => {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = scenario.title;
+        ui.scenarioSelect.appendChild(option);
+      });
+      ui.scenarioSelect.addEventListener('change', runAgentSimulation);
+      ui.autonomySelect.addEventListener('change', runAgentSimulation);
+      ui.toolPolicy.addEventListener('change', runAgentSimulation);
+      ui.memoryMode.addEventListener('change', runAgentSimulation);
+      ui.maxSteps.addEventListener("input", () => { runAgentSimulation();
+        ui.maxStepsValue.textContent = ui.maxSteps.value;
+      });
+      ui.riskTolerance.addEventListener("input", () => { runAgentSimulation();
+        ui.riskValue.textContent = riskLabel(Number(ui.riskTolerance.value));
+      });
+      $("runAgent").addEventListener("click", runAgentSimulation);
+      document.querySelectorAll(".scenario-btn").forEach(btn => {
+        btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
+      });
+
+      nextAgentQuiz(0);
+      nextSchemaGame(0);
+      runAgentSimulation();
+    }
+
+    function riskLabel(value) {
+      if (value === 1) return "Strict";
+      if (value === 3) return "Loose";
+      return "Balanced";
+    }
+
+    function applyPreset(name) {
+      if (name === "safe") {
+        ui.toolPolicy.value = "readonly";
+        ui.autonomySelect.value = "assistive";
+        ui.maxSteps.value = 4;
+        ui.riskTolerance.value = 1;
+      }
+      if (name === "approval") {
+        ui.toolPolicy.value = "approval";
+        ui.autonomySelect.value = "supervised";
+        ui.maxSteps.value = 5;
+        ui.riskTolerance.value = 2;
+      }
+      if (name === "tooOpen") {
+        ui.toolPolicy.value = "open";
+        ui.autonomySelect.value = "autonomous";
+        ui.maxSteps.value = 8;
+        ui.riskTolerance.value = 3;
+      }
+      if (name === "lowBudget") {
+        ui.toolPolicy.value = "approval";
+        ui.autonomySelect.value = "supervised";
+        ui.maxSteps.value = 2;
+        ui.riskTolerance.value = 2;
+      }
+      ui.maxStepsValue.textContent = ui.maxSteps.value;
+      ui.riskValue.textContent = riskLabel(Number(ui.riskTolerance.value));
+      runAgentSimulation();
+    }
+
+    const thinkingLines = {
+      read:  ["Scanning available context…", "Reading tool output…", "Cross-referencing observations…", "Evaluating relevance to goal…"],
+      write: ["Preparing write action…", "Validating arguments against schema…", "Checking policy constraints…", "Awaiting approval gate…"],
+    };
+    let simRunning = false;
+
+    async function runAgentSimulation() {
+      if (simRunning) return;
+      simRunning = true;
+      const btn = $("runAgent");
+      btn.disabled = true;
+      btn.textContent = "Running…";
+
+      const scenario = scenarios[ui.scenarioSelect.value];
+      const maxSteps = Number(ui.maxSteps.value);
+      const policy = ui.toolPolicy.value;
+      const autonomy = ui.autonomySelect.value;
+      const memory = ui.memoryMode.value;
+      const risk = Number(ui.riskTolerance.value);
+
+      // reset
+      ui.traceList.innerHTML = "";
+      ui.planBox.textContent = "";
+      ui.finalAnswer.innerHTML = "";
+      ui.scoreGrid.innerHTML = "";
+      $("thinkingPanel").style.display = "none";
+      $("thinkingText").textContent = "";
+      document.querySelectorAll(".sim-step").forEach(el => el.classList.remove("active","done"));
+
+      setStepState("goal");
+      await sleep(350);
+
+      setStepState("plan");
+      const planObj = { goal: scenario.goal, plan: scenario.plan, autonomy, toolPolicy: policy, memory };
+      await typeText("planBox", JSON.stringify(planObj, null, 2), 6);
+      await sleep(300);
+
+      setStepState("tool");
+      const selected = scenario.steps.slice(0, maxSteps);
+      const processed = [];
+      let tokenCount = 0;
+
+      $("thinkingPanel").style.display = "block";
+
+      for (let i = 0; i < selected.length; i++) {
+        const step = evaluateStep(selected[i], i, policy, autonomy, risk);
+        processed.push(step);
+        tokenCount += 180 + Math.floor(step.value * 4.2);
+
+        // animate thinking
+        const lines = thinkingLines[step.type] || thinkingLines.read;
+        const thought = `[Step ${i+1}] Calling ${step.tool}()\n> ${lines[i % lines.length]}\n> Risk level: ${step.risk.toUpperCase()} | Policy decision: ${step.status}`;
+        await typeText("thinkingText", thought + "\n\n", 14);
+        await sleep(220);
+
+        // append trace item one at a time
+        appendTraceItem(step, i);
+        await sleep(180);
+      }
+
+      setStepState("observe");
+      await sleep(300);
+      setStepState("finish");
+      renderScores(processed, maxSteps, scenario.steps.length, policy, autonomy, memory, tokenCount);
+      renderFinal(scenario, processed, maxSteps);
+      document.querySelectorAll(".sim-step").forEach(el => el.classList.add("done"));
+
+      btn.disabled = false;
+      btn.textContent = "Run agent";
+      simRunning = false;
+    }
+
+    async function typeText(id, text, delayMs) {
+      const el = $(id);
+      const start = el.tagName === "PRE" ? "" : el.textContent;
+      let i = 0;
+      return new Promise(resolve => {
+        function tick() {
+          el.textContent = start + text.slice(0, i++);
+          if (i <= text.length) setTimeout(tick, delayMs);
+          else resolve();
+        }
+        tick();
+      });
+    }
+
+    function appendTraceItem(item, index) {
+      const div = document.createElement("div");
+      div.className = "trace-item";
+      div.style.opacity = "0";
+      div.style.transform = "translateY(8px)";
+      div.style.transition = "opacity .28s ease, transform .28s ease";
+      const conf = item.status === "allowed" ? Math.floor(82 + Math.random()*17) :
+                   item.status === "blocked" ? Math.floor(20 + Math.random()*20) :
+                   Math.floor(50 + Math.random()*30);
+      div.innerHTML = `
+        <div class="trace-item-head">
+          <span class="trace-title">#${index + 1} ${escapeHtml(item.tool)}</span>
+          <span class="badge ${item.badge}">${escapeHtml(item.status)}</span>
+        </div>
+        <p class="observation"><b>Observation:</b> ${escapeHtml(item.observation)}</p>
+        <p class="observation"><b>Policy:</b> ${escapeHtml(item.reason)}</p>
+        <div style="margin-top:8px;">
+          <span style="font-size:.75rem;color:var(--soft);font-weight:900;text-transform:uppercase;letter-spacing:.07em;">Confidence</span>
+          <div style="height:5px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:5px;">
+            <div style="height:5px;border-radius:99px;width:${conf}%;background:${conf>70?'var(--green)':conf>40?'var(--amber)':'var(--red)'};transition:width .5s ease;"></div>
+          </div>
+          <span style="font-size:.75rem;color:var(--muted);">${conf}%</span>
+        </div>
+      `;
+      ui.traceList.appendChild(div);
+      requestAnimationFrame(() => { div.style.opacity = "1"; div.style.transform = "translateY(0)"; });
+    }
+
+    function setStepState(active) {
+      document.querySelectorAll(".sim-step").forEach(el => {
+        el.classList.remove("active");
+        if (el.dataset.step === active) el.classList.add("active");
+      });
+    }
+
+    function evaluateStep(step, index, policy, autonomy, risk) {
+      let status = "allowed";
+      let badge = "green";
+      let reason = "Allowed by current policy.";
+
+      if (step.type === "write" && policy === "readonly") {
+        status = "blocked";
+        badge = "red";
+        reason = "Blocked because the policy allows read-only tools only.";
+      } else if (step.type === "write" && policy === "approval") {
+        status = "needs approval";
+        badge = "amber";
+        reason = "Write action requires human approval before execution.";
+      } else if (step.risk === "high" && risk === 1) {
+        status = "blocked";
+        badge = "red";
+        reason = "Blocked by strict risk tolerance.";
+      } else if (autonomy === "assistive" && index > 1) {
+        status = "paused";
+        badge = "amber";
+        reason = "Assistive mode pauses after basic discovery and asks the user what to do next.";
+      } else if (policy === "open" && step.type === "write") {
+        status = "allowed risky";
+        badge = "amber";
+        reason = "Allowed, but risky. Production systems usually require approval for this.";
+      }
+
+      return { ...step, status, badge, reason };
+    }
+
+    function renderTrace(items) {
+      ui.traceList.innerHTML = "";
+      items.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "trace-item";
+        div.innerHTML = `
+          <div class="trace-item-head">
+            <span class="trace-title">#${index + 1} ${escapeHtml(item.tool)}</span>
+            <span class="badge ${item.badge}">${escapeHtml(item.status)}</span>
+          </div>
+          <p class="observation"><b>Observation:</b> ${escapeHtml(item.observation)}</p>
+          <p class="observation"><b>Policy:</b> ${escapeHtml(item.reason)}</p>
+        `;
+        ui.traceList.appendChild(div);
+      });
+    }
+
+    function renderScores(items, maxSteps, totalSteps, policy, autonomy, memory, tokenCount) {
+      const completed = items.filter(i => i.status === "allowed" || i.status === "allowed risky" || i.status === "needs approval").length;
+      const blocked = items.filter(i => i.status === "blocked" || i.status === "paused").length;
+      const riskPoints = items.reduce((sum, i) => sum + (i.badge === "red" ? 24 : i.badge === "amber" ? 12 : 3), 0);
+      const usefulness = Math.min(100, items.reduce((sum, i) => sum + i.value, 0));
+      const memoryScore = memory === "long" ? "Long" : memory === "session" ? "Session" : "None";
+      const tokDisplay = tokenCount ? `~${tokenCount.toLocaleString()}` : "—";
+      ui.scoreGrid.innerHTML = `
+        <div class="score"><span>Useful work</span><b>${usefulness}%</b></div>
+        <div class="score"><span>Risk score</span><b>${riskPoints}</b></div>
+        <div class="score"><span>Steps used</span><b>${items.length}/${totalSteps}</b></div>
+        <div class="score"><span>Est. tokens</span><b>${tokDisplay}</b></div>
+      `;
+    }
+
+    function renderFinal(scenario, items, maxSteps) {
+      const blocked = items.some(i => i.status === "blocked");
+      const paused = items.some(i => i.status === "paused" || i.status === "needs approval");
+      const risky = items.some(i => i.status === "allowed risky");
+      ui.finalAnswer.className = "answer";
+
+      if (maxSteps < Math.min(3, scenario.steps.length)) {
+        ui.finalAnswer.classList.add("warn");
+        ui.finalAnswer.innerHTML = `<b>Partial result:</b><br>The step budget was too low. The agent collected some information, but stopped before a complete final answer. Try increasing max steps.`;
+        return;
+      }
+      if (blocked) {
+        ui.finalAnswer.classList.add("danger");
+        ui.finalAnswer.innerHTML = `<b>Stopped safely:</b><br>A requested action was blocked by policy. This is usually good behavior when tools could change data or create side effects.`;
+        return;
+      }
+      if (paused) {
+        ui.finalAnswer.classList.add("warn");
+        ui.finalAnswer.innerHTML = `<b>Needs review:</b><br>${escapeHtml(scenario.final)}<br><br><span class="mini">Some actions require human approval before execution.</span>`;
+        return;
+      }
+      if (risky) {
+        ui.finalAnswer.classList.add("warn");
+        ui.finalAnswer.innerHTML = `<b>Completed, but risky:</b><br>${escapeHtml(scenario.final)}<br><br><span class="mini">The agent was allowed to perform write-like actions without approval. This is useful for demos, but risky in production.</span>`;
+        return;
+      }
+      ui.finalAnswer.innerHTML = `<b>Completed safely:</b><br>${escapeHtml(scenario.final)}`;
+    }
+
+    function nextAgentQuiz(move = 1) {
+      quizIndex = (quizIndex + move + quizItems.length) % quizItems.length;
+      $("quizPrompt").textContent = quizItems[quizIndex].text;
+      $("quizFeedback").className = "feedback";
+      $("quizFeedback").textContent = "Choose the best architecture.";
+    }
+
+    window.answerAgentQuiz = function(answer) {
+      const item = quizItems[quizIndex];
+      const box = $("quizFeedback");
+      if (answer === item.answer) {
+        box.className = "feedback good";
+        box.innerHTML = `<b>Correct.</b> ${escapeHtml(item.why)}`;
+      } else {
+        box.className = "feedback bad";
+        box.innerHTML = `<b>Not quite.</b> Best answer: ${item.answer}. ${escapeHtml(item.why)}`;
+      }
+    };
+    window.nextAgentQuiz = nextAgentQuiz;
+
+    window.toolChoice = function(choice) {
+      const box = $("toolFeedback");
+      const feedback = {
+        read_calendar: [true, "Good first step. Reading calendar context is low risk and relevant."],
+        read_notes: [true, "Best answer. Reading scoped notes is useful and safer than broad access."],
+        send_email: [false, "Too soon. Sending is a write action and should require approval after a draft is reviewed."],
+        delete_notes: [false, "Unsafe and unrelated. Deleting data should never be a casual next step."]
+      }[choice];
+      box.className = feedback[0] ? "feedback good" : "feedback bad";
+      box.textContent = feedback[1];
+    };
+
+    function nextSchemaGame(move = 1) {
+      schemaIndex = (schemaIndex + move + schemaGames.length) % schemaGames.length;
+      $("schemaBox").textContent = schemaGames[schemaIndex].code;
+      $("schemaFeedback").className = "feedback";
+      $("schemaFeedback").textContent = "Check the JSON carefully.";
+    }
+    window.nextSchemaGame = nextSchemaGame;
+    window.schemaAnswer = function(answer) {
+      const item = schemaGames[schemaIndex];
+      const box = $("schemaFeedback");
+      if (answer === item.valid) {
+        box.className = "feedback good";
+        box.innerHTML = `<b>Correct.</b> ${escapeHtml(item.why)}`;
+      } else {
+        box.className = "feedback bad";
+        box.innerHTML = `<b>Wrong.</b> ${escapeHtml(item.why)}`;
+      }
+    };
+
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>'"]/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+      }[char]));
+    }
+
+    window.addEventListener("load", init);
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+
+    // Mobile menu
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileMenuToggle && navLinks) {
+      mobileMenuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    }
+
+    // Scroll-to-top
+    const scrollToTop = document.getElementById('scrollToTop');
+    if (scrollToTop) {
+      window.addEventListener('scroll', () => scrollToTop.classList.toggle('visible', window.scrollY > 300));
+      scrollToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    // Share bar
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+    const shareFb = document.getElementById('share-facebook');
+    const shareLi = document.getElementById('share-linkedin');
+    const shareTw = document.getElementById('share-twitter');
+    const shareCopy = document.getElementById('share-copy');
+    if (shareFb) shareFb.href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+    if (shareLi) shareLi.href = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+    if (shareTw) shareTw.href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+    if (shareCopy) shareCopy.addEventListener('click', () => {
+      navigator.clipboard?.writeText(window.location.href);
+      shareCopy.textContent = 'Copied!';
+      setTimeout(() => shareCopy.textContent = 'Copy link', 2000);
+    });
+
+    function openWhatsAppPopup() { document.getElementById('whatsappPopup').style.display = 'block'; }
+    function closeWhatsAppPopup() { document.getElementById('whatsappPopup').style.display = 'none'; }
+    window.openWhatsAppPopup = openWhatsAppPopup;
+    window.closeWhatsAppPopup = closeWhatsAppPopup;
+  </script>
+</body>
+</html>
+
