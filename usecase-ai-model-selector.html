@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How to Use AI Model Selector | LiDa Software</title>
-  <meta name="description" content="Learn how to use the AI Model Selector to compare LLMs like GPT-5, Claude 3.5, and Llama 4. Calculate costs, analyze specs, and find the best model for your project.">
+  <meta name="description"
+    content="Learn how to use the AI Model Selector to compare LLMs like GPT-5, Claude 3.5, and Llama 4. Calculate costs, analyze specs, and find the best model for your project.">
   <link rel="canonical" href="https://www.lidasoftware.online/usecase-ai-model-selector.html">
   <link rel="icon" href="https://www.lidasoftware.online/favicon.ico">
-  
+
   <!-- Structured Data -->
-       <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="/cf-analytics/beacon.js"
+    data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
   <script type="application/ld+json">
   {
@@ -109,11 +114,11 @@
       margin-top: 60px;
     }
   </style>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -129,60 +134,76 @@
 
 <body>
 
-<nav style="position:fixed;top:0;left:0;right:0;background:rgba(15,15,35,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(102,126,234,0.2);z-index:1000;height:80px;display:flex;align-items:center;justify-content:center;">
-  <a href="https://www.lidasoftware.online/"
-     style="font-weight:700;font-size:1.3em;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">
-    LiDa Software
-  </a>
-</nav>
+  <nav
+    style="position:fixed;top:0;left:0;right:0;background:rgba(15,15,35,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(102,126,234,0.2);z-index:1000;height:80px;display:flex;align-items:center;justify-content:center;">
+    <a href="https://www.lidasoftware.online/"
+      style="font-weight:700;font-size:1.3em;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">
+      LiDa Software
+    </a>
+  </nav>
 
-<div class="container">
-  <h1>How to Use AI Model Selector</h1>
+  <div class="container">
+    <h1>How to Use AI Model Selector</h1>
 
-  <p>
-    Choosing the right Large Language Model (LLM) can be overwhelming with so many options available. 
-    <strong>AI Model Selector</strong> simplifies this process by helping you compare models based on your specific needs, 
-    calculate real-world costs, and generate integration code instantly.
-  </p>
+    <p>
+      Choosing the right Large Language Model (LLM) can be overwhelming with so many options available.
+      <strong>AI Model Selector</strong> simplifies this process by helping you compare models based on your specific
+      needs,
+      calculate real-world costs, and generate integration code instantly.
+    </p>
 
-  <h2>Quick Guide</h2>
-  <ol>
-    <li><a href="https://www.lidasoftware.online/tools/ai-selector/index.html">Open AI Model Selector</a>.</li>
-    <li><strong>Set Priorities</strong>: Use the "Quick Presets" buttons (Coding, Chatbot, RAG) or manually adjust the sliders for Intelligence, Speed, and Cost.</li>
-    <li><strong>Define Input</strong>: Toggle between "Slider" (for rough project size estimates) and "Paste Code" (for exact token calculation based on your text).</li>
-    <li><strong>Analyze Results</strong>: The tool dynamically ranks models. Check the "Match Score" and "Est. Cost" to find your winner.</li>
-    <li><strong>Compare & Export</strong>: Select models to view a side-by-side comparison, or click "Get API Config" to copy code snippets for your app.</li>
-  </ol>
+    <h2>Quick Guide</h2>
+    <ol>
+      <li><a href="https://www.lidasoftware.online/tools/ai-selector/index.html">Open AI Model Selector</a>.</li>
+      <li><strong>Set Priorities</strong>: Use the "Quick Presets" buttons (Coding, Chatbot, RAG) or manually adjust the
+        sliders for Intelligence, Speed, and Cost.</li>
+      <li><strong>Define Input</strong>: Toggle between "Slider" (for rough project size estimates) and "Paste Code"
+        (for exact token calculation based on your text).</li>
+      <li><strong>Analyze Results</strong>: The tool dynamically ranks models. Check the "Match Score" and "Est. Cost"
+        to find your winner.</li>
+      <li><strong>Compare & Export</strong>: Select models to view a side-by-side comparison, or click "Get API Config"
+        to copy code snippets for your app.</li>
+    </ol>
 
-  <h2>Key Features</h2>
-  <ul>
-    <li><strong>Smart Weighting Engine</strong>: The tool re-ranks models in real-time based on whether you prioritize raw intelligence, low latency, or budget.</li>
-    <li><strong>Live Token Calculator</strong>: Paste your actual prompt or codebase to get precise cost estimates for every model simultaneously.</li>
-    <li><strong>Comprehensive Database</strong>: Includes the latest models like GPT-5, Claude 3.5 Opus, Llama 4, Gemini 2.5, and Mistral Large 2.</li>
-    <li><strong>Visual Comparison</strong>: A dynamic bar chart visualizes the cost differences between top contenders at a glance.</li>
-    <li><strong>Export Config</strong>: Generate ready-to-use code snippets for Python, Node.js, cURL, and .env files.</li>
-    <li><strong>Compare Mode</strong>: Select up to 3 models to view a detailed table comparing context windows, pricing, and capabilities.</li>
-  </ul>
+    <h2>Key Features</h2>
+    <ul>
+      <li><strong>Smart Weighting Engine</strong>: The tool re-ranks models in real-time based on whether you prioritize
+        raw intelligence, low latency, or budget.</li>
+      <li><strong>Live Token Calculator</strong>: Paste your actual prompt or codebase to get precise cost estimates for
+        every model simultaneously.</li>
+      <li><strong>Comprehensive Database</strong>: Includes the latest models like GPT-5, Claude 3.5 Opus, Llama 4,
+        Gemini 2.5, and Mistral Large 2.</li>
+      <li><strong>Visual Comparison</strong>: A dynamic bar chart visualizes the cost differences between top contenders
+        at a glance.</li>
+      <li><strong>Export Config</strong>: Generate ready-to-use code snippets for Python, Node.js, cURL, and .env files.
+      </li>
+      <li><strong>Compare Mode</strong>: Select up to 3 models to view a detailed table comparing context windows,
+        pricing, and capabilities.</li>
+    </ul>
 
-  <h2>Use Cases</h2>
-  <ul>
-    <li><strong>Cost Optimization</strong>: Find the most affordable model that still meets your intelligence requirements for high-volume tasks.</li>
-    <li><strong>Architecture Planning</strong>: Decide which model to use for different parts of your system (e.g., a cheap model for summarization, a smart one for reasoning).</li>
-    <li><strong>Budgeting</strong>: Estimate your monthly API bill before writing a single line of code.</li>
-    <li><strong>Discovery</strong>: Stay up-to-date with the latest models from OpenAI, Anthropic, Google, Meta, and open-source providers.</li>
-  </ul>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Cost Optimization</strong>: Find the most affordable model that still meets your intelligence
+        requirements for high-volume tasks.</li>
+      <li><strong>Architecture Planning</strong>: Decide which model to use for different parts of your system (e.g., a
+        cheap model for summarization, a smart one for reasoning).</li>
+      <li><strong>Budgeting</strong>: Estimate your monthly API bill before writing a single line of code.</li>
+      <li><strong>Discovery</strong>: Stay up-to-date with the latest models from OpenAI, Anthropic, Google, Meta, and
+        open-source providers.</li>
+    </ul>
 
-  <p>
-    Stop guessing and start building with the right AI model. 
-    AI Model Selector gives you the data you need to make informed decisions.
-  </p>
+    <p>
+      Stop guessing and start building with the right AI model.
+      AI Model Selector gives you the data you need to make informed decisions.
+    </p>
 
-  <a class="cta" href="https://www.lidasoftware.online/tools/ai-selector/index.html">🚀 Launch AI Model Selector</a>
-</div>
+    <a class="cta" href="https://www.lidasoftware.online/tools/ai-selector/index.html">🚀 Launch AI Model Selector</a>
+  </div>
 
-<footer>
-  © 2026 LiDa Software. All rights reserved.
-</footer>
+  <footer>
+    © 2026 LiDa Software. All rights reserved.
+  </footer>
 
 </body>
+
 </html>

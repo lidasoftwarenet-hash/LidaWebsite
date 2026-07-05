@@ -84,7 +84,7 @@
       padding: 0 20px;
     }
 
-    
+
 
     /* Hero Section */
     .hero {
@@ -596,15 +596,15 @@
         padding-top: 70px;
       }
 
-      
 
-      
 
-      
 
-      
 
-      
+
+
+
+
+
 
       .hero {
         padding: 80px 20px 50px;
@@ -623,7 +623,7 @@
       }
     }
   </style>
-<link rel="stylesheet" href="/components/site-nav.css">
+  <link rel="stylesheet" href="/components/site-nav.css">
   <script src="/components/site-nav.js" defer></script>
 </head>
 
@@ -716,7 +716,7 @@
   </button>
 
   <script>
-    
+
 
     // Scroll to Top Button Visibility
     const scrollToTop = document.getElementById('scrollToTop');
@@ -1043,19 +1043,19 @@
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
 
             ${[
-              { icon: '🌐', label: 'System Design', desc: 'Scalability, load balancing, caching layers, and designing for millions of users.', color: '#38bdf8' },
-              { icon: '🔄', label: 'CI/CD & DevOps', desc: 'Build pipelines, containers, deployment strategies, and production reliability.', color: '#a78bfa' },
-              { icon: '🗄️', label: 'Databases Deep Dive', desc: 'SQL vs NoSQL, indexing strategies, query optimization, and data modeling.', color: '#86efac' },
-              { icon: '⚡', label: 'Performance Engineering', desc: 'Profiling, memory management, algorithmic complexity, and runtime tuning.', color: '#fcd34d' },
-              { icon: '🔒', label: 'Web Security', desc: 'OWASP top 10, authentication patterns, OAuth 2.0, CSRF, XSS, and SQL injection.', color: '#fca5a5' },
-              { icon: '🧪', label: 'Testing Strategies', desc: 'Unit, integration, contract, and property-based testing for production-grade code.', color: '#c4b5fd' },
-              { icon: '📡', label: 'APIs & REST Design', desc: 'Resource modeling, versioning, rate limiting, pagination, and async patterns.', color: '#38bdf8' },
-              { icon: '🧩', label: 'Design Patterns', desc: 'Gang of Four patterns, SOLID principles, and when to actually use them.', color: '#a78bfa' },
-              { icon: '☁️', label: 'Cloud Architecture', desc: 'Serverless, microservices, event-driven design, and cloud-native patterns.', color: '#86efac' },
-              { icon: '📊', label: 'Observability', desc: 'Logging, metrics, distributed tracing, and alerting for modern services.', color: '#fcd34d' },
-              { icon: '🤖', label: 'Fine-tuning LLMs', desc: 'LoRA, RLHF, dataset curation, and when fine-tuning beats prompt engineering.', color: '#fca5a5' },
-              { icon: '🔗', label: 'Message Queues', desc: 'Kafka, RabbitMQ, pub/sub patterns, idempotency, and consumer group design.', color: '#c4b5fd' },
-            ].map(item => `
+          { icon: '🌐', label: 'System Design', desc: 'Scalability, load balancing, caching layers, and designing for millions of users.', color: '#38bdf8' },
+          { icon: '🔄', label: 'CI/CD & DevOps', desc: 'Build pipelines, containers, deployment strategies, and production reliability.', color: '#a78bfa' },
+          { icon: '🗄️', label: 'Databases Deep Dive', desc: 'SQL vs NoSQL, indexing strategies, query optimization, and data modeling.', color: '#86efac' },
+          { icon: '⚡', label: 'Performance Engineering', desc: 'Profiling, memory management, algorithmic complexity, and runtime tuning.', color: '#fcd34d' },
+          { icon: '🔒', label: 'Web Security', desc: 'OWASP top 10, authentication patterns, OAuth 2.0, CSRF, XSS, and SQL injection.', color: '#fca5a5' },
+          { icon: '🧪', label: 'Testing Strategies', desc: 'Unit, integration, contract, and property-based testing for production-grade code.', color: '#c4b5fd' },
+          { icon: '📡', label: 'APIs & REST Design', desc: 'Resource modeling, versioning, rate limiting, pagination, and async patterns.', color: '#38bdf8' },
+          { icon: '🧩', label: 'Design Patterns', desc: 'Gang of Four patterns, SOLID principles, and when to actually use them.', color: '#a78bfa' },
+          { icon: '☁️', label: 'Cloud Architecture', desc: 'Serverless, microservices, event-driven design, and cloud-native patterns.', color: '#86efac' },
+          { icon: '📊', label: 'Observability', desc: 'Logging, metrics, distributed tracing, and alerting for modern services.', color: '#fcd34d' },
+          { icon: '🤖', label: 'Fine-tuning LLMs', desc: 'LoRA, RLHF, dataset curation, and when fine-tuning beats prompt engineering.', color: '#fca5a5' },
+          { icon: '🔗', label: 'Message Queues', desc: 'Kafka, RabbitMQ, pub/sub patterns, idempotency, and consumer group design.', color: '#c4b5fd' },
+        ].map(item => `
               <div style="
                 background: rgba(255,255,255,0.02);
                 border: 1px solid rgba(255,255,255,0.07);
@@ -1155,7 +1155,10 @@
       initShareFunctionality();
     });
   </script>
-      <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="/cf-analytics/beacon.js"
+    data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
 </body>
 

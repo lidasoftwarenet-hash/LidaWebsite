@@ -139,7 +139,7 @@
     h1 {
       font-size: clamp(2.6rem, 8vw, 6.2rem);
       line-height: .95;
-  
+
       margin: 14px 0 18px;
     }
 
@@ -1613,7 +1613,8 @@
           <h3>Least privilege tools</h3>
           <p>Never give the model broad workspace, network, or email access when a narrow tool would work. Prefer
             <code>read_doc(id)</code> over <code>read_filesystem(path)</code>. Prefer <code>send_reply(thread_id)</code>
-            over <code>send_email(to, body)</code>. Narrow tools limit blast radius by design, not by hope.</p>
+            over <code>send_email(to, body)</code>. Narrow tools limit blast radius by design, not by hope.
+          </p>
         </div>
         <div class="card">
           <div class="icon">✅</div>
@@ -2283,7 +2284,10 @@
     function closeWhatsAppPopup() { document.getElementById('whatsappPopup').style.display = 'none'; }
     window.openWhatsAppPopup = openWhatsAppPopup; window.closeWhatsAppPopup = closeWhatsAppPopup;
   </script>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="/cf-analytics/beacon.js"
+    data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
 </body>
 

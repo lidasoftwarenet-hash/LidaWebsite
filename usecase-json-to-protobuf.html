@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>How to Convert JSON to Protobuf Schema | LiDa Software</title>
 
-  <meta name="description" content="Learn how to convert JSON to Protocol Buffer schemas using the JSON to Protobuf Architect. Generate grpc-ready .proto files with advanced type inference and nested structures." />
+  <meta name="description"
+    content="Learn how to convert JSON to Protocol Buffer schemas using the JSON to Protobuf Architect. Generate grpc-ready .proto files with advanced type inference and nested structures." />
 
   <link rel="canonical" href="https://www.lidasoftware.online/usecase-json-to-protobuf.html">
   <link rel="icon" href="https://www.lidasoftware.online/favicon.ico">
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="/cf-analytics/beacon.js"
+    data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -130,7 +135,8 @@
       color: #e0e0e0;
     }
 
-    ul, ol {
+    ul,
+    ol {
       margin: 20px 0;
       padding-left: 30px;
     }
@@ -147,11 +153,11 @@
       margin-top: 60px;
     }
   </style>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -167,59 +173,62 @@
 
 <body>
 
-<nav style="position:fixed;top:0;left:0;right:0;background:rgba(15,15,35,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(102,126,234,0.2);z-index:1000;height:80px;display:flex;align-items:center;justify-content:center;">
-  <a href="https://www.lidasoftware.online/"
-     style="font-weight:700;font-size:1.3em;background:linear-gradient(135deg,#667eea,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">
-    LiDa Software
-  </a>
-</nav>
+  <nav
+    style="position:fixed;top:0;left:0;right:0;background:rgba(15,15,35,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(102,126,234,0.2);z-index:1000;height:80px;display:flex;align-items:center;justify-content:center;">
+    <a href="https://www.lidasoftware.online/"
+      style="font-weight:700;font-size:1.3em;background:linear-gradient(135deg,#667eea,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">
+      LiDa Software
+    </a>
+  </nav>
 
-<div class="container">
-  <h1>How to Convert JSON to Protobuf Schema</h1>
+  <div class="container">
+    <h1>How to Convert JSON to Protobuf Schema</h1>
 
-  <p>
-    Building gRPC services or working with Protocol Buffers? Converting JSON to Protobuf schemas manually is tedious and error-prone.
-    <strong>JSON to Protobuf Architect</strong> generates production-ready .proto files from your JSON data automatically.
-  </p>
+    <p>
+      Building gRPC services or working with Protocol Buffers? Converting JSON to Protobuf schemas manually is tedious
+      and error-prone.
+      <strong>JSON to Protobuf Architect</strong> generates production-ready .proto files from your JSON data
+      automatically.
+    </p>
 
-  <h2>The Problem</h2>
-  <p>
-    When designing gRPC APIs or Protocol Buffer schemas, you often start with JSON examples but need to:
-  </p>
-  <ul>
-    <li>🔧 <strong>Manually write .proto files</strong> - Time-consuming and repetitive</li>
-    <li>🎯 <strong>Infer correct types</strong> - Strings, numbers, booleans, timestamps</li>
-    <li>🔗 <strong>Handle nested objects</strong> - Nested messages and repeated fields</li>
-    <li>📝 <strong>Use well-known types</strong> - Timestamp, Duration, Any, etc.</li>
-    <li>⚙️ <strong>Maintain consistency</strong> - Across multiple message types</li>
-  </ul>
+    <h2>The Problem</h2>
+    <p>
+      When designing gRPC APIs or Protocol Buffer schemas, you often start with JSON examples but need to:
+    </p>
+    <ul>
+      <li>🔧 <strong>Manually write .proto files</strong> - Time-consuming and repetitive</li>
+      <li>🎯 <strong>Infer correct types</strong> - Strings, numbers, booleans, timestamps</li>
+      <li>🔗 <strong>Handle nested objects</strong> - Nested messages and repeated fields</li>
+      <li>📝 <strong>Use well-known types</strong> - Timestamp, Duration, Any, etc.</li>
+      <li>⚙️ <strong>Maintain consistency</strong> - Across multiple message types</li>
+    </ul>
 
-  <h2>The Solution</h2>
-  <p>
-    The JSON to Protobuf Architect automatically:
-  </p>
+    <h2>The Solution</h2>
+    <p>
+      The JSON to Protobuf Architect automatically:
+    </p>
 
-  <div class="highlight-box">
-    <strong>✓ Infers Types</strong> - Detects strings, numbers, booleans, timestamps<br>
-    <strong>✓ Handles Nesting</strong> - Generates nested message definitions<br>
-    <strong>✓ Well-Known Types</strong> - Auto-imports Timestamp, Duration, etc.<br>
-    <strong>✓ proto2/proto3</strong> - Supports both syntax versions
-  </div>
+    <div class="highlight-box">
+      <strong>✓ Infers Types</strong> - Detects strings, numbers, booleans, timestamps<br>
+      <strong>✓ Handles Nesting</strong> - Generates nested message definitions<br>
+      <strong>✓ Well-Known Types</strong> - Auto-imports Timestamp, Duration, etc.<br>
+      <strong>✓ proto2/proto3</strong> - Supports both syntax versions
+    </div>
 
-  <h2>Quick Start Guide</h2>
-  <ol>
-    <li><a href="https://www.lidasoftware.online/tools/jsonToProtobuf/">Open JSON to Protobuf Architect</a></li>
-    <li>Paste your JSON data in the left panel</li>
-    <li>Configure package name (e.g., <code>com.example.api.v1</code>)</li>
-    <li>The tool generates a complete .proto schema automatically</li>
-    <li>Download the .proto file or copy to clipboard</li>
-  </ol>
+    <h2>Quick Start Guide</h2>
+    <ol>
+      <li><a href="https://www.lidasoftware.online/tools/jsonToProtobuf/">Open JSON to Protobuf Architect</a></li>
+      <li>Paste your JSON data in the left panel</li>
+      <li>Configure package name (e.g., <code>com.example.api.v1</code>)</li>
+      <li>The tool generates a complete .proto schema automatically</li>
+      <li>Download the .proto file or copy to clipboard</li>
+    </ol>
 
-  <h2>Real-World Example</h2>
-  <p>
-    Let's say you have this JSON from your API:
-  </p>
-  <pre><code>{
+    <h2>Real-World Example</h2>
+    <p>
+      Let's say you have this JSON from your API:
+    </p>
+    <pre><code>{
   "userId": 12345,
   "userName": "john_doe",
   "email": "john@example.com",
@@ -231,10 +240,10 @@
   }
 }</code></pre>
 
-  <p>
-    The tool generates this Protobuf schema:
-  </p>
-  <pre><code>syntax = "proto3";
+    <p>
+      The tool generates this Protobuf schema:
+    </p>
+    <pre><code>syntax = "proto3";
 
 package com.example.api;
 
@@ -254,103 +263,105 @@ message Metadata {
   repeated string permissions = 2;
 }</code></pre>
 
-  <h2>Key Features</h2>
-  
-  <h3>1. Smart Type Inference</h3>
-  <p>
-    Automatically detects:
-  </p>
-  <ul>
-    <li><code>string</code> - Text values</li>
-    <li><code>int32</code>, <code>int64</code> - Numeric values</li>
-    <li><code>bool</code> - True/false values</li>
-    <li><code>google.protobuf.Timestamp</code> - ISO 8601 date strings</li>
-    <li><code>repeated</code> - Arrays</li>
-    <li>Nested message types - Objects</li>
-  </ul>
+    <h2>Key Features</h2>
 
-  <h3>2. Nested Structure Support</h3>
-  <p>
-    Complex nested JSON objects are converted to proper message hierarchies with correct field numbering.
-  </p>
+    <h3>1. Smart Type Inference</h3>
+    <p>
+      Automatically detects:
+    </p>
+    <ul>
+      <li><code>string</code> - Text values</li>
+      <li><code>int32</code>, <code>int64</code> - Numeric values</li>
+      <li><code>bool</code> - True/false values</li>
+      <li><code>google.protobuf.Timestamp</code> - ISO 8601 date strings</li>
+      <li><code>repeated</code> - Arrays</li>
+      <li>Nested message types - Objects</li>
+    </ul>
 
-  <h3>3. Well-Known Types</h3>
-  <p>
-    Automatically imports and uses Protocol Buffer well-known types:
-  </p>
-  <ul>
-    <li><code>google.protobuf.Timestamp</code> - For date/time fields</li>
-    <li><code>google.protobuf.Duration</code> - For time spans</li>
-    <li><code>google.protobuf.Any</code> - For dynamic types</li>
-  </ul>
+    <h3>2. Nested Structure Support</h3>
+    <p>
+      Complex nested JSON objects are converted to proper message hierarchies with correct field numbering.
+    </p>
 
-  <h3>4. proto2 and proto3 Support</h3>
-  <p>
-    Choose between proto2 (with <code>required</code> and <code>optional</code>) or proto3 (simpler syntax) based on your needs.
-  </p>
+    <h3>3. Well-Known Types</h3>
+    <p>
+      Automatically imports and uses Protocol Buffer well-known types:
+    </p>
+    <ul>
+      <li><code>google.protobuf.Timestamp</code> - For date/time fields</li>
+      <li><code>google.protobuf.Duration</code> - For time spans</li>
+      <li><code>google.protobuf.Any</code> - For dynamic types</li>
+    </ul>
 
-  <h2>When to Use This Tool</h2>
-  <ul>
-    <li>🚀 <strong>Building gRPC services</strong> - Start with JSON examples, get .proto files</li>
-    <li>📡 <strong>API design</strong> - Define message contracts from sample responses</li>
-    <li>🔄 <strong>Migrating to Protobuf</strong> - Convert existing JSON APIs to gRPC</li>
-    <li>📚 <strong>Documentation</strong> - Generate schema documentation from examples</li>
-    <li>🎯 <strong>Learning Protobuf</strong> - Understand how JSON maps to Protocol Buffers</li>
-  </ul>
+    <h3>4. proto2 and proto3 Support</h3>
+    <p>
+      Choose between proto2 (with <code>required</code> and <code>optional</code>) or proto3 (simpler syntax) based on
+      your needs.
+    </p>
 
-  <h2>Best Practices</h2>
-  <div class="highlight-box">
-    <strong>💡 Pro Tips:</strong><br>
-    • Use representative JSON samples with all possible fields<br>
-    • Include arrays and nested objects in your examples<br>
-    • Set meaningful package names (reverse domain notation)<br>
-    • Review and adjust field numbers if needed<br>
-    • Test generated .proto files with protoc compiler
+    <h2>When to Use This Tool</h2>
+    <ul>
+      <li>🚀 <strong>Building gRPC services</strong> - Start with JSON examples, get .proto files</li>
+      <li>📡 <strong>API design</strong> - Define message contracts from sample responses</li>
+      <li>🔄 <strong>Migrating to Protobuf</strong> - Convert existing JSON APIs to gRPC</li>
+      <li>📚 <strong>Documentation</strong> - Generate schema documentation from examples</li>
+      <li>🎯 <strong>Learning Protobuf</strong> - Understand how JSON maps to Protocol Buffers</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <div class="highlight-box">
+      <strong>💡 Pro Tips:</strong><br>
+      • Use representative JSON samples with all possible fields<br>
+      • Include arrays and nested objects in your examples<br>
+      • Set meaningful package names (reverse domain notation)<br>
+      • Review and adjust field numbers if needed<br>
+      • Test generated .proto files with protoc compiler
+    </div>
+
+    <h2>Common Use Cases</h2>
+
+    <h3>Scenario 1: gRPC Service Design</h3>
+    <p>
+      You're building a gRPC service and need to define message types. Instead of writing .proto files from scratch,
+      paste your JSON API response and get a complete schema with proper types, nesting, and imports.
+    </p>
+
+    <h3>Scenario 2: API Migration</h3>
+    <p>
+      Migrating from REST/JSON to gRPC? Convert your existing JSON responses to Protobuf schemas quickly,
+      ensuring type safety and better performance.
+    </p>
+
+    <h3>Scenario 3: Schema Documentation</h3>
+    <p>
+      Need to document your data structures? Generate .proto files from sample data to create clear,
+      type-safe documentation that serves as both schema and reference.
+    </p>
+
+    <h2>Why This Tool?</h2>
+    <p>
+      Writing Protocol Buffer schemas manually is time-consuming. You need to:
+    </p>
+    <ul>
+      <li>Choose correct types for each field</li>
+      <li>Create nested message definitions</li>
+      <li>Number fields correctly</li>
+      <li>Import well-known types</li>
+      <li>Handle repeated fields (arrays)</li>
+    </ul>
+
+    <p>
+      The JSON to Protobuf Architect does all of this automatically, saving you time and preventing errors.
+      Built by developers who got tired of writing .proto files by hand.
+    </p>
+
+    <a class="cta" href="https://www.lidasoftware.online/tools/jsonToProtobuf/">⚡ Try JSON to Protobuf Architect</a>
   </div>
 
-  <h2>Common Use Cases</h2>
-  
-  <h3>Scenario 1: gRPC Service Design</h3>
-  <p>
-    You're building a gRPC service and need to define message types. Instead of writing .proto files from scratch, 
-    paste your JSON API response and get a complete schema with proper types, nesting, and imports.
-  </p>
-
-  <h3>Scenario 2: API Migration</h3>
-  <p>
-    Migrating from REST/JSON to gRPC? Convert your existing JSON responses to Protobuf schemas quickly, 
-    ensuring type safety and better performance.
-  </p>
-
-  <h3>Scenario 3: Schema Documentation</h3>
-  <p>
-    Need to document your data structures? Generate .proto files from sample data to create clear, 
-    type-safe documentation that serves as both schema and reference.
-  </p>
-
-  <h2>Why This Tool?</h2>
-  <p>
-    Writing Protocol Buffer schemas manually is time-consuming. You need to:
-  </p>
-  <ul>
-    <li>Choose correct types for each field</li>
-    <li>Create nested message definitions</li>
-    <li>Number fields correctly</li>
-    <li>Import well-known types</li>
-    <li>Handle repeated fields (arrays)</li>
-  </ul>
-
-  <p>
-    The JSON to Protobuf Architect does all of this automatically, saving you time and preventing errors.
-    Built by developers who got tired of writing .proto files by hand.
-  </p>
-
-  <a class="cta" href="https://www.lidasoftware.online/tools/jsonToProtobuf/">⚡ Try JSON to Protobuf Architect</a>
-</div>
-
-<footer>
-  © 2026 LiDa Software. All rights reserved.
-</footer>
+  <footer>
+    © 2026 LiDa Software. All rights reserved.
+  </footer>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,13 +51,20 @@
             right: 0;
             bottom: 0;
             background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%);
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%);
             animation: pulse 8s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         .hero-content {
@@ -319,20 +327,32 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .hero-content > * {
+        .hero-content>* {
             animation: fadeInUp 0.8s ease-out backwards;
         }
 
-        .hero-badge { animation-delay: 0.1s; }
-        .hero h1 { animation-delay: 0.2s; }
-        .hero p { animation-delay: 0.3s; }
-        .cta-buttons { animation-delay: 0.4s; }
+        .hero-badge {
+            animation-delay: 0.1s;
+        }
+
+        .hero h1 {
+            animation-delay: 0.2s;
+        }
+
+        .hero p {
+            animation-delay: 0.3s;
+        }
+
+        .cta-buttons {
+            animation-delay: 0.4s;
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -351,11 +371,11 @@
             }
         }
     </style>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -368,6 +388,7 @@
 }
 </script>
 </head>
+
 <body>
     <!-- Hero Section -->
     <section class="hero">
@@ -381,7 +402,7 @@
                 <span class="gradient-text">Professional Prompts</span>
             </h1>
             <p>
-                Stop wasting time crafting prompts from scratch. Access battle-tested templates 
+                Stop wasting time crafting prompts from scratch. Access battle-tested templates
                 designed by experts to get better results, faster.
             </p>
             <div class="cta-buttons">
@@ -412,7 +433,8 @@
                         <span class="material-symbols-outlined">psychology</span>
                     </div>
                     <h3>12+ Expert Templates</h3>
-                    <p>Pre-built prompts for sprint planning, code reviews, security audits, testing strategies, and more.</p>
+                    <p>Pre-built prompts for sprint planning, code reviews, security audits, testing strategies, and
+                        more.</p>
                 </div>
 
                 <div class="feature-card">
@@ -498,15 +520,19 @@
             <p style="margin-top: 8px; font-size: 14px;">© 2024 LiDa Software. All rights reserved.</p>
         </div>
     </footer>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="/cf-analytics/beacon.js"
+        data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
     <script>
         function scrollToFeatures() {
-            document.getElementById('features').scrollIntoView({ 
+            document.getElementById('features').scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
     </script>
 </body>
+
 </html>

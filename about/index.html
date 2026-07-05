@@ -7,7 +7,10 @@
     <title>About - LiDa Software</title>
     <meta name="description"
         content="LiDa Software is a personal developer tools platform built and maintained by Hen Faibish. Practical tools for real developer workflows.">
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="/cf-analytics/beacon.js"
+        data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
     <!-- JSON-LD for Branding -->
     <script type="application/ld+json">
@@ -93,17 +96,40 @@
             font-weight: 500;
             transition: color .2s;
         }
-        a.back-link:hover { color: #a78bfa; }
+
+        a.back-link:hover {
+            color: #a78bfa;
+        }
 
         @media (max-width: 480px) {
-            body { padding: 20px 16px; }
-            h1 { font-size: 1.9rem; margin-bottom: 18px; }
-            p { font-size: 1rem; line-height: 1.65; }
-            .logo { width: 90px; margin-bottom: 24px; }
+            body {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 1.9rem;
+                margin-bottom: 18px;
+            }
+
+            p {
+                font-size: 1rem;
+                line-height: 1.65;
+            }
+
+            .logo {
+                width: 90px;
+                margin-bottom: 24px;
+            }
         }
+
         @media (max-width: 360px) {
-            h1 { font-size: 1.65rem; }
-            p { font-size: 0.95rem; }
+            h1 {
+                font-size: 1.65rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
@@ -118,13 +144,16 @@
             LiDa Software is a personal developer tools platform built and maintained by Hen Faibish.
         </p>
         <p>
-            The project started from a simple idea: build practical tools that solve real problems developers face every day, without unnecessary accounts, tracking, paywalls, or noise.
+            The project started from a simple idea: build practical tools that solve real problems developers face every
+            day, without unnecessary accounts, tracking, paywalls, or noise.
         </p>
         <p>
-            The tools focus on clean workflows, fast usage, and real engineering utility, including formatting, validation, automation, AI-assisted productivity, and developer experience improvements.
+            The tools focus on clean workflows, fast usage, and real engineering utility, including formatting,
+            validation, automation, AI-assisted productivity, and developer experience improvements.
         </p>
         <p>
-            LiDa Software is also a long-term engineering project where I explore product thinking, frontend architecture, reusable components, local-first behavior, AI integrations, and continuous improvement.
+            LiDa Software is also a long-term engineering project where I explore product thinking, frontend
+            architecture, reusable components, local-first behavior, AI integrations, and continuous improvement.
         </p>
         <p class="motto">
             ⚡ Motto: build useful tools, keep them simple, and improve them over time.

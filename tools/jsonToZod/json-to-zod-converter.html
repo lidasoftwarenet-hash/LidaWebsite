@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-     <!-- SEO Meta Tags -->
-  <meta name="description" content="Free online Jenkins Pipeline Visualizer tool. Paste your Jenkinsfile, visualize the pipeline flowchart, simulate dry-runs, and export diagrams. 100% client-side, no data sent to servers." />
-  <meta name="keywords" content="jenkins pipeline visualizer, jenkinsfile, pipeline visualization, devops tools, ci/cd, jenkins flowchart, pipeline simulator, jenkins dry-run, free devops tools" />
-  <meta name="author" content="LiDa Software" />
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="English" />
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Free online Jenkins Pipeline Visualizer tool. Paste your Jenkinsfile, visualize the pipeline flowchart, simulate dry-runs, and export diagrams. 100% client-side, no data sent to servers." />
+    <meta name="keywords"
+        content="jenkins pipeline visualizer, jenkinsfile, pipeline visualization, devops tools, ci/cd, jenkins flowchart, pipeline simulator, jenkins dry-run, free devops tools" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Json to Zod Schema Converter - lidasoftware.online" />
-  <meta property="og:description" content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
-  <meta property="og:url" content="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
-  <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Json to Zod Schema Converter - lidasoftware.online" />
+    <meta property="og:description"
+        content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
+    <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Json to Zod Schema Converter - Free DevOps Tool" />
-  <meta name="twitter:description" content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
-  <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Json to Zod Schema Converter - Free DevOps Tool" />
+    <meta name="twitter:description"
+        content="Convert JSON schemas to Zod schemas instantly. Paste your JSON, see the Zod schema, and copy it for use in your TypeScript projects. Free, client-side tool." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/jsonToZod/json-to-zod-converter.html" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
-  <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
 
 
 
@@ -72,7 +77,7 @@
             box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
         }
 
-         .header {
+        .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 30px;
             text-align: center;
@@ -131,8 +136,16 @@
         }
 
         @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            10%, 90% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            10%,
+            90% {
+                opacity: 1;
+            }
         }
 
         .header-gradient {
@@ -169,8 +182,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
         }
 
         .highlight-output {
@@ -243,8 +263,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         select {
@@ -259,89 +286,89 @@
             border-color: #007acc;
         }
 
-        
-/* ===== FOOTER ===== */
-.footer {
-    background: var(--light);
-    border-radius: var(--radius);
-    padding: 40px 30px;
-    margin-top: 40px;
-    box-shadow: 0 4px 6px var(--shadow);
-    text-align: center;
-}
 
-.footer-content {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            margin-top: 40px;
+            box-shadow: 0 4px 6px var(--shadow);
+            text-align: center;
+        }
 
-.footer-copyright {
-    font-size: 19px;
-    font-weight: 600;
-    color: var(--dark);
-    margin: 0;
-}
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
 
-.footer-version {
-    font-size: 16px;
-    color: var(--primary);
-    margin: 0;
-}
+        .footer-copyright {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+        }
 
-.btn-discover {
-    margin-top: 12px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 14px 28px;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
+        .footer-version {
+            font-size: 16px;
+            color: var(--primary);
+            margin: 0;
+        }
 
-.btn-discover:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
-}
+        .btn-discover {
+            margin-top: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.btn-discover .material-symbols-outlined {
-    font-size: 20px;
-}
+        .btn-discover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
+        }
 
-@media (max-width: 768px) {
-    .footer {
-        padding: 30px 20px;
-        margin-top: 30px;
-    }
-    
-    .footer-copyright {
-        font-size: 16px;
-    }
-    
-    .footer-version {
-        font-size: 13px;
-    }
-    
-    .btn-discover {
-        width: 100%;
-        max-width: 300px;
-    }
-}
+        .btn-discover .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 30px 20px;
+                margin-top: 30px;
+            }
+
+            .footer-copyright {
+                font-size: 16px;
+            }
+
+            .footer-version {
+                font-size: 13px;
+            }
+
+            .btn-discover {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
     </style>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -354,14 +381,15 @@
 }
 </script>
 </head>
+
 <body>
     <div class="min-h-screen flex flex-col">
         <!-- Header -->
-             <div class="logo-container">
-                <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
-                <div class="brand-name">Lida Software</div>
-            </div>
-        
+        <div class="logo-container">
+            <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
+            <div class="brand-name">Lida Software</div>
+        </div>
+
         <header class="header-gradient text-white py-6 px-4 shadow-lg">
             <div class="container mx-auto">
                 <div class="flex justify-between items-start">
@@ -383,57 +411,50 @@
             <div class="container mx-auto flex flex-wrap gap-3 items-center justify-between">
                 <div class="flex gap-2 items-center flex-wrap">
                     <!-- Mobile: Web Share API button -->
-                    <button 
-                        id="share-tool-button" 
+                    <button id="share-tool-button"
                         class="btn bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium items-center gap-2 md:hidden"
                         style="display: none;"
-                        title="Share this tool via Facebook, Instagram, LinkedIn, WhatsApp, etc."
-                    >
+                        title="Share this tool via Facebook, Instagram, LinkedIn, WhatsApp, etc.">
                         ↗️ Share this tool
                     </button>
-                    
+
                     <!-- Desktop: Social media buttons -->
                     <div id="desktop-share-buttons" class="hidden md:flex gap-2 items-center">
                         <span class="text-sm text-gray-400 mr-1">Share:</span>
-                        <a 
-                            href="#" 
-                            id="share-facebook"
+                        <a href="#" id="share-facebook"
                             class="btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
-                            title="Share on Facebook"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            title="Share on Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
                             Facebook
                         </a>
-                        <a 
-                            href="#" 
-                            id="share-linkedin"
+                        <a href="#" id="share-linkedin"
                             class="btn bg-blue-700 hover:bg-blue-800 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
-                            title="Share on LinkedIn"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            title="Share on LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
                             LinkedIn
                         </a>
-                        <a 
-                            href="#" 
-                            id="share-twitter"
+                        <a href="#" id="share-twitter"
                             class="btn bg-gray-800 hover:bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
-                            title="Share on X (Twitter)"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            title="Share on X (Twitter)" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
                             X
                         </a>
-                        <button 
-                            id="share-copy"
+                        <button id="share-copy"
                             class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm font-medium flex items-center gap-1"
-                            title="Copy link"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                            title="Copy link">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
                             Copy
                         </button>
                     </div>
@@ -470,20 +491,26 @@
                             <option value="mixed">Mixed Types</option>
                         </optgroup>
                     </select>
-                    
-                    <button id="downloadBtn" class="btn bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Download as .ts file">
+
+                    <button id="downloadBtn"
+                        class="btn bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip"
+                        data-tooltip="Download as .ts file">
                         💾 Download
                     </button>
-                    
-                    <button id="formatBtn" class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Format JSON (Ctrl+Shift+F)">
+
+                    <button id="formatBtn"
+                        class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm font-medium tooltip"
+                        data-tooltip="Format JSON (Ctrl+Shift+F)">
                         ✨ Format
                     </button>
-                    
-                    <button id="refinementsBtn" class="btn bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip" data-tooltip="Add smart validation rules">
+
+                    <button id="refinementsBtn"
+                        class="btn bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium tooltip"
+                        data-tooltip="Add smart validation rules">
                         🎯 Add Refinements
                     </button>
                 </div>
-                
+
                 <div class="flex gap-2 text-xs text-gray-400 items-center">
                     <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> = Copy
                     <span class="mx-2">|</span>
@@ -501,17 +528,14 @@
                         <h2 class="text-xl font-semibold text-gray-300">Input JSON</h2>
                         <div class="flex gap-2">
                             <span id="jsonStats" class="text-xs text-gray-500 px-3 py-2"></span>
-                            <button 
-                                id="clearBtn" 
-                                class="btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-                            >
+                            <button id="clearBtn"
+                                class="btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
                                 🗑️ Clear
                             </button>
                         </div>
                     </div>
                     <div class="flex-1 flex flex-col">
-                        <textarea 
-                            id="jsonInput" 
+                        <textarea id="jsonInput"
                             class="code-font w-full flex-1 p-4 rounded-lg text-sm leading-relaxed min-h-[400px]"
                             placeholder='Enter your JSON here, e.g.:
 {
@@ -523,8 +547,7 @@
     "street": "123 Main St",
     "city": "New York"
   }
-}'
-                        ></textarea>
+}'></textarea>
                         <div id="errorMessage" class="error-message mt-2 p-3 rounded-md text-sm hidden fade-in">
                             <span class="font-semibold">❌ Invalid JSON:</span> <span id="errorText"></span>
                         </div>
@@ -548,41 +571,41 @@
                                 🎯 Refinements
                             </button>
                         </div>
-                        <button 
-                            id="copyBtn" 
-                            class="btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium relative"
-                        >
+                        <button id="copyBtn"
+                            class="btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium relative">
                             <span id="copyBtnText">📋 Copy</span>
-                            <span id="copyFeedback" class="copy-feedback absolute inset-0 flex items-center justify-center bg-green-600 rounded-md hidden">
+                            <span id="copyFeedback"
+                                class="copy-feedback absolute inset-0 flex items-center justify-center bg-green-600 rounded-md hidden">
                                 ✓ Copied!
                             </span>
                         </button>
                     </div>
-                    
+
                     <!-- Schema Tab -->
                     <div id="schemaTab" class="flex-1 tab-content">
                         <div id="zodOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
                             <pre><code class="language-typescript">// Zod schema will appear here...</code></pre>
                         </div>
                     </div>
-                    
+
                     <!-- TypeScript Tab -->
                     <div id="typescriptTab" class="flex-1 tab-content hidden">
                         <div id="tsOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
                             <pre><code class="language-typescript">// TypeScript type will appear here...</code></pre>
                         </div>
                     </div>
-                    
+
                     <!-- Usage Tab -->
                     <div id="usageTab" class="flex-1 tab-content hidden">
                         <div id="usageOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
                             <pre><code class="language-typescript">// Usage example will appear here...</code></pre>
                         </div>
                     </div>
-                    
+
                     <!-- Refinements Tab -->
                     <div id="refinementsTab" class="flex-1 tab-content hidden">
-                        <div id="refinementsOutputHighlight" class="highlight-output h-full overflow-auto min-h-[400px]">
+                        <div id="refinementsOutputHighlight"
+                            class="highlight-output h-full overflow-auto min-h-[400px]">
                             <pre><code class="language-typescript">// Smart validation refinements will appear here...</code></pre>
                         </div>
                     </div>
@@ -620,7 +643,7 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
                     <h3 class="text-lg font-semibold mb-3 text-gray-300">🎯 Smart Detection</h3>
                     <ul class="space-y-2 text-sm text-gray-400">
@@ -655,22 +678,24 @@
 
         <!-- Footer -->
         <footer class="footer">
-    <div class="footer-content">
-        <p class="footer-copyright">© LiDa JSON To Zod Converter.</p>
-        <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
-        
+            <div class="footer-content">
+                <p class="footer-copyright">© LiDa JSON To Zod Converter.</p>
+                <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for
+                    productivity enthusiasts</p>
 
-        
-        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
 
-            Discover More Features
-        </a>
-        
-        <div class="footer-bottom">
-            <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free and open source.</p>
-        </div>
-    </div>
-</footer>
+
+                <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-discover">
+
+                    Discover More Features
+                </a>
+
+                <div class="footer-bottom">
+                    <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free and open source.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -819,10 +844,10 @@
             cart: {
                 userId: "usr_123",
                 items: [
-                    { 
-                        productId: "prod-1", 
-                        name: "Laptop", 
-                        quantity: 1, 
+                    {
+                        productId: "prod-1",
+                        name: "Laptop",
+                        quantity: 1,
                         price: 999.99,
                         image: "https://example.com/laptop.jpg"
                     }
@@ -1001,7 +1026,7 @@
          */
         function inferObjectType(obj, depth) {
             const entries = Object.entries(obj);
-            
+
             if (entries.length === 0) {
                 return 'z.object({})';
             }
@@ -1023,7 +1048,7 @@
             function inferTsType(value) {
                 if (value === null) return 'null';
                 const type = typeof value;
-                
+
                 switch (type) {
                     case 'string': return 'string';
                     case 'number': return 'number';
@@ -1089,10 +1114,10 @@ if (result.success) {
          */
         function generateRefinements(obj) {
             const refinements = [];
-            
+
             function analyzeValue(key, value, path = '') {
                 const fullPath = path ? `${path}.${key}` : key;
-                
+
                 if (typeof value === 'string') {
                     // Email detection
                     if (key.toLowerCase().includes('email') || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
@@ -1104,8 +1129,8 @@ if (result.success) {
                         });
                     }
                     // URL detection
-                    else if (key.toLowerCase().includes('url') || key.toLowerCase().includes('link') || 
-                             value.startsWith('http://') || value.startsWith('https://')) {
+                    else if (key.toLowerCase().includes('url') || key.toLowerCase().includes('link') ||
+                        value.startsWith('http://') || value.startsWith('https://')) {
                         refinements.push({
                             path: fullPath,
                             type: 'url',
@@ -1123,8 +1148,8 @@ if (result.success) {
                         });
                     }
                     // Date/DateTime detection
-                    else if (key.toLowerCase().includes('date') || key.toLowerCase().includes('time') || 
-                             key.toLowerCase().includes('at') && !isNaN(Date.parse(value))) {
+                    else if (key.toLowerCase().includes('date') || key.toLowerCase().includes('time') ||
+                        key.toLowerCase().includes('at') && !isNaN(Date.parse(value))) {
                         refinements.push({
                             path: fullPath,
                             type: 'datetime',
@@ -1153,7 +1178,7 @@ if (result.success) {
                 }
                 else if (typeof value === 'number') {
                     // Positive number detection
-                    if (value > 0 && (key.toLowerCase().includes('price') || key.toLowerCase().includes('amount') || 
+                    if (value > 0 && (key.toLowerCase().includes('price') || key.toLowerCase().includes('amount') ||
                         key.toLowerCase().includes('quantity') || key.toLowerCase().includes('count'))) {
                         refinements.push({
                             path: fullPath,
@@ -1163,8 +1188,8 @@ if (result.success) {
                         });
                     }
                     // Integer detection
-                    else if (Number.isInteger(value) && (key.toLowerCase().includes('id') || 
-                             key.toLowerCase().includes('count') || key.toLowerCase().includes('age'))) {
+                    else if (Number.isInteger(value) && (key.toLowerCase().includes('id') ||
+                        key.toLowerCase().includes('count') || key.toLowerCase().includes('age'))) {
                         refinements.push({
                             path: fullPath,
                             type: 'int',
@@ -1232,13 +1257,13 @@ if (result.success) {
             let code = `import { z } from 'zod';\n\n`;
             code += `// 🎯 Smart Refinements Detected\n`;
             code += `// These validation rules were automatically suggested based on your data patterns\n\n`;
-            
+
             if (refinements.length === 0) {
                 code += `// No specific refinements detected.\n`;
                 code += `// Your basic schema is already good!\n`;
             } else {
                 code += `export const refinedSchema = z.object({\n`;
-                
+
                 // Group refinements by path
                 const grouped = {};
                 refinements.forEach(r => {
@@ -1255,12 +1280,12 @@ if (result.success) {
                 });
 
                 code += `});\n\n`;
-                
+
                 code += `// 📋 Detected Patterns:\n`;
                 refinements.forEach(r => {
                     code += `// • ${r.path}: ${r.description}\n`;
                 });
-                
+
                 code += `\n// 💡 Tips:\n`;
                 code += `// - Review these suggestions and adjust as needed\n`;
                 code += `// - Combine multiple refinements with .and() or .or()\n`;
@@ -1280,7 +1305,7 @@ if (result.success) {
 
             function traverse(value, currentDepth) {
                 depth = Math.max(depth, currentDepth);
-                
+
                 if (value && typeof value === 'object') {
                     if (Array.isArray(value)) {
                         value.forEach(item => traverse(item, currentDepth + 1));
@@ -1306,16 +1331,16 @@ if (result.success) {
                 const usage = generateUsageExample(parsed);
                 const refinements = generateRefinements(parsed);
                 const stats = calculateStats(parsed);
-                
+
                 currentZodSchema = `import { z } from 'zod';\n\nexport const schema = ${zodSchema};`;
                 currentTsType = tsType;
                 currentUsage = usage;
                 currentRefinements = refinements;
-                
+
                 conversions++;
                 conversionCount.textContent = conversions;
                 jsonStats.textContent = `${stats.keys} keys • ${stats.depth} levels deep`;
-                
+
                 return { success: true, schema: currentZodSchema, tsType, usage, refinements };
             } catch (error) {
                 return { success: false, error: error.message };
@@ -1374,7 +1399,7 @@ if (result.success) {
          */
         async function copyToClipboard() {
             let text = '';
-            
+
             switch (currentTab) {
                 case 'schema':
                     text = currentZodSchema;
@@ -1394,7 +1419,7 @@ if (result.success) {
 
             try {
                 await navigator.clipboard.writeText(text);
-                
+
                 copyBtnText.classList.add('hidden');
                 copyFeedback.classList.remove('hidden');
 
@@ -1458,7 +1483,7 @@ if (result.success) {
          */
         function loadPreset(presetName) {
             if (!presetName || !presets[presetName]) return;
-            
+
             jsonInput.value = JSON.stringify(presets[presetName], null, 2);
             handleInputChange();
             presetSelect.value = '';
@@ -1469,7 +1494,7 @@ if (result.success) {
          */
         function switchTab(tabName) {
             currentTab = tabName;
-            
+
             tabButtons.forEach(btn => {
                 if (btn.dataset.tab === tabName) {
                     btn.classList.add('active');
@@ -1525,14 +1550,14 @@ if (result.success) {
         // Load example on page load
         window.addEventListener('DOMContentLoaded', () => {
             loadPreset('user');
-            
+
             // Initialize share functionality
             const shareButton = document.getElementById('share-tool-button');
             const desktopShareButtons = document.getElementById('desktop-share-buttons');
             const shareUrl = window.location.href;
             const shareTitle = 'JSON to Zod Schema Converter | LiDa Software';
             const shareText = 'Check out this free JSON to Zod converter tool from LiDa Software!';
-            
+
             // Show appropriate share UI based on device/browser support
             if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                 // Mobile with Web Share API support
@@ -1553,25 +1578,25 @@ if (result.success) {
             } else {
                 // Desktop - show social media buttons
                 desktopShareButtons.classList.remove('hidden');
-                
+
                 // Facebook share
                 document.getElementById('share-facebook').addEventListener('click', (e) => {
                     e.preventDefault();
                     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank', 'width=600,height=400');
                 });
-                
+
                 // LinkedIn share
                 document.getElementById('share-linkedin').addEventListener('click', (e) => {
                     e.preventDefault();
                     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank', 'width=600,height=400');
                 });
-                
+
                 // Twitter/X share
                 document.getElementById('share-twitter').addEventListener('click', (e) => {
                     e.preventDefault();
                     window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank', 'width=600,height=400');
                 });
-                
+
                 // Copy link
                 document.getElementById('share-copy').addEventListener('click', async () => {
                     try {
@@ -1590,7 +1615,11 @@ if (result.success) {
             }
         });
     </script>
-        <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="/cf-analytics/beacon.js"
+        data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
 </body>
+
 </html>

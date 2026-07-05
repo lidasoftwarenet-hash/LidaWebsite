@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Beautifier & Validator | LiDa Software</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Free online JSON tool to format, validate and understand JSON. Beautify or minify JSON, detect errors with human-readable messages, and copy clean output instantly. 100% client-side." />
-    <meta name="keywords" content="json formatter, json beautifier, json validator, json minifier, json tool, developer tools, web tools, validate json, format json" />
+    <meta name="description"
+        content="Free online JSON tool to format, validate and understand JSON. Beautify or minify JSON, detect errors with human-readable messages, and copy clean output instantly. 100% client-side." />
+    <meta name="keywords"
+        content="json formatter, json beautifier, json validator, json minifier, json tool, developer tools, web tools, validate json, format json" />
     <meta name="author" content="LiDa Software" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
@@ -14,14 +17,16 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="JSON Wizard - Format, Validate & Understand JSON" />
-    <meta property="og:description" content="Clean, validate and format JSON instantly. Get clear error explanations, copy formatted or minified output, and catch common JSON mistakes. Free and fully client-side." />
+    <meta property="og:description"
+        content="Clean, validate and format JSON instantly. Get clear error explanations, copy formatted or minified output, and catch common JSON mistakes. Free and fully client-side." />
     <meta property="og:url" content="https://www.lidasoftware.online/tools/jsonBeautifier/json-beautifier.html" />
     <meta property="og:image" content="https://www.lidasoftware.online/tools/jsonBeautifier/logo.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="JSON Wizard - Simple JSON Formatter & Validator" />
-    <meta name="twitter:description" content="A fast and free JSON tool for developers. Beautify, validate, minify and understand JSON with clear error messages." />
+    <meta name="twitter:description"
+        content="A fast and free JSON tool for developers. Beautify, validate, minify and understand JSON with clear error messages." />
     <meta name="twitter:image" content="https://www.lidasoftware.online/tools/jsonBeautifier/logo.png" />
 
     <!-- Canonical URL -->
@@ -30,7 +35,7 @@
     <!-- Favicon -->
     <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
     <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
-    
+
     <!-- JSON-LD Schema -->
     <script type="application/ld+json">
     {
@@ -82,8 +87,8 @@
             overflow: hidden;
             margin-top: 60px;
             color: #ff6b6b;
-            
-           
+
+
         }
 
         .footer::before {
@@ -99,8 +104,13 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: 200px 0; }
+            0% {
+                background-position: -200px 0;
+            }
+
+            100% {
+                background-position: 200px 0;
+            }
         }
 
         .footer-content {
@@ -121,7 +131,7 @@
             font-weight: 700;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
-    
+
             background-clip: text;
             margin: 0;
             text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
@@ -147,8 +157,15 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         .btn-discover {
@@ -262,12 +279,15 @@
                 transform: translateY(0) rotate(0deg);
                 opacity: 0;
             }
+
             10% {
                 opacity: 0.3;
             }
+
             90% {
                 opacity: 0.3;
             }
+
             100% {
                 transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
@@ -279,24 +299,24 @@
             .footer {
                 padding: 40px 20px;
             }
-            
+
             .footer-copyright {
                 font-size: 18px;
             }
-            
+
             .footer-version {
                 font-size: 14px;
             }
-            
+
             .btn-discover {
                 padding: 14px 24px;
                 font-size: 14px;
             }
-            
+
             .footer-links {
                 gap: 15px;
             }
-            
+
             .footer-link {
                 font-size: 13px;
                 padding: 6px 12px;
@@ -319,6 +339,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -529,7 +550,7 @@
             margin: 0;
         }
 
-        .indent-option input[type="radio"]:checked + span {
+        .indent-option input[type="radio"]:checked+span {
             color: #667eea;
             font-weight: 600;
         }
@@ -631,6 +652,7 @@
                 opacity: 0;
                 transform: translateY(-15px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -792,6 +814,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -922,11 +945,11 @@
             }
         }
     </style>
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<script type="application/ld+json">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -939,6 +962,7 @@
 }
 </script>
 </head>
+
 <body>
     <div class="container">
         <!-- Professional Header with Lida Software Branding -->
@@ -956,9 +980,7 @@
         <!-- Share Buttons -->
         <div style="text-align: center; padding: 20px; background: #1a1a1a;">
             <!-- Mobile: Web Share API button -->
-            <button 
-                id="share-tool-button" 
-                style="
+            <button id="share-tool-button" style="
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     color: white;
                     border: none;
@@ -975,18 +997,15 @@
                 "
                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.3)';"
                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.2)';"
-                title="Share this tool via Facebook, Instagram, LinkedIn, WhatsApp, etc."
-            >
+                title="Share this tool via Facebook, Instagram, LinkedIn, WhatsApp, etc.">
                 ↗️ Share this tool
             </button>
-            
+
             <!-- Desktop: Social media buttons -->
-            <div id="desktop-share-buttons" style="display: none; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <div id="desktop-share-buttons"
+                style="display: none; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap;">
                 <span style="color: #888; font-size: 14px;">Share:</span>
-                <a 
-                    href="#" 
-                    id="share-facebook"
-                    style="
+                <a href="#" id="share-facebook" style="
                         background: #1877f2;
                         color: white;
                         padding: 10px 20px;
@@ -1001,15 +1020,14 @@
                     "
                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on Facebook"
-                >
-                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    title="Share on Facebook">
+                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
                     Facebook
                 </a>
-                <a 
-                    href="#" 
-                    id="share-linkedin"
-                    style="
+                <a href="#" id="share-linkedin" style="
                         background: #0077b5;
                         color: white;
                         padding: 10px 20px;
@@ -1024,15 +1042,14 @@
                     "
                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on LinkedIn"
-                >
-                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    title="Share on LinkedIn">
+                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
                     LinkedIn
                 </a>
-                <a 
-                    href="#" 
-                    id="share-twitter"
-                    style="
+                <a href="#" id="share-twitter" style="
                         background: #14171a;
                         color: white;
                         padding: 10px 20px;
@@ -1047,14 +1064,14 @@
                     "
                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on X (Twitter)"
-                >
-                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    title="Share on X (Twitter)">
+                    <svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
                     X
                 </a>
-                <button 
-                    id="share-copy"
-                    style="
+                <button id="share-copy" style="
                         background: #555;
                         color: white;
                         padding: 10px 20px;
@@ -1069,10 +1086,11 @@
                         transition: all 0.2s ease;
                     "
                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Copy link"
-                >
-                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';" title="Copy link">
+                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
                     Copy Link
                 </button>
             </div>
@@ -1080,55 +1098,60 @@
 
         <!-- Main Content Area -->
         <div class="content">
-        <div class="message" id="message">
-            <div class="message-title" id="messageTitle"></div>
-            <div class="message-content" id="messageContent"></div>
-        </div>
-
-        <div class="stats" id="stats" style="display: none;">
-            <div class="stat-item">
-                <div class="stat-label">Original Size</div>
-                <div class="stat-value" id="originalSize">0 bytes</div>
+            <div class="message" id="message">
+                <div class="message-title" id="messageTitle"></div>
+                <div class="message-content" id="messageContent"></div>
             </div>
-            <div class="stat-item">
-                <div class="stat-label">Formatted Size</div>
-                <div class="stat-value" id="formattedSize">0 bytes</div>
+
+            <div class="stats" id="stats" style="display: none;">
+                <div class="stat-item">
+                    <div class="stat-label">Original Size</div>
+                    <div class="stat-value" id="originalSize">0 bytes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Formatted Size</div>
+                    <div class="stat-value" id="formattedSize">0 bytes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Minified Size</div>
+                    <div class="stat-value" id="minifiedSize">0 bytes</div>
+                </div>
             </div>
-            <div class="stat-item">
-                <div class="stat-label">Minified Size</div>
-                <div class="stat-value" id="minifiedSize">0 bytes</div>
+
+            <div class="editor-section">
+                <label for="jsonInput">Input JSON</label>
+                <textarea id="jsonInput"
+                    placeholder='Paste your JSON here... e.g. {"name": "John", "age": 30}'></textarea>
             </div>
-        </div>
 
-        <div class="editor-section">
-            <label for="jsonInput">Input JSON</label>
-            <textarea id="jsonInput" placeholder='Paste your JSON here... e.g. {"name": "John", "age": 30}'></textarea>
-        </div>
-
-        <div class="indent-toggle">
-            <label class="indent-label">Indent Size:</label>
-            <div class="indent-options">
-                <label class="indent-option">
-                    <input type="radio" name="indent" value="2" checked onchange="updateIndentation()">
-                    <span>2 spaces</span>
-                </label>
-                <label class="indent-option">
-                    <input type="radio" name="indent" value="4" onchange="updateIndentation()">
-                    <span>4 spaces</span>
-                </label>
+            <div class="indent-toggle">
+                <label class="indent-label">Indent Size:</label>
+                <div class="indent-options">
+                    <label class="indent-option">
+                        <input type="radio" name="indent" value="2" checked onchange="updateIndentation()">
+                        <span>2 spaces</span>
+                    </label>
+                    <label class="indent-option">
+                        <input type="radio" name="indent" value="4" onchange="updateIndentation()">
+                        <span>4 spaces</span>
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="button-group">
-            <button class="btn-primary" onclick="validateAndFormat()">✨ Validate & Format</button>
-            <button class="btn-secondary" id="copyFormatted" onclick="copyFormatted()" disabled>📋 Copy Formatted</button>
-            <button class="btn-secondary" id="copyMinified" onclick="copyMinified()" disabled>📦 Copy Minified</button>
-        </div>
+            <div class="button-group">
+                <button class="btn-primary" onclick="validateAndFormat()">✨ Validate & Format</button>
+                <button class="btn-secondary" id="copyFormatted" onclick="copyFormatted()" disabled>📋 Copy
+                    Formatted</button>
+                <button class="btn-secondary" id="copyMinified" onclick="copyMinified()" disabled>📦 Copy
+                    Minified</button>
+            </div>
 
-        <div class="editor-section" id="outputSection" style="display: none;">
-            <label for="jsonOutput">Formatted JSON <span style="color: #a0a0a0; font-size: 12px; font-weight: normal;">(Click on any key to focus, click on values to see path)</span></label>
-            <div id="jsonOutput"></div>
-        </div>
+            <div class="editor-section" id="outputSection" style="display: none;">
+                <label for="jsonOutput">Formatted JSON <span
+                        style="color: #a0a0a0; font-size: 12px; font-weight: normal;">(Click on any key to focus, click
+                        on values to see path)</span></label>
+                <div id="jsonOutput"></div>
+            </div>
         </div>
     </div>
 
@@ -1161,7 +1184,7 @@
          */
         function cleanupInput(input) {
             let cleaned = input.trim();
-            
+
             // Remove markdown code blocks (```json ... ``` or ``` ... ```)
             if (cleaned.startsWith('```')) {
                 // Remove opening ```json or ```
@@ -1170,7 +1193,7 @@
                 cleaned = cleaned.replace(/\n?```\s*$/, '');
                 cleaned = cleaned.trim();
             }
-            
+
             // Remove wrapping quotes if the entire input is a quoted JSON string
             // Check if it starts and ends with quotes and the content is valid JSON
             if ((cleaned.startsWith('"') && cleaned.endsWith('"')) ||
@@ -1184,7 +1207,7 @@
                     // If unwrapping breaks it, keep the original
                 }
             }
-            
+
             return cleaned;
         }
 
@@ -1212,7 +1235,7 @@
 
             // Clean up the input
             inputValue = cleanupInput(inputValue);
-            
+
             // Update the textarea with cleaned input if it changed
             if (inputValue !== input.value.trim()) {
                 input.value = inputValue;
@@ -1221,10 +1244,10 @@
             try {
                 // Attempt to parse the JSON
                 parsedJSON = JSON.parse(inputValue);
-                
+
                 // Get selected indent size
                 const indentSize = parseInt(document.querySelector('input[name="indent"]:checked').value);
-                
+
                 // Generate formatted and minified versions
                 formattedJSON = JSON.stringify(parsedJSON, null, indentSize);
                 minifiedJSON = JSON.stringify(parsedJSON);
@@ -1232,17 +1255,17 @@
                 // Update UI with success state
                 renderInteractiveJSON(formattedJSON);
                 input.classList.add('success');
-                
+
                 // Check for whitespace issues in string values
                 const whitespaceWarnings = detectWhitespaceInStrings(parsedJSON);
                 if (whitespaceWarnings.length > 0) {
-                    showWarning('Valid JSON with Warnings', 
+                    showWarning('Valid JSON with Warnings',
                         'Your JSON is valid, but some string values contain leading or trailing whitespace:\n\n' +
                         whitespaceWarnings.join('\n'));
                 } else {
                     showSuccess();
                 }
-                
+
                 showOutput();
                 showStats(inputValue, formattedJSON, minifiedJSON);
                 enableCopyButtons();
@@ -1268,7 +1291,7 @@
 
             // Get line and column information
             const { line, column, context } = getErrorPosition(inputValue, position);
-            
+
             // Translate the error into human-readable format
             const friendlyError = translateError(error.message, inputValue, position);
 
@@ -1351,12 +1374,12 @@
                 if (i >= 0 && input[i] === ',') {
                     const containerType = char === '}' ? 'object' : 'array';
                     return `❌ Trailing comma detected in ${containerType}.\n\n` +
-                           `JSON does not allow commas after the last item in an ${containerType}. ` +
-                           `Remove the comma before the closing "${char}" bracket.\n\n` +
-                           `Example of correct syntax:\n` +
-                           (containerType === 'object' 
-                               ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
-                               : '["item1", "item2", "item3"]  ← No comma after last item');
+                        `JSON does not allow commas after the last item in an ${containerType}. ` +
+                        `Remove the comma before the closing "${char}" bracket.\n\n` +
+                        `Example of correct syntax:\n` +
+                        (containerType === 'object'
+                            ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
+                            : '["item1", "item2", "item3"]  ← No comma after last item');
                 }
             }
 
@@ -1370,12 +1393,12 @@
                     const bracket = match[1];
                     const containerType = bracket === '}' ? 'object' : 'array';
                     return `❌ Trailing comma detected in ${containerType}.\n\n` +
-                           `JSON does not allow commas after the last item in an ${containerType}. ` +
-                           `Remove the comma before the closing "${bracket}" bracket.\n\n` +
-                           `Example of correct syntax:\n` +
-                           (containerType === 'object' 
-                               ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
-                               : '["item1", "item2", "item3"]  ← No comma after last item');
+                        `JSON does not allow commas after the last item in an ${containerType}. ` +
+                        `Remove the comma before the closing "${bracket}" bracket.\n\n` +
+                        `Example of correct syntax:\n` +
+                        (containerType === 'object'
+                            ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
+                            : '["item1", "item2", "item3"]  ← No comma after last item');
                 }
             }
 
@@ -1385,12 +1408,12 @@
                 const containerType = trimmed.endsWith(',}') ? 'object' : 'array';
                 const bracket = trimmed.endsWith(',}') ? '}' : ']';
                 return `❌ Trailing comma at the end of ${containerType}.\n\n` +
-                       `JSON does not allow commas after the last item. ` +
-                       `Remove the comma before the closing "${bracket}" bracket.\n\n` +
-                       `Example of correct syntax:\n` +
-                       (containerType === 'object' 
-                           ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
-                           : '["item1", "item2", "item3"]  ← No comma after last item');
+                    `JSON does not allow commas after the last item. ` +
+                    `Remove the comma before the closing "${bracket}" bracket.\n\n` +
+                    `Example of correct syntax:\n` +
+                    (containerType === 'object'
+                        ? '{"key1": "value1", "key2": "value2"}  ← No comma after last item'
+                        : '["item1", "item2", "item3"]  ← No comma after last item');
             }
 
             return null;
@@ -1501,13 +1524,13 @@
 
             // Get the new indent size
             const indentSize = parseInt(document.querySelector('input[name="indent"]:checked').value);
-            
+
             // Re-generate formatted JSON with new indent size
             formattedJSON = JSON.stringify(parsedJSON, null, indentSize);
-            
+
             // Re-render the output
             renderInteractiveJSON(formattedJSON);
-            
+
             // Update stats (formatted size may have changed)
             const input = document.getElementById('jsonInput');
             const inputValue = input.value.trim();
@@ -1548,13 +1571,13 @@
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
-            
+
             // Update message
             toastMessage.textContent = message;
-            
+
             // Show toast with animation
             toast.classList.add('show');
-            
+
             // Auto-hide after 1.5 seconds
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -1620,7 +1643,7 @@
                 if (obj !== obj.trim() && obj.length > 0) {
                     const hasLeading = obj[0] === ' ' || obj[0] === '\t' || obj[0] === '\n';
                     const hasTrailing = obj[obj.length - 1] === ' ' || obj[obj.length - 1] === '\t' || obj[obj.length - 1] === '\n';
-                    
+
                     let type = '';
                     if (hasLeading && hasTrailing) {
                         type = 'leading and trailing';
@@ -1629,7 +1652,7 @@
                     } else if (hasTrailing) {
                         type = 'trailing';
                     }
-                    
+
                     if (type) {
                         warnings.push(`⚠️ Value at '${path}' contains ${type} whitespace`);
                     }
@@ -1721,7 +1744,7 @@
         }
 
         // Add keyboard shortcut: Ctrl/Cmd + Enter to validate
-        document.getElementById('jsonInput').addEventListener('keydown', function(e) {
+        document.getElementById('jsonInput').addEventListener('keydown', function (e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
                 validateAndFormat();
@@ -1736,7 +1759,7 @@
             const output = document.getElementById('jsonOutput');
             const lines = jsonString.split('\n');
             let html = '';
-            
+
             // Build path information for each line
             const pathMap = buildPathMap(lines);
 
@@ -1746,7 +1769,7 @@
             lines.forEach((line, idx) => {
                 const trimmed = line.trim();
                 let depth = (line.match(/^ */)[0].length) / 2; // Calculate indentation depth
-                
+
                 // Store metadata for each line
                 lineMetadata.push({
                     index: idx,
@@ -1768,7 +1791,7 @@
 
             // Add click handlers to all keys
             output.querySelectorAll('.json-key').forEach(key => {
-                key.addEventListener('click', function(e) {
+                key.addEventListener('click', function (e) {
                     e.stopPropagation();
                     const lineNum = parseInt(this.dataset.line);
                     focusOnSubtree(lineNum);
@@ -1777,7 +1800,7 @@
 
             // Add click handlers to all values
             output.querySelectorAll('.json-value').forEach(value => {
-                value.addEventListener('click', function(e) {
+                value.addEventListener('click', function (e) {
                     e.stopPropagation();
                     const path = this.dataset.path;
                     if (path) {
@@ -1787,7 +1810,7 @@
             });
 
             // Click anywhere else to clear focus
-            output.addEventListener('click', function(e) {
+            output.addEventListener('click', function (e) {
                 if (!e.target.classList.contains('json-key') && !e.target.classList.contains('json-value')) {
                     clearFocus();
                 }
@@ -1803,11 +1826,11 @@
             const pathMap = {};
             const pathStack = ['$']; // Start with root
             const arrayIndexStack = []; // Track array indices
-            
+
             lines.forEach((line, idx) => {
                 const trimmed = line.trim();
                 const depth = (line.match(/^ */)[0].length) / 2;
-                
+
                 // Adjust stack based on depth
                 while (pathStack.length > depth + 1) {
                     pathStack.pop();
@@ -1815,14 +1838,14 @@
                         arrayIndexStack.pop();
                     }
                 }
-                
+
                 // Extract key if present
                 const keyMatch = trimmed.match(/^"([^"]+)"\s*:/);
                 if (keyMatch) {
                     const key = keyMatch[1];
                     pathStack[depth + 1] = key;
                     pathMap[idx] = pathStack.slice(0, depth + 2).join('.');
-                    
+
                     // Check if this starts an array
                     if (trimmed.includes(': [')) {
                         arrayIndexStack.push({ depth: depth + 1, index: 0 });
@@ -1842,7 +1865,7 @@
                     }
                 }
             });
-            
+
             return pathMap;
         }
 
@@ -1860,47 +1883,47 @@
             const pathAttr = path ? ` data-path="${path}"` : '';
 
             // Highlight property keys (text before colon)
-            line = line.replace(/"([^"]+)"(\s*):/g, function(match, key, space) {
+            line = line.replace(/"([^"]+)"(\s*):/g, function (match, key, space) {
                 return `<span class="json-key" data-line="${lineNum}">"${key}"</span>${space}:`;
             });
 
             // Highlight string values
-            line = line.replace(/:\s*"([^"]*)"/g, function(match, value) {
+            line = line.replace(/:\s*"([^"]*)"/g, function (match, value) {
                 return `: <span class="json-string json-value"${pathAttr}>"${value}"</span>`;
             });
 
             // Highlight numbers
-            line = line.replace(/:\s*(-?\d+\.?\d*)/g, function(match, num) {
+            line = line.replace(/:\s*(-?\d+\.?\d*)/g, function (match, num) {
                 return `: <span class="json-number json-value"${pathAttr}>${num}</span>`;
             });
 
             // Highlight booleans
-            line = line.replace(/:\s*(true|false)/g, function(match, bool) {
+            line = line.replace(/:\s*(true|false)/g, function (match, bool) {
                 return `: <span class="json-boolean json-value"${pathAttr}>${bool}</span>`;
             });
 
             // Highlight null
-            line = line.replace(/:\s*(null)/g, function(match, n) {
+            line = line.replace(/:\s*(null)/g, function (match, n) {
                 return `: <span class="json-null json-value"${pathAttr}>${n}</span>`;
             });
 
             // Highlight array string values (strings not after colons)
-            line = line.replace(/(?<!:)\s+"([^"]*)"/g, function(match, value) {
+            line = line.replace(/(?<!:)\s+"([^"]*)"/g, function (match, value) {
                 return ` <span class="json-string json-value"${pathAttr}>"${value}"</span>`;
             });
 
             // Highlight array numbers
-            line = line.replace(/(?<!:)\s+(-?\d+\.?\d*)(?=\s*[,\]])/g, function(match, num) {
+            line = line.replace(/(?<!:)\s+(-?\d+\.?\d*)(?=\s*[,\]])/g, function (match, num) {
                 return ` <span class="json-number json-value"${pathAttr}>${num}</span>`;
             });
 
             // Highlight array booleans
-            line = line.replace(/(?<!:)\s+(true|false)(?=\s*[,\]])/g, function(match, bool) {
+            line = line.replace(/(?<!:)\s+(true|false)(?=\s*[,\]])/g, function (match, bool) {
                 return ` <span class="json-boolean json-value"${pathAttr}>${bool}</span>`;
             });
 
             // Highlight array null
-            line = line.replace(/(?<!:)\s+(null)(?=\s*[,\]])/g, function(match, n) {
+            line = line.replace(/(?<!:)\s+(null)(?=\s*[,\]])/g, function (match, n) {
                 return ` <span class="json-null json-value"${pathAttr}>${n}</span>`;
             });
 
@@ -1928,11 +1951,11 @@
 
             for (let i = startLine; i < metadata.length; i++) {
                 const line = lines[i].textContent;
-                
+
                 // Count opening brackets/braces
                 const openBrackets = (line.match(/[\[{]/g) || []).length;
                 const closeBrackets = (line.match(/[\]}]/g) || []).length;
-                
+
                 bracketCount += openBrackets - closeBrackets;
 
                 if (openBrackets > 0 && !foundStart) {
@@ -1966,7 +1989,7 @@
         function clearFocus() {
             const output = document.getElementById('jsonOutput');
             const lines = output.querySelectorAll('.json-line');
-            
+
             lines.forEach(line => {
                 line.classList.remove('faded', 'highlighted');
             });
@@ -1985,7 +2008,7 @@
             currentPath = path;
             const pathDisplay = document.getElementById('pathDisplay');
             const pathInfo = document.getElementById('pathInfo');
-            
+
             pathDisplay.textContent = path;
             pathInfo.classList.add('show');
         }
@@ -2010,7 +2033,7 @@
                     const originalText = btn.textContent;
                     btn.textContent = '✓ Copied!';
                     btn.style.background = '#51cf66';
-                    
+
                     setTimeout(() => {
                         btn.textContent = originalText;
                         btn.style.background = '';
@@ -2027,7 +2050,7 @@
         const shareUrl = window.location.href;
         const shareTitle = 'JSON Beautifier & Validator | LiDa Software';
         const shareText = 'Check out this free JSON beautifier and validator tool from LiDa Software!';
-        
+
         // Show appropriate share UI based on device/browser support
         if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
             // Mobile with Web Share API support
@@ -2048,25 +2071,25 @@
         } else {
             // Desktop - show social media buttons
             desktopShareButtons.style.display = 'flex';
-            
+
             // Facebook share
             document.getElementById('share-facebook').addEventListener('click', (e) => {
                 e.preventDefault();
                 window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank', 'width=600,height=400');
             });
-            
+
             // LinkedIn share
             document.getElementById('share-linkedin').addEventListener('click', (e) => {
                 e.preventDefault();
                 window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`, '_blank', 'width=600,height=400');
             });
-            
+
             // Twitter/X share
             document.getElementById('share-twitter').addEventListener('click', (e) => {
                 e.preventDefault();
                 window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`, '_blank', 'width=600,height=400');
             });
-            
+
             // Copy link
             document.getElementById('share-copy').addEventListener('click', async () => {
                 try {
@@ -2084,25 +2107,31 @@
             });
         }
     </script>
-        <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="/cf-analytics/beacon.js"
+        data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
 
-<footer class="footer">
-    <div class="footer-content">
-        <p class="footer-copyright">© LiDa JSON Beautifier.</p>
-        <p class="footer-version">Version 1.0.1 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
-        
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-copyright">© LiDa JSON Beautifier.</p>
+            <p class="footer-version">Version 1.0.1 | Made with <span class="footer-heart">❤️</span> for productivity
+                enthusiasts</p>
 
-        
-        <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
 
-            Discover More Features
-        </a>
-        
-        <div class="footer-bottom">
-            <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free.</p>
+
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
+                class="btn btn-discover">
+
+                Discover More Features
+            </a>
+
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free.</p>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 </body>
+
 </html>

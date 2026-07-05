@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Free online Architecture Compatibility Tool. Analyze your tech stack, get expert recommendations, cost estimates, and shareable reports. Validate backend, frontend, database, and deployment choices for your project." />
-    <meta name="keywords" content="architecture compatibility tool, tech stack analyzer, stack validation, web architecture, backend framework, frontend framework, database selection, deployment platform, devops tools, free architecture tool, stack recommendations" />
+    <meta name="description"
+        content="Free online Architecture Compatibility Tool. Analyze your tech stack, get expert recommendations, cost estimates, and shareable reports. Validate backend, frontend, database, and deployment choices for your project." />
+    <meta name="keywords"
+        content="architecture compatibility tool, tech stack analyzer, stack validation, web architecture, backend framework, frontend framework, database selection, deployment platform, devops tools, free architecture tool, stack recommendations" />
     <meta name="author" content="LiDa Software" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
@@ -14,30 +17,34 @@
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Architecture Compatibility Tool - Build the Perfect Tech Stack" />
-    <meta property="og:description" content="Analyze and validate your web architecture stack instantly. Get expert recommendations, confidence scores, cost estimates, and shareable reports. Free tool for developers and architects." />
-    <meta property="og:url" content="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
+    <meta property="og:description"
+        content="Analyze and validate your web architecture stack instantly. Get expert recommendations, confidence scores, cost estimates, and shareable reports. Free tool for developers and architects." />
+    <meta property="og:url"
+        content="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
     <meta property="og:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Architecture Compatibility Tool - Free Stack Analyzer" />
-    <meta name="twitter:description" content="Validate your tech stack choices with expert analysis. Get recommendations for backend, frontend, database, and deployment. 100% free, client-side tool." />
+    <meta name="twitter:description"
+        content="Validate your tech stack choices with expert analysis. Get recommendations for backend, frontend, database, and deployment. 100% free, client-side tool." />
     <meta name="twitter:image" content="https://www.lidasoftware.online/tools/toolSList/logo.png" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
+    <link rel="canonical"
+        href="https://www.lidasoftware.online/tools/architecture-compatibility-tool/architecture-compatibility.html" />
 
     <!-- Favicon -->
     <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
     <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
 
     <title>Architecture Compatibility Tool - Build the Perfect Tech Stack</title>
-    
+
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
-    
+
     <style>
         * {
             margin: 0;
@@ -60,7 +67,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.3), transparent 50%);
             pointer-events: none;
@@ -72,7 +79,7 @@
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.98);
             border-radius: 20px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.25), 0 0 1px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: relative;
             z-index: 1;
@@ -95,13 +102,20 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: pulse 15s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(10%, 10%) scale(1.1); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(10%, 10%) scale(1.1);
+            }
         }
 
         .header h1 {
@@ -227,13 +241,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             animation: shimmer 2s infinite;
         }
 
         @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         .step {
@@ -279,8 +298,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .options {
@@ -329,8 +355,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .result.show {
@@ -408,7 +441,7 @@
             background: white;
             border-radius: 12px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .confidence-number {
@@ -430,7 +463,7 @@
             margin-bottom: 30px;
             font-size: 20px;
             font-weight: 700;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             display: flex;
             align-items: center;
             gap: 12px;
@@ -459,7 +492,7 @@
             background: white;
             padding: 24px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .section-title {
@@ -507,7 +540,7 @@
             padding: 28px;
             border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border: 2px solid #e2e8f0;
         }
 
@@ -652,7 +685,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -725,7 +758,7 @@
             color: white;
             padding: 16px 24px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             z-index: 2000;
             display: none;
             animation: slideIn 0.3s ease-out;
@@ -740,6 +773,7 @@
                 transform: translateX(400px);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
@@ -768,8 +802,13 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: 200px 0; }
+            0% {
+                background-position: -200px 0;
+            }
+
+            100% {
+                background-position: 200px 0;
+            }
         }
 
         .footer-content {
@@ -813,8 +852,15 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
         }
 
         .btn-discover {
@@ -910,7 +956,7 @@
             }
         }
     </style>
-<script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -923,6 +969,7 @@
 }
 </script>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -982,7 +1029,7 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
-            
+
             <div class="step active" id="step1">
                 <div class="step-title">
                     <span class="step-number">1</span>
@@ -1070,9 +1117,9 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="confidence-score" id="confidenceScore"></div>
-                
+
                 <div id="assessment"></div>
                 <div id="summary"></div>
                 <div id="costEstimate"></div>
@@ -1091,11 +1138,12 @@
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('shareModal')">&times;</span>
             <div class="modal-header">Share Your Stack Analysis</div>
-            <p style="color: #64748b; margin-bottom: 20px;">Copy this link to share your stack configuration with others:</p>
+            <p style="color: #64748b; margin-bottom: 20px;">Copy this link to share your stack configuration with
+                others:</p>
             <div class="share-link-box" id="shareLinkBox"></div>
             <button class="copy-btn" onclick="copyShareLink()">Copy Link</button>
         </div>
-        
+
     </div>
 
     <!-- Toast Notification -->
@@ -1103,22 +1151,24 @@
     <footer class="footer">
         <div class="footer-content">
             <p class="footer-copyright">© LiDa Architecture Compatibility Tool</p>
-            <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity enthusiasts</p>
-            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn btn-discover">
+            <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for productivity
+                enthusiasts</p>
+            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
+                class="btn btn-discover">
                 Discover More Features
             </a>
         </div>
-      </footer>
+    </footer>
     <script>
         const data = {
             languages: [
-                'Node.js', 
-                'Python', 
-                'Java', 
-                'Go', 
-                'C#', 
-                'PHP', 
-                'Ruby', 
+                'Node.js',
+                'Python',
+                'Java',
+                'Go',
+                'C#',
+                'PHP',
+                'Ruby',
                 'Rust',
                 'TypeScript (Deno/Bun)',
                 'Kotlin',
@@ -1142,10 +1192,10 @@
                 'Clojure': ['Ring', 'Compojure', 'Luminus', 'Pedestal']
             },
             frontendFrameworks: [
-                'React', 
-                'Vue', 
-                'Angular', 
-                'Svelte', 
+                'React',
+                'Vue',
+                'Angular',
+                'Svelte',
                 'Next.js',
                 'Nuxt.js',
                 'SvelteKit',
@@ -1181,16 +1231,16 @@
             ],
             architecturePatterns: ['Monolith', 'Microservices', 'Serverless', 'Modular Monolith', 'Hybrid'],
             deploymentOptions: [
-                'AWS', 
-                'Google Cloud', 
-                'Azure', 
-                'Vercel', 
-                'Netlify', 
-                'Render', 
-                'Railway', 
+                'AWS',
+                'Google Cloud',
+                'Azure',
+                'Vercel',
+                'Netlify',
+                'Render',
+                'Railway',
                 'Fly.io',
-                'Heroku', 
-                'DigitalOcean', 
+                'Heroku',
+                'DigitalOcean',
                 'Linode',
                 'Cloudflare Pages',
                 'GitHub Pages',
@@ -1286,7 +1336,7 @@
         function init() {
             // Check for URL parameters
             loadFromURL();
-            
+
             renderOptions('languages', data.languages, 'language');
             renderOptions('databases', data.databases, 'database');
             renderOptions('teamSize', data.teamSizes, 'teamSize');
@@ -1303,12 +1353,12 @@
                 try {
                     const stackData = JSON.parse(atob(params.get('stack')));
                     selections = stackData;
-                    
+
                     // Activate all steps and select options
                     for (let i = 1; i <= 9; i++) {
                         activateStep('step' + i);
                     }
-                    
+
                     // Update UI to reflect selections
                     setTimeout(() => {
                         updateAllSelections();
@@ -1353,18 +1403,18 @@
             document.querySelectorAll('.option').forEach(opt => {
                 opt.classList.remove('selected');
             });
-            
+
             const preset = presets[presetName];
             selections = { ...preset };
-            
+
             // Activate all steps
             for (let i = 1; i <= 9; i++) {
                 activateStep('step' + i);
             }
-            
+
             // Update UI
             updateAllSelections();
-            
+
             // Evaluate
             setTimeout(() => {
                 evaluateArchitecture();
@@ -1395,14 +1445,14 @@
             if (selections.architecture) completedSteps++;
             if (selections.deployment) completedSteps++;
             if (selections.ssr) completedSteps++;
-            
+
             const progress = (completedSteps / 9) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
         function selectOption(containerId, value, key) {
             selections[key] = value;
-            
+
             const container = document.getElementById(containerId);
             container.querySelectorAll('.option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -1442,24 +1492,24 @@
 
         function calculateConfidenceScore(assessment) {
             let score = 85; // Base score
-            
+
             if (assessment.status === 'recommended') score += 10;
             else if (assessment.status === 'not-recommended') score -= 30;
             else score -= 15;
-            
+
             // Adjust based on risks
             score -= assessment.risks.length * 5;
-            
+
             // Adjust based on good tradeoffs
             score += Math.min(assessment.tradeoffs.good.length * 2, 10);
-            
+
             return Math.max(40, Math.min(99, score));
         }
 
         function estimateCost() {
             let minCost = 0;
             let maxCost = 0;
-            
+
             // Deployment costs
             const deploymentCosts = {
                 'AWS': [50, 500],
@@ -1478,11 +1528,11 @@
                 'Firebase Hosting': [0, 50],
                 'Self-Hosted/VPS': [5, 100]
             };
-            
+
             const costs = deploymentCosts[selections.deployment] || [20, 200];
             minCost += costs[0];
             maxCost += costs[1];
-            
+
             // Architecture multiplier
             if (selections.architecture === 'Microservices') {
                 minCost *= 2;
@@ -1491,12 +1541,12 @@
                 minCost *= 0.5;
                 maxCost *= 1.5;
             }
-            
+
             // Team size multiplier
             if (selections.teamSize === 'Medium (5-10)') {
                 maxCost *= 1.5;
             }
-            
+
             // Stage multiplier
             if (selections.stage === 'Mature Product') {
                 minCost *= 2;
@@ -1505,7 +1555,7 @@
                 minCost *= 1.5;
                 maxCost *= 2;
             }
-            
+
             return {
                 min: Math.round(minCost),
                 max: Math.round(maxCost)
@@ -1514,16 +1564,16 @@
 
         function generateAlternatives() {
             const alternatives = [];
-            
+
             // Suggest simpler alternatives for complex stacks
-            if (['NestJS', 'Spring Boot', 'Angular'].some(tech => 
+            if (['NestJS', 'Spring Boot', 'Angular'].some(tech =>
                 [selections.framework, selections.frontend].includes(tech))) {
                 alternatives.push({
                     title: 'Simpler Alternative',
                     description: 'Consider Express.js + React for faster development with less boilerplate'
                 });
             }
-            
+
             // Suggest managed services
             if (selections.deployment === 'Self-Hosted/VPS') {
                 alternatives.push({
@@ -1531,22 +1581,22 @@
                     description: 'Try Render or Railway to reduce DevOps overhead'
                 });
             }
-            
+
             // Suggest cost-effective alternatives
-            if (['AWS', 'Google Cloud', 'Azure'].includes(selections.deployment) && 
+            if (['AWS', 'Google Cloud', 'Azure'].includes(selections.deployment) &&
                 selections.stage === 'MVP') {
                 alternatives.push({
                     title: 'Cost-Effective Alternative',
                     description: 'For MVP stage, consider Vercel or Netlify for lower initial costs'
                 });
             }
-            
+
             return alternatives;
         }
 
         function generateLearningResources() {
             const resources = [];
-            
+
             // Framework-specific resources
             const frameworkResources = {
                 'Express.js': 'https://expressjs.com/en/starter/installing.html',
@@ -1560,21 +1610,21 @@
                 'Vue': 'https://vuejs.org/guide/introduction.html',
                 'Angular': 'https://angular.io/tutorial'
             };
-            
+
             if (selections.framework && frameworkResources[selections.framework]) {
                 resources.push({
                     title: `${selections.framework} Official Docs`,
                     url: frameworkResources[selections.framework]
                 });
             }
-            
+
             if (selections.frontend && frameworkResources[selections.frontend]) {
                 resources.push({
                     title: `${selections.frontend} Official Docs`,
                     url: frameworkResources[selections.frontend]
                 });
             }
-            
+
             // Architecture pattern resources
             if (selections.architecture === 'Microservices') {
                 resources.push({
@@ -1582,7 +1632,7 @@
                     url: 'https://microservices.io/patterns/index.html'
                 });
             }
-            
+
             return resources;
         }
 
@@ -1592,7 +1642,7 @@
             const cost = estimateCost();
             const alternatives = generateAlternatives();
             const learningResources = generateLearningResources();
-            
+
             displayResults(assessment, confidence, cost, alternatives, learningResources);
             document.getElementById('result').classList.add('show');
             document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
@@ -1638,7 +1688,7 @@
                     suggestions.push('Focus on core features first, avoid premature optimization');
                     suggestions.push('Use managed services (database, auth) to reduce infrastructure complexity');
                 }
-                
+
                 if (['Spring Boot', 'ASP.NET Core', 'Ruby on Rails', 'Django'].includes(selections.framework)) {
                     status = status === 'recommended' ? 'caution' : status;
                     reasons.push('Enterprise-grade frameworks may slow MVP development due to setup complexity and learning curve.');
@@ -1646,7 +1696,7 @@
                     suggestions.push('Consider lighter alternatives like FastAPI, Express.js, or Flask for faster MVP iteration');
                     suggestions.push('If proceeding, use framework generators/scaffolding to speed up initial setup');
                 }
-                
+
                 if (['Angular', 'Ember.js'].includes(selections.frontend)) {
                     status = status === 'recommended' ? 'caution' : status;
                     reasons.push('Opinionated frameworks with steep learning curves may not be ideal for rapid MVP development.');
@@ -1661,7 +1711,7 @@
                 suggestions.push('Set up CI/CD pipelines for automated deployments');
                 suggestions.push('Consider implementing feature flags for gradual rollouts');
                 suggestions.push('Establish code review processes and coding standards');
-                
+
                 if (['Express.js', 'Flask', 'Sinatra'].includes(selections.framework)) {
                     risks.push('Minimal frameworks require strong architectural discipline as codebase grows');
                     suggestions.push('Implement clear folder structure and separation of concerns');
@@ -1676,12 +1726,12 @@
                 suggestions.push('Consider microservices architecture if monolith becomes unwieldy');
                 suggestions.push('Implement robust security practices (OWASP guidelines, regular audits)');
                 suggestions.push('Plan for database optimization and query performance monitoring');
-                
+
                 if (['NestJS', 'Spring Boot', 'ASP.NET Core', 'Django'].includes(selections.framework)) {
                     tradeoffs.good.push('Enterprise-grade features support complex business requirements');
                     tradeoffs.good.push('Built-in patterns facilitate large-scale application architecture');
                 }
-                
+
                 if (['Express.js', 'Fiber', 'Gin'].includes(selections.framework)) {
                     risks.push('Minimal frameworks may lack structure for very large codebases');
                     suggestions.push('Implement strong architectural patterns and conventions');
@@ -1691,7 +1741,7 @@
 
             // Team Size Analysis
             if (selections.teamSize === 'Solo') {
-                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) || 
+                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) ||
                     selections.frontend === 'Angular') {
                     status = status === 'recommended' ? 'caution' : status;
                     reasons.push('Complex architectures increase cognitive load for solo developers. Simpler stacks allow faster iteration.');
@@ -1713,7 +1763,7 @@
             }
 
             if (selections.teamSize === 'Medium (5-10)') {
-                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) || 
+                if (['NestJS', 'Spring Boot', 'Angular', 'ASP.NET Core'].includes(selections.framework) ||
                     selections.frontend === 'Angular') {
                     tradeoffs.good.push('Structured frameworks provide consistency across larger teams');
                     tradeoffs.good.push('Built-in patterns reduce architectural debates');
@@ -1765,7 +1815,7 @@
                 suggestions.push('Implement proper indexing strategy for query optimization');
                 suggestions.push('Use connection pooling for better performance');
                 suggestions.push('Set up regular backup and replication strategies');
-                
+
                 if (selections.stage === 'MVP') {
                     suggestions.push('Consider managed database services (AWS RDS, Google Cloud SQL) to reduce operational overhead');
                 }
@@ -1789,12 +1839,12 @@
                 tradeoffs.good.push('Lower operational complexity and infrastructure costs');
                 tradeoffs.bad.push('Scaling requires scaling entire application');
                 tradeoffs.bad.push('Technology stack locked for entire application');
-                
+
                 if (selections.stage === 'MVP') {
                     tradeoffs.good.push('Perfect for MVP - fastest time to market');
                     suggestions.push('Start with monolith, extract microservices only when needed');
                 }
-                
+
                 suggestions.push('Use feature flags for gradual rollouts');
                 suggestions.push('Implement proper logging and monitoring');
             }
@@ -1806,21 +1856,21 @@
                 tradeoffs.bad.push('Increased operational complexity');
                 tradeoffs.bad.push('Distributed system challenges (network latency, data consistency)');
                 tradeoffs.bad.push('More complex deployment and monitoring');
-                
+
                 if (selections.stage === 'MVP') {
                     status = status === 'recommended' ? 'caution' : status;
                     reasons.push('Microservices add significant complexity for MVP. Start with monolith unless you have specific requirements.');
                     risks.push('Premature microservices can slow development velocity');
                     suggestions.push('Consider starting with modular monolith, migrate to microservices later');
                 }
-                
+
                 if (selections.teamSize === 'Solo' || selections.teamSize === 'Small (2-4)') {
                     status = status === 'recommended' ? 'caution' : status;
                     reasons.push('Microservices require significant operational overhead. Small teams may struggle with complexity.');
                     risks.push('DevOps burden multiplies with each service');
                     suggestions.push('Use managed services and platforms to reduce operational burden');
                 }
-                
+
                 suggestions.push('Implement API gateway for unified entry point');
                 suggestions.push('Use service mesh for inter-service communication');
                 suggestions.push('Implement distributed tracing (Jaeger, Zipkin)');
@@ -1833,7 +1883,7 @@
                 tradeoffs.bad.push('Cold start latency for infrequent functions');
                 tradeoffs.bad.push('Vendor lock-in to cloud provider');
                 tradeoffs.bad.push('Limited execution time and resource constraints');
-                
+
                 suggestions.push('Design functions to be stateless and idempotent');
                 suggestions.push('Implement proper error handling and retries');
                 suggestions.push('Monitor cold starts and optimize function size');
@@ -1847,7 +1897,7 @@
                 tradeoffs.good.push('Extensive documentation and community support');
                 tradeoffs.bad.push('Can be complex to navigate service offerings');
                 tradeoffs.bad.push('Costs can escalate without proper monitoring');
-                
+
                 suggestions.push('Use infrastructure as code (Terraform, CloudFormation)');
                 suggestions.push('Implement cost monitoring and budget alerts');
                 suggestions.push('Leverage managed services to reduce operational overhead');
@@ -1858,11 +1908,11 @@
                 tradeoffs.good.push('Automatic deployments from Git');
                 tradeoffs.good.push('Built-in CDN and edge functions');
                 tradeoffs.good.push('Excellent developer experience');
-                
+
                 if (['Next.js', 'Nuxt.js', 'SvelteKit', 'Remix', 'Astro'].includes(selections.frontend)) {
                     tradeoffs.good.push('First-class support for ' + selections.frontend);
                 }
-                
+
                 tradeoffs.bad.push('Limited backend capabilities (use serverless functions)');
                 suggestions.push('Use edge functions for API routes');
                 suggestions.push('Leverage preview deployments for testing');
@@ -1895,12 +1945,12 @@
         }
 
         function displayResults(assessment, confidence, cost, alternatives, learningResources) {
-            const statusClass = assessment.status === 'recommended' ? 'recommended' : 
-                               assessment.status === 'caution' ? 'caution' : 'not-recommended';
-            const statusIcon = assessment.status === 'recommended' ? '✅' : 
-                              assessment.status === 'caution' ? '⚠️' : '❌';
-            const statusText = assessment.status === 'recommended' ? 'Strong Fit' : 
-                              assessment.status === 'caution' ? 'Works with Caution' : 'Not Recommended';
+            const statusClass = assessment.status === 'recommended' ? 'recommended' :
+                assessment.status === 'caution' ? 'caution' : 'not-recommended';
+            const statusIcon = assessment.status === 'recommended' ? '✅' :
+                assessment.status === 'caution' ? '⚠️' : '❌';
+            const statusText = assessment.status === 'recommended' ? 'Strong Fit' :
+                assessment.status === 'caution' ? 'Works with Caution' : 'Not Recommended';
 
             // Confidence Score
             document.getElementById('confidenceScore').innerHTML = `
@@ -2050,7 +2100,7 @@
         function shareResults() {
             const stackData = btoa(JSON.stringify(selections));
             const shareUrl = `${window.location.origin}${window.location.pathname}?stack=${stackData}`;
-            
+
             document.getElementById('shareLinkBox').textContent = shareUrl;
             document.getElementById('shareModal').classList.add('show');
         }
@@ -2058,7 +2108,7 @@
         function copyShareLink() {
             const linkBox = document.getElementById('shareLinkBox');
             const text = linkBox.textContent;
-            
+
             navigator.clipboard.writeText(text).then(() => {
                 showToast('Link copied to clipboard!');
                 closeModal('shareModal');
@@ -2073,7 +2123,7 @@
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
@@ -2087,7 +2137,7 @@
             const assessment = analyzeStack();
             const confidence = calculateConfidenceScore(assessment);
             const cost = estimateCost();
-            
+
             let markdown = `# Architecture Assessment Report\n\n`;
             markdown += `**Generated:** ${new Date().toLocaleDateString()}\n\n`;
             markdown += `## Stack Configuration\n\n`;
@@ -2100,36 +2150,36 @@
             markdown += `- **Rendering:** ${selections.ssr === 'Yes - SSR Required' ? 'Server-Side' : 'Client-Side'}\n`;
             markdown += `- **Team Size:** ${selections.teamSize}\n`;
             markdown += `- **Project Stage:** ${selections.stage}\n\n`;
-            
+
             markdown += `## Assessment\n\n`;
             markdown += `**Confidence Score:** ${confidence}%\n\n`;
             markdown += `**Status:** ${assessment.status === 'recommended' ? '✅ Strong Fit' : assessment.status === 'caution' ? '⚠️ Works with Caution' : '❌ Not Recommended'}\n\n`;
-            
+
             markdown += `### Estimated Monthly Cost\n\n`;
             markdown += `$${cost.min} - $${cost.max}\n\n`;
-            
+
             markdown += `### Strengths\n\n`;
             assessment.tradeoffs.good.forEach(item => {
                 markdown += `- ${item}\n`;
             });
-            
+
             markdown += `\n### Challenges\n\n`;
             assessment.tradeoffs.bad.forEach(item => {
                 markdown += `- ${item}\n`;
             });
-            
+
             if (assessment.risks.length > 0) {
                 markdown += `\n### Risk Flags\n\n`;
                 assessment.risks.forEach(item => {
                     markdown += `- ${item}\n`;
                 });
             }
-            
+
             markdown += `\n### Recommendations\n\n`;
             assessment.suggestions.forEach(item => {
                 markdown += `- ${item}\n`;
             });
-            
+
             // Download markdown file
             const blob = new Blob([markdown], { type: 'text/markdown' });
             const url = URL.createObjectURL(blob);
@@ -2140,7 +2190,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
+
             showToast('Markdown file downloaded!');
         }
 
@@ -2168,15 +2218,15 @@
             });
             document.getElementById('result').classList.remove('show');
             document.getElementById('progressFill').style.width = '0%';
-            
+
             // Clear URL parameters
             window.history.pushState({}, '', window.location.pathname);
-            
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Close modal when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('show');
             }
@@ -2184,7 +2234,11 @@
 
         init();
     </script>
-        <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="/cf-analytics/beacon.js"
+        data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+    <!-- End Cloudflare Web Analytics -->
 
 </body>
+
 </html>

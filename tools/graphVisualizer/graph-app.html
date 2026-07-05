@@ -1,13 +1,16 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>System Graph | Professional Visualizer</title>
 
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Interactive system graph visualizer for developers. Visualize project architecture, dependencies, and components with this professional tool. 100% free." />
-  <meta name="keywords" content="system graph, architecture visualization, dependency graph, project visualization, developer tools, system architecture, graph visualizer" />
+  <meta name="description"
+    content="Interactive system graph visualizer for developers. Visualize project architecture, dependencies, and components with this professional tool. 100% free." />
+  <meta name="keywords"
+    content="system graph, architecture visualization, dependency graph, project visualization, developer tools, system architecture, graph visualizer" />
   <meta name="author" content="LiDa Software" />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="English" />
@@ -15,14 +18,16 @@
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="System Graph Visualizer - Professional Architecture Tool" />
-  <meta property="og:description" content="Visualize your system architecture with interactive graphs. See components, layers, and dependencies in a visual format designed for developers." />
+  <meta property="og:description"
+    content="Visualize your system architecture with interactive graphs. See components, layers, and dependencies in a visual format designed for developers." />
   <meta property="og:url" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-app.html" />
   <meta property="og:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-og.jpg" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="System Graph Visualizer - Professional Architecture Tool" />
-  <meta name="twitter:description" content="Interactive system graph visualizer for developers. Visualize project architecture and dependencies." />
+  <meta name="twitter:description"
+    content="Interactive system graph visualizer for developers. Visualize project architecture and dependencies." />
   <meta name="twitter:image" content="https://www.lidasoftware.online/tools/graphVisualizer/graph-twitter.jpg" />
 
   <!-- Canonical URL -->
@@ -63,16 +68,16 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-  
+
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css?v=2.3" />
-  
+
   <!-- html2canvas for image export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  
+
   <!-- Analytics -->
   <script defer src="https://va.vercel.app/script.js"></script>
-<script type="application/ld+json">
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -94,7 +99,7 @@
         <h2>🚀 How to Use System Graph Visualizer</h2>
         <p>3 Simple Steps to Visualize Your Architecture</p>
       </div>
-      
+
       <div class="support-notice">
         <div class="support-badge">
           <span class="support-icon">⚡</span>
@@ -108,7 +113,7 @@
           <span>More languages & frameworks coming soon!</span>
         </div>
       </div>
-      
+
       <div class="steps-container">
         <div class="step-item">
           <div class="step-number">1</div>
@@ -117,7 +122,7 @@
             <p>Click the "Copy Prompt" button to copy the AI instruction</p>
           </div>
         </div>
-        
+
         <div class="step-item">
           <div class="step-number">2</div>
           <div class="step-content">
@@ -126,7 +131,7 @@
             <p class="step-detail">Add your project description and let the AI agent generate the JSON structure</p>
           </div>
         </div>
-        
+
         <div class="step-item">
           <div class="step-number">3</div>
           <div class="step-content">
@@ -135,14 +140,15 @@
           </div>
         </div>
       </div>
-      
+
       <div class="prompt-section">
         <h3>👇 Choose Your Architecture Type:</h3>
         <div class="template-help-text">
           💡 <strong>Not sure?</strong> Start with "General" - it works for any project!
         </div>
         <div class="template-selector">
-          <button class="template-btn active template-btn-default" data-template="general" onclick="selectTemplate('general')">
+          <button class="template-btn active template-btn-default" data-template="general"
+            onclick="selectTemplate('general')">
             <span class="template-icon">✨</span>
             <span class="template-name"><strong>General</strong></span>
             <span class="template-badge">Recommended</span>
@@ -181,49 +187,49 @@
           </button>
         </div>
       </div>
-      
+
       <div class="text-to-copy" id="copyText">Create a system architecture JSON for visualization with this structure:
 
-{
-  "project": { "name": "Your Project Name" },
-  "nodes": [
-    {
-      "id": "unique-id",
-      "label": "Display Name",
-      "type": "frontend | backend | database | cache | queue | gateway | service | external | infra",
-      "description": "What this component does",
-      "technology": "Tech stack used",
-      "importance": "critical | high | medium | low"
-    }
-  ],
-  "edges": [
-    {
-      "from": "source-node-id",
-      "to": "target-node-id",
-      "type": "api | data | queue | cache",
-      "description": "What this connection represents"
-    }
-  ]
-}
+        {
+        "project": { "name": "Your Project Name" },
+        "nodes": [
+        {
+        "id": "unique-id",
+        "label": "Display Name",
+        "type": "frontend | backend | database | cache | queue | gateway | service | external | infra",
+        "description": "What this component does",
+        "technology": "Tech stack used",
+        "importance": "critical | high | medium | low"
+        }
+        ],
+        "edges": [
+        {
+        "from": "source-node-id",
+        "to": "target-node-id",
+        "type": "api | data | queue | cache",
+        "description": "What this connection represents"
+        }
+        ]
+        }
 
-GUIDELINES:
-- Use clear, descriptive labels for nodes
-- Include all major system components
-- Show dependencies with edges
-- Use appropriate node types for color coding
-- Add descriptions for better understanding
-- Mark critical components with importance level
+        GUIDELINES:
+        - Use clear, descriptive labels for nodes
+        - Include all major system components
+        - Show dependencies with edges
+        - Use appropriate node types for color coding
+        - Add descriptions for better understanding
+        - Mark critical components with importance level
 
-Generate a complete JSON structure based on the project description I provide.</div>
-      
+        Generate a complete JSON structure based on the project description I provide.</div>
+
       <button class="copy-button" onclick="copyWelcomeText()">
         <span>📋 Copy Prompt</span>
       </button>
-      
+
       <button class="close-modal-button" onclick="closeWelcomeModal()">
         Go to App
       </button>
-      
+
       <div class="modal-footer">
         <p>Tip: Use the "Quick Examples" buttons to load different system configurations</p>
       </div>
@@ -231,14 +237,14 @@ Generate a complete JSON structure based on the project description I provide.</
   </div>
 
   <!-- Header -->
-    <header>
-      <h1><img src="logo.png" alt="Logo" class="header-logo"> System Graph Visualizer</h1>
-      <div class="header-actions">
-        <button id="showPromptsBtn" class="icon-btn prompt-btn">✨ AI Prompts</button>
-        <button id="exportBtn" class="icon-btn">💾 Export JSON</button>
-        <button id="exportPngBtn" class="icon-btn">📸 Export PNG</button>
-      </div>
-    </header>
+  <header>
+    <h1><img src="logo.png" alt="Logo" class="header-logo"> System Graph Visualizer</h1>
+    <div class="header-actions">
+      <button id="showPromptsBtn" class="icon-btn prompt-btn">✨ AI Prompts</button>
+      <button id="exportBtn" class="icon-btn">💾 Export JSON</button>
+      <button id="exportPngBtn" class="icon-btn">📸 Export PNG</button>
+    </div>
+  </header>
 
   <!-- Support Notice Banner -->
   <div class="page-support-banner">
@@ -349,7 +355,7 @@ Generate a complete JSON structure based on the project description I provide.</
           <p>Paste your project JSON and click "Render Graph"</p>
         </div>
       </div>
-      
+
       <!-- Minimap -->
       <div id="minimap" class="minimap" style="display: none;">
         <div class="minimap-viewport"></div>
@@ -364,7 +370,7 @@ Generate a complete JSON structure based on the project description I provide.</
         <h2>📸 Export Graph as Image</h2>
         <p>Choose your export format and settings</p>
       </div>
-      
+
       <div class="export-options">
         <button class="export-format-btn" onclick="exportAsPNG()">
           <span class="export-icon">🖼️</span>
@@ -377,7 +383,7 @@ Generate a complete JSON structure based on the project description I provide.</
           <span class="export-desc">Scalable vector graphics</span>
         </button>
       </div>
-      
+
       <div class="export-settings">
         <h3>Export Settings</h3>
         <label class="export-setting-item">
@@ -390,7 +396,7 @@ Generate a complete JSON structure based on the project description I provide.</
           <span id="scaleValue">2x</span>
         </label>
       </div>
-      
+
       <button class="close-modal-button" onclick="closeExportModal()">
         Close
       </button>
@@ -405,11 +411,11 @@ Generate a complete JSON structure based on the project description I provide.</
     <div class="footer-content">
       <p class="footer-copyright">© LiDa System Graph Visualizer</p>
       <p class="footer-version">Version 2.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
-      
+
       <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer" class="btn-discover">
         Discover More Features
       </a>
-      
+
       <div class="footer-bottom">
         <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free.</p>
       </div>
@@ -418,7 +424,11 @@ Generate a complete JSON structure based on the project description I provide.</
 
   <!-- Scripts -->
   <script src="script.js?v=2.5"></script>
-      <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f"}'></script><!-- End Cloudflare Web Analytics -->
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="/cf-analytics/beacon.js"
+    data-cf-beacon='{"token": "757f4f335b8e4bcd9b0ed9d681945f1f", "send_metrics": "/cf-analytics/report"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 
 </body>
+
 </html>
