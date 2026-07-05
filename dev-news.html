@@ -49,6 +49,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/components/site-nav.css">
+  <script src="/components/site-nav.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -77,28 +79,11 @@
       font-family: 'Inter', -apple-system, sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      padding-top: 80px;
     }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
     /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      padding: 0 24px;
-      height: 52px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(10,10,15,0.94);
-      backdrop-filter: blur(20px);
-      display: flex; align-items: center; gap: 14px;
-    }
-    .nav-back {
-      display: flex; align-items: center; gap: 8px;
-      color: var(--muted); text-decoration: none;
-      font-size: 13px; font-weight: 500; transition: color .2s;
-    }
-    .nav-back:hover { color: var(--text); }
-    .nav-back img { border-radius: 4px; flex-shrink: 0; }
-    .nav-sep { color: var(--dim); font-size: 16px; }
-    .nav-title { font-size: 14px; font-weight: 600; color: var(--text); }
     .nav-right {
       margin-left: auto; display: flex; align-items: center; gap: 16px;
     }
@@ -715,26 +700,7 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-back" title="Back to LiDa Software">
-    <img src="/favicon.png" alt="LiDa" width="20" height="20" />
-    LiDa Software
-  </a>
-  <span class="nav-sep">/</span>
-  <span class="nav-title">Dev &amp; AI Feed</span>
-  <div class="nav-right">
-    <span class="updated-label" id="updatedLabel">—</span>
-    <div class="nav-live"><span class="nav-live-dot"></span>Live</div>
-    <button class="nav-refresh-btn" id="refreshBtn" aria-label="Refresh feed">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/>
-        <path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/>
-        <path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/>
-      </svg>
-      Refresh
-    </button>
-  </div>
-</nav>
+<site-nav active="dev-news"></site-nav>
 
 <!-- HERO -->
 <div class="hero">
@@ -761,6 +727,18 @@
     <button class="filter-tab" data-filter="oss">Open Source</button>
     <button class="filter-tab" data-filter="web">Web Dev</button>
     <button class="filter-tab" data-filter="security">Security</button>
+  </div>
+  <div class="nav-right">
+    <span class="updated-label" id="updatedLabel">—</span>
+    <div class="nav-live"><span class="nav-live-dot"></span>Live</div>
+    <button class="nav-refresh-btn" id="refreshBtn" aria-label="Refresh feed">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2.5 8a5.5 5.5 0 0 1 9.9-3.3"/>
+        <path d="M13.5 8a5.5 5.5 0 0 1-9.9 3.3"/>
+        <path d="M12 2l1.4 2.7L11 5"/><path d="M4 14L2.6 11.3 5 11"/>
+      </svg>
+      Refresh
+    </button>
   </div>
 </div>
 
