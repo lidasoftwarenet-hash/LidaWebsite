@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     }
 
     // Send tracking data to the NestJS backend
-    fetch('https://lidabenzotracker.onrender.com/analytics/track', {
+    fetch('https://lidabenzotracker.onrender.com/api/analytics/track', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json' 
