@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
 
 <head>
@@ -90,6 +90,132 @@
 
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen overflow-x-hidden">
 
+  <!-- ════════════════════════ MOBILE GATE ════════════════════════ -->
+  <div id="mobile-gate" style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #0a0a12 0%, #0f0a1e 50%, #080810 100%);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+  ">
+    <!-- Glow blob -->
+    <div style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    "></div>
+
+    <!-- Icon -->
+    <div style="
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 24px rgba(167,139,250,0.5));
+      animation: float 3s ease-in-out infinite;
+    ">🖥️</div>
+
+    <!-- Brand chip -->
+    <div style="
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 999px;
+      padding: 4px 14px;
+      margin-bottom: 1.25rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #a78bfa;
+    ">
+      🎨 PaletteForge
+    </div>
+
+    <!-- Heading -->
+    <h2 style="
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    ">Desktop Only Tool</h2>
+
+    <!-- Subtext -->
+    <p style="
+      font-size: 0.92rem;
+      color: #6b7280;
+      margin: 0 0 0.5rem;
+      max-width: 300px;
+      line-height: 1.6;
+    ">
+      PaletteForge is built for <strong style="color:#a78bfa;">desktop browsers</strong> color pickers, sliders, and live previews need a larger screen to work properly.
+    </p>
+    <p style="
+      font-size: 0.82rem;
+      color: #4b5563;
+      margin: 0 0 2rem;
+    ">
+      For the best experience, open this page on a laptop or desktop.
+    </p>
+
+    <!-- Feature pills -->
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2rem;">
+      <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:999px;padding:5px 12px;font-size:0.72rem;color:#9ca3af;">🎯 Harmony Modes</span>
+      <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:999px;padding:5px 12px;font-size:0.72rem;color:#9ca3af;">🌊 Tailwind Config</span>
+      <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:999px;padding:5px 12px;font-size:0.72rem;color:#9ca3af;">♿ WCAG Contrast</span>
+    </div>
+
+    <!-- CTA -->
+    <button onclick="document.getElementById('mobile-gate').style.display='none'" style="
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 0.75rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      box-shadow: 0 8px 24px rgba(124,58,237,0.35);
+      transition: opacity 0.2s;
+    " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+      Continue Anyway →
+    </button>
+    <p style="font-size:0.72rem;color:#374151;margin-top:0.75rem;">Some features may not work correctly on mobile.</p>
+  </div>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+
+  <script>
+    (function() {
+      if (window.innerWidth < 768) {
+        document.getElementById('mobile-gate').style.display = 'flex';
+      }
+      window.addEventListener('resize', function() {
+        var gate = document.getElementById('mobile-gate');
+        if (window.innerWidth >= 768) gate.style.display = 'none';
+      });
+    })();
+  </script>
+
   <!-- ════════════════════════ HEADER ════════════════════════ -->
   <header class="sticky top-0 z-30 border-b border-white/5 backdrop-blur-xl">
     <div class="absolute inset-0 header-gradient pointer-events-none"></div>
@@ -177,6 +303,19 @@
 
   <!-- ════════════════════════ MAIN ════════════════════════ -->
   <main class="max-w-screen-2xl mx-auto px-4 sm:px-6 py-6">
+
+    <!-- Tool summary for search engines and AI discovery -->
+    <section aria-label="Tool overview" style="background:rgba(124,58,237,0.06); border:1px solid rgba(124,58,237,0.2); border-radius:14px; padding:18px 22px; margin-bottom:20px; display:flex; align-items:flex-start; gap:14px;">
+      <div>
+        <p style="color:#dbe0ff; font-size:0.95rem; line-height:1.65; margin:0 0 8px;">
+          <strong style="color:#fff;">PaletteForge</strong> is a browser-based color palette generator for designers and front-end developers.
+          It lets you pick a base color, apply harmony modes (monochromatic, complementary, triadic, and more), and instantly see your palette applied to real UI components.
+          Built-in WCAG contrast validation flags accessibility issues before you ship.
+          When you're done, export your palette as Tailwind config, CSS custom properties, or JSON design tokens.
+        </p>
+        <a href="../usecase-palette-forge.html" style="color:#a78bfa; font-weight:600; font-size:0.875rem; text-decoration:none;">See the PaletteForge workflow walkthrough →</a>
+      </div>
+    </section>
 
     <!-- ══ TAB: GENERATOR ,  3-column layout ══ -->
     <section id="tab-generator" class="tab-panel">
@@ -788,7 +927,7 @@
       </a>
 
       <div class="footer-bottom">
-        <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free and open source.</p>
+        <p class="footer-bottom-text">© 2026 LiDa Software. All tools are 100% free.</p>
       </div>
     </div>
   </footer>

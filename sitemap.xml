@@ -319,4 +319,184 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- 🎨 PaletteForge - Color Palette & Tailwind Generator -->
+    <url>
+        <loc>https://www.lidasoftware.online/palette-forge/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-palette-forge.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🧠 AI Learning Dashboard -->
+    <url>
+        <loc>https://www.lidasoftware.online/ai-learning-dashboard.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 📰 Dev News -->
+    <url>
+        <loc>https://www.lidasoftware.online/dev-news.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- ⚙️ Engineering -->
+    <url>
+        <loc>https://www.lidasoftware.online/engineering.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 📖 Guides -->
+    <url>
+        <loc>https://www.lidasoftware.online/guides.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- 👤 About -->
+    <url>
+        <loc>https://www.lidasoftware.online/about/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🔒 AI Policy -->
+    <url>
+        <loc>https://www.lidasoftware.online/ai-policy/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- 👥 Virtual Team Kit -->
+    <url>
+        <loc>https://www.lidasoftware.online/virtual-team-kit.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-virtual-team-kit.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🔀 Git Cheat Sheet -->
+    <url>
+        <loc>https://www.lidasoftware.online/tools/gitCheat/git-cheat.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-git-cheat.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🗂️ JSON Formatter -->
+    <url>
+        <loc>https://www.lidasoftware.online/tools/json-formatter/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- ✈️ Prompt Pilot -->
+    <url>
+        <loc>https://www.lidasoftware.online/tools/promptPilot/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/tools/promptPilot/landing.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-proptPilot.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🧮 Vector Sandbox -->
+    <url>
+        <loc>https://www.lidasoftware.online/tools/vector-sandbox/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-vector-sandbox.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🎧 LidaMixPlay (direct URL) -->
+    <url>
+        <loc>https://www.lidasoftware.online/lida-mix-play/</loc>
+        <lastmod>2026-03-28</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🎓 Tutorials - Individual Pages -->
+    <url>
+        <loc>https://www.lidasoftware.online/tutorials/agent/agent.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/tutorials/mcp/mcp.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/tutorials/prompt/guardrails.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/tutorials/rag/</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-tutorials.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 🕐 Timestamp Converter Usecase -->
+    <url>
+        <loc>https://www.lidasoftware.online/usecase-timestamp-converter.html</loc>
+        <lastmod>2026-07-08</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
 </urlset>

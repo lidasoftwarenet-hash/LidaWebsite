@@ -1,150 +1,180 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Generate Professional AI Prompts | LiDa Software</title>
-    <meta name="description"
-        content="Transform your AI workflow with professional prompt templates. Access 12+ expert templates designed for developers.">
-    <link rel="canonical" href="https://www.lidasoftware.online/usecase-prompt-vault.html">
-    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico">
-
-
-
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+    <title>PromptPilot Use Case — Turn Vague AI Requests into Structured Prompts | LiDa Software</title>
+    <meta name="description" content="See how PromptPilot helps developers stop writing vague AI prompts. A practical walkthrough: the problem, a before/after example, and the guided wizard workflow that produces ready-to-paste prompts for any AI assistant." />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/usecase-proptPilot.html" />
+    <meta property="og:title" content="PromptPilot Use Case — Structured AI Prompts for Developers" />
+    <meta property="og:description" content="How PromptPilot transforms vague AI requests into structured, reusable prompts that produce better results every time." />
+    <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+    <meta property="og:site_name" content="LiDa Software" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="PromptPilot Use Case — Structured AI Prompts for Developers" />
+    <meta name="twitter:description" content="Stop writing vague prompts. PromptPilot collects your context, fills a battle-tested template, and generates a ready-to-use prompt in seconds." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+    <link rel="canonical" href="https://www.lidasoftware.online/usecase-proptPilot.html" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <script type="application/ld+json">
-        {
-            "@context":"https://schema.org",
-            "@type":"HowTo",
-            "name":"How to Generate Professional AI Prompts",
-            "step":[
-                {"@type":"HowToStep","text":"Browse 12+ expert templates across 7 categories."},
-                {"@type":"HowToStep","text":"Customize prompts with smart form builder."},
-                {"@type":"HowToStep","text":"Generate and copy professional prompts instantly."}
-            ],
-            "tool":{"@type":"SoftwareApplication","name":"LiDa Prompt Vault","url":"https://www.lidasoftware.online/prompt-vault.html"}
-        }
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "PromptPilot Use Case — Turn Vague AI Requests into Structured, Reusable Prompts",
+      "description": "A practical walkthrough showing how PromptPilot helps developers produce structured, high-quality prompts for ChatGPT, Claude, Gemini, and Perplexity without starting from scratch every time.",
+      "url": "https://www.lidasoftware.online/usecase-proptPilot.html",
+      "author": { "@type": "Organization", "name": "LiDa Software", "url": "https://www.lidasoftware.online" },
+      "publisher": { "@type": "Organization", "name": "LiDa Software", "logo": { "@type": "ImageObject", "url": "https://www.lidasoftware.online/lida-logo.png" } },
+      "mainEntityOfPage": "https://www.lidasoftware.online/usecase-proptPilot.html"
+    }
     </script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f0f23;
-            color: #e0e0e0;
-            line-height: 1.7;
-            margin: 0;
-            padding-top: 80px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            background: linear-gradient(135deg, #667eea, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
-        }
-
-        h2 {
-            color: #a78bfa;
-            margin-top: 40px;
-        }
-
-        a {
-            color: #a78bfa;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .cta {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 15px 25px;
-            border-radius: 40px;
-            background: linear-gradient(135deg, #667eea, #a78bfa);
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #7070a0;
-            border-top: 1px solid rgba(102, 126, 234, 0.1);
-            margin-top: 60px;
-        }
-    </style>
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
     <script defer src="/_vercel/insights/script.js"></script>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "LiDa Software",
-  "url": "https://www.lidasoftware.online",
-  "logo": "https://www.lidasoftware.online/lida-logo.png",
-  "sameAs": [
-    "https://www.linkedin.com/company/lida-software"
-  ]
-}
-</script>
-<script src="/analytics.js" defer></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #090912; color: #dbe0ff; line-height: 1.7; }
+        .container { max-width: 920px; margin: 0 auto; padding: 56px 20px; }
+        .hero { border: 1px solid rgba(99,102,241,.2); border-radius: 18px; background: linear-gradient(135deg,#0f0f1f 0%,#12122a 100%); padding: 64px 24px 54px; text-align: center; margin-bottom: 42px; }
+        .badge { display: inline-block; padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #a5b4fc; border: 1px solid rgba(99,102,241,.35); background: rgba(99,102,241,.12); margin-bottom: 16px; }
+        h1 { font-size: clamp(2rem,5.5vw,3rem); line-height: 1.2; margin-bottom: 14px; background: linear-gradient(135deg,#a78bfa 0%,#60a5fa 55%,#22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { font-size: 1.75rem; color: #fff; margin: 34px 0 12px; }
+        h3 { font-size: 1.1rem; color: #e0e6ff; margin: 0 0 6px; }
+        p { color: #b4bddf; margin-bottom: 14px; }
+        ul, ol { margin: 8px 0 14px 22px; color: #b4bddf; }
+        li { margin-bottom: 8px; }
+        .feature-box { border: 1px solid rgba(148,163,184,.18); background: rgba(255,255,255,.02); border-radius: 14px; padding: 22px; margin-bottom: 14px; }
+        .example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 24px; }
+        @media (max-width: 640px) { .example-grid { grid-template-columns: 1fr; } }
+        .example-box { border-radius: 12px; padding: 18px 20px; }
+        .example-box.bad { background: rgba(239,68,68,.07); border: 1px solid rgba(239,68,68,.25); }
+        .example-box.good { background: rgba(52,211,153,.07); border: 1px solid rgba(52,211,153,.25); }
+        .example-label { font-size: 0.72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+        .bad .example-label { color: #f87171; }
+        .good .example-label { color: #34d399; }
+        .example-box p { font-size: 0.88rem; line-height: 1.6; margin: 0; }
+        .bad p { color: #fca5a5; }
+        .good p { color: #6ee7b7; }
+        .step-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; }
+        .step-num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg,#7c3aed,#2563eb); color: #fff; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+        .related-links { border: 1px solid rgba(99,102,241,.2); background: rgba(99,102,241,.04); border-radius: 14px; padding: 22px; margin-top: 36px; }
+        .related-links h3 { color: #a5b4fc; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+        .related-links ul { margin: 0; list-style: none; padding: 0; }
+        .related-links a { color: #818cf8; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .related-links a:hover { color: #c7d2fe; }
+        .cta { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 14px 24px; border-radius: 999px; font-weight: 700; color: #fff; background: linear-gradient(135deg,#7c3aed,#2563eb); box-shadow: 0 10px 26px rgba(124,58,237,.35); margin-top: 12px; }
+        .cta:hover { filter: brightness(1.08); }
+        footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(148,163,184,.2); color: #7c89b2; font-size: 13px; text-align: center; }
+    </style>
+    <script src="/analytics.js" defer></script>
 </head>
-
 <body>
-    <nav
-        style="position:fixed;top:0;left:0;right:0;background:rgba(15,15,35,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(102,126,234,0.2);z-index:1000;height:80px;display:flex;align-items:center;justify-content:center;">
-        <a href="https://www.lidasoftware.online/"
-            style="font-weight:700;font-size:1.3em;background:linear-gradient(135deg,#667eea,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">LiDa
-            Software</a>
-    </nav>
-
     <div class="container">
-        <h1>How to Generate Professional AI Prompts</h1>
-        <p>Stop wasting time crafting prompts from scratch. <strong>LiDa Prompt Vault</strong> provides battle-tested
-            templates designed by experts to get better results, faster.</p>
 
-        <h2>Quick Guide</h2>
-        <ol>
-            <li><a href="https://www.lidasoftware.online/prompt-vault.html">Access LiDa Prompt Vault</a>.</li>
-            <li>Browse 12+ expert templates across 7 categories including sprint planning, code reviews, security
-                audits, and testing strategies.</li>
-            <li>Customize with intelligent form builder and generate optimized prompts instantly. Copy and use
-                immediately.</li>
-        </ol>
+        <section class="hero">
+            <span class="badge">✈️ Developer Tool Use Case</span>
+            <h1>PromptPilot: From Vague Request to Structured, Reusable Prompt</h1>
+            <p style="max-width:680px;margin:0 auto 20px;">
+                Most developers tell the AI what they want in a single sentence and are disappointed by the result.
+                PromptPilot replaces that guessing game with a guided wizard that builds a precise, context-rich prompt for you.
+            </p>
+            <a class="cta" href="tools/promptPilot/index.html">Open PromptPilot →</a>
+        </section>
 
-        <h2>Key Features</h2>
+        <h2>The Problem</h2>
+        <p>
+            AI assistants are as useful as the prompts they receive. The issue is not the model — it is the input.
+            Most requests lack the context a model needs to produce a useful answer, so engineers end up re-prompting
+            multiple times, copy-pasting the same setup across projects, or starting from a blank slate every time.
+        </p>
+        <p>
+            Two engineers asking the same question can get very different results. The difference is almost always
+            structure: one prompt gives the model a role, a goal, constraints, and an output format. The other does not.
+        </p>
+
+        <h2>Before and After</h2>
+        <p>Here is the same request at two levels of quality:</p>
+        <div class="example-grid">
+            <div class="example-box bad">
+                <div class="example-label">❌ Vague prompt</div>
+                <p>"Review my code and tell me if it's good."</p>
+            </div>
+            <div class="example-box good">
+                <div class="example-label">✅ PromptPilot output</div>
+                <p>"You are a senior TypeScript engineer. Review the following code for: (1) security issues, (2) performance problems, (3) readability. The project is a NestJS API. Flag only issues that would block a production release. Format your response as a numbered list with severity tags."</p>
+            </div>
+        </div>
+        <p>
+            The second prompt did not require the engineer to write more — PromptPilot asked the right questions
+            (language, project type, review focus, output format) and assembled the result.
+        </p>
+
+        <h2>How PromptPilot Works</h2>
+        <div class="feature-box">
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div>
+                    <h3>Choose a template category</h3>
+                    <p style="margin:0;font-size:0.9rem;">Pick from 12+ pre-built templates: code reviews, sprint planning, security audits, test strategy, architecture reviews, and more.</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div>
+                    <h3>Fill in your context</h3>
+                    <p style="margin:0;font-size:0.9rem;">A short guided form collects the details that matter: technology stack, scope, goals, constraints, and desired output format.</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div>
+                    <h3>Get a ready-to-paste prompt</h3>
+                    <p style="margin:0;font-size:0.9rem;">PromptPilot assembles a structured, complete prompt. Copy it directly into ChatGPT, Claude, Gemini, or Perplexity.</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">4</div>
+                <div>
+                    <h3>Reuse across projects</h3>
+                    <p style="margin:0;font-size:0.9rem;">Run the same prompt category across different projects without rebuilding from scratch each time.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Who It Is For</h2>
         <ul>
-            <li><strong>12+ Expert Templates:</strong> Pre-built prompts for development workflows.</li>
-            <li><strong>Smart Customization:</strong> Adapts to your project context.</li>
-            <li><strong>Instant Results:</strong> Generate professional prompts in seconds.</li>
-            <li><strong>Organized Library:</strong> Browse by category, difficulty, or search.</li>
-            <li><strong>100% Free:</strong> All templates available at no cost.</li>
+            <li><strong>Developers using AI daily</strong> who want consistent, repeatable results across projects.</li>
+            <li><strong>Team leads</strong> who need a shared baseline for how AI is used in code reviews and planning sessions.</li>
+            <li><strong>Engineers learning prompt engineering</strong> who want to understand good structure by example, not by reading a long guide.</li>
         </ul>
 
-        <a class="cta" href="https://www.lidasoftware.online/tools/promptPilot/index.html">🚀 Start Building Prompts
-            Now</a>
+        <h2>What It Is Not</h2>
+        <p>
+            PromptPilot does not call any AI API on your behalf and does not store your prompts on a server.
+            There is no account, no subscription, and no data sent anywhere.
+            It is a static, browser-based prompt builder — the AI still lives in the assistant you already use.
+        </p>
+
+        <a class="cta" href="tools/promptPilot/index.html">Try PromptPilot — free, no login →</a>
+
+        <div class="related-links">
+            <h3>Related on LiDa Software</h3>
+            <ul>
+                <li><a href="guides.html">Browse all AI engineering tutorials and guides</a></li>
+                <li><a href="tutorials/prompt/guardrails.html">Tutorial: LLM Guardrails &amp; Prompt Injection</a></li>
+                <li><a href="tutorials/agent/agent.html">Tutorial: Understanding AI Agents</a></li>
+                <li><a href="ai-learning-dashboard.html">AI Developer Learning Dashboard</a></li>
+            </ul>
+        </div>
+
+        <footer>
+            © 2026 LiDa Software ·
+            <a href="https://www.lidasoftware.online" style="color:#a78bfa;">lidasoftware.online</a>
+        </footer>
     </div>
-
-    <footer>© 2026 LiDa Software. All rights reserved.</footer>
-
 </body>
-
 </html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="language" content="en" />
+    <title>Vector Sandbox Use Case — Understanding Vector Similarity for RAG and Semantic Search | LiDa Software</title>
+    <meta name="description" content="Why vector similarity scores matter in RAG, semantic search, and embedding-based retrieval. A practical explanation with concrete examples, and an interactive sandbox to test cosine similarity, dot product, and Euclidean distance in your browser." />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.lidasoftware.online/usecase-vector-sandbox.html" />
+    <meta property="og:title" content="Vector Sandbox Use Case — Vector Similarity for RAG and Semantic Search" />
+    <meta property="og:description" content="Why similarity scores matter in RAG pipelines and semantic search. Practical examples plus an interactive browser sandbox to explore cosine similarity, dot product, and Euclidean distance." />
+    <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
+    <meta property="og:site_name" content="LiDa Software" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vector Sandbox Use Case — Vector Similarity for RAG and Semantic Search" />
+    <meta name="twitter:description" content="Understand cosine similarity, dot product, and Euclidean distance with interactive examples. Essential math for RAG, embeddings, and semantic search." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
+    <link rel="canonical" href="https://www.lidasoftware.online/usecase-vector-sandbox.html" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Vector Sandbox Use Case — Understanding Vector Similarity for RAG and Semantic Search",
+      "description": "A practical explanation of why vector similarity scores matter in RAG pipelines and semantic search, with concrete examples and an interactive browser sandbox.",
+      "url": "https://www.lidasoftware.online/usecase-vector-sandbox.html",
+      "author": { "@type": "Organization", "name": "LiDa Software", "url": "https://www.lidasoftware.online" },
+      "publisher": { "@type": "Organization", "name": "LiDa Software", "logo": { "@type": "ImageObject", "url": "https://www.lidasoftware.online/lida-logo.png" } },
+      "mainEntityOfPage": "https://www.lidasoftware.online/usecase-vector-sandbox.html"
+    }
+    </script>
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', 'Segoe UI', sans-serif; background: #090912; color: #dbe0ff; line-height: 1.7; }
+        .container { max-width: 920px; margin: 0 auto; padding: 56px 20px; }
+        .hero { border: 1px solid rgba(139,92,246,.2); border-radius: 18px; background: linear-gradient(135deg,#0f0f1f 0%,#14142d 100%); padding: 64px 24px 54px; text-align: center; margin-bottom: 42px; }
+        .badge { display: inline-block; padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #c4b5fd; border: 1px solid rgba(139,92,246,.35); background: rgba(139,92,246,.12); margin-bottom: 16px; }
+        h1 { font-size: clamp(2rem,5.5vw,3rem); line-height: 1.2; margin-bottom: 14px; background: linear-gradient(135deg,#a78bfa 0%,#60a5fa 55%,#22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        h2 { font-size: 1.75rem; color: #fff; margin: 34px 0 12px; }
+        h3 { font-size: 1.1rem; color: #e0e6ff; margin: 0 0 6px; }
+        p { color: #b4bddf; margin-bottom: 14px; }
+        ul, ol { margin: 8px 0 14px 22px; color: #b4bddf; }
+        li { margin-bottom: 8px; }
+        .feature-box { border: 1px solid rgba(148,163,184,.18); background: rgba(255,255,255,.02); border-radius: 14px; padding: 22px; margin-bottom: 14px; }
+        .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+        @media (max-width: 640px) { .metric-grid { grid-template-columns: 1fr; } }
+        .metric-card { border-radius: 12px; padding: 18px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.02); }
+        .metric-name { font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+        .metric-card.cosine .metric-name { color: #a78bfa; }
+        .metric-card.dot .metric-name { color: #60a5fa; }
+        .metric-card.eucl .metric-name { color: #34d399; }
+        .metric-card p { font-size: 0.88rem; color: #9ba8cc; margin: 0; line-height: 1.55; }
+        .example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0 24px; }
+        @media (max-width: 580px) { .example-grid { grid-template-columns: 1fr; } }
+        .example-box { border-radius: 12px; padding: 18px 20px; }
+        .example-box.spelling { background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.22); }
+        .example-box.semantic { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.22); }
+        .example-label { font-size: 0.72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+        .spelling .example-label { color: #f87171; }
+        .semantic .example-label { color: #34d399; }
+        .example-box p { font-size: 0.88rem; line-height: 1.6; margin: 0; }
+        .spelling p { color: #fca5a5; }
+        .semantic p { color: #6ee7b7; }
+        .score-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+        .score-row:last-child { border-bottom: none; }
+        .score-label { flex: 1; font-size: 0.9rem; color: #b4bddf; }
+        .score-val { font-size: 0.9rem; font-weight: 700; font-family: monospace; }
+        .score-high { color: #34d399; }
+        .score-low { color: #94a3b8; }
+        .score-zero { color: #64748b; }
+        .related-links { border: 1px solid rgba(139,92,246,.2); background: rgba(139,92,246,.04); border-radius: 14px; padding: 22px; margin-top: 36px; }
+        .related-links h3 { color: #c4b5fd; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+        .related-links ul { margin: 0; list-style: none; padding: 0; }
+        .related-links a { color: #a78bfa; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .related-links a:hover { color: #c4b5fd; }
+        .cta { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 14px 24px; border-radius: 999px; font-weight: 700; color: #fff; background: linear-gradient(135deg,#7c3aed,#2563eb); box-shadow: 0 10px 26px rgba(124,58,237,.35); margin-top: 12px; }
+        .cta:hover { filter: brightness(1.08); }
+        .cta-secondary { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 13px 22px; border-radius: 999px; font-weight: 700; color: #a78bfa; border: 1px solid rgba(139,92,246,.4); margin-top: 12px; margin-left: 12px; font-size: 0.95rem; }
+        .cta-secondary:hover { background: rgba(139,92,246,.08); }
+        footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid rgba(148,163,184,.2); color: #7c89b2; font-size: 13px; text-align: center; }
+    </style>
+    <script src="/analytics.js" defer></script>
+</head>
+<body>
+    <div class="container">
+
+        <section class="hero">
+            <span class="badge">📐 Developer Tool Use Case</span>
+            <h1>Vector Sandbox: Why Similarity Scores Matter in RAG and Semantic Search</h1>
+            <p style="max-width:680px;margin:0 auto 20px;">
+                Embedding models turn text into numbers. Vector similarity decides which numbers are "close."
+                If you are building or debugging a RAG pipeline, a semantic search feature, or a recommendation system,
+                understanding this math is not optional.
+            </p>
+            <a class="cta" href="tools/vector-sandbox/index.html">Open Vector Sandbox →</a>
+            <a class="cta-secondary" href="tutorials/rag/index.html">Read the RAG tutorial →</a>
+        </section>
+
+        <h2>The Problem</h2>
+        <p>
+            Most RAG implementations work until they don't. A user asks a reasonable question, the retrieval step
+            finds the wrong chunks, and the model either hallucinates or says it doesn't know — even when the answer
+            is in the knowledge base.
+        </p>
+        <p>
+            The culprit is usually a mismatch between how similarity is being measured and what "similar" actually means
+            for a given use case. Developers who treat vector search as a black box — "embeddings go in, results come out"
+            — have no basis for debugging when retrieval fails.
+        </p>
+
+        <h2>Spelling Similarity vs. Semantic Similarity</h2>
+        <p>
+            This is the most common misconception in RAG and search work. Two sentences can share zero words and still
+            be semantically close. Two sentences can share most words and mean opposite things.
+        </p>
+        <div class="example-grid">
+            <div class="example-box spelling">
+                <div class="example-label">❌ Spelling match — wrong</div>
+                <p>"The bank approved the loan" and "The river bank flooded" share the word <em>bank</em> but are semantically unrelated. Keyword search returns both; vector search does not.</p>
+            </div>
+            <div class="example-box semantic">
+                <div class="example-label">✅ Semantic match — correct</div>
+                <p>"Remote work policy" and "Can I work from home?" share no keywords but a good embedding model places them close in vector space — which is exactly what RAG needs.</p>
+            </div>
+        </div>
+        <p>
+            Vector similarity operates on meaning, not spelling. That is the fundamental reason embeddings exist.
+        </p>
+
+        <h2>The Three Metrics and When Each Applies</h2>
+        <div class="metric-grid">
+            <div class="metric-card cosine">
+                <div class="metric-name">Cosine Similarity</div>
+                <p>Measures the angle between two vectors, ignoring magnitude. Best for text embeddings where direction encodes meaning. Score ranges from −1 to 1. Most RAG implementations use this.</p>
+            </div>
+            <div class="metric-card dot">
+                <div class="metric-name">Dot Product</div>
+                <p>Measures both angle and magnitude. Used when you want length to influence relevance — for example in recommendation systems where a higher-magnitude vector may signal a stronger preference.</p>
+            </div>
+            <div class="metric-card eucl">
+                <div class="metric-name">Euclidean Distance</div>
+                <p>Measures straight-line distance between two points. Useful for clustering or image embeddings. A lower score means more similar. Less common in text-based RAG but worth understanding.</p>
+            </div>
+        </div>
+
+        <h2>Why Similarity Scores Matter in Practice</h2>
+        <div class="feature-box">
+            <h3>Retrieval threshold</h3>
+            <p style="margin:0 0 14px;font-size:0.9rem;">
+                A RAG pipeline typically retrieves the top-K chunks above a minimum similarity score.
+                Set the threshold too high and you miss relevant context. Set it too low and noise enters the prompt.
+                You cannot tune this threshold without understanding what a cosine score of 0.72 actually means
+                for your corpus.
+            </p>
+            <h3>Score comparison — same query, different chunks</h3>
+            <div class="feature-box" style="margin:10px 0 0; padding:14px;">
+                <div class="score-row">
+                    <span class="score-label">"Can I work remotely?" vs. "Remote work policy for full-time employees"</span>
+                    <span class="score-val score-high">0.91</span>
+                </div>
+                <div class="score-row">
+                    <span class="score-label">"Can I work remotely?" vs. "Office equipment reimbursement procedure"</span>
+                    <span class="score-val score-low">0.61</span>
+                </div>
+                <div class="score-row">
+                    <span class="score-label">"Can I work remotely?" vs. "Company holiday schedule 2024"</span>
+                    <span class="score-val score-zero">0.38</span>
+                </div>
+            </div>
+            <p style="margin:12px 0 0;font-size:0.85rem;color:#8896b8;">
+                These are illustrative scores. Real values depend on your embedding model and corpus.
+                Use the Vector Sandbox to explore how different inputs shift similarity scores.
+            </p>
+        </div>
+
+        <h2>What the Vector Sandbox Lets You Do</h2>
+        <ul>
+            <li>Enter two text-like vectors and compute cosine similarity, dot product, and Euclidean distance simultaneously.</li>
+            <li>See an interactive 2D visualization of how the vectors relate in space.</li>
+            <li>Use predefined examples (semantic pairs, unrelated pairs, near-duplicates) to observe how scores shift.</li>
+            <li>Build intuition for what score ranges mean before applying thresholds in a real RAG system.</li>
+        </ul>
+        <p>
+            No paid API, no account, no server calls. Everything runs in the browser.
+        </p>
+
+        <a class="cta" href="tools/vector-sandbox/index.html">Explore the Vector Sandbox →</a>
+        <a class="cta-secondary" href="tutorials/rag/index.html">Learn the full RAG pipeline →</a>
+
+        <div class="related-links">
+            <h3>Related on LiDa Software</h3>
+            <ul>
+                <li><a href="tutorials/rag/index.html">Tutorial: Understanding RAG — interactive pipeline guide</a></li>
+                <li><a href="tutorials/agent/agent.html">Tutorial: Understanding AI Agents</a></li>
+                <li><a href="tutorials/mcp/mcp.html">Tutorial: Model Context Protocol (MCP)</a></li>
+                <li><a href="guides.html">All AI engineering guides and tutorials</a></li>
+                <li><a href="ai-learning-dashboard.html">AI Developer Learning Dashboard</a></li>
+            </ul>
+        </div>
+
+        <footer>
+            © 2026 LiDa Software ·
+            <a href="https://www.lidasoftware.online" style="color:#a78bfa;">lidasoftware.online</a>
+        </footer>
+    </div>
+</body>
+</html>

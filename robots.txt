@@ -6,6 +6,3 @@ Allow: /
 
 Sitemap: https://www.lidasoftware.online/sitemap.xml
 Host: www.lidasoftware.online
-
-# Preferred domain
-Host: www.lidasoftware.online
