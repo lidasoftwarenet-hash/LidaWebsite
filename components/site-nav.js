@@ -5,7 +5,7 @@ class SiteNav extends HTMLElement {
         <div class="nav-container">
           <a href="#" class="nav-logo" style="display: flex; align-items: center; gap: 10px;">
             <div style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(102, 126, 234, 0.2);">
-              <img src="/logo.png" alt="LiDa Software Logo - Free Developer Tools" style="width: 30px; height: auto;">
+              <img src="/logo.png" alt="LiDa Software Logo - Free Developer Tools" width="30" height="30" style="width: 30px; height: 30px; max-width: 30px; max-height: 30px; object-fit: contain; display: block; flex-shrink: 0;">
             </div>
             LiDa Software
           </a>

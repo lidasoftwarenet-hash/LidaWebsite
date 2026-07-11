@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,6 +46,8 @@
 
     html {
       scroll-behavior: smooth;
+      /* Offset for the fixed navbar so hash-anchor navigation lands below it */
+      scroll-padding-top: 110px;
     }
 
 
@@ -3863,17 +3865,25 @@
       }
     });
 
-    // Highlight target on page load if there's a hash
+    // Scroll-to-hash on page load (handles cross-page navigation, e.g. /engineering → #about)
     if (window.location.hash) {
-      const target = document.querySelector(window.location.hash);
-      if (target) {
-        setTimeout(() => {
-          target.classList.add('highlight-target');
-          setTimeout(() => {
-            target.classList.remove('highlight-target');
-          }, 800);
-        }, 100); // Small delay to ensure page is loaded
-      }
+      const scrollToHash = () => {
+        const target = document.querySelector(window.location.hash);
+        if (!target) return;
+
+        // Explicitly scroll so we land below the sticky navbar
+        const navbarHeight = 110; // matches scroll-padding-top above
+        const top = target.getBoundingClientRect().top + window.scrollY - navbarHeight;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+
+        // Highlight animation
+        target.classList.add('highlight-target');
+        setTimeout(() => target.classList.remove('highlight-target'), 800);
+      };
+
+      // Wait for dynamic content (project cards, usage counts) to finish rendering
+      // before measuring positions. 400 ms is enough for all synchronous JS to settle.
+      setTimeout(scrollToHash, 400);
     }
 
     // Random elements for "WOW in 5 seconds" features

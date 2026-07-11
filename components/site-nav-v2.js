@@ -8,6 +8,7 @@ class SiteNavV2 extends HTMLElement {
     this.render();
     this.setupEventListeners();
     this.updateActiveState();
+    this._revealWhenReady();
   }
 
   static get observedAttributes() {
@@ -23,13 +24,45 @@ class SiteNavV2 extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        @import url('/components/site-nav-v2.css');
+        /* Critical sizing — applied synchronously at mount to prevent FOUC */
+        :host {
+          display: block;
+          min-height: 104px;
+        }
+
+        .nav-shell-pending {
+          visibility: hidden;
+        }
+
+        .nav-logo-icon-container {
+          width: 40px;
+          height: 40px;
+          max-width: 40px;
+          max-height: 40px;
+          flex: 0 0 40px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .nav-logo-img {
+          width: 30px;
+          height: 30px;
+          max-width: 30px;
+          max-height: 30px;
+          object-fit: contain;
+          display: block;
+          flex-shrink: 0;
+        }
       </style>
+      <link rel="stylesheet" href="/components/site-nav-v2.css">
+      <div class="nav-shell nav-shell-pending">
       <nav class="nav-header" id="navbar" aria-label="Main navigation">
         <div class="nav-container">
           <a href="/index.html" class="nav-logo-link" aria-label="LiDa Software Home">
             <div class="nav-logo-icon-container" aria-hidden="true">
-              <img src="/logo.png" alt="" class="nav-logo-img">
+              <img src="/logo.png" alt="" class="nav-logo-img" width="30" height="30">
             </div>
             <span>LiDa Software</span>
           </a>
@@ -98,7 +131,30 @@ class SiteNavV2 extends HTMLElement {
           </button>
         </div>
       </nav>
+      </div>
     `;
+  }
+
+  _revealWhenReady() {
+    const stylesheet = this.shadowRoot.querySelector('link[rel="stylesheet"]');
+    const shell = this.shadowRoot.querySelector('.nav-shell');
+
+    const reveal = () => {
+      shell.classList.remove('nav-shell-pending');
+    };
+
+    // Safety fallback — fires even if the load event was already dispatched
+    const fallback = setTimeout(reveal, 700);
+
+    stylesheet.addEventListener('load', () => {
+      clearTimeout(fallback);
+      reveal();
+    }, { once: true });
+
+    stylesheet.addEventListener('error', () => {
+      clearTimeout(fallback);
+      reveal();
+    }, { once: true });
   }
 
   setupEventListeners() {
