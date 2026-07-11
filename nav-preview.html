@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nav Prototype Preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 200vh; /* to test scroll effect */
+    }
+    
+    .content {
+      padding: 120px 20px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    
+    .controls {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+    
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background: rgba(102, 126, 234, 0.2);
+      color: white;
+      border: 1px solid rgba(102, 126, 234, 0.5);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    button:hover {
+      background: rgba(102, 126, 234, 0.4);
+    }
+
+    button:focus-visible {
+      outline: 2px solid #a78bfa;
+      outline-offset: 2px;
+    }
+  </style>
+  
+  <!-- Import the Web Component JS -->
+  <script src="/components/site-nav-v2.js" type="module"></script>
+</head>
+<body>
+  
+  <!-- Usage of the native Web Component -->
+  <site-nav-v2 active="projects" id="demo-nav"></site-nav-v2>
+
+  <div class="content">
+    <h1>Navigation V2 Prototype</h1>
+    <p>This page demonstrates the new native Web Component navbar.</p>
+    <p>It uses Shadow DOM for style encapsulation, improves accessibility, and removes inline styles.</p>
+    
+    <div class="controls">
+      <h3>Test Active States</h3>
+      <p>Click these buttons to change the <code>active</code> attribute on the component dynamically:</p>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'projects')">Projects</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'about')">About</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'engineering')">Engineering</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'interview-prep')">Interview Prep</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'guides')">Guides</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'payment-solutions')">Payment Solutions</button>
+      <button onclick="document.getElementById('demo-nav').setAttribute('active', 'dev-news')">Dev News</button>
+      <button onclick="document.getElementById('demo-nav').removeAttribute('active')">Clear Active</button>
+    </div>
+  </div>
+
+  <script>
+    // Mock the whatsapp function for the demo so no errors occur
+    window.openWhatsAppPopup = function() {
+      alert("WhatsApp popup mocked for prototype demo!");
+    };
+  </script>
+</body>
+</html>

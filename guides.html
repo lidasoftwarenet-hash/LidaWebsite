@@ -57,7 +57,7 @@
         radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
       color: #e0e0e0;
       line-height: 1.6;
-      padding-top: 80px;
+      padding-top: 130px;
     }
 
     /* Custom scrollbar */
@@ -107,7 +107,7 @@
       font-size: 3.5em;
       font-weight: 800;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -593,7 +593,7 @@
 
     @media (max-width: 768px) {
       body {
-        padding-top: 70px;
+        padding-top: 120px;
       }
 
 
@@ -623,13 +623,12 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="/components/site-nav.css">
-  <script src="/components/site-nav.js" defer></script>
+  <script src="/components/site-nav-v2.js" type="module"></script>
   <script src="/analytics.js" defer></script>
 </head>
 
 <body>
-  <site-nav active="guides"></site-nav>
+  <site-nav-v2 active="guides"></site-nav-v2>
 
   <!-- Hero Section -->
   <header class="hero">
@@ -641,30 +640,6 @@
       </p>
       <div style="margin-top: -10px; font-size: 0.95rem; color: #7070a0; font-weight: 500; margin-bottom: 24px;">
         New guides will be added only when they are useful and complete.
-      </div>
-      <!-- Share Buttons -->
-      <div id="desktop-share-buttons"
-        style="display: flex; gap: 12px; align-items: center; justify-content: center; padding-top: 10px;">
-        <span style="color: #64748b; font-size: 0.85rem; font-weight: 600;">Share:</span>
-        <a href="#" id="share-facebook"
-          style="padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; color: #cbd5e1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s ease; cursor: pointer;"
-          title="Share on Facebook" target="_blank" rel="noopener noreferrer"
-          onmouseover="this.style.color='#fff'; this.style.background='rgba(255, 255, 255, 0.08)';"
-          onmouseout="this.style.color='#cbd5e1'; this.style.background='rgba(255, 255, 255, 0.03)';">Facebook</a>
-        <a href="#" id="share-linkedin"
-          style="padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; color: #cbd5e1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s ease; cursor: pointer;"
-          title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"
-          onmouseover="this.style.color='#fff'; this.style.background='rgba(255, 255, 255, 0.08)';"
-          onmouseout="this.style.color='#cbd5e1'; this.style.background='rgba(255, 255, 255, 0.03)';">LinkedIn</a>
-        <a href="#" id="share-twitter"
-          style="padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; color: #cbd5e1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s ease; cursor: pointer;"
-          title="Share on X (Twitter)" target="_blank" rel="noopener noreferrer"
-          onmouseover="this.style.color='#fff'; this.style.background='rgba(255, 255, 255, 0.08)';"
-          onmouseout="this.style.color='#cbd5e1'; this.style.background='rgba(255, 255, 255, 0.03)';">X</a>
-        <button id="share-copy"
-          style="padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; color: #cbd5e1; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s ease; cursor: pointer;"
-          title="Copy link" onmouseover="this.style.color='#fff'; this.style.background='rgba(255, 255, 255, 0.08)';"
-          onmouseout="this.style.color='#cbd5e1'; this.style.background='rgba(255, 255, 255, 0.03)';">Copy Link</button>
       </div>
     </div>
   </header>

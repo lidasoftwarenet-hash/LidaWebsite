@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 <script src="/analytics.js" defer></script>
+    <script src="/components/site-nav-v2.js" type="module"></script>
 </head>
 
 <body>
@@ -22,35 +23,7 @@
     <!-- ══════════════════════════════════════
          NAV
     ══════════════════════════════════════ -->
-    <nav class="nav" id="nav">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo">
-                <div class="nav-logo-icon">
-                    <i class="fas fa-headphones-alt"></i>
-                </div>
-                <span>LidaMixPlay</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#screenshots">Screenshots</a></li>
-                <li><a href="#why-desktop">Why Desktop</a></li>
-                <li><a href="#download">Download</a></li>
-            </ul>
-            <button class="nav-cta" onclick="openDownloadModal()" aria-label="Download LidaMixPlay">
-                <i class="fas fa-download"></i>
-                Free Download
-            </button>
-            <button class="nav-burger" id="navBurger" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-        <div class="nav-mobile" id="navMobile">
-            <a href="#features">Features</a>
-            <a href="#screenshots">Screenshots</a>
-            <a href="#why-desktop">Why Desktop</a>
-            <a href="#download">Download</a>
-        </div>
-    </nav>
+    <site-nav-v2 active="projects"></site-nav-v2>
 
     <!-- ══════════════════════════════════════
          HERO

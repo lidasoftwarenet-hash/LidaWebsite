@@ -147,8 +147,11 @@ function runScanner() {
         // Generate Badge HTML
         let badges = '';
         if (isTopPick) badges += `<span class="badge badge-pro" style="background:var(--primary); color:white; border:none;">#1 Match</span>`;
-        if (model.priceIn < 0.5) badges += `<span class="badge badge-cheap">Budget King</span>`;
+        if (model.priceIn <= 0.30) badges += `<span class="badge badge-cheap">Budget King</span>`;
         if (model.speed > 90) badges += `<span class="badge badge-fast">Blazing Fast</span>`;
+        if (['gpt-5-6-sol', 'claude-fable-5', 'claude-opus-4-8', 'deepseek-v4-pro', 'grok-4-5', 'qwen3-7-max'].includes(model.id)) badges += `<span class="badge" style="background:rgba(168,85,247,0.15); color:#c084fc; border:1px solid rgba(168,85,247,0.3);">Reasoning</span>`;
+        if (['llama-4-scout', 'claude-fable-5', 'claude-opus-4-8', 'gemini-3-5-flash', 'gemini-3-1-pro', 'gemini-3-1-flash-lite', 'llama-4-maverick', 'grok-4-1-fast', 'qwen3-7-max', 'qwen3-7-plus', 'mistral-large-3', 'mistral-medium-3-5'].includes(model.id)) badges += `<span class="badge" style="background:rgba(16,185,129,0.12); color:#34d399; border:1px solid rgba(16,185,129,0.25);">Large Context</span>`;
+        if (model.context === '10M') badges += `<span class="badge" style="background:rgba(16,185,129,0.2); color:#10d399; border:1px solid rgba(16,185,129,0.4); font-weight:700;">10M Context</span>`;
 
         // Generate Pros/Cons Lists with Icons
         const checkIcon = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
@@ -432,6 +435,17 @@ function copyToClipboard() {
 
 // Init
 document.addEventListener('DOMContentLoaded', () => {
+    // Populate stats bar from live db data
+    const activeModels = db.filter(m => m.status === 'active');
+    const legacyModels = db.filter(m => m.status === 'legacy');
+    const providers = new Set(activeModels.map(m => m.provider)).size;
+
+    document.getElementById('stat-active').textContent = activeModels.length;
+    document.getElementById('stat-providers').textContent = providers;
+    document.getElementById('stat-legacy').textContent = legacyModels.length;
+    document.getElementById('tab-active-count').textContent = '(' + activeModels.length + ')';
+    document.getElementById('tab-legacy-count').textContent = '(' + legacyModels.length + ')';
+
     updateInputs();
     
     if (window.initShareButton) {

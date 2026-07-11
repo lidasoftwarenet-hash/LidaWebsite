@@ -173,13 +173,53 @@ const templateConfigs = {
     },
     'observability': {
         fieldOverrides: {
-            projectName: { placeholder: "e.g., Observability Overhaul ,  E-commerce Platform" },
+            projectName: { placeholder: "e.g., Observability Overhaul — E-commerce Platform" },
             projectType: { placeholder: "e.g., Distributed tracing, SLO/SLA setup, Log aggregation, Alerting strategy" },
             technology: { placeholder: "e.g., OpenTelemetry, Grafana, Loki, Tempo, Prometheus, Datadog, Jaeger" },
-            context: { placeholder: "Current observability gaps: only logs? No traces? Alert fatigue? How many services? What's the biggest pain ,  finding the root cause of incidents takes hours?" },
+            context: { placeholder: "Current observability gaps: only logs? No traces? Alert fatigue? How many services? What's the biggest pain — finding the root cause of incidents takes hours?" },
             currentProblem: { label: "Observability Challenges", placeholder: "Specific gaps: no distributed tracing across services, logs not correlated with traces, too many undefined alerts, no SLOs defined, MTTR > 2 hours, dashboards nobody trusts..." },
             desiredOutcome: { label: "Observability Goals", placeholder: "Full OTel instrumentation, SLO-based alerting (not threshold-based), correlated logs+traces+metrics, auto-dashboards, error budget tracking, <30min MTTR" },
             mustHave: { placeholder: "OpenTelemetry SDK in all services, structured logging, distributed trace IDs, 3 golden signals (latency, traffic, errors) per service, on-call runbook link in every alert" }
+        }
+    },
+    'code-review': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., Payments Service Pull Request #412" },
+            projectType: { placeholder: "e.g., Backend API, Frontend component, Database migration, CLI tool" },
+            technology: { placeholder: "e.g., TypeScript, Node.js, React, Python, Go" },
+            context: { placeholder: "What does this PR do? What ticket or user story does it close? Any known trade-offs or shortcuts taken due to time pressure?" },
+            currentProblem: { label: "Code to Review", placeholder: "Paste the code snippet or describe the PR scope. What areas are you most uncertain about — correctness, performance, security, or maintainability?" },
+            desiredOutcome: { label: "Review Goals", placeholder: "What level of review? Quick sanity check, architecture feedback, security scan, or full line-by-line critique? What should the reviewer prioritize?" },
+            mustHave: { placeholder: "Must-cover areas: correctness, edge cases, error handling, naming, test coverage, potential security issues" },
+            niceToHave: { placeholder: "Performance suggestions, style improvements, refactoring opportunities, documentation gaps" },
+            successMetrics: { placeholder: "e.g., All critical bugs caught, no security vulnerabilities missed, tests cover happy path and 2 edge cases" }
+        }
+    },
+    'data-analysis': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., Monthly Revenue Cohort Analysis" },
+            projectType: { placeholder: "e.g., Exploratory data analysis, SQL query design, Dashboard spec, A/B test analysis, ETL pipeline" },
+            technology: { placeholder: "e.g., PostgreSQL, BigQuery, Python + Pandas, dbt, Metabase, Tableau, Spark" },
+            context: { placeholder: "What dataset are you working with? Row count, date range, key columns. What business question is this analysis meant to answer?" },
+            currentProblem: { label: "Analysis Challenge", placeholder: "What's the specific analytical task? Identify a trend, segment users, build a funnel, detect anomalies, write complex SQL, or explain a metric drop?" },
+            desiredOutcome: { label: "Analysis Goals", placeholder: "What output do you need? SQL query with explanation, a Python analysis script, a dashboard layout spec, key insights summary, or a recommendation?" },
+            technicalConstraints: { placeholder: "e.g., Query must run under 30s, can't do full table scans, must use dbt models not raw tables, PII must be masked" },
+            mustHave: { placeholder: "Required output: working SQL/code, explanation of logic, caveats about data quality or sampling bias, actionable insight" },
+            successMetrics: { placeholder: "e.g., Query returns correct aggregation, insight is actionable by a non-technical stakeholder, analysis addresses the core business question" }
+        }
+    },
+    'product-prd': {
+        fieldOverrides: {
+            projectName: { placeholder: "e.g., In-app Notification Center" },
+            projectType: { placeholder: "e.g., New feature, Product redesign, Platform capability, Integration" },
+            technology: { placeholder: "e.g., React web app, React Native mobile, REST API, real-time WebSocket" },
+            context: { placeholder: "What user pain or business opportunity is this solving? What data (user research, support tickets, NPS, analytics) backs this up? What's the competitive context?" },
+            currentProblem: { label: "Problem Statement", placeholder: "Articulate the user problem clearly. Who is the user, what are they trying to do, and what gets in their way today? Include quantified impact if possible." },
+            desiredOutcome: { label: "Product Goals & Success", placeholder: "What does this feature achieve for users and the business? Which north-star metrics does it move? What is the minimum viable scope?" },
+            mustHave: { placeholder: "Core user stories or features that must ship in v1 (MoSCoW: Must Have)" },
+            niceToHave: { placeholder: "Enhancements for v2 or stretch goals — e.g., mobile push, localization, accessibility improvements" },
+            successMetrics: { placeholder: "e.g., 30% of DAU adopt within 30 days, CSAT improves by 0.3 points, support ticket volume for this pain drops 20%" },
+            stakeholders: { placeholder: "e.g., Product owner, engineering lead, UX designer, legal (for data features), customer success" }
         }
     }
 };
@@ -364,6 +404,33 @@ const prompts = [
         difficulty: "advanced",
         icon: "fact_check",
         template: "llm-app"
+    },
+    {
+        id: 21,
+        title: "Code Review Assistant",
+        description: "Get a thorough code review covering correctness, security, edge cases, naming, and test coverage — structured as a prioritized list of actionable findings.",
+        category: "development",
+        difficulty: "beginner",
+        icon: "rate_review",
+        template: "code-review"
+    },
+    {
+        id: 22,
+        title: "Data Analysis & SQL",
+        description: "Get working SQL queries, Python analysis scripts, or dashboard specs for your dataset — with explanation of the logic and insight into data quality caveats.",
+        category: "data",
+        difficulty: "intermediate",
+        icon: "analytics",
+        template: "data-analysis"
+    },
+    {
+        id: 23,
+        title: "Product Requirements (PRD)",
+        description: "Transform a product idea into a structured PRD with user stories, acceptance criteria, success metrics, and a clear MoSCoW scope for v1.",
+        category: "product",
+        difficulty: "beginner",
+        icon: "article",
+        template: "product-prd"
     }
 ];
 
@@ -376,7 +443,9 @@ const categories = [
     { id: "testing", name: "Testing", icon: "bug_report" },
     { id: "security", name: "Security", icon: "security" },
     { id: "devops", name: "DevOps & SRE", icon: "cloud" },
-    { id: "documentation", name: "Documentation", icon: "description" }
+    { id: "documentation", name: "Documentation", icon: "description" },
+    { id: "data", name: "Data & Analytics", icon: "analytics" },
+    { id: "product", name: "Product", icon: "article" }
 ];
 
 const followupSuggestions = {
@@ -3115,51 +3184,15 @@ function hideHelpGuide() {
     }
 }
 
-// ===== THEME TOGGLE FUNCTIONALITY =====
+// ===== THEME: DARK MODE ONLY =====
 function initializeThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('.material-symbols-outlined');
-
-    if (!themeToggle) return;
-
-    // Load saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Set initial theme
-    let currentTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    applyTheme(currentTheme);
-
-    // Toggle theme on click
-    themeToggle.addEventListener('click', () => {
-        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        applyTheme(currentTheme);
-        localStorage.setItem('theme', currentTheme);
-        showToast(`${currentTheme === 'dark' ? 'Dark' : 'Light'} mode enabled!`, 'success');
-    });
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            // Only auto-switch if user hasn't set a preference
-            const newTheme = e.matches ? 'dark' : 'light';
-            applyTheme(newTheme);
-        }
-    });
+    // Tool is permanently dark mode — clear any saved light preference
+    localStorage.removeItem('theme');
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 
 function applyTheme(theme) {
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle?.querySelector('.material-symbols-outlined');
-
-    // Set data-theme attribute on root
-    document.documentElement.setAttribute('data-theme', theme);
-
-    // Update icon
-    if (themeIcon) {
-        themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
-        themeToggle.title = `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`;
-    }
+    document.documentElement.setAttribute('data-theme', 'dark');
 }
 
 // ===== KEYBOARD SHORTCUTS =====
@@ -3239,14 +3272,6 @@ function initializeKeyboardShortcuts() {
             }
         }
 
-        // Ctrl/Cmd + T: Toggle theme
-        if (isCtrl && e.key === 't') {
-            e.preventDefault();
-            const themeToggle = document.getElementById('themeToggle');
-            if (themeToggle) {
-                themeToggle.click();
-            }
-        }
 
         // Ctrl/Cmd + F: Toggle fast mode
         if (isCtrl && e.key === 'f') {

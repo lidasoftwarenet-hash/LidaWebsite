@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,8 +22,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/components/site-nav.css">
-  <script src="/components/site-nav.js" defer></script>
+  <script src="/components/site-nav-v2.js" type="module"></script>
   <style>
     *,
     *::before,
@@ -60,7 +59,7 @@
       font-family: 'Inter', -apple-system, sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-      padding-top: 64px;
+      padding-top: 115px;
     }
 
     :focus-visible {
@@ -140,7 +139,7 @@
       letter-spacing: -.03em;
       line-height: 1.08;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text
@@ -1477,14 +1476,13 @@
 </head>
 
 <body>
-  <site-nav active="engineering"></site-nav>
+  <site-nav-v2 active="engineering"></site-nav-v2>
 
   <div class="page">
 
     <!-- HERO -->
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-eyebrow"><span class="hero-dot"></span>Engineering Overview</div>
         <h1>Engineering Behind<br>LiDa Software</h1>
         <p class="hero-sub">A personal developer tools platform focused on practical workflows, clean UX, AI-assisted
           productivity, and maintainable architecture.</p>

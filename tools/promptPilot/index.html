@@ -9,7 +9,7 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Professional AI prompt templates for developers. 12+ expert prompts for code reviews, sprint planning, security audits & testing. Generate optimized prompts instantly. 100% free." />
+        content="Professional AI prompt templates for developers. 23+ expert prompts for code reviews, sprint planning, security audits, data analysis, product planning & testing. Generate structured prompts instantly. 100% free." />
     <meta name="keywords"
         content="ai prompts, prompt engineering, prompt templates, ai tools, developer prompts, code review prompts, sprint planning, chatgpt prompts, claude prompts, ai workflow" />
     <meta name="author" content="LiDa Software" />
@@ -20,14 +20,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="LiDa Prompt Vault - Professional AI Prompt Templates" />
     <meta property="og:description"
-        content="Transform your AI workflow with 12+ expert prompt templates. Built for developers who need battle-tested prompts." />
+        content="Transform your AI workflow with 23+ expert prompt templates. Built for developers who need battle-tested prompts for coding, security, data analysis, and product planning." />
     <meta property="og:url" content="https://www.lidasoftware.online/tools/promptPilot/" />
     <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="LiDa Prompt Vault - Professional AI Prompt Templates" />
-    <meta name="twitter:description" content="12+ expert AI prompt templates for developers. Free &amp; Inspired by the open-source community." />
+    <meta name="twitter:description" content="23+ expert AI prompt templates for developers. Free &amp; Inspired by the open-source community." />
     <meta name="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
 
     <!-- Canonical URL -->
@@ -55,9 +55,10 @@
                 "ratingValue": "5",
                 "ratingCount": "1"
             },
-            "description": "Professional AI prompt templates for developers. 12+ expert prompts for code reviews, sprint planning, security audits, and testing strategies.",
+            "description": "Professional AI prompt templates for developers. 23+ expert prompts for code reviews, sprint planning, security audits, data analysis, product planning, and testing strategies.",
             "featureList": [
-                "12+ Expert Templates",
+                "23+ Expert Templates",
+                "10 Task Categories",
                 "Smart Customization",
                 "Instant Results",
                 "Organized Library",
@@ -84,93 +85,45 @@
   ]
 }
 </script>
+    <script src="/components/site-nav-v2.js" type="module"></script>
     <script src="/analytics.js" defer></script>
 </head>
 
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-left">
-                <img src="prompt-logo.png" alt="promptPilot Logo" style="width: 55px; height: auto;">
-                <div>
-                    <h1>PromptPilot</h1>
-                    <p>Professional AI prompts engineered for maximum productivity and results</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="lida-branding">
-                    <span class="lida-text">By Lida Software</span>
-                    <img src="logo.png" alt="LiDa Logo" style="width: 65px; height: auto;">
-                </div>
-                <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
-                    <span class="material-symbols-outlined">dark_mode</span>
-                </button>
-                <button class="help-button" id="helpButton" title="Help & Guide">
-                    <span class="material-symbols-outlined">help</span>
-                </button>
+<body style="padding-top: 115px;">
+    <site-nav-v2 active="projects"></site-nav-v2>
+    
+    <!-- Tool Header -->
+    <header style="padding: 16px 20px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); background: var(--bg-secondary); display: flex; align-items: center; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary);">PromptPilot</h1>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Professional AI prompts engineered for maximum productivity and results</p>
             </div>
         </div>
+        <div style="display: flex; gap: 8px;">
+            <button class="help-button" id="helpButton" title="Help & Guide" style="background: transparent; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px; color: var(--text-primary); cursor: pointer;">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+        </div>
+    </header>
 
-        <!-- Share Buttons -->
-        <div style="text-align: center; padding: 20px; background: var(--bg-secondary);">
-            <button id="share-tool-button"
-                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; display: none; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: all 0.2s ease;"
-                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.3)';"
-                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.2)';"
-                title="Share this tool">↗️ Share this tool</button>
-            <div id="desktop-share-buttons"
-                style="display: none; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                <span style="color: #888; font-size: 14px;">Share:</span>
-                <a href="#" id="share-facebook"
-                    style="background: #1877f2; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on Facebook"><svg style="width: 16px; height: 16px;" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>Facebook</a>
-                <a href="#" id="share-linkedin"
-                    style="background: #0077b5; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on LinkedIn"><svg style="width: 16px; height: 16px;" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                    </svg>LinkedIn</a>
-                <a href="#" id="share-twitter"
-                    style="background: #14171a; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Share on X"><svg style="width: 16px; height: 16px;" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>X</a>
-                <button id="share-copy"
-                    style="background: #555; color: white; padding: 10px 20px; border-radius: 8px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;"
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
-                    title="Copy link"><svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>Copy Link</button>
-            </div>
-        </div>
+    <div class="container">
 
         <!-- Tool summary for search engines and AI discovery -->
-        <section aria-label="Tool overview" style="background:var(--bg-secondary); border:1px solid rgba(102,126,234,0.2); border-radius:12px; padding:18px 22px; margin:0 0 20px;">
-            <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.65; margin:0 0 8px;">
-                <strong style="color:var(--text-primary);">PromptPilot</strong> is a free, browser-based prompt template library for developers who use AI tools like ChatGPT, Claude, Gemini, or Perplexity daily.
-                It provides 12+ expert-crafted prompt templates for common engineering tasks — code reviews, sprint planning, security audits, test strategy, and more.
+        <section aria-label="Tool overview" style="position:relative; overflow:hidden; background:linear-gradient(145deg, rgba(30,32,40,0.6) 0%, rgba(20,22,28,0.8) 100%); border:1px solid rgba(102,126,234,0.3); border-radius:16px; padding:24px 28px; margin:0 0 24px; box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter:blur(10px);">
+            <div style="position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, #667eea, #764ba2, #a78bfa);"></div>
+            <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.7; margin:0 0 16px; font-weight:400; letter-spacing:0.01em;">
+                <strong style="color:#fff; font-weight:700; font-size:1.05rem; background:linear-gradient(90deg, #a78bfa, #667eea); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.5px;">PromptPilot</strong> is a free, browser-based prompt template library for developers who use AI tools like ChatGPT, Claude, Gemini, or Perplexity daily.
+                It provides 23+ expert-crafted prompt templates across 10 categories, code review, sprint planning, security audits, data analysis, product planning, testing, observability, and more.
                 Each template includes a guided wizard that collects your project details, context, and goals, then assembles a high-quality, ready-to-use prompt you can copy directly into any AI assistant.
-                No account, no API key, no cost.
+                <span style="display:inline-block; margin-top:12px; padding:6px 14px; background:rgba(102,126,234,0.1); border-radius:24px; font-size:0.8rem; font-weight:600; color:#a78bfa; border:1px solid rgba(167,139,250,0.25); box-shadow:0 2px 8px rgba(0,0,0,0.1);">✓ No account, no API key, no cost.</span>
             </p>
-            <a href="../../guides.html" style="color:#667eea; font-weight:600; font-size:0.85rem; text-decoration:none;">Browse all AI engineering tutorials and guides →</a>
-            &nbsp;&nbsp;
-            <a href="../../usecase-proptPilot.html" style="color:#a78bfa; font-weight:600; font-size:0.85rem; text-decoration:none;">See the PromptPilot workflow walkthrough →</a>
+            <div style="display:flex; align-items:center;">
+                <a href="../../usecase-proptPilot.html" style="display:inline-flex; align-items:center; gap:6px; color:#fff; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:10px 18px; border-radius:8px; font-weight:600; font-size:0.85rem; text-decoration:none; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(102,126,234,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(102,126,234,0.3)'">
+                    See the PromptPilot workflow walkthrough
+                    <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+                </a>
+            </div>
         </section>
         <div class="main-grid">
             <!-- Sidebar -->
@@ -330,14 +283,17 @@
                                 <div class="input-hint">Web App, Mobile, API, etc.</div>
                             </div>
                             <div>
+                                <label for="technology">Tech Stack</label>
                                 <input name="technology" id="technology" placeholder="Tech Stack" />
                                 <div class="input-hint">React, Node.js, Python, etc.</div>
                             </div>
                             <div>
+                                <label for="teamSize">Team Size</label>
                                 <input name="teamSize" id="teamSize" placeholder="Team Size" />
                                 <div class="input-hint">e.g., 5 developers</div>
                             </div>
                             <div>
+                                <label for="timeframe">Timeframe</label>
                                 <input name="timeframe" id="timeframe" placeholder="Timeframe" />
                                 <div class="input-hint">e.g., 2 weeks, 1 sprint</div>
                             </div>
@@ -640,6 +596,22 @@
                                     </div>
                                     <span class="platform-check material-symbols-outlined">check_circle</span>
                                 </div>
+                                <div class="platform-option" data-platform="deepseek">
+                                    <span class="platform-icon">🔬</span>
+                                    <div class="platform-info">
+                                        <div class="platform-name">DeepSeek V3</div>
+                                        <div class="platform-url">chat.deepseek.com</div>
+                                    </div>
+                                    <span class="platform-check material-symbols-outlined">check_circle</span>
+                                </div>
+                                <div class="platform-option" data-platform="mistral">
+                                    <span class="platform-icon">⚡</span>
+                                    <div class="platform-info">
+                                        <div class="platform-name">Mistral Large</div>
+                                        <div class="platform-url">chat.mistral.ai</div>
+                                    </div>
+                                    <span class="platform-check material-symbols-outlined">check_circle</span>
+                                </div>
                                 <div class="platform-option" data-platform="custom">
                                     <span class="platform-icon">⚙️</span>
                                     <div class="platform-info">
@@ -899,6 +871,8 @@
                     <option value="gemini">✨ Gemini</option>
                     <option value="perplexity">🔍 Perplexity</option>
                     <option value="grok">🤪 Grok</option>
+                    <option value="deepseek">🔬 DeepSeek V3</option>
+                    <option value="mistral">⚡ Mistral Large</option>
                     <option value="custom">⚙️ Custom URL</option>
                 </select>
             </div>
@@ -1053,8 +1027,7 @@
                             <ul>
                                 <li><strong>Search:</strong> Type keywords to filter templates by name or description
                                 </li>
-                                <li><strong>Categories:</strong> Filter by Planning, Development, Testing, Security,
-                                    DevOps, or Documentation</li>
+                                <li><strong>Categories:</strong> Filter by AI Development, Prompt Engineering, Planning, Development, Testing, Security, DevOps, Documentation, Data & Analytics, or Product</li>
                                 <li><strong>Difficulty:</strong> Choose Beginner, Intermediate, or Advanced level
                                     templates</li>
                             </ul>
@@ -1156,7 +1129,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p class="footer-copyright">© LiDa Prompt Vault. All rights reserved to LiDa Software</p>
+            <p class="footer-copyright">© PromptPilot by LiDa Software. All rights reserved.</p>
             <p class="footer-version">Version 1.0.1 | Made with ❤️ for productivity enthusiasts</p>
             <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
                 class="btn btn-discover">

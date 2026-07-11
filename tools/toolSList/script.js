@@ -53,7 +53,7 @@ async function init() {
         allTools = await res.json();
 
         // Add ID to tools if missing (using index or name hash for stability)
-        allTools = allTools.map((t, i) => ({ ...t, id: t.name.replace(/\s+/g, '-').toLowerCase() }));
+        allTools = allTools.map((t, i) => ({ ...t, id: t.name.replace(/\s+/g, '-').toLowerCase(), _originalIndex: i }));
 
         filteredTools = [...allTools];
 
@@ -95,7 +95,7 @@ function renderCategories() {
         const count = counts[cat];
         const isActive = activeCategories.includes(cat);
         return `
-            <label class="group flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all cursor-pointer hover:bg-slate-50 ${isActive ? 'bg-brand-50/50 text-brand-700' : 'text-slate-600'}">
+            <label class="group flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all cursor-pointer ${isActive ? 'text-brand-400' : 'text-white group-hover:text-slate-300'}">
                 <div class="flex items-center gap-3 min-w-0 flex-1">
                     <div class="relative flex items-center">
                         <input type="checkbox" 
@@ -105,10 +105,10 @@ function renderCategories() {
                             onchange="toggleCategory('${cat}')"
                             class="peer h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500 cursor-pointer">
                     </div>
-                    <span class="material-symbols-rounded text-[18px] shrink-0 ${isActive ? 'text-brand-600' : 'text-slate-400 group-hover:text-slate-600'}">${icon}</span>
+                    <span class="material-symbols-rounded text-[18px] shrink-0 ${isActive ? 'text-brand-400' : 'text-slate-400 group-hover:text-slate-300'}">${icon}</span>
                     <span class="text-left flex-1 leading-tight">${cat}</span>
                 </div>
-                <span class="text-[10px] font-bold bg-slate-100 text-slate-500 py-0.5 px-2 rounded-full shrink-0 ${isActive ? 'bg-brand-100 text-brand-600' : ''}">${count}</span>
+                <span class="text-[10px] font-bold bg-[#2a2d32] text-slate-400 py-0.5 px-2 rounded-full shrink-0 ${isActive ? 'bg-brand-900/40 text-brand-400' : ''}">${count}</span>
             </label>
         `;
     }).join('');
@@ -137,17 +137,17 @@ function renderTools() {
         const icon = categoryIcons[tool.category] || 'folder';
 
         return `
-            <div class="tool-card group relative bg-white border border-slate-200 rounded-2xl p-6 flex flex-col h-full hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 transition-all duration-300 animate-fade-in">
+            <div class="tool-card group relative bg-[#1d2025] border border-slate-700 rounded-2xl p-6 flex flex-col h-full hover:border-brand-500 hover:shadow-xl hover:shadow-brand-500/20 transition-all duration-300 animate-fade-in">
                 
                 <!-- Card Header -->
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-brand-50 group-hover:text-brand-600 group-hover:rotate-6 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-[#2a2d32] border border-slate-700 flex items-center justify-center text-slate-400 group-hover:bg-[#34383f] group-hover:text-brand-400 group-hover:rotate-6 transition-all duration-300">
                            <span class="material-symbols-rounded text-2xl">${icon}</span>
                         </div>
                         <div>
-                             <h3 class="font-bold text-slate-900 leading-tight group-hover:text-brand-700 transition-colors">${tool.name}</h3>
-                             <p class="text-xs text-slate-500 mt-0.5 truncate max-w-[140px]">${tool.category}</p>
+                             <h3 class="font-bold text-slate-100 leading-tight group-hover:text-brand-400 transition-colors">${tool.name}</h3>
+                             <p class="text-xs text-slate-400 mt-0.5 truncate max-w-[140px]">${tool.category}</p>
                         </div>
                     </div>
                     <button onclick="toggleFavorite(event, '${tool.id}')" class="text-slate-300 hover:text-red-500 hover:scale-110 transition-all ${isFav ? 'text-red-500' : ''}">
@@ -156,7 +156,7 @@ function renderTools() {
                 </div>
 
                 <!-- Description -->
-                <p class="text-slate-600 text-sm mb-4 line-clamp-2 flex-grow">
+                <p class="text-slate-300 font-medium text-sm mb-4 line-clamp-2 flex-grow">
                     ${tool.description}
                 </p>
 
@@ -166,7 +166,7 @@ function renderTools() {
                         ${tool.pricing}
                     </span>
                     ${tool.tags.slice(0, 2).map(tag => `
-                        <span class="inline-flex items-center px-2 py-1 rounded bg-slate-100 text-slate-600 text-[11px] font-medium border border-slate-200">
+                        <span class="inline-flex items-center px-2 py-1 rounded bg-[#2a2d32] text-slate-300 text-[11px] font-medium border border-slate-700">
                             #${tag}
                         </span>
                     `).join('')}
@@ -174,10 +174,10 @@ function renderTools() {
 
                 <!-- Footer (Actions) -->
                 <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div class="text-xs text-slate-400 font-mono">
+                    <div class="text-xs text-slate-500 font-mono">
                        ${tool.name.length}kb <!-- Fake size/stat for "tech" feel -->
                     </div>
-                    <a href="${tool.url}" target="_blank" class="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 hover:text-brand-700 group/link">
+                    <a href="${tool.url}" target="_blank" class="inline-flex items-center gap-1 text-sm font-semibold text-brand-400 hover:text-brand-300 group/link">
                         Open Tool
                         <span class="material-symbols-rounded text-[16px] transition-transform group-hover/link:translate-x-1">arrow_forward</span>
                     </a>
@@ -211,6 +211,15 @@ function applyFilters() {
 
         return matchesSearch && matchesCategory && matchesPricing;
     });
+
+    // Sorting
+    const sortValue = document.getElementById('sortSelect').value;
+    if (sortValue === 'name') {
+        filteredTools.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+        // default or 'newest'
+        filteredTools.sort((a, b) => a._originalIndex - b._originalIndex);
+    }
 
     renderTools();
     updateUIState();
@@ -262,7 +271,7 @@ function updateFavoritesBadge() {
 }
 
 function updateUIState() {
-    if (activeCategory || activePricing.length > 0 || searchQuery) {
+    if (activeCategories.length > 0 || activePricing.length > 0 || searchQuery) {
         clearFiltersBtn.classList.remove('hidden');
     } else {
         clearFiltersBtn.classList.add('hidden');
@@ -296,10 +305,31 @@ clearFiltersBtn.addEventListener('click', () => {
 
 resetFiltersMain.addEventListener('click', () => clearFiltersBtn.click());
 
-// View Toggle (Basic Implementation)
-document.getElementById('viewGrid').addEventListener('click', () => {
-    toolsGrid.classList.replace('grid-cols-1', 'grid-cols-1'); // Reset? No, wait.
+// View Toggle Implementation
+const viewGridBtn = document.getElementById('viewGrid');
+const viewListBtn = document.getElementById('viewList');
+
+viewGridBtn.addEventListener('click', () => {
+    currentView = 'grid';
     toolsGrid.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-20';
+    viewGridBtn.classList.add('text-brand-600');
+    viewGridBtn.classList.remove('text-slate-400');
+    viewListBtn.classList.add('text-slate-400');
+    viewListBtn.classList.remove('text-brand-600');
+});
+
+viewListBtn.addEventListener('click', () => {
+    currentView = 'list';
+    toolsGrid.className = 'grid grid-cols-1 gap-4 pb-20';
+    viewListBtn.classList.add('text-brand-600');
+    viewListBtn.classList.remove('text-slate-400');
+    viewGridBtn.classList.add('text-slate-400');
+    viewGridBtn.classList.remove('text-brand-600');
+});
+
+// Sort Event Listener
+document.getElementById('sortSelect').addEventListener('change', () => {
+    applyFilters();
 });
 
 // Keyboard Shortcuts

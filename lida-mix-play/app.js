@@ -27,23 +27,27 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ── Sticky nav ────────────────────────────────
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-}, { passive: true });
+if (nav) {
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+}
 
 // ── Mobile nav burger ─────────────────────────
 const burger = document.getElementById('navBurger');
 const navMob = document.getElementById('navMobile');
-burger?.addEventListener('click', () => {
-    navMob.classList.toggle('open');
-    burger.classList.toggle('open');
-});
-navMob?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-        navMob.classList.remove('open');
-        burger.classList.remove('open');
+if (burger && navMob) {
+    burger.addEventListener('click', () => {
+        navMob.classList.toggle('open');
+        burger.classList.toggle('open');
     });
-});
+    navMob.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            navMob.classList.remove('open');
+            burger.classList.remove('open');
+        });
+    });
+}
 
 // ── Animated stat counters ────────────────────
 function animateCounter(el) {

@@ -55,9 +55,17 @@ body::before {
   z-index: 0;
 }
 
-body > * {
+body > *:not(site-nav-v2) {
   position: relative;
   z-index: 1;
+}
+
+site-nav-v2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 /* Header Styles */
@@ -70,9 +78,8 @@ header {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 0 1px rgba(99, 102, 241, 0.5);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: relative;
+  z-index: 10;
 }
 
 header::after {

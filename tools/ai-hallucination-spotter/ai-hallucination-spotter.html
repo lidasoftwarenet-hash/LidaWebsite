@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -37,8 +37,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
-
-    <script src="../shared-components/share-button.js"></script>
 
     <style>
         :root {
@@ -305,126 +303,28 @@
   ]
 }
 </script>
+<script src="/components/site-nav-v2.js" type="module"></script>
 <script src="/analytics.js" defer></script>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col" style="padding-top: 115px;">
 
-    <!-- Navbar -->
-    <nav class="border-b border-white/5 py-4 px-6 glass sticky top-0 z-50">
+    <site-nav-v2 active="projects"></site-nav-v2>
+
+    <!-- Tool Header -->
+    <header class="z-30 border-b border-white/5 bg-[#151921]/90 backdrop-blur-xl" style="padding: 16px 20px; margin-bottom: 24px;">
         <div class="container mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="bg-white/5 p-1.5 rounded-xl shadow-lg border border-white/10">
-                    <img src="logo.png" alt="LiDa Logo" class="w-8 h-8 object-contain">
-                </div>
-                <div>
-                    <h1 class="text-xl font-outfit font-bold tracking-tight">AI Hallucination Spotter</h1>
-                    <div class="flex items-center gap-2">
-                        <span class="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <p class="text-[10px] text-muted font-medium uppercase tracking-widest">v1.0 Professional</p>
-                    </div>
-                </div>
+            <div>
+                <h1 class="text-xl font-bold text-white font-outfit">AI Hallucination Spotter</h1>
+                <p class="text-xs text-muted mt-1 uppercase tracking-wider font-semibold">Surgically scan for 150+ common hallucination patterns in seconds.</p>
             </div>
-
-            <div class="hidden lg:flex items-center gap-6">
-                <div class="flex gap-1">
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Python</span>
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">JS/TS</span>
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Rust</span>
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">C#</span>
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Java</span>
-                    <span
-                        class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Go</span>
-                </div>
-                <div class="h-4 w-[1px] bg-white/10"></div>
-
-                <!-- Desktop Share -->
-                <div class="hidden md:flex items-center gap-3">
-                    <span class="text-[10px] font-bold text-muted uppercase tracking-widest">Share:</span>
-                    <a href="#" id="share-facebook" class="text-muted hover:text-[#1877F2] transition-colors"
-                        title="Share on Facebook">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                        </svg>
-                    </a>
-                    <a href="#" id="share-linkedin" class="text-muted hover:text-[#0A66C2] transition-colors"
-                        title="Share on LinkedIn">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                    </a>
-                    <a href="#" id="share-twitter" class="text-muted hover:text-white transition-colors"
-                        title="Share on X">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
-                    <button id="share-copy" class="text-muted hover:text-emerald-400 transition-colors"
-                        title="Copy Link">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Mobile Share -->
-                <button id="share-tool-button" class="md:hidden text-muted hover:text-white transition-colors"
-                    title="Share">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                    </svg>
-                </button>
-
-                <div class="h-4 w-[1px] bg-white/10"></div>
-                <a href="https://github.com/" target="_blank" class="text-muted hover:text-white transition-colors"
-                    title="GitHub">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="py-12 px-6 relative overflow-hidden">
-        <div class="container mx-auto text-center relative z-10">
-            <h2 class="text-4xl md:text-6xl font-outfit font-extrabold mb-4 tracking-tight">
-                Stop AI <span class="gradient-text">Hallucinations</span>
-            </h2>
-            <p class="text-muted text-lg max-w-2xl mx-auto mb-8 font-light">
-                AI can be a liar. Paste your generated code below to surgically scan for
-                <span class="text-white font-medium">150+ common hallucination patterns</span> in seconds.
-            </p>
-
-            <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-mono">
-                <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-                    Fake Imports
-                </div>
-                <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    Ghost Functions
-                </div>
-                <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                    API Misuse
-                </div>
-                <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full">
-                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                    Logic Loops
-                </div>
+            <div class="hidden lg:flex gap-1">
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Python</span>
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">JS/TS</span>
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Rust</span>
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">C#</span>
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Java</span>
+                <span class="px-2 py-1 bg-white/5 rounded text-[10px] font-bold text-muted border border-white/10 uppercase">Go</span>
             </div>
         </div>
     </header>

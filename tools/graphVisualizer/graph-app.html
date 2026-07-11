@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -89,10 +89,13 @@
   ]
 }
 </script>
+<script src="/components/site-nav-v2.js" type="module"></script>
 <script src="/analytics.js" defer></script>
 </head>
 
-<body>
+<body style="padding-top: 115px;">
+  <site-nav-v2 active="projects"></site-nav-v2>
+
   <!-- Welcome Modal -->
   <div id="welcomeModal" class="welcome-modal">
     <div class="modal-content">
@@ -238,12 +241,17 @@
   </div>
 
   <!-- Header -->
-  <header>
-    <h1><img src="logo.png" alt="Logo" class="header-logo"> System Graph Visualizer</h1>
-    <div class="header-actions">
-      <button id="showPromptsBtn" class="icon-btn prompt-btn">✨ AI Prompts</button>
-      <button id="exportBtn" class="icon-btn">💾 Export JSON</button>
-      <button id="exportPngBtn" class="icon-btn">📸 Export PNG</button>
+  <header style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); background: var(--header-bg, #1e1e2e); display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <div>
+            <h1 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 4px 0; color: white;">System Graph Visualizer</h1>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); margin: 0; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Interactive System Graph Visualizer</p>
+        </div>
+    </div>
+    <div class="header-actions" style="display: flex; gap: 8px;">
+      <button id="showPromptsBtn" class="icon-btn prompt-btn" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">✨ AI Prompts</button>
+      <button id="exportBtn" class="icon-btn" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px; cursor: pointer;">💾 Export JSON</button>
+      <button id="exportPngBtn" class="icon-btn" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 6px; cursor: pointer;">📸 Export PNG</button>
     </div>
   </header>
 

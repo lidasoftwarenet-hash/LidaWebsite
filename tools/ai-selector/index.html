@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,9 +7,9 @@
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Compare top AI models like GPT-5, Claude 3.5 Opus, and Llama 4. Calculate costs, check specs, and find the perfect LLM for your coding, RAG, or chatbot project." />
+        content="Compare top AI models for July 2026: GPT-5.6, Claude Fable 5, Gemini 3.5 Flash, DeepSeek V4 Pro, Llama 4 Maverick. Calculate costs, check specs, and find the perfect LLM for your coding, RAG, or chatbot project." />
     <meta name="keywords"
-        content="ai model selector, llm comparison, gpt-5 vs claude 3.5, ai cost calculator, developer tools, lida software, open source ai models, llama 4, gemini 2.5" />
+        content="ai model selector, llm comparison, gpt-5.6 vs claude fable 5, ai cost calculator, developer tools, lida software, gemini 3.5 flash, llama 4 maverick, deepseek v4 pro, claude opus 4.8, mistral large 3, codestral 2" />
     <meta name="author" content="LiDa Software" />
     <meta name="robots" content="index, follow" />
     <meta name="language" content="English" />
@@ -67,80 +67,86 @@
       }
     }
     </script>
+<script src="/components/site-nav-v2.js" type="module"></script>
 <script src="/analytics.js" defer></script>
 </head>
 
-<body>
+<body style="padding-top: 115px;">
 
-    <div class="modal-overlay" id="apiModal">
-        <div class="modal">
-            <button class="close-btn" onclick="closeModal()">×</button>
-            <h3 id="modalTitle" style="margin-bottom: 0.5rem; font-size: 1.5rem;">API Configuration</h3>
-            <div class="export-tabs">
-                <button class="export-tab active" onclick="switchExport('curl')">cURL</button>
-                <button class="export-tab" onclick="switchExport('python')">Python</button>
-                <button class="export-tab" onclick="switchExport('node')">Node.js</button>
-                <button class="export-tab" onclick="switchExport('env')">.env</button>
-            </div>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">Ready-to-use snippet for <span id="modalModelName"
-                    style="color:var(--text-main); font-weight:600;"></span>.</p>
+    <site-nav-v2 active="projects"></site-nav-v2>
 
-            <div class="code-block" id="modalCode" data-lang="BASH"></div>
-            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
-                <button class="btn" onclick="closeModal()">Close</button>
-                <button class="btn btn-primary" onclick="copyToClipboard()">
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    <header style=" margin-bottom: 0; display:block; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(17,24,39,0.98) 60%, rgba(30,27,75,0.6) 100%); position: relative; overflow: hidden; text-align: center;">
+        <!-- Subtle background glow -->
+        <div style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:600px; height:160px; background:radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%); pointer-events:none;"></div>
+
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <!-- Icon + Title row -->
+            <div style="display:flex; align-items:center; gap:14px; justify-content:center;">
+                <div style="width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,#3b82f6,#8b5cf6); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(59,130,246,0.35); flex-shrink:0;">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                     </svg>
-                    Copy to Clipboard
-                </button>
+                </div>
+                <h1 style="font-size:1.75rem; font-weight:800; margin:0; background:linear-gradient(90deg,#fff 0%,#c7d2fe 60%,#a5b4fc 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:-0.02em; line-height:1.1;">LiDa ModelScanner Pro</h1>
+                <span style="font-size:0.6rem; font-weight:700; letter-spacing:0.12em; color:#a5b4fc; background:rgba(139,92,246,0.18); border:1px solid rgba(139,92,246,0.35); border-radius:5px; padding:2px 7px; text-transform:uppercase;">PRO</span>
+            </div>
+
+            <!-- Subtitle -->
+            <p style="font-size:0.78rem; color:#64748b; margin:0; letter-spacing:0.06em; font-weight:500; text-transform:uppercase;">Compare AI Models &middot; Costs &middot; Specs &middot; Providers</p>
+
+            <!-- Badges row -->
+            <div style="display:flex; align-items:center; gap:8px; justify-content:center;">
+                <div style="display:flex; align-items:center; gap:6px; font-size:10px; font-weight:700; background:rgba(16,185,129,0.1); padding:5px 12px; border-radius:20px; border:1px solid rgba(16,185,129,0.25); color:#10b981; letter-spacing:0.08em;">
+                    <div style="width:7px; height:7px; background:#10b981; border-radius:50%; animation: pulse-dot 2s infinite;"></div>
+                    LIVE PRICING
+                </div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:10px; font-weight:700; background:rgba(59,130,246,0.08); padding:5px 12px; border-radius:20px; border:1px solid rgba(59,130,246,0.2); color:#93c5fd; letter-spacing:0.08em;">
+                    JULY 2026
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal-overlay" id="compareModal">
-        <div class="modal" style="width: 1000px;">
-            <button class="close-btn" onclick="closeCompareModal()">×</button>
-            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Model Comparison</h3>
-            <div id="compareContent"></div>
-        </div>
-    </div>
-
-    <div class="compare-bar" id="compareBar">
-        <div style="color:white; font-weight:600;">Comparing <span id="compareCount">0</span> models</div>
-        <button class="btn btn-primary" onclick="openCompareModal()">View Comparison</button>
-        <button class="btn" onclick="clearCompare()" style="padding:0.5rem;">×</button>
-    </div>
-
-    <header>
-        <div class="header-left"></div>
-        <div class="brand">
-            <img src="logo.png" alt="Lida Logo" class="brand-logo-img">
-            <div class="brand-text"><span class="lida-text">Lida</span> ModelScanner <span>Pro</span></div>
-        </div>
-        <div class="header-right">
-            <button id="share-tool-button" class="btn"
-                style="padding: 0.4rem 0.8rem; font-size: 0.75rem; border-color: var(--border); color: var(--text-muted);">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    style="width:14px; height:14px;">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                    <polyline points="16 6 12 2 8 6"></polyline>
-                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-                Share
-            </button>
-            <div class="status-pill">
-                <div class="status-dot"></div>
-                LIVE PRICING • JAN 2026
-            </div>
-        </div>
+        <style>
+            @keyframes pulse-dot {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(1.3); }
+            }
+        </style>
     </header>
+
+    <!-- Dynamic Model Stats Bar -->
+    <div id="statsBar" style="background: rgba(15,23,42,0.95); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 10px 0; display: flex; align-items: center; justify-content: center;">
+        <div style="display:flex; align-items:center; gap: 20px; flex-wrap:wrap; justify-content:center;">
+            <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span style="font-size:0.72rem; color:#94a3b8; font-weight:500; text-transform:uppercase; letter-spacing:0.05em;">Active Models</span>
+                <span id="stat-active" style="font-size:0.85rem; font-weight:700; color:#fff; background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); border-radius:6px; padding:1px 8px;">—</span>
+            </div>
+            <div style="width:1px; height:16px; background:rgba(255,255,255,0.1);"></div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span style="font-size:0.72rem; color:#94a3b8; font-weight:500; text-transform:uppercase; letter-spacing:0.05em;">Providers</span>
+                <span id="stat-providers" style="font-size:0.85rem; font-weight:700; color:#fff; background:rgba(139,92,246,0.15); border:1px solid rgba(139,92,246,0.3); border-radius:6px; padding:1px 8px;">—</span>
+            </div>
+            <div style="width:1px; height:16px; background:rgba(255,255,255,0.1);"></div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span style="font-size:0.72rem; color:#94a3b8; font-weight:500; text-transform:uppercase; letter-spacing:0.05em;">Deprecated</span>
+                <span id="stat-legacy" style="font-size:0.85rem; font-weight:700; color:#fff; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.25); border-radius:6px; padding:1px 8px;">—</span>
+            </div>
+            <div style="width:1px; height:16px; background:rgba(255,255,255,0.1);"></div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#10b981" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span style="font-size:0.72rem; color:#94a3b8; font-weight:500; text-transform:uppercase; letter-spacing:0.05em;">Last Updated</span>
+                <span style="font-size:0.8rem; font-weight:600; color:#10b981;">July 2026</span>
+            </div>
+        </div>
+    </div>
 
     <div class="tabs-container">
         <nav class="tabs">
-            <button class="tab-btn active" onclick="switchTab('active')">Active Models</button>
-            <button class="tab-btn" onclick="switchTab('legacy')">Graveyard (Deprecated)</button>
+            <button class="tab-btn active" onclick="switchTab('active')">Active Models <span id="tab-active-count" style="font-size:0.7em; opacity:0.7;"></span></button>
+            <button class="tab-btn" onclick="switchTab('legacy')">Graveyard (Deprecated) <span id="tab-legacy-count" style="font-size:0.7em; opacity:0.7;"></span></button>
         </nav>
     </div>
 
@@ -242,7 +248,7 @@
 
             <div class="panel" style="margin-top: 1.5rem; border-style: dashed; background: transparent;">
                 <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
-                    <p style="margin-bottom: 0.75rem;"><strong>Scanner Status:</strong><br>Monitoring 12 endpoints.</p>
+                    <p style="margin-bottom: 0.75rem;"><strong>Scanner Status:</strong><br>Monitoring 25 endpoints.</p>
                     <p>Prices reflect standard API rates per 1M tokens (blended input/output).</p>
                 </div>
             </div>
@@ -260,7 +266,7 @@
     <footer class="footer">
         <div class="footer-content">
             <p class="footer-copyright">© LiDa ModelScanner Pro</p>
-            <p class="footer-version">Version 2.0.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
+            <p class="footer-version">Version 2.1.0 | Made with <span class="footer-heart">❤️</span> for developers</p>
             <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
                 class="btn btn-discover">
                 Discover More Tools
@@ -268,7 +274,6 @@
         </div>
     </footer>
 
-    <script src="../shared-components/share-button.js"></script>
     <script src="data.js"></script>
     <script src="script.js"></script>
 

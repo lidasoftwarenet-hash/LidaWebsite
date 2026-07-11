@@ -64,14 +64,14 @@
     "id": "windsurf",
     "category": "AI & Coding Assistants",
     "name": "Windsurf",
-    "description": "An agentic AI coding environment that moves beyond simple completion to autonomous architectural reasoning.",
+    "description": "Agentic AI coding IDE now owned by Cognition (makers of Devin). Moves beyond simple autocomplete to autonomous multi-file editing. Google hired its original leadership team in 2025.",
     "useCase": "Building complex features where the AI acts as an agent pair programmer with deep tool access.",
-    "url": "https://codeium.com/windsurf",
+    "url": "https://windsurf.com",
     "tags": [
       "ai",
       "agentic",
       "ide",
-      "codeium"
+      "cognition"
     ],
     "pricing": "Freemium"
   },
@@ -124,8 +124,8 @@
     "id": "github-copilot",
     "category": "AI & Coding Assistants",
     "name": "GitHub Copilot",
-    "description": "The industry standard AI pair programmer. Provides real-time code completion, chat, and pull request summaries.",
-    "useCase": "General coding speedup, boilerplate generation, and in-IDE explanations.",
+    "description": "The industry-standard AI pair programmer. Free tier offers 2,000 completions/month. Paid plans add agentic Coding Agent (issue-to-PR), chat, and pull request summaries.",
+    "useCase": "General coding speedup, boilerplate generation, and in-IDE explanations across the GitHub ecosystem.",
     "url": "https://github.com/features/copilot",
     "tags": [
       "ai",
@@ -133,7 +133,7 @@
       "github",
       "vscode"
     ],
-    "pricing": "Paid"
+    "pricing": "Freemium"
   },
   {
     "id": "tabnine",
@@ -289,9 +289,9 @@
     "id": "flux-2-pro",
     "category": "Media",
     "name": "FLUX.2 [pro]",
-    "description": "Top-tier image generation model by Black Forest Labs known for extreme photorealism and precise prompt adherence. Released November 2025.",
+    "description": "Top-tier image generation model by Black Forest Labs. Supports multi-reference images, native 4MP resolution, pixel-perfect text rendering, and precise prompt adherence.",
     "useCase": "Generating high-end professional assets and photorealistic imagery via API.",
-    "url": "https://blackforestlabs.ai",
+    "url": "https://bfl.ai",
     "tags": [
       "ai",
       "image",
@@ -301,11 +301,11 @@
     "pricing": "Paid"
   },
   {
-    "id": "runway-gen3",
+    "id": "runway-gen4",
     "category": "Media",
-    "name": "Runway Gen-3 Alpha",
-    "description": "Professional-grade AI video model offering unparalleled temporal consistency and director-level control.",
-    "useCase": "Serious film production and high-fidelity video synthesis with advanced camera controls.",
+    "name": "Runway Gen-4",
+    "description": "Professional-grade AI video platform with world-consistent generation. Gen-4.5 (July 2026) offers cinematic realism, improved visual fidelity, and director-level camera controls.",
+    "useCase": "Serious film production and high-fidelity video synthesis with advanced camera and character controls.",
     "url": "https://runwayml.com",
     "tags": [
       "ai",
@@ -316,10 +316,10 @@
     "pricing": "Paid"
   },
   {
-    "id": "midjourney-v7",
+    "id": "midjourney",
     "category": "Media",
     "name": "Midjourney",
-    "description": "The leading tool for artistic and cinematic image generation with a focus on creative aesthetics.",
+    "description": "The leading tool for artistic and cinematic image generation. V8.1 (June 2026) is the current default, offering 4–5x faster generation, 2K HD output, and an improved web editor with inpainting and outpainting.",
     "useCase": "Concept art, game assets, and high-impact visual marketing materials.",
     "url": "https://www.midjourney.com",
     "tags": [
@@ -331,11 +331,11 @@
     "pricing": "Paid"
   },
   {
-    "id": "ideogram-2",
+    "id": "ideogram",
     "category": "Media",
-    "name": "Ideogram 2.0",
-    "description": "Advanced AI image generator that specializes in perfect typography and graphic design elements.",
-    "useCase": "Creating logos, posters, and designs where text integration inside the image is critical.",
+    "name": "Ideogram",
+    "description": "AI image generator specializing in perfect typography and graphic design. Ideogram 4.0 (June 2026) is an open-weight model with layer-based generation, advanced bounding-box layout, and best-in-class text rendering.",
+    "useCase": "Creating logos, posters, and designs where accurate text integration inside the image is critical.",
     "url": "https://ideogram.ai",
     "tags": [
       "ai",
@@ -394,8 +394,8 @@
     "id": "luma-dream",
     "category": "Media",
     "name": "Luma Dream Machine",
-    "description": "Highly capable AI video generator that can create 3D-consistent scenes and realistic character interactions.",
-    "useCase": "Prototyping 3D scenes and cinematic interactions for game assets.",
+    "description": "AI video generator from Luma AI. The Ray3 series (2026) delivers native 1080p output, superior temporal consistency, and advanced keyframe control for cinematic production workflows.",
+    "useCase": "Prototyping 3D scenes, cinematic filmmaking, and creative video generation with professional-grade consistency.",
     "url": "https://lumalabs.ai/dream-machine",
     "tags": [
       "ai",
@@ -721,20 +721,7 @@
     ],
     "pricing": "Paid"
   },
-  {
-    "id": "fleet-jetbrains",
-    "category": "IDE & Code Editors",
-    "name": "Fleet",
-    "description": "⚠️ Discontinued Dec 2025. JetBrains shut this down. Use IntelliJ-based IDEs or look out for their upcoming agentic IDE.",
-    "useCase": "N/A ,  discontinued.",
-    "url": "https://www.jetbrains.com/",
-    "tags": [
-      "ide",
-      "discontinued",
-      "jetbrains"
-    ],
-    "pricing": "N/A"
-  },
+
   {
     "id": "xcode",
     "category": "IDE & Code Editors",
@@ -1069,8 +1056,8 @@
     "id": "jasper-ai",
     "category": "AI & Productivity Tools",
     "name": "Jasper",
-    "description": "Enterprise-grade AI marketing and content platform that empowers teams to scale their creative work.",
-    "useCase": "Scaling company-wide content marketing and brand-consistent writing.",
+    "description": "Enterprise AI marketing platform with brand governance, multi-agent workflows, and integrations for Slack, SharePoint, and Workfront. Best suited for large marketing teams; less practical for individual users.",
+    "useCase": "Scaling company-wide content production with strict brand voice enforcement and structured approval workflows.",
     "url": "https://www.jasper.ai/",
     "tags": [
       "ai",
@@ -1111,12 +1098,12 @@
     "pricing": "Freemium"
   },
   {
-    "id": "zapier-central",
+    "id": "zapier-agents",
     "category": "AI & Productivity Tools",
-    "name": "Zapier Central",
-    "description": "A new AI-workspace from Zapier where you can build agents that execute actions across 6,000+ apps.",
-    "useCase": "Building autonomous AI agents that perform actual tasks in your tools.",
-    "url": "https://zapier.com/central",
+    "name": "Zapier Agents",
+    "description": "AI agent capabilities now integrated across the Zapier platform (formerly Zapier Central). Build autonomous agents that execute actions across 7,000+ apps using natural language.",
+    "useCase": "Building autonomous AI agents that perform actual tasks in your tools without managing infrastructure.",
+    "url": "https://zapier.com/agents",
     "tags": [
       "ai",
       "automation",
@@ -1609,9 +1596,9 @@
     "id": "sonarqube-all",
     "category": "Security & Authentication Tools",
     "name": "SonarQube",
-    "description": "Open-source platform for continuous inspection of code quality and security.",
+    "description": "Platform for continuous inspection of code quality and security. The free tier is now called SonarQube Community Build (renamed Oct 2024). Commercial tiers are SonarQube Server and SonarQube Cloud.",
     "useCase": "Enforcing code standards and catching vulnerabilities in CI/CD pipelines.",
-    "url": "https://www.sonarqube.org/",
+    "url": "https://www.sonarsource.com/products/sonarqube/",
     "tags": [
       "security",
       "quality",
@@ -1729,9 +1716,9 @@
     "id": "json-formatter-pro",
     "category": "Browser Dev Tools & Extensions",
     "name": "JSON Formatter",
-    "description": "Tidies up and highlights raw JSON responses for easy reading in the browser.",
-    "useCase": "Reading API responses directly without external tools.",
-    "url": "https://chrome.google.com/webstore/detail/json-formatter/cgdnblomoeddcoddmgmljhigfijhgoha",
+    "description": "Formats and highlights raw JSON responses directly in the browser for easy reading. Look for actively maintained, open-source forks — the original extension changed ownership and has trust concerns.",
+    "useCase": "Reading API responses directly in the browser without external tools.",
+    "url": "https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa",
     "tags": [
       "extension",
       "json",
@@ -1771,12 +1758,12 @@
     "pricing": "Free"
   },
   {
-    "id": "edit-cookie-ext",
+    "id": "cookie-editor-ext",
     "category": "Browser Dev Tools & Extensions",
-    "name": "EditThisCookie",
-    "description": "Advanced cookie manager for Chrome that allows viewing, editing, and deleting cookies.",
+    "name": "Cookie-Editor",
+    "description": "Open-source cookie manager for Chrome and Firefox. Clean interface for viewing, editing, and deleting cookies. The recommended replacement for the defunct EditThisCookie extension.",
     "useCase": "Session debugging and managing browser storage during development.",
-    "url": "https://www.editthiscookie.com/",
+    "url": "https://cookie-editor.com/",
     "tags": [
       "extension",
       "cookies",
@@ -1788,10 +1775,10 @@
   {
     "id": "ua-switcher-ext",
     "category": "Browser Dev Tools & Extensions",
-    "name": "User-Agent Switcher",
-    "description": "Easily switch your browser's user agent to test device-specific code.",
+    "name": "User-Agent Switcher and Manager",
+    "description": "Switch your browser's user agent to any device or browser for testing device-specific code and responsive behavior.",
     "useCase": "Testing mobile-only or bot-specific logic without actual devices.",
-    "url": "https://chrome.google.com/webstore/detail/user-agent-switcher-for-c/djflhoibgkdhkhhcedjiklpkjnoahfmg",
+    "url": "https://add0n.com/useragent-switcher.html",
     "tags": [
       "extension",
       "test",
@@ -1872,6 +1859,126 @@
       "supply-chain",
       "npm",
       "scanning"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "openai-codex-cli",
+    "category": "AI & Coding Assistants",
+    "name": "Codex CLI (OpenAI)",
+    "description": "Open-source terminal AI coding agent from OpenAI. Reads repositories, executes shell commands, manages Git workflows, and supports MCP servers. A strong complement to Claude Code.",
+    "useCase": "Autonomous terminal-based development, multi-step task execution, and complex refactoring using OpenAI models.",
+    "url": "https://github.com/openai/codex",
+    "tags": [
+      "ai",
+      "cli",
+      "openai",
+      "agentic"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "gemini-cli",
+    "category": "AI & Coding Assistants",
+    "name": "Gemini CLI",
+    "description": "Google's open-source AI terminal agent powered by Gemini 2.5 Pro. Free tier includes 60 requests/minute. Supports Google Search grounding, file operations, shell commands, and MCP extensions.",
+    "useCase": "Terminal-first AI development, research, and automation using Google's Gemini models without leaving the command line.",
+    "url": "https://github.com/google-gemini/gemini-cli",
+    "tags": [
+      "ai",
+      "cli",
+      "google",
+      "open-source"
+    ],
+    "pricing": "Free"
+  },
+  {
+    "id": "devin-ai",
+    "category": "AI & Coding Assistants",
+    "name": "Devin",
+    "description": "AI software engineer by Cognition that can independently plan, implement, and ship features. Also powers the Windsurf IDE ecosystem. Operates with its own shell, browser, and code editor.",
+    "useCase": "Delegating complete engineering tasks — from ticket to pull request — to an autonomous AI agent.",
+    "url": "https://devin.ai",
+    "tags": [
+      "ai",
+      "agentic",
+      "autonomous",
+      "engineer"
+    ],
+    "pricing": "Paid"
+  },
+  {
+    "id": "supabase",
+    "category": "Cloud & DevOps Tools",
+    "name": "Supabase",
+    "description": "The most popular open-source Firebase alternative. Provides a hosted Postgres database, Auth, file Storage, Realtime subscriptions, and Edge Functions — all via a clean dashboard and API.",
+    "useCase": "Building full-stack apps fast with a managed backend that includes auth, database, and storage out of the box.",
+    "url": "https://supabase.com",
+    "tags": [
+      "database",
+      "auth",
+      "open-source",
+      "backend"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "neon-db",
+    "category": "Databases & ORMs",
+    "name": "Neon",
+    "description": "Serverless Postgres with instant database branching, scale-to-zero compute, and disaggregated storage. Acquired by Databricks in 2025. A favorite for CI/CD workflows with ephemeral DB instances.",
+    "useCase": "Cost-efficient, scalable Postgres for modern apps — especially when you need isolated DB branches per developer or per CI run.",
+    "url": "https://neon.tech",
+    "tags": [
+      "database",
+      "postgres",
+      "serverless",
+      "branching"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "drizzle-orm",
+    "category": "Databases & ORMs",
+    "name": "Drizzle ORM",
+    "description": "Lightweight, TypeScript-first ORM with a SQL-like query API, zero runtime overhead, and Postgres/MySQL/SQLite support. Rapidly gaining adoption as a modern alternative to Prisma.",
+    "useCase": "Type-safe database access in TypeScript projects where you want fine-grained SQL control without boilerplate.",
+    "url": "https://orm.drizzle.team",
+    "tags": [
+      "orm",
+      "typescript",
+      "database",
+      "lightweight"
+    ],
+    "pricing": "Free"
+  },
+  {
+    "id": "kling-ai",
+    "category": "Media",
+    "name": "Kling AI",
+    "description": "High-quality AI video generation platform by Kuaishou. Supports realistic motion, character consistency, and long-form video clips up to 3 minutes — a strong competitor to Sora and Runway.",
+    "useCase": "Generating high-fidelity short-to-medium length video clips from text or image prompts at competitive quality.",
+    "url": "https://klingai.com",
+    "tags": [
+      "ai",
+      "video",
+      "media",
+      "generative"
+    ],
+    "pricing": "Freemium"
+  },
+  {
+    "id": "heygen-ai",
+    "category": "Media",
+    "name": "HeyGen",
+    "description": "AI video platform for creating professional avatar-based videos. Specializes in real-time avatar cloning, lip sync, and multi-language dubbing. A strong alternative to Synthesia.",
+    "useCase": "Creating localized, multilingual video content with AI avatars for marketing, onboarding, or educational use.",
+    "url": "https://www.heygen.com",
+    "tags": [
+      "ai",
+      "avatar",
+      "video",
+      "dubbing"
     ],
     "pricing": "Freemium"
   }

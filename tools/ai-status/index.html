@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -57,11 +57,13 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+<script src="/components/site-nav-v2.js" type="module"></script>
 <script src="/analytics.js" defer></script>
 </head>
 
-<body>
+<body style="padding-top: 115px;">
 
+  <site-nav-v2 active="projects"></site-nav-v2>
 
   <!-- AMBIENT SCAN LINE -->
   <div class="scan-line" aria-hidden="true"></div>
@@ -103,15 +105,16 @@
   </div>
 
   <!-- NAV -->
-  <nav>
-    <a href="../../index.html" class="nav-back" title="Back to LiDa Software">
-      <img src="/favicon.ico" alt="LiDa" width="20" height="20" style="border-radius:4px;flex-shrink:0" />
-      LiDa Software
-    </a>
-    <span class="nav-divider">/</span>
-    <span class="nav-title">AI API Status</span>
-    <span class="nav-badge">Live</span>
-  </nav>
+  <header style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(8, 8, 15, 0.92); display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <h1 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0 0 4px 0;">AI API Status</h1>
+        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Is it Down or Is it Me?</p>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: bold; background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); color: white;">
+        <span class="cs-live-dot" style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block;"></span>
+        LIVE
+    </div>
+  </header>
 
   <!-- HERO -->
   <section class="hero">

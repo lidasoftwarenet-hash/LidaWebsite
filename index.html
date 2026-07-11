@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,10 +34,8 @@
   <link rel="icon" href="https://www.lidasoftware.online/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="preload" href="logo.png" as="image">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="/components/site-nav.css">
-  <script src="/components/site-nav.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="/components/site-nav-v2.js" type="module"></script>
   <style>
     * {
       margin: 0;
@@ -2828,7 +2826,7 @@
 
 <body>
   <!-- Navigation Header -->
-  <site-nav></site-nav>
+  <site-nav-v2 hide-share="true"></site-nav-v2>
 
 
   <!-- Hero Section -->
@@ -3096,22 +3094,6 @@
               data-usage-label=".env files validated this month">
               <span class="usage-dot"></span> <span class="usage-count"></span>
             </div>
-          </div>
-
-          <!-- Advanced Link Manager -->
-          <div class="project-card fade-in">
-            <div class="project-icon">🔗</div>
-            <h3 class="project-title">Advanced Link Manager</h3>
-            <p class="project-description">
-              Browser extension to organize, categorize, and access bookmarks efficiently.
-            </p>
-            <div class="tool-tags">
-              <span class="tool-tag tag-chrome">Chrome Extension</span>
-              <span class="tool-tag tag-local">Local</span>
-              <span class="tool-tag tag-utility">Productivity</span>
-            </div>
-            <a href="https://chromewebstore.google.com/detail/advanced-link-manager/ombmhelopfgflnoiebhgpaiiaopnjpfn"
-              class="project-link">Open Extension →</a>
           </div>
 
         </div>
@@ -3562,7 +3544,7 @@
               <span class="tool-tag tag-utility">Utility</span>
               <span class="tool-tag tag-local">Local</span>
             </div>
-            <a href="/lidamixplay" class="project-link">Open App →</a>
+            <a href="/lida-mix-play/index.html" class="project-link">Open App →</a>
           </div>
 
         </div>
