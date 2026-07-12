@@ -1,0 +1,253 @@
+/* ============================================================
+   site-footer-v2.css
+   Global footer component styles — LiDa Software
+   Light DOM — no Shadow DOM encapsulation
+   ============================================================ */
+
+/* ── Host element ── */
+site-footer-v2 {
+  display: block;
+  width: 100%;
+}
+
+/* ── Shell ── */
+.sf2-footer {
+  background: #07070d;
+  border-top: 1px solid rgba(102, 126, 234, 0.18);
+  color: #b4b4d4;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Main grid ── */
+.sf2-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+/* ── Column headings ── */
+.sf2-col-heading {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #667eea;
+  margin-bottom: 18px;
+  display: block;
+}
+
+/* ── Brand column ── */
+.sf2-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sf2-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 30px;;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.sf2-logo-link:hover {
+  opacity: 0.85;
+}
+
+.sf2-logo-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(102, 126, 234, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sf2-logo-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+}
+
+.sf2-logo-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sf2-brand-desc {
+  color: #7a7a9a;
+  font-size: 13px;
+  max-width: 240px;
+  line-height: 1.7;
+}
+
+/* Social icons */
+.sf2-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  margin: 10px 50px;;
+}
+
+.sf2-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(102, 126, 234, 0.15);
+  color: #7a7a9a;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.sf2-social-link:hover {
+  color: #a78bfa;
+  background: rgba(102, 126, 234, 0.12);
+  border-color: rgba(102, 126, 234, 0.35);
+  transform: translateY(-2px);
+}
+
+.sf2-social-link svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* WhatsApp specific hover */
+.sf2-social-link.sf2-whatsapp:hover {
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.1);
+  border-color: rgba(37, 211, 102, 0.3);
+}
+
+/* ── Nav link lists ── */
+.sf2-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sf2-link-list a {
+  color: #9090b0;
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  display: inline-block;
+}
+
+.sf2-link-list a:hover {
+  color: #e0e0ff;
+  padding-left: 4px;
+}
+
+/* Dev-news pulse badge */
+.sf2-devnews-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.8);
+  margin-right: 5px;
+  vertical-align: middle;
+  animation: sf2-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes sf2-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* ── Bottom band ── */
+.sf2-bottom-band {
+  border-top: 1px solid rgba(102, 126, 234, 0.18);
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.sf2-open-source-badge {
+  font-size: 13.5px;
+  color: #9090b0;
+  font-style: italic;
+  border: 2px solid #0ea5e9;
+  border-radius: 10px;
+}
+
+.sf2-philosophy-text {
+  color: #5a5a7a;
+  font-size: 12.5px;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+.sf2-copyright {
+  color: #5a5a7a;
+  font-size: 12px;
+}
+
+.sf2-copyright strong {
+  color: #7a7a9a;
+  font-weight: 600;
+}
+
+/* ── Accessibility ── */
+.sf2-footer *:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Responsive: tablet ── */
+@media (max-width: 900px) {
+  .sf2-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+/* ── Responsive: mobile ── */
+@media (max-width: 560px) {
+  .sf2-main {
+    grid-template-columns: 1fr;
+    padding: 40px 20px 32px;
+    gap: 28px;
+  }
+
+  .sf2-brand-desc {
+    max-width: 100%;
+  }
+
+  .sf2-bottom-band {
+    padding: 24px 20px 20px;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+

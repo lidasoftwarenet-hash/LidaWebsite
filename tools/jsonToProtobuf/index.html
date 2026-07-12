@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -74,6 +74,7 @@
     }
     </script>
 <script src="/components/site-nav-v2.js" type="module"></script>
+<script src="/components/site-footer-v2.js" defer></script>
 <script src="/analytics.js" defer></script>
 </head>
 
@@ -476,21 +477,7 @@ Pro Tips:
         </div>
     </div>
 
-    <!-- Professional Footer -->
-    <footer class="lida-footer">
-        <div class="lida-footer-content">
-            <p class="lida-footer-copyright">© LiDa JSON to Protobuf PRO</p>
-            <p class="lida-footer-version">Version 2.0.0 | Enterprise Edition | Made with <span
-                    class="lida-footer-heart">❤️</span> for developers</p>
-            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
-                class="lida-btn-discover">
-                Discover More Tools
-            </a>
-            <div class="lida-footer-bottom">
-                <p class="lida-footer-bottom-text">© 2026 LiDa Software. All tools are 100% free.</p>
-            </div>
-        </div>
-    </footer>
+    <site-footer-v2></site-footer-v2>
 
     <!-- Load modules in order: Core -> Generators -> Validator -> UI Controller -> Main -->
     <script src="ProtoStruct.js"></script>

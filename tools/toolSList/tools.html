@@ -43,6 +43,7 @@
     }
   </script>
   <script src="/components/site-nav-v2.js" type="module"></script>
+  <script src="/components/site-footer-v2.js" defer></script>
   <script src="/analytics.js" defer></script>
 </head>
 
@@ -216,30 +217,7 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="md:flex justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <div class="flex items-center gap-2 mb-2">
-            <div class="h-6 w-6 bg-slate-900 rounded-md flex items-center justify-center">
-              <span class="text-white font-bold text-xs">L</span>
-            </div>
-            <span class="font-bold text-slate-900">LiDa Software</span>
-          </div>
-          <p class="text-sm text-slate-500">Empowering developers with intelligent tools.</p>
-        </div>
-        <div class="flex gap-6">
-          <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors">Privacy</a>
-          <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors">Terms</a>
-          <a href="#" class="text-slate-400 hover:text-slate-900 transition-colors">Contact</a>
-        </div>
-      </div>
-      <div class="mt-8 pt-8 border-t border-slate-100 text-center text-xs text-slate-400">
-        &copy; 2024 LiDa Software. All rights reserved.
-      </div>
-    </div>
-  </footer>
+  <site-footer-v2></site-footer-v2>
 
   <script src="script.js"></script>
 

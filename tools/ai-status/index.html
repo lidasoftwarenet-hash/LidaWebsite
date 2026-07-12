@@ -58,6 +58,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 <script src="/components/site-nav-v2.js" type="module"></script>
+<script src="/components/site-footer-v2.js" defer></script>
 <script src="/analytics.js" defer></script>
 </head>
 
@@ -219,22 +220,8 @@
     </div>
   </div>
 
-  <!-- SOCIAL SHARE -->
-  <div id="shareSection" class="share-section">
-    <div class="share-section-inner">
-      <div class="share-label">
-        <div class="share-label-title">Share this tool</div>
-        <div class="share-label-sub">Know someone whose AI APIs keep going down? Share the dashboard.</div>
-      </div>
-      <div id="shareButtons" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"></div>
-    </div>
-  </div>
 
-  <!-- FOOTER -->
-  <footer>
-    Built by <a href="../../index.html">LiDa Software</a> · Data from official provider status pages ·
-    <a href="../../index.html#projects">More Dev Tools →</a>
-  </footer>
+  <site-footer-v2></site-footer-v2>
 
   <div id="toast"></div>
 

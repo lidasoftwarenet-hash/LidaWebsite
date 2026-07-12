@@ -619,6 +619,7 @@
 }
 </script>
 <script src="/components/site-nav-v2.js" type="module"></script>
+<script src="/components/site-footer-v2.js" defer></script>
 <script src="/analytics.js" defer></script>
 </head>
 
@@ -626,7 +627,7 @@
     <site-nav-v2 active="projects"></site-nav-v2>
 
     <!-- Tool Header -->
-    <header class="sticky top-[115px] z-30 border-b border-gray-800 bg-gray-900/80 backdrop-blur-xl fade-in" style="margin-top: -1.5rem; margin-bottom: 1.5rem; margin-left: -1rem; margin-right: -1rem; padding: 1rem;">
+    <header class="top-[115px] z-30 border-b border-gray-800 bg-gray-900/80 backdrop-blur-xl fade-in" style="margin-top: -1.5rem; margin-bottom: 1.5rem; margin-left: -1rem; margin-right: -1rem; padding: 1rem;">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div>
                 <div class="flex items-center gap-3">
@@ -796,19 +797,9 @@
         <!-- Output Area -->
         <div id="diffOutput" class="diff-container rounded-lg overflow-hidden fade-in"></div>
 
-        <!-- Footer Tips -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p class="footer-copyright">© LiDa Ai Code Diff Viewer</p>
-                <p class="footer-version">Version 1.0.0 | Made with <span class="footer-heart">❤️</span> for
-                    productivity enthusiasts</p>
-                <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
-                    class="btn btn-discover">
-                    Discover More Features
-                </a>
-            </div>
-        </footer>
     </div>
+
+    <site-footer-v2></site-footer-v2>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"></script>

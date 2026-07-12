@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>site-footer-v2 — Prototype Preview | LiDa Software</title>
+
+  <!-- Inter font (mirrors site) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- The component script — self-injects /components/site-footer-v2.css -->
+  <script src="/components/site-footer-v2.js" defer></script>
+
+  <style>
+    /* ── Preview page shell ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fake page content above the footer */
+    .preview-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .preview-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(102, 126, 234, 0.12);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a78bfa;
+    }
+
+    .preview-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a78bfa;
+      box-shadow: 0 0 6px rgba(167, 139, 250, 0.8);
+      animation: preview-blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes preview-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .preview-title {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 50%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .preview-subtitle {
+      color: #7a7a9a;
+      font-size: 15px;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .preview-divider {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 900px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+    }
+
+    .preview-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .preview-chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(102,126,234,0.15);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #9090b0;
+    }
+
+    .preview-chip strong {
+      color: #c0c0e0;
+      font-weight: 600;
+    }
+
+    /* Push footer to bottom */
+    site-footer-v2 {
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Simulated page content -->
+  <main class="preview-content" aria-label="Preview placeholder content">
+    <span class="preview-badge">Prototype Preview</span>
+    <h1 class="preview-title">site-footer-v2</h1>
+    <p class="preview-subtitle">
+      Isolated prototype for the global LiDa Software footer Web Component.
+      Scroll down (or resize) to inspect the full footer layout below.
+    </p>
+
+    <div class="preview-meta">
+      <span class="preview-chip"><strong>Component:</strong> &lt;site-footer-v2&gt;</span>
+      <span class="preview-chip"><strong>DOM:</strong> Light DOM</span>
+      <span class="preview-chip"><strong>CSS:</strong> /components/site-footer-v2.css</span>
+      <span class="preview-chip"><strong>JS:</strong> /components/site-footer-v2.js</span>
+      <span class="preview-chip"><strong>Dependencies:</strong> None</span>
+    </div>
+
+    <div class="preview-divider" aria-hidden="true"></div>
+  </main>
+
+  <!-- The component under test -->
+  <site-footer-v2></site-footer-v2>
+
+</body>
+</html>

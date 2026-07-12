@@ -86,37 +86,33 @@
 }
 </script>
     <script src="/components/site-nav-v2.js" type="module"></script>
+    <script src="/components/site-footer-v2.js" defer></script>
     <script src="/analytics.js" defer></script>
 </head>
 
-<body style="padding-top: 115px;">
+<body style="padding-top: 20px;">
     <site-nav-v2 active="projects"></site-nav-v2>
     
     <!-- Tool Header -->
-    <header style="padding: 16px 20px; gap: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); background: var(--bg-secondary); display: flex; align-items: center; justify-content: center;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <div>
-                <h1 style="font-size: 1.25rem; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary);">PromptPilot</h1>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Professional AI prompts engineered for maximum productivity and results</p>
-            </div>
-        </div>
-        <div style="display: flex; gap: 8px;">
-            <button class="help-button" id="helpButton" title="Help & Guide" style="background: transparent; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px; color: var(--text-primary); cursor: pointer;">
-                <span class="material-symbols-outlined">help</span>
-            </button>
-        </div>
+    <header style="position: relative; display: flex; align-items: center; justify-content: center; padding: 0 16px;">
+        <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.7; margin:0 0 16px; font-weight:400; letter-spacing:0.01em; text-align:center;">
+            <strong style="color:#fff; font-weight:700; font-size:1.05rem; background:linear-gradient(90deg, #a78bfa, #667eea); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.5px;">PromptPilot</strong>
+            <br>
+        </p>
+        <button class="help-button" id="helpButton" title="Help & Guide" style="position: absolute; right: 16px; background: transparent; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px; color: var(--text-primary); cursor: pointer;">
+            <span class="material-symbols-outlined">help</span>
+        </button>
     </header>
 
     <div class="container">
-
+  
         <!-- Tool summary for search engines and AI discovery -->
         <section aria-label="Tool overview" style="position:relative; overflow:hidden; background:linear-gradient(145deg, rgba(30,32,40,0.6) 0%, rgba(20,22,28,0.8) 100%); border:1px solid rgba(102,126,234,0.3); border-radius:16px; padding:24px 28px; margin:0 0 24px; box-shadow:0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); backdrop-filter:blur(10px);">
             <div style="position:absolute; top:0; left:0; width:100%; height:4px; background:linear-gradient(90deg, #667eea, #764ba2, #a78bfa);"></div>
             <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.7; margin:0 0 16px; font-weight:400; letter-spacing:0.01em;">
-                <strong style="color:#fff; font-weight:700; font-size:1.05rem; background:linear-gradient(90deg, #a78bfa, #667eea); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.5px;">PromptPilot</strong> is a free, browser-based prompt template library for developers who use AI tools like ChatGPT, Claude, Gemini, or Perplexity daily.
+                <strong style="color:#fff; font-weight:700; font-size:1.05rem; background:linear-gradient(90deg, #a78bfa, #667eea); -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.5px;"></strong> is a free, browser-based prompt template library for developers who use AI tools like ChatGPT, Claude, Gemini, or Perplexity daily.
                 It provides 23+ expert-crafted prompt templates across 10 categories, code review, sprint planning, security audits, data analysis, product planning, testing, observability, and more.
                 Each template includes a guided wizard that collects your project details, context, and goals, then assembles a high-quality, ready-to-use prompt you can copy directly into any AI assistant.
-                <span style="display:inline-block; margin-top:12px; padding:6px 14px; background:rgba(102,126,234,0.1); border-radius:24px; font-size:0.8rem; font-weight:600; color:#a78bfa; border:1px solid rgba(167,139,250,0.25); box-shadow:0 2px 8px rgba(0,0,0,0.1);">✓ No account, no API key, no cost.</span>
             </p>
             <div style="display:flex; align-items:center;">
                 <a href="../../usecase-proptPilot.html" style="display:inline-flex; align-items:center; gap:6px; color:#fff; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:10px 18px; border-radius:8px; font-weight:600; font-size:0.85rem; text-decoration:none; transition:all 0.3s ease; box-shadow:0 4px 12px rgba(102,126,234,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(102,126,234,0.5)'" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(102,126,234,0.3)'">
@@ -1126,18 +1122,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-copyright">© PromptPilot by LiDa Software. All rights reserved.</p>
-            <p class="footer-version">Version 1.0.1 | Made with ❤️ for productivity enthusiasts</p>
-            <a href="https://www.lidasoftware.online/" target="_blank" rel="noopener noreferrer"
-                class="btn btn-discover">
-                <span class="material-symbols-outlined">explore</span>
-                Discover More Features
-            </a>
-        </div>
-    </footer>
+    <site-footer-v2></site-footer-v2>
 
     <script src="utils.js"></script>
     <script src="validation.js"></script>
