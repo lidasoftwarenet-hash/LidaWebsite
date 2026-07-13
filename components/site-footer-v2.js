@@ -72,7 +72,7 @@
       </a>
 
       <p class="sf2-brand-desc">
-        Free developer tools, engineering guides, and open-source resources, no paywalls, no gatekeeping.
+        Free developer tools, engineering guides, and tutorials, no paywalls, no gatekeeping.
       </p>
 
       <!-- Social links -->
