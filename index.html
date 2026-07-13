@@ -3029,6 +3029,64 @@
   </section>
 
 
+  <!-- Saved Items Section -->
+  <section class="magnet-section" id="saved-items-section" style="display: none; padding: 60px 20px; background: rgba(10,10,20,0.4);">
+    <div class="container">
+      <div class="magnet-content">
+        <h2 class="magnet-title" style="font-size: 1.8em;">Your Saved Items</h2>
+        <p class="magnet-subtitle" style="margin-bottom: 30px;">Quick access to the tools and guides you saved.</p>
+        
+        <div class="magnet-list" id="saved-items-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 900px;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const storageKey = 'lida_site_saved_items';
+      const savedItemsSection = document.getElementById('saved-items-section');
+      const savedItemsList = document.getElementById('saved-items-list');
+      
+      try {
+        const savedItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        
+        if (savedItems && savedItems.length > 0) {
+          savedItemsSection.style.display = 'block';
+          
+          // Sort by newest first
+          savedItems.sort((a, b) => b.savedAt - a.savedAt);
+          
+          const getTypeIcon = (type) => {
+            if (type === 'tool') return '🔧';
+            if (type === 'tutorial') return '📚';
+            if (type === 'guide') return '🧭';
+            if (type === 'interview prep') return '🎯';
+            if (type === 'engineering') return '⚙️';
+            if (type === 'dev-news') return '📰';
+            return '📄';
+          };
+          
+          savedItemsList.innerHTML = savedItems.map(item => `
+            <a href="${item.url}" class="magnet-list-item fade-in" style="justify-content: flex-start;">
+              <div class="magnet-list-icon" style="font-size: 1.2em; width: 32px; height: 32px;">${getTypeIcon(item.type)}</div>
+              <div class="magnet-list-text" style="text-align: left; flex: 1;">
+                <div class="magnet-list-title" style="font-size: 0.95em;">${item.title}</div>
+                <div class="magnet-list-hint" style="text-transform: capitalize;">${item.type}</div>
+              </div>
+              <div class="magnet-list-go" style="opacity: 0.5;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </div>
+            </a>
+          `).join('');
+        }
+      } catch (e) {
+        console.error('Failed to load saved items', e);
+      }
+    });
+  </script>
+
   <!-- Projects Section -->
   <!-- Projects Section -->
   <section class="projects-section" id="projects">

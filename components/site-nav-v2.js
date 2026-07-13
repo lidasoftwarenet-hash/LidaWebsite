@@ -249,6 +249,212 @@ class SiteNavV2 extends HTMLElement {
         });
       });
     }
+
+    // Initialize Centralized Save Button in Page Header
+    this._injectPageTitleSaveButton();
+  }
+
+  _injectPageTitleSaveButton() {
+    const urlPath = window.location.pathname;
+    const isHome = urlPath === '/' || urlPath === '/index.html';
+    if (isHome) return;
+
+    // Find the main title element
+    let titleEl = document.querySelector('h1');
+    if (!titleEl) {
+      const strong = document.querySelector('header strong');
+      if (strong) titleEl = strong.closest('p') || strong;
+    }
+    if (!titleEl) return;
+
+    // Find the closest viable container for the title area
+    let container = titleEl.parentElement;
+    if (container.tagName === 'P') container = container.parentElement;
+    
+    // Only wrap if it hasn't been wrapped yet
+    if (container.classList.contains('lida-page-header-container')) return;
+    
+    // Add global CSS for the wrapper and button
+    if (!document.getElementById('lida-save-btn-styles')) {
+      const style = document.createElement('style');
+      style.id = 'lida-save-btn-styles';
+      style.textContent = `
+        .lida-page-header-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 20px;
+          width: 100%;
+          text-align: left !important;
+        }
+        .lida-page-header-left {
+          flex: 1 1 min-content;
+          min-width: 280px;
+        }
+        .lida-page-header-left > * {
+          text-align: left !important;
+        }
+        .lida-page-header-right {
+          flex: 0 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        @media (min-width: 768px) {
+          .lida-page-header-right {
+            align-items: flex-end;
+          }
+        }
+        .lida-page-save-action {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 8px;
+          color: #e2e8f0;
+          font-family: 'Inter', -apple-system, sans-serif;
+          font-size: 13.5px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .lida-page-save-action:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(167, 139, 250, 0.4);
+          transform: translateY(-1px);
+        }
+        .lida-page-save-action:focus-visible {
+          outline: 2px solid #a78bfa;
+          outline-offset: 2px;
+        }
+        .lida-page-save-action.is-saved {
+          background: rgba(167, 139, 250, 0.1);
+          border-color: rgba(167, 139, 250, 0.3);
+          color: #a78bfa;
+        }
+        .lida-page-save-action svg {
+          width: 16px;
+          height: 16px;
+        }
+        .lida-save-status-msg {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    container.classList.add('lida-page-header-container');
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'lida-page-header-wrapper';
+
+    const leftCol = document.createElement('div');
+    leftCol.className = 'lida-page-header-left';
+    
+    // Move all children into leftCol
+    while (container.firstChild) {
+      leftCol.appendChild(container.firstChild);
+    }
+
+    const rightCol = document.createElement('div');
+    rightCol.className = 'lida-page-header-right';
+
+    const saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
+    saveBtn.className = 'lida-page-save-action';
+    saveBtn.setAttribute('aria-pressed', 'false');
+    saveBtn.setAttribute('aria-label', 'Save this page to your Saved Items on the LiDa Software homepage');
+    saveBtn.title = 'Save this page to your Saved Items on the LiDa Software homepage';
+    saveBtn.innerHTML = `<span class="save-icon">☆</span> <span class="save-text">Save for later</span>`;
+
+    const statusMsg = document.createElement('div');
+    statusMsg.className = 'lida-save-status-msg';
+    statusMsg.setAttribute('aria-live', 'polite');
+
+    rightCol.appendChild(saveBtn);
+    rightCol.appendChild(statusMsg);
+
+    wrapper.appendChild(leftCol);
+    wrapper.appendChild(rightCol);
+    container.appendChild(wrapper);
+
+    // Persistence Logic
+    const pageInfo = this._getPageInfo();
+    const storageKey = 'lida_site_saved_items';
+    
+    const updateButtonState = () => {
+      try {
+        const savedItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        const isSaved = savedItems.some(item => item.id === pageInfo.id);
+        
+        if (isSaved) {
+          saveBtn.classList.add('is-saved');
+          saveBtn.setAttribute('aria-pressed', 'true');
+          saveBtn.innerHTML = `<span class="save-icon">★</span> <span class="save-text">Saved</span>`;
+        } else {
+          saveBtn.classList.remove('is-saved');
+          saveBtn.setAttribute('aria-pressed', 'false');
+          saveBtn.innerHTML = `<span class="save-icon">☆</span> <span class="save-text">Save for later</span>`;
+        }
+      } catch (e) {}
+    };
+
+    updateButtonState();
+
+    saveBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      try {
+        let savedItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        const existingIndex = savedItems.findIndex(item => item.id === pageInfo.id);
+        
+        if (existingIndex >= 0) {
+          savedItems.splice(existingIndex, 1);
+          statusMsg.textContent = 'Removed from saved items';
+        } else {
+          savedItems.push({
+            ...pageInfo,
+            savedAt: Date.now()
+          });
+          statusMsg.textContent = 'Saved to your homepage';
+        }
+        
+        localStorage.setItem(storageKey, JSON.stringify(savedItems));
+        updateButtonState();
+      } catch (err) {
+        console.error('Failed to update saved items', err);
+      }
+    });
+  }
+
+  _getPageInfo() {
+    const url = window.location.pathname;
+    let type = 'page';
+    if (url.includes('/tools/') || url.includes('/palette-forge/') || url.includes('/lida-mix-play/')) type = 'tool';
+    else if (url.includes('/tutorials/')) type = 'tutorial';
+    else if (url.includes('/guides.html')) type = 'guide';
+    else if (url.includes('/interview-prep.html')) type = 'interview prep';
+    else if (url.includes('/engineering.html')) type = 'engineering';
+    else if (url.includes('/dev-news.html')) type = 'dev-news';
+    
+    let id = url.replace(/^\//, '').replace(/\.html$/, '');
+    if (!id) id = 'home';
+    
+    let title = document.title.split('|')[0].trim();
+    if (title.endsWith('- Free DevOps Tool')) title = title.replace('- Free DevOps Tool', '').trim();
+    if (title.endsWith(' - LiDa Software')) title = title.replace(' - LiDa Software', '').trim();
+    
+    return { id, title, type, url };
   }
 
   toggleMenu(show) {
