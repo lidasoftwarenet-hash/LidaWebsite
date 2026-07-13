@@ -251,7 +251,11 @@ class SiteNavV2 extends HTMLElement {
     }
 
     // Initialize Centralized Save Button in Page Header
-    this._injectPageTitleSaveButton();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => this._injectPageTitleSaveButton());
+    } else {
+      this._injectPageTitleSaveButton();
+    }
   }
 
   _injectPageTitleSaveButton() {
@@ -280,23 +284,26 @@ class SiteNavV2 extends HTMLElement {
       style.id = 'lida-save-btn-styles';
       style.textContent = `
         .lida-page-header-wrapper {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          flex-wrap: wrap;
-          gap: 20px;
+          display: grid;
+          grid-template-columns: 1fr;
+          align-items: start;
+          gap: 16px;
           width: 100%;
           text-align: left !important;
         }
+        @media (min-width: 768px) {
+          .lida-page-header-wrapper {
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 24px;
+          }
+        }
         .lida-page-header-left {
-          flex: 1 1 min-content;
-          min-width: 280px;
+          min-width: 0;
         }
         .lida-page-header-left > * {
           text-align: left !important;
         }
         .lida-page-header-right {
-          flex: 0 0 auto;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -309,6 +316,9 @@ class SiteNavV2 extends HTMLElement {
         .lida-page-save-action {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
+          min-width: 138px;
+          white-space: nowrap;
           gap: 8px;
           padding: 8px 16px;
           background: rgba(255, 255, 255, 0.04);
@@ -338,6 +348,13 @@ class SiteNavV2 extends HTMLElement {
         .lida-page-save-action svg {
           width: 16px;
           height: 16px;
+        }
+        .lida-page-save-action .save-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          flex-shrink: 0;
         }
         .lida-save-status-msg {
           position: absolute;

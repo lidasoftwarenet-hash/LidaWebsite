@@ -3048,42 +3048,65 @@
       const storageKey = 'lida_site_saved_items';
       const savedItemsSection = document.getElementById('saved-items-section');
       const savedItemsList = document.getElementById('saved-items-list');
-      
-      try {
-        const savedItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        
-        if (savedItems && savedItems.length > 0) {
-          savedItemsSection.style.display = 'block';
+      const getTypeIcon = (type) => {
+        if (type === 'tool') return '🔧';
+        if (type === 'tutorial') return '📚';
+        if (type === 'guide') return '🧭';
+        if (type === 'interview prep') return '🎯';
+        if (type === 'engineering') return '⚙️';
+        if (type === 'dev-news') return '📰';
+        return '📄';
+      };
+
+      const renderSavedItems = () => {
+        try {
+          const savedItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
           
-          // Sort by newest first
-          savedItems.sort((a, b) => b.savedAt - a.savedAt);
-          
-          const getTypeIcon = (type) => {
-            if (type === 'tool') return '🔧';
-            if (type === 'tutorial') return '📚';
-            if (type === 'guide') return '🧭';
-            if (type === 'interview prep') return '🎯';
-            if (type === 'engineering') return '⚙️';
-            if (type === 'dev-news') return '📰';
-            return '📄';
-          };
-          
-          savedItemsList.innerHTML = savedItems.map(item => `
-            <a href="${item.url}" class="magnet-list-item fade-in" style="justify-content: flex-start;">
-              <div class="magnet-list-icon" style="font-size: 1.2em; width: 32px; height: 32px;">${getTypeIcon(item.type)}</div>
-              <div class="magnet-list-text" style="text-align: left; flex: 1;">
-                <div class="magnet-list-title" style="font-size: 0.95em;">${item.title}</div>
-                <div class="magnet-list-hint" style="text-transform: capitalize;">${item.type}</div>
-              </div>
-              <div class="magnet-list-go" style="opacity: 0.5;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </div>
-            </a>
-          `).join('');
+          if (savedItems && savedItems.length > 0) {
+            savedItemsSection.style.display = 'block';
+            savedItems.sort((a, b) => b.savedAt - a.savedAt);
+            
+            savedItemsList.innerHTML = savedItems.map(item => `
+              <a href="${item.url}" class="magnet-list-item" style="justify-content: flex-start; animation: none; opacity: 1; transform: none; position: relative; padding-right: 46px;">
+                <div class="magnet-list-icon" style="font-size: 1.2em; width: 32px; height: 32px;">${getTypeIcon(item.type)}</div>
+                <div class="magnet-list-text" style="text-align: left; flex: 1;">
+                  <div class="magnet-list-title" style="font-size: 0.95em;">${item.title}</div>
+                  <div class="magnet-list-hint" style="text-transform: capitalize;">${item.type}</div>
+                </div>
+                <button class="remove-saved-item" data-id="${item.id}" aria-label="Remove saved item" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </a>
+            `).join('');
+
+            document.querySelectorAll('.remove-saved-item').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                const itemId = e.currentTarget.getAttribute('data-id');
+                let currentItems = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                currentItems = currentItems.filter(i => i.id !== itemId);
+                localStorage.setItem(storageKey, JSON.stringify(currentItems));
+                renderSavedItems();
+              });
+              
+              btn.addEventListener('mouseenter', () => {
+                btn.style.color = '#ef4444';
+                btn.style.background = 'rgba(239, 68, 68, 0.1)';
+              });
+              btn.addEventListener('mouseleave', () => {
+                btn.style.color = 'rgba(255,255,255,0.4)';
+                btn.style.background = 'transparent';
+              });
+            });
+          } else {
+            savedItemsSection.style.display = 'none';
+          }
+        } catch (e) {
+          console.error('Failed to load saved items', e);
         }
-      } catch (e) {
-        console.error('Failed to load saved items', e);
-      }
+      };
+
+      renderSavedItems();
     });
   </script>
 
