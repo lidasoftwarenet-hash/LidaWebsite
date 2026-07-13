@@ -112,6 +112,34 @@
                 0%, 100% { opacity: 1; transform: scale(1); }
                 50% { opacity: 0.5; transform: scale(1.3); }
             }
+            
+            /* Overrides to prevent saved-items.js injection from breaking centered layout */
+            .lida-page-header-wrapper {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: auto !important;
+                gap: 20px !important;
+            }
+            .lida-page-header-left {
+                display: flex !important;
+                align-items: center;
+                gap: 14px;
+            }
+            .lida-page-header-left h1 {
+                white-space: nowrap;
+            }
+            
+            @media (max-width: 768px) {
+                .lida-page-header-wrapper {
+                    flex-direction: column;
+                    gap: 12px !important;
+                }
+                .lida-page-header-left {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+            }
         </style>
     </header>
 
@@ -145,9 +173,20 @@
     </div>
 
     <div class="tabs-container">
-        <nav class="tabs">
-            <button class="tab-btn active" onclick="switchTab('active')">Active Models <span id="tab-active-count" style="font-size:0.7em; opacity:0.7;"></span></button>
-            <button class="tab-btn" onclick="switchTab('legacy')">Graveyard (Deprecated) <span id="tab-legacy-count" style="font-size:0.7em; opacity:0.7;"></span></button>
+        <nav class="tabs" style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:1rem;">
+            <div style="display:flex; gap:2rem;">
+                <button class="tab-btn active" onclick="switchTab('active')">Active Models <span id="tab-active-count" style="font-size:0.7em; opacity:0.7;"></span></button>
+                <button class="tab-btn" onclick="switchTab('legacy')">Graveyard (Deprecated) <span id="tab-legacy-count" style="font-size:0.7em; opacity:0.7;"></span></button>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap:12px; padding-right:1rem;">
+                <span style="font-size:0.7rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">View Layout:</span>
+                <div class="input-toggle" id="viewToggle" style="margin-bottom:0; padding:2px;">
+                    <div class="toggle-bg"></div>
+                    <button class="input-toggle-btn active" onclick="toggleView('list')" id="btn-view-list" style="padding:6px 12px;">Ranked List</button>
+                    <button class="input-toggle-btnn" onclick="toggleView('providers')" id="btn-view-providers" style="padding:6px 12px;">By Provider</button>
+                </div>
+            </div>
         </nav>
     </div>
 
@@ -264,7 +303,59 @@
         </div>
     </main>
 
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
     <site-footer-v2></site-footer-v2>
+
+    <!-- Compare Bar -->
+    <div id="compareBar" class="compare-bar">
+        <div class="compare-info">
+            <span id="compareCount">0</span> models selected for comparison
+        </div>
+        <div class="compare-actions">
+            <button class="btn btn-secondary" onclick="clearCompare()" style="background:transparent; border-color:var(--border);">Clear</button>
+            <button class="btn btn-primary" onclick="openCompareModal()">Compare Now</button>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div id="compareModal" class="modal-overlay">
+        <div class="modal" style="width: 1100px; max-width: 95%;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:1rem; margin-bottom:1.5rem;">
+                <h2 style="margin:0; font-size:1.5rem; background:linear-gradient(90deg,#fff,#a5b4fc); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Model Comparison</h2>
+                <button class="close-btn" style="position:relative; top:0; right:0;" onclick="closeCompareModal()">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="compareContent"></div>
+        </div>
+    </div>
+
+    <!-- API Export Modal -->
+    <div id="apiModal" class="modal-overlay">
+        <div class="modal">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:1rem; margin-bottom:1.5rem;">
+                <h2 style="margin:0; font-size:1.25rem;">API Integration: <span id="modalModelName" style="color:var(--primary);"></span></h2>
+                <button class="close-btn" style="position:relative; top:0; right:0;" onclick="document.getElementById('apiModal').style.display='none'">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div>
+                <div class="tabs-container" style="border:none; background:transparent; padding-bottom:1rem; margin-bottom:1rem; border-bottom:1px solid var(--border);">
+                    <nav class="tabs" style="justify-content:flex-start; gap:1rem;">
+                        <button class="tab-btn export-tab active" onclick="switchExport('curl')">cURL</button>
+                        <button class="tab-btn export-tab" onclick="switchExport('python')">Python</button>
+                        <button class="tab-btn export-tab" onclick="switchExport('node')">Node.js</button>
+                    </nav>
+                </div>
+                <div style="background:var(--bg-input); padding:1rem; border-radius:var(--radius); position:relative;">
+                    <pre><code id="modalCode" data-lang="CURL" style="color:var(--text-main); font-family:var(--font-mono); font-size:0.85rem; line-height:1.5; white-space:pre-wrap;"></code></pre>
+                    <button class="btn" style="position:absolute; top:0.5rem; right:0.5rem; padding:4px 8px; font-size:0.7rem;" onclick="navigator.clipboard.writeText(document.getElementById('modalCode').innerText); alert('Copied to clipboard!')">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="/tools/ai-selector/data.js"></script>
     <script src="/tools/ai-selector/script.js"></script>
