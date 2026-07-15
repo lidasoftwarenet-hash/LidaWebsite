@@ -27,7 +27,12 @@ class SiteNavV2 extends HTMLElement {
         /* Critical sizing — applied synchronously at mount to prevent FOUC */
         :host {
           display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
           min-height: 104px;
+          z-index: 1000;
         }
 
         .nav-shell-pending {
@@ -141,6 +146,12 @@ class SiteNavV2 extends HTMLElement {
 
     const reveal = () => {
       shell.classList.remove('nav-shell-pending');
+      const header = this.shadowRoot.querySelector('.nav-header');
+      if (header) {
+        requestAnimationFrame(() => {
+          document.body.style.paddingTop = `${header.offsetHeight}px`;
+        });
+      }
     };
 
     // Safety fallback — fires even if the load event was already dispatched

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+    content="Validate Dockerfiles and Docker Compose files, detect configuration risks, and visualize services, networks, and volumes." />
+    <meta name="keywords"
+        content="docker, dockerfile, docker compose, validator, linter, security checker, architecture visualizer, developer tools" />
+    <meta name="author" content="LiDa Software" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DockerLens: Dockerfile & Compose Validator | LiDa Software" />
+    <meta property="og:description"
+    content="Validate Dockerfiles and Docker Compose files, detect configuration risks, and visualize services, networks, and volumes." />
+    <meta property="og:url" content="https://www.lidasoftware.online/tools/docker-lens/" />
+    <meta property="og:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DockerLens: Dockerfile & Compose Validator" />
+    <meta name="twitter:description"
+        content="Validate Dockerfiles and Docker Compose files, detect configuration risks, and visualize services, networks, and volumes." />
+    <meta name="twitter:image" content="https://www.lidasoftware.online/logo.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.lidasoftware.online/tools/docker-lens/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.lidasoftware.online/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://www.lidasoftware.online/favicon.ico" />
+
+    <title>DockerLens: Dockerfile & Compose Validator | LiDa Software</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "DockerLens",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "LiDa Software",
+        "url": "https://www.lidasoftware.online",
+        "logo": "https://www.lidasoftware.online/logo.png"
+      }
+    }
+    </script>
+<script src="/components/site-nav-v2.js" type="module"></script>
+<script src="/components/site-footer-v2.js" defer></script>
+<script src="/analytics.js" defer></script>
+<script src="/tools/shared-components/share-button.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+<script src="https://unpkg.com/cytoscape-svg/cytoscape-svg.js"></script>
+<script src="script.js" defer></script>
+</head>
+
+<body style="padding-top: 115px; background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0;">
+
+    <site-nav-v2 active="projects"></site-nav-v2>
+
+    <header style="margin-bottom: 0; display:block; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.08); background: linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(17,24,39,0.98) 60%, rgba(30,27,75,0.6) 100%); position: relative; overflow: hidden; text-align: center; padding: 60px 20px;">
+        <!-- Subtle background glow -->
+        <div style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:600px; height:160px; background:radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%); pointer-events:none;"></div>
+
+        <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <!-- Icon + Title row -->
+            <div style="display:flex; align-items:center; gap:14px; justify-content:center;">
+                <div style="width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,#3b82f6,#8b5cf6); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(59,130,246,0.35); flex-shrink:0;">
+                    <span style="font-size: 24px;">🐳</span>
+                </div>
+                <h1 style="font-size:1.75rem; font-weight:800; margin:0; background:linear-gradient(90deg,#fff 0%,#c7d2fe 60%,#a5b4fc 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:-0.02em; line-height:1.1;">DockerLens</h1>
+            </div>
+
+            <!-- Subtitle -->
+            <p style="font-size:0.9rem; color:#94a3b8; margin:10px 0 0 0; max-width: 600px; line-height: 1.5;">Validate Dockerfiles and Docker Compose files, detect configuration risks, and visualize services, networks, and volumes.</p>
+            
+            <!-- Compact Share Bar -->
+        
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initialize share button with a small delay to ensure the script has loaded
+                setTimeout(() => {
+                    if (typeof initShareButton === 'function') {
+                        initShareButton({
+                            buttonId: 'share-tool-button',
+                            title: 'DockerLens: Dockerfile & Compose Validator',
+                            text: 'Check out DockerLens to validate Dockerfiles and Docker Compose files, detect configuration risks, and visualize architecture.',
+                            url: window.location.href
+                        });
+                    }
+                }, 500);
+            });
+        </script>
+    </header>
+
+    <main class="dl-main">
+        <div class="dl-page-intro" style="text-align: center; margin-bottom: 24px;">
+            <p id="dl-editor-instruction" style="color: #94a3b8; font-size: 1rem; max-width: 600px; margin: 0 auto 16px auto;">Select a mode and paste your configuration to validate issues, visualize architecture, and generate safe improvements.</p>
+            
+            <div class="dl-mode-switch" role="group" aria-label="Validation Mode" style="display: inline-flex; background: rgba(15, 23, 42, 0.6); padding: 4px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <button id="mode-dockerfile" class="dl-btn-tab active" aria-pressed="true" style="padding: 8px 20px; font-size: 0.95rem; border-radius: 6px;">Dockerfile</button>
+                <button id="mode-compose" class="dl-btn-tab" aria-pressed="false" style="padding: 8px 20px; font-size: 0.95rem; border-radius: 6px;">Docker Compose</button>
+            </div>
+        </div>
+
+        <div class="dl-container">
+            <!-- Left Panel: Editor -->
+            <div class="dl-panel dl-editor-panel">
+                <div class="dl-toolbar" style="padding: 16px; background: rgba(15, 23, 42, 0.8);">
+                    <div class="dl-actions" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 8px;">
+                            <label class="dl-btn dl-btn-secondary dl-file-upload" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+                                <span style="margin-right: 6px;">📁</span> Upload
+                                <input type="file" id="file-upload" accept=".dockerfile,Dockerfile,docker-compose.yml,docker-compose.yaml,compose.yml,compose.yaml,.yml,.yaml" style="display:none;">
+                            </label>
+                            <button id="btn-load-example" class="dl-btn dl-btn-secondary" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">Example</button>
+                            <button id="btn-clear" class="dl-btn dl-btn-secondary" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">Clear</button>
+                        </div>
+                        <button id="btn-validate" class="dl-btn dl-btn-primary" style="background: linear-gradient(135deg, #3b82f6, #6366f1); padding: 8px 24px; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">Validate</button>
+                    </div>
+                </div>
+                <div id="dl-import-error" class="dl-import-error" role="alert" aria-live="assertive" style="display: none;">
+                    <span class="dl-icon">⚠️</span>
+                    <span id="dl-import-error-msg"></span>
+                    <button id="btn-close-error" aria-label="Close Error">&times;</button>
+                </div>
+                
+                <div class="dl-editor-container">
+                    <textarea id="dl-editor" placeholder="Paste your Dockerfile here..." spellcheck="false" aria-label="Configuration Editor"></textarea>
+                </div>
+                <div class="dl-privacy-note" style="color: #475569; background: transparent; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem;">
+                    🔒 Processed locally. No data leaves your browser.
+                </div>
+            </div>
+
+            <!-- Right Panel: Results -->
+            <div class="dl-panel dl-results-panel">
+                <div class="dl-results-header">
+                    <div style="display:flex; justify-content:space-between; align-items:center; width:100%; flex-wrap:wrap; gap:12px;">
+                        
+                        <!-- Dockerfile Tabs -->
+                        <div class="dl-mode-switch" id="tab-group-dockerfile" style="display:flex;" role="tablist" aria-label="Dockerfile Results">
+                            <button id="tab-df-issues" class="dl-btn-tab active" role="tab" aria-selected="true" aria-controls="dl-issues-view">Issues</button>
+                            <button id="tab-df-stages" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-stages-view">Build Stages</button>
+                            <button id="tab-df-recs" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-recs-view">Recommendations</button>
+                            <button id="tab-df-improved" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-improved-view">Improved Version</button>
+                            <button id="tab-df-expert" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-expert-view">Expert Review</button>
+                        </div>
+
+                        <!-- Compose Tabs -->
+                        <div class="dl-mode-switch" id="tab-group-compose" style="display:none;" role="tablist" aria-label="Docker Compose Results">
+                            <button id="tab-comp-issues" class="dl-btn-tab active" role="tab" aria-selected="true" aria-controls="dl-issues-view">Issues</button>
+                            <button id="tab-comp-arch" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-arch-view">Architecture</button>
+                            <button id="tab-comp-improved" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-improved-view">Improved Version</button>
+                            <button id="tab-comp-expert" class="dl-btn-tab" role="tab" aria-selected="false" aria-controls="dl-expert-view">Expert Review</button>
+                        </div>
+
+                        <div class="dl-counters" id="issues-counters">
+                            <div class="dl-counter dl-counter-error" title="Errors">
+                                <span class="dl-icon">❌</span> <span id="count-errors">0</span>
+                            </div>
+                            <div class="dl-counter dl-counter-warning" title="Warnings">
+                                <span class="dl-icon">⚠️</span> <span id="count-warnings">0</span>
+                            </div>
+                            <div class="dl-counter dl-counter-suggestion" title="Suggestions">
+                                <span class="dl-icon">💡</span> <span id="count-suggestions">0</span>
+                            </div>
+                        </div>
+                        <div class="dl-arch-controls" id="arch-controls" style="display:none; gap:8px;">
+                            <button class="dl-btn dl-btn-secondary" id="btn-export-png" title="Export PNG">PNG</button>
+                            <button class="dl-btn dl-btn-secondary" id="btn-export-svg" title="Export SVG">SVG</button>
+                            <button class="dl-btn dl-btn-secondary" id="btn-export-mermaid" title="Copy Mermaid">Mermaid</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="dl-results-content" class="dl-results-content">
+                    <div id="dl-issues-view" style="display:flex; flex-direction:column; gap:12px; height:100%;" role="tabpanel" aria-labelledby="tab-df-issues">
+                        <div class="dl-filters" id="issues-filters" style="display:none; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
+                            <button class="dl-btn dl-btn-secondary active" data-filter="all">All</button>
+                            <button class="dl-btn dl-btn-secondary" data-filter="error">Errors</button>
+                            <button class="dl-btn dl-btn-secondary" data-filter="warning">Warnings</button>
+                            <button class="dl-btn dl-btn-secondary" data-filter="Security">Security</button>
+                            <button class="dl-btn dl-btn-secondary" data-filter="Best Practice">Best Practices</button>
+                        </div>
+                        <div id="issues-list" style="display:flex; flex-direction:column; gap:12px;">
+                            <div class="dl-empty-state">
+                                <span style="font-size: 3rem;">🔍</span>
+                                <h3>Ready to validate</h3>
+                                <p>Validate your configuration to see syntax, security, and best-practice findings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Build Stages View -->
+                    <div id="dl-stages-view" style="display:none; height:100%; flex-direction:column; position:relative;" role="tabpanel" aria-labelledby="tab-df-stages">
+                        <div class="dl-arch-toolbar" style="margin-bottom:16px;">
+                            <div class="dl-arch-zoom">
+                                <button class="dl-btn dl-btn-secondary" id="btn-stages-expand">Expand All</button>
+                                <button class="dl-btn dl-btn-secondary" id="btn-stages-collapse">Collapse All</button>
+                            </div>
+                        </div>
+                        <div id="stages-container" class="dl-stages-container" style="flex:1; overflow-y:auto; padding-right:12px;"></div>
+                    </div>
+
+                    <!-- Recommendations View -->
+                    <div id="dl-recs-view" style="display:none; height:100%; flex-direction:column; gap:12px; overflow-y:auto; padding-right:12px;" role="tabpanel" aria-labelledby="tab-df-recs"></div>
+                    
+                    <!-- Architecture View (Compose Only) -->
+                    <div id="dl-arch-view" style="display:none; height:100%; flex-direction:column; position:relative;" role="tabpanel" aria-labelledby="tab-comp-arch">
+                        <div class="dl-arch-toolbar" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                                <div class="dl-mode-switch" role="group" aria-label="Graph View Mode" style="display:inline-flex; background:rgba(0,0,0,0.2); padding:4px; border-radius:6px;">
+                                    <button id="view-arch" class="dl-btn-tab active" aria-pressed="true">Architecture</button>
+                                    <button id="view-security" class="dl-btn-tab" aria-pressed="false">Security X-Ray</button>
+                                    <button id="view-failure" class="dl-btn-tab" aria-pressed="false">Failure Impact</button>
+                                </div>
+                                <div class="dl-arch-zoom">
+                                    <button class="dl-btn dl-btn-secondary" id="arch-zoom-in" title="Zoom In">+</button>
+                                    <button class="dl-btn dl-btn-secondary" id="arch-zoom-out" title="Zoom Out">-</button>
+                                    <button class="dl-btn dl-btn-secondary" id="arch-fit" title="Fit to Screen">Fit</button>
+                                    <button class="dl-btn dl-btn-secondary" id="arch-reset" title="Reset Layout">Reset</button>
+                                </div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:0.85rem;">
+                                <div id="arch-summary" style="display:flex; gap:12px; color:#cbd5e1; flex-wrap:wrap;"></div>
+                                <div class="dl-arch-toggles">
+                                    <label class="dl-toggle-label"><input type="checkbox" id="toggle-deps" checked> Dependencies</label>
+                                    <label class="dl-toggle-label"><input type="checkbox" id="toggle-nets" checked> Networks</label>
+                                    <label class="dl-toggle-label"><input type="checkbox" id="toggle-vols" checked> Volumes</label>
+                                </div>
+                            </div>
+                            <div id="xray-legend" style="display:none; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05); font-size:0.8rem; color:#94a3b8; flex-wrap:wrap;"></div>
+                        </div>
+                        
+                        <div id="cy" style="flex:1; position:relative; min-height:400px; background:rgba(0,0,0,0.1); border-radius:8px; margin-top:12px; overflow:hidden;"></div>
+                        <div id="arch-empty-state" class="dl-empty-state" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <span style="font-size: 3rem;">🏗️</span>
+                            <h3>No Architecture</h3>
+                            <p>Validate a Docker Compose file to generate an architecture diagram.</p>
+                        </div>
+                        
+                        <div id="dl-service-details" class="dl-service-details" style="display:none;">
+                            <div class="dl-details-header">
+                                <h4 id="detail-title">Service Details</h4>
+                                <button id="btn-close-details" class="dl-btn-close">×</button>
+                            </div>
+                            <div id="detail-content" class="dl-details-content"></div>
+                        </div>
+                    </div>
+
+                    <!-- Improved Version View -->
+                    <div id="dl-improved-view" style="display:none; height:100%; flex-direction:column; gap:12px; overflow-y:auto; padding-right:12px;" role="tabpanel" aria-labelledby="tab-df-improved">
+                        <div id="improved-pre-validate" class="dl-empty-state">
+                            <span style="font-size: 3rem;">✨</span>
+                            <h3>Validate First</h3>
+                            <p>Validate your configuration to generate improvement suggestions.</p>
+                        </div>
+                        <div id="improved-no-changes" class="dl-empty-state" style="display:none;">
+                            <span style="font-size: 3rem;">🌟</span>
+                            <h3>Already Optimized</h3>
+                            <p>No automatic improvements are available. Review the Issues and Recommendations tabs for additional guidance.</p>
+                        </div>
+                        <div id="improved-content" style="display:none; flex-direction:column; gap:12px; flex:1;">
+                            
+                            <!-- Summary & Controls -->
+                            <div class="dl-improved-header" style="background: rgba(15, 23, 42, 0.6); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <h3 style="margin-top:0; font-size:1.1rem;">Improvement Suggestions</h3>
+                                <div id="improved-summary-text" style="font-size:0.9rem; color:#cbd5e1; margin-bottom:12px;"></div>
+                                
+                                <div class="dl-actions" style="margin-bottom: 16px; background: rgba(0,0,0,0.2); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+                                    <span style="font-size:0.85rem; color:#94a3b8; font-weight:600; margin-right:8px;">Bulk Actions:</span>
+                                    <button id="btn-select-safe" class="dl-btn dl-btn-secondary" style="background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border-color: rgba(16, 185, 129, 0.3);">Select Safe Only</button>
+                                    <button id="btn-select-all" class="dl-btn dl-btn-secondary">Select All</button>
+                                    <button id="btn-clear-selection" class="dl-btn dl-btn-secondary">Clear</button>
+                                </div>
+
+                                <div id="improved-rules-list" style="display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; padding-right:8px;"></div>
+                            </div>
+                            
+                            <div class="dl-actions" style="margin-top: 8px; margin-bottom: 8px; align-items: center; flex-wrap: wrap; background: rgba(15, 23, 42, 0.6); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                <button id="btn-copy-improved" class="dl-btn dl-btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); padding: 8px 20px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">Copy Suggested Version</button>
+                                <button id="btn-download-improved" class="dl-btn dl-btn-secondary">Download</button>
+                                <button id="btn-reset-improved" class="dl-btn dl-btn-secondary">Reset View</button>
+                                <span id="improved-validation-status" style="margin-left:auto; font-size:0.85rem; font-weight:600;"></span>
+                            </div>
+
+                            <!-- Split Editor -->
+                            <div class="dl-split-editor" style="display:flex; gap:16px; flex:1; min-height:400px; padding-bottom:12px;">
+                                <div style="flex:1; display:flex; flex-direction:column; border:1px solid rgba(255,255,255,0.1); border-radius:8px; overflow:hidden; background:rgba(0,0,0,0.2);">
+                                    <div style="padding:10px 16px; background:rgba(239, 68, 68, 0.1); font-weight:600; font-size:0.85rem; color:#fca5a5; border-bottom:1px solid rgba(239, 68, 68, 0.2); display:flex; align-items:center; gap:8px;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#ef4444;"></span> Original</div>
+                                    <div id="improved-original-editor" style="flex:1; overflow:auto; padding:16px; font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#94a3b8; white-space:pre; line-height:1.6;"></div>
+                                </div>
+                                <div style="flex:1; display:flex; flex-direction:column; border:1px solid rgba(16, 185, 129, 0.3); border-radius:8px; overflow:hidden; background:rgba(15,23,42,0.6); box-shadow: 0 4px 20px rgba(16, 185, 129, 0.05);">
+                                    <div style="padding:10px 16px; background:rgba(16, 185, 129, 0.1); font-weight:600; font-size:0.85rem; color:#6ee7b7; border-bottom:1px solid rgba(16, 185, 129, 0.2); display:flex; align-items:center; gap:8px;"><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span> Suggested Version</div>
+                                    <div style="flex:1; position:relative; overflow:hidden;">
+                                        <div id="suggested-highlights" style="position:absolute; top:0; left:0; right:0; bottom:0; padding:16px; font-family:'JetBrains Mono', monospace; font-size:0.85rem; line-height:1.6; color:transparent; white-space:pre; pointer-events:none; z-index:1;"></div>
+                                        <textarea id="improved-suggested-editor" spellcheck="false" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none; background:transparent; color:#f8fafc; font-family:'JetBrains Mono', monospace; font-size:0.85rem; line-height:1.6; padding:16px; resize:none; outline:none; white-space:pre; overflow:auto; z-index:2;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expert Review View (sibling of other views, NOT child of improved-view) -->
+                    <div id="dl-expert-view" style="display:none; height:100%; flex-direction:column; gap:16px; overflow-y:auto; padding-right:12px;" role="tabpanel" aria-labelledby="tab-df-expert">
+                        <div id="expert-loading" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; background:rgba(15, 23, 42, 0.4); border-radius:8px; border:1px solid rgba(255,255,255,0.05);">
+                            <div style="font-size:2rem; margin-bottom:12px; animation:spin 2s linear infinite;">⚙️</div>
+                            <h3 style="color:#f8fafc; margin-bottom:8px;">Running local expert analysis...</h3>
+                            <p style="color:#94a3b8; font-size:0.9rem;">Explainable rule-based analysis. No AI API. Your configuration stays in your browser.</p>
+                        </div>
+                        
+                        <div id="expert-content" style="display:none; flex-direction:column; gap:20px;">
+                            <div style="background:rgba(15, 23, 42, 0.6); border-radius:8px; border:1px solid rgba(255,255,255,0.1); padding:20px;">
+                                <h3 style="margin-top:0; color:#f8fafc; font-size:1.2rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px; margin-bottom:12px;">Overall Verdict</h3>
+                                <div id="expert-verdict-title" style="font-size:1.4rem; font-weight:700; margin-bottom:8px;"></div>
+                                <div id="expert-verdict-desc" style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;"></div>
+                                
+                                <div style="display:flex; gap:20px; margin-top:20px; flex-wrap:wrap;">
+                                    <div style="flex:1; min-width:250px;">
+                                        <h4 style="color:#34d399; margin-bottom:8px; font-size:1rem;">✅ What Looks Good</h4>
+                                        <ul id="expert-looks-good" style="margin:0; padding-left:20px; color:#a7f3d0; font-size:0.9rem; line-height:1.5;"></ul>
+                                    </div>
+                                    <div style="flex:1; min-width:250px;">
+                                        <h4 style="color:#f87171; margin-bottom:8px; font-size:1rem;">⚠️ Main Concerns</h4>
+                                        <ul id="expert-main-concerns" style="margin:0; padding-left:20px; color:#fca5a5; font-size:0.9rem; line-height:1.5;"></ul>
+                                    </div>
+                                </div>
+                                <div style="margin-top:20px;">
+                                    <h4 style="color:#60a5fa; margin-bottom:8px; font-size:1rem;">🚀 What I Would Fix First</h4>
+                                    <ul id="expert-fix-first" style="margin:0; padding-left:20px; color:#bfdbfe; font-size:0.9rem; line-height:1.5;"></ul>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 style="color:#f8fafc; font-size:1.2rem; margin-bottom:16px;">Expert Reviews</h3>
+                                <div id="expert-personas-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <site-footer-v2></site-footer-v2>
+</body>
+</html>
