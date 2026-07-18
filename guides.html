@@ -622,6 +622,154 @@
         padding: 50px 0;
       }
     }
+
+    /* VIDEO SECTION */
+    .video-section {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 40px;
+    }
+
+    .video-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      background: #0d0d16;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .video-card:hover {
+      border-color: rgba(102, 126, 234, 0.3);
+      box-shadow: 0 12px 40px rgba(102, 126, 234, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .video-ratio {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      /* 16:9 */
+      background: #050508;
+    }
+
+    .video-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease, filter .5s ease;
+    }
+
+    .video-card:hover .video-thumb {
+      transform: scale(1.03);
+      filter: brightness(.85);
+    }
+
+    .video-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(5, 5, 12, .1) 0%,
+          rgba(5, 5, 12, .35) 60%,
+          rgba(5, 5, 12, .7) 100%);
+      pointer-events: none;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #a78bfa 100%);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 6px rgba(167, 139, 250, .15),
+        0 8px 24px rgba(102, 126, 234, .5);
+      transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s ease;
+      z-index: 2;
+    }
+
+    .video-play-btn:hover,
+    .video-play-btn:focus-visible {
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow:
+        0 0 0 10px rgba(167, 139, 250, .2),
+        0 12px 32px rgba(102, 126, 234, .65);
+      outline: none;
+    }
+
+    .video-play-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #fff;
+      margin-left: 4px;
+    }
+
+    .video-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .video-card-label-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .75);
+      letter-spacing: .02em;
+    }
+
+    .video-card-label-cta {
+      font-size: 11px;
+      font-weight: 700;
+      color: #a78bfa;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .video-iframe-wrap {
+      position: absolute;
+      inset: 0;
+      display: none;
+      z-index: 1;
+    }
+
+    .video-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .video-play-btn {
+        width: 60px;
+        height: 60px;
+      }
+
+      .video-play-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
   </style>
   <script src="/components/site-nav-v2.js" type="module"></script>
   <script src="/components/site-footer-v2.js" defer></script>
@@ -855,6 +1003,37 @@
                     Practical visual guides for understanding how modern AI systems work behind the scenes, from embeddings and retrieval to tool integration.
                   </p>
                   
+                  <div class="video-section" id="tutorial-video">
+                    <div class="video-card" id="videoCardContainer">
+                      <div class="video-ratio">
+                        <img
+                          id="prepVideoThumb"
+                          class="video-thumb"
+                          src="https://img.youtube.com/vi/ryN5BjagUqg/maxresdefault.jpg?t=20260620"
+                          alt="AI Engineering Guides Tutorial Video preview thumbnail"
+                          loading="lazy"
+                          onerror="this.src='https://img.youtube.com/vi/ryN5BjagUqg/hqdefault.jpg?t=20260620'"
+                        />
+                        <div class="video-thumb-overlay"></div>
+                        <button
+                          class="video-play-btn"
+                          id="prepVideoPlayBtn"
+                          aria-label="Play AI Engineering Guides tutorial video"
+                          type="button"
+                        >
+                          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </button>
+                        <div class="video-card-label" id="prepVideoLabel">
+                          <span class="video-card-label-text">AI Engineering Guides &mdash; Tutorial</span>
+                          <span class="video-card-label-cta">Play Video</span>
+                        </div>
+                        <div class="video-iframe-wrap" id="prepVideoIframeWrap"></div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="learning-path" style="background: rgba(102, 126, 234, 0.05); border: 1px solid rgba(102, 126, 234, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 40px; display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch; justify-content: space-between;">
                     <div style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 8px; padding-right: 15px; border-right: 1px solid rgba(255,255,255,0.05);">
                         <div style="font-size: 0.75rem; text-transform: uppercase; color: #a78bfa; font-weight: 700; letter-spacing: 0.05em;">Step 1</div>
@@ -912,6 +1091,37 @@
 
       if (hasCategories) {
         mainContainer.insertAdjacentHTML('beforeend', browseHTML);
+        
+        // Video play handler
+        const playBtn = document.getElementById('prepVideoPlayBtn');
+        const thumb = document.getElementById('prepVideoThumb');
+        const iframeWrap = document.getElementById('prepVideoIframeWrap');
+        const label = document.getElementById('prepVideoLabel');
+
+        if (playBtn && iframeWrap) {
+          const EMBED_SRC = 'https://www.youtube.com/embed/ryN5BjagUqg?autoplay=1&rel=0';
+          let videoActivated = false;
+
+          const activateVideo = () => {
+            if (videoActivated) return;
+            videoActivated = true;
+            
+            const iframe = document.createElement('iframe');
+            iframe.src = EMBED_SRC;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.title = 'AI Engineering Guides Tutorial Video';
+            
+            iframeWrap.appendChild(iframe);
+            iframeWrap.style.display = 'block';
+            
+            playBtn.style.display = 'none';
+            if (label) label.style.display = 'none';
+            if (thumb) thumb.style.opacity = '0';
+          };
+
+          playBtn.addEventListener('click', activateVideo);
+        }
       }
 
       // Render "How these tutorials work" section
