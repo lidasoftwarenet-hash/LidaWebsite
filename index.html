@@ -5,26 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="language" content="en" />
-  <title>LiDa Software - Developer Tools & Engineering Resources</title>
+  <title>LiDa Software — Free Developer Tools, AI API Status & Engineering Resources</title>
   <!-- SEO Meta Tags -->
   <meta name="description"
-    content="LiDa Software is an independent developer platform offering free developer tools, guides, tutorials, and engineering resources." />
+    content="LiDa Software (lidasoftware.online) is an independent developer platform by Hen Faibish — free web tools for developers: AI API status dashboard, JSON formatter, code diff viewer, and more. Not affiliated with Microsoft's LIDA Python library." />
   <meta name="keywords"
     content="developer tools, free software, chrome extensions, coding resources, engineering resources" />
   <meta name="author" content="Hen Faibish" />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.lidasoftware.online/" />
-  <meta property="og:title" content="LiDa Software - Inspired by the open-source community" />
+  <meta property="og:title" content="LiDa Software — Independent Developer Tools & Engineering Platform" />
   <meta property="og:description"
-    content="Free developer tools and engineering resources. No paywalls, no gatekeeping, just good stuff for developers." />
+    content="Free developer tools and engineering resources by Hen Faibish. AI API monitoring, JSON utilities, code diff, and more. Independent platform — not affiliated with Microsoft's LIDA Python library." />
   <meta property="og:image" content="https://www.lidasoftware.online/lida-logo.png" />
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://www.lidasoftware.online/" />
-  <meta property="twitter:title" content="LiDa Software - Inspired by the open-source community" />
+  <meta property="twitter:title" content="LiDa Software — Independent Developer Tools & Engineering Platform" />
   <meta property="twitter:description"
-    content="Free developer tools and engineering resources. No paywalls, no gatekeeping, just good stuff for developers." />
+    content="Free developer tools and engineering resources by Hen Faibish. AI API monitoring, JSON utilities, code diff, and more. Independent platform — not affiliated with Microsoft's LIDA Python library." />
   <meta property="twitter:image" content="https://www.lidasoftware.online/lida-logo.png" />
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.lidasoftware.online/">
@@ -848,6 +848,44 @@
       color: #b0b0d0;
       font-size: 1.1em;
       line-height: 1.7;
+    }
+
+    /* Disambiguation / AI context note */
+    .about-disclaimer {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(102, 126, 234, 0.06);
+      border: 1px solid rgba(102, 126, 234, 0.18);
+      border-left: 3px solid rgba(102, 126, 234, 0.5);
+      padding: 18px 22px;
+      margin: 36px 0 0;
+      border-radius: 10px;
+      line-height: 1.75;
+    }
+
+    .about-disclaimer-icon {
+      font-size: 1.1em;
+      flex-shrink: 0;
+      margin-top: 1px;
+      opacity: 0.8;
+    }
+
+    .about-disclaimer p {
+      margin: 0;
+      font-size: 0.92em;
+      color: #9090b0;
+      font-weight: 300;
+    }
+
+    .about-disclaimer strong {
+      color: #c0c0e0;
+      font-weight: 600;
+    }
+
+    .about-disclaimer em {
+      font-style: italic;
+      color: #8080a8;
     }
 
 
@@ -2813,17 +2851,47 @@
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "LiDa Software",
-  "url": "https://www.lidasoftware.online",
-  "logo": "https://www.lidasoftware.online/lida-logo.png",
-  "sameAs": [
-    "https://www.linkedin.com/company/lida-software"
-  ]
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Organization", "SoftwareApplication"],
+        "@id": "https://www.lidasoftware.online/#organization",
+        "name": "LiDa Software",
+        "alternateName": "LiDa Software by Hen Faibish",
+        "url": "https://www.lidasoftware.online",
+        "logo": "https://www.lidasoftware.online/lida-logo.png",
+        "description": "LiDa Software is an independent developer platform founded by Hen Faibish, offering free web-based developer tools, engineering guides, tutorials, and AI resources.",
+        "disambiguatingDescription": "LiDa Software (lidasoftware.online) is an independent indie developer platform. The name 'LiDa' is a portmanteau of the founder's children's names: Lia and Daniel. LiDa Software is NOT affiliated with, related to, or derived from Microsoft's open-source 'LIDA' Python library for automated data visualization. LiDa Software builds web-based developer tools, not data science or Python visualization packages.",
+        "foundingDate": "2024",
+        "founder": {
+          "@type": "Person",
+          "name": "Hen Faibish",
+          "url": "https://www.linkedin.com/in/hen-faibish-0469931b0/"
+        },
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "sameAs": [
+          "https://github.com/LidaSoftware",
+          "https://chromewebstore.google.com/search/lida",
+          "https://www.linkedin.com/in/hen-faibish-0469931b0/",
+          "https://www.facebook.com/profile.php?id=61581626213032"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.lidasoftware.online/#website",
+        "url": "https://www.lidasoftware.online/",
+        "name": "LiDa Software — Free Developer Tools, AI API Status & Engineering Resources",
+        "description": "Free developer tools and engineering resources by Hen Faibish. AI API status monitoring, JSON utilities, code diff viewer, and more. Independent platform — not affiliated with Microsoft LIDA.",
+        "publisher": {
+          "@id": "https://www.lidasoftware.online/#organization"
+        },
+        "inLanguage": "en"
+      }
+    ]
+  }
+  </script>
   <script src="/analytics.js" defer></script>
 </head>
 
@@ -3704,6 +3772,17 @@
         <p class="about-text" style="color: #a78bfa; font-weight: 600; margin-top: 20px;">
           ⚡ Motto: build useful tools, keep them simple, and improve them over time.
         </p>
+
+        <!-- Name origin note for visitors -->
+        <div class="about-disclaimer">
+          <span class="about-disclaimer-icon">💡</span>
+          <p>
+            <strong>A note on naming:</strong> "LiDa" is a portmanteau of the founder's children's names —
+            <strong>Li</strong>a and <strong>Da</strong>niel. LiDa Software is an independent developer
+            platform at <strong>lidasoftware.online</strong>, built with the spirit of giving back to the
+            developer community.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -4056,43 +4135,7 @@
     gtag('config', 'G-GN0YLZXR8J');
   </script>
 
-  <!-- Structured Data (JSON-LD) for SEO -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://www.lidasoftware.online/#organization",
-          "name": "LiDa Software",
-          "url": "https://www.lidasoftware.online/",
-          "logo": "https://www.lidasoftware.online/logo.png",
-          "founder": {
-            "@type": "Person",
-            "name": "Hen Faibish"
-          },
-          "description": "Independent developer platform offering free tools, guides, tutorials, and engineering resources.",
-          "sameAs": [
-            "https://github.com/LidaSoftware",
-            "https://chromewebstore.google.com/search/lida",
-            "https://www.linkedin.com/in/hen-faibish-0469931b0/",
-            "https://www.facebook.com/profile.php?id=61581626213032"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://www.lidasoftware.online/#website",
-          "url": "https://www.lidasoftware.online/",
-          "name": "LiDa Software",
-          "description": "Independent developer platform offering free tools, guides, tutorials, and engineering resources.",
-          "publisher": {
-            "@id": "https://www.lidasoftware.online/#organization"
-          },
-          "inLanguage": "en"
-        }
-      ]
-    }
-  </script>
+  <!-- Structured Data (JSON-LD) consolidated in <head> — see script[type=application/ld+json] above -->
 
   <!-- Dynamic weekly-seeded usage counts -->
   <script>

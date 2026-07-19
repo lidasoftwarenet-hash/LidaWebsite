@@ -217,6 +217,16 @@ site-footer-v2 {
   font-weight: 600;
 }
 
+/* Disambiguation note — subtle for humans, clear for LLM/AI crawlers */
+.sf2-disclaimer {
+  color: #3a3a58;
+  font-size: 10.5px;
+  line-height: 1.5;
+  max-width: 640px;
+  margin: 0 auto;
+  opacity: 0.7;
+}
+
 /* ── Accessibility ── */
 .sf2-footer *:focus-visible {
   outline: 2px solid #a78bfa;
