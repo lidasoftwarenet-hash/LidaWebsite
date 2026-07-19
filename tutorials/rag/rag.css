@@ -572,3 +572,43 @@
   #rag-tutorial-root .scenario-list { grid-template-columns: 1fr; }
   #rag-tutorial-root .hero { min-height: auto; padding-top: 52px; }
 }
+
+/* Share Bar */
+.share-bar {
+  display: none;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+@media (min-width: 768px) {
+  .share-bar {
+    display: flex;
+  }
+}
+.share-label {
+  font-size: 0.75rem;
+  color: var(--rag-muted);
+  margin-right: 4px;
+}
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--rag-surface);
+  color: var(--rag-text);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--rag-border);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
+}
+.share-btn:hover {
+  background: var(--rag-surface-2);
+  border-color: var(--rag-border-strong);
+  color: #fff;
+}
