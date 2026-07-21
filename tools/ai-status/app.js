@@ -701,8 +701,6 @@ async function init() {
   setInterval(updateStats, 10000);
 }
 
-init();
-
 /* ══════════════════════════════════════════════════════
    MISSION CONTROL ,  COMMAND STRIP (Stock-terminal style)
 ══════════════════════════════════════════════════════ */
@@ -1536,4 +1534,5 @@ function renderIncidentLog() {
   }).join('');
 }
 
-
+// Init is called here — after ALL const declarations (BEST_FOR_CARDS etc.) are initialized.
+init();
