@@ -405,6 +405,11 @@ function renderAllCards() {
     staggerCards(true);
     setTimeout(staggerHistoryBlocks, 180);
   });
+  // Refresh new sections
+  if (typeof renderBestFor === 'function') renderBestFor();
+  if (typeof renderSpeedBars === 'function') renderSpeedBars();
+  if (typeof renderCompareTable === 'function') renderCompareTable();
+  if (typeof renderIncidentLog === 'function') renderIncidentLog();
 }
 
 function updateCard(provider) {
@@ -419,6 +424,8 @@ function updateCard(provider) {
     card.classList.add('card-visible');
     staggerHistoryBlocks();
   });
+  if (typeof renderCompareTable === 'function') renderCompareTable();
+  if (typeof renderBestFor === 'function') renderBestFor();
 }
 
 function updateGlobalBanner() {
@@ -1250,3 +1257,283 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.arcTo(x, y, x + r, y, r);
   ctx.closePath();
 }
+
+
+/* ══════════════════════════════════════════════════════
+   BEST-FOR PICKER
+══════════════════════════════════════════════════════ */
+const BEST_FOR_CARDS = [
+  {
+    icon: '🏆',
+    label: 'Best Overall',
+    desc: 'Frontier reasoning & coding',
+    providerId: 'openai',
+    color: '#10a37f',
+  },
+  {
+    icon: '⚡',
+    label: 'Fastest API',
+    desc: 'Lowest latency inference',
+    providerId: 'groq',
+    color: '#7c3aed',
+  },
+  {
+    icon: '📚',
+    label: 'Longest Context',
+    desc: 'Up to 1M tokens',
+    providerId: 'google',
+    color: '#4285f4',
+  },
+  {
+    icon: '💰',
+    label: 'Best Value',
+    desc: 'Cheapest cost-per-token',
+    providerId: 'deepseek',
+    color: '#2563eb',
+  },
+  {
+    icon: '🔒',
+    label: 'Privacy First',
+    desc: 'European, open-source',
+    providerId: 'mistral',
+    color: '#f97316',
+  },
+  {
+    icon: '🌐',
+    label: 'Real-Time Search',
+    desc: 'Web-grounded answers',
+    providerId: 'perplexity',
+    color: '#20b2aa',
+  },
+  {
+    icon: '🧠',
+    label: 'Best Reasoning',
+    desc: 'Extended thinking model',
+    providerId: 'anthropic',
+    color: '#d97706',
+  },
+  {
+    icon: '📡',
+    label: 'Live Data Access',
+    desc: 'X/Twitter realtime feed',
+    providerId: 'xai',
+    color: '#e2e8f0',
+  },
+];
+
+function renderBestFor() {
+  const grid = document.getElementById('bestForGrid');
+  if (!grid) return;
+  grid.innerHTML = BEST_FOR_CARDS.map(c => {
+    const p = PROVIDERS.find(x => x.id === c.providerId);
+    const s = state.statuses[c.providerId];
+    const stateClass = s ? s.state : 'checking';
+    return `
+      <div class="bf-card" onclick="highlightProvider('${c.providerId}')" style="--bf-color:${c.color}">
+        <div class="bf-icon">${c.icon}</div>
+        <div class="bf-label">${c.label}</div>
+        <div class="bf-desc">${c.desc}</div>
+        <div class="bf-provider-row">
+          <span class="bf-name">${p ? p.name : c.providerId}</span>
+          <span class="bf-status-dot ${stateClass}"></span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+let _highlightTimer = null;
+function highlightProvider(id) {
+  // Scroll to cards grid
+  document.getElementById('providerGrid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  clearTimeout(_highlightTimer);
+  document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('bf-highlight'));
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    card.classList.add('bf-highlight');
+    _highlightTimer = setTimeout(() => card.classList.remove('bf-highlight'), 3000);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   SPEED COMPARISON BAR CHART
+══════════════════════════════════════════════════════ */
+function renderSpeedBars() {
+  const container = document.getElementById('speedBars');
+  if (!container) return;
+
+  // Sort by TTFT ascending (fastest first)
+  const sorted = [...PROVIDERS].sort((a, b) => parseInt(a.typicalLatency) - parseInt(b.typicalLatency));
+  const maxMs = Math.max(...sorted.map(p => parseInt(p.typicalLatency)));
+
+  container.innerHTML = sorted.map(p => {
+    const ms = parseInt(p.typicalLatency);
+    const pct = (ms / maxMs) * 100;
+    const s = state.statuses[p.id];
+    const stateClass = s ? s.state : 'checking';
+
+    const barColor = ms < 100 ? '#a78bfa'
+      : ms < 400 ? '#22c55e'
+        : ms < 700 ? '#f59e0b'
+          : '#ef4444';
+
+    return `
+      <div class="sb-row">
+        <div class="sb-label">
+          <span class="sb-status-dot ${stateClass}"></span>
+          <span class="sb-name">${p.name}</span>
+        </div>
+        <div class="sb-bar-track">
+          <div class="sb-bar-fill" style="width:${pct}%;background:${barColor}" data-ms="${ms}"></div>
+        </div>
+        <div class="sb-ms">${ms}<small>ms</small></div>
+      </div>`;
+  }).join('');
+
+  // Animate bars in
+  requestAnimationFrame(() => {
+    container.querySelectorAll('.sb-bar-fill').forEach((bar, i) => {
+      bar.style.width = '0';
+      setTimeout(() => { bar.style.width = bar.dataset.ms / maxMs * 100 + '%'; }, i * 80 + 100);
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   SORTABLE COMPARISON TABLE
+══════════════════════════════════════════════════════ */
+const _tableSort = { col: null, dir: 1 };
+
+function contextToK(str) {
+  if (!str) return 0;
+  const match = str.match(/(\d+(\.\d+)?)(K|M)?/i);
+  if (!match) return 0;
+  const n = parseFloat(match[1]);
+  const unit = (match[3] || '').toUpperCase();
+  return unit === 'M' ? n * 1000 : n;
+}
+
+function statusOrder(id) {
+  const s = state.statuses[id]?.state;
+  return s === 'operational' ? 0 : s === 'degraded' ? 1 : s === 'outage' ? 2 : 3;
+}
+
+function sortTable(col, th) {
+  if (_tableSort.col === col) _tableSort.dir *= -1;
+  else { _tableSort.col = col; _tableSort.dir = 1; }
+
+  document.querySelectorAll('.th-sort').forEach(t => t.classList.remove('sort-asc', 'sort-desc'));
+  th.classList.add(_tableSort.dir === 1 ? 'sort-asc' : 'sort-desc');
+
+  renderCompareTable();
+}
+
+function renderCompareTable() {
+  const tbody = document.getElementById('compareBody');
+  if (!tbody) return;
+
+  let rows = [...PROVIDERS];
+  const col = _tableSort.col;
+  const dir = _tableSort.dir;
+
+  if (col) {
+    rows.sort((a, b) => {
+      let va, vb;
+      if (col === 'ttft') { va = parseInt(a.typicalLatency); vb = parseInt(b.typicalLatency); }
+      else if (col === 'uptime') { va = a.uptime90; vb = b.uptime90; }
+      else if (col === 'context') { va = contextToK(a.contextWindow); vb = contextToK(b.contextWindow); }
+      else if (col === 'status') { va = statusOrder(a.id); vb = statusOrder(b.id); }
+      else { va = 0; vb = 0; }
+      return (va - vb) * dir;
+    });
+  }
+
+  tbody.innerHTML = rows.map(p => {
+    const s = state.statuses[p.id];
+    const stateLabel = s ? s.label : '–';
+    const stateClass = s ? s.state : 'checking';
+
+    const upClass = p.uptime90 >= 99.9 ? 'good' : p.uptime90 >= 99.5 ? '' : 'warn';
+    const ms = parseInt(p.typicalLatency);
+    const ttftClass = ms < 100 ? 'speed-fastest-text' : ms < 400 ? 'good' : ms < 700 ? 'warn' : 'bad';
+
+    const freePill = p.freeTier === true ? '<span class="ct-pill free">✓ Free</span>'
+      : p.freeTier === 'limited' ? '<span class="ct-pill trial">Trial</span>'
+        : '<span class="ct-pill paid">Paid</span>';
+
+    const topFeatures = p.features.slice(0, 2).map(f => `<span class="ct-pill">${f}</span>`).join('');
+
+    return `
+      <tr class="ct-row" onclick="highlightProvider('${p.id}')" title="Click to highlight card">
+        <td class="ct-provider">
+          <span class="ct-status-dot ${stateClass}"></span>
+          <strong>${p.name}</strong>
+          <small>${p.models.split('·')[0].trim()}</small>
+        </td>
+        <td><span class="ct-badge ${stateClass}">${stateLabel}</span></td>
+        <td class="mono ${ttftClass}">${p.typicalLatency}ms</td>
+        <td class="mono ${upClass}">${p.uptime90}%</td>
+        <td class="mono">${p.contextWindow}</td>
+        <td>${freePill}</td>
+        <td>${topFeatures}</td>
+      </tr>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   INCIDENT LOG
+══════════════════════════════════════════════════════ */
+function renderIncidentLog() {
+  const container = document.getElementById('incidentLog');
+  if (!container) return;
+
+  const incidents = [];
+
+  PROVIDERS.forEach(p => {
+    const days = state.history[p.backendId] || [];
+    days.forEach(d => {
+      if (d.status === 'degraded' || d.status === 'outage') {
+        incidents.push({
+          date: d.date,
+          provider: p.name,
+          providerId: p.id,
+          color: p.color,
+          status: d.status,
+          latency: d.avg_latency,
+        });
+      }
+    });
+  });
+
+  if (incidents.length === 0) {
+    container.innerHTML = `
+      <div class="incident-empty">
+        <span class="incident-empty-icon">✅</span>
+        <div>
+          <strong>No incidents recorded</strong>
+          <p>All providers have been operational across the tracked window.</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // Sort by date descending
+  incidents.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const recent = incidents.slice(0, 20);
+
+  container.innerHTML = recent.map(inc => {
+    const cls = inc.status === 'outage' ? 'inc-outage' : 'inc-degraded';
+    const label = inc.status === 'outage' ? '🔴 Outage' : '🟡 Degraded';
+    const lat = inc.latency ? ` · ${inc.latency}ms avg` : '';
+    return `
+      <div class="incident-row ${cls}" onclick="highlightProvider('${inc.providerId}')">
+        <div class="inc-date">${inc.date || '–'}</div>
+        <div class="inc-info">
+          <span class="inc-provider" style="color:${inc.color}">${inc.provider}</span>
+          <span class="inc-label">${label}${lat}</span>
+        </div>
+        <div class="inc-arrow">→</div>
+      </div>`;
+  }).join('');
+}
+
+

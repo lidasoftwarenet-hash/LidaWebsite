@@ -171,6 +171,13 @@
         <span class="stat-value" id="operationalCount">,</span>&nbsp;providers checked
       </div>
     </div>
+    <button class="refresh-btn" id="refreshBtn" onclick="refreshAll(true)" title="Force refresh status data">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M13.5 2.5A6.5 6.5 0 1 1 7 1" stroke-linecap="round"/>
+        <path d="M13.5 2.5V6M13.5 2.5H10" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Refresh
+    </button>
   </div>
 
   <!-- FILTER -->
@@ -186,6 +193,74 @@
       <span class="filter-dot" style="background:var(--red)"></span> Outage
     </button>
   </div>
+
+  <!-- BEST FOR PICKER -->
+  <section class="best-for-section">
+    <div class="section-header">
+      <span class="section-eyebrow">✦ Quick Pick</span>
+      <h2 class="section-title">Best For Your Use Case</h2>
+      <p class="section-sub">Click a card to highlight the recommended provider</p>
+    </div>
+    <div class="best-for-grid" id="bestForGrid"></div>
+  </section>
+
+  <!-- SPEED COMPARISON CHART -->
+  <section class="speed-chart-section">
+    <div class="section-header">
+      <span class="section-eyebrow">⚡ Performance</span>
+      <h2 class="section-title">Speed Comparison</h2>
+      <p class="section-sub">Avg Time-to-First-Token (TTFT) across all providers — lower is faster</p>
+    </div>
+    <div class="speed-chart-wrap">
+      <div class="speed-bars" id="speedBars"></div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="compare-section">
+    <div class="section-header">
+      <span class="section-eyebrow">📊 Data</span>
+      <h2 class="section-title">Provider Comparison</h2>
+      <p class="section-sub">Click column headers to sort</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table" id="compareTable">
+        <thead>
+          <tr>
+            <th class="th-provider">Provider</th>
+            <th class="th-sort" data-col="status" onclick="sortTable('status', this)">Status <span class="sort-icon">↕</span></th>
+            <th class="th-sort" data-col="ttft" onclick="sortTable('ttft', this)">TTFT <span class="sort-icon">↕</span></th>
+            <th class="th-sort" data-col="uptime" onclick="sortTable('uptime', this)">Uptime 90d <span class="sort-icon">↕</span></th>
+            <th class="th-sort" data-col="context" onclick="sortTable('context', this)">Context <span class="sort-icon">↕</span></th>
+            <th>Free Tier</th>
+            <th>Features</th>
+          </tr>
+        </thead>
+        <tbody id="compareBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- INCIDENT LOG -->
+  <section class="incident-section">
+    <div class="section-header">
+      <span class="section-eyebrow">🔔 History</span>
+      <h2 class="section-title">Recent Incidents</h2>
+      <p class="section-sub">Degraded or outage events from the last 90 days</p>
+    </div>
+    <div class="incident-log" id="incidentLog">
+      <div class="incident-loading">Loading incident data…</div>
+    </div>
+  </section>
+
+  <!-- SHARE -->
+  <section class="share-section">
+    <div class="section-header">
+      <h2 class="section-title">Share This Tool</h2>
+      <p class="section-sub">Know a dev who asks "is it down or is it me?" — send them this</p>
+    </div>
+    <div id="shareButtons" class="share-buttons-row"></div>
+  </section>
 
   <!-- PROVIDER GRID -->
   <main class="provider-grid" id="providerGrid" aria-label="Provider status cards">
