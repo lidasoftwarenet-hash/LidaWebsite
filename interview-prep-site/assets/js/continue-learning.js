@@ -120,7 +120,7 @@ function renderContinueLearningActive(container, topicId, topicState, topicName)
   actions.className = 'continue-learning-actions';
   var button = document.createElement('a');
   button.className = 'button-primary';
-  button.href = 'topics/' + topicId + '/index.html' + (sectionId ? '#' + sectionId : '');
+  button.href = '/interview-prep-site/topics/' + topicId + '/index.html' + (sectionId ? '#' + sectionId : '');
   button.textContent = 'המשך מהנקודה האחרונה';
   actions.appendChild(button);
 

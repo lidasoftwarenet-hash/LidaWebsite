@@ -59,7 +59,7 @@ function renderHomeCards() {
   topics.forEach(function (topic) {
     var card = document.createElement('a');
     card.className = 'topic-card';
-    card.href = topic.path + '/index.html';
+    card.href = (topic.path && topic.path.startsWith('/') ? topic.path : ('/interview-prep-site/' + (topic.path || ('topics/' + topic.id)))) + '/index.html';
 
     var top = document.createElement('div');
     top.className = 'topic-card-top';
@@ -69,8 +69,8 @@ function renderHomeCards() {
     icon.setAttribute('aria-hidden', 'true');
 
     var iconImg = document.createElement('img');
-    var defaultPng = 'assets/icons/' + topic.id + '.png';
-    var defaultSvg = 'assets/icons/' + topic.id + '.svg';
+    var defaultPng = '/interview-prep-site/assets/icons/' + topic.id + '.png';
+    var defaultSvg = '/interview-prep-site/assets/icons/' + topic.id + '.svg';
 
     iconImg.src = topic.icon || defaultPng;
     iconImg.alt = '';
@@ -201,7 +201,7 @@ function renderSidebar(activeId) {
     var item = document.createElement('li');
     var link = document.createElement('a');
     link.className = 'sidebar-link';
-    link.href = '../' + topic.id + '/index.html';
+    link.href = '/interview-prep-site/topics/' + topic.id + '/index.html';
     link.textContent = topic.name;
 
     if (topic.id === activeId) {
@@ -224,7 +224,7 @@ function renderBreadcrumbs(activeTopic) {
   breadcrumbs.innerHTML = '';
 
   var homeLink = document.createElement('a');
-  homeLink.href = '../../index.html';
+  homeLink.href = '/interview-prep-site/index.html';
   homeLink.textContent = 'בית';
 
   var separator = document.createElement('span');
@@ -254,9 +254,11 @@ function renderTopicTitle(activeTopic) {
   iconWrap.className = 'topic-title-icon';
   iconWrap.setAttribute('aria-hidden', 'true');
 
-  var defaultPng = '../../assets/icons/' + activeTopic.id + '.png';
-  var defaultSvg = '../../assets/icons/' + activeTopic.id + '.svg';
-  var iconSrc = activeTopic.icon ? ('../../' + activeTopic.icon) : defaultPng;
+  var defaultPng = '/interview-prep-site/assets/icons/' + activeTopic.id + '.png';
+  var defaultSvg = '/interview-prep-site/assets/icons/' + activeTopic.id + '.svg';
+  var iconSrc = activeTopic.icon
+    ? (activeTopic.icon.startsWith('/') ? activeTopic.icon : ('/interview-prep-site/' + activeTopic.icon))
+    : defaultPng;
 
   var iconImg = document.createElement('img');
   iconImg.src = iconSrc;
@@ -303,10 +305,10 @@ function renderPrevNext(activeId) {
   var nextTopic = index < topics.length - 1 ? topics[index + 1] : null;
 
   renderPagerLink(prevEl, prevTopic, 'נושא קודם', 'prev', function (topic) {
-    return '../' + topic.id + '/index.html';
+    return '/interview-prep-site/topics/' + topic.id + '/index.html';
   });
   renderPagerLink(nextEl, nextTopic, 'נושא הבא', 'next', function (topic) {
-    return '../' + topic.id + '/index.html';
+    return '/interview-prep-site/topics/' + topic.id + '/index.html';
   });
 }
 
