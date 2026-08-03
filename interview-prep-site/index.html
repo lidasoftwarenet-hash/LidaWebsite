@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senior Software Developer Interview Guide</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <script src="data/topics.js" defer></script>
+  <script src="assets/js/study-store.js" defer></script>
+  <script src="assets/js/navigation.js" defer></script>
+  <script src="assets/js/continue-learning.js" defer></script>
+  <script src="assets/js/mobile-nav.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">Senior Software Developer Interview Guide</h1>
+    <p class="site-subtitle">Personal interview preparation and study workspace</p>
+  </header>
+
+  <main class="home-main">
+    <div class="dashboard-row">
+      <!-- Overall progress summary, rendered dynamically by navigation.js -->
+      <section class="progress-summary" aria-label="סיכום התקדמות כללי">
+        <div class="progress-summary-header">
+          <h2 class="progress-summary-title">התקדמות כללית</h2>
+        </div>
+        <div class="progress-summary-stats">
+          <div class="summary-stat">
+            <span class="summary-stat-value" id="summary-completed-count">0</span>
+            <span class="summary-stat-label">נושאים הושלמו</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat-value" id="summary-started-count">0</span>
+            <span class="summary-stat-label">נושאים בתהליך</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat-value" id="summary-total-count">0</span>
+            <span class="summary-stat-label">סה"כ נושאים</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- "Continue learning" widget, rendered dynamically by continue-learning.js -->
+      <section class="continue-learning" id="continue-learning" aria-label="המשך למידה"></section>
+    </div>
+
+    <div>
+      <h2 class="topics-section-title">כל הנושאים</h2>
+      <!-- Topic cards, rendered dynamically from data/topics.js by navigation.js -->
+      <section class="topics-grid" id="topics-grid" aria-label="Topics"></section>
+    </div>
+  </main>
+</body>
+</html>

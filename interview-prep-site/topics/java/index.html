@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java - הכנה לראיונות עבודה</title>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="../../data/topics.js" defer></script>
+  <script src="../../assets/js/study-store.js" defer></script>
+  <script src="../../assets/js/navigation.js" defer></script>
+  <script src="../../assets/js/continue-learning.js" defer></script>
+  <script src="../../assets/js/mobile-nav.js" defer></script>
+  <script src="../../assets/js/topic-loader.js" defer></script>
+  <script src="../../assets/js/study-ui.js" defer></script>
+  <script src="../../assets/js/topic-renderer.js" defer></script>
+  <script src="../../assets/js/topic-files.js" defer></script>
+  <script src="../../assets/js/app.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topic-header">
+    <a class="home-link" href="../../index.html">← בית</a>
+    <button
+      type="button"
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="sidebar"
+      aria-label="פתיחת ניווט בין נושאים"
+    >
+      <span class="nav-toggle-icon" aria-hidden="true"><span class="nav-toggle-icon-bar"></span></span>
+      נושאים
+    </button>
+  </header>
+
+  <!-- Backdrop shown behind the mobile sidebar drawer; closes it on click -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <div class="topic-layout">
+    <!-- Sidebar: topic navigation list, rendered dynamically by navigation.js -->
+    <nav class="sidebar" id="sidebar" aria-label="ניווט בין נושאים">
+      <ul class="sidebar-list" id="sidebar-list"></ul>
+    </nav>
+
+    <div class="content">
+      <!-- Breadcrumbs, rendered dynamically by navigation.js -->
+      <nav class="breadcrumbs" id="breadcrumbs" aria-label="breadcrumb"></nav>
+
+      <!-- Main content area for the "Java" topic, driven by the topic content engine -->
+      <main class="topic-main">
+        <h1 id="topic-title"></h1>
+
+        <!-- Personal study panel: topic-wide progress, private and local to this browser -->
+        <section class="study-panel" aria-label="מעקב התקדמות אישי">
+          <div class="topic-progress" role="group" aria-label="התקדמות בנושא">
+            <div
+              class="topic-progress-track"
+              id="topic-progress-bar"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <div class="topic-progress-fill"></div>
+            </div>
+            <p class="topic-progress-text" id="topic-progress-text"></p>
+          </div>
+          <button type="button" class="button-danger-ghost" id="reset-topic-progress">
+            איפוס התקדמות ב-Java
+          </button>
+        </section>
+
+        <div class="section-layout">
+          <!-- Internal subtopic navigation, rendered dynamically by topic-renderer.js -->
+          <nav class="section-nav" aria-label="ניווט בין נושאים משניים">
+            <p class="section-nav-title">נושאים משניים</p>
+            <ul class="section-list" id="section-list"></ul>
+          </nav>
+
+          <div class="section-body">
+            <!-- Loading state, shown while a section's JSON is being fetched -->
+            <p class="section-loading" id="section-loading" hidden>טוען...</p>
+
+            <!-- Error state, shown for unknown hashes or JSON load failures -->
+            <div class="section-error" id="section-error" hidden></div>
+
+            <div class="section-content-wrapper" id="section-content-wrapper" hidden>
+              <h2 class="section-title" id="section-title"></h2>
+
+              <!-- Section content blocks, rendered dynamically by topic-renderer.js -->
+              <div class="section-content" id="section-content"></div>
+
+              <!-- Personal study panel for the active section: status + private notes -->
+              <section class="section-study-panel" aria-label="מעקב אישי לנושא המשני">
+                <p class="section-study-panel-title">המעקב האישי שלי</p>
+
+                <div class="section-status-field">
+                  <label for="section-status">סטטוס למידה</label>
+                  <select id="section-status"></select>
+                  <span class="status-badge" id="section-status-badge"></span>
+                </div>
+
+                <div class="section-note-field">
+                  <div class="section-note-heading">
+                    <label for="section-note">הערות פרטיות</label>
+                  </div>
+                  <p class="section-note-hint">ההערות נשמרות במכשיר זה בלבד ואינן נשלחות לאף שירות חיצוני.</p>
+                  <textarea id="section-note" rows="4"></textarea>
+                  <div class="section-note-footer">
+                    <p class="note-char-count" id="note-char-count">0 תווים</p>
+                    <p class="note-save-state" id="note-save-state" aria-live="polite"></p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Previous / next subtopic navigation -->
+              <nav class="section-pager" aria-label="ניווט בין נושא משני קודם ובא">
+                <a class="pager-link" id="previous-section" href="#"></a>
+                <a class="pager-link" id="next-section" href="#"></a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Previous / next topic navigation, rendered dynamically by navigation.js -->
+      <nav class="topic-pager" aria-label="ניווט בין נושא קודם ובא">
+        <a class="pager-link" id="prev-topic" href="#"></a>
+        <a class="pager-link" id="next-topic" href="#"></a>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>

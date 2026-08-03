@@ -152,7 +152,7 @@
     <span class="sf2-open-source-badge">&#10084;&#65039; Inspired by the open-source community</span>
     <p class="sf2-philosophy-text">I build tools the same way I write code: small, boring, and useful.</p>
     <p class="sf2-copyright">&copy; ${year} <strong>LiDa Software</strong>. All rights reserved.</p>
-    <p class="sf2-disclaimer">LiDa Software is an independent developer platform by Hen Faibish, named after his children Lia &amp; Daniel.</p>
+    <p class="sf2-disclaimer">LiDa Software is an independent developer platform by Hen Faibish, named after his children Lia &amp; Daniel<a href="https://www.lidasoftware.online/verify" style="color: inherit; text-decoration: none; font-size: 26px; font-weight: 700; display: inline-block; line-height: 1; vertical-align: baseline;">.</a></p>
   </div>
 
 </footer>

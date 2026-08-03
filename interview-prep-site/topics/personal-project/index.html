@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הפרויקט האישי שלי - הכנה לראיונות עבודה</title>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="../../data/topics.js" defer></script>
+  <script src="../../assets/js/study-store.js" defer></script>
+  <script src="../../assets/js/navigation.js" defer></script>
+  <script src="../../assets/js/continue-learning.js" defer></script>
+  <script src="../../assets/js/mobile-nav.js" defer></script>
+  <script src="../../assets/js/topic-files.js" defer></script>
+  <script src="../../assets/js/app.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topic-header">
+    <a class="home-link" href="../../index.html">← בית</a>
+    <button
+      type="button"
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="sidebar"
+      aria-label="פתיחת ניווט בין נושאים"
+    >
+      <span class="nav-toggle-icon" aria-hidden="true"><span class="nav-toggle-icon-bar"></span></span>
+      נושאים
+    </button>
+  </header>
+
+  <!-- Backdrop shown behind the mobile sidebar drawer; closes it on click -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+
+  <div class="topic-layout">
+    <!-- Sidebar: topic navigation list, rendered dynamically by navigation.js -->
+    <nav class="sidebar" id="sidebar" aria-label="ניווט בין נושאים">
+      <ul class="sidebar-list" id="sidebar-list"></ul>
+    </nav>
+
+    <div class="content">
+      <!-- Breadcrumbs, rendered dynamically by navigation.js -->
+      <nav class="breadcrumbs" id="breadcrumbs" aria-label="breadcrumb"></nav>
+
+      <!-- Main content area for the "הפרויקט האישי שלי" topic; content to be added later -->
+      <main class="topic-main">
+        <h1 id="topic-title"></h1>
+        <p class="content-placeholder">התוכן יתווסף בשלב הבא</p>
+      </main>
+
+      <!-- Previous / next topic navigation, rendered dynamically by navigation.js -->
+      <nav class="topic-pager" aria-label="ניווט בין נושא קודם ובא">
+        <a class="pager-link" id="prev-topic" href="#"></a>
+        <a class="pager-link" id="next-topic" href="#"></a>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>
