@@ -402,10 +402,7 @@ async function initTopicPage(topicPath) {
 
   topicPageState.topicData = topicData;
 
-  if (typeof StudyUI !== 'undefined' && topicData.id) {
-    StudyUI.initStudyPanel(topicData.id, topicData);
-  }
-
+  var hasExplicitHash = Boolean(getHashSectionId());
   var hashSectionId = getHashSectionId();
   var firstSectionId = topicData.sections[0] && topicData.sections[0].id;
 
@@ -434,5 +431,15 @@ async function initTopicPage(topicPath) {
 
   if (initialSectionId) {
     await loadAndRenderSection(initialSectionId);
+  }
+
+  if (typeof StudyUI !== 'undefined' && topicData.id) {
+    StudyUI.initStudyPanel(topicData.id, topicData, {
+      hasExplicitHash: hasExplicitHash,
+      onNavigateToSection: function (targetSectionId) {
+        window.history.replaceState(null, '', '#' + targetSectionId);
+        loadAndRenderSection(targetSectionId);
+      }
+    });
   }
 }

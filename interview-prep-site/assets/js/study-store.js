@@ -250,5 +250,83 @@ var StudyStore = {
     delete state.topics[topicId];
     var success = writeStudyState(state);
     return { success: success };
+  },
+
+  // Completely replaces a topic's stored state with records returned from
+  // the backend API. Deletes old local state for this topic only, rebuilding
+  // it exclusively from the backend payload. Preserves unrelated topics.
+  // Calculates lastSectionId from the record with the newest lastVisitedAt.
+  replaceTopicFromApi: function (topicId, apiSections) {
+    var state = readStudyState();
+    delete state.topics[topicId];
+
+    if (!Array.isArray(apiSections) || apiSections.length === 0) {
+      var writeSuccess = writeStudyState(state);
+      return { success: writeSuccess, topicState: createDefaultTopicState() };
+    }
+
+    var topic = ensureTopicEntry(state, topicId);
+    var newestSectionId = null;
+    var newestTime = null;
+
+    apiSections.forEach(function (item) {
+      if (!item || !item.sectionId) {
+        return;
+      }
+      var section = ensureSectionEntry(topic, item.sectionId);
+      if (item.status && STUDY_SECTION_STATUSES.indexOf(item.status) !== -1) {
+        section.status = item.status;
+      }
+      if (typeof item.note === 'string') {
+        section.note = item.note;
+      }
+      if (item.lastVisitedAt) {
+        section.lastVisitedAt = item.lastVisitedAt;
+        var time = new Date(item.lastVisitedAt).getTime();
+        if (!isNaN(time)) {
+          if (newestTime === null || time > newestTime) {
+            newestTime = time;
+            newestSectionId = item.sectionId;
+          }
+        }
+      }
+    });
+
+    if (newestSectionId) {
+      topic.lastSectionId = newestSectionId;
+      topic.lastVisitedAt = new Date(newestTime).toISOString();
+    }
+
+    var success = writeStudyState(state);
+    return { success: success, topicState: topic };
+  },
+
+  // Updates local cache for a section using the authoritative backend record returned by PATCH.
+  updateSectionFromBackend: function (topicId, sectionId, backendRecord) {
+    if (!backendRecord) {
+      return { success: false, sectionState: this.getSectionState(topicId, sectionId) };
+    }
+    var state = readStudyState();
+    var topic = ensureTopicEntry(state, topicId);
+    var section = ensureSectionEntry(topic, sectionId);
+
+    if (backendRecord.status && STUDY_SECTION_STATUSES.indexOf(backendRecord.status) !== -1) {
+      section.status = backendRecord.status;
+    }
+    if (typeof backendRecord.note === 'string') {
+      section.note = backendRecord.note;
+    }
+    if (backendRecord.lastVisitedAt) {
+      section.lastVisitedAt = backendRecord.lastVisitedAt;
+      topic.lastSectionId = sectionId;
+      topic.lastVisitedAt = backendRecord.lastVisitedAt;
+    }
+
+    var success = writeStudyState(state);
+    return { success: success, sectionState: section };
+  },
+
+  saveTopicFromApi: function (topicId, apiSections) {
+    return this.replaceTopicFromApi(topicId, apiSections);
   }
 };

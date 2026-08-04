@@ -103,14 +103,14 @@ function refreshCharCount(noteText) {
 }
 
 // Updates the saved-state indicator (#note-save-state). One of:
-// "saving" -> "שומר...", "saved" -> "נשמר", "error" -> clear error message,
-// "idle" -> cleared.
+// "saving" -> "שומר...", "saved" -> "נשמר", "local-only" -> "נשמר מקומית בלבד",
+// "error" -> clear error message, "idle" -> cleared.
 function setNoteSaveState(state, customMessage) {
   var el = document.getElementById('note-save-state');
   if (!el) {
     return;
   }
-  el.classList.remove('is-saving', 'is-saved', 'is-error');
+  el.classList.remove('is-saving', 'is-saved', 'is-local-only', 'is-error');
 
   if (state === 'saving') {
     el.textContent = 'שומר...';
@@ -118,6 +118,9 @@ function setNoteSaveState(state, customMessage) {
   } else if (state === 'saved') {
     el.textContent = 'נשמר';
     el.classList.add('is-saved');
+  } else if (state === 'local-only') {
+    el.textContent = 'נשמר מקומית בלבד';
+    el.classList.add('is-local-only');
   } else if (state === 'error') {
     el.textContent = customMessage || 'שגיאה בשמירת ההערה. נסו שוב.';
     el.classList.add('is-error');
@@ -130,10 +133,29 @@ function handleStatusChange(event) {
   if (!studyUIState.activeSectionId) {
     return;
   }
-  StudyStore.setSectionStatus(studyUIState.topicId, studyUIState.activeSectionId, event.target.value);
-  refreshStatusBadge(event.target.value);
-  refreshSectionNavIndicators(studyUIState.topicId, studyUIState.topicData.sections);
+  var newStatus = event.target.value;
+  var topicId = studyUIState.topicId;
+  var sectionId = studyUIState.activeSectionId;
+
+  // Optimistically update UI and local cache
+  StudyStore.setSectionStatus(topicId, sectionId, newStatus);
+  refreshStatusBadge(newStatus);
+  refreshSectionNavIndicators(topicId, studyUIState.topicData.sections);
   refreshTopicProgress();
+
+  if (typeof StudyApi !== 'undefined' && StudyApi.updateSection) {
+    StudyApi.updateSection(topicId, sectionId, { status: newStatus })
+      .then(function (record) {
+        if (record) {
+          StudyStore.updateSectionFromBackend(topicId, sectionId, record);
+          refreshSectionNavIndicators(topicId, studyUIState.topicData.sections);
+          refreshTopicProgress();
+        }
+      })
+      .catch(function (err) {
+        console.warn('⚠️ Could not sync section status to server for ' + sectionId + ':', err);
+      });
+  }
 }
 
 function handleNoteInput(event) {
@@ -147,7 +169,7 @@ function handleNoteInput(event) {
   var topicId = studyUIState.topicId;
   var sectionId = studyUIState.activeSectionId;
   var value = event.target.value;
-  var token = studyUIState.noteEditToken;
+  var token = ++studyUIState.noteEditToken;
 
   if (studyUIState.noteSaveTimer) {
     clearTimeout(studyUIState.noteSaveTimer);
@@ -155,11 +177,33 @@ function handleNoteInput(event) {
 
   studyUIState.noteSaveTimer = setTimeout(function () {
     var result = StudyStore.saveSectionNote(topicId, sectionId, value);
-    // Only touch the shared indicator if the user is still editing the same
-    // section's note (avoids a stale "נשמר" appearing after switching
-    // sections while a save was still pending).
-    if (token === studyUIState.noteEditToken) {
-      setNoteSaveState(result.success ? 'saved' : 'error');
+    if (!result.success) {
+      if (token === studyUIState.noteEditToken) {
+        setNoteSaveState('error');
+      }
+      return;
+    }
+
+    if (typeof StudyApi !== 'undefined' && StudyApi.updateSection) {
+      StudyApi.updateSection(topicId, sectionId, { note: value })
+        .then(function (record) {
+          if (record) {
+            StudyStore.updateSectionFromBackend(topicId, sectionId, record);
+          }
+          if (token === studyUIState.noteEditToken) {
+            setNoteSaveState('saved');
+          }
+        })
+        .catch(function (err) {
+          console.warn('⚠️ Could not sync note to server for ' + sectionId + ':', err);
+          if (token === studyUIState.noteEditToken) {
+            setNoteSaveState('local-only');
+          }
+        });
+    } else {
+      if (token === studyUIState.noteEditToken) {
+        setNoteSaveState('local-only');
+      }
     }
   }, NOTE_SAVE_DEBOUNCE_MS);
 }
@@ -236,13 +280,104 @@ function handleResetClick() {
     return;
   }
 
-  StudyStore.clearTopicState(studyUIState.topicId);
-
-  if (studyUIState.activeSectionId) {
-    loadSectionPanel(studyUIState.topicId, studyUIState.activeSectionId);
+  var topicId = studyUIState.topicId;
+  var resetButton = document.getElementById('reset-topic-progress');
+  if (resetButton) {
+    resetButton.disabled = true;
   }
-  refreshSectionNavIndicators(studyUIState.topicId, studyUIState.topicData.sections);
-  refreshTopicProgress();
+
+  if (typeof StudyApi !== 'undefined' && StudyApi.resetTopic) {
+    StudyApi.resetTopic(topicId)
+      .then(function () {
+        StudyStore.clearTopicState(topicId);
+        if (studyUIState.activeSectionId) {
+          loadSectionPanel(topicId, studyUIState.activeSectionId);
+        }
+        refreshSectionNavIndicators(topicId, studyUIState.topicData.sections);
+        refreshTopicProgress();
+      })
+      .catch(function (err) {
+        console.warn('⚠️ Could not reset topic on server for ' + topicId + ':', err);
+        window.alert('איפוס ההתקדמות בשרת נכשל. הנתונים לא אופסו.');
+      })
+      .finally(function () {
+        if (resetButton) {
+          resetButton.disabled = false;
+        }
+      });
+  } else {
+    StudyStore.clearTopicState(topicId);
+    if (studyUIState.activeSectionId) {
+      loadSectionPanel(topicId, studyUIState.activeSectionId);
+    }
+    refreshSectionNavIndicators(topicId, studyUIState.topicData.sections);
+    refreshTopicProgress();
+    if (resetButton) {
+      resetButton.disabled = false;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Background server sync (authoritative hydration)
+   -------------------------------------------------------------------------- */
+
+function syncTopicFromBackend(topicId, topicData, options) {
+  if (typeof StudyApi === 'undefined' || !StudyApi.getTopicStates) {
+    return;
+  }
+
+  StudyApi.getTopicStates(topicId)
+    .then(function (apiSections) {
+      if (Array.isArray(apiSections)) {
+        var replaceResult = StudyStore.replaceTopicFromApi(topicId, apiSections);
+        var updatedTopicState = replaceResult.topicState;
+
+        refreshTopicProgress();
+        if (topicData && topicData.sections) {
+          refreshSectionNavIndicators(topicId, topicData.sections);
+        }
+
+        // When opening without an explicit hash, navigate to the section with newest lastVisitedAt
+        var hasExplicitHash = options && options.hasExplicitHash;
+        var newestSectionId = updatedTopicState && updatedTopicState.lastSectionId;
+        var sectionStillExists =
+          newestSectionId &&
+          topicData &&
+          topicData.sections &&
+          topicData.sections.some(function (sec) {
+            return sec.id === newestSectionId;
+          });
+
+        if (!hasExplicitHash && sectionStillExists && newestSectionId !== studyUIState.activeSectionId) {
+          if (options && typeof options.onNavigateToSection === 'function') {
+            options.onNavigateToSection(newestSectionId);
+            return;
+          }
+        }
+
+        // Refresh active section controls
+        if (studyUIState.activeSectionId) {
+          var noteTextarea = document.getElementById('section-note');
+          var isEditingNote = noteTextarea && document.activeElement === noteTextarea;
+          var sectionState = StudyStore.getSectionState(topicId, studyUIState.activeSectionId);
+
+          var statusSelect = document.getElementById('section-status');
+          if (statusSelect) {
+            statusSelect.value = sectionState.status;
+          }
+          refreshStatusBadge(sectionState.status);
+
+          if (!isEditingNote && noteTextarea) {
+            noteTextarea.value = sectionState.note || '';
+            refreshCharCount(sectionState.note || '');
+          }
+        }
+      }
+    })
+    .catch(function (err) {
+      console.warn('⚠️ Could not sync topic data from server, continuing with cached local data:', err);
+    });
 }
 
 /* --------------------------------------------------------------------------
@@ -252,7 +387,7 @@ function handleResetClick() {
 // Called once after the topic definition loads. Wires up the status
 // selector, notes textarea, and reset button (idempotent — safe even if
 // called more than once), and does an initial progress render.
-function initStudyPanel(topicId, topicData) {
+function initStudyPanel(topicId, topicData, options) {
   studyUIState.topicId = topicId;
   studyUIState.topicData = topicData;
 
@@ -277,6 +412,7 @@ function initStudyPanel(topicId, topicData) {
   }
 
   refreshTopicProgress();
+  syncTopicFromBackend(topicId, topicData, options);
 }
 
 // Called after a section's content has successfully loaded and rendered.
@@ -292,6 +428,18 @@ function onSectionLoaded(topicId, sectionId, topicData) {
   loadSectionPanel(topicId, sectionId);
   refreshSectionNavIndicators(topicId, topicData.sections);
   refreshTopicProgress();
+
+  if (typeof StudyApi !== 'undefined' && StudyApi.updateSection) {
+    StudyApi.updateSection(topicId, sectionId, { visited: true })
+      .then(function (record) {
+        if (record) {
+          StudyStore.updateSectionFromBackend(topicId, sectionId, record);
+        }
+      })
+      .catch(function (err) {
+        console.warn('⚠️ Could not sync section visit to server for ' + sectionId + ':', err);
+      });
+  }
 }
 
 var StudyUI = {

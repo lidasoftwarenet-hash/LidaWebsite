@@ -1257,6 +1257,10 @@ input:focus-visible,
   color: var(--color-success);
 }
 
+.note-save-state.is-local-only {
+  color: var(--color-review);
+}
+
 .note-save-state.is-error {
   color: var(--color-error);
 }
