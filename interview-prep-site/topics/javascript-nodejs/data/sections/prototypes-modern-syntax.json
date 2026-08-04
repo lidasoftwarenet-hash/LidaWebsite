@@ -1,0 +1,141 @@
+{
+  "id": "prototypes-modern-syntax",
+  "title": "Prototype, Classes & Modern Syntax",
+  "sourcePages": [
+    177,
+    180
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Prototype Inheritance"
+    },
+    {
+      "type": "paragraph",
+      "text": "JavaScript מבוססת על prototype inheritance. לפני ES6 כתבו constructor functions והוסיפו methods ל-prototype."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "function User(name) {\n    this.name = name;\n}\n\nUser.prototype.sayHi = function () {\n    console.log(this.name);\n};"
+    },
+    {
+      "type": "heading",
+      "text": "Class Syntax"
+    },
+    {
+      "type": "paragraph",
+      "text": "ES6 הוסיף class בתור syntax מודרני ונוח יותר מעל אותו מנגנון prototype."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "class User {\n    constructor(name) {\n        this.name = name;\n    }\n\n    sayHi() {\n        console.log(this.name);\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "JavaScript מתבססת על prototype inheritance. class הוא בעיקר syntax מודרני ונוח יותר מעל אותו מנגנון, ולא class זהה לחלוטין למודל של Java."
+    },
+    {
+      "type": "heading",
+      "text": "Destructuring"
+    },
+    {
+      "type": "paragraph",
+      "text": "Destructuring מאפשר להוציא ערכים מ-object או array בצורה קצרה וברורה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = {\n    id: 1,\n    email: \"a@test.com\"\n};\n\nconst { id, email } = user;"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const values = [10, 20];\n\nconst [first, second] = values;"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Destructuring עוזר לכתוב קוד קצר וברור כאשר מוציאים ערכים מאובייקטים או מערכים. הוא נפוץ ב-Node.js, React ו-API code."
+    },
+    {
+      "type": "heading",
+      "text": "Spread"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spread מפזר values ומאפשר לבנות object או array חדש."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = {\n    id: 1,\n    name: \"Hen\"\n};\n\nconst updated = {\n    ...user,\n    name: \"Dan\"\n};\n\nconst all = [\n    ...arr1,\n    ...arr2\n];"
+    },
+    {
+      "type": "heading",
+      "text": "Rest"
+    },
+    {
+      "type": "paragraph",
+      "text": "Rest אוסף מספר values לתוך array."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "function sum(...numbers) {\n    return numbers.reduce(\n        (acc, number) => acc + number,\n        0\n    );\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "דרך לזכור",
+      "text": "Spread מפזר ערכים. Rest אוסף ערכים."
+    },
+    {
+      "type": "heading",
+      "text": "Shallow Copy"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spread יוצר shallow copy בלבד. Objects פנימיים עדיין משותפים לפי reference."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const a = {\n    user: {\n        name: \"Hen\"\n    }\n};\n\nconst b = {\n    ...a\n};\n\nb.user.name = \"Dan\";\n\nconsole.log(a.user.name); // Dan"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "Spread אינו deep clone. שינוי של nested object בעותק יכול לשנות גם את האובייקט המקורי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם class ב-JavaScript מחליף את מנגנון prototype?",
+      "answer": "לא. class הוא syntax נוח יותר מעל prototype inheritance."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה destructuring?",
+      "answer": "מוציא values מתוך object או array בצורה קצרה."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין spread ל-rest?",
+      "answer": "Spread מפזר values. Rest אוסף מספר values."
+    },
+    {
+      "type": "qa",
+      "question": "האם spread יוצר deep copy?",
+      "answer": "לא. הוא יוצר shallow copy בלבד."
+    }
+  ]
+}

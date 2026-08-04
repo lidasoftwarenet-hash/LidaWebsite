@@ -1,0 +1,71 @@
+{
+  "id": "spring-boot",
+  "title": "Spring Boot",
+  "sections": [
+    {
+      "id": "overview",
+      "title": "Spring Boot Overview",
+      "file": "sections/overview.json"
+    },
+    {
+      "id": "dependency-injection",
+      "title": "Dependency Injection",
+      "file": "sections/dependency-injection.json"
+    },
+    {
+      "id": "stereotypes-layers",
+      "title": "Component, Service & Repository",
+      "file": "sections/stereotypes-layers.json"
+    },
+    {
+      "id": "actuator",
+      "title": "Spring Boot Actuator",
+      "file": "sections/actuator.json"
+    },
+    {
+      "id": "configuration-profiles",
+      "title": "Configuration & Profiles",
+      "file": "sections/configuration-profiles.json"
+    },
+    {
+      "id": "security-filter-chain",
+      "title": "Security Filter Chain",
+      "file": "sections/security-filter-chain.json"
+    },
+    {
+      "id": "bean-lifecycle",
+      "title": "Bean Lifecycle",
+      "file": "sections/bean-lifecycle.json"
+    },
+    {
+      "id": "aop-proxies",
+      "title": "AOP & Proxies",
+      "file": "sections/aop-proxies.json"
+    },
+    {
+      "id": "transactional",
+      "title": "Transactional",
+      "file": "sections/transactional.json"
+    },
+    {
+      "id": "validation",
+      "title": "Validation",
+      "file": "sections/validation.json"
+    },
+    {
+      "id": "error-handling",
+      "title": "Error Handling",
+      "file": "sections/error-handling.json"
+    },
+    {
+      "id": "caching",
+      "title": "Caching",
+      "file": "sections/caching.json"
+    },
+    {
+      "id": "jpa-hibernate",
+      "title": "JPA & Hibernate",
+      "file": "sections/jpa-hibernate.json"
+    }
+  ]
+}

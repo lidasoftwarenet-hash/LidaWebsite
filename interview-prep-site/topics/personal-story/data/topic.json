@@ -1,0 +1,41 @@
+{
+  "id": "personal-story",
+  "title": "Personal Story",
+  "sections": [
+    {
+      "id": "backend-introduction",
+      "title": "הצגה עצמית למשרת Backend",
+      "file": "sections/backend-introduction.json"
+    },
+    {
+      "id": "fullstack-introduction",
+      "title": "הצגה עצמית למשרת Full-stack",
+      "file": "sections/fullstack-introduction.json"
+    },
+    {
+      "id": "current-role",
+      "title": "התפקיד הנוכחי שלי",
+      "file": "sections/current-role.json"
+    },
+    {
+      "id": "technical-overview",
+      "title": "סקירה טכנולוגית",
+      "file": "sections/technical-overview.json"
+    },
+    {
+      "id": "previous-experience",
+      "title": "מה עשיתי לפני",
+      "file": "sections/previous-experience.json"
+    },
+    {
+      "id": "next-role",
+      "title": "מה אני מחפש בתפקיד הבא",
+      "file": "sections/next-role.json"
+    },
+    {
+      "id": "ai-work",
+      "title": "העבודה עם AI",
+      "file": "sections/ai-work.json"
+    }
+  ]
+}

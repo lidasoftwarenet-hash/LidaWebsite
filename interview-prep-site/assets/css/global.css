@@ -181,7 +181,6 @@ input:focus-visible,
 
 @media (min-width: 860px) {
   .dashboard-row {
-    grid-template-columns: 1.1fr 1.4fr;
     align-items: stretch;
   }
 }
@@ -214,8 +213,14 @@ input:focus-visible,
 
 .progress-summary-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-3);
+}
+
+@media (min-width: 520px) {
+  .progress-summary-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .summary-stat {
@@ -904,6 +909,8 @@ input:focus-visible,
 
 .content-block {
   margin: 0 0 var(--space-4);
+  direction: rtl;
+  text-align: right;
 }
 
 .content-block:last-child {
@@ -914,6 +921,8 @@ input:focus-visible,
   color: var(--color-text);
   font-size: 1.4rem;
   line-height: 1.75;
+  direction: rtl;
+  text-align: right;
 }
 
 .content-heading {
@@ -921,6 +930,8 @@ input:focus-visible,
   font-weight: 700;
   line-height: 1.3;
   margin-top: var(--space-5);
+  direction: rtl;
+  text-align: right;
 }
 
 .content-heading:first-child {
@@ -931,7 +942,16 @@ input:focus-visible,
   list-style: disc;
   padding-inline-start: 1.4rem;
   color: var(--color-text);
+  font-size: 1.4rem;
   line-height: 1.75;
+  direction: rtl;
+  text-align: right;
+}
+
+.content-bullet-list li {
+  font-size: 1.4rem;
+  direction: rtl;
+  text-align: right;
 }
 
 .content-bullet-list li + li {
@@ -962,6 +982,8 @@ input:focus-visible,
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-surface-alt);
   border-radius: var(--radius-md) var(--radius-md) 0 0;
+  direction: ltr;
+  text-align: left;
 }
 
 .content-code-language {
@@ -1004,6 +1026,8 @@ input:focus-visible,
   font-size: 0.88rem;
   line-height: 1.6;
   white-space: pre;
+  direction: ltr;
+  text-align: left;
 }
 
 .content-callout {
@@ -1011,11 +1035,18 @@ input:focus-visible,
   background-color: var(--color-surface-alt);
   border-radius: var(--radius-md);
   padding: var(--space-4);
+  font-size: 1.4rem;
+  direction: rtl;
+  text-align: right;
 }
 
 .content-callout p {
   margin: 0;
   color: var(--color-text);
+  font-size: 1.4rem;
+  line-height: 1.75;
+  direction: rtl;
+  text-align: right;
 }
 
 .content-callout-warning {
@@ -1031,28 +1062,28 @@ input:focus-visible,
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
+  font-size: 1.4rem;
+  direction: rtl;
+  text-align: right;
 }
 
 .qa-question {
   margin: 0 0 var(--space-2);
   font-weight: 700;
+  font-size: 1.4rem;
   color: var(--color-text);
+  direction: rtl;
+  text-align: right;
 }
 
 .qa-answer {
   margin: 0;
   color: var(--color-text-muted);
-  line-height: 1.7;
-}
-
-/* English/technical terms embedded in RTL Hebrew text stay left-to-right
-   and legible without breaking the surrounding paragraph direction. */
-.content-paragraph,
-.content-heading,
-.content-bullet-list li,
-.qa-question,
-.qa-answer {
-  unicode-bidi: plaintext;
+  font-size: 1.4rem;
+  line-height: 1.75;
+  direction: rtl;
+  text-align: right;
+  white-space: pre-line;
 }
 
 /* Section previous / next navigation */

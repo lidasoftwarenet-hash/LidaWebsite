@@ -1,0 +1,132 @@
+{
+  "id": "string-immutability",
+  "title": "String Immutability",
+  "sourcePages": [
+    52,
+    54
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Immutable אומר שאחרי שאובייקט נוצר, אי אפשר לשנות את התוכן הפנימי שלו. אם רוצים שינוי, לא משנים את אותו אובייקט אלא מקבלים אובייקט חדש."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String name = \"hen\";\nString upper = name.toUpperCase();\n\nSystem.out.println(name);  // hen\nSystem.out.println(upper); // HEN"
+    },
+    {
+      "type": "paragraph",
+      "text": "toUpperCase לא שינה את name. הוא יצר String חדש עם הערך HEN. String ב-Java הוא immutable: לאחר יצירתו הערך שלו לא משתנה."
+    },
+    {
+      "type": "heading",
+      "text": "למה String הוא immutable"
+    },
+    {
+      "type": "paragraph",
+      "text": "String נמצא כמעט בכל מקום במערכת: URLs, paths, usernames, SQL queries, cache keys, map keys, class names ו-security values. אם String היה mutable, שינוי במקום אחד היה עלול להשפיע על מקום אחר שמחזיק reference לאותו object."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "אפשר לשתף String בין threads בלי synchronization.",
+        "אפשר להשתמש בו בבטחה כ-key ב-HashMap.",
+        "אפשר להשתמש ב-String Pool ולחסוך זיכרון.",
+        "אפשר לשמור את ה-hashCode בצורה יעילה כי הערך אינו משתנה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "String Pool"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String a = \"hello\";\nString b = \"hello\";\n\nSystem.out.println(a == b); // true"
+    },
+    {
+      "type": "paragraph",
+      "text": "Java יכולה להשתמש באותו object בזיכרון עבור שני string literals זהים."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String c = new String(\"hello\");\n\nSystem.out.println(a == c);      // false\nSystem.out.println(a.equals(c)); // true"
+    },
+    {
+      "type": "paragraph",
+      "text": "== בודק אם מדובר באותו object בזיכרון. equals בודק אם התוכן שווה. זו מלכודת קלאסית בראיונות."
+    },
+    {
+      "type": "heading",
+      "text": "StringBuilder וביצועים"
+    },
+    {
+      "type": "paragraph",
+      "text": "חיבור קטן של Strings הוא בסדר. אבל כשמבצעים הרבה חיבורים בתוך לולאה, עלולים להיווצר הרבה Strings חדשים."
+    },
+    {
+      "type": "heading",
+      "text": "פחות טוב"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String result = \"\";\n\nfor (String word : words) {\n    result += word + \" \";\n}"
+    },
+    {
+      "type": "heading",
+      "text": "עדיף"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "StringBuilder builder = new StringBuilder();\n\nfor (String word : words) {\n    builder.append(word).append(\" \");\n}\n\nString result = builder.toString().trim();"
+    },
+    {
+      "type": "paragraph",
+      "text": "StringBuilder הוא mutable ולכן מתאים לבנייה הדרגתית של String."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה immutable?",
+      "answer": "אובייקט שאחרי יצירה אי אפשר לשנות את התוכן שלו. כל שינוי יוצר אובייקט חדש."
+    },
+    {
+      "type": "qa",
+      "question": "האם String ב-Java הוא mutable?",
+      "answer": "לא. String הוא immutable."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה כשעושים toUpperCase או replace?",
+      "answer": "מקבלים String חדש. ה-String המקורי לא משתנה."
+    },
+    {
+      "type": "qa",
+      "question": "למה זה טוב?",
+      "answer": "Thread safety, String Pool, שימוש בטוח כ-key ב-HashMap וב-caching, ופחות bugs משינויים לא צפויים."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין == ל-equals ב-String?",
+      "answer": "== בודק אם זה אותו object בזיכרון. equals בודק אם התוכן שווה."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-StringBuilder?",
+      "answer": "כשבונים String בהרבה שלבים, במיוחד בתוך לולאה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Immutable אומר שאחרי שאובייקט נוצר, אי אפשר לשנות את הערך הפנימי שלו. String ב-Java הוא immutable, ולכן פעולות כמו replace או toUpperCase מחזירות String חדש ולא משנות את המקורי. זה חשוב ל-thread safety, ל-String Pool, ל-caching ולשימוש בטוח כ-key ב-HashMap. אם אני בונה String בלולאה, אשתמש ב-StringBuilder כדי לא ליצור הרבה אובייקטים מיותרים."
+    }
+  ]
+}

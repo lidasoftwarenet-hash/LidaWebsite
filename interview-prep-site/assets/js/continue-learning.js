@@ -117,12 +117,10 @@ function renderContinueLearningActive(container, topicId, topicState, topicName)
   }
 
   var actions = document.createElement('div');
-  actions.className = 'continue-learning-actions';
-  var button = document.createElement('a');
-  button.className = 'button-primary';
-  button.href = '/interview-prep-site/topics/' + topicId + '/index.html' + (sectionId ? '#' + sectionId : '');
-  button.textContent = 'המשך מהנקודה האחרונה';
-  actions.appendChild(button);
+
+
+
+ 
 
   var resetBtn = document.createElement('button');
   resetBtn.type = 'button';
@@ -152,12 +150,11 @@ function renderContinueLearningActive(container, topicId, topicState, topicName)
       renderProgressSummary();
     }
   });
-  actions.appendChild(resetBtn);
+
 
   container.appendChild(eyebrow);
   container.appendChild(title);
-  container.appendChild(meta);
-  container.appendChild(actions);
+
 }
 
 // Entry point. Renders into #continue-learning. Requires the global

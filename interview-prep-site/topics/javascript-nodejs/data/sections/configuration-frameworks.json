@@ -1,0 +1,116 @@
+{
+  "id": "configuration-frameworks",
+  "title": "Configuration, Express & NestJS",
+  "sourcePages": [
+    185,
+    187
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Environment Variables"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Node.js קוראים environment variables דרך process.env. Configuration ו-secrets לא צריכים להיות hard-coded בקוד."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "process.env.PORT;\nprocess.env.DB_URL;\nprocess.env.JWT_SECRET;"
+    },
+    {
+      "type": "paragraph",
+      "text": "לכל סביבה יש ערכים שונים, למשל dev, staging ו-production."
+    },
+    {
+      "type": "heading",
+      "text": "Startup Validation"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (!process.env.DB_URL) {\n    throw new Error(\n        \"DB_URL is missing\"\n    );\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני שומר configuration ו-secrets ב-environment variables, מבצע validation בזמן startup ולא שומר secrets בקוד או ב-Git."
+    },
+    {
+      "type": "heading",
+      "text": "Express"
+    },
+    {
+      "type": "paragraph",
+      "text": "Express הוא framework מינימלי וגמיש לבניית APIs ב-Node.js."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "app.get(\n    \"/users/:id\",\n    async (request, response) => {\n        const user = await getUser(\n            request.params.id\n        );\n\n        response.json(user);\n    }\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "Express משאיר הרבה החלטות לצוות."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Architecture",
+        "Validation",
+        "Dependency Injection",
+        "Error handling",
+        "Folder structure"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "NestJS"
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS הוא framework opinionated ומובנה יותר, בדרך כלל יחד עם TypeScript."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Modules",
+        "Controllers",
+        "Services",
+        "Dependency Injection",
+        "Decorators",
+        "Guards",
+        "Interceptors",
+        "Pipes",
+        "DTOs"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Express הוא מינימלי וגמיש. NestJS יותר מובנה ומתאים למערכות גדולות, במיוחד עם TypeScript, Dependency Injection, DTOs וארכיטקטורה ברורה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "איפה שומרים configuration ב-Node.js?",
+      "answer": "בדרך כלל ב-environment variables או במערכת configuration ייעודית, ולא כ-hard-coded values."
+    },
+    {
+      "type": "qa",
+      "question": "מה חשוב לעשות בזמן startup?",
+      "answer": "לוודא שכל configuration חובה קיימת ולגרום לאפליקציה להיכשל מוקדם אם חסר ערך קריטי."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Express ל-NestJS?",
+      "answer": "Express מינימלי וגמיש. NestJS מובנה ו-opinionated יותר ומספק modules, DI, decorators, guards, pipes וארכיטקטורה ברורה."
+    }
+  ]
+}

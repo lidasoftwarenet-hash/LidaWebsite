@@ -159,29 +159,80 @@ function renderHomeCards() {
 
 function renderProgressSummary() {
   var completedEl = document.getElementById('summary-completed-count');
-  var startedEl = document.getElementById('summary-started-count');
+  var inProgressEl = document.getElementById('summary-in-progress-count') || document.getElementById('summary-started-count');
+  var reviewEl = document.getElementById('summary-review-count');
   var totalEl = document.getElementById('summary-total-count');
-  if (!completedEl || !startedEl || !totalEl || typeof topics === 'undefined' || typeof StudyStore === 'undefined') {
+
+  if (typeof topics === 'undefined' || typeof StudyStore === 'undefined') {
     return;
   }
 
-  var topicsWithData = Object.keys(TOPIC_SECTION_COUNTS);
-  var completedTopics = 0;
-  var startedTopics = 0;
+  var completedCount = 0;
+  var inProgressCount = 0;
+  var reviewCount = 0;
 
-  topicsWithData.forEach(function (topicId) {
-    var progress = StudyStore.getTopicProgress(topicId, TOPIC_SECTION_COUNTS[topicId]);
-    if (progress.started > 0) {
-      startedTopics++;
-    }
-    if (progress.completed === progress.total && progress.total > 0) {
-      completedTopics++;
+  var state = StudyStore.getState();
+  var topicIds = Object.keys((state && state.topics) || {});
+
+  topicIds.forEach(function (topicId) {
+    var topicState = state.topics[topicId];
+    if (topicState && topicState.sections) {
+      Object.keys(topicState.sections).forEach(function (sectionId) {
+        var sec = topicState.sections[sectionId];
+        if (sec.status === 'completed') {
+          completedCount++;
+        } else if (sec.status === 'in-progress') {
+          inProgressCount++;
+        } else if (sec.status === 'review') {
+          reviewCount++;
+        }
+      });
     }
   });
 
-  completedEl.textContent = String(completedTopics);
-  startedEl.textContent = String(startedTopics);
-  totalEl.textContent = String(topics.length);
+  if (completedEl) {
+    completedEl.textContent = String(completedCount);
+  }
+  if (inProgressEl) {
+    inProgressEl.textContent = String(inProgressCount);
+  }
+  if (reviewEl) {
+    reviewEl.textContent = String(reviewCount);
+  }
+  if (totalEl) {
+    totalEl.textContent = String(topics.length);
+  }
+}
+
+function syncHomeProgressFromBackend() {
+  if (typeof StudyApi === 'undefined' || typeof StudyApi.getAllStates !== 'function') {
+    return;
+  }
+
+  StudyApi.getAllStates()
+    .then(function (allSections) {
+      if (Array.isArray(allSections)) {
+        var sectionsByTopic = {};
+        allSections.forEach(function (sec) {
+          if (sec && sec.topicId) {
+            if (!sectionsByTopic[sec.topicId]) {
+              sectionsByTopic[sec.topicId] = [];
+            }
+            sectionsByTopic[sec.topicId].push(sec);
+          }
+        });
+
+        Object.keys(sectionsByTopic).forEach(function (topicId) {
+          StudyStore.replaceTopicFromApi(topicId, sectionsByTopic[topicId]);
+        });
+
+        renderHomeCards();
+        renderProgressSummary();
+      }
+    })
+    .catch(function (err) {
+      console.warn('⚠️ Could not sync home progress from backend:', err);
+    });
 }
 
 /* --------------------------------------------------------------------------
@@ -357,6 +408,7 @@ function initNavigation() {
   if (document.getElementById('topics-grid')) {
     renderHomeCards();
     renderProgressSummary();
+    syncHomeProgressFromBackend();
   }
 
   var activeId = getCurrentTopicId();

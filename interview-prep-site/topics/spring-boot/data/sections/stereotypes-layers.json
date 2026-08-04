@@ -1,0 +1,209 @@
+{
+  "id": "stereotypes-layers",
+  "title": "Component, Service & Repository",
+  "sourcePages": [
+    93,
+    101
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "@Component, @Service ו-@Repository מסמנות מחלקה כ-Bean ש-Spring יוצר, מנהל ומזריק. ההבדל העיקרי ביניהן הוא המשמעות הארכיטקטונית."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "@Component הוא annotation כללי.",
+        "@Service מיועד ללוגיקה עסקית.",
+        "@Repository מיועד לשכבת גישה לנתונים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Flow טיפוסי"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "מבנה שכבות",
+      "text": "HTTP Request → Controller → Service → Repository → Database"
+    },
+    {
+      "type": "paragraph",
+      "text": "Controller מקבל request ומחזיר response. Service מחזיק את הלוגיקה העסקית. Repository עובד מול ה-DB או מקור מידע אחר."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מלאה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestController\n@RequestMapping(\"/users\")\npublic class UserController {\n    private final UserService userService;\n\n    public UserController(\n            UserService userService\n    ) {\n        this.userService = userService;\n    }\n\n    @GetMapping(\"/{id}\")\n    public UserResponse getUser(\n            @PathVariable String id\n    ) {\n        return userService.getUser(id);\n    }\n}\n\n@Service\npublic class UserService {\n    private final UserRepository userRepository;\n\n    public UserService(\n            UserRepository userRepository\n    ) {\n        this.userRepository = userRepository;\n    }\n\n    public UserResponse getUser(String id) {\n        User user = userRepository\n            .findById(id)\n            .orElseThrow(\n                () -> new UserNotFoundException(id)\n            );\n\n        return new UserResponse(\n            user.id(),\n            user.name(),\n            user.email()\n        );\n    }\n}\n\n@Repository\npublic interface UserRepository\n        extends JpaRepository<User, String> {\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ה-controller לא יודע איך מחפשים user ב-DB.",
+        "ה-service לא מתעסק עם HTTP.",
+        "ה-repository לא מכיל business logic."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "@Component"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Component מתאים למחלקות כלליות שלא יושבות בבירור תחת Service או Repository, למשל mapper, helper, managed client או factory."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Component\npublic class UserMapper {\n    public UserResponse toResponse(\n            User user\n    ) {\n        return new UserResponse(\n            user.id(),\n            user.name(),\n            user.email()\n        );\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "כוונה ברורה",
+      "text": "טכנית אפשר לסמן service ב-@Component וזה יעבוד, אבל @Service מבטא את הכוונה ומקל על קריאת הקוד."
+    },
+    {
+      "type": "heading",
+      "text": "@Service"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Service מסמן מחלקה שמכילה business logic ומתאמת בין repositories, clients, validations ו-events."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n    private final OrderRepository orderRepository;\n    private final PaymentClient paymentClient;\n\n    public OrderService(\n        OrderRepository orderRepository,\n        PaymentClient paymentClient\n    ) {\n        this.orderRepository = orderRepository;\n        this.paymentClient = paymentClient;\n    }\n\n    public OrderResponse createOrder(\n            CreateOrderRequest request\n    ) {\n        // business validations\n        // calculate price\n        // call payment provider\n        // save order\n        // publish event\n        // return response\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "החלטות כמו האם מותר ליצור הזמנה, מה קורה אם תשלום נכשל, איך מחשבים מחיר ומתי שולחים event שייכות ל-Service ולא ל-Controller."
+    },
+    {
+      "type": "heading",
+      "text": "@Repository"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Repository מיועד ל-data access. ב-Spring Data JPA הוא בדרך כלל interface שמרחיב JpaRepository."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Repository\npublic interface OrderRepository\n        extends JpaRepository<Order, Long> {\n\n    List<Order> findByUserId(\n        String userId\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אפשר גם לכתוב repository ידני."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Repository\npublic class JdbcUserRepository {\n    private final JdbcTemplate jdbcTemplate;\n\n    public JdbcUserRepository(\n            JdbcTemplate jdbcTemplate\n    ) {\n        this.jdbcTemplate = jdbcTemplate;\n    }\n\n    public Optional<User> findById(\n            String id\n    ) {\n        // DB query here\n        return Optional.empty();\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "נקודה לראיון",
+      "text": "@Repository לא רק מסמן Bean ושכבת data access. בחלק מהמקרים Spring גם מתרגם persistence exceptions ל-DataAccessException אחידות."
+    },
+    {
+      "type": "heading",
+      "text": "Component Scanning"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@SpringBootApplication\npublic class Application {\n    public static void main(\n            String[] args\n    ) {\n        SpringApplication.run(\n            Application.class,\n            args\n        );\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "@SpringBootApplication כוללת component scan. Spring סורק את ה-package של ה-main class ואת התתי-packages ומחפש @Component, @Service, @Repository, @Controller ו-@RestController."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "אם class נמצאת מחוץ ל-package ש-Spring סורק, היא לא תיווצר כ-Bean."
+    },
+    {
+      "type": "heading",
+      "text": "מה מראיין מחפש"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Controller דק.",
+        "Service עם business logic.",
+        "Repository לגישה ל-data.",
+        "Component לדברים כלליים.",
+        "הבנה של component scan ו-DI."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "טעויות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשים business logic בתוך Controller.",
+        "לשים queries או DB logic בשכבת Service במקום Repository.",
+        "להשתמש ב-@Component על כל דבר למרות annotation מדויק יותר.",
+        "לחשוב ש-@Service מוסיף קסם מיוחד. הוא בעיקר semantic annotation, אבל הסמנטיקה חשובה.",
+        "למקם classes מחוץ ל-component scan."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין @Component, @Service ו-@Repository?",
+      "answer": "שלושתם מגדירים Bean. @Component כללי, @Service לשכבת business logic ו-@Repository לשכבת data access."
+    },
+    {
+      "type": "qa",
+      "question": "אפשר להשתמש רק ב-@Component בכל מקום?",
+      "answer": "כן טכנית, אבל זה פחות טוב מבחינת קריאות וארכיטקטורה. עדיף annotation שמתארת את תפקיד המחלקה."
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של Service?",
+      "answer": "להחזיק business logic ולתאם בין repositories, clients, validations ו-events."
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של Repository?",
+      "answer": "להפריד את הגישה ל-data מהלוגיקה העסקית. ה-Service לא צריך לדעת איך המידע נשמר או נשלף."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Component Scan?",
+      "answer": "המנגנון שבו Spring סורק packages, מוצא classes עם annotations מתאימים ויוצר מהם Beans."
+    },
+    {
+      "type": "qa",
+      "question": "למה לפעמים Spring לא מוצא Bean?",
+      "answer": "המחלקה לא מסומנת ב-annotation מתאים, אינה רשומה כ-Bean או נמצאת מחוץ ל-package שנסרק."
+    },
+    {
+      "type": "qa",
+      "question": "האם @Repository שונה טכנית מ-@Service?",
+      "answer": "שניהם Beans, אבל @Repository מסמן data access layer ויכול להשתתף ב-exception translation של persistence exceptions."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "@Component, @Service ו-@Repository גורמים ל-Spring ליצור Bean ולנהל אותו. ההבדל העיקרי הוא התפקיד הארכיטקטוני. אני משתמש בהם כדי לשמור על שכבות ברורות: Controller מטפל ב-HTTP, Service בלוגיקה העסקית ו-Repository בגישה ל-DB."
+    }
+  ]
+}

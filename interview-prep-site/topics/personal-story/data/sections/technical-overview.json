@@ -1,0 +1,45 @@
+{
+  "id": "technical-overview",
+  "title": "סקירה טכנולוגית",
+  "sourcePages": [],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "מבחינה טכנולוגית - טכני"
+    },
+    {
+      "type": "paragraph",
+      "text": "מבחינה טכנולוגית, אני עובד בעיקר עם Java ו-Spring Boot, ובמקביל גם עם Node.js ו-NestJS. המערכות שלנו מבוססות ברובן על microservices שרצים ב-GCP, ובחלק מהפרויקטים אנחנו עובדים גם בתוך Nx Monorepo."
+    },
+    {
+      "type": "paragraph",
+      "text": "בהתאם לצורך של המערכת, אני עובד עם Pub/Sub לתהליכים event-driven, עם Cloud Functions להרצת לוגיקה serverless נקודתית, ועם Dataflow לעיבוד כמויות גדולות של דאטה."
+    },
+    {
+      "type": "paragraph",
+      "text": "מבחינת storage, אנחנו משתמשים ב-PostgreSQL וב-MySQL לדאטה רלציוני, ב-MongoDB לפי הצורך, ב-Elasticsearch לחיפוש, וגם ב-BigQuery וב-Bigtable עבור תהליכי דאטה בהיקפים גדולים."
+    },
+    {
+      "type": "paragraph",
+      "text": "מבחינת deployment ותפעול, יש לנו תהליכי CI/CD עם Jenkins ו-ArgoCD, והשירותים רצים על Kubernetes ב-GCP."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "מבחינה טכנולוגית - HR"
+    },
+    {
+      "type": "paragraph",
+      "text": "מבחינה טכנולוגית, אני עובד בסביבת Cloud רחבה ומגוונת, בעיקר עם Java ו-Node.js. המערכות שלנו בנויות ממיקרו-סרביסים שרצים בענן של GCP, ואני עובד עם מגוון כלים וטכנולוגיות בהתאם לצורך של כל פרויקט. זה כולל מערכות מבוססות events כמו Pub/Sub, רכיבי serverless כמו Cloud Functions, ותהליכי Dataflow לעיבוד כמויות גדולות של מידע. אני עובד גם עם מגוון בסיסי נתונים, תהליכי CI/CD, ו-Kubernetes לצורך deployment וניהול השירותים בפרודקשן."
+    },
+    {
+      "type": "paragraph",
+      "text": "היתרון מבחינתי הוא שאני רגיל לעבוד בסביבה טכנולוגית רחבה, ולהתאים את הפתרון לצורך העסקי ולא רק לטכנולוגיה אחת קבועה."
+    },
+    {
+      "type": "callout",
+      "text": "עצירה קטנה"
+    }
+  ]
+}

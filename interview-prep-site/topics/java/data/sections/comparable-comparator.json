@@ -1,0 +1,66 @@
+{
+  "id": "comparable-comparator",
+  "title": "Comparable vs Comparator",
+  "sourcePages": [
+    33,
+    35
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Comparable ו-Comparator משמשים למיון, אבל ההבדל הוא איפה יושבת החלטת המיון."
+    },
+    {
+      "type": "paragraph",
+      "text": "אם לאובייקט יש סדר טבעי וברור, כזה שכמעט תמיד נכון עבורו, שמים את הסדר בתוך המחלקה באמצעות Comparable. לדוגמה, Money לפי סכום או Version לפי מספר גרסה."
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יש כמה דרכים לגיטימיות למיין אובייקט, עדיף Comparator. למשל User יכול להיות ממוין לפי שם, גיל, תאריך יצירה או role. במקרה כזה המיון מגיע מבחוץ ומשתנה לפי הצורך."
+    },
+    {
+      "type": "heading",
+      "text": "Comparator"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "במילים פשוטות",
+      "text": "Comparator אומר: כרגע, במקרה הספציפי הזה, אני רוצה למיין לפי חוק מסוים."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record User(String name, int age) {}\n\nList<User> users = new ArrayList<>(List.of(\n    new User(\"Dana\", 30),\n    new User(\"Avi\", 25),\n    new User(\"Dana\", 22)\n));\n\nusers.sort(\n    Comparator.comparing(User::name)\n        .thenComparingInt(User::age)\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן User עצמו לא מחליט מה הסדר הטבעי שלו. מבחוץ מוגדר שקודם ממיינים לפי name, ואם השם זהה ממיינים לפי age."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "אם יש לאובייקט סדר טבעי אחד וברור, אשתמש ב-Comparable. אם יש כמה דרכים לגיטימיות למיין אותו, אעדיף Comparator, כי הוא שומר את המחלקה נקייה ולא מכניס לתוכה החלטה עסקית אחת שלא תמיד נכונה."
+    },
+    {
+      "type": "heading",
+      "text": "Comparable"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "במילים פשוטות",
+      "text": "Comparable אומר: כך האובייקט הזה ממיין את עצמו כברירת מחדל."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record Product(String name, int price)\n        implements Comparable<Product> {\n\n    @Override\n    public int compareTo(Product other) {\n        return Integer.compare(this.price, other.price);\n    }\n}\n\nList<Product> products = new ArrayList<>(List.of(\n    new Product(\"Laptop\", 5000),\n    new Product(\"Mouse\", 100),\n    new Product(\"Keyboard\", 300)\n));\n\nCollections.sort(products);\nSystem.out.println(products);"
+    },
+    {
+      "type": "paragraph",
+      "text": "בדוגמה הזאת Product אומר שהסדר הטבעי שלו הוא לפי price. אם לפעמים נרצה למיין לפי שם, לפעמים לפי מחיר ולפעמים לפי שדה אחר, עדיף להשתמש ב-Comparator מבחוץ."
+    }
+  ]
+}

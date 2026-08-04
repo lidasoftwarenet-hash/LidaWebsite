@@ -1,0 +1,242 @@
+{
+  "id": "error-handling",
+  "title": "Error Handling",
+  "sourcePages": [
+    140,
+    152
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "במערכת backend אמיתית exceptions קורות כל הזמן: resource לא נמצא, input לא תקין, resource כבר קיים, שירות חיצוני לא זמין או bug פנימי. המטרה היא לטפל בהן בצורה מסודרת ועקבית."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "ה-flow",
+      "text": "Service throws a meaningful exception → Global handler catches it → Exception maps to HTTP status → Client receives consistent error response → Logs include correlationId"
+    },
+    {
+      "type": "heading",
+      "text": "למה לא לטפל בכל שגיאה ב-Controller"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@GetMapping(\"/{id}\")\npublic ResponseEntity<?> getUser(\n        @PathVariable String id\n) {\n    try {\n        return ResponseEntity.ok(\n            userService.getUser(id)\n        );\n    } catch (UserNotFoundException ex) {\n        return ResponseEntity\n            .notFound()\n            .build();\n    } catch (Exception ex) {\n        return ResponseEntity\n            .internalServerError()\n            .build();\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם עושים זאת בכל endpoint מקבלים duplication, responses לא אחידים ו-Controllers עמוסים. עדיף Controller דק וטיפול מרכזי."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@GetMapping(\"/{id}\")\npublic UserResponse getUser(\n        @PathVariable String id\n) {\n    return userService.getUser(id);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "@RestControllerAdvice ו-@ExceptionHandler"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestControllerAdvice\npublic class GlobalExceptionHandler {\n\n    @ExceptionHandler(\n        UserNotFoundException.class\n    )\n    public ResponseEntity<ApiError>\n    handleUserNotFound(\n        UserNotFoundException exception,\n        HttpServletRequest request\n    ) {\n        ApiError error = new ApiError(\n            \"USER_NOT_FOUND\",\n            exception.getMessage(),\n            request.getRequestURI(),\n            CorrelationIdHolder.get()\n        );\n\n        return ResponseEntity\n            .status(HttpStatus.NOT_FOUND)\n            .body(error);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "@RestControllerAdvice מגדיר handlers משותפים ל-Controllers שונים. @ExceptionHandler מחבר exception מסוים לטיפול המתאים."
+    },
+    {
+      "type": "heading",
+      "text": "Error Response אחיד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record ApiError(\n    String code,\n    String message,\n    String path,\n    String correlationId\n) {}"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"code\": \"USER_NOT_FOUND\",\n  \"message\": \"User was not found\",\n  \"path\": \"/users/123\",\n  \"correlationId\": \"a3e8d897-72c7-4b99-95f7-f70ce52ae183\"\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ה-client מקבל הודעה ברורה.",
+        "ה-frontend מזהה שגיאות לפי code קבוע ולא לפי טקסט חופשי.",
+        "התמיכה יכולה להשתמש ב-correlationId כדי למצוא את הבקשה בלוגים.",
+        "כל ה-API מתנהג באותה צורה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Custom Exceptions"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class UserNotFoundException\n        extends RuntimeException {\n\n    public UserNotFoundException(\n            String userId\n    ) {\n        super(\n            \"User was not found: \" + userId\n        );\n    }\n}\n\npublic class EmailAlreadyExistsException\n        extends RuntimeException {\n\n    public EmailAlreadyExistsException(\n            String email\n    ) {\n        super(\n            \"Email already exists: \" + email\n        );\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "שימוש ב-Service"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserResponse getUser(String id) {\n        User user = repository\n            .findById(id)\n            .orElseThrow(\n                () -> new UserNotFoundException(id)\n            );\n\n        return new UserResponse(\n            user.getId(),\n            user.getName(),\n            user.getEmail()\n        );\n    }\n\n    public UserResponse createUser(\n            CreateUserRequest request\n    ) {\n        if (repository.existsByEmail(\n                request.email()\n        )) {\n            throw new EmailAlreadyExistsException(\n                request.email()\n            );\n        }\n\n        // create user\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Mapping ל-HTTP Status Codes"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Resource not found → 404 Not Found",
+        "Request body לא תקין תחבירית → 400 Bad Request",
+        "Validation failure → 400 Bad Request או 422 Unprocessable Entity",
+        "Resource already exists → 409 Conflict",
+        "Missing authentication → 401 Unauthorized",
+        "Missing permission → 403 Forbidden",
+        "External dependency unavailable → 503 Service Unavailable",
+        "Unexpected internal error → 500 Internal Server Error"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@ExceptionHandler(\n    EmailAlreadyExistsException.class\n)\npublic ResponseEntity<ApiError>\nhandleEmailAlreadyExists(\n    EmailAlreadyExistsException exception,\n    HttpServletRequest request\n) {\n    ApiError error = new ApiError(\n        \"EMAIL_ALREADY_EXISTS\",\n        exception.getMessage(),\n        request.getRequestURI(),\n        CorrelationIdHolder.get()\n    );\n\n    return ResponseEntity\n        .status(HttpStatus.CONFLICT)\n        .body(error);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Unexpected Exception"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@ExceptionHandler(Exception.class)\npublic ResponseEntity<ApiError>\nhandleUnexpectedException(\n    Exception exception,\n    HttpServletRequest request\n) {\n    String correlationId =\n        CorrelationIdHolder.get();\n\n    log.error(\n        \"Unexpected error. correlationId={}, path={}\",\n        correlationId,\n        request.getRequestURI(),\n        exception\n    );\n\n    ApiError error = new ApiError(\n        \"INTERNAL_ERROR\",\n        \"An unexpected error occurred\",\n        request.getRequestURI(),\n        correlationId\n    );\n\n    return ResponseEntity\n        .status(\n            HttpStatus.INTERNAL_SERVER_ERROR\n        )\n        .body(error);\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "חשוב",
+      "text": "בלוגים שומרים את ה-stack trace המלא. ל-client לא מחזירים stack trace, internal class names, SQL queries או מידע רגיש."
+    },
+    {
+      "type": "heading",
+      "text": "Correlation ID"
+    },
+    {
+      "type": "paragraph",
+      "text": "Correlation ID הוא מזהה שמלווה request לאורך ה-flow. במערכת microservices אותו ID יכול לעבור בין Service A, Service B ו-Service C, וכך אפשר למצוא את כל הלוגים של הבקשה."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Flow לדוגמה",
+      "text": "Client request עם correlationId abc-123 → Service A → Service B → Service C"
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכת עם distributed tracing, traceId משמש לעיתים למטרה מעשית דומה."
+    },
+    {
+      "type": "heading",
+      "text": "Correlation ID Filter"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Component\npublic class CorrelationIdFilter\n        extends OncePerRequestFilter {\n\n    private static final String HEADER =\n        \"X-Correlation-Id\";\n\n    private static final String MDC_KEY =\n        \"correlationId\";\n\n    @Override\n    protected void doFilterInternal(\n        HttpServletRequest request,\n        HttpServletResponse response,\n        FilterChain filterChain\n    ) throws ServletException, IOException {\n\n        String correlationId =\n            request.getHeader(HEADER);\n\n        if (correlationId == null\n                || correlationId.isBlank()) {\n            correlationId =\n                UUID.randomUUID().toString();\n        }\n\n        try {\n            MDC.put(\n                MDC_KEY,\n                correlationId\n            );\n\n            response.setHeader(\n                HEADER,\n                correlationId\n            );\n\n            filterChain.doFilter(\n                request,\n                response\n            );\n        } finally {\n            MDC.remove(MDC_KEY);\n        }\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "MDC מאפשר לצרף context ללוגים. ה-finally חשוב כאשר עובדים עם thread pool, כדי לא להשאיר correlation ID של request קודם על thread שמטפל בבקשה אחרת."
+    },
+    {
+      "type": "heading",
+      "text": "Validation Errors באותו Format"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Request validation failed\",\n  \"path\": \"/users\",\n  \"correlationId\": \"abc-123\",\n  \"fieldErrors\": {\n    \"email\": \"Email format is invalid\",\n    \"name\": \"Name is required\"\n  }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "ProblemDetail"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring Framework תומך גם ב-error responses סטנדרטיים באמצעות ProblemDetail ו-ResponseEntityExceptionHandler. אפשר להשתמש ב-custom ApiError ארגוני או ב-ProblemDetail סטנדרטי."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@ExceptionHandler(\n    UserNotFoundException.class\n)\npublic ProblemDetail handleUserNotFound(\n        UserNotFoundException exception\n) {\n    ProblemDetail problem =\n        ProblemDetail.forStatus(\n            HttpStatus.NOT_FOUND\n        );\n\n    problem.setTitle(\n        \"User not found\"\n    );\n\n    problem.setDetail(\n        exception.getMessage()\n    );\n\n    problem.setProperty(\n        \"code\",\n        \"USER_NOT_FOUND\"\n    );\n\n    problem.setProperty(\n        \"correlationId\",\n        CorrelationIdHolder.get()\n    );\n\n    return problem;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "טעויות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להחזיר 500 על כל שגיאה.",
+        "להחזיר exception.getMessage ל-client בצורה עיוורת בשגיאות פנימיות.",
+        "לפזר try-catch בכל Controller.",
+        "לבלוע exception כדי שהמערכת תמשיך.",
+        "לרשום את אותה exception בכל שכבה וליצור logs כפולים.",
+        "לשכוח correlation ID במערכת microservices."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה @ControllerAdvice?",
+      "answer": "מנגנון לטיפול משותף בשגיאות מכל ה-Controllers במקום לפזר try-catch בכל endpoint."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה @ExceptionHandler?",
+      "answer": "מחבר exception מסוים למתודה שמתרגמת אותו ל-HTTP response מתאים."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין @ControllerAdvice ל-@RestControllerAdvice?",
+      "answer": "ב-REST API משתמשים בדרך כלל ב-@RestControllerAdvice, שמחזיר response body ישירות, בדרך כלל JSON."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך error response אחיד?",
+      "answer": "כדי שה-client יקבל format צפוי, שה-frontend יעבוד מול error codes קבועים ושהתמיכה תחקור תקלות בקלות."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך correlation ID?",
+      "answer": "כדי לעקוב אחר request לאורך ה-flow ולמצוא את כל הלוגים הרלוונטיים, במיוחד ב-microservices."
+    },
+    {
+      "type": "qa",
+      "question": "מה מחזירים ל-client במקרה של bug פנימי?",
+      "answer": "500 עם response כללי ובטוח ו-correlation ID. את הפרטים המלאים שומרים בלוגים."
+    },
+    {
+      "type": "qa",
+      "question": "האם תמיד צריך custom error format?",
+      "answer": "לא. אפשר להשתמש גם ב-ProblemDetail הסטנדרטי של Spring."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Spring Boot אני מעדיף טיפול מרכזי בשגיאות דרך @RestControllerAdvice ו-@ExceptionHandler. ה-Service זורק exception עם משמעות ברורה וה-handler מתרגם אותה ל-status code ול-response אחיד עם code, message ו-correlationId. אני לא מחזיר stack traces או פרטים פנימיים ל-client."
+    }
+  ]
+}

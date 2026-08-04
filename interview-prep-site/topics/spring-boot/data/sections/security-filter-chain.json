@@ -1,0 +1,130 @@
+{
+  "id": "security-filter-chain",
+  "title": "Security Filter Chain",
+  "sourcePages": [
+    109,
+    113
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ב-Spring Security הבקשה לא מגיעה ישירות ל-Controller. היא עוברת קודם דרך שרשרת filters שנקראת Security Filter Chain."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "ה-flow",
+      "text": "HTTP Request → Spring Security Filters → Authentication → Authorization → Controller"
+    },
+    {
+      "type": "paragraph",
+      "text": "לפני שה-controller רץ, Spring Security בודק מי המשתמש והאם מותר לו לגשת ל-resource."
+    },
+    {
+      "type": "heading",
+      "text": "Authentication מול Authorization"
+    },
+    {
+      "type": "paragraph",
+      "text": "Authentication עונה על השאלה: מי אתה? למשל האם ה-JWT תקין, האם המשתמש קיים והאם ה-token לא פג."
+    },
+    {
+      "type": "paragraph",
+      "text": "Authorization עונה על השאלה: מה מותר לך לעשות? למשל האם יש לך ADMIN role או האם מותר לך לראות resource מסוים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "Authentication מזהה את המשתמש. Authorization מחליט אם למשתמש המזוהה מותר לבצע את הפעולה."
+    },
+    {
+      "type": "heading",
+      "text": "JWT Filter"
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכות REST מודרניות ה-client שולח JWT בכל request. Filter קורא את ה-token מה-Authorization header, מאמת אותו, מחלץ user details ושומר Authentication בתוך SecurityContext."
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "Authorization: Bearer eyJhbGciOi..."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class JwtAuthenticationFilter\n        extends OncePerRequestFilter {\n\n    @Override\n    protected void doFilterInternal(\n        HttpServletRequest request,\n        HttpServletResponse response,\n        FilterChain filterChain\n    ) throws ServletException, IOException {\n\n        String authHeader =\n            request.getHeader(\"Authorization\");\n\n        if (authHeader != null\n                && authHeader.startsWith(\"Bearer \")) {\n\n            String token =\n                authHeader.substring(7);\n\n            // validate token\n            // extract user\n            // set Authentication in SecurityContext\n        }\n\n        filterChain.doFilter(\n            request,\n            response\n        );\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "filterChain.doFilter ממשיך ל-filter הבא או ל-controller. אם ה-filter מחליט שהבקשה אינה חוקית, הוא יכול לעצור ולהחזיר 401."
+    },
+    {
+      "type": "heading",
+      "text": "Security Configuration"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Configuration\n@EnableWebSecurity\npublic class SecurityConfig {\n\n    @Bean\n    public SecurityFilterChain\n    securityFilterChain(\n            HttpSecurity http\n    ) throws Exception {\n\n        return http\n            .csrf(csrf -> csrf.disable())\n            .authorizeHttpRequests(auth -> auth\n                .requestMatchers(\n                    \"/auth/login\"\n                ).permitAll()\n                .requestMatchers(\n                    \"/admin/**\"\n                ).hasRole(\"ADMIN\")\n                .anyRequest()\n                .authenticated()\n            )\n            .build();\n    }\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "/auth/login פתוח לכולם.",
+        "/admin/** דורש ADMIN role.",
+        "כל שאר הבקשות דורשות משתמש authenticated."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה מראיין מחפש"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Request עובר דרך security filters לפני Controller.",
+        "JWT filter מזהה את המשתמש.",
+        "Authentication נשמר ב-SecurityContext.",
+        "Authorization מחליט אם לאפשר את הפעולה.",
+        "רק בקשה תקינה מגיעה ל-Controller."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Security Filter Chain?",
+      "answer": "שרשרת filters שרצה לפני ה-controller ומטפלת ב-authentication וב-authorization."
+    },
+    {
+      "type": "qa",
+      "question": "האם request מגיע קודם ל-controller או ל-security filters?",
+      "answer": "קודם ל-security filters. רק אם הבקשה עוברת אותם, היא מגיעה ל-controller."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין 401 ל-403?",
+      "answer": "401 אומר שהמשתמש לא מזוהה או שה-token אינו תקין. 403 אומר שהמשתמש מזוהה אבל אין לו הרשאה."
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של JWT filter?",
+      "answer": "לקרוא את ה-token מה-header, לאמת אותו ולבנות Authentication שנשמר ב-SecurityContext."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה SecurityContext?",
+      "answer": "המקום שבו Spring Security שומר את המשתמש הנוכחי של הבקשה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Spring Security כל request עובר קודם דרך Security Filter Chain. שם מתבצע authentication, למשל בדיקת JWT, ואז authorization. אם ה-token תקין, Spring שומר Authentication ב-SecurityContext. ללא authentication נחזיר בדרך כלל 401, ואם המשתמש מזוהה אבל ללא הרשאה נחזיר 403."
+    }
+  ]
+}

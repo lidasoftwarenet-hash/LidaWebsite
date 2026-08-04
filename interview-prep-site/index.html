@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/interview-prep-site/assets/css/global.css?v=2">
   <script src="/interview-prep-site/data/topics.js?v=2" defer></script>
   <script src="/interview-prep-site/assets/js/study-store.js?v=2" defer></script>
+  <script src="/interview-prep-site/assets/js/study-api.js?v=2" defer></script>
   <script src="/interview-prep-site/assets/js/navigation.js?v=2" defer></script>
   <script src="/interview-prep-site/assets/js/continue-learning.js?v=2" defer></script>
   <script src="/interview-prep-site/assets/js/mobile-nav.js?v=2" defer></script>
@@ -28,11 +29,15 @@
         <div class="progress-summary-stats">
           <div class="summary-stat">
             <span class="summary-stat-value" id="summary-completed-count">0</span>
-            <span class="summary-stat-label">נושאים הושלמו</span>
+            <span class="summary-stat-label">הושלם</span>
           </div>
           <div class="summary-stat">
-            <span class="summary-stat-value" id="summary-started-count">0</span>
-            <span class="summary-stat-label">נושאים בתהליך</span>
+            <span class="summary-stat-value" id="summary-in-progress-count">0</span>
+            <span class="summary-stat-label">בתהליך</span>
+          </div>
+          <div class="summary-stat">
+            <span class="summary-stat-value" id="summary-review-count">0</span>
+            <span class="summary-stat-label">לחזור עליו</span>
           </div>
           <div class="summary-stat">
             <span class="summary-stat-value" id="summary-total-count">0</span>
@@ -42,7 +47,6 @@
       </section>
 
       <!-- "Continue learning" widget, rendered dynamically by continue-learning.js -->
-      <section class="continue-learning" id="continue-learning" aria-label="המשך למידה"></section>
     </div>
 
     <div>

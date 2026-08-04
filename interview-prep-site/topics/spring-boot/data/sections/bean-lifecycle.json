@@ -1,0 +1,160 @@
+{
+  "id": "bean-lifecycle",
+  "title": "Bean Lifecycle",
+  "sourcePages": [
+    113,
+    118
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Bean lifecycle הוא התהליך שבו Spring מזהה class, יוצר object, מזריק dependencies, מפעיל הרחבות פנימיות ולבסוף שומר אותו ב-container כדי שאפשר יהיה להזריק אותו."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "ה-flow",
+      "text": "Class found by Spring → Bean creation → Dependency injection → Bean post-processors → Proxy wrapping if needed → Bean ready for use"
+    },
+    {
+      "type": "heading",
+      "text": "יצירת Bean"
+    },
+    {
+      "type": "paragraph",
+      "text": "בזמן startup Spring מבצע component scan ומוצא מחלקות כמו @Service, @Repository, @Component ו-@RestController."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserService(\n            UserRepository repository\n    ) {\n        this.repository = repository;\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring מזהה ש-UserService צריך UserRepository, יוצר את ה-Beans ומזריק את ה-repository דרך ה-constructor."
+    },
+    {
+      "type": "heading",
+      "text": "Singleton מול Prototype"
+    },
+    {
+      "type": "paragraph",
+      "text": "ברירת המחדל של Bean ב-Spring היא singleton: מופע אחד בתוך ה-container לכל האפליקציה. כל מקום שמזריק UserService מקבל את אותו object."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הדבר מתאים לרוב ה-services משום שהם בדרך כלל stateless."
+    },
+    {
+      "type": "paragraph",
+      "text": "Prototype גורם ל-Spring ליצור מופע חדש בכל פעם שמבקשים את ה-Bean."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Component\n@Scope(\"prototype\")\npublic class ReportBuilder {\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Prototype פחות נפוץ ומתאים יותר לאובייקטים עם state זמני."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "ברירת המחדל היא singleton, ולכן services צריכים בדרך כלל להיות stateless ולא לשמור request state בתוך fields."
+    },
+    {
+      "type": "heading",
+      "text": "BeanPostProcessor"
+    },
+    {
+      "type": "paragraph",
+      "text": "BeanPostProcessor הוא מנגנון פנימי שמאפשר ל-Spring להתערב לאחר יצירת Bean ולפני שהוא מוכן לשימוש. יכולות רבות של Spring משתמשות במנגנון הזה כדי להוסיף behavior."
+    },
+    {
+      "type": "heading",
+      "text": "Proxy Wrapping"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring יכול להחזיר proxy שעוטף את ה-object המקורי כדי להוסיף behavior בלי לשנות את הקוד."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "@Transactional",
+        "@Cacheable",
+        "@Async",
+        "Security annotations"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n\n    @Transactional\n    public void createOrder() {\n        // save order\n        // update inventory\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-proxy יכול לפתוח transaction לפני הקריאה, לבצע commit לאחר הצלחה או rollback לאחר failure."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת: Self Invocation"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n\n    public void create() {\n        this.saveWithTransaction();\n    }\n\n    @Transactional\n    public void saveWithTransaction() {\n        // transaction may not work as expected\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר מתודה קוראת למתודה אחרת בתוך אותו object, הקריאה אינה עוברת דרך ה-proxy ולכן annotation כמו @Transactional עלולה לא לעבוד כמצופה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Bean?",
+      "answer": "Object ש-Spring יוצר, מנהל ומזריק למקומות אחרים."
+    },
+    {
+      "type": "qa",
+      "question": "מה ה-default scope של Bean?",
+      "answer": "Singleton."
+    },
+    {
+      "type": "qa",
+      "question": "מה המשמעות של singleton ב-Spring?",
+      "answer": "יש מופע אחד של ה-Bean בתוך ה-container וכל מי שמזריק אותו מקבל את אותו מופע."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-prototype?",
+      "answer": "כשצריך מופע חדש בכל שימוש, בדרך כלל לאובייקט עם state זמני. זה פחות נפוץ ב-services רגילים."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה proxy ב-Spring?",
+      "answer": "Wrapper סביב Bean שמאפשר ל-Spring להוסיף behavior כמו transactions, caching, security או async."
+    },
+    {
+      "type": "qa",
+      "question": "למה @Transactional לפעמים לא עובד?",
+      "answer": "Spring מפעיל אותו דרך proxy. קריאה פנימית מתוך אותה מחלקה עוקפת את ה-proxy."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Bean lifecycle הוא התהליך שבו Spring מזהה class, יוצר Bean, מזריק dependencies, מפעיל BeanPostProcessors ולעיתים עוטף אותו ב-proxy עבור יכולות כמו @Transactional, caching או async. ברירת המחדל היא singleton ולכן services צריכים להיות stateless."
+    }
+  ]
+}

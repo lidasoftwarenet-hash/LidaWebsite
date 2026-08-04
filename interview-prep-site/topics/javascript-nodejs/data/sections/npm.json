@@ -1,0 +1,327 @@
+{
+  "id": "npm",
+  "title": "npm & Package Management",
+  "sourcePages": [
+    193,
+    198
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "npm הוא package manager של Node.js. הוא אחראי על התקנה, ניהול והרצה של dependencies בפרויקט. כמעט כל פרויקט Node.js נשען על npm או כלי דומה כמו pnpm או Yarn."
+    },
+    {
+      "type": "heading",
+      "text": "package.json"
+    },
+    {
+      "type": "paragraph",
+      "text": "package.json הוא הקובץ המרכזי של הפרויקט."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "שם הפרויקט",
+        "גרסה",
+        "Scripts",
+        "Dependencies",
+        "DevDependencies",
+        "הגדרות build, test ו-start"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"scripts\": {\n    \"start\": \"node index.js\",\n    \"dev\": \"nodemon index.js\",\n    \"test\": \"jest\",\n    \"build\": \"tsc\"\n  },\n  \"dependencies\": {\n    \"express\": \"^4.18.0\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.0.0\",\n    \"jest\": \"^29.0.0\"\n  }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "package.json מגדיר את הפרויקט: metadata, dependencies, scripts ופקודות כמו start, test ו-build."
+    },
+    {
+      "type": "heading",
+      "text": "dependencies מול devDependencies"
+    },
+    {
+      "type": "paragraph",
+      "text": "dependencies הן חבילות שנדרשות בזמן ריצה של האפליקציה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "express",
+        "typeorm",
+        "axios",
+        "NestJS packages"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "devDependencies נדרשות רק לפיתוח, בדיקות או build."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "typescript",
+        "jest",
+        "eslint",
+        "prettier",
+        "nodemon"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "dependencies נדרשות בזמן ריצה. devDependencies נדרשות רק לפיתוח, בדיקות או build."
+    },
+    {
+      "type": "heading",
+      "text": "package-lock.json"
+    },
+    {
+      "type": "paragraph",
+      "text": "package-lock.json נועל את הגרסאות המדויקות שהותקנו, כולל transitive dependencies. כך מפתחים שונים ו-CI מתקינים את אותו dependency tree."
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "\"express\": \"^4.18.0\""
+    },
+    {
+      "type": "paragraph",
+      "text": "package.json יכול להגדיר טווח גרסאות, אבל package-lock.json שומר את הגרסה המדויקת שהותקנה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "package-lock.json מבטיח שכל מפתח וכל סביבת CI יתקינו את אותן גרסאות בדיוק ומצמצם מצבים של 'אצלי עובד'."
+    },
+    {
+      "type": "heading",
+      "text": "npm install"
+    },
+    {
+      "type": "paragraph",
+      "text": "npm install משמש בעיקר בפיתוח. הוא מתקין dependencies ויכול לעדכן את package-lock.json."
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm install"
+    },
+    {
+      "type": "heading",
+      "text": "npm ci"
+    },
+    {
+      "type": "paragraph",
+      "text": "npm ci מתאים בעיקר ל-CI/CD. הוא מבצע התקנה נקייה ומדויקת לפי package-lock.json ונכשל אם קיימת אי-התאמה בין package.json ל-lock file."
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm ci"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ב-local development אפשר להשתמש ב-npm install. ב-CI אני מעדיף npm ci, כי הוא מבצע התקנה נקייה ומדויקת לפי package-lock.json."
+    },
+    {
+      "type": "heading",
+      "text": "Semantic Versioning"
+    },
+    {
+      "type": "paragraph",
+      "text": "גרסאות npm נכתבות בדרך כלל במבנה major.minor.patch, למשל 4.18.2."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "patch לתיקוני bugs קטנים",
+        "minor לפיצ'רים שאינם שוברים backward compatibility",
+        "major לשינויים שעלולים לשבור compatibility"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "^ מול ~"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "\"express\": \"^4.18.0\""
+    },
+    {
+      "type": "paragraph",
+      "text": "^ מאפשר בדרך כלל עדכוני minor ו-patch בתוך אותו major."
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "\"express\": \"~4.18.0\""
+    },
+    {
+      "type": "paragraph",
+      "text": "~ מצמצם בדרך כלל לעדכוני patch."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "^ מאפשר עדכונים בתוך אותו major, בעוד ~ מצמצם בעיקר לעדכוני patch. package-lock.json נועל את הגרסה שהותקנה בפועל."
+    },
+    {
+      "type": "heading",
+      "text": "npm Scripts"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"scripts\": {\n    \"start\": \"node dist/main.js\",\n    \"dev\": \"nest start --watch\",\n    \"test\": \"jest\",\n    \"lint\": \"eslint .\",\n    \"build\": \"tsc\"\n  }\n}"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm run build\nnpm test\nnpm start"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "npm scripts מאפשרים להגדיר פקודות סטנדרטיות כמו build, test, lint ו-start, כך שכל הצוות וה-CI משתמשים באותן פקודות."
+    },
+    {
+      "type": "heading",
+      "text": "npx"
+    },
+    {
+      "type": "paragraph",
+      "text": "npx מאפשר להריץ package בלי להתקין אותו globally."
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npx create-react-app my-app\nnpx eslint ."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "npx שימושי להרצת כלים חד-פעמיים או כלים מקומיים מתוך הפרויקט בלי להתקין אותם globally."
+    },
+    {
+      "type": "heading",
+      "text": "Local מול Global Install"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm install express\nnpm install -g typescript"
+    },
+    {
+      "type": "paragraph",
+      "text": "ברוב הפרויקטים עדיף שכלים ו-dependencies יהיו local בתוך הפרויקט, כדי שכל הצוות וה-CI ישתמשו באותה גרסה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני מעדיף build tools ו-dependencies מקומיים בפרויקט ולא מסתמך על global install, כדי למנוע הבדלי גרסאות בין מפתחים ו-CI."
+    },
+    {
+      "type": "heading",
+      "text": "npm audit"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npm audit\nnpm audit fix"
+    },
+    {
+      "type": "paragraph",
+      "text": "npm audit מסייע לזהות vulnerabilities ב-dependencies. לא מריצים npm audit fix בצורה עיוורת, מפני ששדרוגים עלולים לשבור compatibility."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "npm audit עוזר לזהות vulnerabilities, אבל אני בודק severity, impact ו-breaking changes לפני שדרוג או fix."
+    },
+    {
+      "type": "heading",
+      "text": "peerDependencies"
+    },
+    {
+      "type": "paragraph",
+      "text": "peerDependencies אומרות שהחבילה מצפה שהאפליקציה המשתמשת בה תספק dependency מסוימת. הדבר נפוץ בספריות וב-plugins של React, Angular ו-NestJS."
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"peerDependencies\": {\n    \"react\": \"^18.0.0\"\n  }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "peerDependencies נפוץ בספריות וב-plugins. החבילה אינה מביאה את dependency בעצמה, אלא מצפה שהאפליקציה תספק גרסה מתאימה."
+    },
+    {
+      "type": "heading",
+      "text": "טעויות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא להכניס package-lock.json ל-Git בפרויקט application.",
+        "להשתמש ב-npm install ב-CI במקום npm ci.",
+        "לשים runtime package בתוך devDependencies.",
+        "להתקין כלים globally ואז לגלות שהם חסרים ב-CI.",
+        "להריץ npm audit fix בלי לבדוק מה השתנה.",
+        "לא לעדכן dependencies זמן רב.",
+        "לא להבין את ההבדל בין ^ ל-~."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה תפקיד package.json?",
+      "answer": "להגדיר metadata, dependencies, scripts והגדרות ההרצה וה-build של הפרויקט."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין dependencies ל-devDependencies?",
+      "answer": "dependencies נדרשות בזמן runtime. devDependencies נדרשות לפיתוח, בדיקות או build."
+    },
+    {
+      "type": "qa",
+      "question": "למה package-lock.json חשוב?",
+      "answer": "הוא נועל את dependency tree לגרסאות מדויקות ומאפשר התקנות עקביות."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין npm install ל-npm ci?",
+      "answer": "npm install מתאים לפיתוח ויכול לעדכן lock file. npm ci מבצע התקנה נקייה ומדויקת לפי ה-lock file ומתאים ל-CI."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה peerDependency?",
+      "answer": "Dependency שהספרייה מצפה שהאפליקציה המשתמשת בה תספק."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "npm הוא package manager של Node.js. package.json מגדיר dependencies ו-scripts, ו-package-lock.json נועל גרסאות להתקנות עקביות. ב-CI אני מעדיף npm ci, ובפיתוח npm install. אני מפריד runtime dependencies מ-devDependencies ולא מריץ npm audit fix בלי לבדוק את ההשפעה."
+    }
+  ]
+}

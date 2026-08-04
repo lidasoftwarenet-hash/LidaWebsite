@@ -1,0 +1,237 @@
+{
+  "id": "validation",
+  "title": "Validation",
+  "sourcePages": [
+    130,
+    140
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Validation ב-Spring Boot עוצר request לא תקין כבר בכניסה למערכת, לפני שהוא מגיע ללוגיקה העסקית. אין סיבה שה-Service יתחיל לעבוד עם email חסר, name ריק או age לא חוקי."
+    },
+    {
+      "type": "heading",
+      "text": "DTO"
+    },
+    {
+      "type": "paragraph",
+      "text": "DTO מייצג את המידע שנכנס או יוצא מה-API. בדרך כלל לא מקבלים Entity ישירות מה-client, כי ה-API contract אינו חייב להיות זהה למבנה ה-DB ולא רוצים לחשוף fields פנימיים."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record CreateUserRequest(\n    String name,\n    String email,\n    Integer age\n) {}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "id",
+        "createdAt",
+        "role",
+        "passwordHash"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אלו דוגמאות ל-fields פנימיים שלא בהכרח צריכים להיות ניתנים לעדכון מה-client."
+    },
+    {
+      "type": "heading",
+      "text": "Bean Validation"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record CreateUserRequest(\n    @NotBlank(\n        message = \"Name is required\"\n    )\n    String name,\n\n    @NotBlank(\n        message = \"Email is required\"\n    )\n    @Email(\n        message = \"Email format is invalid\"\n    )\n    String email,\n\n    @NotNull(\n        message = \"Age is required\"\n    )\n    @Min(\n        value = 18,\n        message = \"User must be at least 18\"\n    )\n    Integer age\n) {}"
+    },
+    {
+      "type": "heading",
+      "text": "Annotations נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "@NotNull",
+        "@NotBlank",
+        "@Size(min = 2, max = 100)",
+        "@Email",
+        "@Min",
+        "@Max",
+        "@Positive",
+        "@Pattern"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "NotNull מול NotBlank",
+      "text": "@NotNull רק מונע null. @NotBlank מתאים ל-String ומונע גם String ריק או רווחים בלבד."
+    },
+    {
+      "type": "heading",
+      "text": "@Valid ב-Controller"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestController\n@RequestMapping(\"/users\")\npublic class UserController {\n    private final UserService userService;\n\n    public UserController(\n            UserService userService\n    ) {\n        this.userService = userService;\n    }\n\n    @PostMapping\n    public ResponseEntity<UserResponse>\n    createUser(\n        @Valid\n        @RequestBody\n        CreateUserRequest request\n    ) {\n        UserResponse user =\n            userService.createUser(request);\n\n        return ResponseEntity\n            .status(HttpStatus.CREATED)\n            .body(user);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "@RequestBody ממיר JSON ל-Java object. @Valid מפעיל validation לפני שה-controller ממשיך. אם ה-request אינו תקין, הקריאה לא מגיעה ל-Service."
+    },
+    {
+      "type": "heading",
+      "text": "Request תקין"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"name\": \"Hen\",\n  \"email\": \"hen@example.com\",\n  \"age\": 30\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "התוצאה יכולה להיות 201 Created."
+    },
+    {
+      "type": "heading",
+      "text": "Request לא תקין"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"name\": \" \",\n  \"email\": \"not-an-email\",\n  \"age\": 15\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Name is required",
+        "Email format is invalid",
+        "User must be at least 18"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "במקרה רגיל Spring זורק MethodArgumentNotValidException ומחזיר 400 Bad Request."
+    },
+    {
+      "type": "heading",
+      "text": "Error Response אחיד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record ApiError(\n    String code,\n    String message,\n    Map<String, String> fieldErrors\n) {}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestControllerAdvice\npublic class GlobalExceptionHandler {\n\n    @ExceptionHandler(\n        MethodArgumentNotValidException.class\n    )\n    public ResponseEntity<ApiError>\n    handleValidationError(\n        MethodArgumentNotValidException exception\n    ) {\n        Map<String, String> fieldErrors =\n            exception\n                .getBindingResult()\n                .getFieldErrors()\n                .stream()\n                .collect(\n                    Collectors.toMap(\n                        FieldError::getField,\n                        FieldError::getDefaultMessage,\n                        (first, second) -> first\n                    )\n                );\n\n        ApiError error = new ApiError(\n            \"VALIDATION_ERROR\",\n            \"Request validation failed\",\n            fieldErrors\n        );\n\n        return ResponseEntity\n            .badRequest()\n            .body(error);\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"code\": \"VALIDATION_ERROR\",\n  \"message\": \"Request validation failed\",\n  \"fieldErrors\": {\n    \"name\": \"Name is required\",\n    \"email\": \"Email format is invalid\",\n    \"age\": \"User must be at least 18\"\n  }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Validation טכני מול עסקי"
+    },
+    {
+      "type": "paragraph",
+      "text": "בדיקות מבניות פשוטות שייכות ל-DTO: required fields, format, size וטווחים. בדיקה שדורשת DB או context עסקי שייכת ל-Service."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserResponse createUser(\n            CreateUserRequest request\n    ) {\n        if (repository.existsByEmail(\n                request.email()\n        )) {\n            throw new EmailAlreadyExistsException(\n                request.email()\n            );\n        }\n\n        // create user\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "אני משתמש ב-Bean Validation לבדיקות מבניות פשוטות בכניסה ל-API, כמו required fields ו-format. בדיקות עסקיות שדורשות DB או context נשארות ב-Service."
+    },
+    {
+      "type": "heading",
+      "text": "Nested DTOs"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record AddressRequest(\n    @NotBlank String city,\n    @NotBlank String street\n) {}\n\npublic record CreateUserRequest(\n    @NotBlank String name,\n\n    @Valid\n    @NotNull\n    AddressRequest address\n) {}"
+    },
+    {
+      "type": "paragraph",
+      "text": "בלי @Valid על address, Spring לא בהכרח יריץ validation על השדות הפנימיים."
+    },
+    {
+      "type": "heading",
+      "text": "@Validated מול @Valid"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Valid משמש בדרך כלל ל-DTO validation. @Validated שימושי ל-method validation או validation groups."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Validated\n@RestController\npublic class UserController {\n\n    @GetMapping(\"/{id}\")\n    public UserResponse getUser(\n        @PathVariable\n        @NotBlank\n        String id\n    ) {\n        // ...\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשכוח @Valid ליד @RequestBody.",
+        "להשתמש ב-@NotNull כאשר String של רווחים בלבד אינו תקין.",
+        "להכניס business validation מורכב לתוך annotations פשוטות.",
+        "להחזיר error format שונה מכל endpoint.",
+        "לשכוח @Valid על nested DTO."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה DTO ולמה לא לקבל Entity ישירות?",
+      "answer": "DTO מגדיר את ה-API contract ומפריד בין input חיצוני לבין Entity פנימית. הוא מונע חשיפה או עדכון של fields שלא אמורים להגיע מה-client."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה @Valid?",
+      "answer": "מפעיל Bean Validation על האובייקט. אם constraint נכשל, ה-request נעצר לפני הלוגיקה העסקית."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין @NotNull ל-@NotBlank?",
+      "answer": "@NotNull רק מונע null. @NotBlank מונע גם String ריק או רווחים בלבד."
+    },
+    {
+      "type": "qa",
+      "question": "איפה מטפלים בשגיאות Validation?",
+      "answer": "בדרך כלל ב-handler מרכזי עם @RestControllerAdvice ו-@ExceptionHandler."
+    },
+    {
+      "type": "qa",
+      "question": "האם כל Validation שייך ל-DTO?",
+      "answer": "לא. בדיקות מבניות פשוטות כן. בדיקות עסקיות כמו email שכבר קיים או הרשאה לפעולה שייכות ל-Service."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה אם DTO פנימי מכיל validations?",
+      "answer": "צריך להוסיף @Valid גם לשדה שמחזיק את ה-DTO הפנימי."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Spring Boot אני משתמש ב-DTOs עם Bean Validation כדי לעצור input לא תקין בכניסה ל-API. אני מוסיף annotations כמו @NotBlank, @Email ו-@Min ומפעיל אותן עם @Valid. שגיאות מטופלות דרך @RestControllerAdvice. בדיקות מבניות נשארות ב-DTO, אבל business validation שדורש DB או context נשאר ב-Service."
+    }
+  ]
+}

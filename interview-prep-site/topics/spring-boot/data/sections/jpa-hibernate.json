@@ -1,0 +1,299 @@
+{
+  "id": "jpa-hibernate",
+  "title": "JPA & Hibernate",
+  "sourcePages": [
+    157,
+    164
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "JPA הוא specification של Java לעבודה עם database בצורה object-oriented. במקום לכתוב SQL ידני לכל פעולה, עובדים עם classes שמייצגות tables ו-objects שמייצגים rows. Hibernate הוא implementation נפוץ של JPA."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "ההבדל",
+      "text": "JPA מגדיר את ה-API והכללים. Hibernate מבצע את העבודה בפועל מול ה-DB."
+    },
+    {
+      "type": "heading",
+      "text": "Entity"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Entity\n@Table(name = \"users\")\npublic class User {\n\n    @Id\n    @GeneratedValue(\n        strategy = GenerationType.IDENTITY\n    )\n    private Long id;\n\n    private String name;\n    private String email;\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "המחלקה User מייצגת table, וכל object של User מייצג row."
+    },
+    {
+      "type": "heading",
+      "text": "Spring Data Repository"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Repository\npublic interface UserRepository\n        extends JpaRepository<User, Long> {\n\n    Optional<User> findByEmail(\n        String email\n    );\n\n    List<User> findByActiveTrue();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring מייצר את ה-implementation בזמן ריצה ומספק פעולות כמו findById, findAll, save ו-delete. אפשר להוסיף derived queries לפי naming conventions או להשתמש ב-@Query."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Query(\n    \"select u from User u \" +\n    \"where u.email = :email\"\n)\nOptional<User> findUserByEmail(\n    @Param(\"email\") String email\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "JPA חוסך הרבה boilerplate בגישה ל-DB, אבל עדיין צריך להבין אילו queries נוצרים בפועל ולא להתייחס ל-ORM כקסם."
+    },
+    {
+      "type": "heading",
+      "text": "Entity Lifecycle"
+    },
+    {
+      "type": "heading",
+      "text": "New / Transient"
+    },
+    {
+      "type": "paragraph",
+      "text": "יצרנו object חדש, אבל הוא עדיין לא מחובר ל-Hibernate ולא נשמר ב-DB."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = new User(\n    \"Hen\",\n    \"hen@example.com\"\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Managed"
+    },
+    {
+      "type": "paragraph",
+      "text": "Entity שנטענה או נשמרה בתוך transaction הופכת ל-managed, ו-Hibernate עוקב אחר השינויים שלה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void updateName(\n    Long id,\n    String newName\n) {\n    User user = userRepository\n        .findById(id)\n        .orElseThrow();\n\n    user.setName(newName);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אין חובה לקרוא שוב ל-save. בסוף ה-transaction Hibernate מזהה שה-field השתנה ושולח UPDATE. זה נקרא dirty checking."
+    },
+    {
+      "type": "heading",
+      "text": "Detached"
+    },
+    {
+      "type": "paragraph",
+      "text": "האובייקט היה managed, אבל ה-transaction או ה-session נסגרו. Hibernate כבר לא עוקב אחר השינויים."
+    },
+    {
+      "type": "heading",
+      "text": "Removed"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "userRepository.delete(user);"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-Entity מסומנת למחיקה."
+    },
+    {
+      "type": "heading",
+      "text": "Lazy מול Eager Loading"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Entity\npublic class User {\n\n    @Id\n    private Long id;\n\n    private String name;\n\n    @OneToMany(\n        mappedBy = \"user\",\n        fetch = FetchType.LAZY\n    )\n    private List<Order> orders =\n        new ArrayList<>();\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Lazy"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-relationship אינו נטען מיד. הוא נטען רק כאשר ניגשים אליו בפועל. הדבר חוסך data כאשר לא תמיד צריך את הקשר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = userRepository\n    .findById(id)\n    .orElseThrow();\n\nList<Order> orders =\n    user.getOrders();\n// query נוסף עשוי לרוץ כאן"
+    },
+    {
+      "type": "heading",
+      "text": "Eager"
+    },
+    {
+      "type": "paragraph",
+      "text": "המידע המקושר נטען יחד עם ה-Entity גם אם לא השתמשנו בו. זה נוח אך עלול למשוך data מיותר ולהכביד על queries."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@OneToMany(fetch = FetchType.EAGER)\nprivate List<Order> orders;"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "כלל טוב לראיון",
+      "text": "אני בדרך כלל מעדיף lazy loading כברירת מחדל וטוען relationships בצורה מפורשת רק ב-use cases שבאמת צריכים אותם."
+    },
+    {
+      "type": "heading",
+      "text": "ברירות מחדל שכדאי להכיר"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "@OneToMany הוא LAZY כברירת מחדל.",
+        "@ManyToMany הוא LAZY כברירת מחדל.",
+        "@ManyToOne הוא EAGER כברירת מחדל.",
+        "@OneToOne הוא EAGER כברירת מחדל."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "בפועל צוותים רבים מגדירים LAZY במפורש גם ב-relations שהם EAGER כברירת מחדל, כדי לשלוט טוב יותר בביצועים."
+    },
+    {
+      "type": "heading",
+      "text": "LazyInitializationException"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public User getUser(Long id) {\n    return userRepository\n        .findById(id)\n        .orElseThrow();\n}\n\n// מאוחר יותר, מחוץ ל-transaction:\nuser.getOrders();"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם orders הם lazy וה-session כבר נסגר, Hibernate רוצה לטעון אותם אבל אין session פעיל, ולכן מתקבלת LazyInitializationException."
+    },
+    {
+      "type": "heading",
+      "text": "פתרון: טעינה מפורשת והחזרת DTO"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional(readOnly = true)\npublic UserResponse getUserWithOrders(\n        Long id\n) {\n    User user = userRepository\n        .findByIdWithOrders(id)\n        .orElseThrow();\n\n    return UserResponse.from(user);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא כדאי להחזיר Entity ישירות ל-Controller ולסמוך שה-relations ייטענו איכשהו."
+    },
+    {
+      "type": "heading",
+      "text": "Transactions בהקשר של JPA"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    private final UserRepository repository;\n\n    public UserService(\n            UserRepository repository\n    ) {\n        this.repository = repository;\n    }\n\n    @Transactional\n    public void changeEmail(\n        Long userId,\n        String email\n    ) {\n        User user = repository\n            .findById(userId)\n            .orElseThrow();\n\n        user.setEmail(email);\n    }\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Hibernate טוען את ה-Entity.",
+        "ה-Entity הופכת ל-managed.",
+        "הקוד משנה אותה.",
+        "Hibernate מזהה את השינוי.",
+        "בסיום transaction נשלח UPDATE."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "למה לא להחזיר Entity מ-REST API"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Entity עלולה לחשוף fields פנימיים.",
+        "נוצר coupling בין DB schema ל-API contract.",
+        "Lazy loading עלול לגרום surprises או exceptions.",
+        "Serialization של relationships עלול להיות כבד או מעגלי."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserResponse(\n    Long id,\n    String name,\n    String email\n) {}"
+    },
+    {
+      "type": "heading",
+      "text": "N+1 Problem"
+    },
+    {
+      "type": "paragraph",
+      "text": "בעיה קלאסית היא query אחת לטעינת רשימת users ועוד query נפרדת לכל user כדי לטעון orders. כך מתקבלות 1 + N queries וה-endpoint נהיה איטי."
+    },
+    {
+      "type": "paragraph",
+      "text": "פתרונות אפשריים לפי ה-use case: fetch join, projection, EntityGraph או query ממוקדת. לא פותרים אוטומטית על ידי הפיכת כל relationship ל-EAGER."
+    },
+    {
+      "type": "heading",
+      "text": "טעויות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להחזיר Entity ישירות מה-API.",
+        "להשתמש ב-EAGER על relationships גדולים בלי לבדוק את המחיר.",
+        "לא לבדוק את ה-SQL האמיתי ש-Hibernate יוצר.",
+        "להניח ש-ORM פותר בעיות ביצועים לבד.",
+        "להחזיק transaction פתוחה בזמן קריאה חיצונית איטית."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "Endpoint מחזיר users ולכל user מספר הזמנות, ופתאום הוא איטי. מה תבדוק?",
+      "answer": "אבדוק N+1: query אחת ל-users ועוד query לכל user. אפעיל SQL logging או tracing ואשקול fetch join, projection, EntityGraph או query ממוקדת."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא פשוט להגדיר orders כ-EAGER?",
+      "answer": "כי orders ייטענו בכל query של User גם כשלא צריך אותם, מה שעלול להגדיל latency, memory usage וכמות data מה-DB."
+    },
+    {
+      "type": "qa",
+      "question": "שיניתי field של Entity בלי save וה-DB התעדכן. למה?",
+      "answer": "ה-Entity הייתה managed בתוך transaction ו-Hibernate הפעיל dirty checking."
+    },
+    {
+      "type": "qa",
+      "question": "מתי קורה LazyInitializationException?",
+      "answer": "כאשר ניגשים ל-lazy relation אחרי שה-session או ה-transaction נסגרו."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין JPA ל-Hibernate?",
+      "answer": "JPA הוא specification. Hibernate הוא implementation נפוץ שלו."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להחזיר Entity מה-Controller?",
+      "answer": "Entity שייכת לשכבת persistence. API response צריך להיות DTO יציב וברור שאינו תלוי ישירות במבנה ה-DB."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "JPA הוא specification לעבודה עם entities ו-repositories, ו-Hibernate הוא implementation נפוץ. אני משתמש ב-repositories לגישה ל-data וב-transactions בשכבת Service. חשוב להבין Lazy מול Eager ואת N+1. אני פותר טעינה לפי ה-use case עם fetch join, projection או EntityGraph ולא פשוט הופך הכול ל-EAGER."
+    }
+  ]
+}

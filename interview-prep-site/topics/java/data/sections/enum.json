@@ -1,0 +1,52 @@
+{
+  "id": "enum",
+  "title": "Enum",
+  "sourcePages": [
+    32,
+    32
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Enum מייצג סט קבוע וסגור של ערכים. ב-Java הוא חזק יותר מ-constants, כי אפשר להוסיף fields, methods ו-logic לכל value."
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכות production יש הרבה business states כמו order status, job status, user role ו-payment state. Enum מונע שימוש ב-magic strings, מקטין bugs ונותן compile-time safety."
+    },
+    {
+      "type": "paragraph",
+      "text": "אני משתמש ב-enum כאשר ה-domain מכיל סט ערכים קבוע וברור. במקום להעביר Strings כמו \"ACTIVE\" או \"FAILED\", enum נותן typing חזק. אם צריך metadata או behavior, אפשר להוסיף אותם ל-enum עצמו."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public enum OrderStatus {\n    CREATED(\"C\"),\n    PAID(\"P\"),\n    CANCELLED(\"X\");\n\n    private final String code;\n\n    OrderStatus(String code) {\n        this.code = code;\n    }\n\n    public String code() {\n        return code;\n    }\n\n    public boolean canBeCancelled() {\n        return this == CREATED || this == PAID;\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "שימוש עם switch"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public String displayName(OrderStatus status) {\n    return switch (status) {\n        case CREATED -> \"Created\";\n        case PAID -> \"Paid\";\n        case CANCELLED -> \"Cancelled\";\n    };\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מתי לא להשתמש ב-Enum",
+      "text": "Enum מתאים לסט קבוע. אם הערכים משתנים על ידי users או config, כנראה צריך table או config ולא enum."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Enum מתאים כשיש סט סגור של business states. הוא עדיף על constants או Strings כי הוא type-safe, קריא ומאפשר להוסיף fields ומתודות. ב-DB אני לא שומר ordinal, אלא name או code יציב."
+    }
+  ]
+}

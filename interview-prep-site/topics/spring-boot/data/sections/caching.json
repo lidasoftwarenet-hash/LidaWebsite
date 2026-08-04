@@ -1,0 +1,158 @@
+{
+  "id": "caching",
+  "title": "Caching",
+  "sourcePages": [
+    152,
+    157
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Cache הוא שכבת זיכרון מהירה ששומרת תוצאות שכבר חישבנו או קראנו מה-DB. המטרה היא להוריד latency ועומס ולא לפנות שוב ל-DB או לשירות חיצוני כאשר אפשר להחזיר תוצאה שמורה."
+    },
+    {
+      "type": "heading",
+      "text": "@Cacheable"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class ProductService {\n\n    @Cacheable(\n        cacheNames = \"products\",\n        key = \"#productId\"\n    )\n    public Product getProduct(\n            String productId\n    ) {\n        return productRepository\n            .findById(productId)\n            .orElseThrow(\n                () -> new ProductNotFoundException(\n                    productId\n                )\n            );\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "בקריאה הראשונה Spring מריץ את המתודה ושומר את התוצאה. בקריאות הבאות עם אותו key הוא מחזיר את הערך מה-cache בלי להריץ שוב את המתודה."
+    },
+    {
+      "type": "heading",
+      "text": "Cache Key"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-key צריך לכלול כל פרמטר שמשפיע על התוצאה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Cacheable(\n    cacheNames = \"products\",\n    key = \"#productId + ':' + #country\"\n)\npublic Product getProduct(\n    String productId,\n    String country\n) {\n    // ...\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם התוצאה תלויה במדינה וה-key כולל רק productId, בקשות עבור IL ו-US עלולות לקבל אותו cached value בטעות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "Cache key צריך לכלול כל פרמטר שמשפיע על התוצאה. אחרת requests שונים עלולים לקבל אותו cached value ונוצר bug שקשה לזהות."
+    },
+    {
+      "type": "heading",
+      "text": "Invalidation"
+    },
+    {
+      "type": "paragraph",
+      "text": "החלק הקשה ב-cache הוא לדעת מתי למחוק או לעדכן ערך. אם Product השתנה ב-DB וה-cache לא עודכן, ה-client יקבל stale data."
+    },
+    {
+      "type": "heading",
+      "text": "@CacheEvict"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@CacheEvict(\n    cacheNames = \"products\",\n    key = \"#productId\"\n)\npublic void updateProduct(\n    String productId,\n    UpdateProductRequest request\n) {\n    productRepository.update(\n        productId,\n        request\n    );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "@CachePut"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@CachePut(\n    cacheNames = \"products\",\n    key = \"#result.id\"\n)\npublic Product updateProduct(\n    String productId,\n    UpdateProductRequest request\n) {\n    return productRepository.update(\n        productId,\n        request\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "@CachePut תמיד מריץ את המתודה ושומר את התוצאה החדשה. @CacheEvict מסיר ערך. @Cacheable יכול להחזיר ערך קיים בלי להריץ את המתודה."
+    },
+    {
+      "type": "heading",
+      "text": "TTL ו-Stale Data"
+    },
+    {
+      "type": "paragraph",
+      "text": "TTL קובע כמה זמן ערך נשאר ב-cache. TTL קצר נותן freshness גבוהה יותר אבל יותר פניות ל-DB. TTL ארוך מוריד עומס אך מגדיל סיכון ל-stale data."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מחיר או מלאי: TTL קצר מאוד או invalidation מיידי.",
+        "קטלוג יציב יחסית: TTL ארוך יותר.",
+        "יתרת חשבון או מידע קריטי: לא מסתמכים על cache בלי design זהיר."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "TTL מוגדר בדרך כלל ב-cache provider כמו Redis או Caffeine ולא בתוך @Cacheable."
+    },
+    {
+      "type": "heading",
+      "text": "Cache Stampede"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "ה-flow",
+      "text": "Hot key expires → Thousands of cache misses → Thousands of DB calls → DB overload"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר ערך פופולרי פג תוקף, הרבה requests עלולים לרוץ יחד ל-DB כדי לחשב אותו מחדש."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Cacheable(\n    cacheNames = \"products\",\n    key = \"#productId\",\n    sync = true\n)\npublic Product getProduct(\n        String productId\n) {\n    return productRepository\n        .findById(productId)\n        .orElseThrow();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "sync = true מבקש מ-cache provider לאפשר ל-thread אחד לחשב את הערך בזמן שהאחרים ממתינים. התמיכה תלויה ב-provider. במערכת מבוזרת אפשר לשקול distributed lock, early refresh או background refresh."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "יש endpoint שקורא Product מה-DB עשרות אלפי פעמים ביום. מה תעשה?",
+      "answer": "אבדוק אם המידע מתאים ל-cache. אם כן אשתמש ב-@Cacheable, אבחר key מדויק, אגדיר TTL ואוודא invalidation בזמן שינוי."
+    },
+    {
+      "type": "qa",
+      "question": "עדכנת Product ב-DB אבל המשתמש רואה ערך ישן. מה קרה?",
+      "answer": "כנראה invalidation לא בוצע או שה-TTL ארוך מדי. צריך למחוק או לעדכן את הערך בזמן update."
+    },
+    {
+      "type": "qa",
+      "question": "איך בוחרים TTL?",
+      "answer": "לפי trade-off בין freshness לעומס. ככל שהמידע רגיש יותר לשינויים, TTL קצר יותר או invalidation מיידי."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין @Cacheable, @CacheEvict ו-@CachePut?",
+      "answer": "@Cacheable מחזיר מה-cache אם קיים. @CacheEvict מוחק ערך. @CachePut תמיד מריץ את המתודה ושומר את התוצאה."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Cache Stampede?",
+      "answer": "מצב שבו ערך פופולרי פג והרבה requests רצים יחד ל-DB. מצמצמים אותו באמצעות locking, sync או refresh ברקע."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-cache כדי להוריד latency ועומס מה-DB או משירותים חיצוניים. עם @Cacheable Spring שומר תוצאה לפי key. החלק החשוב הוא invalidation ו-TTL כדי לא להחזיר stale data. ב-hot keys צריך לחשוב גם על cache stampede, למשל עם locking או refresh ברקע."
+    }
+  ]
+}

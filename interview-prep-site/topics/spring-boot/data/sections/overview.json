@@ -1,0 +1,50 @@
+{
+  "id": "overview",
+  "title": "Spring Boot Overview",
+  "sourcePages": [
+    82,
+    83
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Spring Boot הוא framework שמקל על בניית אפליקציות Java, בעיקר backend services ו-REST APIs. הוא יושב מעל Spring Framework ומוריד הרבה מהעבודה הידנית שהייתה בעבר, כמו XML configuration, חיבור ידני של dependencies והקמה ידנית של שרת."
+    },
+    {
+      "type": "heading",
+      "text": "מה Spring Boot נותן"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Embedded server כמו Tomcat. מריצים את ה-JAR וה-service עולה בלי שרת חיצוני.",
+        "Dependency Injection וניהול Beans דרך ה-IoC container.",
+        "Auto Configuration שמזהה dependencies והגדרות ומגדיר הרבה תשתיות אוטומטית.",
+        "Starter dependencies שמרכזים חבילות נפוצות, למשל spring-boot-starter-web.",
+        "Profiles ו-configuration נפרדים ל-dev, staging ו-prod.",
+        "Actuator ל-health checks, metrics, liveness ו-readiness.",
+        "אינטגרציה נוחה ל-REST, validation, security, databases ו-error handling."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "למה משתמשים בו"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring Boot מאפשר לבנות production-ready service מהר יותר, עם פחות boilerplate ועם סטנדרטים ברורים. כשבונים REST API, לא צריך להגדיר ידנית servlet container, routing, JSON serialization או dependency injection. אפשר להתמקד בלוגיקה העסקית."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה טובה לראיון",
+      "text": "Spring Boot הוא framework לבניית Java backend applications בצורה מהירה וסטנדרטית. הוא מבוסס על Spring Framework, אבל מוסיף auto-configuration, embedded server ו-starter dependencies, כך שאפשר להקים REST API או microservice בלי הרבה configuration ידני. בפועל הוא מאפשר להתמקד בלוגיקה העסקית בזמן שהוא מטפל בתשתיות כמו dependency injection, monitoring, security, validation, configuration וחיבור ל-database."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "משפט קצר",
+      "text": "Spring Boot נותן דרך מהירה ונוחה לבנות Java services מוכנים לפרודקשן, עם פחות configuration ידני ועם יכולות מובנות סביב REST, DI, DB, security ו-monitoring."
+    }
+  ]
+}

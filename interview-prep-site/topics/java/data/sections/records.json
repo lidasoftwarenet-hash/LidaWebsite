@@ -1,11 +1,170 @@
 {
   "id": "records",
   "title": "Records",
-  "sourcePages": [],
+  "sourcePages": [
+    26,
+    31
+  ],
   "blocks": [
     {
       "type": "paragraph",
-      "text": "התוכן יתווסף בהמשך."
+      "text": "Record הוא דרך קצרה ב-Java ליצור מחלקה שמטרתה בעיקר להחזיק מידע. במקום לכתוב class רגיל עם fields, constructor, getters, equals, hashCode ו-toString, Java מייצרת את כל זה לבד."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserDto(Long id, String name, String email) {}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "UserDto user = new UserDto(1L, \"Hen\", \"hen@example.com\");\n\nSystem.out.println(user.id());\nSystem.out.println(user.name());\nSystem.out.println(user.email());\nSystem.out.println(user);"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "חשוב לזכור",
+      "text": "ב-record אין getName(), אלא name()."
+    },
+    {
+      "type": "heading",
+      "text": "מתי Records שימושיים"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-backend יש הרבה אובייקטים שהתפקיד שלהם הוא פשוט להעביר מידע: DTO, response, request, event, command ו-result object. במקרים כאלה record חוסך boilerplate ומקטין סיכוי לבאגים ב-equals, hashCode או toString."
+    },
+    {
+      "type": "paragraph",
+      "text": "בדרך כלל אשתמש ב-record כשאני צריך object קטן שמייצג data, ולא class עם הרבה לוגיקה עסקית."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record CreateUserRequest(String name, String email) {}\n\npublic record UserResponse(Long id, String name, String email) {}\n\npublic record UserCreatedEvent(Long userId, String email) {}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Record מתאים מאוד ל-DTOs, API responses, events, commands ותוצאות ביניים. אם האובייקט צריך לשנות state, לעבוד מול lifecycle של JPA, להכיל הרבה behavior עסקי או להיות entity מורכב, כנראה class רגיל מתאים יותר."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב לראיון",
+      "text": "אני משתמש ב-record כשאני צריך לייצג data בצורה קצרה וברורה. זה מצוין ל-DTOs ו-events, אבל לא הייתי הופך כל entity עסקית ל-record אוטומטית."
+    },
+    {
+      "type": "heading",
+      "text": "Class רגיל מול Record"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public final class UserDtoClass {\n    private final Long id;\n    private final String name;\n    private final String email;\n\n    public UserDtoClass(Long id, String name, String email) {\n        this.id = id;\n        this.name = name;\n        this.email = email;\n    }\n\n    public Long getId() {\n        return id;\n    }\n\n    public String getName() {\n        return name;\n    }\n\n    public String getEmail() {\n        return email;\n    }\n\n    // equals, hashCode and toString still need to be written or generated\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "את אותו data אפשר לייצג בשורה אחת עם record, ועדיין לקבל constructor, accessors, equals, hashCode ו-toString."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserDto(Long id, String name, String email) {}"
+    },
+    {
+      "type": "heading",
+      "text": "Record ו-deep immutability"
+    },
+    {
+      "type": "paragraph",
+      "text": "Record הוא immutable ברמת ה-fields עצמם: השדות הם final, ולכן אי אפשר להחליף את ה-reference לאחר היצירה. אבל אם field מחזיק אובייקט mutable כמו List, התוכן שלו עדיין יכול להשתנות."
+    },
+    {
+      "type": "heading",
+      "text": "בעיה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record OrderDto(String id, List<String> items) {}\n\nList<String> items = new ArrayList<>();\nitems.add(\"Book\");\n\nOrderDto order = new OrderDto(\"1\", items);\nitems.add(\"Phone\"); // גם order.items() השתנה בפועל"
+    },
+    {
+      "type": "heading",
+      "text": "פתרון עם defensive copy"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record OrderDto(String id, List<String> items) {\n    public OrderDto {\n        items = List.copyOf(items);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כך ה-record שומר עותק immutable של הרשימה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם record הוא immutable?",
+      "answer": "כן ברמת ה-fields עצמם, אבל לא תמיד deep immutable. אם field מחזיק אובייקט mutable כמו List, התוכן שלו עדיין יכול להשתנות. בשביל immutability אמיתי צריך defensive copy."
+    },
+    {
+      "type": "qa",
+      "question": "האם record יכול להכיל methods?",
+      "answer": "כן. Record יכול להכיל methods רגילות."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserDto(String name, String email) {\n    public String displayName() {\n        return name + \" <\" + email + \">\";\n    }\n}"
+    },
+    {
+      "type": "qa",
+      "question": "האם record יכול לעשות validation?",
+      "answer": "כן. אפשר להשתמש ב-compact constructor."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserDto(String name, String email) {\n    public UserDto {\n        if (name == null || name.isBlank()) {\n            throw new IllegalArgumentException(\"Name is required\");\n        }\n    }\n}"
+    },
+    {
+      "type": "qa",
+      "question": "האם record יכול לרשת class אחר?",
+      "answer": "לא. Record לא יכול לעשות extends למחלקה אחרת, כי הוא כבר יורש מ-java.lang.Record. הוא כן יכול לממש interfaces."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record UserDto(Long id, String name) implements Identifiable {\n    @Override\n    public Long getId() {\n        return id;\n    }\n}"
+    },
+    {
+      "type": "qa",
+      "question": "האם record מתאים ל-JPA Entity?",
+      "answer": "בדרך כלל לא. JPA entities צריכות לרוב no-args constructor, mutable fields ו-lifecycle שמנוהל על ידי ORM. Record מתאים יותר ל-DTO, projection, response או value object פשוט."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין record ל-class רגיל?",
+      "answer": "Class רגיל נותן שליטה מלאה ומתאים ללוגיקה מורכבת או state משתנה. Record מתאים כשעיקר המטרה הוא להחזיק data בצורה קצרה, immutable וברורה."
+    },
+    {
+      "type": "qa",
+      "question": "האם אפשר לשנות שדה ב-record אחרי יצירה?",
+      "answer": "לא. אין setters והשדות final. אם צריך שינוי, יוצרים record חדש."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "UserDto user = new UserDto(1L, \"Hen\", \"hen@example.com\");\n\nUserDto updated = new UserDto(\n    user.id(),\n    \"Other\",\n    user.email()\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Record ב-Java הוא דרך קצרה ליצור object שמחזיק data. Java מייצרת constructor, accessors, equals, hashCode ו-toString. אני משתמש בו בעיקר ל-DTOs, responses, events ו-value objects. צריך לזכור שהוא לא deep immutable אם יש בתוכו collections, ולכן במקרים כאלה עושים defensive copy."
     }
   ]
 }

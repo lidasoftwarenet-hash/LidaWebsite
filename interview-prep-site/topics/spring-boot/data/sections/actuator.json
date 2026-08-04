@@ -1,0 +1,161 @@
+{
+  "id": "actuator",
+  "title": "Spring Boot Actuator",
+  "sourcePages": [
+    102,
+    105
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Spring Boot Actuator נותן endpoints מוכנים לניטור ולניהול האפליקציה בזמן ריצה. הוא שימושי במיוחד ל-production monitoring, Kubernetes, health checks ו-debugging בסיסי."
+    },
+    {
+      "type": "heading",
+      "text": "למה צריך Actuator"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "האפליקציה עלתה אבל ה-DB אינו זמין.",
+        "השירות רץ אבל אין חיבור ל-Redis.",
+        "האפליקציה חיה אבל עדיין אינה מוכנה לקבל traffic אחרי deployment.",
+        "Kubernetes או Load Balancer צריכים endpoint לבדיקת מצב השירות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Endpoints נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "/actuator/health מחזיר health כללי.",
+        "/actuator/info מחזיר מידע כמו version או build info.",
+        "/actuator/metrics חושף מדדים שונים.",
+        "/actuator/prometheus חושף metrics בפורמט Prometheus כאשר האינטגרציה קיימת."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Dependency"
+    },
+    {
+      "type": "code",
+      "language": "xml",
+      "code": "<dependency>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-starter-actuator</artifactId>\n</dependency>"
+    },
+    {
+      "type": "heading",
+      "text": "Configuration"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "management:\n  endpoints:\n    web:\n      exposure:\n        include: health,info,metrics"
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "GET /actuator/health"
+    },
+    {
+      "type": "code",
+      "language": "json",
+      "code": "{\n  \"status\": \"UP\"\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Health details"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "management:\n  endpoint:\n    health:\n      show-details: always"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "אבטחה",
+      "text": "ב-production צריך להיזהר מ-show-details: always, מפני ש-health details עלולים לחשוף מידע פנימי."
+    },
+    {
+      "type": "heading",
+      "text": "Liveness מול Readiness"
+    },
+    {
+      "type": "paragraph",
+      "text": "Liveness בודק האם האפליקציה עדיין חיה או שצריך להפעיל אותה מחדש. Readiness בודק האם האפליקציה מוכנה לקבל traffic."
+    },
+    {
+      "type": "paragraph",
+      "text": "בזמן startup האפליקציה יכולה להיות alive אבל עדיין לא ready, למשל בזמן טעינת configuration או המתנה לחיבור DB."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "management:\n  endpoint:\n    health:\n      probes:\n        enabled: true"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "/actuator/health/liveness",
+        "/actuator/health/readiness"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Actuator נותן endpoints מוכנים לניטור וניהול של Spring Boot application. אני משתמש בו בעיקר ל-health checks, readiness/liveness probes, metrics ו-production monitoring. כך Kubernetes, Load Balancer או monitoring system יכולים להבין אם השירות חי ומוכן לקבל traffic."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא לחשוף את כל Actuator endpoints לאינטרנט.",
+        "לא לחשוף health details רגישים ללא צורך.",
+        "לא להניח ש-status UP מוכיח שכל flow עסקי תקין.",
+        "לא לבלבל בין liveness ל-readiness."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Spring Boot Actuator?",
+      "answer": "כלי מובנה שנותן endpoints לניטור וניהול האפליקציה בזמן ריצה, כמו health, info ו-metrics."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך אותו?",
+      "answer": "כדי להבין אם השירות בריא ומוכן לקבל traffic בלי לבנות את תשתית הניטור הבסיסית מאפס."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין readiness ל-liveness?",
+      "answer": "Liveness בודק אם האפליקציה חיה. Readiness בודק אם היא מוכנה לקבל traffic."
+    },
+    {
+      "type": "qa",
+      "question": "איזה endpoint הכי נפוץ?",
+      "answer": "/actuator/health."
+    },
+    {
+      "type": "qa",
+      "question": "האם כדאי לחשוף את כל endpoints של Actuator?",
+      "answer": "לא. בפרודקשן חושפים רק את הדרוש ומגנים על endpoints רגישים באמצעות security או network restrictions."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Spring Boot Actuator נותן endpoints מוכנים ל-health checks, info ו-metrics. הוא שימושי ל-Kubernetes, Load Balancers וכלי monitoring. חשוב לחשוף רק endpoints נחוצים ולא להדליף מידע פנימי."
+    }
+  ]
+}

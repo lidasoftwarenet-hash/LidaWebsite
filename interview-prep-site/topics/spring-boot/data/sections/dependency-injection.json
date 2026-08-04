@@ -1,0 +1,262 @@
+{
+  "id": "dependency-injection",
+  "title": "Dependency Injection",
+  "sourcePages": [
+    83,
+    93
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Dependency Injection הוא אחד הבסיסים החשובים ב-Spring Boot. מחלקה לא יוצרת לבד את התלויות שלה עם new, אלא מקבלת אותן מבחוץ. Spring יוצר את האובייקטים, מחבר ביניהם ומזריק את מה שנדרש."
+    },
+    {
+      "type": "heading",
+      "text": "בלי Dependency Injection"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class UserService {\n    private final UserRepository userRepository =\n        new UserRepository();\n\n    public User getUser(String id) {\n        return userRepository.findById(id);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד עובד, אבל UserService תלוי ישירות ב-UserRepository ספציפי וגם אחראי על יצירתו. זה יוצר coupling גבוה ומקשה על החלפת implementation, שימוש ב-mock והפרדת אחריות."
+    },
+    {
+      "type": "heading",
+      "text": "עם Constructor Injection"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    private final UserRepository userRepository;\n\n    public UserService(\n            UserRepository userRepository\n    ) {\n        this.userRepository = userRepository;\n    }\n\n    public User getUser(String id) {\n        return userRepository.findById(id);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "UserService רק מצהיר שהוא צריך UserRepository. Spring מוצא Bean מתאים ומעביר אותו דרך ה-constructor."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה טובה לראיון",
+      "text": "Dependency Injection מאפשר למחלקה לקבל את התלויות שלה מבחוץ במקום ליצור אותן בעצמה. זה מוריד coupling, משפר testability ומאפשר להחליף implementation בלי לשנות את הלוגיקה העסקית. ב-Spring Boot ה-IoC container מנהל את ה-Beans ומזריק אותם בדרך כלל דרך constructor."
+    },
+    {
+      "type": "heading",
+      "text": "מה היה לפני DI"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class OrderService {\n    private final PaymentClient paymentClient =\n        new PaymentClient();\n\n    private final OrderRepository orderRepository =\n        new OrderRepository();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כל מחלקה בונה את העולם שלה לבד. הדבר מקשה על בדיקות, תחזוקה, החלפת מימושים והבנת dependencies בפרויקט גדול."
+    },
+    {
+      "type": "heading",
+      "text": "איך Spring יוצר Beans"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring מבצע component scanning ומחפש annotations כמו @Service, @Repository, @Component, @Controller, @RestController ו-@Configuration. מכל מחלקה מתאימה הוא יוצר Bean, כלומר object ש-Spring מנהל."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public UserService(\n        UserRepository userRepository\n) {\n    this.userRepository = userRepository;\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring מזהה את התלות דרך ה-constructor, מחפש Bean מסוג UserRepository ומזריק אותו."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מלאה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Repository\npublic class UserRepository {\n    public User findById(String id) {\n        return new User(id, \"Hen\");\n    }\n}\n\n@Service\npublic class UserService {\n    private final UserRepository userRepository;\n\n    public UserService(\n            UserRepository userRepository\n    ) {\n        this.userRepository = userRepository;\n    }\n\n    public User getUser(String id) {\n        return userRepository.findById(id);\n    }\n}\n\n@RestController\n@RequestMapping(\"/users\")\npublic class UserController {\n    private final UserService userService;\n\n    public UserController(\n            UserService userService\n    ) {\n        this.userService = userService;\n    }\n\n    @GetMapping(\"/{id}\")\n    public User getUser(\n            @PathVariable String id\n    ) {\n        return userService.getUser(id);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "ה-flow"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Request מגיע ל-UserController.",
+        "ה-controller קורא ל-UserService.",
+        "ה-service קורא ל-UserRepository.",
+        "Spring חיבר את כל האובייקטים בזמן עליית האפליקציה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "למה Constructor Injection עדיף"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ה-dependencies ברורות כבר ב-constructor.",
+        "אפשר להגדיר fields כ-final.",
+        "קל לבדוק את המחלקה בלי להרים Spring context.",
+        "אי אפשר ליצור object בלי dependencies חובה.",
+        "המחלקה נוצרת במצב תקין ולא כ-object חצי בנוי."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "בדיקת Unit בלי Spring Context"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Test\nvoid shouldReturnUser() {\n    UserRepository repository =\n        mock(UserRepository.class);\n\n    when(repository.findById(\"123\"))\n        .thenReturn(new User(\"123\", \"Hen\"));\n\n    UserService service =\n        new UserService(repository);\n\n    User user = service.getUser(\"123\");\n\n    assertEquals(\"Hen\", user.name());\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Field Injection ולמה היא פחות מומלצת"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class UserService {\n    @Autowired\n    private UserRepository userRepository;\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ה-dependency מוסתרת.",
+        "קשה יותר לבדוק בלי Spring.",
+        "אי אפשר להשתמש ב-final.",
+        "אפשר ליצור object לא תקין ולגלות מאוחר שחסרה dependency.",
+        "נוצר coupling חזק יותר ל-Spring."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "Field injection עובדת, אבל אני מעדיף constructor injection כי היא מפורשת יותר, בדיקה יותר ומכריחה את האובייקט להיווצר במצב תקין."
+    },
+    {
+      "type": "heading",
+      "text": "Injection דרך Interface"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public interface NotificationSender {\n    void send(\n        String target,\n        String message\n    );\n}\n\n@Component\npublic class EmailNotificationSender\n        implements NotificationSender {\n\n    @Override\n    public void send(\n            String target,\n            String message\n    ) {\n        System.out.println(\n            \"Sending email to \" + target\n        );\n    }\n}\n\n@Component\npublic class SmsNotificationSender\n        implements NotificationSender {\n\n    @Override\n    public void send(\n            String target,\n            String message\n    ) {\n        System.out.println(\n            \"Sending SMS to \" + target\n        );\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר יש שני Beans מאותו interface, Spring לא יודע איזה implementation להזריק."
+    },
+    {
+      "type": "heading",
+      "text": "@Primary"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Primary\n@Component\npublic class EmailNotificationSender\n        implements NotificationSender {\n    // ...\n}"
+    },
+    {
+      "type": "heading",
+      "text": "@Qualifier"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class NotificationService {\n    private final NotificationSender sender;\n\n    public NotificationService(\n        @Qualifier(\"smsNotificationSender\")\n        NotificationSender sender\n    ) {\n        this.sender = sender;\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "אם יש implementation אחד, Spring יודע להזריק אותו לבד. אם יש כמה implementations לאותו interface, משתמשים ב-@Qualifier כדי לבחור Bean מסוים או ב-@Primary כדי להגדיר default."
+    },
+    {
+      "type": "heading",
+      "text": "יתרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "קוד קל יותר לבדיקה.",
+        "החלפת implementations בקלות.",
+        "הפרדת אחריות טובה יותר.",
+        "פחות new מפוזרים בקוד.",
+        "Spring מנהל lifecycle.",
+        "שילוב נוח עם proxies עבור @Transactional, security, caching ועוד."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חסרונות וסיכונים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "בפרויקט גדול לפעמים קשה להבין מאיפה Bean מסוים מגיע.",
+        "יותר מדי abstractions הופכות את הקוד לפחות ישיר.",
+        "שימוש לא מסודר ב-@Autowired מקשה לעקוב אחרי dependencies.",
+        "חלק משגיאות ה-configuration מתגלות בזמן startup ולא בקומפילציה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט Senior",
+      "text": "DI מאוד עוזר, אבל צריך להשתמש בו בצורה נקייה. יותר מדי abstractions או יותר מדי Spring magic יכולים להפוך את הקוד לפחות ברור. לכן אני מעדיף constructor injection, שמות ברורים ו-configuration פשוטה ככל האפשר."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Dependency Injection?",
+      "answer": "דרך שבה מחלקה מקבלת את התלויות שלה מבחוץ במקום ליצור אותן בעצמה. ב-Spring ה-container יוצר את ה-Beans ומזריק אותם בדרך כלל דרך constructor."
+    },
+    {
+      "type": "qa",
+      "question": "למה DI טוב?",
+      "answer": "הוא מוריד coupling, משפר testability ומאפשר להחליף implementations בלי לשנות את הלוגיקה המרכזית."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Bean?",
+      "answer": "Object ש-Spring יוצר, מנהל ומזריק במקומות שצריכים אותו."
+    },
+    {
+      "type": "qa",
+      "question": "איזו הזרקה עדיפה?",
+      "answer": "Constructor injection. היא ברורה, מאפשרת final, קלה לבדיקה ומונעת object לא תקין."
+    },
+    {
+      "type": "qa",
+      "question": "למה field injection פחות מומלצת?",
+      "answer": "היא מסתירה dependencies, מקשה על unit tests, לא מאפשרת final ויוצרת coupling חזק יותר ל-Spring."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה אם יש שני Beans מאותו type?",
+      "answer": "Spring לא יודע איזה Bean לבחור. משתמשים ב-@Qualifier או ב-@Primary."
+    },
+    {
+      "type": "qa",
+      "question": "האם DI מחייב interface?",
+      "answer": "לא. אפשר להזריק גם class רגיל. Interface שימושי כשיש כמה implementations או כשרוצים להפריד contract ממימוש."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Dependency Injection אומר שמחלקה לא יוצרת לבד את התלויות שלה, אלא מקבלת אותן מבחוץ. ב-Spring Boot ה-IoC container יוצר Beans ומזריק אותם, לרוב דרך constructor. זה מוריד coupling, משפר testability ומאפשר להחליף implementations בקלות."
+    }
+  ]
+}

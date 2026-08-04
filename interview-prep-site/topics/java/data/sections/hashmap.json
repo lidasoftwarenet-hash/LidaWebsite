@@ -1,0 +1,206 @@
+{
+  "id": "hashmap",
+  "title": "HashMap",
+  "sourcePages": [
+    44,
+    51
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "HashMap הוא אחד ה-collections החשובים ב-Java. הוא שומר מידע בצורה של key-value: נותנים key ומקבלים value."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<String, Integer> scores = new HashMap<>();\n\nscores.put(\"Avi\", 90);\nscores.put(\"Dana\", 95);\n\nInteger score = scores.get(\"Avi\");"
+    },
+    {
+      "type": "paragraph",
+      "text": "מאחורי הקלעים Java צריכה לדעת איפה לשים את ה-key בזיכרון ואיך למצוא אותו מהר אחר כך. היא משתמשת ב-hashCode כדי לבחור אזור פנימי ב-HashMap, וב-equals כדי לבדוק האם זה באמת ה-key שחיפשנו."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "דרך לזכור",
+      "text": "hashCode עוזר למצוא את הבניין. equals עוזר למצוא את הדירה המדויקת בתוך הבניין."
+    },
+    {
+      "type": "heading",
+      "text": "איך זה עובד בפועל"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "map.put(userId, user);\nmap.get(userId);"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-put Java קוראת ל-hashCode של ה-key, מחשבת ממנו מיקום פנימי שנקרא bucket ושומרת שם את ה-entry. ב-get היא מחשבת שוב את אותו hash, מגיעה לאותו bucket ומשתמשת ב-equals כדי לוודא שזה אותו key."
+    },
+    {
+      "type": "paragraph",
+      "text": "במקרה רגיל put ו-get הם בערך O(1). אם הרבה keys נופלים לאותו bucket נוצרת collision. החל מ-Java 8, אם bucket נהיה גדול מדי, Java יכולה להפוך אותו מ-linked list ל-tree כדי לשמור על ביצועים טובים יותר."
+    },
+    {
+      "type": "heading",
+      "text": "החוזה בין equals ל-hashCode"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם שני אובייקטים שווים לפי equals, הם חייבים להחזיר אותו hashCode. ההפך אינו נכון: שני אובייקטים יכולים לקבל אותו hashCode ועדיין לא להיות שווים. זו collision."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה נכונה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public final class UserId {\n    private final String value;\n\n    public UserId(String value) {\n        this.value = value;\n    }\n\n    @Override\n    public boolean equals(Object obj) {\n        if (this == obj) {\n            return true;\n        }\n\n        if (!(obj instanceof UserId other)) {\n            return false;\n        }\n\n        return Objects.equals(this.value, other.value);\n    }\n\n    @Override\n    public int hashCode() {\n        return Objects.hash(value);\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Set<UserId> ids = new HashSet<>();\n\nids.add(new UserId(\"123\"));\n\nSystem.out.println(\n    ids.contains(new UserId(\"123\"))\n); // true"
+    },
+    {
+      "type": "paragraph",
+      "text": "שני האובייקטים שונים בזיכרון, אבל לוגית הם מייצגים אותו UserId."
+    },
+    {
+      "type": "heading",
+      "text": "מה קורה אם שוברים את החוזה"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם מממשים equals בלי hashCode, HashSet או HashMap עלולים לא למצוא אובייקט שלוגית שווה, מפני שהוא יגיע ל-bucket אחר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public final class UserId {\n    private final String value;\n\n    public UserId(String value) {\n        this.value = value;\n    }\n\n    @Override\n    public boolean equals(Object obj) {\n        if (!(obj instanceof UserId other)) {\n            return false;\n        }\n\n        return Objects.equals(this.value, other.value);\n    }\n\n    // hashCode is missing\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Set<UserId> ids = new HashSet<>();\n\nids.add(new UserId(\"123\"));\n\nSystem.out.println(\n    ids.contains(new UserId(\"123\"))\n); // יכול להיות false"
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה ל-key גרוע"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "class BadKey {\n    private final String id;\n\n    BadKey(String id) {\n        this.id = id;\n    }\n\n    @Override\n    public int hashCode() {\n        return 1;\n    }\n\n    @Override\n    public boolean equals(Object obj) {\n        return obj instanceof BadKey other\n            && Objects.equals(id, other.id);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד חוקי, אבל כל ה-keys מקבלים אותו hash ונופלים לאותו bucket. כך HashMap מאבד את היתרון המרכזי שלו, כי הכול נערם במקום אחד."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת חשובה: mutable key"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "class User {\n    private String email;\n\n    User(String email) {\n        this.email = email;\n    }\n\n    public void setEmail(String email) {\n        this.email = email;\n    }\n\n    @Override\n    public boolean equals(Object obj) {\n        return obj instanceof User other\n            && Objects.equals(email, other.email);\n    }\n\n    @Override\n    public int hashCode() {\n        return Objects.hash(email);\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<User, String> map = new HashMap<>();\n\nUser user = new User(\"a@test.com\");\nmap.put(user, \"data\");\n\nuser.setEmail(\"b@test.com\");\n\nSystem.out.println(map.get(user));\n// יכול להחזיר null"
+    },
+    {
+      "type": "paragraph",
+      "text": "האובייקט הוכנס ל-HashMap לפי ה-hash של ה-email הישן. לאחר שינוי ה-email, ה-hash השתנה. ה-HashMap מחפש במקום החדש, אבל האובייקט עדיין יושב ב-bucket הישן."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב לראיון",
+      "text": "אם אובייקט משמש key ב-HashMap, אני נזהר מאוד שהוא יהיה immutable, או לפחות שהשדות שמשתתפים ב-equals וב-hashCode לא ישתנו אחרי ההכנסה ל-map."
+    },
+    {
+      "type": "heading",
+      "text": "HashMap, LinkedHashMap ו-TreeMap"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "HashMap לא מבטיח סדר.",
+        "LinkedHashMap שומר insertion order.",
+        "TreeMap שומר keys ממוינים."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<String, Integer> regularMap =\n    new HashMap<>();\n\nMap<String, Integer> insertionOrderMap =\n    new LinkedHashMap<>();\n\nMap<String, Integer> sortedMap =\n    new TreeMap<>();"
+    },
+    {
+      "type": "heading",
+      "text": "Thread safety ו-null"
+    },
+    {
+      "type": "paragraph",
+      "text": "HashMap אינו thread-safe. אם כמה threads כותבים אליו במקביל, צריך להשתמש ב-ConcurrentHashMap או לפתור את הבעיה ברמת ה-design."
+    },
+    {
+      "type": "paragraph",
+      "text": "HashMap מאפשר key אחד שהוא null וגם values שהם null, אבל במערכות production זה לעיתים פחות קריא ועלול להוביל לבלבול."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה HashMap עושה מאחורי הקלעים?",
+      "answer": "הוא משתמש ב-hashCode של ה-key כדי לבחור bucket, ואז משתמש ב-equals כדי למצוא את ה-key המדויק בתוך אותו bucket."
+    },
+    {
+      "type": "qa",
+      "question": "האם hashCode חייב להיות unique?",
+      "answer": "לא. מותר לשני אובייקטים להיות עם אותו hashCode. זה נקרא collision, ולכן צריך גם equals."
+    },
+    {
+      "type": "qa",
+      "question": "מה החוזה בין equals ל-hashCode?",
+      "answer": "אם שני אובייקטים שווים לפי equals, הם חייבים להחזיר אותו hashCode."
+    },
+    {
+      "type": "qa",
+      "question": "האם שני אובייקטים עם אותו hashCode חייבים להיות שווים?",
+      "answer": "לא. אותו hashCode לא אומר שהם שווים. הוא רק אומר שהם כנראה יגיעו לאותו bucket."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה אם עושים override ל-equals אבל לא ל-hashCode?",
+      "answer": "Collections כמו HashMap ו-HashSet עלולים לא למצוא את האובייקט, למרות שלוגית הוא שווה."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא כדאי להשתמש באובייקט mutable כ-key?",
+      "answer": "אם field שמשתתף ב-hashCode משתנה אחרי שהאובייקט נכנס ל-map, ה-map עלול לחפש אותו ב-bucket הלא נכון."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין HashMap, LinkedHashMap ו-TreeMap?",
+      "answer": "HashMap לא מבטיח סדר. LinkedHashMap שומר insertion order. TreeMap שומר keys ממוינים."
+    },
+    {
+      "type": "qa",
+      "question": "האם HashMap thread-safe?",
+      "answer": "לא. לשימוש מקביל מכמה threads עדיף ConcurrentHashMap."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "HashMap שומר key-value ומבוסס על hashCode ו-equals. hashCode עוזר לבחור bucket, ו-equals מזהה את ה-key המדויק בתוך ה-bucket. החוזה החשוב הוא שאם שני אובייקטים שווים לפי equals, הם חייבים אותו hashCode. אני נזהר במיוחד מ-mutable keys, כי שינוי field שמשתתף ב-hashCode אחרי ההכנסה ל-map יכול לגרום לכך שלא נמצא את האובייקט שוב."
+    }
+  ]
+}

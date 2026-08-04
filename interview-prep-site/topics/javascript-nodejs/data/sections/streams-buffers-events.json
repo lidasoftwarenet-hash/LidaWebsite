@@ -1,0 +1,134 @@
+{
+  "id": "streams-buffers-events",
+  "title": "Streams, Buffer & EventEmitter",
+  "sourcePages": [
+    187,
+    189
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Streams"
+    },
+    {
+      "type": "paragraph",
+      "text": "Streams מאפשרים לעבוד עם מידע ב-chunks במקום לטעון את כולו לזיכרון. הם מתאימים לקבצים גדולים, uploads, downloads, video, audio, HTTP streaming ו-logs."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const fs = require(\"fs\");\n\nfs.createReadStream(\"big.log\")\n    .pipe(\n        fs.createWriteStream(\n            \"copy.log\"\n        )\n    );"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "שאלת ראיון קלאסית",
+      "text": "כדי לעבד קובץ של 20GB, אשתמש ב-streams ואעבד אותו chunk by chunk במקום לטעון את כל הקובץ לזיכרון."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Streams חשובים כשעובדים עם מידע גדול. במקום להעמיס קובץ שלם לזיכרון, מעבדים אותו בחלקים."
+    },
+    {
+      "type": "heading",
+      "text": "Backpressure"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם ה-reader מייצר מידע מהר יותר מה-writer, צריך מנגנון שמאזן ביניהם. pipe מסייע לנהל backpressure."
+    },
+    {
+      "type": "heading",
+      "text": "Buffer"
+    },
+    {
+      "type": "paragraph",
+      "text": "Buffer הוא אובייקט של Node.js שמייצג binary data."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Files",
+        "Network",
+        "Streams",
+        "Images",
+        "Binary protocols"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const buffer =\n    Buffer.from(\"hello\");\n\nconsole.log(buffer);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Buffer הוא הדרך של Node.js לעבוד עם binary data. הוא חשוב בקבצים, streams ו-network operations."
+    },
+    {
+      "type": "heading",
+      "text": "EventEmitter"
+    },
+    {
+      "type": "paragraph",
+      "text": "EventEmitter הוא מנגנון events פנימי ב-Node.js. רכיב אחד יכול לפרסם event ורכיבים אחרים יכולים להאזין לו."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const EventEmitter =\n    require(\"events\");\n\nconst bus =\n    new EventEmitter();\n\nbus.on(\n    \"userCreated\",\n    user => {\n        console.log(user.id);\n    }\n);\n\nbus.emit(\n    \"userCreated\",\n    { id: 1 }\n);"
+    },
+    {
+      "type": "heading",
+      "text": "שימושים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Streams",
+        "Internal events",
+        "Message bus קטן בתוך process",
+        "Loose coupling בין רכיבים"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "EventEmitter מאפשר publish ו-subscribe בתוך Node.js. רכיב אחד יכול לפרסם event ורכיבים אחרים להאזין בלי coupling ישיר."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "Listeners שלא מוסרים יכולים להצטבר ולגרום ל-memory leak."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "איך תעבד קובץ של 20GB?",
+      "answer": "באמצעות streams, chunk by chunk, בלי לטעון את כל הקובץ לזיכרון."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Backpressure?",
+      "answer": "מצב שבו producer או reader מהיר יותר מה-consumer או writer. צריך לאזן את קצב הזרימה."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Buffer?",
+      "answer": "אובייקט Node.js שמייצג binary data."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה EventEmitter?",
+      "answer": "מנגנון publish/subscribe פנימי בתוך process של Node.js."
+    }
+  ]
+}

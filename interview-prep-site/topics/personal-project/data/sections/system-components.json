@@ -1,0 +1,110 @@
+{
+  "id": "system-components",
+  "title": "רכיבי המערכת",
+  "sourcePages": [],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "1. GCP Dataflow - Apache Beam, Java"
+    },
+    {
+      "type": "paragraph",
+      "text": "זה מנוע העיבוד הכבד שלנו. הוא אחראי למשוך כמויות גדולות של דאטה ממקורות שונים, לעבד אותן בסקייל גבוה, ולהכניס את המידע המעובד ל־DB."
+    },
+    {
+      "type": "callout",
+      "text": "מה שחשוב להגיד: \"Dataflow נותן לנו סקייל, יציבות, ויכולת לעבד מאות מיליוני רשומות בלי לפחד מזמני ריצה או עומסים.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "2. Google Cloud Composer - Airflow, Python"
+    },
+    {
+      "type": "paragraph",
+      "text": "זה שכבת האורקסטרציה. הוא לא מחשב דאטה, אלא מנהל מתי ואיך הפייפליינים רצים."
+    },
+    {
+      "type": "paragraph",
+      "text": "בפועל:"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מפעיל ריצות חודשיות",
+        "מוודא סדר בין שלבים",
+        "מטפל ב־retries ו־failures ברמת התהליך"
+      ]
+    },
+    {
+      "type": "callout",
+      "text": "משפט חזק: \"Composer אחראי על ה־when וה־flow, לא על הלוגיקה עצמה.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "3. Cloud Functions - Java, Serverless"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן יושבת הלוגיקה הסטטלסית. אחרי שהדאטה מוכן, הפונקציה רצה, מחשבת ציון אמינות לכל חברה, ושומרת את התוצאה."
+    },
+    {
+      "type": "callout",
+      "text": "מה להדגיש: \"Cloud Function מאפשרת לנו להריץ לוגיקה נקודתית, לעלות מהר, ולהיעלם בלי לנהל שרתים.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "4. Spring Boot Microservice - Java"
+    },
+    {
+      "type": "paragraph",
+      "text": "זה הסרוויס ה־event-driven של המערכת. הוא מאזין ל־Pub/Sub events, מחליט אם שינוי בדאטה באמת משמעותי, ואם כן – מפעיל ריצה נקודתית של Dataflow."
+    },
+    {
+      "type": "callout",
+      "text": "משפט טוב: \"הסרוויס הזה לא עושה עיבוד כבד, אלא קבלת החלטות: מתי צריך לרענן מידע ומתי לא.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "5. Pub/Sub - Event-driven"
+    },
+    {
+      "type": "paragraph",
+      "text": "מנגנון ההתראות. אירועים על שינויים משמעותיים בדאטה מגיעים ממערכות אחרות בחברה, לא מהצוות שלנו."
+    },
+    {
+      "type": "callout",
+      "text": "חשוב להגיד: \"אנחנו צרכנים של events, לא בעלי המקור, וזה מאפשר לנו להישאר decoupled.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "6. Bigtable"
+    },
+    {
+      "type": "paragraph",
+      "text": "אחסון דאטה גולמי וביניים בסקייל גדול."
+    },
+    {
+      "type": "callout",
+      "text": "\"משמש אותנו כ-storage כבד ל-batch processing ול-snapshots.\""
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "7. MongoDB"
+    },
+    {
+      "type": "paragraph",
+      "text": "אחסון התוצאה הסופית שה-UI צורך."
+    },
+    {
+      "type": "callout",
+      "text": "\"מותאם לקריאות מהירות ול-page load.\""
+    }
+  ]
+}

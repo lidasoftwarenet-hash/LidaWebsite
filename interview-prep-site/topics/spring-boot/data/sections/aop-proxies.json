@@ -1,0 +1,101 @@
+{
+  "id": "aop-proxies",
+  "title": "AOP & Proxies",
+  "sourcePages": [
+    118,
+    120
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "AOP מאפשר ל-Spring להוסיף behavior רוחבי מסביב למתודות בלי לערבב אותו בתוך הלוגיקה העסקית. בפועל Spring עושה זאת בדרך כלל באמצעות proxy שעוטף את ה-Bean."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "ה-flow",
+      "text": "Caller → Spring Proxy → Real Service Method"
+    },
+    {
+      "type": "heading",
+      "text": "Cross-cutting Concerns"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Transactions",
+        "Caching",
+        "Security",
+        "Logging",
+        "Metrics",
+        "Async execution"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אלו דברים שצריכים לקרות במקומות רבים, אבל אינם חלק ישיר מה-business logic."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה עם @Transactional"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n\n    @Transactional\n    public void createOrder() {\n        // business logic\n        // save order\n        // update inventory\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring אינו משנה את הקוד בתוך createOrder. הוא עוטף את ה-service ב-proxy שעושה בקירוב: open transaction, call method, commit, ובמקרה של exception rollback."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "AOP מאפשר ל-Spring להוסיף behavior רוחבי כמו transactions, caching, security או logging בלי לערבב אותו בלוגיקה העסקית. Spring עושה זאת בדרך כלל דרך proxy שעוטף את ה-Bean ומריץ קוד לפני ואחרי המתודה."
+    },
+    {
+      "type": "heading",
+      "text": "Self-invocation Problem"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n\n    public void create() {\n        this.saveOrder();\n    }\n\n    @Transactional\n    public void saveOrder() {\n        // transaction may not start\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-proxy עובד כאשר הקריאה מגיעה מבחוץ דרך ה-Spring Bean. קריאה פנימית באמצעות this עוקפת את ה-proxy, ולכן annotations מבוססות proxy עלולות לא לפעול."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה AOP?",
+      "answer": "דרך להוסיף behavior רוחבי סביב מתודות בלי להכניס אותו לתוך ה-business logic."
+    },
+    {
+      "type": "qa",
+      "question": "איך Spring מממש AOP בדרך כלל?",
+      "answer": "באמצעות proxy שעוטף Bean ומריץ logic לפני ואחרי המתודה."
+    },
+    {
+      "type": "qa",
+      "question": "אילו annotations נשענות על proxies?",
+      "answer": "למשל @Transactional, @Cacheable, @Async ו-@PreAuthorize."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה self-invocation?",
+      "answer": "קריאה ממתודה אחת למתודה אחרת באותה מחלקה. הקריאה עוקפת את ה-proxy ולכן annotation על המתודה הפנימית עלולה לא לעבוד."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "AOP ב-Spring מוסיף behavior כמו transactions, caching, security ו-logging מסביב למתודות באמצעות proxies. לכן חשוב להבין שה-annotation עובדת כאשר הקריאה עוברת דרך ה-proxy, ולא בקריאה פנימית באותה מחלקה."
+    }
+  ]
+}

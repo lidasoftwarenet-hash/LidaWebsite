@@ -1,0 +1,36 @@
+{
+  "id": "personal-project",
+  "title": "Personal Project",
+  "sections": [
+    {
+      "id": "project-overview",
+      "title": "מטרת הפרויקט",
+      "file": "sections/project-overview.json"
+    },
+    {
+      "id": "monthly-data-flow",
+      "title": "תהליך העיבוד החודשי",
+      "file": "sections/monthly-data-flow.json"
+    },
+    {
+      "id": "realtime-updates",
+      "title": "עדכונים בין הריצות",
+      "file": "sections/realtime-updates.json"
+    },
+    {
+      "id": "system-components",
+      "title": "רכיבי המערכת",
+      "file": "sections/system-components.json"
+    },
+    {
+      "id": "architecture-questions",
+      "title": "שאלות על הארכיטקטורה",
+      "file": "sections/architecture-questions.json"
+    },
+    {
+      "id": "reliability-and-pubsub",
+      "title": "אמינות, תקלות ו-Pub/Sub",
+      "file": "sections/reliability-and-pubsub.json"
+    }
+  ]
+}

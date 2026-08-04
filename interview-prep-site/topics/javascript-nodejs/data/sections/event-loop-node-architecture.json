@@ -1,0 +1,141 @@
+{
+  "id": "event-loop-node-architecture",
+  "title": "Event Loop & Node Architecture",
+  "sourcePages": [
+    184,
+    185,
+    192,
+    193
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Event Loop הוא המנגנון שמאפשר ל-JavaScript לטפל בפעולות אסינכרוניות למרות שקוד JavaScript רץ בעיקר על main thread אחד."
+    },
+    {
+      "type": "heading",
+      "text": "סדר כללי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "קוד synchronous רץ קודם.",
+        "Microtasks כמו Promise callbacks רצות לאחר מכן.",
+        "Macrotasks כמו timers ו-I/O callbacks רצות אחר כך."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה קלאסית"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "console.log(\"start\");\n\nsetTimeout(\n    () => console.log(\"timeout\"),\n    0\n);\n\nPromise.resolve().then(\n    () => console.log(\"promise\")\n);\n\nconsole.log(\"end\");"
+    },
+    {
+      "type": "heading",
+      "text": "פלט"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "start\nend\npromise\ntimeout"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד הסינכרוני רץ קודם, אחריו ה-Promise callback מתוך microtask queue, ורק אחר כך timer."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Event Loop מאפשר ל-JavaScript להריץ קוד אסינכרוני בלי לחסום את ה-main thread. קוד synchronous רץ קודם, אחריו microtasks כמו Promises, ורק אחר כך macrotasks כמו timers."
+    },
+    {
+      "type": "heading",
+      "text": "פינות חשובות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "setTimeout(..., 0) לא רץ מיד.",
+        "Promise callback רץ לפני timer.",
+        "יותר מדי microtasks יכולות לעכב timers.",
+        "process.nextTick ב-Node רץ בעדיפות גבוהה מאוד ועלול לגרום starvation אם משתמשים בו לא נכון."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Node.js Architecture"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "V8 מריץ JavaScript.",
+        "libuv מנהל Event Loop ו-asynchronous I/O.",
+        "Node APIs כוללים fs, http ו-streams.",
+        "Thread pool משתתף בחלק מהפעולות."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Node.js מריץ JavaScript באמצעות V8 ומשתמש ב-libuv לניהול Event Loop ו-non-blocking I/O. חלק מהפעולות רצות דרך מערכת ההפעלה וחלק דרך thread pool."
+    },
+    {
+      "type": "heading",
+      "text": "האם Node.js Single-Threaded"
+    },
+    {
+      "type": "paragraph",
+      "text": "קוד JavaScript רץ בעיקר על main thread אחד, אבל Node משתמש גם במערכת ההפעלה, ב-libuv וב-thread pool עבור פעולות מסוימות כמו file system ו-crypto."
+    },
+    {
+      "type": "heading",
+      "text": "מתי Node.js פחות מתאים"
+    },
+    {
+      "type": "paragraph",
+      "text": "עבודה CPU-heavy על ה-main thread יכולה לחסום את Event Loop. במקרים כאלה אפשר להשתמש ב-Worker Threads, queue או service נפרד."
+    },
+    {
+      "type": "heading",
+      "text": "Graceful Shutdown"
+    },
+    {
+      "type": "paragraph",
+      "text": "Graceful shutdown הוא תהליך סגירה מסודר: מפסיקים לקבל traffic חדש, מסיימים requests קיימים, סוגרים connections ויוצאים בצורה נקייה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Event Loop?",
+      "answer": "המנגנון שמאפשר ל-JavaScript לטפל בפעולות asynchronous בלי לחסום את ה-main thread."
+    },
+    {
+      "type": "qa",
+      "question": "למה Promise רץ לפני setTimeout?",
+      "answer": "Promise callbacks נכנסים ל-microtask queue, שמטופלת לפני macrotasks כמו timers."
+    },
+    {
+      "type": "qa",
+      "question": "האם Node.js הוא single-threaded?",
+      "answer": "קוד JavaScript רץ בעיקר על main thread אחד, אבל Node משתמש גם ב-OS, ב-libuv וב-thread pool לפעולות מסוימות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Node.js פחות מתאים?",
+      "answer": "כאשר יש הרבה CPU-heavy work על ה-main thread, משום שהוא עלול לחסום את Event Loop."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Graceful Shutdown?",
+      "answer": "סגירה מסודרת שבה מפסיקים לקבל traffic חדש, מסיימים requests קיימים, סוגרים resources ויוצאים נקי."
+    }
+  ]
+}

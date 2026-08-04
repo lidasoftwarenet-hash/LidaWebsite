@@ -1,0 +1,138 @@
+{
+  "id": "errors-memory-leaks",
+  "title": "Error Handling & Memory Leaks",
+  "sourcePages": [
+    189,
+    191
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Operational Errors"
+    },
+    {
+      "type": "paragraph",
+      "text": "Operational errors הן שגיאות תפעוליות צפויות שיכולות לקרות גם כאשר הקוד תקין."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "DB timeout",
+        "Invalid input",
+        "Service unavailable",
+        "Network failure"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Programming Errors"
+    },
+    {
+      "type": "paragraph",
+      "text": "Programming errors הן בדרך כלל bugs בקוד."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Access ל-undefined",
+        "Bug בלוגיקה",
+        "TypeError",
+        "ReferenceError"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "טיפול נכון"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "try {\n    const user =\n        await getUser(id);\n\n    return user;\n} catch (error) {\n    logger.error(\n        { error, id },\n        \"Failed to get user\"\n    );\n\n    throw error;\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני מפריד בין שגיאות תפעוליות צפויות לבין באגים בקוד. אני דואג ל-logging, monitoring ו-error responses נכונים ולא בולע exceptions בשקט."
+    },
+    {
+      "type": "heading",
+      "text": "טעויות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לבלוע error ללא logging.",
+        "לחשוף stack trace ל-client.",
+        "לא לטפל ב-unhandled Promise rejections.",
+        "להחזיר תמיד 500 גם על validation error."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Memory Leaks"
+    },
+    {
+      "type": "paragraph",
+      "text": "Memory leak קורה כאשר זיכרון נשאר מוחזק למרות שכבר אין בו צורך."
+    },
+    {
+      "type": "heading",
+      "text": "גורמים נפוצים ב-Node.js"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Global variables",
+        "Caches שלא מתנקים",
+        "Event listeners",
+        "Timers",
+        "Closures שמחזיקים references",
+        "Arrays שגדלים ללא גבול"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const cache = [];\n\nsetInterval(() => {\n    cache.push(\n        loadData()\n    );\n}, 1000);"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם ה-cache גדל לנצח, צריכת הזיכרון תמשיך לעלות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Memory leaks ב-Node.js קורים לעיתים בגלל references שלא משתחררים, כמו caches, listeners או timers. אני מחפש אותם באמצעות metrics, heap snapshots ו-monitoring."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Operational Error ל-Programming Error?",
+      "answer": "Operational Error הוא כשל צפוי בסביבה או בקלט. Programming Error הוא בדרך כלל bug בקוד."
+    },
+    {
+      "type": "qa",
+      "question": "מה אסור לעשות ב-catch?",
+      "answer": "לבלוע שגיאה בשקט או להחזיר מידע פנימי רגיש ל-client."
+    },
+    {
+      "type": "qa",
+      "question": "מה גורם ל-memory leaks ב-Node.js?",
+      "answer": "References שלא משתחררים, למשל caches, event listeners, timers, closures או arrays שגדלים ללא גבול."
+    },
+    {
+      "type": "qa",
+      "question": "איך חוקרים memory leak?",
+      "answer": "באמצעות memory metrics, heap snapshots ו-monitoring לאורך זמן."
+    }
+  ]
+}

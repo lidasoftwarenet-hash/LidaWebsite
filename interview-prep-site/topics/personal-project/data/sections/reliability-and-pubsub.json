@@ -1,0 +1,48 @@
+{
+  "id": "reliability-and-pubsub",
+  "title": "אמינות, תקלות ו-Pub/Sub",
+  "sourcePages": [],
+  "blocks": [
+    {
+      "type": "qa",
+      "question": "7. מה קורה אם אחד הרכיבים במערכת לא זמין?",
+      "answer": "קודם כול, חשוב להבין שה־UI אף פעם לא מחכה לחישוב בזמן אמת. המדד תמיד נקרא מ־MongoDB, כלומר תמיד יש תשובה להציג גם אם היא לא הכי עדכנית בדקה האחרונה.\nDataflow:\nבתוך ה־pipeline יש לנו מנגנון שמגביל את הקריאות ל־Solr. אם מתקבלות שגיאות חוזרות או timeouts, אנחנו מנסים מספר מוגבל של retries, נגיד 3 ניסיונות.\nאם גם זה נכשל, ה־Circuit Breaker \"נפתח\" וה־pipeline מפסיק לפנות ל־Solr לפרק זמן מוגדר, למשל רבע שעה."
+    },
+    {
+      "type": "qa",
+      "question": "8. איך עובדים עם Pub/Sub קיים בלי לשבור כלום?",
+      "answer": "אנחנו לא בעלי ה־publisher, אלא רק consumers של מנגנון Pub/Sub פנימי. ה־publisher מפרסם אירועים, והוא לא \"מכיר\" אותנו ספציפית.\nב־Pub/Sub, ההודעות לא נמחקות כשהן נשלחות — הן נמחקות רק כשה־subscriber מאשר (ack) שקיבל ועיבד אותן.\nכשאתה עושה ack זה משפיע רק על ה־subscription שלך, לא על אחרים.\nאין צורך לייצר publisher משלכם."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "איך אנחנו לא מושכים הודעה פעמיים"
+    },
+    {
+      "type": "paragraph",
+      "text": "לכל subscriber יש subscription משלו. ה־publisher מפרסם הודעה אחת, וכל subscription מקבל עותק לוגי נפרד שלה. זה אומר שה־publisher לא מושפע מכמה consumers קיימים, וכל consumer מתקדם בקצב שלו."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "מה מונע כפילויות אצלנו"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לכל event יש מזהה ייחודי",
+        "אנחנו שומרים processed event ids לזמן מוגבל",
+        "או בודקים אם כבר בוצעה פעולה על החברה הזאת לאחרונה"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "מה קורה אם אנחנו לא זמינים?"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם ה־subscriber שלנו לא זמין, ההודעות לא הולכות לאיבוד. Pub/Sub שומר אותן עד ל־ack או עד expiration. ברגע שהשירות עולה חזרה, הוא ממשיך מאותה נקודה."
+    }
+  ]
+}

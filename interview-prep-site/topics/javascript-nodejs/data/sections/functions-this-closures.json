@@ -1,0 +1,127 @@
+{
+  "id": "functions-this-closures",
+  "title": "Functions, this & Closures",
+  "sourcePages": [
+    175,
+    177
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Regular Function מול Arrow Function"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "function add(a, b) {\n    return a + b;\n}\n\nconst addArrow = (a, b) => a + b;"
+    },
+    {
+      "type": "paragraph",
+      "text": "ההבדל החשוב הוא ש-arrow function לא מגדירה this משלה. היא לוקחת את this מה-scope שבו נוצרה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = {\n    name: \"Hen\",\n\n    regular() {\n        console.log(this.name);\n    },\n\n    arrow: () => {\n        console.log(this.name);\n    }\n};"
+    },
+    {
+      "type": "paragraph",
+      "text": "Regular function מתאימה בדרך כלל ל-methods על object. Arrow function מתאימה יותר ל-callbacks ולפונקציות קצרות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ההבדל המרכזי בין regular function ל-arrow function הוא ההתנהגות של this. Arrow function לא מקבלת this משלה, ולכן היא טובה ל-callbacks, אבל לא תמיד מתאימה כ-method על object."
+    },
+    {
+      "type": "heading",
+      "text": "this"
+    },
+    {
+      "type": "paragraph",
+      "text": "this הוא context של הקריאה לפונקציה. הערך שלו תלוי באופן שבו הפונקציה נקראת, לא רק במקום שבו היא נכתבה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = {\n    name: \"Hen\",\n\n    sayName() {\n        console.log(this.name);\n    }\n};\n\nuser.sayName(); // Hen"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר מוציאים את המתודה מהאובייקט, היא כבר לא נקראת עם user בתור context."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const fn = user.sayName;\nfn(); // this כבר אינו user"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "this ב-JavaScript נקבע לפי צורת הקריאה לפונקציה. ל-arrow function אין this משלה, ולכן היא שומרת את this מה-scope החיצוני."
+    },
+    {
+      "type": "heading",
+      "text": "Closures"
+    },
+    {
+      "type": "paragraph",
+      "text": "Closure נוצר כאשר פונקציה ממשיכה לזכור ולגשת למשתנים מה-scope שבו נוצרה, גם אחרי שה-scope החיצוני כבר סיים לרוץ."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "function createCounter() {\n    let count = 0;\n\n    return function increment() {\n        count++;\n        return count;\n    };\n}\n\nconst counter = createCounter();\n\ncounter(); // 1\ncounter(); // 2"
+    },
+    {
+      "type": "paragraph",
+      "text": "הפונקציה הפנימית ממשיכה להחזיק גישה ל-count."
+    },
+    {
+      "type": "heading",
+      "text": "שימושים ב-Closures"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Private state",
+        "Callbacks",
+        "Function factories",
+        "Event handlers",
+        "Async flows"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "Closure יכול גם להחזיק references לזמן ארוך ולתרום ל-memory leak אם לא מנהלים את ה-lifecycle נכון."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין regular function ל-arrow function?",
+      "answer": "Arrow function לא מגדירה this משלה, אלא משתמשת ב-this מה-scope החיצוני."
+    },
+    {
+      "type": "qa",
+      "question": "איך נקבע this ב-JavaScript?",
+      "answer": "לפי אופן הקריאה לפונקציה. Method שנקרא דרך object מקבל בדרך כלל את האובייקט כ-this."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Closure?",
+      "answer": "מצב שבו פונקציה שומרת גישה למשתנים מה-scope שבו נוצרה, גם לאחר שה-scope החיצוני הסתיים."
+    },
+    {
+      "type": "qa",
+      "question": "איפה Closures שימושיים?",
+      "answer": "ל-private state, callbacks, factories, event handlers ו-async flows."
+    }
+  ]
+}

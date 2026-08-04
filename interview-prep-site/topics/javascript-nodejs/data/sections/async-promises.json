@@ -1,0 +1,194 @@
+{
+  "id": "async-promises",
+  "title": "Async, Callbacks & Promises",
+  "sourcePages": [
+    181,
+    184
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Synchronous מול Asynchronous"
+    },
+    {
+      "type": "paragraph",
+      "text": "קוד synchronous רץ שורה אחרי שורה וחוסם עד שהוא מסיים."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const result = heavyWork();\n\nconsole.log(result);"
+    },
+    {
+      "type": "paragraph",
+      "text": "קוד asynchronous מתחיל פעולה, ממשיך הלאה ומטפל בתוצאה כשהיא מוכנה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "fetchData().then(result => {\n    console.log(result);\n});"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "JavaScript רץ בעיקר על main thread אחד, ולכן חשוב לא לחסום אותו. פעולות I/O כמו DB או HTTP צריכות להיות אסינכרוניות כדי לאפשר למערכת להמשיך לטפל בעבודה נוספת."
+    },
+    {
+      "type": "heading",
+      "text": "Callbacks"
+    },
+    {
+      "type": "paragraph",
+      "text": "Callback הוא function שמעבירים לפונקציה אחרת כדי שהיא תקרא לו מאוחר יותר."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "getUser(id, function (user) {\n    console.log(user);\n});"
+    },
+    {
+      "type": "heading",
+      "text": "Callback Hell"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר פעולות רבות תלויות זו בזו, callbacks מקוננים נהיים קשים לקריאה ולניהול שגיאות."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "getUser(id, user => {\n    getOrders(user.id, orders => {\n        getPayments(orders, payments => {\n            console.log(payments);\n        });\n    });\n});"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Callbacks היו הדרך הישנה לעבוד עם async JavaScript, אבל הם נהיים במהירות קשים לקריאה ולניהול שגיאות. Promises ו-async/await נותנים flow נקי יותר."
+    },
+    {
+      "type": "heading",
+      "text": "Promises"
+    },
+    {
+      "type": "paragraph",
+      "text": "Promise הוא object שמייצג תוצאה עתידית של פעולה אסינכרונית."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "pending",
+        "fulfilled",
+        "rejected"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "getUser(id)\n    .then(user => {\n        return getOrders(user.id);\n    })\n    .catch(error => {\n        console.error(error);\n    });"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Promise הוא object שמייצג תוצאה עתידית של פעולה אסינכרונית ועוזר לנהל async flow בצורה מסודרת יותר מ-callbacks."
+    },
+    {
+      "type": "heading",
+      "text": "async/await"
+    },
+    {
+      "type": "paragraph",
+      "text": "async/await הוא syntax נוח מעל Promises. פונקציה async תמיד מחזירה Promise. await עוצר את הפונקציה הנוכחית בלבד, לא את כל Node.js."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "async function loadUser(id) {\n    const user = await getUser(id);\n\n    return user;\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "async/await לא מחליף Promises, אלא נותן syntax קריא יותר. await עוצר רק את הפונקציה הנוכחית ולא את כל ה-runtime."
+    },
+    {
+      "type": "heading",
+      "text": "הרצה סדרתית"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = await getUser();\nconst orders = await getOrders();\nconst payments = await getPayments();"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר הפעולות אינן תלויות זו בזו, ההמתנה הסדרתית איטית ללא צורך."
+    },
+    {
+      "type": "heading",
+      "text": "הרצה במקביל עם Promise.all"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const [\n    user,\n    orders,\n    payments\n] = await Promise.all([\n    getUser(),\n    getOrders(),\n    getPayments()\n]);"
+    },
+    {
+      "type": "heading",
+      "text": "Promise.all"
+    },
+    {
+      "type": "paragraph",
+      "text": "Promise.all נכשל ברגע שאחד ה-Promises נכשל. הוא מתאים כאשר כל הפעולות צריכות להצליח."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "await Promise.all([\n    loadUser(),\n    loadOrders(),\n    loadPayments()\n]);"
+    },
+    {
+      "type": "heading",
+      "text": "Promise.allSettled"
+    },
+    {
+      "type": "paragraph",
+      "text": "Promise.allSettled מחכה שכל הפעולות יסתיימו ומחזיר גם הצלחות וגם כישלונות. הוא מתאים כאשר רוצים תמונה מלאה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const results =\n    await Promise.allSettled([\n        loadUser(),\n        loadOrders(),\n        loadPayments()\n    ]);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Promise.all מתאים כשכישלון אחד צריך להפיל את כל התהליך. Promise.allSettled מתאים כשאני רוצה לדעת מה הצליח ומה נכשל, למשל בכמה קריאות לשירותים חיצוניים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם await חוסם את Node.js?",
+      "answer": "לא. הוא משהה את הפונקציה הנוכחית עד שה-Promise מסתיים, אבל אינו חוסם את כל ה-main thread."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Promise.all?",
+      "answer": "כאשר פעולות עצמאיות יכולות לרוץ במקביל וכל התהליך דורש שכולן יצליחו."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Promise.all ל-Promise.allSettled?",
+      "answer": "Promise.all נכשל בכישלון הראשון. Promise.allSettled מחכה לכולם ומחזיר את התוצאה של כל פעולה."
+    },
+    {
+      "type": "qa",
+      "question": "למה Callback Hell בעייתי?",
+      "answer": "הוא יוצר nesting עמוק, קוד קשה לקריאה וטיפול מסורבל בשגיאות."
+    }
+  ]
+}

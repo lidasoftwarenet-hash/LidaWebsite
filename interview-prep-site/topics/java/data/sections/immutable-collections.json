@@ -1,0 +1,108 @@
+{
+  "id": "immutable-collections",
+  "title": "Immutable Collections",
+  "sourcePages": [
+    36,
+    38
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "לפעמים אנחנו רוצים ליצור collection שלא אמורה להשתנות לאחר יצירתה, למשל רשימת roles קבועה, סטטוסים נתמכים או default configuration. במקרים כאלה אין סיבה שמישהו בהמשך הקוד יוכל לעשות add, remove או לשנות את הרשימה בטעות."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> supportedRoles = List.of(\n    \"ADMIN\",\n    \"USER\",\n    \"VIEWER\"\n);\n\nsupportedRoles.add(\"GUEST\");\n// UnsupportedOperationException"
+    },
+    {
+      "type": "paragraph",
+      "text": "הכוונה ברורה: זו רשימה לקריאה בלבד, ואף אחד לא אמור לשנות אותה."
+    },
+    {
+      "type": "heading",
+      "text": "הגנה על state פנימי"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם service מחזיר רשימה פנימית רגילה, הקוד שקיבל אותה יכול לשנות את ה-state הפנימי בלי שהתכוונו."
+    },
+    {
+      "type": "heading",
+      "text": "בעיה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "class UserService {\n    private final List<String> roles = new ArrayList<>();\n\n    public List<String> getRoles() {\n        return roles; // מסוכן\n    }\n}\n\nList<String> roles = userService.getRoles();\nroles.clear(); // משנה את הרשימה הפנימית של ה-service"
+    },
+    {
+      "type": "heading",
+      "text": "פתרון"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "class UserService {\n    private final List<String> roles = new ArrayList<>();\n\n    public List<String> getRoles() {\n        return List.copyOf(roles);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "List.copyOf מחזיר snapshot שלא ניתן לשינוי, וכך ה-state הפנימי של ה-service נשאר מוגן."
+    },
+    {
+      "type": "heading",
+      "text": "Set.of ו-Map.of"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Set<String> allowedCountries = Set.of(\"IL\", \"US\", \"RO\");\n\nMap<String, Integer> retryConfig = Map.of(\n    \"payment\", 3,\n    \"notification\", 5\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Immutable collection אינה deep immutable"
+    },
+    {
+      "type": "paragraph",
+      "text": "List.of יוצרת immutable collection, אבל זה לא אומר שהאובייקטים שבתוכה immutable. אי אפשר לשנות את הרשימה עצמה, אבל אם האיברים mutable, עדיין אפשר לשנות אותם."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<User> users = List.of(new User(\"Hen\"));\n\nusers.add(new User(\"Dana\"));     // לא אפשרי\nusers.get(0).setName(\"Other\");   // כן אפשרי אם User mutable"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת: null"
+    },
+    {
+      "type": "paragraph",
+      "text": "List.of, Set.of ו-Map.of לא מקבלים null."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = List.of(\"Hen\", null);\n// NullPointerException"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-immutable collections כשאני רוצה להבהיר ש-data לא אמור להשתנות, למשל defaults, config או values שמוחזרים מתוך service. זה עוזר להגן על state פנימי ולמנוע bugs לא צפויים. אם יש לי collection קיימת ואני רוצה להחזיר אותה החוצה, אעדיף List.copyOf כדי להחזיר snapshot בטוח."
+    },
+    {
+      "type": "heading",
+      "text": "נקודות חשובות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "List.of, Set.of ו-Map.of יוצרים immutable collections ומתאימים ל-safe defaults ול-defensive design.",
+        "List.of לא מקבל null ויזרוק NullPointerException.",
+        "Collections.unmodifiableList הוא view על list קיים. אם המקור משתנה, ה-view משקף את השינוי.",
+        "List.copyOf יוצר immutable snapshot.",
+        "אם האיברים עצמם mutable, האובייקטים שבתוך ה-collection עדיין יכולים להשתנות."
+      ]
+    }
+  ]
+}

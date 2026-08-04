@@ -1,0 +1,139 @@
+{
+  "id": "types-equality-truthy",
+  "title": "Types, Equality & Truthy/Falsy",
+  "sourcePages": [
+    173,
+    175
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Primitive Types"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "string",
+        "number",
+        "boolean",
+        "null",
+        "undefined",
+        "symbol",
+        "bigint"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Primitive values מועתקים לפי value."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "let a = 1;\nlet b = a;\n\nb = 2;\n\nconsole.log(a); // 1"
+    },
+    {
+      "type": "heading",
+      "text": "Reference Types"
+    },
+    {
+      "type": "paragraph",
+      "text": "Objects, arrays ו-functions נשמרים ומועתקים לפי reference."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const a = {\n    name: \"Hen\"\n};\n\nconst b = a;\n\nb.name = \"Dan\";\n\nconsole.log(a.name); // Dan"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Primitive values מועתקים לפי ערך. Objects ו-arrays מועתקים לפי reference. לכן כאשר מעבירים object לפונקציה או מציבים אותו במשתנה אחר, שני המשתנים יכולים להצביע לאותו אובייקט."
+    },
+    {
+      "type": "heading",
+      "text": "== מול ==="
+    },
+    {
+      "type": "paragraph",
+      "text": "== מבצע type coercion. === בודק גם value וגם type."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "\"5\" == 5;  // true\n\"5\" === 5; // false"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "כלל עבודה",
+      "text": "אני כמעט תמיד משתמש ב-=== כדי להימנע מהמרות אוטומטיות ומפתיעות. אם נדרש conversion, עדיף לבצע אותו במפורש."
+    },
+    {
+      "type": "heading",
+      "text": "Truthy ו-Falsy"
+    },
+    {
+      "type": "paragraph",
+      "text": "הערכים הבאים נחשבים falsy בתוך תנאי:"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "false",
+        "0",
+        "Empty string",
+        "null",
+        "undefined",
+        "NaN"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "רוב שאר הערכים הם truthy."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (value) {\n    // לא ייכנס גם כאשר value הוא 0\n    // או empty string חוקי\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר 0 או empty string הם ערכים חוקיים, עדיף לבדוק null ו-undefined במפורש."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (\n    value !== null &&\n    value !== undefined\n) {\n    // safer\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Truthy checks נוחים, אבל יכולים להיות מסוכנים. אם 0 או empty string הם ערכים חוקיים, אני לא משתמש ב-if(value), אלא בודק null או undefined במפורש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין primitive ל-reference type?",
+      "answer": "Primitive מועתק לפי value. Object, array ו-function מועתקים לפי reference."
+    },
+    {
+      "type": "qa",
+      "question": "למה כמעט תמיד משתמשים ב-===?",
+      "answer": "כדי להימנע מ-type coercion אוטומטי ומפתיע."
+    },
+    {
+      "type": "qa",
+      "question": "מתי if(value) אינו מספיק?",
+      "answer": "כאשר 0, false או empty string הם ערכים חוקיים ולא רוצים להתייחס אליהם כאל חוסר ערך."
+    }
+  ]
+}

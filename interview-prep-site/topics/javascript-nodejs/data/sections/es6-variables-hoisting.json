@@ -1,0 +1,140 @@
+{
+  "id": "es6-variables-hoisting",
+  "title": "ES6, Variables & Hoisting",
+  "sourcePages": [
+    171,
+    173
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "למה ES6 היה שינוי משמעותי"
+    },
+    {
+      "type": "paragraph",
+      "text": "לפני ES6, שנקרא גם ES2015, JavaScript הייתה מוגבלת ומסורבלת יותר. היה שימוש רחב ב-var, functions, callbacks, prototype ו-require. ES6 הכניס syntax מודרני וכלים שהפכו את הקוד לברור ותחזוקתי יותר."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "let ו-const",
+        "Arrow functions",
+        "Classes",
+        "Modules",
+        "Destructuring",
+        "Spread ו-Rest",
+        "Template literals",
+        "Promises",
+        "Default parameters",
+        "Map ו-Set"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ES6 היה שינוי גדול ב-JavaScript. הוא הכניס syntax מודרני וכלים שעזרו לכתוב קוד ברור, בטוח ותחזוקתי יותר. הרבה דברים שנכתבו בעבר בצורה מסורבלת עם var, callbacks ו-prototype נכתבים היום בצורה נקייה יותר."
+    },
+    {
+      "type": "heading",
+      "text": "var"
+    },
+    {
+      "type": "paragraph",
+      "text": "var הוא הישן יותר. הוא function-scoped ולא block-scoped."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (true) {\n    var x = 1;\n}\n\nconsole.log(x); // 1"
+    },
+    {
+      "type": "heading",
+      "text": "let"
+    },
+    {
+      "type": "paragraph",
+      "text": "let הוא block-scoped."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (true) {\n    let x = 1;\n}\n\nconsole.log(x); // ReferenceError"
+    },
+    {
+      "type": "heading",
+      "text": "const"
+    },
+    {
+      "type": "paragraph",
+      "text": "const גם הוא block-scoped, אך אי אפשר לבצע reassignment למשתנה עצמו."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const name = \"Hen\";\nname = \"Dan\"; // TypeError"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר const מחזיק object, אפשר עדיין לשנות את תוכן האובייקט."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const user = {\n    name: \"Hen\"\n};\n\nuser.name = \"Dan\"; // תקין"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-const כברירת מחדל. אם אני צריך לשנות את המשתנה עצמו, אני משתמש ב-let. אני כמעט לא משתמש ב-var בגלל function scope והתנהגות פחות צפויה."
+    },
+    {
+      "type": "heading",
+      "text": "Hoisting"
+    },
+    {
+      "type": "paragraph",
+      "text": "Hoisting אומר ש-declarations מוכרים ל-JavaScript לפני שהקוד רץ, אבל ההתנהגות שונה בין var, let, const ו-functions."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "console.log(x); // undefined\nvar x = 5;"
+    },
+    {
+      "type": "paragraph",
+      "text": "עם let או const, שימוש לפני ההגדרה נכנס ל-Temporal Dead Zone וזורק שגיאה."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "console.log(x); // ReferenceError\nlet x = 5;"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Hoisting אומר ש-declarations מוכרים ל-JavaScript לפני הרצת הקוד, אבל לא כולם מתנהגים אותו דבר. עם var מקבלים undefined, ועם let ו-const יש Temporal Dead Zone ולכן אי אפשר להשתמש בהם לפני ההגדרה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה ES6 היה חשוב?",
+      "answer": "הוא הכניס let ו-const, arrow functions, classes, modules, destructuring, Promises ועוד, והפך את JavaScript לנוחה ותחזוקתית יותר."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין var, let ו-const?",
+      "answer": "var הוא function-scoped. let ו-const הם block-scoped. const מונע reassignment למשתנה, אבל לא הופך object ל-immutable."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Temporal Dead Zone?",
+      "answer": "הזמן שבין כניסה ל-scope לבין ההגדרה בפועל של let או const. בתקופה הזאת שימוש במשתנה זורק ReferenceError."
+    }
+  ]
+}

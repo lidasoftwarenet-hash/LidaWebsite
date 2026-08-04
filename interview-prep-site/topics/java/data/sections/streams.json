@@ -1,0 +1,251 @@
+{
+  "id": "streams",
+  "title": "Streams",
+  "sourcePages": [
+    60,
+    65
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Stream הוא כלי ב-Java שעוזר לעבוד עם collections בצורה נקייה. במקום לכתוב לולאה ידנית, ליצור רשימה חדשה, לבדוק תנאים ולהוסיף איברים, אפשר לתאר את ה-flow של העיבוד: לסנן, להמיר, לקבץ, לסכם ולהחזיר תוצאה."
+    },
+    {
+      "type": "heading",
+      "text": "לולאה רגילה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "record User(String name, int age, String department) {}\n\nList<User> users = List.of(\n    new User(\"Avi\", 30, \"Engineering\"),\n    new User(\"Dana\", 25, \"Product\"),\n    new User(\"Noa\", 17, \"Engineering\")\n);\n\nList<String> adultNames = new ArrayList<>();\n\nfor (User user : users) {\n    if (user.age() >= 18) {\n        adultNames.add(user.name());\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "אותו עיבוד עם Stream"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> adultNames = users.stream()\n    .filter(user -> user.age() >= 18)\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד אומר: קח users, השאר רק מבוגרים, הוצא את השם והחזר רשימה."
+    },
+    {
+      "type": "heading",
+      "text": "פעולות נפוצות"
+    },
+    {
+      "type": "paragraph",
+      "text": "סינון:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<User> activeUsers = users.stream()\n    .filter(user -> user.age() >= 18)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "המרה:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = users.stream()\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "קיבוץ:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<String, List<User>> usersByDepartment =\n    users.stream()\n        .collect(\n            Collectors.groupingBy(User::department)\n        );"
+    },
+    {
+      "type": "paragraph",
+      "text": "חיבור טקסט:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String namesText = users.stream()\n    .map(User::name)\n    .collect(Collectors.joining(\", \"));"
+    },
+    {
+      "type": "paragraph",
+      "text": "חישוב סכום:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int totalAge = users.stream()\n    .mapToInt(User::age)\n    .sum();"
+    },
+    {
+      "type": "paragraph",
+      "text": "אפשר גם עם reduce, אך mapToInt().sum() קריא יותר במקרה הזה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int totalAge = users.stream()\n    .map(User::age)\n    .reduce(0, Integer::sum);"
+    },
+    {
+      "type": "heading",
+      "text": "map מול flatMap"
+    },
+    {
+      "type": "paragraph",
+      "text": "map מתאים כשכל איבר הופך לאיבר אחד."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = users.stream()\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "flatMap מתאים כשכל איבר מחזיר collection או stream, ורוצים לשטח את הכול לרשימה אחת."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "record Order(String id, List<String> items) {}\n\nList<Order> orders = List.of(\n    new Order(\"1\", List.of(\"Book\", \"Mouse\")),\n    new Order(\"2\", List.of(\"Keyboard\"))\n);\n\nList<String> allItems = orders.stream()\n    .flatMap(order -> order.items().stream())\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "בלי flatMap מתקבל Stream<List<String>>. עם flatMap מתקבל Stream<String> שטוח."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב לראיון",
+      "text": "map הוא אחד לאחד. flatMap הוא אחד להרבה, ואז משטחים את התוצאה."
+    },
+    {
+      "type": "heading",
+      "text": "Streams הם lazy"
+    },
+    {
+      "type": "paragraph",
+      "text": "פעולות ביניים כמו filter ו-map לא רצות מיד. הן רצות רק כשיש terminal operation כמו toList, collect, count, findFirst או forEach."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "users.stream()\n    .filter(user -> {\n        System.out.println(\"filter \" + user.name());\n        return user.age() >= 18;\n    })\n    .map(user -> {\n        System.out.println(\"map \" + user.name());\n        return user.name();\n    });"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן לא יודפס דבר, כי אין terminal operation."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = users.stream()\n    .filter(user -> {\n        System.out.println(\"filter \" + user.name());\n        return user.age() >= 18;\n    })\n    .map(user -> {\n        System.out.println(\"map \" + user.name());\n        return user.name();\n    })\n    .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "parallelStream"
+    },
+    {
+      "type": "paragraph",
+      "text": "parallelStream לא הופך קוד למהיר אוטומטית. הוא עשוי לעזור בעיבוד כבד על הרבה data, אך לעיתים מוסיף overhead, מקשה על debugging ועלול להיות מסוכן כשיש shared state. ב-backend רגיל איני משתמש בו כברירת מחדל."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "users.parallelStream()\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב",
+      "text": "אני לא משתמש ב-parallelStream אוטומטית. קודם מודדים, מבינים את ה-bottleneck, ורק אז מחליטים אם parallelism באמת מתאים."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא לשנות collection חיצונית מתוך Stream."
+    },
+    {
+      "type": "heading",
+      "text": "פחות מומלץ"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = new ArrayList<>();\n\nusers.stream()\n    .filter(user -> user.age() >= 18)\n    .forEach(user -> names.add(user.name()));"
+    },
+    {
+      "type": "heading",
+      "text": "עדיף"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names = users.stream()\n    .filter(user -> user.age() >= 18)\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "להיזהר מ-null."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> names =\n    List.of(\"Hen\", null, \"Dana\");\n\nList<String> upperNames = names.stream()\n    .map(String::toUpperCase)\n    .toList();\n// NullPointerException"
+    },
+    {
+      "type": "heading",
+      "text": "טיפול"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> upperNames = names.stream()\n    .filter(Objects::nonNull)\n    .map(String::toUpperCase)\n    .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של Streams?",
+      "answer": "הם מאפשרים לכתוב עיבוד data בצורה קצרה וברורה: filter, map, grouping, collect ועוד. זה טוב כשיש pipeline ברור."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה terminal operation?",
+      "answer": "פעולה שמפעילה את ה-Stream בפועל ומחזירה תוצאה או מבצעת פעולה סופית, למשל toList, collect, count, findFirst או forEach."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה אומר ש-Stream הוא lazy?",
+      "answer": "פעולות ביניים כמו filter ו-map לא רצות עד שיש terminal operation."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין map ל-flatMap?",
+      "answer": "map הופך איבר אחד לאיבר אחד. flatMap מתאים כשכל איבר מחזיר collection או stream ורוצים לשטח הכול ל-stream אחד."
+    },
+    {
+      "type": "qa",
+      "question": "מתי לא להשתמש ב-Stream?",
+      "answer": "כשהלוגיקה מורכבת מדי, כשיש הרבה side effects, כשצריך debugging צעד אחר צעד או כשהלולאה הרגילה פשוט יותר קריאה."
+    },
+    {
+      "type": "qa",
+      "question": "האם parallelStream מומלץ?",
+      "answer": "לא כברירת מחדל. צריך למדוד. לפעמים הוא עוזר, אבל לפעמים מוסיף overhead ומקשה על השליטה בביצועים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Streams טובים כשאני רוצה לבצע עיבוד ברור על collection, כמו לסנן, להמיר, לקבץ או לסכם data. אני משתמש בהם כשהם משפרים קריאות, למשל filter, map, groupingBy ו-joining. חשוב לזכור שהם lazy עד terminal operation, ושלא כדאי לדחוף לתוכם side effects או להשתמש ב-parallelStream בלי למדוד."
+    }
+  ]
+}

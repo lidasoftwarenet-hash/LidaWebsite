@@ -1,0 +1,280 @@
+{
+  "id": "transactional",
+  "title": "Transactional",
+  "sourcePages": [
+    120,
+    130
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "@Transactional אומר ל-Spring להריץ קוד בתוך transaction מול ה-DB. או שכל הפעולות מצליחות יחד ונעשה commit, או שכשל מתאים גורם ל-rollback."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה בסיסית"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n    private final OrderRepository orderRepository;\n    private final PaymentRepository paymentRepository;\n\n    public OrderService(\n        OrderRepository orderRepository,\n        PaymentRepository paymentRepository\n    ) {\n        this.orderRepository = orderRepository;\n        this.paymentRepository = paymentRepository;\n    }\n\n    @Transactional\n    public void createOrder(\n            CreateOrderRequest request\n    ) {\n        Order order = new Order(\n            request.userId(),\n            request.amount()\n        );\n\n        orderRepository.save(order);\n\n        Payment payment = new Payment(\n            order.getId(),\n            request.amount()\n        );\n\n        paymentRepository.save(payment);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם שמירת ה-order מצליחה ושמירת ה-payment נכשלת, לא רוצים להישאר עם order ללא payment. ה-transaction מאחדת את הפעולות ליחידה אחת."
+    },
+    {
+      "type": "heading",
+      "text": "איפה שמים @Transactional"
+    },
+    {
+      "type": "paragraph",
+      "text": "בדרך כלל בשכבת Service, כי שם נמצא ה-use case העסקי ושם מוגדר אילו פעולות צריכות להצליח או להיכשל יחד."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Transaction boundary",
+      "text": "Controller → Service עם @Transactional → Repository"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "אני שם @Transactional בדרך כלל בשכבת Service, כי שם נמצא ה-use case העסקי ושם נכון להגדיר אילו פעולות צריכות להצליח או להיכשל יחד."
+    },
+    {
+      "type": "heading",
+      "text": "איך זה עובד מאחורי הקלעים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הקריאה מגיעה ל-Spring proxy.",
+        "ה-proxy פותח transaction.",
+        "המתודה האמיתית רצה.",
+        "בהצלחה מתבצע commit.",
+        "בכשל מתאים מתבצע rollback."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "@Transactional אינה לוגיקה שיושבת בתוך המתודה עצמה. Spring עוטף את הקריאה מבחוץ באמצעות proxy."
+    },
+    {
+      "type": "heading",
+      "text": "Rollback Rules"
+    },
+    {
+      "type": "paragraph",
+      "text": "ברירת המחדל היא rollback על RuntimeException ועל Error."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "throw new IllegalStateException(\n    \"Invalid order state\"\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "Checked exception כמו IOException לא תמיד גורמת ל-rollback כברירת מחדל. כאשר רוצים rollback מפורש:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional(\n    rollbackFor = IOException.class\n)\npublic void importOrders()\n        throws IOException {\n    // logic\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "בברירת המחדל Spring עושה rollback על unchecked exceptions. אם checked exception צריכה לגרום ל-rollback, אני מגדיר rollbackFor."
+    },
+    {
+      "type": "heading",
+      "text": "readOnly"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional(readOnly = true)\npublic List<Order> getOrders(\n        String userId\n) {\n    return orderRepository\n        .findByUserId(userId);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "readOnly מבטא שהמתודה מיועדת לקריאה ויכול לתת ל-Spring ול-Hibernate אפשרות לאופטימיזציות, למשל הפחתת dirty checking. זו אינה תמיד חסימה פיזית מוחלטת של writes."
+    },
+    {
+      "type": "heading",
+      "text": "Propagation"
+    },
+    {
+      "type": "paragraph",
+      "text": "Propagation מגדיר מה קורה כאשר מתודה transactional קוראת למתודה transactional אחרת."
+    },
+    {
+      "type": "heading",
+      "text": "REQUIRED"
+    },
+    {
+      "type": "paragraph",
+      "text": "זו ברירת המחדל. אם קיימת transaction, המתודה מצטרפת אליה. אם לא קיימת, נפתחת חדשה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional(\n    propagation = Propagation.REQUIRED\n)\npublic void createOrder() {\n    saveOrder();\n    savePayment();\n}"
+    },
+    {
+      "type": "heading",
+      "text": "REQUIRES_NEW"
+    },
+    {
+      "type": "paragraph",
+      "text": "פותחת transaction חדשה ונפרדת, גם אם כבר קיימת transaction חיצונית."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional(\n    propagation = Propagation.REQUIRES_NEW\n)\npublic void writeAuditLog() {\n    auditRepository.save(...);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "דוגמה לשימוש היא audit log שצריך להישמר גם אם ה-transaction הראשית נכשלת. צריך להשתמש בזה בזהירות כדי לא ליצור behavior מפתיע."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "ברוב המקרים אני נשאר עם REQUIRED. REQUIRES_NEW מתאים כשאני באמת צריך transaction נפרדת, למשל audit log שצריך להישמר גם אם הפעולה הראשית נכשלת."
+    },
+    {
+      "type": "heading",
+      "text": "Self-invocation Problem"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderService {\n\n    public void createOrder() {\n        saveOrder();\n    }\n\n    @Transactional\n    public void saveOrder() {\n        // DB logic\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקריאה ל-saveOrder פנימית ואינה עוברת דרך Spring proxy. לכן transaction עלולה לא להיפתח."
+    },
+    {
+      "type": "heading",
+      "text": "פתרון: מעבר ל-Service אחר"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class OrderWriter {\n\n    @Transactional\n    public void saveOrder() {\n        // DB logic\n    }\n}\n\n@Service\npublic class OrderService {\n    private final OrderWriter orderWriter;\n\n    public OrderService(\n            OrderWriter orderWriter\n    ) {\n        this.orderWriter = orderWriter;\n    }\n\n    public void createOrder() {\n        orderWriter.saveOrder();\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן הקריאה עוברת ל-Bean אחר דרך proxy ולכן @Transactional פועלת."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת Transfer"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void transferMoney(\n    Long fromAccountId,\n    Long toAccountId,\n    BigDecimal amount\n) {\n    Account from = accountRepository\n        .findById(fromAccountId)\n        .orElseThrow();\n\n    Account to = accountRepository\n        .findById(toAccountId)\n        .orElseThrow();\n\n    from.withdraw(amount);\n    to.deposit(amount);\n\n    accountRepository.save(from);\n\n    if (amount.compareTo(\n            BigDecimal.ZERO\n        ) < 0) {\n        throw new IllegalArgumentException(\n            \"Invalid amount\"\n        );\n    }\n\n    accountRepository.save(to);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם נזרקת exception לאחר שמירת החשבון הראשון, ה-rollback מונע מצב שבו כסף ירד מחשבון אחד ולא נכנס לשני."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת: בליעת Exception"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void createOrder() {\n    try {\n        orderRepository.save(order);\n        paymentRepository.save(payment);\n    } catch (Exception ex) {\n        log.error(\"Failed\", ex);\n        // exception נבלעה\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Spring אינו יודע שהפעולה נכשלה. המתודה מסתיימת לכאורה בהצלחה ועלול להתבצע commit."
+    },
+    {
+      "type": "heading",
+      "text": "עדיף"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void createOrder() {\n    try {\n        orderRepository.save(order);\n        paymentRepository.save(payment);\n    } catch (Exception ex) {\n        log.error(\"Failed\", ex);\n        throw ex;\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Transaction ארוכה וקריאות חיצוניות"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void createOrder() {\n    orderRepository.save(order);\n\n    externalPaymentClient.charge();\n    // slow external call inside transaction\n\n    paymentRepository.save(payment);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "קריאה חיצונית איטית בתוך transaction יכולה להחזיק DB connection ו-locks זמן רב ולפגוע בביצועים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט Senior",
+      "text": "אני משתדל לא להחזיק transaction פתוחה בזמן קריאות חיצוניות איטיות. Transaction צריכה להיות קצרה וממוקדת בפעולות DB שצריכות להיות עקביות יחד."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה @Transactional עושה?",
+      "answer": "מגדיר transaction boundary סביב מתודה. בהצלחה יש commit, ובכשל מתאים יש rollback."
+    },
+    {
+      "type": "qa",
+      "question": "איך Spring מממש @Transactional?",
+      "answer": "באמצעות proxy שעוטף את ה-Bean ומוסיף לוגיקה לפני ואחרי הקריאה."
+    },
+    {
+      "type": "qa",
+      "question": "איפה נכון לשים @Transactional?",
+      "answer": "בדרך כלל בשכבת Service, שבה נמצא ה-use case העסקי."
+    },
+    {
+      "type": "qa",
+      "question": "מתי יהיה rollback?",
+      "answer": "ברירת המחדל היא rollback על unchecked exceptions. עבור checked exceptions אפשר להגדיר rollbackFor."
+    },
+    {
+      "type": "qa",
+      "question": "למה @Transactional לא עובד בקריאה פנימית באותה מחלקה?",
+      "answer": "הקריאה אינה עוברת דרך Spring proxy. זו בעיית self-invocation."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין REQUIRED ל-REQUIRES_NEW?",
+      "answer": "REQUIRED מצטרף ל-transaction קיימת או פותח חדשה. REQUIRES_NEW תמיד פותח transaction נפרדת."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא כדאי לעשות HTTP call בתוך transaction?",
+      "answer": "הדבר מאריך את זמן פתיחת ה-transaction, עלול להחזיק locks ו-connections ולפגוע בביצועים."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה readOnly = true?",
+      "answer": "מסמן שהמתודה מיועדת לקריאה ויכול לאפשר אופטימיזציות ב-Spring וב-Hibernate."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "@Transactional מגדיר transaction boundary סביב use case, בדרך כלל בשכבת Service. Spring מממש זאת דרך proxy שפותח transaction ועושה commit או rollback. ברירת המחדל היא rollback על unchecked exceptions. חשוב לזכור self-invocation ולשמור transactions קצרות ללא קריאות חיצוניות איטיות."
+    }
+  ]
+}

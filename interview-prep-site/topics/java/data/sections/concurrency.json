@@ -1,0 +1,82 @@
+{
+  "id": "concurrency",
+  "title": "Concurrency Basics",
+  "sourcePages": [
+    72,
+    73
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Concurrency היא היכולת להריץ כמה פעולות במקביל או בצורה אסינכרונית. ב-Java אפשר לעבוד עם Thread, אבל בפרודקשן כמעט לא יוצרים threads ידנית. בדרך כלל משתמשים ב-ThreadPool, ExecutorService או CompletableFuture."
+    },
+    {
+      "type": "heading",
+      "text": "ExecutorService"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "ExecutorService executor =\n    Executors.newFixedThreadPool(5);\n\nFuture<String> future =\n    executor.submit(() -> \"result\");\n\nString result = future.get();\n\nexecutor.shutdown();"
+    },
+    {
+      "type": "paragraph",
+      "text": "אני לא רוצה לפתוח thread חדש לכל פעולה ללא שליטה. Thread pool נותן שליטה בכמות העבודה שרצה במקביל ומאפשר למחזר threads."
+    },
+    {
+      "type": "heading",
+      "text": "CompletableFuture"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "CompletableFuture<User> future =\n    CompletableFuture\n        .supplyAsync(\n            () -> userRepository.findById(\"123\")\n        )\n        .thenApply(user -> enrichUser(user))\n        .exceptionally(ex -> fallbackUser());"
+    },
+    {
+      "type": "paragraph",
+      "text": "CompletableFuture מאפשר chaining, טיפול בשגיאות והרצה אסינכרונית בצורה נקייה יותר."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא לפתוח threads ללא גבול.",
+        "לא לשכוח לקרוא shutdown() ל-ExecutorService.",
+        "CompletableFuture לא הופך פעולה blocking ל-non-blocking. אם בפנים יש קריאת DB blocking, היא עדיין blocking ורק רצה ב-thread אחר."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "new Thread(() -> doWork()).start();\n// לא מתאים כברירת מחדל בפרודקשן"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Thread ל-ExecutorService?",
+      "answer": "Thread הוא יחידת ביצוע אחת. ExecutorService מנהל pool של threads ומאפשר שליטה טובה יותר."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Future?",
+      "answer": "ייצוג של תוצאה שתחזור בעתיד."
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של CompletableFuture?",
+      "answer": "נוח יותר להרכיב פעולות אסינכרוניות, לבצע chaining ולנהל exceptions."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "בפרודקשן אני כמעט לא יוצר threads ידנית. אני מעדיף ExecutorService או CompletableFuture, כי הם מאפשרים לשלוט בכמות ה-concurrency, למחזר threads, לטפל בשגיאות ולסגור משאבים בצורה מסודרת."
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "id": "generics",
+  "title": "Generics",
+  "sourcePages": [
+    66,
+    71
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Generics ב-Java מאפשרים לכתוב קוד שעובד עם טיפוסים שונים בלי לוותר על type safety. המטרה היא לכתוב קוד reusable בלי להחזיר Object, בלי casting מפוזר ובלי לאבד את בדיקות הקומפיילר."
+    },
+    {
+      "type": "heading",
+      "text": "Repository גנרי"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "interface Repository<T> {\n    Optional<T> findById(String id);\n    void save(T entity);\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Repository<User> userRepository;\nOptional<User> user =\n    userRepository.findById(\"123\");\n\nRepository<Order> orderRepository;\nOptional<Order> order =\n    orderRepository.findById(\"456\");"
+    },
+    {
+      "type": "paragraph",
+      "text": "אותו contract עובד עם User, Order או Company, ועדיין כל שימוש נשאר type-safe. אין צורך להחזיר Object או לבצע casting."
+    },
+    {
+      "type": "heading",
+      "text": "כשה-caller יודע איזה type הוא מצפה לקבל"
+    },
+    {
+      "type": "paragraph",
+      "text": "Generics לא אומרים שהפונקציה מחזירה בכל פעם טיפוס אקראי. הם מתאימים כשה-caller יודע איזה type הוא מצפה לקבל וה-method משתמש במידע הזה בצורה בטוחה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> T parse(\n        String json,\n        Class<T> targetType\n) {\n    return objectMapper.readValue(\n        json,\n        targetType\n    );\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = parse(json, User.class);\nOrder order = parse(json, Order.class);"
+    },
+    {
+      "type": "heading",
+      "text": "כשהלוגיקה עצמה מחליטה איזה סוג להחזיר"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם מתודה יכולה להחזיר כמה סוגי אובייקטים לפי לוגיקה פנימית, Generics אינם תמיד הפתרון הנכון."
+    },
+    {
+      "type": "heading",
+      "text": "פחות טוב"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public Object search(String query) {\n    if (query.startsWith(\"user\")) {\n        return new User();\n    }\n\n    return new Company();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-caller חייב לעשות casting ולנחש מה חזר."
+    },
+    {
+      "type": "heading",
+      "text": "עדיף interface משותף"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "interface SearchResult {\n    String displayName();\n}\n\nrecord UserResult(\n    String name,\n    String email\n) implements SearchResult {\n\n    @Override\n    public String displayName() {\n        return name;\n    }\n}\n\nrecord CompanyResult(\n    String name,\n    String domain\n) implements SearchResult {\n\n    @Override\n    public String displayName() {\n        return name;\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public SearchResult search(String query) {\n    if (query.startsWith(\"user\")) {\n        return new UserResult(\n            \"Hen\",\n            \"hen@example.com\"\n        );\n    }\n\n    return new CompanyResult(\n        \"ZoomInfo\",\n        \"zoominfo.com\"\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-caller יודע שהוא מקבל SearchResult ואינו צריך לעבוד מול Object."
+    },
+    {
+      "type": "heading",
+      "text": "מתי Generics מתאימים"
+    },
+    {
+      "type": "paragraph",
+      "text": "Generics מתאימים כאשר הטיפוס גמיש, אבל עדיין ידוע בזמן קומפילציה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> List<T> emptyList() {\n    return new ArrayList<>();\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> Optional<T> first(\n        List<T> items\n) {\n    if (items.isEmpty()) {\n        return Optional.empty();\n    }\n\n    return Optional.of(items.get(0));\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יש business logic שמחזירה כמה סוגי תוצאות שונים, לעיתים עדיף interface, inheritance, sealed classes או wrapper ברור."
+    },
+    {
+      "type": "heading",
+      "text": "Wrapper גנרי"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public record ApiResponse<T>(\n    T data,\n    String errorCode,\n    String message\n) {}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "ApiResponse<User> userResponse =\n    new ApiResponse<>(\n        user,\n        null,\n        \"success\"\n    );\n\nApiResponse<List<Order>> ordersResponse =\n    new ApiResponse<>(\n        orders,\n        null,\n        \"success\"\n    );"
+    },
+    {
+      "type": "paragraph",
+      "text": "מבנה ה-response קבוע, ורק סוג ה-data משתנה. זה שימוש טבעי ב-Generics."
+    },
+    {
+      "type": "heading",
+      "text": "Type erasure"
+    },
+    {
+      "type": "paragraph",
+      "text": "Generics ב-Java הם בעיקר compile-time feature. בזמן ריצה חלק גדול ממידע הטיפוס נמחק. התהליך נקרא type erasure."
+    },
+    {
+      "type": "paragraph",
+      "text": "לכן אי אפשר ליצור T ישירות."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> T create() {\n    return new T(); // לא אפשרי\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם צריך ליצור object מהטיפוס, מעבירים Class<T> או Supplier<T>."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> T create(\n        Supplier<T> supplier\n) {\n    return supplier.get();\n}\n\nUser user = create(User::new);"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי תשתמש ב-Generics?",
+      "answer": "כשאני רוצה לכתוב קוד reusable ועדיין לשמור על type safety, למשל repository כללי, cache, mapper, parser, response wrapper או utility method."
+    },
+    {
+      "type": "qa",
+      "question": "מה עדיף, להחזיר Object או להשתמש ב-Generics?",
+      "answer": "כמעט תמיד עדיף לא להחזיר Object. אם ה-caller יודע איזה type הוא מצפה לקבל, Generics מתאימים. אם יש כמה תוצאות עסקיות שונות, עדיף interface או hierarchy ברורה."
+    },
+    {
+      "type": "qa",
+      "question": "אם מתודה יכולה להחזיר User או Company, האם Generics הם הפתרון?",
+      "answer": "לא בהכרח. אם הלוגיקה מחליטה לבד מה חוזר, עדיף להחזיר interface או parent משותף, כמו SearchResult. Generics טובים יותר כשה-caller קובע או יודע את ה-type."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה type erasure?",
+      "answer": "המידע הגנרי קיים בעיקר בזמן קומפילציה, אבל נמחק ברובו בזמן ריצה. לכן אי אפשר פשוט ליצור new T() או תמיד לבדוק T בצורה ישירה."
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון החשוב ביותר של Generics?",
+      "answer": "Type safety בלי casting מיותר. הקומפיילר עוזר לתפוס טעויות לפני runtime."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Generics עוזרים לי לכתוב קוד reusable בלי לוותר על type safety. אני משתמש בהם כשאותו קוד צריך לעבוד עם types שונים, למשל Repository<T>, ApiResponse<T> או parser שמקבל Class<T>. אם מתודה באמת יכולה להחזיר כמה סוגי אובייקטים לפי לוגיקה פנימית, לא אמהר להחזיר Object או להשתמש ב-Generics בכוח. הרבה פעמים עדיף להחזיר interface משותף או hierarchy ברורה."
+    }
+  ]
+}

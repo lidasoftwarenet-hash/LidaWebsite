@@ -1,0 +1,201 @@
+{
+  "id": "exceptions",
+  "title": "Exceptions",
+  "sourcePages": [
+    73,
+    77
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Exception הוא מנגנון של Java לטיפול במצבים שבהם משהו לא הצליח. במערכות backend זה לא רק עניין טכני. אופן הטיפול בשגיאות משפיע על ה-API, על logs, observability, retries ועל מה שה-client רואה."
+    },
+    {
+      "type": "heading",
+      "text": "Checked vs Unchecked"
+    },
+    {
+      "type": "paragraph",
+      "text": "Checked Exception היא שגיאה שהקומפיילר מחייב לטפל בה או להצהיר עליה באמצעות throws."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public String readFile(String path)\n        throws IOException {\n\n    return Files.readString(\n        Path.of(path)\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "דוגמאות: IOException ו-SQLException. הדבר מתאים למצבים חיצוניים יחסית, כמו קובץ, DB או network, שהקוד לא תמיד שולט בהם."
+    },
+    {
+      "type": "paragraph",
+      "text": "Unchecked Exception יורשת מ-RuntimeException, והקומפיילר לא מחייב לטפל בה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "throw new IllegalArgumentException(\n    \"Invalid user id\"\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "דוגמאות: NullPointerException, IllegalArgumentException ו-IllegalStateException. הדבר מתאים לבעיות לוגיות, input לא תקין או business errors שמטופלים בשכבה מרכזית."
+    },
+    {
+      "type": "heading",
+      "text": "הפרדה בין סוגי כשל"
+    },
+    {
+      "type": "paragraph",
+      "text": "אני לא זורק exception סתם. אני מנסה להפריד בין validation error, משאב שלא נמצא, failure זמני מול dependency חיצוני ו-bug פנימי."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "throw new IllegalArgumentException(\n    \"Email is required\"\n);\n\nthrow new UserNotFoundException(userId);\n\nthrow new PaymentProviderTimeoutException(\n    orderId\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "ההפרדה חשובה מפני שכל סוג כשל יכול להפוך ל-response אחר."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "UserNotFoundException יכול להפוך ל-404.",
+        "Validation יכול להפוך ל-400 או 422.",
+        "Timeout מול שירות חיצוני יכול להפוך ל-503.",
+        "Bug פנימי אמיתי יהפוך ל-500."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Custom Exception"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class UserNotFoundException\n        extends RuntimeException {\n\n    public UserNotFoundException(\n            String userId\n    ) {\n        super(\"User not found: \" + userId);\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public User getUser(String userId) {\n    return userRepository\n        .findById(userId)\n        .orElseThrow(\n            () -> new UserNotFoundException(\n                userId\n            )\n        );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "טיפול מרכזי בשגיאות"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Spring בדרך כלל לא מפזרים try-catch בכל controller. משתמשים ב-handler מרכזי כדי להחזיר API עקבי ולא לחשוף stack trace ל-client."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestControllerAdvice\npublic class GlobalExceptionHandler {\n\n    @ExceptionHandler(\n        UserNotFoundException.class\n    )\n    public ResponseEntity<ApiError>\n    handleUserNotFound(\n            UserNotFoundException ex\n    ) {\n        return ResponseEntity\n            .status(HttpStatus.NOT_FOUND)\n            .body(\n                new ApiError(\n                    \"USER_NOT_FOUND\",\n                    ex.getMessage()\n                )\n            );\n    }\n\n    @ExceptionHandler(Exception.class)\n    public ResponseEntity<ApiError>\n    handleGeneralError(Exception ex) {\n        return ResponseEntity\n            .status(\n                HttpStatus.INTERNAL_SERVER_ERROR\n            )\n            .body(\n                new ApiError(\n                    \"INTERNAL_ERROR\",\n                    \"Something went wrong\"\n                )\n            );\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מתי עושים catch"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא עושים catch רק כדי להעלים שגיאה."
+    },
+    {
+      "type": "heading",
+      "text": "רע"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "try {\n    paymentService.charge(order);\n} catch (Exception ex) {\n    // ignore\n}"
+    },
+    {
+      "type": "heading",
+      "text": "טוב"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "try {\n    paymentService.charge(order);\n} catch (\n    PaymentProviderTimeoutException ex\n) {\n    log.warn(\n        \"Payment provider timeout for order {}\",\n        order.id(),\n        ex\n    );\n\n    throw new ServiceUnavailableException(\n        \"Payment provider is temporarily unavailable\"\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן יש פעולה ברורה: log עם context, mapping לשגיאה מתאימה והחזרה נכונה ל-client."
+    },
+    {
+      "type": "heading",
+      "text": "Retry או לא Retry"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא כל exception מתאים ל-retry."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Timeout זמני מול dependency: לפעמים כן.",
+        "Validation error: לא.",
+        "User not found: לא.",
+        "Payment declined: לא.",
+        "Network glitch: אולי כן, עם limit ו-backoff."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב",
+      "text": "אני עושה retry רק על שגיאות transient, לא על שגיאות עסקיות קבועות."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא לבלוע exceptions בשקט.",
+        "לא לתפוס Exception כללי אם אין סיבה טובה.",
+        "לא לחשוף stack trace ל-client.",
+        "לא להחזיר 500 על כל שגיאה.",
+        "לא לעשות retry על כל דבר.",
+        "לא להשתמש ב-exceptions כחלק מ-flow רגיל בכמויות גדולות, כי זה פוגע בקריאות ובביצועים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין checked ל-unchecked exceptions?",
+      "answer": "Checked מחייב טיפול בקומפילציה. Unchecked לא מחייב ומשמש לרוב ל-runtime או business errors."
+    },
+    {
+      "type": "qa",
+      "question": "מתי תיצור custom exception?",
+      "answer": "כשיש משמעות עסקית ברורה לכשל, למשל UserNotFoundException, PaymentDeclinedException או InvalidOrderStateException."
+    },
+    {
+      "type": "qa",
+      "question": "האם תמיד צריך catch?",
+      "answer": "לא. לפעמים עדיף לתת לשגיאה לעלות ל-global handler. עושים catch רק אם יש מה לעשות: log עם context, retry, cleanup או mapping לשגיאה אחרת."
+    },
+    {
+      "type": "qa",
+      "question": "מה לא טוב ב-catch של Exception?",
+      "answer": "הוא רחב מדי ועלול להסתיר bugs. אם משתמשים בו, צריך סיבה טובה, בדרך כלל בשכבת גבול כמו global handler."
+    },
+    {
+      "type": "qa",
+      "question": "איך exceptions מתחברים ל-API design?",
+      "answer": "כל exception משמעותי צריך להיות מתורגם ל-status code ול-error response ברורים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני מתייחס ל-exceptions כחלק מה-design של המערכת, לא רק כטכניקה של Java. אני מפריד בין validation errors, business errors, not found, dependency failures ו-bugs פנימיים. בדרך כלל אני משתמש ב-custom runtime exceptions וב-global handler שמתרגם אותן ל-response עקבי. אני עושה retry רק לשגיאות transient ולא בולע exceptions בלי טיפול ברור."
+    }
+  ]
+}

@@ -11,6 +11,61 @@
       "id": "records",
       "title": "Records",
       "file": "sections/records.json"
+    },
+    {
+      "id": "enum",
+      "title": "Enum",
+      "file": "sections/enum.json"
+    },
+    {
+      "id": "comparable-comparator",
+      "title": "Comparable vs Comparator",
+      "file": "sections/comparable-comparator.json"
+    },
+    {
+      "id": "immutable-collections",
+      "title": "Immutable Collections",
+      "file": "sections/immutable-collections.json"
+    },
+    {
+      "id": "functional-interfaces",
+      "title": "Collections & Functional Interfaces",
+      "file": "sections/functional-interfaces.json"
+    },
+    {
+      "id": "hashmap",
+      "title": "HashMap",
+      "file": "sections/hashmap.json"
+    },
+    {
+      "id": "string-immutability",
+      "title": "String Immutability",
+      "file": "sections/string-immutability.json"
+    },
+    {
+      "id": "optional",
+      "title": "Optional",
+      "file": "sections/optional.json"
+    },
+    {
+      "id": "streams",
+      "title": "Streams",
+      "file": "sections/streams.json"
+    },
+    {
+      "id": "generics",
+      "title": "Generics",
+      "file": "sections/generics.json"
+    },
+    {
+      "id": "concurrency",
+      "title": "Concurrency Basics",
+      "file": "sections/concurrency.json"
+    },
+    {
+      "id": "exceptions",
+      "title": "Exceptions",
+      "file": "sections/exceptions.json"
     }
   ]
 }

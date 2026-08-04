@@ -1,15 +1,191 @@
 {
   "id": "oop",
   "title": "OOP",
-  "sourcePages": [],
+  "sourcePages": [
+    21,
+    25
+  ],
   "blocks": [
     {
       "type": "paragraph",
-      "text": "1התוכן יתווסף בהמשך."
+      "text": "OOP זו דרך לבנות קוד בצורה שמדמה את העולם העסקי של המערכת. במקום לחשוב רק על פונקציות ונתונים בנפרד, אנחנו מחלקים את הקוד ל-objects שיש להם גם מידע וגם פעולות."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "User מחזיק מידע על משתמש.",
+        "Order מחזיק מידע על הזמנה.",
+        "PaymentService יודע לבצע תשלום.",
+        "UserRepository יודע להביא ולשמור משתמשים."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "המטרה היא שכל חלק במערכת יקבל אחריות ברורה, ולא שכל הלוגיקה תהיה מפוזרת בכל מקום."
+    },
+    {
+      "type": "heading",
+      "text": "יתרון מרכזי"
+    },
+    {
+      "type": "paragraph",
+      "text": "OOP עוזר לבנות קוד מסודר, קריא, בדיק וקל יותר להחלפה."
+    },
+    {
+      "type": "heading",
+      "text": "חיסרון נפוץ"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם משתמשים בו לא נכון, בעיקר עם יותר מדי inheritance, מקבלים היררכיות מסובכות וקוד שקשה להבין ולשנות."
+    },
+    {
+      "type": "heading",
+      "text": "OOP ב-Java המודרנית"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Java המודרנית משתמשים פחות ב-OOP קלאסי של הרבה ירושות ומחלקות כבדות, ויותר בשילוב של OOP עם סגנון פונקציונלי כמו Streams, lambdas, records ו-Optional."
+    },
+    {
+      "type": "paragraph",
+      "text": "OOP עדיין חשוב לארכיטקטורה, לחלוקת אחריות ול-abstractions, אבל בתוך הלוגיקה היומיומית הרבה קוד נהיה יותר פונקציונלי, קצר ודקלרטיבי, ופחות מבוסס על היררכיות inheritance מסובכות."
+    },
+    {
+      "type": "heading",
+      "text": "איך אני משתמש ב-OOP בפועל"
+    },
+    {
+      "type": "paragraph",
+      "text": "אני משתמש ב-OOP כדי להפריד אחריות ולהקטין coupling. אם יש לי כמה סוגי payment providers, אני לא רוצה שה-service יכיר כל provider ספציפי. אני מגדיר interface או abstract class, וכל provider מממש אותו."
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יש לי PaymentService, אני לא רוצה שהוא ידע לעבוד ישירות רק מול Stripe או רק מול PayPal. אני רוצה שהוא יעבוד מול משהו כללי כמו PaymentProvider. כך אפשר להחליף מימוש בלי לשנות את הקוד המרכזי."
+    },
+    {
+      "type": "paragraph",
+      "text": "Polymorphism אומר שאותו service יכול לקרוא ל-charge(), וכל provider יממש את הפעולה בדרך שלו."
+    },
+    {
+      "type": "paragraph",
+      "text": "Encapsulation אומר שהפרטים הפנימיים של ה-provider נשארים בפנים, למשל API key, client פנימי ו-retry logic. מי שמשתמש בו לא צריך לדעת את הפרטים האלה."
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Inheritance אני משתמש בזהירות. אם באמת יש יחס ברור של is-a, זה יכול להתאים. אבל אם המטרה היא רק לשתף קוד, הרבה פעמים עדיף composition, כי הוא יוצר קוד גמיש יותר ופחות תלוי בהיררכיה קשיחה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט לראיון",
+      "text": "אני לא מסתכל על OOP רק כירושה. מבחינתי הערך המרכזי הוא לעבוד מול contracts ברורים, להסתיר details פנימיים, ולהשאיר את הקוד מספיק גמיש כדי להחליף מימושים בלי לשבור את הלוגיקה המרכזית."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה: עבודה מול abstraction"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "interface NotificationSender {\n    void send(String recipient, String message);\n}\n\nclass EmailSender implements NotificationSender {\n    private final String smtpHost;\n\n    EmailSender(String smtpHost) {\n        this.smtpHost = smtpHost;\n    }\n\n    @Override\n    public void send(String recipient, String message) {\n        System.out.println(\n            \"Sending EMAIL to \" + recipient + \" using \" + smtpHost\n        );\n    }\n}\n\nclass SmsSender implements NotificationSender {\n    private final String providerApiKey;\n\n    SmsSender(String providerApiKey) {\n        this.providerApiKey = providerApiKey;\n    }\n\n    @Override\n    public void send(String recipient, String message) {\n        System.out.println(\"Sending SMS to \" + recipient);\n    }\n}\n\nclass NotificationService {\n    private final NotificationSender sender;\n\n    NotificationService(NotificationSender sender) {\n        this.sender = sender;\n    }\n\n    public void notifyUser(String userContact, String message) {\n        sender.send(userContact, message);\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "OOP בשבילי הוא בעיקר דרך להפריד אחריות ולעבוד מול abstractions. אני משתמש ב-polymorphism כדי להחליף מימושים בלי לשנות את ה-service, ב-encapsulation כדי להגן על state פנימי, וב-abstraction כדי לחשוף API נקי. בירושה אני משתמש בזהירות, ורוב הזמן מעדיף composition כשצריך גמישות."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
     },
     {
       "type": "qa",
-      "text": "2התוכן יתווסף בהמשך."
+      "question": "אפשר ליצור object מ-interface?",
+      "answer": "לא ישירות. Interface הוא contract בלבד. אפשר ליצור object ממחלקה שמממשת אותו."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "NotificationSender sender = new EmailSender(\"smtp\");"
+    },
+    {
+      "type": "qa",
+      "question": "אפשר ליצור object מ-abstract class?",
+      "answer": "לא ישירות. Abstract class אינה שלמה. צריך ליצור subclass שמממש את החלקים החסרים."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "abstract class Animal {\n    abstract void speak();\n}\n\n// new Animal(); // לא חוקי"
+    },
+    {
+      "type": "qa",
+      "question": "Abstract class יכולה להכיל method רגילה?",
+      "answer": "כן. היא יכולה להכיל גם methods רגילות וגם abstract methods."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "abstract class BaseService {\n    void log() {\n        System.out.println(\"log\");\n    }\n\n    abstract void execute();\n}"
+    },
+    {
+      "type": "qa",
+      "question": "Interface יכול להכיל method עם מימוש?",
+      "answer": "כן. החל מ-Java 8 אפשר להגדיר default methods וגם static methods."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "interface Validator {\n    boolean isValid(String value);\n\n    default void printValidation() {\n        System.out.println(\"Validating...\");\n    }\n}"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין interface ל-abstract class?",
+      "answer": "Interface מתאים בעיקר להגדרת contract. Abstract class מתאימה כשיש גם contract וגם shared behavior או state משותף."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט טוב",
+      "text": "אם אני רק רוצה להגדיר מה צריך לעשות, אבחר interface. אם יש גם קוד משותף אמיתי או state משותף, abstract class יכולה להתאים."
+    },
+    {
+      "type": "qa",
+      "question": "האם Java תומכת ב-multiple inheritance?",
+      "answer": "במחלקות לא. מחלקה יכולה לרשת class אחד בלבד, אבל היא יכולה לממש כמה interfaces."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "class EmailSender implements NotificationSender, AutoCloseable {\n    @Override\n    public void send(String recipient, String message) {}\n\n    @Override\n    public void close() {}\n}"
+    },
+    {
+      "type": "qa",
+      "question": "אפשר לעשות override ל-private method?",
+      "answer": "לא. Private method אינה נראית למחלקת הבן, ולכן אי אפשר לעשות לה override אמיתי."
+    },
+    {
+      "type": "qa",
+      "question": "אפשר לעשות override ל-static method?",
+      "answer": "לא באמת. Static method שייכת למחלקה ולא לאובייקט. אפשר להסתיר אותה, אבל זה לא polymorphism אמיתי."
+    },
+    {
+      "type": "qa",
+      "question": "Constructor עובר בירושה?",
+      "answer": "לא. Constructors לא עוברים בירושה, אבל constructor של child חייב לקרוא ל-constructor של parent, ישירות או בעקיפין."
+    },
+    {
+      "type": "qa",
+      "question": "מה עדיף, inheritance או composition?",
+      "answer": "ברוב המקרים composition עדיף. Inheritance מתאים כשיש יחס אמיתי של is-a. Composition מתאים כשמחלקה פשוט משתמשת בהתנהגות של מחלקה אחרת."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "משפט קצר",
+      "text": "אני משתמש ב-inheritance בזהירות. אם זה רק בשביל reuse של קוד, הרבה פעמים composition יהיה פתרון נקי וגמיש יותר."
     }
   ]
 }

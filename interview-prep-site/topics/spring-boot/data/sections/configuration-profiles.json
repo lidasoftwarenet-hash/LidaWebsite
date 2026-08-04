@@ -1,0 +1,158 @@
+{
+  "id": "configuration-profiles",
+  "title": "Configuration & Profiles",
+  "sourcePages": [
+    105,
+    109
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "כמעט כל דבר שאמור להשתנות בין סביבות או להיות configurable לא צריך להיות hard-coded בקוד. למשל server port, DB connection, external service URL, timeouts, feature flags, logging level ו-Actuator exposure."
+    },
+    {
+      "type": "heading",
+      "text": "application.yml"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "server:\n  port: 8080\n\nspring:\n  datasource:\n    url: jdbc:postgresql://localhost:5432/app\n    username: app_user\n    password: secret\n\napp:\n  external-service-url: https://api.example.com\n  retry-count: 3"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד נשאר זהה, אבל ההגדרות משתנות לפי הסביבה. ב-local אפשר לעבוד מול DB מקומי וב-production מול DB אמיתי."
+    },
+    {
+      "type": "heading",
+      "text": "Profiles"
+    },
+    {
+      "type": "paragraph",
+      "text": "Profiles מאפשרים להריץ את אותה אפליקציה עם configuration שונה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "application.yml",
+        "application-dev.yml",
+        "application-test.yml",
+        "application-prod.yml"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "# application-dev.yml\nspring:\n  datasource:\n    url: jdbc:postgresql://localhost:5432/app_dev\n\nlogging:\n  level:\n    root: DEBUG\n\n# application-prod.yml\nspring:\n  datasource:\n    url: jdbc:postgresql://prod-db:5432/app\n\nlogging:\n  level:\n    root: INFO"
+    },
+    {
+      "type": "heading",
+      "text": "הפעלת Profile"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "java -jar app.jar --spring.profiles.active=prod"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "SPRING_PROFILES_ACTIVE=prod"
+    },
+    {
+      "type": "heading",
+      "text": "@Value"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Value מתאים לערך קטן ובודד."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Value(\"${app.retry-count}\")\nprivate int retryCount;"
+    },
+    {
+      "type": "heading",
+      "text": "@ConfigurationProperties"
+    },
+    {
+      "type": "paragraph",
+      "text": "לקבוצה של הגדרות עדיף בדרך כלל @ConfigurationProperties, כי הוא structured, type-safe, מרוכז וקל יותר לבדיקה."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "app:\n  external-service-url: https://api.example.com\n  retry-count: 3\n  timeout-ms: 2000"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@ConfigurationProperties(prefix = \"app\")\npublic record AppProperties(\n    String externalServiceUrl,\n    int retryCount,\n    int timeoutMs\n) {}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Service\npublic class ExternalClient {\n    private final AppProperties properties;\n\n    public ExternalClient(\n            AppProperties properties\n    ) {\n        this.properties = properties;\n    }\n\n    public void callExternalService() {\n        System.out.println(\n            properties.externalServiceUrl()\n        );\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@ConfigurationPropertiesScan\n@SpringBootApplication\npublic class Application {\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתדל לא לשים ערכים משתנים בקוד. DB URLs, external endpoints, timeouts ו-feature flags צריכים להגיע מ-configuration. ב-Spring Boot זה בדרך כלל דרך application.yml ו-profiles עבור dev, test ו-prod. לקבוצת הגדרות אני מעדיף @ConfigurationProperties על פני הרבה @Value, כי זה מסודר וקל לבדיקה."
+    },
+    {
+      "type": "heading",
+      "text": "Secrets"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא שומרים סיסמאות אמיתיות ב-application.yml שנכנס ל-Git.",
+        "משתמשים ב-environment variables, Secret Manager, Kubernetes Secrets או פתרון secrets אחר.",
+        "לא מערבבים production configuration בתוך application-dev.yml.",
+        "מוודאים ב-deployment איזה profile פעיל."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה application.yml?",
+      "answer": "קובץ configuration מרכזי של Spring Boot להגדרות כמו port, DB, logging, external services ו-feature flags."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה profile?",
+      "answer": "דרך להריץ את אותה אפליקציה עם הגדרות שונות לפי סביבה, למשל dev, test או prod."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין @Value ל-@ConfigurationProperties?",
+      "answer": "@Value מתאים לערך בודד. @ConfigurationProperties מתאים לקבוצת הגדרות, והוא נקי, structured ו-type-safe יותר."
+    },
+    {
+      "type": "qa",
+      "question": "איפה שמים secrets?",
+      "answer": "לא בקוד ולא ב-Git. משתמשים ב-environment variables, Secret Manager, Kubernetes Secrets או כלי ייעודי."
+    },
+    {
+      "type": "qa",
+      "question": "למה configuration חשוב בפרודקשן?",
+      "answer": "כי אותו service צריך לרוץ בסביבות שונות בלי לשנות קוד. רק ההגדרות משתנות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Configuration ב-Spring Boot מוציא מהקוד דברים שמשתנים בין סביבות, כמו DB URL, endpoints, timeouts ו-feature flags. משתמשים ב-application.yml וב-profiles. לערך פשוט אפשר @Value, אבל לקבוצת הגדרות אני מעדיף @ConfigurationProperties."
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "id": "javascript-node-overview",
+  "title": "JavaScript & Node.js Overview",
+  "sourcePages": [
+    170,
+    171
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "JavaScript היא שפת תכנות דינמית שרצה בעיקר בשני מקומות: בדפדפן בצד ה-Frontend, וב-Node.js בצד ה-Backend. השפה היא אותה שפה, אבל סביבת הריצה וה-APIs הזמינים שונים."
+    },
+    {
+      "type": "heading",
+      "text": "Browser Runtime"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "document",
+        "window",
+        "localStorage",
+        "fetch"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Node.js Runtime"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "fs",
+        "http",
+        "process",
+        "Buffer",
+        "streams"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "JavaScript היא השפה עצמה. בדפדפן היא משמשת ל-Frontend ועובדת מול DOM ו-Browser APIs. ב-Node.js היא רצה בצד השרת עם APIs של מערכת הפעלה, קבצים, רשת ו-process. השפה אותה שפה, אבל ה-runtime שונה."
+    },
+    {
+      "type": "heading",
+      "text": "מה זה Node.js"
+    },
+    {
+      "type": "paragraph",
+      "text": "Node.js הוא runtime שמאפשר להריץ JavaScript מחוץ לדפדפן. הוא מתאים במיוחד למערכות שעושות הרבה פעולות I/O."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "REST APIs",
+        "Microservices",
+        "Gateways",
+        "Real-time applications",
+        "Jobs ו-workers",
+        "Integrations מול שירותים חיצוניים",
+        "קריאות ל-DB או queues"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Node.js מאפשר להריץ JavaScript בצד שרת. הוא מתאים במיוחד למערכות I/O-bound, כי הוא עובד בצורה אסינכרונית ולא חוסם את ה-main thread בזמן המתנה ל-DB, לרשת או לקבצים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין JavaScript ל-Node.js?",
+      "answer": "JavaScript היא השפה. Node.js הוא runtime שמריץ JavaScript מחוץ לדפדפן, בדרך כלל בצד השרת."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Browser runtime ל-Node runtime?",
+      "answer": "בדפדפן יש APIs כמו window ו-document. ב-Node יש APIs כמו fs, process, Buffer ו-http. השפה אותה שפה, אבל הסביבה שונה."
+    }
+  ]
+}

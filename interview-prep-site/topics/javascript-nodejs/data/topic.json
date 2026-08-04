@@ -1,0 +1,71 @@
+{
+  "id": "javascript-nodejs",
+  "title": "JavaScript / Node.js",
+  "sections": [
+    {
+      "id": "javascript-node-overview",
+      "title": "JavaScript & Node.js Overview",
+      "file": "sections/javascript-node-overview.json"
+    },
+    {
+      "id": "es6-variables-hoisting",
+      "title": "ES6, Variables & Hoisting",
+      "file": "sections/es6-variables-hoisting.json"
+    },
+    {
+      "id": "types-equality-truthy",
+      "title": "Types, Equality & Truthy/Falsy",
+      "file": "sections/types-equality-truthy.json"
+    },
+    {
+      "id": "functions-this-closures",
+      "title": "Functions, this & Closures",
+      "file": "sections/functions-this-closures.json"
+    },
+    {
+      "id": "prototypes-modern-syntax",
+      "title": "Prototype, Classes & Modern Syntax",
+      "file": "sections/prototypes-modern-syntax.json"
+    },
+    {
+      "id": "array-methods-modules",
+      "title": "Array Methods & Modules",
+      "file": "sections/array-methods-modules.json"
+    },
+    {
+      "id": "async-promises",
+      "title": "Async, Callbacks & Promises",
+      "file": "sections/async-promises.json"
+    },
+    {
+      "id": "event-loop-node-architecture",
+      "title": "Event Loop & Node Architecture",
+      "file": "sections/event-loop-node-architecture.json"
+    },
+    {
+      "id": "configuration-frameworks",
+      "title": "Configuration, Express & NestJS",
+      "file": "sections/configuration-frameworks.json"
+    },
+    {
+      "id": "streams-buffers-events",
+      "title": "Streams, Buffer & EventEmitter",
+      "file": "sections/streams-buffers-events.json"
+    },
+    {
+      "id": "errors-memory-leaks",
+      "title": "Error Handling & Memory Leaks",
+      "file": "sections/errors-memory-leaks.json"
+    },
+    {
+      "id": "security-observability",
+      "title": "Security & Observability",
+      "file": "sections/security-observability.json"
+    },
+    {
+      "id": "npm",
+      "title": "npm & Package Management",
+      "file": "sections/npm.json"
+    }
+  ]
+}

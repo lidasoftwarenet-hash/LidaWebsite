@@ -1,0 +1,95 @@
+{
+  "id": "security-observability",
+  "title": "Security & Observability",
+  "sourcePages": [
+    191,
+    193
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Security Basics ב-Node.js"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא לשמור secrets בקוד.",
+        "לבצע input validation.",
+        "להשתמש ב-rate limiting.",
+        "לא לחשוף stack traces או internal errors.",
+        "להגדיר CORS נכון.",
+        "להתגונן מפני SQL injection.",
+        "להתגונן מפני NoSQL injection.",
+        "להשתמש ב-Helmet ב-Express.",
+        "לעדכן dependencies.",
+        "לבדוק vulnerabilities."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ב-Node backend אני שם לב ל-input validation, ניהול secrets, rate limiting, dependency vulnerabilities, אי-חשיפת errors פנימיים והגנות בסיסיות כמו Helmet ו-CORS נכון."
+    },
+    {
+      "type": "heading",
+      "text": "Observability"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-production לא מספיק שהקוד עובד מקומית. צריך לדעת מה קורה בשירות בזמן אמת ולהיות מסוגלים להבין failures, latency ו-bottlenecks."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Logs",
+        "Metrics",
+        "Traces",
+        "Request ID או Correlation ID",
+        "Error tracking",
+        "Health checks"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני לא מסתפק בכך שהקוד עובד מקומית. בפרודקשן חשוב שיהיו logs, metrics ו-tracing כדי להבין failures, latency ו-bottlenecks."
+    },
+    {
+      "type": "heading",
+      "text": "תשובת סיכום לראיון"
+    },
+    {
+      "type": "paragraph",
+      "text": "JavaScript היא השפה ו-Node.js הוא runtime שמריץ אותה בצד השרת. בדפדפן JavaScript עובדת מול DOM ו-Browser APIs, וב-Node היא עובדת מול APIs כמו fs, process, http ו-streams."
+    },
+    {
+      "type": "paragraph",
+      "text": "הכוח המרכזי של Node הוא המודל האסינכרוני: Event Loop, non-blocking I/O ויכולת לטפל בהרבה פעולות I/O בלי לפתוח thread לכל request. הוא מתאים ל-APIs, microservices ושירותים שעובדים מול DB או שירותים חיצוניים."
+    },
+    {
+      "type": "paragraph",
+      "text": "CPU-heavy tasks עלולות לחסום את Event Loop, ולכן במקרים כאלה משתמשים ב-Worker Threads, queues או service נפרד. בנוסף חשוב להבין error handling, streams, memory leaks, configuration, graceful shutdown ו-observability."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה חשוב באבטחת Node backend?",
+      "answer": "Input validation, secrets management, rate limiting, dependency security, הגנה מ-injection, CORS נכון ואי-חשיפת מידע פנימי."
+    },
+    {
+      "type": "qa",
+      "question": "מה כולל Observability בסיסי?",
+      "answer": "Logs, metrics, traces, correlation IDs, error tracking ו-health checks."
+    },
+    {
+      "type": "qa",
+      "question": "למה Correlation ID חשוב?",
+      "answer": "כדי לעקוב אחר request בין שכבות או services ולמצוא את כל הלוגים הרלוונטיים."
+    }
+  ]
+}

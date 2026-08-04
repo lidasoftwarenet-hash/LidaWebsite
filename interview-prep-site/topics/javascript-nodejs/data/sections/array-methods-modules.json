@@ -1,0 +1,111 @@
+{
+  "id": "array-methods-modules",
+  "title": "Array Methods & Modules",
+  "sourcePages": [
+    180,
+    181
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Array Methods"
+    },
+    {
+      "type": "paragraph",
+      "text": "במקום loops ידניים, JavaScript מספקת methods נפוצים לעבודה עם arrays."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "map להמרת כל איבר",
+        "filter לסינון",
+        "reduce לצבירת תוצאה",
+        "find למציאת איבר אחד",
+        "some לבדיקה אם לפחות איבר אחד מתאים",
+        "every לבדיקה אם כל האיברים מתאימים",
+        "forEach להרצת פעולה על כל איבר"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const names = users.map(\n    user => user.name\n);\n\nconst activeUsers = users.filter(\n    user => user.active\n);\n\nconst user = users.find(\n    user => user.id === id\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-map כשאני רוצה להמיר כל איבר, ב-filter כדי לסנן, ב-find כדי למצוא איבר אחד, ב-some ו-every לבדיקות, וב-reduce כאשר באמת צריך לצבור תוצאה אחת. אני לא משתמש ב-reduce סתם אם הוא פוגע בקריאות."
+    },
+    {
+      "type": "heading",
+      "text": "CommonJS"
+    },
+    {
+      "type": "paragraph",
+      "text": "CommonJS הוא module system שהיה נפוץ מאוד ב-Node.js."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const fs = require(\"fs\");\n\nmodule.exports = myFunction;"
+    },
+    {
+      "type": "heading",
+      "text": "ES Modules"
+    },
+    {
+      "type": "paragraph",
+      "text": "ES Modules הוא הסטנדרט המודרני יותר של JavaScript."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "import fs from \"fs\";\n\nexport default myFunction;"
+    },
+    {
+      "type": "heading",
+      "text": "למה עברו ל-ES Modules"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "זה standard של השפה.",
+        "הוא עובד גם ב-Frontend וגם ב-Backend.",
+        "הוא מאפשר tooling טוב יותר.",
+        "Static analysis.",
+        "Tree shaking."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "בעבר Node.js השתמש בעיקר ב-CommonJS עם require ו-module.exports. היום הרבה פרויקטים עוברים ל-ES Modules עם import ו-export, שהוא הסטנדרט המודרני של JavaScript."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-map?",
+      "answer": "כאשר רוצים להמיר כל איבר ולהחזיר array חדש באותו אורך."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין filter ל-find?",
+      "answer": "filter מחזיר array של כל ההתאמות. find מחזיר את ההתאמה הראשונה או undefined."
+    },
+    {
+      "type": "qa",
+      "question": "מתי reduce מתאים?",
+      "answer": "כאשר באמת צריך לצבור array לתוצאה אחת, בלי לפגוע בקריאות."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין CommonJS ל-ES Modules?",
+      "answer": "CommonJS משתמש ב-require ו-module.exports. ES Modules משתמש ב-import ו-export והוא הסטנדרט המודרני."
+    }
+  ]
+}

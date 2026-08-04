@@ -1,0 +1,181 @@
+{
+  "id": "functional-interfaces",
+  "title": "Collections & Functional Interfaces",
+  "sourcePages": [
+    39,
+    43
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ב-Java מודרנית, כשעובדים עם collections כמו List, Set ו-Map, הרבה פעמים משתמשים ב-Streams וב-lambdas כדי לתאר בצורה נקייה מה רוצים לעשות עם המידע: לסנן משתמשים, להמיר אובייקטים ל-DTO, לקבץ לפי שדה, לחשב סכום או להריץ פעולה על כל איבר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> activeUserNames = users.stream()\n    .filter(User::isActive)\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "paragraph",
+      "text": "הקוד אומר: קח משתמשים פעילים, הוצא מהם את השם והחזר רשימה."
+    },
+    {
+      "type": "heading",
+      "text": "איפה נכנסים Functional Interfaces"
+    },
+    {
+      "type": "paragraph",
+      "text": "מאחורי הקלעים, פעולות רבות של Stream מקבלות פונקציה קטנה כפרמטר. filter מקבלת Predicate, ו-map מקבלת Function. Functional Interfaces הם דרך להעביר פעולה או תנאי לתוך קוד אחר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "filter(user -> user.isActive()) // Predicate\nmap(user -> user.name())        // Function"
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מלאה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "record User(String name, int age, boolean active) {}\n\nList<User> users = List.of(\n    new User(\"Hen\", 38, true),\n    new User(\"Dana\", 25, false),\n    new User(\"Avi\", 30, true)\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Predicate"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Predicate<User> isActive = user -> user.active();\n\nList<User> activeUsers = users.stream()\n    .filter(isActive)\n    .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "Function"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Function<User, String> toName = user -> user.name();\n\nList<String> names = users.stream()\n    .map(toName)\n    .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "Consumer"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Consumer<User> printUser =\n    user -> System.out.println(user.name());\n\nusers.forEach(printUser);"
+    },
+    {
+      "type": "heading",
+      "text": "Supplier"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Supplier<User> defaultUser =\n    () -> new User(\"Unknown\", 0, false);\n\nUser user = findUserById(\"123\")\n    .orElseGet(defaultUser);"
+    },
+    {
+      "type": "paragraph",
+      "text": "Supplier שימושי כאן כי הוא lazy. ה-default user נוצר רק אם באמת אין משתמש."
+    },
+    {
+      "type": "heading",
+      "text": "BiFunction, UnaryOperator ו-BinaryOperator"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "BiFunction<String, Integer, User> createUser =\n    (name, age) -> new User(name, age, true);\n\nUser user = createUser.apply(\"Hen\", 38);"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "UnaryOperator<String> normalizeName =\n    name -> name.trim().toLowerCase();\n\nString normalized = normalizeName.apply(\" HEN \");"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "BinaryOperator<Integer> max = Integer::max;\n\nint result = max.apply(10, 20);"
+    },
+    {
+      "type": "heading",
+      "text": "שימוש עם reduce"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int totalAge = users.stream()\n    .map(User::age)\n    .reduce(0, Integer::sum);"
+    },
+    {
+      "type": "heading",
+      "text": "Method reference"
+    },
+    {
+      "type": "paragraph",
+      "text": "לפעמים אפשר להשתמש ב-method reference במקום lambda. אני משתמש בו כשהוא באמת משפר קריאות. אם הלוגיקה מורכבת יותר, lambda רגילה ברורה יותר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "users.stream()\n    .map(user -> user.name())\n    .toList();\n\nusers.stream()\n    .map(User::name)\n    .toList();"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> emails = users.stream()\n    .filter(User::active)\n    .map(User::email)\n    .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Functional Interface?",
+      "answer": "Interface שיש לו abstract method אחד בלבד. לכן אפשר לממש אותו באמצעות lambda."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Predicate<String> notEmpty =\n    value -> !value.isBlank();"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Predicate ל-Function?",
+      "answer": "Predicate מחזיר boolean ומתאים בדרך כלל לתנאים. Function מקבלת ערך ומחזירה ערך אחר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Predicate<User> isAdult =\n    user -> user.age() >= 18;\n\nFunction<User, String> userToName =\n    User::name;"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Consumer ל-Supplier?",
+      "answer": "Consumer מקבל ערך ולא מחזיר כלום. Supplier לא מקבל כלום ומחזיר ערך."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Consumer<String> printer =\n    System.out::println;\n\nSupplier<String> defaultName =\n    () -> \"Unknown\";"
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-lambda ומתי ב-method reference?",
+      "answer": "אם method reference ברור, משתמשים בו. אם צריך תנאי או לוגיקה קטנה, lambda מתאימה יותר."
+    },
+    {
+      "type": "qa",
+      "question": "מה הסכנה ב-Streams?",
+      "answer": "להכניס side effects, לכתוב pipeline ארוך מדי או להשתמש ב-parallelStream בלי להבין את המחיר."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Java מודרנית אני משתמש הרבה ב-Streams וב-Functional Interfaces כדי לעבוד עם collections בצורה נקייה יותר. Predicate מתאים לסינון, Function להמרה, Consumer לפעולה על איבר, Supplier ליצירת ערך lazy ו-BinaryOperator למשל ל-reduce. זה טוב כשהדבר משפר קריאות, אבל אם הלוגיקה נהיית מורכבת או עם side effects, אני מעדיף לפצל או להשתמש בלולאה רגילה."
+    }
+  ]
+}

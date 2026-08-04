@@ -1,0 +1,246 @@
+{
+  "id": "optional",
+  "title": "Optional",
+  "sourcePages": [
+    55,
+    59
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Optional הוא דרך להגיד בצורה מפורשת: יכול להיות שיש כאן ערך ויכול להיות שלא. במקום שמתודה תחזיר null וכל מי שקורא לה יצטרך לזכור לבדוק, היא מחזירה Optional."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public Optional<User> findUserById(String id) {\n    return userRepository.findById(id);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-signature אומר ל-caller: חיפשתי user, אולי מצאתי ואולי לא. עליך להתמודד עם שני המצבים."
+    },
+    {
+      "type": "heading",
+      "text": "פחות ברור עם null"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public User findUserById(String id) {\n    return null;\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן לא ברור אם null הוא bug, מצב עסקי תקין או משהו שלא טופל."
+    },
+    {
+      "type": "heading",
+      "text": "איך משתמשים ב-Optional"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם user חייב להיות קיים:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = findUserById(\"123\")\n    .orElseThrow(() ->\n        new UserNotFoundException(\"User not found\")\n    );"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יש fallback פשוט:"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = findUserById(\"123\")\n    .orElse(defaultUser);"
+    },
+    {
+      "type": "heading",
+      "text": "orElse מול orElseGet"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יצירת ה-fallback יקרה, עדיף orElseGet."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = findUserById(\"123\")\n    .orElse(createDefaultUser());"
+    },
+    {
+      "type": "paragraph",
+      "text": "במקרה הזה createDefaultUser() ירוץ תמיד, גם אם המשתמש נמצא."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "User user = findUserById(\"123\")\n    .orElseGet(() -> createDefaultUser());"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאן createDefaultUser() ירוץ רק אם אין user. זה הבדל קטן שמראה היכרות אמיתית עם ה-API."
+    },
+    {
+      "type": "heading",
+      "text": "map ו-flatMap"
+    },
+    {
+      "type": "paragraph",
+      "text": "map מתאים כשיש ערך ורוצים להפוך אותו למשהו אחר."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Optional<String> email = findUserById(\"123\")\n    .map(User::email);"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם אין user מקבלים Optional.empty. אם יש user מקבלים את ה-email בתוך Optional."
+    },
+    {
+      "type": "paragraph",
+      "text": "flatMap מתאים כשהמתודה הפנימית כבר מחזירה Optional."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Optional<Address> address = findUserById(\"123\")\n    .flatMap(User::address);"
+    },
+    {
+      "type": "paragraph",
+      "text": "שימוש ב-map במקרה כזה היה יוצר Optional<Optional<Address>>, ולכן משתמשים ב-flatMap."
+    },
+    {
+      "type": "heading",
+      "text": "מתי להשתמש ב-Optional"
+    },
+    {
+      "type": "paragraph",
+      "text": "אני משתמש ב-Optional בעיקר כ-return type, כאשר \"לא נמצא\" הוא מצב לגיטימי."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Optional<User> findUserById(String id);\n\nOptional<Order> findLastOrderForUser(String userId);\n\nOptional<String> getConfigValue(String key);"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-signature אומר ל-caller מראש: אל תניח שיש ערך. טפל במצב הזה."
+    },
+    {
+      "type": "heading",
+      "text": "מתי לא להשתמש ב-Optional"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא הייתי משתמש ב-Optional כ-field בתוך DTO או Entity. הדבר מסרבל serialization, frameworks, ORM ו-validation, ולרוב אינו נותן הרבה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class UserDto {\n    private Optional<String> email; // לא מומלץ\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא להשתמש ב-get בלי לוודא שיש ערך."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Optional<User> user = findUserById(\"123\");\n\nUser value = user.get(); // מסוכן"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם אין ערך, תיזרק exception. עדיף להשתמש ב-orElseThrow, ifPresent או API אחר של Optional."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "findUserById(\"123\")\n    .ifPresent(user -> sendWelcomeEmail(user));"
+    },
+    {
+      "type": "paragraph",
+      "text": "אסור להחזיר null מתוך מתודה שמחזירה Optional."
+    },
+    {
+      "type": "heading",
+      "text": "רע"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public Optional<User> findUserById(String id) {\n    return null;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "טוב"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public Optional<User> findUserById(String id) {\n    return Optional.empty();\n}"
+    },
+    {
+      "type": "heading",
+      "text": "of מול ofNullable"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "return Optional.ofNullable(user);"
+    },
+    {
+      "type": "paragraph",
+      "text": "Optional.ofNullable מתאים כשהערך יכול להיות null כחלק מה-flow התקין. אם הערך null הוא bug ורוצים להיכשל מהר, משתמשים ב-Optional.of."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "return Optional.of(user);"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה Optional פותר?",
+      "answer": "הוא לא מעלים null מהעולם, אבל הופך מצב של אין ערך למפורש. במקום שה-caller ינחש אם מתודה יכולה להחזיר null, ה-signature כבר אומר לו זאת."
+    },
+    {
+      "type": "qa",
+      "question": "מתי תשתמש ב-Optional?",
+      "answer": "בעיקר כ-return type, כשלא למצוא ערך הוא מצב עסקי תקין, למשל findUserById."
+    },
+    {
+      "type": "qa",
+      "question": "מתי לא תשתמש ב-Optional?",
+      "answer": "לא כ-field ב-Entity או DTO, ובדרך כלל גם לא כ-parameter."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין orElse ל-orElseGet?",
+      "answer": "orElse מחשב את הערך החלופי תמיד. orElseGet הוא lazy ומריץ את ה-Supplier רק אם אין ערך."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין map ל-flatMap ב-Optional?",
+      "answer": "map מתאים כשהפונקציה מחזירה ערך רגיל. flatMap מתאים כשהפונקציה כבר מחזירה Optional, כדי לא לקבל Optional<Optional<T>>."
+    },
+    {
+      "type": "qa",
+      "question": "האם Optional מחליף validation?",
+      "answer": "לא. Optional אומר שאולי אין ערך. Validation עדיין צריך לבדוק format, length, permissions ו-business rules."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Optional מתאים כשאני רוצה להחזיר מתודה שבה חוסר ערך הוא מצב לגיטימי, למשל findUserById. הוא גורם ל-caller להתמודד עם המצב במקום לקבל null בהפתעה. אני משתמש בו בעיקר כ-return type, לא כ-field או parameter. חשוב להכיר גם את ההבדל בין orElse ל-orElseGet, כי orElse רץ תמיד ו-orElseGet הוא lazy."
+    }
+  ]
+}

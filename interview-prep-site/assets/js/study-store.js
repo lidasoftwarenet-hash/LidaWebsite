@@ -182,18 +182,24 @@ var StudyStore = {
   // Computes progress for a topic. `totalSections` should be the number of
   // sections defined by the topic's loaded topic.json (the store has no
   // knowledge of topic definitions, only of stored study state). Returns
-  // { completed, started, total, percentage }, where percentage is based
-  // only on completed sections.
+  // { completed, inProgress, review, started, total, percentage }, where
+  // percentage is based only on completed sections.
   getTopicProgress: function (topicId, totalSections) {
     var topic = this.getTopicState(topicId);
     var sectionIds = Object.keys(topic.sections);
 
     var completed = 0;
+    var inProgress = 0;
+    var review = 0;
     var started = 0;
     sectionIds.forEach(function (sectionId) {
       var status = topic.sections[sectionId].status;
       if (status === 'completed') {
         completed++;
+      } else if (status === 'in-progress') {
+        inProgress++;
+      } else if (status === 'review') {
+        review++;
       }
       if (STUDY_STARTED_STATUSES.indexOf(status) !== -1) {
         started++;
@@ -203,7 +209,14 @@ var StudyStore = {
     var total = typeof totalSections === 'number' ? totalSections : sectionIds.length;
     var percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-    return { completed: completed, started: started, total: total, percentage: percentage };
+    return {
+      completed: completed,
+      inProgress: inProgress,
+      review: review,
+      started: started,
+      total: total,
+      percentage: percentage
+    };
   },
 
   // Removes stored state for a single section within a topic.
