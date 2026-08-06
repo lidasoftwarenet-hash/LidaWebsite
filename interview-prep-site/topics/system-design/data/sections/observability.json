@@ -1,0 +1,84 @@
+{
+  "id": "observability",
+  "title": "Observability",
+  "sourcePages": [
+    273,
+    274
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Observability היא היכולת להבין מה קורה במערכת באמצעות logs, metrics ו-traces. בפרודקשן לא מספיק לדעת אם המערכת עובדת, אלא צריך להבין מהר למה היא לא עובדת."
+    },
+    {
+      "type": "heading",
+      "text": "Logs"
+    },
+    {
+      "type": "paragraph",
+      "text": "Logs עונים על השאלה מה קרה. רצוי להשתמש ב-structured logs עם correlationId."
+    },
+    {
+      "type": "heading",
+      "text": "Metrics"
+    },
+    {
+      "type": "paragraph",
+      "text": "Metrics עונים על השאלה כמה פעמים זה קורה. דוגמאות: throughput, error rate ו-latency."
+    },
+    {
+      "type": "heading",
+      "text": "Traces"
+    },
+    {
+      "type": "paragraph",
+      "text": "Traces מראים איפה הזמן עבר בין services ובאיזה שלב נוצר bottleneck."
+    },
+    {
+      "type": "heading",
+      "text": "RED Metrics"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Rate.",
+        "Errors.",
+        "Duration."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "p95 ו-p99 חשובים משום ש-average עלול להסתיר בעיות. אם average latency הוא 100ms אבל p99 הוא 5s, למשתמשים יש בעיה אמיתית."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "log.info(\n    \"order_created orderId={} userId={} correlationId={}\",\n    orderId,\n    userId,\n    correlationId\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Observability בשבילי היא logs, metrics ו-traces יחד. אני דואג ל-correlationId, ל-RED metrics, ל-p95 ול-p99, וליכולת לחקור incident מקצה לקצה בין services."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Logs, Metrics ו-Traces?",
+      "answer": "Logs מתארים אירועים, Metrics מודדים מגמות וכמויות, ו-Traces עוקבים אחרי request בין components."
+    },
+    {
+      "type": "qa",
+      "question": "למה p99 חשוב יותר מ-Average?",
+      "answer": "כי average יכול להסתיר minority של requests איטיים מאוד שפוגעים במשתמשים."
+    },
+    {
+      "type": "qa",
+      "question": "מה תפקיד Correlation ID?",
+      "answer": "לחבר את כל הלוגים של אותו request בין services שונים."
+    }
+  ]
+}

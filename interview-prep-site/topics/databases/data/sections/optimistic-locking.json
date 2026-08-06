@@ -1,0 +1,59 @@
+{
+  "id": "optimistic-locking",
+  "title": "Optimistic Locking",
+  "sourcePages": [
+    4,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Optimistic locking היא שיטה למניעת lost updates בלי לנעול את ה-row מראש. היא שימושית במיוחד כאשר יש הרבה קריאות ומעט התנגשויות כתיבה."
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר קוראים entity מקבלים גם version. בזמן update בודקים שה-version עדיין זהה. אם מישהו אחר עדכן בינתיים, ה-update נכשל ונוצר conflict."
+    },
+    {
+      "type": "heading",
+      "text": "JPA Entity עם Version"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Entity\npublic class Product {\n\n    @Id\n    private Long id;\n\n    private String name;\n\n    @Version\n    private Long version;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Update מאחורי הקלעים"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "UPDATE product\nSET name = ?,\n    version = version + 1\nWHERE id = ?\n  AND version = ?;"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם עודכנו 0 rows, פירוש הדבר שה-version השתנה ויש conflict."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "צריך להחליט מה עושים ב-conflict: retry, error ללקוח או merge.",
+        "Retry אוטומטי לא תמיד נכון בפעולה עסקית רגישה.",
+        "השיטה מתאימה כאשר conflicts נדירים. אם הם שכיחים, יהיו הרבה retries.",
+        "Version לא עוזר אם מבצעים update ישיר ב-SQL בלי לכבד אותו."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Optimistic locking עובד עם version column. אני לא נועל מראש, אלא בודק בזמן update שה-version לא השתנה. אם השתנה, יש conflict ואני מחליט אם לעשות retry או להחזיר שגיאה."
+    }
+  ]
+}

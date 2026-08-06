@@ -1,0 +1,101 @@
+{
+  "id": "human-in-the-loop",
+  "title": "Human in the Loop",
+  "sourcePages": [
+    8,
+    9
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Human in the loop אומר שיש פעולות או החלטות שבהן מערכת ה-AI אינה מסיימת לבד, אלא מעבירה לאדם לאישור, בדיקה או החלטה."
+    },
+    {
+      "type": "paragraph",
+      "text": "לא כל פעולה מתאימה לאוטומציה מלאה. במערכות enterprise יש workflows רגישים שדורשים review, במיוחד כשיש השפעה כספית, משפטית, אבטחתית או מול לקוח."
+    },
+    {
+      "type": "heading",
+      "text": "מתי נדרש אישור"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Confidence נמוך.",
+        "הפעולה בלתי הפיכה.",
+        "יש חשיפה ישירה ללקוח.",
+        "יש שינוי Production משמעותי.",
+        "מעורב מידע רגיש.",
+        "נדרשת אחריות עסקית אנושית."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמאות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "שליחת email ללקוח.",
+        "מחיקת מידע.",
+        "שינוי הרשאות.",
+        "Deployment ל-Production.",
+        "אישור refund.",
+        "שינוי חוזה או מחיר."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה צריך ב-Approval Flow"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Thresholds ברורים.",
+        "הצגת context מספיק למאשר.",
+        "תיעוד מי אישר ומה אושר.",
+        "יכולת reject או modify.",
+        "Timeout ו-escalation."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לבקש אישור אנושי לכל דבר ולבטל את היתרון של האוטומציה.",
+        "לא לבקש אישור על פעולה מסוכנת.",
+        "אין audit trail.",
+        "האדם מאשר בלי לראות מספיק context.",
+        "אין threshold ברור למעבר ל-review."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Human in the loop מתאים לפעולות רגישות, בלתי הפיכות או עם confidence נמוך. אני מגדיר thresholds, approval flow ו-audit trail כדי לשלב AI בלי לוותר על אחריות ובקרה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Human Approval הכרחי?",
+      "answer": "כאשר הפעולה רגישה, בלתי הפיכה, משפיעה על לקוח או מתקבלת בביטחון נמוך."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא לבקש אישור לכל פעולה?",
+      "answer": "כי זה הופך את המערכת לאיטית ולא יעילה."
+    },
+    {
+      "type": "qa",
+      "question": "מה המאשר צריך לראות?",
+      "answer": "את הפעולה, הסיבה, ה-context, ההשלכות והנתונים שעליהם ההחלטה מבוססת."
+    }
+  ]
+}

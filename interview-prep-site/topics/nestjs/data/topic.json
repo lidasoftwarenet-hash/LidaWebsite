@@ -1,5 +1,71 @@
 {
   "id": "nestjs",
   "title": "NestJS",
-  "sections": []
+  "sections": [
+    {
+      "id": "overview",
+      "title": "NestJS Overview",
+      "file": "sections/overview.json"
+    },
+    {
+      "id": "modules",
+      "title": "Modules",
+      "file": "sections/modules.json"
+    },
+    {
+      "id": "controllers-providers-di",
+      "title": "Controllers, Providers & DI",
+      "file": "sections/controllers-providers-di.json"
+    },
+    {
+      "id": "request-lifecycle",
+      "title": "Request Lifecycle",
+      "file": "sections/request-lifecycle.json"
+    },
+    {
+      "id": "middleware-guards-pipes",
+      "title": "Middleware, Guards & Pipes",
+      "file": "sections/middleware-guards-pipes.json"
+    },
+    {
+      "id": "interceptors-filters",
+      "title": "Interceptors & Exception Filters",
+      "file": "sections/interceptors-filters.json"
+    },
+    {
+      "id": "dtos-decorators-auth",
+      "title": "DTOs, Decorators & Auth",
+      "file": "sections/dtos-decorators-auth.json"
+    },
+    {
+      "id": "provider-scopes-circular",
+      "title": "Provider Scopes & Circular Dependencies",
+      "file": "sections/provider-scopes-circular.json"
+    },
+    {
+      "id": "dynamic-global-modules",
+      "title": "Dynamic & Global Modules",
+      "file": "sections/dynamic-global-modules.json"
+    },
+    {
+      "id": "config-database",
+      "title": "Config & Database",
+      "file": "sections/config-database.json"
+    },
+    {
+      "id": "express-fastify",
+      "title": "Express, Fastify & Architecture",
+      "file": "sections/express-fastify.json"
+    },
+    {
+      "id": "swagger-microservices-production",
+      "title": "Swagger, Microservices & Production",
+      "file": "sections/swagger-microservices-production.json"
+    },
+    {
+      "id": "testing-interview",
+      "title": "Testing & Interview Summary",
+      "file": "sections/testing-interview.json"
+    }
+  ]
 }

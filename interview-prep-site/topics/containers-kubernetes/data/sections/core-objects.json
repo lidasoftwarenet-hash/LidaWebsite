@@ -1,0 +1,127 @@
+{
+  "id": "core-objects",
+  "title": "Kubernetes Core Objects",
+  "sourcePages": [
+    2,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "מערכת שרצה על Kubernetes בנויה מכמה objects בסיסיים. הבנת התפקיד של כל object נותנת את התמונה הבסיסית של deployment אמיתי."
+    },
+    {
+      "type": "heading",
+      "text": "Pod"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pod הוא יחידת הריצה הקטנה ביותר ב-Kubernetes. בדרך כלל הוא מכיל container מרכזי אחד, ולעיתים sidecar containers."
+    },
+    {
+      "type": "heading",
+      "text": "Deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "Deployment מנהל Pods לאורך זמן. הוא אחראי על replicas, rolling updates, rollback ויצירת ReplicaSets."
+    },
+    {
+      "type": "heading",
+      "text": "Service"
+    },
+    {
+      "type": "paragraph",
+      "text": "Service נותן כתובת יציבה מעל Pods. כתובות ה-IP של Pods יכולות להשתנות, אבל ה-Service נשאר ומנתב traffic ל-Pods המתאימים."
+    },
+    {
+      "type": "heading",
+      "text": "ConfigMap ו-Secret"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ConfigMap שומר configuration לא רגיש.",
+        "Secret שומר tokens, passwords או API keys."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Ingress"
+    },
+    {
+      "type": "paragraph",
+      "text": "Ingress חושף HTTP traffic מבחוץ אל תוך ה-cluster ומנתב אותו ל-Services."
+    },
+    {
+      "type": "heading",
+      "text": "Job ו-CronJob"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Job מריץ משימה חד-פעמית.",
+        "CronJob מריץ משימה לפי schedule."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Deployment לדוגמה"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: coverage-service\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: coverage-service\n  template:\n    metadata:\n      labels:\n        app: coverage-service\n    spec:\n      containers:\n        - name: coverage-service\n          image: coverage-service:1.0.0\n          ports:\n            - containerPort: 8080"
+    },
+    {
+      "type": "heading",
+      "text": "Service לדוגמה"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: v1\nkind: Service\nmetadata:\n  name: coverage-service\nspec:\n  selector:\n    app: coverage-service\n  ports:\n    - port: 80\n      targetPort: 8080"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לדבר ישירות עם Pod במקום דרך Service.",
+        "לשים config רגיש ב-ConfigMap במקום Secret.",
+        "Labels ו-selectors שאינם תואמים.",
+        "Deployment בלי readiness probe.",
+        "להניח ש-Pod קבוע ולא יכול להימחק ולהיווצר מחדש.",
+        "להשתמש ב-Job עבור long-running service.",
+        "לחשוף Service החוצה בלי להבין אם צריך Ingress או LoadBalancer."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Kubernetes אני חושב על Pod כיחידת ריצה, Deployment כמנהל Pods, Service ככתובת יציבה, ConfigMap ו-Secret לקונפיגורציה, Ingress לחשיפה חיצונית, ו-Job או CronJob למשימות קצרות או מתוזמנות."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך Service אם כבר יש Pod?",
+      "answer": "Pod יכול להתחלף ולקבל IP חדש. Service מספק DNS וכתובת יציבה."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Deployment ל-Job?",
+      "answer": "Deployment מנהל service שרץ לאורך זמן. Job מריץ משימה שמסתיימת."
+    },
+    {
+      "type": "qa",
+      "question": "מה תפקיד Ingress?",
+      "answer": "לקבל HTTP traffic חיצוני ולנתב אותו ל-Services בתוך ה-cluster."
+    }
+  ]
+}

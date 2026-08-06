@@ -1,0 +1,100 @@
+{
+  "id": "prompt-injection",
+  "title": "Prompt Injection",
+  "sourcePages": [
+    4,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Prompt injection הוא מצב שבו תוכן חיצוני מנסה לגרום למודל להתעלם מההוראות המקוריות או לבצע פעולה לא רצויה."
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכות RAG או Agents המודל קורא מסמכים, אתרים ותוצאות של tools. תוכן כזה יכול להכיל הוראות זדוניות, ולכן צריך להפריד בין data לבין instructions."
+    },
+    {
+      "type": "heading",
+      "text": "שלוש שכבות מידע"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "System instructions",
+        "User request",
+        "External data"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "עיקרון",
+      "text": "External data אינו trusted instruction. הוא מידע לא אמין שהמערכת צריכה לפרש כ-data בלבד."
+    },
+    {
+      "type": "heading",
+      "text": "הגנות בסיסיות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להגדיר במפורש שתוכן retrieved הוא data בלבד.",
+        "לא לאפשר actions ללא policy בצד הקוד.",
+        "Allowlist לפעולות מותרות.",
+        "Input validation ו-output validation.",
+        "הפרדת הרשאות.",
+        "לא להעביר secrets לתוך context.",
+        "Human approval לפעולות רגישות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "למה Prompt לבדו אינו מספיק"
+    },
+    {
+      "type": "paragraph",
+      "text": "גם prompt טוב אינו מנגנון policy קשיח. אם פעולה אסורה, ה-Backend צריך לחסום אותה בקוד ולא לקוות שהמודל יציית להוראה טקסטואלית."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להכניס מסמך חיצוני ל-prompt כאילו הוא trusted.",
+        "לתת למודל גישה רחבה לכלים.",
+        "להעביר credentials או secrets ל-context.",
+        "לסמוך על prompt במקום policy בקוד.",
+        "לא לבצע validation לפלט.",
+        "לא לשמור audit של tool calls."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Prompt injection קורה כאשר מידע חיצוני מנסה להפוך להוראות. אני מתייחס לכל retrieved content כ-data לא אמין, מגביל actions ו-tools, אוכף הרשאות בקוד ומוסיף input/output validation ו-human approval כשצריך."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה מסמך retrieved יכול להיות מסוכן?",
+      "answer": "כי הוא יכול להכיל טקסט שמנסה לשנות את התנהגות המודל."
+    },
+    {
+      "type": "qa",
+      "question": "האם System Prompt מספיק להגנה?",
+      "answer": "לא. הרשאות ו-policy חייבים להיאכף גם בקוד."
+    },
+    {
+      "type": "qa",
+      "question": "מה אסור להכניס ל-context?",
+      "answer": "Secrets, credentials ומידע שאין למשתמש הרשאה לראות."
+    }
+  ]
+}

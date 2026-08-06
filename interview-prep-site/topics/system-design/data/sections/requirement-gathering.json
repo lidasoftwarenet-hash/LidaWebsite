@@ -1,0 +1,85 @@
+{
+  "id": "requirement-gathering",
+  "title": "Requirement Gathering",
+  "sourcePages": [
+    254,
+    254
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Requirement gathering הוא שלב הפתיחה של ה-design. לא קופצים ישר לפתרון, אלא קודם מבינים מה באמת בונים."
+    },
+    {
+      "type": "heading",
+      "text": "מה צריך לברר"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Functional requirements: מה המערכת צריכה לעשות.",
+        "Non-functional requirements: latency, availability, consistency, security ו-SLA.",
+        "Constraints: מגבלות טכנולוגיות, תקציב, צוות או רגולציה.",
+        "Scale: מספר משתמשים, requests, reads, writes וכמות data.",
+        "Latency: כמה זמן תגובה מותר לכל flow."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות פתיחה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מי המשתמשים?",
+        "מה הפעולות המרכזיות?",
+        "כמה traffic צפוי?",
+        "מה חשוב יותר: consistency, availability, latency או cost?",
+        "האם המערכת read-heavy או write-heavy?",
+        "האם יש SLA?",
+        "האם מותר להחזיר stale data?",
+        "האם יש דרישות security או compliance?"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה חזקה",
+      "text": "Before jumping into architecture, I would first clarify the functional and non-functional requirements, because the right design depends heavily on scale, latency, consistency, and failure expectations."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לקפוץ ישר ל-Kubernetes, Redis או Kafka בלי להבין צורך.",
+        "לא לשאול על scale.",
+        "לא לשאול על consistency.",
+        "לא להגדיר מה מחוץ ל-scope.",
+        "לא להבין אם המערכת היא בעיקר קריאה או כתיבה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני מתחיל System Design באיסוף דרישות: מה המערכת צריכה לעשות, מה ה-scale, מה דרישות availability, latency ו-consistency, ורק אז בוחר ארכיטקטורה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להתחיל ישר מארכיטקטורה?",
+      "answer": "כי הבחירה הנכונה תלויה בדרישות, ב-scale, ב-latency, ב-consistency ובציפיות מכשלי מערכת."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Functional ל-Non-functional requirements?",
+      "answer": "Functional מתאר מה המערכת עושה. Non-functional מתאר איך היא צריכה להתנהג מבחינת latency, availability, security, scale ו-SLA."
+    }
+  ]
+}

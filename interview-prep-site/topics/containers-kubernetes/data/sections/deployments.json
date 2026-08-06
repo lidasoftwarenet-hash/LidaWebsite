@@ -1,0 +1,123 @@
+{
+  "id": "deployments",
+  "title": "Deployments & Rolling Updates",
+  "sourcePages": [
+    13,
+    15
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Deployment הוא object שמנהל Pods לאורך זמן. ב-Production לא מריצים Pods ידנית. Deployment נותן דרך יציבה להריץ service, לעדכן אותו ולהתאושש אם Pod נופל."
+    },
+    {
+      "type": "heading",
+      "text": "Desired State"
+    },
+    {
+      "type": "paragraph",
+      "text": "Deployment מגדיר desired state, למשל: שלושה Pods של service מסוים צריכים לרוץ עם image מסוים. Kubernetes פועל כדי שהמצב בפועל יתקרב למצב הרצוי."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "אם Pod מת, Deployment יוצר Pod חדש.",
+        "אם image version משתנה, Deployment מבצע rollout.",
+        "אם rollout נכשל, אפשר לבצע rollback."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה מצפים לראות ב-Deployment טוב"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Image version ברור",
+        "Replicas",
+        "Selectors ו-labels",
+        "Readiness ו-liveness probes",
+        "Resource requests ו-limits",
+        "Environment, ConfigMap ו-Secrets",
+        "Rolling update strategy"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Deployment לדוגמה"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: coverage-service\nspec:\n  replicas: 3\n  strategy:\n    type: RollingUpdate\n    rollingUpdate:\n      maxUnavailable: 1\n      maxSurge: 1\n  selector:\n    matchLabels:\n      app: coverage-service\n  template:\n    metadata:\n      labels:\n        app: coverage-service\n    spec:\n      containers:\n        - name: coverage-service\n          image: coverage-service:1.0.0\n          ports:\n            - containerPort: 8080\n          resources:\n            requests:\n              cpu: \"250m\"\n              memory: \"512Mi\"\n            limits:\n              memory: \"1Gi\""
+    },
+    {
+      "type": "heading",
+      "text": "Rolling Update"
+    },
+    {
+      "type": "paragraph",
+      "text": "Rolling update מחליף Pods בהדרגה כדי לשמור זמינות בזמן deployment."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "maxUnavailable קובע כמה Pods יכולים להיות לא זמינים במהלך rollout.",
+        "maxSurge קובע כמה Pods נוספים אפשר ליצור מעבר למספר הרצוי."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Rollback"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר version חדש נכשל ב-readiness או גורם לתקלות, ניתן לחזור ל-ReplicaSet קודם."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להשתמש ב-image tag לא חד-משמעי כמו latest.",
+        "Rolling update ללא readiness probe.",
+        "Selectors שאינם תואמים ל-template labels.",
+        "Deployment ללא requests ו-limits.",
+        "Rollout מהיר מדי עבור service עם startup איטי.",
+        "לא לבדוק שהגרסה החדשה backward compatible עם DB ו-downstream."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Deployment מנהל את ה-desired state של Pods ונותן replicas, rolling updates ו-rollback. ב-Production אני מצפה לראות image version ברור, probes, resources, config חיצוני ו-strategy בטוחה ל-rollout."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה Deployment עושה אם Pod מת?",
+      "answer": "יוצר Pod חדש כדי להחזיר את המערכת ל-desired state."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין maxUnavailable ל-maxSurge?",
+      "answer": "הראשון מגביל כמה Pods יכולים להיות לא זמינים. השני מגביל כמה Pods נוספים אפשר להוסיף בזמן rollout."
+    },
+    {
+      "type": "qa",
+      "question": "למה readiness חשובה בזמן Rolling Update?",
+      "answer": "כדי ש-Pod חדש יקבל traffic רק לאחר שהוא באמת מוכן."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להשתמש ב-latest?",
+      "answer": "כי הוא אינו מזהה version בצורה ברורה ומקשה על rollout, rollback ו-debugging."
+    }
+  ]
+}

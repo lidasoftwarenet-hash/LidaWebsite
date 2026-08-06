@@ -1,0 +1,162 @@
+{
+  "id": "api-design",
+  "title": "API Design & REST",
+  "sourcePages": [
+    255,
+    258
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "API design הוא תכנון ה-contract שבו clients משתמשים כדי לעבוד מול המערכת. API טוב צריך להיות ברור, עקבי וקל להרחבה ולתחזוקה."
+    },
+    {
+      "type": "heading",
+      "text": "Resource-oriented Design"
+    },
+    {
+      "type": "paragraph",
+      "text": "אני מתחיל מ-resources ולא מפעולות."
+    },
+    {
+      "type": "code",
+      "language": "http",
+      "code": "GET /orders/{id}\nPOST /orders\nPATCH /orders/{id}\nDELETE /orders/{id}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Path מזהה resource.",
+        "Query parameters משמשים לסינון, מיון ו-pagination.",
+        "Body מכיל payload ליצירה או עדכון.",
+        "Status codes צריכים להיות עקביים וברורים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Status Codes חשובים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "200 OK",
+        "201 Created",
+        "204 No Content",
+        "400 Bad Request",
+        "401 Unauthorized",
+        "403 Forbidden",
+        "404 Not Found",
+        "409 Conflict",
+        "422 Validation Error",
+        "500 Internal Server Error",
+        "503 Service Unavailable"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה זה REST"
+    },
+    {
+      "type": "paragraph",
+      "text": "REST הוא סגנון ארכיטקטוני לבניית APIs סטטלס סביב resources."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הפרדה בין client ל-server.",
+        "כל request עצמאי.",
+        "אפשרות caching.",
+        "ממשק אחיד.",
+        "שכבות מערכת."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "HTTP Methods"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "GET: קריאה.",
+        "POST: יצירה או פעולה.",
+        "PUT: החלפה מלאה.",
+        "PATCH: עדכון חלקי.",
+        "DELETE: מחיקה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Path Params, Query Params ו-Body"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Path: פנייה ל-resource ספציפי לפי מזהה, למשל GET /users/15.",
+        "Query: סינון, מיון או pagination של רשימה, למשל GET /users?age=20.",
+        "Body: ה-JSON שנשלח כדי ליצור או לעדכן data."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שימוש לפי Method"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "GET: יכול להשתמש ב-Path וב-Query. לא מסתמכים על request body.",
+        "POST: payload נמצא בדרך כלל ב-Body. Path או Query אפשריים לפי ה-API, אך אינם חובה.",
+        "PUT: Path מזהה את ה-resource וה-Body מכיל החלפה מלאה. הפעולה idempotent.",
+        "PATCH: Path מזהה את ה-resource וה-Body מכיל רק את השדות שהשתנו.",
+        "DELETE: Path מצביע על ה-resource למחיקה. לרוב אין Body."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת קוד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@PostMapping(\"/orders\")\npublic ResponseEntity<OrderResponse> createOrder(\n        @Valid @RequestBody CreateOrderRequest request) {\n    OrderResponse response =\n        orderService.createOrder(request);\n\n    return ResponseEntity\n        .status(HttpStatus.CREATED)\n        .body(response);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להשתמש ב-POST לכל דבר.",
+        "להחזיר תמיד 200, גם בשגיאות.",
+        "לערבב business errors עם technical errors.",
+        "לא לתכנן pagination.",
+        "לא להחזיר correlationId בשגיאות."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-API design אני חושב קודם על resources, אחר כך על HTTP methods, status codes, validation, pagination ו-error contract עקבי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין PUT ל-PATCH?",
+      "answer": "PUT מחליף resource שלם ונחשב idempotent. PATCH מעדכן רק חלק מהשדות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Query Parameters?",
+      "answer": "לסינון, מיון ו-pagination של collection."
+    },
+    {
+      "type": "qa",
+      "question": "למה Error Contract חשוב?",
+      "answer": "כדי שכל clients יקבלו format עקבי ויוכלו לטפל בשגיאות בצורה צפויה."
+    }
+  ]
+}

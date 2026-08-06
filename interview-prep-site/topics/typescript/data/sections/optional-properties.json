@@ -1,0 +1,75 @@
+{
+  "id": "optional-properties",
+  "title": "Optional Properties",
+  "sourcePages": [
+    220,
+    221
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Optional property הוא field שלא חייב להופיע באובייקט."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type User = {\n    id: string;\n    middleName?: string;\n};"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר קוראים field optional, הוא יכול להיות undefined."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function formatMiddleName(user: User): string {\n    return user.middleName?.toUpperCase() ?? \"N/A\";\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-optional property כאשר שדה באמת יכול לא להגיע. בזמן קריאה אני מתייחס אליו כ-undefined אפשרי ומשתמש ב-check, optional chaining או default value."
+    },
+    {
+      "type": "heading",
+      "text": "הבדל חשוב"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "middleName?: string;"
+    },
+    {
+      "type": "paragraph",
+      "text": "השדה יכול לא להופיע בכלל."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "middleName: string | undefined;"
+    },
+    {
+      "type": "paragraph",
+      "text": "השדה חייב להופיע, אבל הערך שלו יכול להיות undefined."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה המשמעות של foo?: T?",
+      "answer": "ה-field אינו חייב להופיע באובייקט."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין foo?: T לבין foo: T | undefined?",
+      "answer": "בגרסה הראשונה ה-field יכול להיעדר. בשנייה ה-field קיים אבל ערכו יכול להיות undefined."
+    },
+    {
+      "type": "qa",
+      "question": "איך קוראים Optional Property בבטחה?",
+      "answer": "באמצעות check, optional chaining או nullish coalescing."
+    }
+  ]
+}

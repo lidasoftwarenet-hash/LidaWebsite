@@ -1,0 +1,78 @@
+{
+  "id": "scaling-reads",
+  "title": "Scaling Reads",
+  "sourcePages": [
+    259,
+    260
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Scaling reads עוסק בהתמודדות עם כמות גדולה של קריאות. רוב המערכות הן read-heavy, ולכן זה נושא נפוץ ב-System Design."
+    },
+    {
+      "type": "heading",
+      "text": "Path Escalation"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "1. Optimize queries and indexes.",
+        "2. Add pagination.",
+        "3. Add cache.",
+        "4. Add read replicas.",
+        "5. Add CDN לתוכן סטטי או ציבורי.",
+        "6. Create denormalized read models.",
+        "7. Separate read/write models אם באמת צריך."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אם product page נקרא מיליון פעמים ביום, אין צורך לפנות בכל פעם ל-DB. אפשר להשתמש ב-cache עם TTL או ב-read model מוכן מראש."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Cacheable(value = \"products\", key = \"#productId\")\npublic ProductDto getProduct(String productId) {\n    return productRepository\n        .findById(productId)\n        .map(ProductDto::from)\n        .orElseThrow(() ->\n            new NotFoundException(\"Product not found\"));\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Cache key לא מדויק.",
+        "Stale data במקום שאסור.",
+        "Offset pagination על טבלאות ענק.",
+        "Replication lag ב-read replicas.",
+        "Cache stampede על key פופולרי."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "כדי לעשות scale לקריאות אני מתחיל מ-indexes ו-pagination, אחר כך מוסיף cache, read replicas, CDN או read models לפי הצורך וה-tradeoff מול freshness."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה הצעד הראשון לפני Cache?",
+      "answer": "לבדוק query plans, indexes ו-pagination."
+    },
+    {
+      "type": "qa",
+      "question": "מה הסיכון ב-Read Replica?",
+      "answer": "Replication lag יכול לגרום לקריאות מעט ישנות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי CDN מתאים?",
+      "answer": "לתוכן סטטי או public שניתן לשמור קרוב למשתמשים."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "id": "probes",
+  "title": "Readiness, Liveness & Startup Probes",
+  "sourcePages": [
+    4,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Probes הן בדיקות ש-Kubernetes מריץ כדי להבין אם container חי, מוכן לקבל traffic, או עדיין נמצא בתהליך startup."
+    },
+    {
+      "type": "heading",
+      "text": "Readiness Probe"
+    },
+    {
+      "type": "paragraph",
+      "text": "Readiness עונה על השאלה האם ה-service מוכן לקבל traffic. אם היא נכשלת, ה-Pod נשאר חי אבל מוצא זמנית מה-Service endpoints ולא מקבל traffic."
+    },
+    {
+      "type": "heading",
+      "text": "Liveness Probe"
+    },
+    {
+      "type": "paragraph",
+      "text": "Liveness עונה על השאלה האם ה-service עדיין חי או צריך restart. אם היא נכשלת, Kubernetes מפעיל מחדש את ה-container."
+    },
+    {
+      "type": "heading",
+      "text": "Startup Probe"
+    },
+    {
+      "type": "paragraph",
+      "text": "Startup probe מתאימה לאפליקציות שעולות לאט. היא מונעת מ-liveness להרוג אותן לפני שסיימו startup."
+    },
+    {
+      "type": "heading",
+      "text": "Spring Boot Actuator"
+    },
+    {
+      "type": "paragraph",
+      "text": "באפליקציות Java ו-Spring Boot אפשר לחבר probes ל-endpoints של Actuator."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "readinessProbe:\n  httpGet:\n    path: /actuator/health/readiness\n    port: 8080\n  initialDelaySeconds: 10\n  periodSeconds: 5\n\nlivenessProbe:\n  httpGet:\n    path: /actuator/health/liveness\n    port: 8080\n  initialDelaySeconds: 30\n  periodSeconds: 10"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להשתמש באותו endpoint ל-readiness ול-liveness בלי לחשוב על משמעות הבדיקה.",
+        "Liveness אגרסיבי שיוצר restart loop.",
+        "Readiness שאינה בודקת dependency קריטית.",
+        "Health endpoint כבד מדי.",
+        "אפליקציה עם startup איטי ללא startup probe.",
+        "להחזיר healthy למרות שה-service אינו מסוגל לבצע את העבודה העסקית."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Readiness קובע אם Pod מקבל traffic, liveness קובע אם צריך restart, ו-startup probe מגן על אפליקציות שעולות לאט. אני מגדיר אותן בזהירות כדי לא ליצור restarts מיותרים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה כאשר readiness נכשלת?",
+      "answer": "ה-Pod נשאר פעיל, אבל אינו מקבל traffic דרך Service."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה כאשר liveness נכשלת?",
+      "answer": "Kubernetes מפעיל מחדש את ה-container."
+    },
+    {
+      "type": "qa",
+      "question": "מתי מוסיפים startup probe?",
+      "answer": "כאשר האפליקציה צריכה זמן רב לעלות ו-liveness עלולה להרוג אותה מוקדם מדי."
+    }
+  ]
+}

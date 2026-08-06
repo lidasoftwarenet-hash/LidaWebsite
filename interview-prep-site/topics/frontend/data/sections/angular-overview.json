@@ -1,0 +1,103 @@
+{
+  "id": "angular-overview",
+  "title": "Angular Components",
+  "sourcePages": [
+    1,
+    2
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Angular בנוי מ-Components. כל Component מייצג חלק מוגדר במסך, למשל עמוד משתמשים, טופס או כרטיס מוצר."
+    },
+    {
+      "type": "heading",
+      "text": "מה כולל Component"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "TypeScript class שמחזיק את ה-data והפעולות.",
+        "Template שמציג את ה-UI.",
+        "Styles שמגדירים את העיצוב."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Standalone Components"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Angular מודרני רוב ה-Components יכולים להיות standalone. המשמעות היא שה-Component לא חייב להיות רשום בתוך NgModule, והוא מייבא ישירות את מה שהוא צריך."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    standalone: true,\n    imports: [UserCardComponent],\n    template: `<app-user-card />`\n})\nexport class UsersPageComponent {}"
+    },
+    {
+      "type": "paragraph",
+      "text": "עדיין חשוב להכיר NgModules, משום שהם קיימים בפרויקטים ותיקים וב-codebases גדולים."
+    },
+    {
+      "type": "heading",
+      "text": "חלוקת אחריות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הצגת UI.",
+        "קבלת פעולות מהמשתמש.",
+        "ניהול state מקומי.",
+        "הפעלת Services."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "קריאות API ולוגיקה משותפת עדיף לרכז ב-Service ולא בתוך ה-Component."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export class UsersPageComponent {\n    private readonly userService = inject(UserService);\n\n    loadUsers(): void {\n        this.userService.loadUsers();\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Component Tree"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "AppComponent\n├── HeaderComponent\n├── UsersPageComponent\n│   ├── UserSearchComponent\n│   └── UserCardComponent\n└── FooterComponent"
+    },
+    {
+      "type": "paragraph",
+      "text": "Angular בנוי כעץ של Components. כל Component אחראי על חלק מוגדר במסך."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Angular בנוי מעץ של Components. כל Component כולל TypeScript class ו-template ומטפל בחלק מסוים של ה-UI. אני שומר את ה-Components ממוקדים בתצוגה ובפעולות המשתמש, ואת קריאות ה-API והלוגיקה המשותפת מעביר ל-Services. בפרויקטים מודרניים אני משתמש בדרך כלל ב-Standalone Components."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Component ב-Angular?",
+      "answer": "יחידת UI שמורכבת מ-class, template ו-styles ומטפלת בחלק מוגדר במסך."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Standalone Component?",
+      "answer": "Component שאינו חייב להיות רשום ב-NgModule ומייבא ישירות את ה-dependencies שלו."
+    },
+    {
+      "type": "qa",
+      "question": "איפה צריכה להיות לוגיקה משותפת או קריאות API?",
+      "answer": "בדרך כלל ב-Service ולא ב-Component."
+    }
+  ]
+}

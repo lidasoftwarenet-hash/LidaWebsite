@@ -1,0 +1,79 @@
+{
+  "id": "services-di",
+  "title": "Services & Dependency Injection",
+  "sourcePages": [
+    5,
+    6
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Service הוא class שמחזיק לוגיקה משותפת, קריאות API או state שלא שייך ל-Component מסוים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable({ providedIn: \"root\" })\nexport class UserService {\n    getUsers(): User[] {\n        return [];\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Injection ל-Component"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export class UsersComponent {\n    private readonly userService = inject(UserService);\n    users = this.userService.getUsers();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "providedIn: 'root' אומר שבדרך כלל יהיה instance אחד של ה-Service לכל האפליקציה."
+    },
+    {
+      "type": "heading",
+      "text": "Scopes נוספים"
+    },
+    {
+      "type": "paragraph",
+      "text": "אפשר להגדיר Service בתוך providers של Component או Route. במקרה כזה נוצר instance ששייך לאותו אזור."
+    },
+    {
+      "type": "heading",
+      "text": "למה להשתמש ב-Service"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הפרדת לוגיקה מה-UI.",
+        "שיתוף קוד בין Components.",
+        "ריכוז קריאות API.",
+        "ניהול state משותף.",
+        "Testing פשוט יותר."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-Services ללוגיקה משותפת, קריאות API או state. Angular מנהל אותם דרך Dependency Injection, ובדרך כלל אני מגדיר providedIn: 'root' ומזריק אותם עם inject או דרך constructor."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Service?",
+      "answer": "Class שמרכז לוגיקה, API calls או state משותף שאינו שייך ל-Component מסוים."
+    },
+    {
+      "type": "qa",
+      "question": "מה אומר providedIn: 'root'?",
+      "answer": "בדרך כלל נוצר instance יחיד של ה-Service לכל האפליקציה."
+    },
+    {
+      "type": "qa",
+      "question": "למה DI חשוב ב-Angular?",
+      "answer": "הוא מפריד בין Components ל-dependencies שלהם ומקל על החלפה ו-testing."
+    }
+  ]
+}

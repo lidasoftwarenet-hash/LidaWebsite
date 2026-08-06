@@ -1,0 +1,91 @@
+{
+  "id": "signals",
+  "title": "Signals",
+  "sourcePages": [
+    15,
+    16
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Signal הוא מנגנון של Angular לניהול state בצורה פשוטה ו-reactive."
+    },
+    {
+      "type": "heading",
+      "text": "signal"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "count = signal(0);\n\nincrease(): void {\n    this.count.update(value => value + 1);\n}"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "<p>{{ count() }}</p>"
+    },
+    {
+      "type": "heading",
+      "text": "computed"
+    },
+    {
+      "type": "paragraph",
+      "text": "computed מחשב ערך מתוך Signals אחרים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "firstName = signal(\"Hen\");\nlastName = signal(\"Faibish\");\n\nfullName = computed(\n    () => `${this.firstName()} ${this.lastName()}`\n);"
+    },
+    {
+      "type": "heading",
+      "text": "effect"
+    },
+    {
+      "type": "paragraph",
+      "text": "effect מריץ פעולה כאשר Signals שעליהם הוא תלוי משתנים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "effect(() => {\n    console.log(\"Current user:\", this.fullName());\n});"
+    },
+    {
+      "type": "heading",
+      "text": "Signals מול Observables"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Signals מתאימים בעיקר ל-state מקומי וסינכרוני של UI.",
+        "Observables מתאימים יותר ל-streams אסינכרוניים כמו HTTP, events או WebSocket.",
+        "אפשר לשלב ביניהם ולא חייבים לבחור רק אחד."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Signals הם דרך פשוטה לניהול reactive state בתוך Angular. אני משתמש ב-signal לערך משתנה, ב-computed לערך שנגזר ממנו, וב-effect לפעולה שצריכה לקרות בעקבות שינוי. ל-HTTP ול-streams אסינכרוניים אני עדיין משתמש הרבה ב-RxJS."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Signal?",
+      "answer": "ערך reactive ש-Angular יכול לעקוב אחר השינויים שלו."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין signal ל-computed?",
+      "answer": "signal מחזיק state. computed נגזר מ-Signals אחרים."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Observable עדיף?",
+      "answer": "כאשר עובדים עם async stream כמו HTTP, route params או WebSocket."
+    }
+  ]
+}

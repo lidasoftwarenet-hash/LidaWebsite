@@ -1,5 +1,56 @@
 {
   "id": "containers-kubernetes",
   "title": "Containers & Kubernetes",
-  "sections": []
+  "sections": [
+    {
+      "id": "docker-basics",
+      "title": "Docker Basics",
+      "file": "sections/docker-basics.json"
+    },
+    {
+      "id": "core-objects",
+      "title": "Kubernetes Core Objects",
+      "file": "sections/core-objects.json"
+    },
+    {
+      "id": "deployments",
+      "title": "Deployments & Rolling Updates",
+      "file": "sections/deployments.json"
+    },
+    {
+      "id": "service-discovery",
+      "title": "Service Discovery",
+      "file": "sections/service-discovery.json"
+    },
+    {
+      "id": "config-secrets",
+      "title": "ConfigMap & Secret",
+      "file": "sections/config-secrets.json"
+    },
+    {
+      "id": "probes",
+      "title": "Readiness, Liveness & Startup Probes",
+      "file": "sections/probes.json"
+    },
+    {
+      "id": "resource-management",
+      "title": "Resource Requests & Limits",
+      "file": "sections/resource-management.json"
+    },
+    {
+      "id": "scaling-hpa",
+      "title": "Scaling & HPA",
+      "file": "sections/scaling-hpa.json"
+    },
+    {
+      "id": "namespaces",
+      "title": "Namespaces",
+      "file": "sections/namespaces.json"
+    },
+    {
+      "id": "troubleshooting",
+      "title": "OOMKilled & CrashLoopBackOff",
+      "file": "sections/troubleshooting.json"
+    }
+  ]
 }

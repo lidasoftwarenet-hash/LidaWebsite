@@ -1,0 +1,115 @@
+{
+  "id": "javascript-strings",
+  "title": "JavaScript Strings",
+  "sourcePages": [
+    8,
+    9
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "פעולות נפוצות על Strings ב-JavaScript."
+    },
+    {
+      "type": "heading",
+      "text": "פיצול לכל תו"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const text =\n    \"hello this is my text\";\n\nconst characters =\n    text.trim().split(\"\");"
+    },
+    {
+      "type": "heading",
+      "text": "פיצול למילים"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const words =\n    text.trim().split(\" \");"
+    },
+    {
+      "type": "heading",
+      "text": "פיצול לפי פסיק ו-Trim"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const values =\n    text.split(\",\")\n        .map(value =>\n            value.trim()\n        );"
+    },
+    {
+      "type": "heading",
+      "text": "Distinct + Filter מול Array אחר"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const commonDistinct = [\n    ...new Set(characters)\n]\n.filter(character =>\n    words.includes(\n        character\n    )\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Distinct + Contains"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const matching = [\n    ...new Set(characters)\n]\n.filter(value =>\n    value.includes(\"ddd\")\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Array ל-String"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const joinedString =\n    commonDistinct.join(\"\");"
+    },
+    {
+      "type": "heading",
+      "text": "פעולות על String"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "for (\n    let index = 0;\n    index < text.length;\n    index++\n) {\n    const current =\n        text.charAt(index);\n\n    const sameValue =\n        text[index];\n}\n\nconst firstIndex =\n    text.indexOf(\"e\");\n\nconst firstFive =\n    text.substring(0, 5);\n\nconst firstFiveWithSlice =\n    text.slice(0, 5);\n\nconst replacedFirst =\n    text.replace(\n        \"one\",\n        \"two\"\n    );\n\nconst replacedAll =\n    text.replaceAll(\n        \"a\",\n        \"b\"\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "Swap תווים ב-String"
+    },
+    {
+      "type": "paragraph",
+      "text": "Strings ב-JavaScript הם immutable. לכן ממירים ל-Array, מחליפים ומחברים מחדש."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const charactersArray =\n    text.split(\"\");\n\n[\n    charactersArray[0],\n    charactersArray[3]\n] = [\n    charactersArray[3],\n    charactersArray[0]\n];\n\nconst swapped =\n    charactersArray.join(\"\");"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Immutable",
+      "text": "פעולות על String אינן משנות את ה-String המקורי. הן מחזירות String חדש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין replace ל-replaceAll?",
+      "answer": "replace מחליף את ההתאמה הראשונה. replaceAll מחליף את כולן."
+    },
+    {
+      "type": "qa",
+      "question": "איך ניגשים לתו מסוים?",
+      "answer": "באמצעות charAt(index) או text[index]."
+    },
+    {
+      "type": "qa",
+      "question": "איך מחליפים שני תווים ב-String?",
+      "answer": "ממירים ל-Array, מבצעים swap ומחברים בחזרה עם join."
+    }
+  ]
+}

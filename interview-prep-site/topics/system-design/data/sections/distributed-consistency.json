@@ -1,0 +1,88 @@
+{
+  "id": "distributed-consistency",
+  "title": "Consistency Between Services",
+  "sourcePages": [
+    266,
+    267
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ב-microservices אין transaction טבעית אחת על כל המערכת. כל service מחזיק DB משלו, ולכן consistency בין services דורשת design מפורש."
+    },
+    {
+      "type": "heading",
+      "text": "בעיית Dual Write"
+    },
+    {
+      "type": "paragraph",
+      "text": "Service מעדכן DB ואז מפרסם event. אם הוא נופל אחרי ה-DB update אבל לפני ה-publish, המערכת נשארת לא עקבית."
+    },
+    {
+      "type": "heading",
+      "text": "פתרונות נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Transactional Outbox.",
+        "Saga pattern.",
+        "Idempotent consumers.",
+        "Reconciliation jobs.",
+        "Retry ו-DLQ."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Transactional Outbox"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void createOrder(CreateOrderRequest request) {\n    Order order =\n        orderRepository.save(Order.from(request));\n\n    OutboxEvent event =\n        OutboxEvent.orderCreated(order.getId());\n\n    outboxRepository.save(event);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-publish ל-broker לא מתבצע ישירות בתוך אותה מתודה. Worker נפרד קורא מה-outbox ומפרסם."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לעדכן DB ואז לבצע send ל-Kafka בקוד רגיל.",
+        "להניח ש-event נשלח exactly once.",
+        "Consumer שאינו יודע להתמודד עם כפילויות.",
+        "לא לטפל ב-poison messages.",
+        "לא לבנות reconciliation."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "בין services אני לא מנסה ליצור transaction גלובלית. אני משתמש ב-eventual consistency, outbox, idempotent consumers ו-reconciliation כדי להגיע לעקביות בצורה עמידה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה פותר Transactional Outbox?",
+      "answer": "הוא שומר את שינוי ה-domain ואת ה-event באותה transaction מקומית, ואז worker מפרסם את ה-event."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך Reconciliation?",
+      "answer": "כדי לאתר ולתקן פערים שלא נפתרו אוטומטית."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להסתמך על Exactly Once?",
+      "answer": "כי ברוב המערכות המעשיות צריך לתכנן לפחות at-least-once עם consumers idempotent."
+    }
+  ]
+}

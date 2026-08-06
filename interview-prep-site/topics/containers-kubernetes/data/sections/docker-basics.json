@@ -1,0 +1,114 @@
+{
+  "id": "docker-basics",
+  "title": "Docker Basics",
+  "sourcePages": [
+    1,
+    2
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Docker מאפשר לארוז אפליקציה יחד עם ה-dependencies, ה-runtime וה-configuration הבסיסי שלה לתוך image."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Image מול Container",
+      "text": "ה-image הוא התבנית. ה-container הוא הריצה בפועל של אותו image."
+    },
+    {
+      "type": "paragraph",
+      "text": "Docker פותר את הבעיה הקלאסית של 'אצלי זה עובד'. במקום שכל סביבה תתקין Java, Node, libraries וכלים בצורה שונה, מריצים את אותה אפליקציה מתוך image אחיד."
+    },
+    {
+      "type": "heading",
+      "text": "מה Dockerfile מתאר"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Base image",
+        "העתקת קבצים",
+        "התקנת dependencies",
+        "Build",
+        "הגדרת environment variables",
+        "ה-command שרץ כשה-container עולה"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Layers ו-Build Cache"
+    },
+    {
+      "type": "paragraph",
+      "text": "Image בנוי מ-layers. פקודות כמו COPY או RUN יוצרות layer. Docker יכול להשתמש ב-cache של layers ולבנות מהר יותר כאשר שכבות מוקדמות לא השתנו."
+    },
+    {
+      "type": "heading",
+      "text": "Stateless Container"
+    },
+    {
+      "type": "paragraph",
+      "text": "Container אמור להיות stateless ככל האפשר. אם צריך לשמור data, משתמשים ב-volume או ב-storage חיצוני."
+    },
+    {
+      "type": "heading",
+      "text": "Dockerfile לדוגמה"
+    },
+    {
+      "type": "code",
+      "language": "dockerfile",
+      "code": "FROM eclipse-temurin:17-jre\n\nWORKDIR /app\n\nCOPY build/libs/my-service.jar app.jar\n\nENV SERVER_PORT=8080\n\nEXPOSE 8080\n\nCMD [\"java\", \"-jar\", \"app.jar\"]"
+    },
+    {
+      "type": "paragraph",
+      "text": "זהו image המבוסס על Java 17, מעתיק JAR, מגדיר port ומריץ את האפליקציה."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לחשוב ש-image ו-container הם אותו דבר.",
+        "לשים secrets בתוך Dockerfile.",
+        "להריץ container כ-root ללא צורך.",
+        "לבנות image גדול עם dependencies שאינן נחוצות.",
+        "לשמור state בתוך container.",
+        "לא להבין שסדר ה-layers משפיע על build cache.",
+        "לחשוב ש-EXPOSE פותח port החוצה. הוא metadata בלבד."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Docker אורז אפליקציה לתוך image אחיד, וה-container הוא instance שרץ מה-image. אני שם לב ל-Dockerfile נקי, layers, environment variables, volumes, image size, ולא שומר state בתוך container."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין image ל-container?",
+      "answer": "Image היא תבנית immutable. Container הוא instance פעיל שנוצר ממנה."
+    },
+    {
+      "type": "qa",
+      "question": "למה סדר הפקודות ב-Dockerfile חשוב?",
+      "answer": "כי כל פקודה יוצרת layer, וסדר נכון מאפשר שימוש יעיל יותר ב-build cache."
+    },
+    {
+      "type": "qa",
+      "question": "האם EXPOSE פותח port?",
+      "answer": "לא. הוא מצהיר metadata. עדיין צריך לפרסם או למפות את ה-port בזמן ההרצה."
+    },
+    {
+      "type": "qa",
+      "question": "איפה שומרים data מתמשך?",
+      "answer": "ב-volume או ב-storage חיצוני, לא בתוך filesystem זמני של container."
+    }
+  ]
+}

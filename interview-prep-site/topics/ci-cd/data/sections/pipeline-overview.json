@@ -1,0 +1,117 @@
+{
+  "id": "pipeline-overview",
+  "title": "CI/CD Pipeline Overview",
+  "sourcePages": [
+    1,
+    3
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "CI/CD הוא התהליך שמוביל קוד משלב ה-PR ועד Production בצורה אוטומטית, עקבית ובטוחה."
+    },
+    {
+      "type": "heading",
+      "text": "CI מול CD"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "CI מתמקד ב-build, tests, quality checks ו-security scans.",
+        "CD מתמקד ב-package, deploy, verification ו-rollback במקרה הצורך."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Pipeline טוב מוריד טעויות ידניות, משפר איכות ומאפשר לשחרר קוד לפרודקשן בצורה בטוחה יותר."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "נקודת Senior",
+      "text": "Pipeline אינו רק מנגנון שמריץ build. הוא חלק ממנגנון ה-production safety."
+    },
+    {
+      "type": "heading",
+      "text": "שלבים בסיסיים ב-Pipeline"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Checkout של הקוד",
+        "Install dependencies",
+        "Build",
+        "Unit tests",
+        "Static analysis או lint",
+        "Security scan",
+        "Package של Docker image או artifact",
+        "Push ל-registry",
+        "Deploy לסביבה",
+        "Smoke tests לאחר deployment",
+        "Monitoring ו-alerting לאחר release"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אפשר לחשוב על pipeline כעל סדרת gates. כל שלב אמור לתפוס בעיות מוקדם ככל האפשר, לפני שהן מגיעות ל-Production."
+    },
+    {
+      "type": "heading",
+      "text": "Artifact Promotion"
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכת אמיתית עדיף שה-artifact שנבנה יהיה אותו artifact שמתקדם בין הסביבות. לא בונים מחדש לכל environment, אלא משתמשים באותו image או artifact ומשנים configuration חיצוני לפי הסביבה."
+    },
+    {
+      "type": "heading",
+      "text": "GitHub Actions לדוגמה"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "name: CI\n\non:\n  pull_request:\n  push:\n    branches:\n      - main\n\njobs:\n  build-test-package:\n    runs-on: ubuntu-latest\n\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Set up Java\n        uses: actions/setup-java@v4\n        with:\n          distribution: temurin\n          java-version: 17\n\n      - name: Build and test\n        run: ./gradlew clean test build\n\n      - name: Build Docker image\n        run: docker build -t my-service:${{ github.sha }} ."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Pipeline שמבצע build בלי tests אמיתיים.",
+        "אין smoke tests לאחר deployment.",
+        "Rebuild לכל environment במקום artifact promotion.",
+        "שימוש ב-latest ללא version ברור.",
+        "Pipeline איטי מדי שאנשים מתחילים לעקוף.",
+        "אין הפרדה בין CI checks לבין deployment permissions.",
+        "אין visibility לגבי מי שחרר, מה שוחרר ומתי."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "CI/CD טוב לא רק בונה קוד. הוא נותן תהליך בטוח מקוד ל-Production: build, tests, scan, package, deploy, smoke tests ויכולת rollback. אני רואה אותו כחלק מ-production readiness."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין CI ל-CD?",
+      "answer": "CI מתמקד באיכות הקוד וה-build. CD מתמקד באריזה, deployment, verification ו-rollback."
+    },
+    {
+      "type": "qa",
+      "question": "למה Artifact Promotion חשוב?",
+      "answer": "כדי לוודא שאותו artifact שנבדק הוא זה שמתקדם בין הסביבות, בלי rebuild שעלול לשנות את התוצאה."
+    },
+    {
+      "type": "qa",
+      "question": "למה Pipeline צריך Smoke Tests?",
+      "answer": "כדי לוודא שלאחר deployment השירות באמת עולה ומבצע flow בסיסי תקין."
+    }
+  ]
+}

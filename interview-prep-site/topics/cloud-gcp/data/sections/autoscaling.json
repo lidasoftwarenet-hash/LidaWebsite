@@ -1,0 +1,97 @@
+{
+  "id": "autoscaling",
+  "title": "Autoscaling",
+  "sourcePages": [
+    8,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Autoscaling אומר שהמערכת משנה אוטומטית את מספר ה-instances לפי העומס."
+    },
+    {
+      "type": "heading",
+      "text": "מטרה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להתמודד עם עומס בלי להגדיל servers ידנית.",
+        "לא לשלם על resources שאינם נחוצים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Metrics אפשריים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "CPU",
+        "Request rate",
+        "Latency",
+        "Custom metrics"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "יתרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Resilience גבוהה יותר",
+        "התמודדות טובה עם traffic משתנה",
+        "חיסכון בעלויות"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חסרונות ושיקולים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Scale-out אינו תמיד מיידי.",
+        "Instance חדש צריך startup time.",
+        "צריך להגדיר thresholds.",
+        "צריך לבחור min instances ו-max instances.",
+        "צריך לחשוב על startup behavior."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Stateless Design"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר כל instance מחזיק state מקומי, autoscaling נהיה בעייתי. Services שצריכים scale טוב נשמרים בדרך כלל stateless, וה-state נמצא ב-DB, cache או storage חיצוני."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Autoscaling מאפשר להוסיף ולהוריד instances לפי load. זה משפר scalability ועלויות, אבל דורש service stateless והגדרות נכונות של thresholds, min/max instances ו-startup behavior."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "לפי מה Autoscaling יכול לפעול?",
+      "answer": "לפי CPU, request rate, latency או custom metrics."
+    },
+    {
+      "type": "qa",
+      "question": "למה Scale-out אינו מיידי?",
+      "answer": "כי instance חדש צריך זמן לעלות ולהיות מוכן."
+    },
+    {
+      "type": "qa",
+      "question": "למה Stateless חשוב?",
+      "answer": "כדי שכל request יוכל להגיע לכל instance בלי תלות ב-state מקומי."
+    }
+  ]
+}

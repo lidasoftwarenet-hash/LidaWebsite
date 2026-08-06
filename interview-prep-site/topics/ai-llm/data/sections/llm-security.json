@@ -1,0 +1,99 @@
+{
+  "id": "llm-security",
+  "title": "LLM Security",
+  "sourcePages": [
+    9,
+    10
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "LLM security הוא תכנון אבטחתי של מערכת שמשתמשת במודלים, tools, context ונתונים פנימיים."
+    },
+    {
+      "type": "paragraph",
+      "text": "AI assistant יכול להפוך לנקודת גישה מסוכנת לדאטה ולפעולות. ללא הגבלות אפשר לקבל data leakage, privilege escalation או חשיפה בין tenants."
+    },
+    {
+      "type": "heading",
+      "text": "מושגים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Privilege escalation: משתמש משיג הרשאה גבוהה יותר ממה שמותר לו.",
+        "Tenant: לקוח או ארגון נפרד במערכת multi-tenant.",
+        "Data leakage: מידע רגיש מגיע למשתמש לא מורשה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה צריך לבדוק"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Tenant isolation.",
+        "ACL filtering לפני retrieval.",
+        "לא להכניס secrets ל-prompt.",
+        "לא לחשוף sensitive data בתשובות.",
+        "Tool permissions לפי המשתמש.",
+        "Audit logs.",
+        "Prompt injection defenses.",
+        "Data retention policy.",
+        "Redaction בלוגים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "עיקרון אבטחה",
+      "text": "המודל לא צריך להיות שכבת ההרשאות. ההרשאות נאכפות לפני שהמידע מגיע למודל."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<DocumentChunk> chunks =\n    vectorStore.search(\n        queryEmbedding,\n        MetadataFilter.builder()\n            .tenantId(\n                user.tenantId()\n            )\n            .allowedDocumentIds(\n                permissionService\n                    .allowedDocs(user)\n            )\n            .build()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Retrieval מחזיר מסמכים של tenant אחר.",
+        "הרשאות נאכפות רק אחרי שהמודל כבר ראה את המידע.",
+        "Logging של prompts עם מידע רגיש.",
+        "Tool access רחב מדי.",
+        "Prompt injection מתוך retrieved documents.",
+        "אין audit trail לפעולות AI."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-LLM security אני מוודא שהמודל אינו עוקף הרשאות. אני אוכף ACL לפני retrieval, שומר tenant isolation, מגביל tools, לא מעביר secrets ל-context ומוסיף audit logs ו-redaction."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי הרשאות צריכות להיאכף?",
+      "answer": "לפני retrieval ולפני שהמידע נכנס ל-context."
+    },
+    {
+      "type": "qa",
+      "question": "למה Prompt Logs יכולים להיות מסוכנים?",
+      "answer": "כי הם עלולים להכיל מידע פנימי, אישי או secrets."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Tenant Isolation?",
+      "answer": "מניעת גישה או ערבוב מידע בין לקוחות או ארגונים שונים."
+    }
+  ]
+}

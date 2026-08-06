@@ -1,0 +1,98 @@
+{
+  "id": "config-database",
+  "title": "Config & Database",
+  "sourcePages": [
+    242,
+    243
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Environment Variables ו-ConfigModule"
+    },
+    {
+      "type": "paragraph",
+      "text": "Configuration ו-secrets לא צריכים להיות hard-coded בקוד."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "DB_URL",
+        "JWT_SECRET",
+        "PORT",
+        "REDIS_URL"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "ConfigModule.forRoot({\n    isGlobal: true\n});"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class AppService {\n    constructor(\n        private readonly config:\n            ConfigService\n    ) {}\n\n    getDbUrl() {\n        return this.config\n            .get<string>(\"DB_URL\");\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני לא שומר configuration או secrets בקוד. אני משתמש ב-environment variables וב-ConfigModule, ועושה validation בזמן startup כדי שהאפליקציה לא תעלה עם config חסר או שגוי."
+    },
+    {
+      "type": "heading",
+      "text": "Database"
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS אינו מחייב ORM או דרך גישה אחת ל-DB."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "TypeORM",
+        "Prisma",
+        "Sequelize",
+        "Mongoose",
+        "Raw SQL",
+        "Query builders"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "מבנה מומלץ",
+      "text": "Controller → Service → Repository / PrismaService / DB Client"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class UsersService {\n    constructor(\n        private readonly prisma:\n            PrismaService\n    ) {}\n\n    findUser(id: string) {\n        return this.prisma\n            .user\n            .findUnique({\n                where: { id }\n            });\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "NestJS לא מחייב דרך אחת לגשת ל-DB. אני שומר Controller דק, business logic ב-Service, ואת הגישה ל-DB דרך repository או client כמו PrismaService."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "איפה שומרים secrets?",
+      "answer": "ב-environment variables או secrets manager, לא בקוד."
+    },
+    {
+      "type": "qa",
+      "question": "האם NestJS מחייב TypeORM?",
+      "answer": "לא. אפשר לעבוד עם TypeORM, Prisma, Sequelize, Mongoose, raw SQL או query builder."
+    },
+    {
+      "type": "qa",
+      "question": "איפה צריכה להיות גישת DB?",
+      "answer": "בשכבת repository, PrismaService או DB client, לא ב-Controller."
+    }
+  ]
+}

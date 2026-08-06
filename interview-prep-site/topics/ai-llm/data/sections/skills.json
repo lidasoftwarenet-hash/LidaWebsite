@@ -1,0 +1,156 @@
+{
+  "id": "skills",
+  "title": "AI Skills",
+  "sourcePages": [
+    20,
+    22
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Skill הוא אוסף קבוע של הוראות וידע שמלמד Agent כיצד לבצע סוג מסוים של משימה בצורה עקבית."
+    },
+    {
+      "type": "paragraph",
+      "text": "במקום לכתוב בכל פעם prompt ארוך שמסביר מחדש את התהליך, שומרים playbook reusable."
+    },
+    {
+      "type": "heading",
+      "text": "מה Skill יכול להכיל"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הוראות עבודה.",
+        "סדר פעולות.",
+        "כללים.",
+        "דוגמאות.",
+        "Templates.",
+        "מידע על הפרויקט.",
+        "Scripts קטנים.",
+        "Resources נלווים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה: Code Review Skill"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Read the pull request description.",
+        "Review the diff.",
+        "Check architecture conventions.",
+        "Check validation and error handling.",
+        "Verify that tests exist.",
+        "Look for security problems.",
+        "Return structured feedback.",
+        "Never approve a Production change automatically."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Prompt מול Skill"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Prompt: מה לעשות עכשיו בשיחה הנוכחית.",
+        "Skill: איך סוג העבודה הזה צריך להתבצע באופן עקבי."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Skill מול Tool"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Tool מבצע פעולה מסוימת.",
+        "Skill מסביר באיזה סדר ובאיזו שיטה להשתמש בכלים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Skill מול MCP"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "MCP מחבר את המערכת ל-tools ולמקורות.",
+        "Skill מסביר כיצד להשתמש בהם לביצוע משימה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "חלוקת תפקידים",
+      "text": "MCP מחבר למערכות. Tools מבצעים פעולות. Skills מגדירים את שיטת העבודה. Agent מנהל את התהליך."
+    },
+    {
+      "type": "heading",
+      "text": "מתי Skills שימושיים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Code Review.",
+        "Incident Analysis.",
+        "Release Notes.",
+        "QA.",
+        "Customer Support.",
+        "יצירת מסמכים.",
+        "Onboarding.",
+        "Compliance Checks.",
+        "עבודה עם Repository מסוים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "ניהול Skill ב-Production"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Versioning.",
+        "Review.",
+        "Owner ברור.",
+        "Testing.",
+        "Evaluation.",
+        "עדכון כאשר המערכת משתנה.",
+        "הרשאות כאשר הוא מפעיל tools רגישים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "סיכון",
+      "text": "Skill לא טוב יכול לגרום ל-Agent לבצע אותה טעות שוב ושוב בצורה עקבית."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Skill הוא reusable playbook ל-Agent. הוא אורז הוראות, ידע, templates ולעיתים scripts כדי לבצע משימה בצורה עקבית. הוא שונה מ-Prompt כי הוא קבוע ורב-פעמי, ושונה מ-Tool כי הוא מתאר את שיטת העבודה ולא פעולה בודדת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Prompt ל-Skill?",
+      "answer": "Prompt הוא בקשה נקודתית. Skill הוא playbook קבוע לסוג משימה."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Skill ל-Tool?",
+      "answer": "Tool מבצע פעולה. Skill מסביר כיצד ומתי להשתמש בכלים."
+    },
+    {
+      "type": "qa",
+      "question": "למה Skill צריך Versioning ו-Testing?",
+      "answer": "כי הוא משפיע על התנהגות ה-Agent ועלול לשכפל טעויות באופן עקבי."
+    }
+  ]
+}

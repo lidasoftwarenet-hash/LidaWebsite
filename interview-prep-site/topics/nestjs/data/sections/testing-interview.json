@@ -1,0 +1,94 @@
+{
+  "id": "testing-interview",
+  "title": "Testing & Interview Summary",
+  "sourcePages": [
+    247,
+    249
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Testing ב-NestJS"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-unit tests משתמשים ב-TestingModule ומחליפים dependencies אמיתיות ב-mocks. ב-e2e tests מרימים application ובודקים endpoints דרך HTTP."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "const moduleRef =\n    await Test\n        .createTestingModule({\n            providers: [\n                UsersService,\n                {\n                    provide:\n                        UsersRepository,\n                    useValue:\n                        mockRepository\n                }\n            ]\n        })\n        .compile();\n\nconst service =\n    moduleRef.get(\n        UsersService\n    );"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ב-unit tests אני משתמש ב-TestingModule ומחליף dependencies ב-mocks. ב-e2e tests אני מרים את האפליקציה ובודק endpoints דרך HTTP."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ראיון נפוצות"
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של Controller?",
+      "answer": "Controller מטפל בשכבת HTTP. הוא מקבל request, קורא ל-Service ומחזיר response. הוא לא אמור להכיל business logic כבד."
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של Service?",
+      "answer": "Service מכיל business logic והוא Provider שניתן להזריק דרך DI."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Module?",
+      "answer": "Boundary לוגי שמארגן controllers ו-providers ושולט מה נחשף דרך exports."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Dependency Injection?",
+      "answer": "המחלקה מקבלת dependencies מבחוץ במקום ליצור אותן לבד. זה מוריד coupling ומקל על testing."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Middleware, Guard, Pipe, Interceptor ו-Filter?",
+      "answer": "Middleware רץ מוקדם וכללי. Guard מחליט אם request מורשה. Pipe מבצע validation או transformation. Interceptor עוטף את הביצוע לפני ואחרי. Filter מטפל בשגיאות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Guard?",
+      "answer": "כאשר צריך authentication, roles או permissions."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Pipe?",
+      "answer": "כאשר צריך לבדוק או להמיר input."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Interceptor?",
+      "answer": "כאשר צריך logging, metrics, caching, tracing או response mapping."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה ValidationPipe?",
+      "answer": "Pipe מובנה שמבצע runtime validation ל-DTOs, בדרך כלל יחד עם class-validator."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Provider Scope?",
+      "answer": "ברירת המחדל היא singleton. קיימים גם request ו-transient scopes."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Dynamic Module?",
+      "answer": "Module שמקבל configuration בזמן import, שימושי ל-reusable modules."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובת סיכום לראיון",
+      "text": "NestJS נותן ל-Node.js מבנה שמתאים לפרויקטים גדולים. אני משתמש ב-Controller לשכבת HTTP, ב-Service ל-business logic, ב-DTOs ו-ValidationPipe לקלט, ב-Guards להרשאות, וב-Interceptors לדברים חוצים כמו logging או metrics. היתרון הגדול הוא סדר, testability ותחזוקה טובה יותר בפרויקט גדול."
+    }
+  ]
+}

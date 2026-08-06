@@ -1,0 +1,76 @@
+{
+  "id": "modules",
+  "title": "Modules",
+  "sourcePages": [
+    230,
+    232
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Module הוא הדרך של NestJS לארגן feature או חלק לוגי במערכת."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Module({\n    controllers: [\n        UsersController\n    ],\n    providers: [\n        UsersService\n    ],\n    exports: [\n        UsersService\n    ]\n})\nexport class UsersModule {}"
+    },
+    {
+      "type": "heading",
+      "text": "מה יש בתוך Module"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "controllers: controllers ששייכים ל-module.",
+        "providers: services או classes שה-module מנהל.",
+        "imports: modules אחרים שה-module צריך.",
+        "exports: providers שה-module חושף למודולים אחרים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Module ב-NestJS הוא boundary לוגי. הוא מארגן feature מסוים ושולט מה נשאר פנימי ומה נחשף החוצה דרך exports."
+    },
+    {
+      "type": "heading",
+      "text": "Imports ו-Exports"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם Service מוגדר בתוך Module אחד, אי אפשר להזריק אותו אוטומטית בכל מקום. ה-module שמגדיר אותו צריך להוסיף אותו ל-exports, וה-module שצורך אותו צריך לבצע import."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Module({\n    providers: [\n        UsersService\n    ],\n    exports: [\n        UsersService\n    ]\n})\nexport class UsersModule {}\n\n@Module({\n    imports: [\n        UsersModule\n    ]\n})\nexport class AuthModule {}"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת נפוצה",
+      "text": "Provider שנמצא ב-Module אחד אינו זמין ל-Module אחר בלי export ו-import מתאימים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Module?",
+      "answer": "Boundary לוגי שמארגן controllers ו-providers של feature מסוים."
+    },
+    {
+      "type": "qa",
+      "question": "מה תפקיד exports?",
+      "answer": "לקבוע אילו providers זמינים למודולים אחרים."
+    },
+    {
+      "type": "qa",
+      "question": "מה תפקיד imports?",
+      "answer": "להכניס providers שיוצאו ממודולים אחרים."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "mongodb",
+  "title": "MongoDB",
+  "sourcePages": [
+    12,
+    12
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "MongoDB הוא document database. במקום טבלאות קשיחות הוא שומר documents בפורמט דמוי JSON."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מבנה data גמיש או משתנה מהר",
+        "User profiles",
+        "Settings",
+        "Metadata",
+        "Event-like documents",
+        "מידע שבו לא כל הרשומות נראות אותו דבר"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "גמישות גבוהה",
+        "פיתוח מהיר",
+        "שמירה טבעית של objects מורכבים",
+        "פחות צורך ב-joins במודלים document-oriented"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מערכת עם קשרים חזקים והרבה joins לוגיים יכולה להסתבך.",
+        "צריך להיזהר מ-data duplication.",
+        "צריך לתכנן consistency בין documents.",
+        "הוא פחות טבעי ל-reporting SQL מורכב ול-transactions כבדות בין הרבה entities."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "MongoDB מתאים כשיש data גמיש או document-oriented ולא רוצים relational schema קשיח. הוא טוב לפיתוח מהיר ולמסמכים מורכבים, אבל אם המערכת מאוד relational עם הרבה קשרים ו-joins, PostgreSQL או MySQL יהיו טבעיים יותר."
+    }
+  ]
+}

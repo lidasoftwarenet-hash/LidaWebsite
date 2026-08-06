@@ -1,0 +1,93 @@
+{
+  "id": "sql-joins",
+  "title": "SQL Joins",
+  "sourcePages": [
+    6,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "SQL JOIN מחבר rows מכמה טבלאות לפי relation ביניהן. ברמת Senior חשוב לא רק לדעת syntax, אלא להבין איך join משפיע על data, duplicates וביצועים."
+    },
+    {
+      "type": "heading",
+      "text": "סוגי Joins"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "INNER JOIN מחזיר רק rows שיש להם התאמה בשתי הטבלאות.",
+        "LEFT JOIN מחזיר את כל rows מצד שמאל וגם התאמות מצד ימין אם קיימות.",
+        "RIGHT JOIN דומה ל-LEFT JOIN אבל בכיוון ההפוך ופחות נפוץ.",
+        "FULL OUTER JOIN מחזיר את כל rows משני הצדדים, גם ללא התאמה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "INNER JOIN"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT\n    o.id,\n    o.created_at,\n    u.email\nFROM orders o\nJOIN users u\n    ON u.id = o.user_id;"
+    },
+    {
+      "type": "heading",
+      "text": "LEFT JOIN"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT\n    u.id,\n    u.email,\n    o.id AS order_id\nFROM users u\nLEFT JOIN orders o\n    ON o.user_id = u.id;"
+    },
+    {
+      "type": "heading",
+      "text": "Aggregation אחרי Join"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT\n    u.id,\n    u.email,\n    COUNT(o.id) AS orders_count\nFROM users u\nLEFT JOIN orders o\n    ON o.user_id = u.id\nGROUP BY\n    u.id,\n    u.email;"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "JOIN על עמודות בלי index יכול להיות יקר.",
+        "One-to-many JOIN יכול להכפיל rows.",
+        "COUNT(*) אחרי JOIN יכול להחזיר תוצאה מפתיעה.",
+        "Joins עמוקים מדי יכולים לרמוז שצריך read model אחר.",
+        "תנאי ב-WHERE על הצד הימני של LEFT JOIN יכול לשנות בפועל את ההתנהגות."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "JOIN מחבר טבלאות לפי relation. INNER מחזיר רק התאמות ו-LEFT שומר את כל צד שמאל. אני שם לב ל-duplicates, indexes על join columns, תנאים על LEFT JOIN ולהשפעה על execution plan."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין INNER JOIN ל-LEFT JOIN?",
+      "answer": "INNER מחזיר רק התאמות. LEFT מחזיר את כל צד שמאל וגם התאמות מצד ימין."
+    },
+    {
+      "type": "qa",
+      "question": "למה JOIN יכול להכפיל rows?",
+      "answer": "ביחס one-to-many, row אחד מצד שמאל יכול להתחבר לכמה rows מצד ימין."
+    },
+    {
+      "type": "qa",
+      "question": "למה index חשוב ב-JOIN?",
+      "answer": "כדי שה-DB יוכל למצוא מהר את rows המתאימים לפי מפתח הקשר."
+    }
+  ]
+}

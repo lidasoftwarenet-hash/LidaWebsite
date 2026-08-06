@@ -1,0 +1,94 @@
+{
+  "id": "state-management",
+  "title": "State Management",
+  "sourcePages": [
+    16,
+    17
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "State הוא המידע שה-UI צריך לזכור, למשל המשתמש הנוכחי, פילטרים נבחרים, shopping cart, products שנטענו או loading status."
+    },
+    {
+      "type": "heading",
+      "text": "Local Component State"
+    },
+    {
+      "type": "paragraph",
+      "text": "מידע ששייך ל-Component אחד נשאר מקומי."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "isOpen = signal(false);\nselectedTab = signal(\"details\");"
+    },
+    {
+      "type": "heading",
+      "text": "Shared Service State"
+    },
+    {
+      "type": "paragraph",
+      "text": "מידע שמשותף לכמה Components יכול להישמר ב-Service."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable({ providedIn: \"root\" })\nexport class UserStateService {\n    private readonly userSignal = signal<User | null>(null);\n    readonly user = this.userSignal.asReadonly();\n\n    setUser(user: User): void {\n        this.userSignal.set(user);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "NgRx"
+    },
+    {
+      "type": "paragraph",
+      "text": "NgRx מתאים כאשר האפליקציה גדולה ויש state משותף ומורכב עם הרבה flows."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Component שולח Action.",
+        "Reducer מעדכן State.",
+        "Selector קורא State.",
+        "Effect מטפל בקריאות API."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "איך לבחור"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "State מקומי: Component.",
+        "State משותף פשוט: Service עם Signals או Observables.",
+        "State גדול ומורכב: לשקול NgRx."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "לא צריך NgRx לכל אפליקציה. הוא מוסיף structure, אבל גם הרבה קוד ומורכבות. אני מתחיל מהפתרון הפשוט ביותר. State מקומי נשאר ב-Component, state משותף עובר ל-Service עם Signals או Observables, ורק כשהאפליקציה גדולה וה-state מורכב הייתי שוקל NgRx."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי state נשאר ב-Component?",
+      "answer": "כאשר הוא שייך למסך אחד ואינו משותף."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Service?",
+      "answer": "כאשר כמה Components צריכים לשתף state פשוט."
+    },
+    {
+      "type": "qa",
+      "question": "מתי NgRx מוצדק?",
+      "answer": "כאשר יש state גדול, flows מורכבים, הרבה מקורות שינוי ודרישה ל-structure ברור."
+    }
+  ]
+}

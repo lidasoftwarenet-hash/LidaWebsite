@@ -1,0 +1,138 @@
+{
+  "id": "javascript-arrays",
+  "title": "JavaScript Arrays",
+  "sourcePages": [
+    5,
+    6
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "פעולות נפוצות על Arrays ב-JavaScript בזמן Live Coding."
+    },
+    {
+      "type": "heading",
+      "text": "יצירה ועדכון"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const numbers =\n    new Array(5).fill(0);\n\nconst numbersWithData =\n    [1, 2, 3, 4, 5];\n\nnumbers[0] = 10;"
+    },
+    {
+      "type": "heading",
+      "text": "הדפסה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const arrayAsString =\n    numbersWithData.join(\", \");\n\nconsole.log(\n    arrayAsString\n);\n\nconsole.log(\n    JSON.stringify(\n        numbersWithData\n    )\n);"
+    },
+    {
+      "type": "heading",
+      "text": "חיבור Arrays"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const combined = [\n    ...firstArray,\n    ...secondArray\n];"
+    },
+    {
+      "type": "heading",
+      "text": "העברת Array לפונקציה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "methodName([\n    1,\n    2,\n    4,\n    4\n]);"
+    },
+    {
+      "type": "heading",
+      "text": "Reverse"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "numbersWithData.reverse();"
+    },
+    {
+      "type": "paragraph",
+      "text": "reverse משנה את ה-array המקורי. כאשר הסביבה תומכת ב-toReversed, אפשר לקבל עותק הפוך בלי mutation."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const reversedCopy =\n    numbersWithData\n        .toReversed();"
+    },
+    {
+      "type": "heading",
+      "text": "בדיקת Contains"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const containsThree =\n    numbersWithData\n        .includes(3);"
+    },
+    {
+      "type": "heading",
+      "text": "הסרה לפי Value"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const withoutThree =\n    numbersWithData.filter(\n        number =>\n            number !== 3\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "הוספה להתחלה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const withThreeFirst = [\n    3,\n    ...numbersWithData\n];"
+    },
+    {
+      "type": "heading",
+      "text": "Swap"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "function swapInArray(\n    array,\n    firstIndex,\n    secondIndex\n) {\n    [\n        array[firstIndex],\n        array[secondIndex]\n    ] = [\n        array[secondIndex],\n        array[firstIndex]\n    ];\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Array ל-Set וחזרה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const uniqueSet =\n    new Set(\n        numbersWithData\n    );\n\nconst uniqueArray = [\n    ...uniqueSet\n];"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Mutation",
+      "text": "reverse משנה את ה-array המקורי. filter, spread ו-toReversed יוצרים array חדש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "איך מסירים כפילויות מ-Array?",
+      "answer": "יוצרים Set וממירים אותו חזרה ל-Array באמצעות spread."
+    },
+    {
+      "type": "qa",
+      "question": "האם filter משנה את ה-Array המקורי?",
+      "answer": "לא. הוא מחזיר Array חדש."
+    },
+    {
+      "type": "qa",
+      "question": "איך מבצעים Swap קצר ב-JavaScript?",
+      "answer": "באמצעות destructuring assignment."
+    }
+  ]
+}

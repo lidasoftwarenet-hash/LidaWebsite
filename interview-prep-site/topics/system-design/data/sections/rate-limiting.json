@@ -1,0 +1,60 @@
+{
+  "id": "rate-limiting",
+  "title": "Rate Limiting",
+  "sourcePages": [
+    271,
+    272
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Rate limiting מגביל את כמות הבקשות לפי token, IP, user או tenant. הוא מגן מפני bots, abuse, bugs ועומס לא צפוי."
+    },
+    {
+      "type": "heading",
+      "text": "Algorithms נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Token Bucket: לכל user יש bucket שמתמלא בקצב קבוע, וכל request צורך token.",
+        "Leaky Bucket: requests יוצאים בקצב קבוע.",
+        "Redis Counters: שומרים counter לפי key ו-time window."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "דוגמת key ב-Redis: rate:user:123:2026-06-24T13:10"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public boolean allowRequest(String userId) {\n    String key =\n        \"rate:user:\" + userId + \":\" + currentMinute();\n\n    long count = redis.increment(key);\n\n    if (count == 1) {\n        redis.expire(key, Duration.ofMinutes(1));\n    }\n\n    return count <= 100;\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Rate limiting מגן על המערכת. לרוב אממש אותו עם Redis counters או token bucket לפי tenant, IP או user, ואחזיר 429 עם Retry-After כשעוברים את המגבלה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה מחזירים כאשר עוברים את המגבלה?",
+      "answer": "429 Too Many Requests, ורצוי Retry-After."
+    },
+    {
+      "type": "qa",
+      "question": "למה Redis מתאים?",
+      "answer": "כי הוא מהיר, atomic ויכול לשתף counters בין כמה instances."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Token Bucket ל-Leaky Bucket?",
+      "answer": "Token Bucket מאפשר bursts מוגבלים. Leaky Bucket מחליק את הקצב לקצב יציאה קבוע."
+    }
+  ]
+}

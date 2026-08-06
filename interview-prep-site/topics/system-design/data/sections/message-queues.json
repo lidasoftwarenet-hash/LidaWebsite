@@ -1,0 +1,73 @@
+{
+  "id": "message-queues",
+  "title": "Message Queues",
+  "sourcePages": [
+    270,
+    270
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Message Queue מאפשרת תקשורת asynchronous בין producer ל-consumer. היא עוזרת להפריד עומסים, להגן על downstream ולאפשר retries מחוץ ל-request path."
+    },
+    {
+      "type": "heading",
+      "text": "מתי משתמשים ב-Queue"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "העבודה יכולה לקרות מאוחר יותר.",
+        "צריך retry.",
+        "רוצים להגן על downstream.",
+        "רוצים decoupling בין services.",
+        "יש spikes בעומס."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מושגים חשובים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "At-least-once delivery.",
+        "Idempotent consumer.",
+        "Dead Letter Queue.",
+        "Ordering.",
+        "Retry policy.",
+        "Visibility timeout או ack."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public void consume(OrderCreatedEvent event) {\n    if (processedEvents.exists(event.eventId())) {\n        return;\n    }\n\n    orderProjection.update(event);\n    processedEvents.save(event.eventId());\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Message Queue נותנת decoupling ו-resilience, אבל אני תמיד מתכנן consumers כ-idempotent, מוסיף retry policy ו-DLQ, ומבין שברוב המקרים מקבלים at-least-once ולא exactly-once."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Consumer צריך להיות Idempotent?",
+      "answer": "כי message יכול להגיע יותר מפעם אחת."
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של DLQ?",
+      "answer": "לבודד messages שלא ניתן לעבד לאחר retries כדי שלא יחסמו את ה-flow."
+    },
+    {
+      "type": "qa",
+      "question": "מה משמעות Ack?",
+      "answer": "אישור שה-message עובדה בהצלחה וניתן להסיר אותה מה-subscription או queue."
+    }
+  ]
+}

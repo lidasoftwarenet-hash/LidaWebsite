@@ -1,0 +1,125 @@
+{
+  "id": "unknown-vs-any",
+  "title": "unknown vs any",
+  "sourcePages": [
+    210,
+    213
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "unknown הוא type בטוח יותר מ-any. אפשר לשמור בו כל ערך, אבל אי אפשר להשתמש בערך לפני שבודקים מה הוא באמת."
+    },
+    {
+      "type": "heading",
+      "text": "unknown"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "let value: unknown = \"hello\";\n\nvalue.toUpperCase();\n// Compile-time error"
+    },
+    {
+      "type": "heading",
+      "text": "Narrowing"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (typeof value === \"string\") {\n    value.toUpperCase();\n}"
+    },
+    {
+      "type": "heading",
+      "text": "any"
+    },
+    {
+      "type": "paragraph",
+      "text": "any אומר ל-TypeScript לא לבדוק את הערך."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "let value: any = \"hello\";\n\nvalue.toUpperCase();\nvalue.notExistingFunction();\n// Compiles, may fail at runtime"
+    },
+    {
+      "type": "heading",
+      "text": "איפה unknown מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "JSON לא מאומת",
+        "API חיצוני",
+        "User input",
+        "Third-party library",
+        "Error בתוך catch"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-unknown בגבולות המערכת, כאשר מתקבל מידע שלא באמת בשליטתי. אחר כך אני מבצע narrowing עם checks או type guards. אני נמנע מ-any כי הוא מבטל את ההגנות של TypeScript."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה עם Error"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function getErrorMessage(error: unknown): string {\n    if (error instanceof Error) {\n        return error.message;\n    }\n\n    return \"Unknown error\";\n}"
+    },
+    {
+      "type": "heading",
+      "text": "טעות: Cast מיידי"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "const user = value as User;"
+    },
+    {
+      "type": "paragraph",
+      "text": "Cast עם as אינו validation. הוא רק אומר לקומפיילר לסמוך עלינו."
+    },
+    {
+      "type": "heading",
+      "text": "טעות: Truthy Check כללי"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (value) {\n    // לא תמיד מספיק\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "0, empty string ו-false יכולים להיות ערכים חוקיים למרות שהם falsy."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "unknown הוא הבחירה הבטוחה למידע לא ידוע. הוא מכריח אותי לבדוק את הערך לפני שימוש. any מבטל את ההגנות ולכן מתאים רק למקרים חריגים כמו migration זמני או legacy code."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין unknown ל-any?",
+      "answer": "any מאפשר כל שימוש ללא בדיקה. unknown דורש narrowing לפני שימוש."
+    },
+    {
+      "type": "qa",
+      "question": "למה as אינו תחליף ל-validation?",
+      "answer": "כי הוא לא בודק דבר בזמן ריצה, אלא רק משתיק את הקומפיילר."
+    },
+    {
+      "type": "qa",
+      "question": "איפה unknown שימושי במיוחד?",
+      "answer": "בגבולות המערכת, למשל קלט חיצוני, JSON, errors ו-third-party data."
+    }
+  ]
+}

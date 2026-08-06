@@ -1,0 +1,84 @@
+{
+  "id": "guards-resolvers",
+  "title": "Guards & Resolvers",
+  "sourcePages": [
+    7,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Guard"
+    },
+    {
+      "type": "paragraph",
+      "text": "Guard בודק האם מותר לבצע navigation."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export const authGuard: CanActivateFn = () => {\n    const authService = inject(AuthService);\n    const router = inject(Router);\n\n    return authService.isLoggedIn()\n        ? true\n        : router.createUrlTree([\"/login\"]);\n};"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    path: \"admin\",\n    component: AdminComponent,\n    canActivate: [authGuard]\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "אבטחה",
+      "text": "Guard בצד הלקוח משפר את חוויית המשתמש, אבל אינו תחליף לבדיקת הרשאות ב-Backend."
+    },
+    {
+      "type": "heading",
+      "text": "Resolver"
+    },
+    {
+      "type": "paragraph",
+      "text": "Resolver טוען data לפני פתיחת ה-Component."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export const userResolver: ResolveFn<User> = route => {\n    const userService = inject(UserService);\n    return userService.getUser(route.paramMap.get(\"id\")!);\n};"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    path: \"users/:id\",\n    component: UserDetailsComponent,\n    resolve: { user: userResolver }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "הבדל מרכזי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Guard בודק אם מותר להיכנס.",
+        "Resolver טוען מידע לפני הכניסה.",
+        "Resolvers רצים לאחר שה-Guards הרלוונטיים הצליחו."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Guard מחליט אם navigation מותר, למשל לפי login או role. Resolver טוען מידע שהעמוד צריך לפני שהוא נפתח. הרשאות אמיתיות תמיד נבדקות גם ב-Backend."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Guard ל-Resolver?",
+      "answer": "Guard מחליט אם מותר להיכנס. Resolver טוען data לפני פתיחת העמוד."
+    },
+    {
+      "type": "qa",
+      "question": "האם Guard מספיק לאבטחה?",
+      "answer": "לא. ה-Backend חייב לבדוק authentication ו-authorization לכל request."
+    }
+  ]
+}

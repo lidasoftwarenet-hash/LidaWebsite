@@ -1,0 +1,86 @@
+{
+  "id": "cloud-storage",
+  "title": "Cloud Storage & Buckets",
+  "sourcePages": [
+    7,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Bucket הוא container ב-Google Cloud Storage שבו שומרים objects, כלומר קבצים כמו images, logs, backups, JSON, CSV או קובצי input ו-output של pipelines."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "חשוב",
+      "text": "Cloud Storage הוא object storage. הוא לא database ולא file system רגיל."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמאות ל-URIs"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "gs://my-data-bucket/input/users.csv\ngs://my-data-bucket/output/results.json"
+    },
+    {
+      "type": "heading",
+      "text": "מתי משתמשים ב-Bucket"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "קבצים גדולים",
+        "Static files",
+        "Backups",
+        "Data lake",
+        "Pipeline inputs ו-outputs"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Scalable storage",
+        "מתאים לכמויות data גדולות",
+        "IAM permissions",
+        "Lifecycle rules",
+        "Versioning",
+        "אינטגרציה טבעית עם שירותי GCP אחרים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מתי לא להשתמש"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא משתמשים ב-Bucket במקום MySQL או PostgreSQL עבור business queries, ולא כאשר צריך לעדכן records קטנים לפי fields."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Cloud Storage Bucket הוא object storage. אני משתמש בו לקבצים, backups ו-data של pipelines, לא כ-database. למשל Dataflow יכול לקרוא input מ-Bucket ולכתוב אליו output."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Bucket ל-Database?",
+      "answer": "Bucket שומר objects וקבצים. Database בנוי ל-queries ולעדכון records."
+    },
+    {
+      "type": "qa",
+      "question": "איפה Cloud Storage שימושי ב-pipeline?",
+      "answer": "כמקור input, יעד output או archive של קבצים."
+    }
+  ]
+}

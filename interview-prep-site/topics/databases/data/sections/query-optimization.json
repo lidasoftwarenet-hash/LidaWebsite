@@ -1,0 +1,80 @@
+{
+  "id": "query-optimization",
+  "title": "Query Optimization",
+  "sourcePages": [
+    7,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Query optimization הוא שיפור ביצועי שאילתות SQL. הרבה בעיות Production נראות כמו אפליקציה איטית, אבל בפועל מקורן בשאילתה לא יעילה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות פתיחה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מה ה-query עושה?",
+        "כמה rows היא סורקת?",
+        "כמה rows היא מחזירה?",
+        "האם יש indexes מתאימים?",
+        "האם יש GROUP BY או SORT יקרים?",
+        "האם יש JOIN כבד?",
+        "האם ה-query מחזירה יותר columns ממה שצריך?"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "צעדים נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להשתמש ב-EXPLAIN ANALYZE.",
+        "להוסיף או לתקן indexes.",
+        "להימנע מ-SELECT *.",
+        "לצמצם rows מוקדם.",
+        "להשתמש ב-pagination.",
+        "להימנע מ-N+1.",
+        "לבדוק joins.",
+        "לבדוק sort ו-group by."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאילתה פחות טובה"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT *\nFROM orders\nWHERE status = 'PAID'\nORDER BY created_at DESC;"
+    },
+    {
+      "type": "heading",
+      "text": "שאילתה ממוקדת יותר"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT\n    id,\n    user_id,\n    total,\n    created_at\nFROM orders\nWHERE status = 'PAID'\nORDER BY created_at DESC\nLIMIT 50;"
+    },
+    {
+      "type": "heading",
+      "text": "Index אפשרי"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE INDEX idx_orders_status_created\nON orders(\n    status,\n    created_at DESC\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני מתחיל ב-EXPLAIN ANALYZE ובודק כמה rows נסרקות, אם יש sort או join יקרים, ואם ה-index מתאים. אחר כך מצמצם columns ו-rows, מוסיף pagination ומוודא שאין N+1."
+    }
+  ]
+}

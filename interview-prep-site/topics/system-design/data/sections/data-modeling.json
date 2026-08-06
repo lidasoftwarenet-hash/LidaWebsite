@@ -1,0 +1,97 @@
+{
+  "id": "data-modeling",
+  "title": "Data Modeling",
+  "sourcePages": [
+    258,
+    259
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Data modeling הוא תכנון הדרך שבה המידע נשמר: entities, relationships, indexes, denormalization ובחירת storage."
+    },
+    {
+      "type": "paragraph",
+      "text": "הרבה בעיות scale מתחילות מ-data model שאינו מתאים ל-query patterns האמיתיים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות תכנון"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מה ה-entities המרכזיים?",
+        "מה הקשרים ביניהם?",
+        "מהם ה-query patterns?",
+        "האם צריך joins?",
+        "האם המערכת read-heavy או write-heavy?",
+        "האם consistency קריטית?",
+        "אילו indexes צריך?",
+        "האם שווה לבצע denormalization?"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה: מערכת Orders"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "User",
+        "Order",
+        "OrderItem",
+        "Payment",
+        "Shipment"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אם קיימות הרבה קריאות לפי userId ו-createdAt, צריך index שמתאים בדיוק לדפוס הקריאה הזה."
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE INDEX idx_orders_user_created\nON orders(user_id, created_at DESC);"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לתכנן schema בלי לדעת איך קוראים את ה-data.",
+        "לשים יותר מדי indexes ולפגוע ב-writes.",
+        "לבצע denormalization בלי להבין איך מסנכרנים.",
+        "לבחור NoSQL רק כי הוא נשמע scalable.",
+        "לא לחשוב על migrations."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני מתכנן data model לפי entities, relationships ו-query patterns. אני בוחר storage ו-indexes לפי אופי הקריאות והכתיבות, ולא לפי טכנולוגיה שנשמעת טוב."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Query Patterns משפיעים על Schema?",
+      "answer": "כי המבנה וה-indexes צריכים לתמוך בדרך שבה המערכת באמת קוראת וכותבת data."
+    },
+    {
+      "type": "qa",
+      "question": "מה המחיר של Index?",
+      "answer": "הוא מאיץ reads אבל מוסיף storage ועלות לעדכון בזמן writes."
+    },
+    {
+      "type": "qa",
+      "question": "מה הסיכון ב-Denormalization?",
+      "answer": "צריך לשמור כמה עותקים מסונכרנים ולהתמודד עם consistency."
+    }
+  ]
+}

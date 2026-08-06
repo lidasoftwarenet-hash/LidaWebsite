@@ -1,0 +1,117 @@
+{
+  "id": "component-communication",
+  "title": "Component Communication",
+  "sourcePages": [
+    2,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ב-Angular יש כמה דרכים להעביר מידע בין Components, לפי היחסים ביניהם."
+    },
+    {
+      "type": "heading",
+      "text": "Parent ל-Child עם @Input"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    selector: \"app-user-card\",\n    template: `<h3>{{ userName }}</h3>`\n})\nexport class UserCardComponent {\n    @Input() userName = \"\";\n}"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "<app-user-card\n    [userName]=\"selectedUser.name\">\n</app-user-card>"
+    },
+    {
+      "type": "paragraph",
+      "text": "הסוגריים המרובעים אומרים ש-Angular מעביר value מה-Parent ל-property של ה-Child."
+    },
+    {
+      "type": "heading",
+      "text": "Child ל-Parent עם @Output"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    selector: \"app-user-card\",\n    template: `<button (click)=\"selectUser()\">Select</button>`\n})\nexport class UserCardComponent {\n    @Input() userName = \"\";\n    @Output() selected = new EventEmitter<string>();\n\n    selectUser(): void {\n        this.selected.emit(this.userName);\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "<app-user-card\n    [userName]=\"user.name\"\n    (selected)=\"onUserSelected($event)\">\n</app-user-card>"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "onUserSelected(userName: string): void {\n    console.log(userName);\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Flow בסיסי",
+      "text": "Parent שולח data באמצעות Input. Child שולח events באמצעות Output."
+    },
+    {
+      "type": "heading",
+      "text": "Components שאינם קשורים ישירות"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר שני Components אינם ביחסי Parent-Child, אפשר להשתמש ב-Service משותף לניהול state."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable({ providedIn: \"root\" })\nexport class UserSelectionService {\n    selectedUser$ = new BehaviorSubject<User | null>(null);\n\n    selectUser(user: User): void {\n        this.selectedUser$.next(user);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "ViewChild"
+    },
+    {
+      "type": "paragraph",
+      "text": "ViewChild מאפשר ל-Parent לגשת ישירות ל-Child או לאלמנט מה-template."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@ViewChild(UserFormComponent)\nuserForm!: UserFormComponent;\n\nresetForm(): void {\n    this.userForm.reset();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "משתמשים בו כאשר באמת צריך להפעיל פעולה ישירה על Child, למשל reset לטופס או focus לאלמנט. לתקשורת רגילה של data ו-events עדיף בדרך כלל Input ו-Output."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Angular אני מעביר data מה-Parent ל-Child באמצעות @Input, ושולח events מה-Child ל-Parent באמצעות @Output ו-EventEmitter. כש-Components לא קשורים ישירות, אפשר להשתמש ב-Service משותף לניהול state. ב-ViewChild אני משתמש רק כשצריך גישה ישירה ל-Component או לאלמנט ב-template."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "איך מעבירים data מ-Parent ל-Child?",
+      "answer": "באמצעות @Input ו-property binding."
+    },
+    {
+      "type": "qa",
+      "question": "איך Child שולח event ל-Parent?",
+      "answer": "באמצעות @Output ו-EventEmitter."
+    },
+    {
+      "type": "qa",
+      "question": "מתי להשתמש ב-Service משותף?",
+      "answer": "כאשר כמה Components שאינם קשורים ישירות צריכים לשתף state."
+    },
+    {
+      "type": "qa",
+      "question": "מתי ViewChild מתאים?",
+      "answer": "כאשר צריך גישה ישירה ל-Child component או לאלמנט מה-template."
+    }
+  ]
+}

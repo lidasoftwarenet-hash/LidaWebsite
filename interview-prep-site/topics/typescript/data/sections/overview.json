@@ -1,0 +1,71 @@
+{
+  "id": "overview",
+  "title": "TypeScript Overview",
+  "sourcePages": [
+    203,
+    203
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "JavaScript היא השפה שרצה בפועל גם ב-Frontend וגם ב-Backend. ב-Frontend היא רצה בתוך הדפדפן, וב-Backend היא רצה בדרך כלל על Node.js."
+    },
+    {
+      "type": "paragraph",
+      "text": "TypeScript נוצר כדי להוסיף ל-JavaScript מערכת types. במקום לגלות רק בזמן ריצה שנשלח לפונקציה ערך לא נכון, TypeScript עוזר לתפוס טעויות רבות כבר בזמן הפיתוח."
+    },
+    {
+      "type": "paragraph",
+      "text": "TypeScript אינו רץ ישירות. הוא מתקמפל ל-JavaScript רגיל, ואותו JavaScript רץ בדפדפן או ב-Node.js."
+    },
+    {
+      "type": "heading",
+      "text": "היתרון המרכזי"
+    },
+    {
+      "type": "paragraph",
+      "text": "TypeScript מוסיף סדר ובטיחות לפרויקטים גדולים. קל יותר להבין מה כל פונקציה מקבלת, מה היא מחזירה, איך נראה object, ולבצע refactoring בלי לשבור דברים בשקט."
+    },
+    {
+      "type": "heading",
+      "text": "החיסרון"
+    },
+    {
+      "type": "paragraph",
+      "text": "יש שכבת מורכבות נוספת. צריך להגדיר types, להבין שגיאות קומפילציה, ולעיתים זה מרגיש כבד בפרויקטים קטנים."
+    },
+    {
+      "type": "heading",
+      "text": "Frameworks מודרניים"
+    },
+    {
+      "type": "paragraph",
+      "text": "Angular בצד ה-Frontend ו-NestJS בצד ה-Backend משתמשים ב-TypeScript כדי לבנות קוד מסודר, ברור וקל יותר לתחזוקה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "TypeScript לא מחליף את JavaScript. הוא מוסיף מעליה type safety ו-structure, ובסוף מתקמפל ל-JavaScript שרץ בדפדפן או ב-Node.js."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה TypeScript מוסיף ל-JavaScript?",
+      "answer": "מערכת types, בדיקות בזמן פיתוח וכלים טובים יותר ל-refactoring ותחזוקה."
+    },
+    {
+      "type": "qa",
+      "question": "האם TypeScript רץ ישירות בדפדפן או ב-Node.js?",
+      "answer": "לא. הוא מתקמפל ל-JavaScript רגיל, וה-JavaScript הוא שרץ בפועל."
+    },
+    {
+      "type": "qa",
+      "question": "מתי TypeScript נותן ערך משמעותי?",
+      "answer": "בעיקר בפרויקטים בינוניים וגדולים, כאשר יש הרבה models, APIs, developers ו-refactoring."
+    }
+  ]
+}

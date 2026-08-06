@@ -1,0 +1,60 @@
+{
+  "id": "connection-pooling",
+  "title": "Connection Pooling",
+  "sourcePages": [
+    9,
+    9
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Connection pool הוא pool של connections פתוחים ל-DB שהאפליקציה ממחזרת במקום לפתוח connection חדש לכל request."
+    },
+    {
+      "type": "paragraph",
+      "text": "פתיחת DB connection היא פעולה יקרה. מצד שני, יותר מדי connections יכולים להפיל את ה-DB."
+    },
+    {
+      "type": "heading",
+      "text": "איך זה עובד"
+    },
+    {
+      "type": "paragraph",
+      "text": "האפליקציה לוקחת connection מה-pool, משתמשת בה ומחזירה אותה ל-pool."
+    },
+    {
+      "type": "heading",
+      "text": "הגדרות חשובות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Max pool size",
+        "Connection timeout",
+        "Idle timeout",
+        "Max lifetime",
+        "Validation query או health check"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Pool גדול מדי לא משפר ביצועים אם ה-DB לא מסוגל לטפל בכמות הזאת.",
+        "Pool קטן מדי יוצר waiting באפליקציה.",
+        "Connection leak קורה כאשר connection אינה מוחזרת ל-pool.",
+        "Transactions ארוכות תופסות connections זמן רב.",
+        "מספר service instances כפול pool size עלול לעבור את max connections של ה-DB."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Connection pool ממחזר DB connections כדי לחסוך overhead. אני מכוון אותו לפי כמות instances, עומס ויכולת ה-DB, ונזהר גם מ-pool קטן מדי וגם מ-pool גדול שמעמיס על ה-DB."
+    }
+  ]
+}

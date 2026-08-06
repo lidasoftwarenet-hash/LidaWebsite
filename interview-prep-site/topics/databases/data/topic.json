@@ -1,5 +1,91 @@
 {
   "id": "databases",
   "title": "Databases",
-  "sections": []
+  "sections": [
+    {
+      "id": "database-selection",
+      "title": "Choosing the Right Database",
+      "file": "sections/database-selection.json"
+    },
+    {
+      "id": "postgresql",
+      "title": "PostgreSQL",
+      "file": "sections/postgresql.json"
+    },
+    {
+      "id": "mysql",
+      "title": "MySQL",
+      "file": "sections/mysql.json"
+    },
+    {
+      "id": "mongodb",
+      "title": "MongoDB",
+      "file": "sections/mongodb.json"
+    },
+    {
+      "id": "elasticsearch",
+      "title": "Elasticsearch",
+      "file": "sections/elasticsearch.json"
+    },
+    {
+      "id": "bigtable",
+      "title": "Bigtable",
+      "file": "sections/bigtable.json"
+    },
+    {
+      "id": "hbase",
+      "title": "HBase",
+      "file": "sections/hbase.json"
+    },
+    {
+      "id": "bigquery",
+      "title": "BigQuery",
+      "file": "sections/bigquery.json"
+    },
+    {
+      "id": "transactions",
+      "title": "Transactions & ACID",
+      "file": "sections/transactions.json"
+    },
+    {
+      "id": "isolation-levels",
+      "title": "Isolation Levels",
+      "file": "sections/isolation-levels.json"
+    },
+    {
+      "id": "indexes",
+      "title": "Indexes",
+      "file": "sections/indexes.json"
+    },
+    {
+      "id": "query-optimization",
+      "title": "Query Optimization",
+      "file": "sections/query-optimization.json"
+    },
+    {
+      "id": "connection-pooling",
+      "title": "Connection Pooling",
+      "file": "sections/connection-pooling.json"
+    },
+    {
+      "id": "optimistic-locking",
+      "title": "Optimistic Locking",
+      "file": "sections/optimistic-locking.json"
+    },
+    {
+      "id": "pessimistic-locking",
+      "title": "Pessimistic Locking",
+      "file": "sections/pessimistic-locking.json"
+    },
+    {
+      "id": "sql-joins",
+      "title": "SQL Joins",
+      "file": "sections/sql-joins.json"
+    },
+    {
+      "id": "schema-migrations",
+      "title": "Schema Migrations",
+      "file": "sections/schema-migrations.json"
+    }
+  ]
 }

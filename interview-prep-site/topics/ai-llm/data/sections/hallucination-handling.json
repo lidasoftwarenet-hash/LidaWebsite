@@ -1,0 +1,93 @@
+{
+  "id": "hallucination-handling",
+  "title": "Hallucination Handling",
+  "sourcePages": [
+    5,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Hallucination הוא מצב שבו LLM מייצר תשובה שנשמעת בטוחה, אבל אינה נכונה או אינה נתמכת ב-context."
+    },
+    {
+      "type": "paragraph",
+      "text": "במוצר אמיתי תשובה שגויה יכולה להזיק יותר מתשובה שאומרת שאין מספיק מידע, במיוחד בתחומים רגישים או ב-workflows פנימיים."
+    },
+    {
+      "type": "heading",
+      "text": "הגישה הנכונה"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא מנסים להבטיח אפס hallucinations, משום שזה אינו ריאלי. מתכננים מערכת שמקטינה את הסיכון ומזהה מתי לא לענות."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להביא context רלוונטי.",
+        "להנחות את המודל לענות רק לפי context.",
+        "לאפשר תשובת I don't know.",
+        "להחזיר citations או references כאשר אפשר.",
+        "לבצע output validation.",
+        "לבדוק coverage או relevance.",
+        "להפעיל human review במקרים רגישים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "גישה שמרנית",
+      "text": "עדיף שמערכת AI לא תענה כאשר אין מספיק מידע, מאשר שתענה בביטחון על דבר שאינו נמצא בדאטה."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת בדיקה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "if (\n    retrievedChunks.size()\n        < MIN_CONTEXT_CHUNKS\n    || relevanceScore < 0.75\n) {\n    return Answer\n        .notEnoughContext();\n}\n\nAnswer answer =\n    llm.generate(prompt);\n\nif (\n    !answerValidator\n        .isGrounded(\n            answer,\n            retrievedChunks\n        )\n) {\n    return Answer\n        .notEnoughContext();\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לחשוב ש-RAG פותר hallucinations לחלוטין.",
+        "לאפשר תשובה ללא context מספיק.",
+        "Prompt סותר שמבקש גם להיות helpful וגם לא להודות בחוסר מידע.",
+        "אין validation על הפלט.",
+        "אין logging של המקורות ששימשו לתשובה.",
+        "אין evaluation dataset לבדיקת regressions."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "כדי לצמצם hallucinations אני מגביל את המודל ל-context, מאפשר לו להגיד שאין מספיק מידע, משפר retrieval, מחזיר citations כשאפשר ומוסיף validation ו-human review במקרים רגישים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם אפשר לבטל Hallucinations לחלוטין?",
+      "answer": "לא. אפשר להקטין סיכון ולזהות מתי לא לענות."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Grounding?",
+      "answer": "הבדיקה שהתשובה מבוססת על המקורות וה-context שנשלפו."
+    },
+    {
+      "type": "qa",
+      "question": "למה Citations עוזרות?",
+      "answer": "הן מאפשרות לבדוק על אילו מקורות התשובה מבוססת."
+    }
+  ]
+}

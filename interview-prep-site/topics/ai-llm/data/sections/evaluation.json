@@ -1,0 +1,95 @@
+{
+  "id": "evaluation",
+  "title": "Evaluation",
+  "sourcePages": [
+    10,
+    11
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Evaluation הוא תהליך מסודר שבודק האם מערכת AI נותנת תשובות נכונות, אמינות ושימושיות."
+    },
+    {
+      "type": "paragraph",
+      "text": "לא מספיק לראות שהמערכת עבדה טוב בכמה שאלות בזמן Demo. צריך לבדוק אותה שוב ושוב מול סט קבוע של מקרים."
+    },
+    {
+      "type": "heading",
+      "text": "למה Evaluation נדרש"
+    },
+    {
+      "type": "paragraph",
+      "text": "שינוי קטן ב-prompt, במודל, ב-chunking, ב-retrieval או בכמות ה-context יכול לשפר מקרה אחד ולפגוע במקרים אחרים בלי שנשים לב."
+    },
+    {
+      "type": "heading",
+      "text": "Golden Dataset"
+    },
+    {
+      "type": "paragraph",
+      "text": "Golden dataset הוא סט קבוע של שאלות, תשובות או התנהגויות צפויות. הוא משמש בסיס להשוואה בין גרסאות."
+    },
+    {
+      "type": "heading",
+      "text": "שכבות בדיקה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Retrieval quality: האם נמצאו ה-chunks הנכונים.",
+        "Grounding: האם התשובה מבוססת על המקורות.",
+        "Human review: האם התשובה נכונה, ברורה ושימושית.",
+        "Regression testing: האם שינוי חדש פגע במקרים קיימים.",
+        "Refusal correctness: האם המערכת מסרבת כאשר צריך."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מדדים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Answer correctness.",
+        "Grounding.",
+        "Retrieval precision ו-recall.",
+        "יכולת לומר שאין מספיק מידע.",
+        "Refusal correctness.",
+        "Latency.",
+        "Cost."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "נקודה חשובה",
+      "text": "צריך למדוד לא רק מתי המערכת עונה נכון, אלא גם מתי היא צריכה לא לענות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Evaluation במערכות AI הוא תהליך שיטתי לבדיקת איכות. אני משתמש ב-golden dataset, בודק retrieval ו-grounding, מוסיף human review ומשווה תוצאות בין גרסאות כדי ששינוי ב-prompt, במודל או ב-retrieval לא ייצור regression."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Golden Dataset?",
+      "answer": "סט קבוע של שאלות והתנהגויות צפויות שמשמש לבדיקת גרסאות."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Grounding?",
+      "answer": "בדיקה שהתשובה נשענת על המקורות ולא הומצאה."
+    },
+    {
+      "type": "qa",
+      "question": "למה Manual Testing בלבד אינו מספיק?",
+      "answer": "כי הוא אינו עקבי, קשה להשוואה ועלול לפספס regressions."
+    }
+  ]
+}

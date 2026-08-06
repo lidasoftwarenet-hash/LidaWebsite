@@ -1,0 +1,120 @@
+{
+  "id": "rollback",
+  "title": "Rollback Strategy",
+  "sourcePages": [
+    4,
+    6
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Rollback strategy היא הדרך לחזור במהירות ובבטחה מ-deployment רע לגרסה יציבה."
+    },
+    {
+      "type": "paragraph",
+      "text": "Pipeline טוב אינו מונע כל תקלה. ב-production ownership חשוב גם כמה מהר מזהים בעיה וכמה בטוח חוזרים אחורה."
+    },
+    {
+      "type": "heading",
+      "text": "מה בודקים לאחר תקלה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "האם התקלה התחילה מיד לאחר release.",
+        "איזה version שוחרר.",
+        "האם error rate עלה.",
+        "האם latency עלה.",
+        "האם health checks נכשלים.",
+        "כמה משתמשים מושפעים.",
+        "האם rollback בטוח מבחינת DB schema ושינויי data."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Rollback טוב דורש"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Deployment history",
+        "Immutable image tags",
+        "יכולת לחזור לגרסה קודמת",
+        "Backward-compatible DB migrations",
+        "Feature flags כאשר אפשר",
+        "Smoke tests לאחר rollback"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Rollback ב-Kubernetes"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "kubectl rollout history deployment/coverage-service\n\nkubectl rollout undo deployment/coverage-service\n\nkubectl rollout status deployment/coverage-service"
+    },
+    {
+      "type": "heading",
+      "text": "Rollback ב-GitOps"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "git revert <bad-commit>\ngit push"
+    },
+    {
+      "type": "paragraph",
+      "text": "לאחר ה-revert, ArgoCD מסנכרן את ה-cluster חזרה למצב הקודם."
+    },
+    {
+      "type": "heading",
+      "text": "DB Compatibility"
+    },
+    {
+      "type": "paragraph",
+      "text": "Rollback של קוד אינו בהכרח בטוח אם migration שינתה schema או data בצורה שאינה backward compatible. לכן schema changes צריכים להיבנות כך ששתי גרסאות האפליקציה יוכלו לעבוד לפחות בזמן המעבר."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Rollback לקוד קודם כאשר ה-DB migration אינה backward compatible.",
+        "Image tag שאינו immutable ולכן לא ברור לאיזו גרסה חוזרים.",
+        "אין deployment history.",
+        "Rollback ללא smoke tests.",
+        "Rollback כאשר הבעיה היא dependency חיצונית ולא release.",
+        "Rollback איטי כי אין automation.",
+        "אין feature flag לכיבוי מהיר של behavior בעייתי."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Rollback טוב מתחיל מ-observability ומ-deployment history. אני חוזר לגרסה ידועה ויציבה, מוודא ששינויי ה-DB תואמים לאחור, מריץ smoke tests ועוקב אחרי metrics כדי לוודא שהמערכת התאוששה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי rollback אינו בטוח?",
+      "answer": "כאשר schema או data השתנו בצורה שאינה backward compatible."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושים לאחר rollback?",
+      "answer": "מריצים smoke tests ועוקבים אחרי error rate, latency ו-health כדי לוודא התאוששות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Feature Flag עדיף על Rollback?",
+      "answer": "כאשר אפשר לכבות במהירות behavior בעייתי בלי להחליף את כל הגרסה."
+    }
+  ]
+}

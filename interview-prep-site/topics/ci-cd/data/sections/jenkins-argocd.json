@@ -1,0 +1,106 @@
+{
+  "id": "jenkins-argocd",
+  "title": "Jenkins, ArgoCD & GitOps",
+  "sourcePages": [
+    3,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Jenkins הוא כלי CI/CD כללי שמריץ builds, tests, pipelines ו-deployment steps. ArgoCD הוא כלי GitOps ל-Kubernetes, שבו Git משמש מקור האמת של מצב ה-cluster."
+    },
+    {
+      "type": "heading",
+      "text": "Flow נפוץ"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Developer פותח PR.",
+        "Jenkins או GitHub Actions מריצים build ו-tests.",
+        "נבנה Docker image.",
+        "ה-image נדחף ל-registry.",
+        "Manifest, Helm values או GitOps repository מתעדכנים עם image tag חדש.",
+        "ArgoCD מזהה שינוי ב-Git.",
+        "ArgoCD מסנכרן את Kubernetes cluster למצב החדש.",
+        "לאחר deploy בודקים health, logs, metrics ו-smoke tests."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "הבדל מרכזי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Jenkins טוב להרצת תהליכים ו-automation.",
+        "ArgoCD טוב לשמירה על desired state של Kubernetes."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובת Senior",
+      "text": "אני מעדיף שה-deployment state יהיה declarative ב-Git, כדי שאפשר יהיה לראות history, לבצע review, להבין drift ולעשות rollback בצורה מסודרת."
+    },
+    {
+      "type": "heading",
+      "text": "Deployment Manifest עם Image Tag Immutable"
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: coverage-service\n\nspec:\n  template:\n    spec:\n      containers:\n        - name: coverage-service\n          image: registry.company.com/coverage-service:abc123"
+    },
+    {
+      "type": "heading",
+      "text": "Source of Truth ו-Drift"
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר Git הוא source of truth, שינוי ידני ב-cluster יכול להידרס בסנכרון הבא. ArgoCD יציג OutOfSync כאשר המצב בפועל שונה מהמצב שהוגדר ב-Git."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Jenkins מבצע deploy ידני ללא source of truth ברור.",
+        "ArgoCD מציג OutOfSync ולא חוקרים את ה-drift.",
+        "שינוי ידני ב-cluster שנדרס לאחר מכן על ידי ArgoCD.",
+        "אין approval gate ל-Production.",
+        "אין הפרדה בין build pipeline ל-deploy pipeline.",
+        "אין rollback strategy ברורה.",
+        "Image tag אינו immutable."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Jenkins מתאים ל-build, tests ו-automation. ArgoCD מתאים ל-GitOps deployment ל-Kubernetes, כאשר Git הוא מקור האמת. ה-flow הוא build artifact, update Git, ואז ArgoCD מסנכרן את מצב Production."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה GitOps אומר בפועל?",
+      "answer": "Git מחזיק את המצב הרצוי של המערכת, וכלי כמו ArgoCD מסנכרן את ה-cluster אליו."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Drift?",
+      "answer": "פער בין המצב בפועל ב-cluster לבין מה שמוגדר ב-Git."
+    },
+    {
+      "type": "qa",
+      "question": "למה Image Tag צריך להיות Immutable?",
+      "answer": "כדי לדעת בדיוק איזו גרסה נפרסה ולאפשר rollback ו-debugging אמינים."
+    }
+  ]
+}

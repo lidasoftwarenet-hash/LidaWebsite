@@ -1,0 +1,87 @@
+{
+  "id": "idempotency",
+  "title": "Idempotency",
+  "sourcePages": [
+    262,
+    263
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Idempotency אומר שאותה פעולה יכולה להתבצע יותר מפעם אחת בלי ליצור תוצאה כפולה או שגויה."
+    },
+    {
+      "type": "heading",
+      "text": "למה זה חשוב"
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכות אמיתיות יש retries, timeouts, duplicate messages ו-network failures. בלי idempotency אפשר ליצור כפילויות."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת תשלום"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-client שולח בקשת תשלום. השרת מחייב בהצלחה, אבל ה-response נופל בדרך. ה-client מבצע retry. בלי idempotency עלול להיווצר חיוב כפול."
+    },
+    {
+      "type": "heading",
+      "text": "Idempotency Key"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-client שולח Idempotency-Key. השרת שומר את ה-key יחד עם התוצאה. אם אותה בקשה חוזרת, השרת לא מבצע אותה שוב אלא מחזיר את אותה תוצאה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@PostMapping(\"/payments\")\npublic ResponseEntity<PaymentResponse> createPayment(\n        @RequestHeader(\"Idempotency-Key\") String idempotencyKey,\n        @RequestBody CreatePaymentRequest request) {\n    PaymentResponse response =\n        paymentService.createPayment(idempotencyKey, request);\n\n    return ResponseEntity\n        .status(HttpStatus.CREATED)\n        .body(response);\n}"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public PaymentResponse createPayment(\n        String key,\n        CreatePaymentRequest request) {\n    return idempotencyRepository\n        .findByKey(key)\n        .map(IdempotencyRecord::response)\n        .orElseGet(() -> {\n            Payment payment =\n                paymentProcessor.charge(request);\n\n            PaymentResponse response =\n                PaymentResponse.from(payment);\n\n            idempotencyRepository.save(\n                new IdempotencyRecord(key, response));\n\n            return response;\n        });\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשמור key בלי לבדוק שה-payload זהה.",
+        "לא להגדיר TTL ל-keys.",
+        "לשמור את ה-key רק אחרי הפעולה במקום לפני או בתוך transaction.",
+        "לחשוב ש-retry לבדו מספיק.",
+        "לא להפוך consumers ל-idempotent."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Idempotency קריטית ל-retries. אני משתמש ב-idempotency key כדי לזהות בקשה שחזרה, לא לבצע אותה שוב ולהחזיר את אותה תוצאה בצורה בטוחה."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Idempotency חשובה בתשלום?",
+      "answer": "כדי למנוע חיוב כפול כאשר request חוזר בגלל timeout או כשל רשת."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך להשוות Payload?",
+      "answer": "כדי למנוע שימוש חוזר באותו key לבקשה שונה."
+    },
+    {
+      "type": "qa",
+      "question": "האם Consumer צריך להיות Idempotent?",
+      "answer": "כן, משום ש-message brokers מספקים לעיתים at-least-once delivery."
+    }
+  ]
+}

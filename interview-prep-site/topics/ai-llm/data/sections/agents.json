@@ -1,0 +1,111 @@
+{
+  "id": "agents",
+  "title": "AI Agents",
+  "sourcePages": [
+    14,
+    16
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "AI Agent הוא מערכת שמשתמשת ב-LLM כדי לא רק לכתוב תשובה, אלא להבין מטרה, לתכנן צעדים, לבחור tools, לבצע פעולות ולבחור את הצעד הבא לפי התוצאה."
+    },
+    {
+      "type": "heading",
+      "text": "Agent מול Chatbot"
+    },
+    {
+      "type": "paragraph",
+      "text": "Chatbot רגיל מקבל שאלה ומחזיר תשובה. Agent מתאים למשימה רב-שלבית שבה הצעד הבא תלוי בתוצאה של הצעד הקודם."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת Flow"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Incident Agent",
+      "text": "Read incident → Search logs → Find failing service → Read relevant code → Suggest a fix"
+    },
+    {
+      "type": "heading",
+      "text": "מתי Agent שימושי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ניתוח תקלה.",
+        "בדיקת Pull Request.",
+        "חיפוש מידע בכמה מערכות.",
+        "יצירת דווח מכמה מקורות.",
+        "Workflow פנימי רב-שלבי."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "למשימה פשוטה כמו סיכום טקסט, Agent בדרך כלל אינו נחוץ."
+    },
+    {
+      "type": "heading",
+      "text": "איך בונים Agent בטוח"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מטרה מוגבלת וברורה.",
+        "Tool allowlist.",
+        "Permissions בכל tool.",
+        "Bounded actions: הגבלת צעדים, זמן וקריאות.",
+        "Validation לאחר כל tool call.",
+        "Human approval לפעולות רגישות.",
+        "Audit trail."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "לדוגמה, Agent למפתחים יכול לקרוא PR, לבדוק tests ולהציע שינוי, אך לא לבצע merge או deployment ללא אישור."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מטרה כללית מדי.",
+        "גישה אוטומטית לכל מערכות הארגון.",
+        "אין max steps או timeout.",
+        "פלט tool משמש ללא validation.",
+        "אין אישור לפעולה רגישה.",
+        "אין audit trail.",
+        "לולאה אינסופית או עלות בלתי מוגבלת."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Agent הוא LLM שמסוגל לתכנן כמה צעדים ולהפעיל tools בהתאם לתוצאות. ב-Production אני מגביל את המטרה, הכלים, ההרשאות ומספר הצעדים, מבצע validation לכל תוצאה ודורש human approval לפעולות רגישות."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Agent עדיף על קריאה אחת למודל?",
+      "answer": "כאשר המשימה דורשת כמה שלבים והשלב הבא תלוי בתוצאה של השלב הקודם."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Tool Allowlist?",
+      "answer": "רשימה מוגדרת של tools שה-Agent רשאי להפעיל."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך Max Steps?",
+      "answer": "כדי למנוע לולאות, latency ועלות בלתי מוגבלים."
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "id": "rxjs",
+  "title": "RxJS",
+  "sourcePages": [
+    13,
+    15
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "RxJS היא ספרייה לעבודה עם Observables, כלומר זרם של ערכים שיכול להגיע לאורך זמן."
+    },
+    {
+      "type": "heading",
+      "text": "שימושים ב-Angular"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "HTTP requests.",
+        "שינויים בטפסים.",
+        "Route params.",
+        "אירועי UI.",
+        "State אסינכרוני."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "map"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "users$ = this.userService.getUsers().pipe(\n    map(users => users.filter(user => user.active))\n);"
+    },
+    {
+      "type": "heading",
+      "text": "switchMap"
+    },
+    {
+      "type": "paragraph",
+      "text": "switchMap מבטל פעולה קודמת כאשר מגיע ערך חדש. הוא מתאים במיוחד לחיפוש."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "results$ = this.searchControl.valueChanges.pipe(\n    debounceTime(300),\n    distinctUntilChanged(),\n    switchMap(term => this.userService.search(term))\n);"
+    },
+    {
+      "type": "heading",
+      "text": "mergeMap"
+    },
+    {
+      "type": "paragraph",
+      "text": "mergeMap מריץ כמה פעולות במקביל ואינו מבטל את הקודמות."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "results$ = this.searchControl.valueChanges.pipe(\n    debounceTime(300),\n    distinctUntilChanged(),\n    mergeMap(term => this.userService.search(term))\n);"
+    },
+    {
+      "type": "heading",
+      "text": "forkJoin"
+    },
+    {
+      "type": "paragraph",
+      "text": "forkJoin מחכה לכמה Observables חד-פעמיים שיסתיימו."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "data$ = forkJoin({\n    users: this.userService.getUsers(),\n    roles: this.roleService.getRoles()\n});"
+    },
+    {
+      "type": "heading",
+      "text": "combineLatest"
+    },
+    {
+      "type": "paragraph",
+      "text": "combineLatest משלב את הערך האחרון מכמה streams בכל פעם שאחד מהם משתנה."
+    },
+    {
+      "type": "heading",
+      "text": "Subject מול Observable"
+    },
+    {
+      "type": "paragraph",
+      "text": "Observable הוא stream שמאזינים לו. Subject יכול גם לפלוט ערכים בעצמו."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "private readonly refreshSubject = new Subject<void>();\n\nrefresh(): void {\n    this.refreshSubject.next();\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "RxJS מאפשר לנהל async flows באמצעות Observables. אני משתמש ב-switchMap כשצריך לבטל request קודם, למשל בחיפוש, ב-mergeMap לפעולות מקבילות, וב-forkJoin כשצריך לחכות לכמה requests חד-פעמיים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין switchMap ל-mergeMap?",
+      "answer": "switchMap מבטל subscription פנימי קודם. mergeMap מאפשר לכמה פעולות לרוץ במקביל."
+    },
+    {
+      "type": "qa",
+      "question": "מתי forkJoin מתאים?",
+      "answer": "כאשר כמה requests חד-פעמיים צריכים להסתיים לפני שממשיכים."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Observable ל-Subject?",
+      "answer": "Observable רק משדר למאזינים. Subject יכול גם לקבל next ולפלוט ערכים."
+    }
+  ]
+}

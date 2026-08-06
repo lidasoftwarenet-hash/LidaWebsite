@@ -1,0 +1,77 @@
+{
+  "id": "express-fastify",
+  "title": "Express, Fastify & Architecture",
+  "sourcePages": [
+    229,
+    230
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Express מול NestJS"
+    },
+    {
+      "type": "paragraph",
+      "text": "Express הוא framework קל ומינימלי."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "app.get(\n    \"/users/:id\",\n    async (request, response) => {\n        const user =\n            await userService.getUser(\n                request.params.id\n            );\n\n        response.json(user);\n    }\n);"
+    },
+    {
+      "type": "paragraph",
+      "text": "Express נותן routing, middleware ו-request/response handling, אבל משאיר לצוות החלטות כמו איפה לשים business logic, איך לעשות DI, איך לבנות modules, איך לטפל בשגיאות ואיך לבצע validation."
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS מוסיף שכבות ברורות: Controller מקבל request, Service מחזיק business logic, ו-Repository או Client עובדים מול DB או שירות חיצוני."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Express הוא מינימלי וגמיש. NestJS יותר opinionated ומוסיף structure, DI, decorators, validation, guards, interceptors ותמיכה טובה יותר ב-testing."
+    },
+    {
+      "type": "heading",
+      "text": "Express או Fastify מתחת ל-Nest"
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS אינו HTTP server בפני עצמו. הוא רץ מעל HTTP adapter."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Express הוא ברירת המחדל.",
+        "Fastify הוא adapter חלופי שיכול לתת ביצועים טובים יותר במקרים מסוימים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "NestJS יושב מעל HTTP adapter. בדרך כלל זה Express, אבל אפשר לעבוד גם עם Fastify. כך מקבלים את המבנה של Nest ועדיין אפשר להחליף את שכבת ה-HTTP שמתחת."
+    },
+    {
+      "type": "heading",
+      "text": "Feature-based Structure"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "src/\n  app.module.ts\n  users/\n    users.module.ts\n    users.controller.ts\n    users.service.ts\n    dto/\n      create-user.dto.ts"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-NestJS נהוג לחשוב במונחים של feature modules. לכל domain יש module משלו, עם controller, service, DTOs ולעיתים repository או client."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ב-NestJS אני חושב במונחים של feature modules. לכל domain יש module משלו, עם controller, service, DTOs ולעיתים repository או client. זה שומר על הפרדה ברורה בין HTTP layer לבין business logic."
+    }
+  ]
+}

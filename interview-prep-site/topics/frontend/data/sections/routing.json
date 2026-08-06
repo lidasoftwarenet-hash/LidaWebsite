@@ -1,0 +1,83 @@
+{
+  "id": "routing",
+  "title": "Routing & Lazy Loading",
+  "sourcePages": [
+    6,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Angular Router מחבר בין URL לבין Component."
+    },
+    {
+      "type": "heading",
+      "text": "Routes בסיסיים"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export const routes: Routes = [\n    { path: \"users\", component: UsersComponent },\n    { path: \"users/:id\", component: UserDetailsComponent },\n    { path: \"**\", component: NotFoundComponent }\n];"
+    },
+    {
+      "type": "heading",
+      "text": "Route Parameter"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export class UserDetailsComponent {\n    private readonly route = inject(ActivatedRoute);\n    userId = this.route.snapshot.paramMap.get(\"id\");\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Navigation מתוך קוד"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "private readonly router = inject(Router);\n\nopenUser(id: string): void {\n    this.router.navigate([\"/users\", id]);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Lazy Loading"
+    },
+    {
+      "type": "paragraph",
+      "text": "Lazy loading טוען feature רק כאשר המשתמש מגיע ל-route, וכך מקטין את ה-bundle הראשוני."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    path: \"users\",\n    loadComponent: () =>\n        import(\"./users.component\")\n            .then(module => module.UsersComponent)\n}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Route parameters מתאימים למזהים בתוך ה-path.",
+        "Query parameters מתאימים לפילטרים וחיפוש.",
+        "Child routes מתאימים למסכים היררכיים.",
+        "Lazy loading מתאים לאזורים שאינם נדרשים בטעינה הראשונה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Angular Router מחבר URLs ל-Components. אני משתמש ב-route params למזהים, query params לפילטרים, וב-lazy loading כדי לא לטעון מראש אזורים שלא נדרשים במסך הראשון."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין route param ל-query param?",
+      "answer": "Route param הוא חלק מה-path ומתאים לרוב למזהה. Query param מתאים לרוב לפילטרים או מיון."
+    },
+    {
+      "type": "qa",
+      "question": "למה Lazy Loading חשוב?",
+      "answer": "כדי להקטין את ה-bundle הראשוני ולשפר את זמן הטעינה."
+    }
+  ]
+}

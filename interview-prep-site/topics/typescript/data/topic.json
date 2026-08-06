@@ -1,5 +1,56 @@
 {
   "id": "typescript",
   "title": "TypeScript",
-  "sections": []
+  "sections": [
+    {
+      "id": "overview",
+      "title": "TypeScript Overview",
+      "file": "sections/overview.json"
+    },
+    {
+      "id": "unknown-vs-any",
+      "title": "unknown vs any",
+      "file": "sections/unknown-vs-any.json"
+    },
+    {
+      "id": "union-intersection",
+      "title": "Union & Intersection Types",
+      "file": "sections/union-intersection.json"
+    },
+    {
+      "id": "interface-vs-type",
+      "title": "interface vs type",
+      "file": "sections/interface-vs-type.json"
+    },
+    {
+      "id": "type-guards",
+      "title": "Type Guards",
+      "file": "sections/type-guards.json"
+    },
+    {
+      "id": "discriminated-unions",
+      "title": "Discriminated Unions",
+      "file": "sections/discriminated-unions.json"
+    },
+    {
+      "id": "generics",
+      "title": "Generics",
+      "file": "sections/generics.json"
+    },
+    {
+      "id": "utility-types",
+      "title": "Utility Types",
+      "file": "sections/utility-types.json"
+    },
+    {
+      "id": "never",
+      "title": "never & Exhaustive Checking",
+      "file": "sections/never.json"
+    },
+    {
+      "id": "optional-properties",
+      "title": "Optional Properties",
+      "file": "sections/optional-properties.json"
+    }
+  ]
 }

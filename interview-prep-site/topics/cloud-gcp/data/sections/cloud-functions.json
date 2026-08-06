@@ -1,0 +1,105 @@
+{
+  "id": "cloud-functions",
+  "title": "Cloud Functions",
+  "sourcePages": [
+    5,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Cloud Functions הוא שירות serverless להרצת פונקציות קצרות, בדרך כלל event-driven."
+    },
+    {
+      "type": "paragraph",
+      "text": "הפונקציה יכולה להיות מופעלת בעקבות HTTP request, Pub/Sub message, שינוי ב-Cloud Storage או trigger אחר."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "משימות קטנות ומבודדות",
+        "Triggers",
+        "Automation",
+        "חישובים קצרים",
+        "Event-driven logic שאינו מצדיק service מלא"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Cloud Function צריכה להיות קטנה, stateless וברורה."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מפרויקט Data Coverage"
+    },
+    {
+      "type": "paragraph",
+      "text": "לאחר שה-pipelines סיימו להכין snapshot ב-Bigtable, הופעלה Cloud Function ייעודית שחישבה את ציון האמינות וכתבה את התוצאה ל-MongoDB. היא התאימה משום שהלוגיקה הייתה event-driven, stateless ולא דרשה service שרץ כל הזמן."
+    },
+    {
+      "type": "heading",
+      "text": "Cloud Functions מול Cloud Run"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Cloud Functions מתאימה לפונקציה קטנה שמגיבה ל-event.",
+        "Cloud Run מתאים יותר ל-container או service עם API, dependencies מורכבות או runtime גמיש יותר."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת קוד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public class CoverageCalculationFunction\n        implements BackgroundFunction<PubSubMessage> {\n\n    private final CoverageCalculator calculator =\n        new CoverageCalculator();\n\n    @Override\n    public void accept(\n        PubSubMessage message,\n        Context context\n    ) {\n        String companyId =\n            new String(\n                Base64.getDecoder().decode(\n                    message.getData()\n                ),\n                StandardCharsets.UTF_8\n            );\n\n        calculator.calculateAndStore(companyId);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשים יותר מדי business logic בפונקציה אחת.",
+        "להניח שהפונקציה תרוץ פעם אחת בלבד.",
+        "לא לטפל ב-retries.",
+        "לא להפוך את הפעולה ל-idempotent.",
+        "פונקציה שרצה זמן רב מדי.",
+        "Dependency כבדה שיוצרת cold start גבוה.",
+        "Logging לא מספיק טוב להבנת failure."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Cloud Functions מתאימה למשימות serverless קצרות ו-event-driven. אני משתמש בה ל-logic נקודתי ו-stateless, אבל דואג ל-idempotency, retries, logging וגבולות ברורים כדי שלא תהפוך ל-service חבוי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי לבחור Cloud Functions ולא Cloud Run?",
+      "answer": "כאשר מדובר בפונקציה קצרה שמגיבה ל-event ולא ב-service מלא."
+    },
+    {
+      "type": "qa",
+      "question": "למה הפעולה צריכה להיות idempotent?",
+      "answer": "כי trigger יכול לגרום להרצה חוזרת."
+    },
+    {
+      "type": "qa",
+      "question": "מה גורם ל-cold start גבוה?",
+      "answer": "Dependencies כבדות, initialization ארוך או runtime גדול."
+    }
+  ]
+}

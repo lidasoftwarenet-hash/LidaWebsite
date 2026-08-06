@@ -1,0 +1,129 @@
+{
+  "id": "javascript-map",
+  "title": "JavaScript Map",
+  "sourcePages": [
+    6,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "פעולות נפוצות על Map ב-JavaScript, כולל ספירת תדירויות ו-Top K."
+    },
+    {
+      "type": "heading",
+      "text": "יצירה והוספה"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const values =\n    new Map();\n\nvalues.set(1, 1000);\nvalues.set(2, 31000);"
+    },
+    {
+      "type": "heading",
+      "text": "מספר Entries"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const size =\n    values.size;"
+    },
+    {
+      "type": "heading",
+      "text": "Frequency Map"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const frequencies =\n    new Map();\n\nfor (const number of numbers) {\n    frequencies.set(\n        number,\n        (\n            frequencies.get(number)\n            ?? 0\n        ) + 1\n    );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Maximum Value"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const maxValue =\n    Math.max(\n        ...values.values()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "המפתח הראשון עם Value מסוים"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const firstKey =\n    [...values.keys()]\n        .find(key =>\n            values.get(key)\n                === 31000\n        );"
+    },
+    {
+      "type": "heading",
+      "text": "כל המפתחות עם אותו Value"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const keys =\n    [...values.keys()]\n        .filter(key =>\n            values.get(key)\n                === 31000\n        );"
+    },
+    {
+      "type": "heading",
+      "text": "קריאה ובדיקת Key"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const value =\n    values.get(3);\n\nconst exists =\n    values.has(4);\n\nconst valueOrDefault =\n    values.get(3)\n    ?? 1000;"
+    },
+    {
+      "type": "heading",
+      "text": "הוספה רק אם Key אינו קיים"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "if (!values.has(5)) {\n    values.set(\n        5,\n        500\n    );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "המפתח עם הספירה הגבוהה ביותר"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "let majority = null;\nlet maxCount = 0;\n\nfor (\n    const [key, value]\n    of frequencies.entries()\n) {\n    if (value > maxCount) {\n        majority = key;\n        maxCount = value;\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Top K לפי Value"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "code": "const topKeys =\n    [...values.entries()]\n        .sort(\n            (first, second) =>\n                second[1]\n                - first[1]\n        )\n        .slice(0, limit)\n        .map(entry =>\n            entry[0]\n        );"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Nullish Coalescing",
+      "text": "בספירת תדירויות עדיף ?? 0 על || 0 כאשר ערך 0 הוא ערך חוקי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Map ל-Object?",
+      "answer": "Map מספק API ייעודי, שומר את גודל המבנה ב-size ותומך ב-keys מכל type."
+    },
+    {
+      "type": "qa",
+      "question": "איך בודקים אם Key קיים?",
+      "answer": "באמצעות has."
+    },
+    {
+      "type": "qa",
+      "question": "איך ממיינים Map?",
+      "answer": "ממירים את entries ל-Array, ממיינים ומעבדים את התוצאה."
+    }
+  ]
+}

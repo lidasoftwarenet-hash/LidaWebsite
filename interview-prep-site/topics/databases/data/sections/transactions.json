@@ -1,0 +1,64 @@
+{
+  "id": "transactions",
+  "title": "Transactions & ACID",
+  "sourcePages": [
+    2,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Transaction היא יחידת עבודה אחת מול DB: או שכל הפעולות מצליחות יחד, או שהכול מתבטל. זה בסיסי למערכות Backend שעוסקות בכסף, הזמנות, מלאי, הרשאות ו-consistency."
+    },
+    {
+      "type": "heading",
+      "text": "ACID"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Atomicity: הכול מצליח או הכול rollback.",
+        "Consistency: ה-DB נשאר במצב חוקי.",
+        "Isolation: transactions במקביל לא אמורות לשבור אחת את השנייה.",
+        "Durability: אחרי commit, המידע נשמר."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה קלאסית"
+    },
+    {
+      "type": "paragraph",
+      "text": "יצירת order, הורדת inventory ויצירת payment record צריכות להישאר עקביות. אם יצירת ה-payment נכשלת, לא נרצה שה-order יישאר פתוח והמלאי ירד."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Transactional\npublic void createOrder(\n        CreateOrderRequest request\n) {\n    Order order =\n        orderRepository.save(\n            Order.from(request)\n        );\n\n    inventoryService.reserve(\n        request.productId(),\n        request.quantity()\n    );\n\n    paymentRepository.save(\n        Payment.pending(\n            order.getId()\n        )\n    );\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם נזרקת exception בתוך ה-transaction, Spring יכול לבצע rollback."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Transaction אינה חוצה microservices.",
+        "פעולה חיצונית בתוך transaction, כמו HTTP call או publish ל-Kafka, מסבכת את ה-consistency.",
+        "Transaction ארוכה מחזיקה locks ו-connections זמן רב.",
+        "ב-Spring rollback מתבצע בדרך כלל על runtime exceptions.",
+        "Self-invocation ב-Spring לא תמיד עוברת דרך ה-proxy של @Transactional."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Transaction עוטפת כמה פעולות כיחידה אחת. אם הכול מצליח עושים commit, ואם משהו נכשל עושים rollback. אני משתמש בה כאשר שינויי DB חייבים להישאר עקביים יחד."
+    }
+  ]
+}

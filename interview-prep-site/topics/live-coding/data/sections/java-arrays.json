@@ -1,0 +1,137 @@
+{
+  "id": "java-arrays",
+  "title": "Java Arrays",
+  "sourcePages": [
+    1,
+    2
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "דף עזר מהיר לפעולות נפוצות על arrays ב-Java בזמן Live Coding."
+    },
+    {
+      "type": "heading",
+      "text": "יצירה ועדכון"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int[] numbers = new int[5];\n\nint[] numbersWithData =\n    new int[] {1, 2, 3, 4, 5};\n\nint[] numbersWithDataSimple =\n    {1, 2, 3, 4, 5};\n\nnumbers[0] = 10;"
+    },
+    {
+      "type": "heading",
+      "text": "הדפסה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String arrayAsString =\n    Arrays.toString(\n        numbersWithData\n    );\n\nSystem.out.println(\n    arrayAsString\n);"
+    },
+    {
+      "type": "heading",
+      "text": "חיבור שני Arrays"
+    },
+    {
+      "type": "paragraph",
+      "text": "הדוגמה משתמשת ב-ArrayUtils מתוך Apache Commons Lang ומחזירה array חדש."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int[] combined =\n    ArrayUtils.addAll(\n        num1,\n        num2\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "העברת Array למתודה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "methodName(\n    new int[] {1, 2, 4, 4}\n);"
+    },
+    {
+      "type": "heading",
+      "text": "Reverse"
+    },
+    {
+      "type": "paragraph",
+      "text": "ArrayUtils.reverse משנה את ה-array המקורי."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "ArrayUtils.reverse(\n    numbersWithData\n);"
+    },
+    {
+      "type": "heading",
+      "text": "בדיקת Contains"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "boolean containsThree =\n    ArrayUtils.contains(\n        numbersWithData,\n        3\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "הסרה או הוספה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int[] removed =\n    ArrayUtils.removeElement(\n        numbersWithData,\n        3\n    );\n\nint[] addedFirst =\n    ArrayUtils.addFirst(\n        numbersWithData,\n        3\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "Swap"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public static void swapInArray(\n        int[] array,\n        int index1,\n        int index2\n) {\n    int temp =\n        array[index1];\n\n    array[index1] =\n        array[index2];\n\n    array[index2] =\n        temp;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "המרה ל-List או Set"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<Integer> numberList =\n    Arrays.stream(\n        numbersWithData\n    )\n    .boxed()\n    .collect(\n        Collectors.toList()\n    );\n\nSet<Integer> numberSet =\n    Arrays.stream(\n        numbersWithData\n    )\n    .boxed()\n    .collect(\n        Collectors.toSet()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "המרת List ל-Array"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Object[] array =\n    list.toArray();"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "הערת שימוש",
+      "text": "ArrayUtils אינו חלק מה-JDK. הפעולות שמבוססות עליו דורשות Apache Commons Lang."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "האם ArrayUtils.reverse מחזיר array חדש?",
+      "answer": "לא. הוא משנה את ה-array שהועבר אליו."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך boxed() בהמרת int[] ל-List<Integer>?",
+      "answer": "Stream של int הוא IntStream. boxed ממיר כל int ל-Integer."
+    },
+    {
+      "type": "qa",
+      "question": "איך מבצעים swap בלי ספרייה?",
+      "answer": "שומרים את הערך הראשון במשתנה זמני ומחליפים בין שני האינדקסים."
+    }
+  ]
+}

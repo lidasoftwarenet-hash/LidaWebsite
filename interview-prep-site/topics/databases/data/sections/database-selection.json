@@ -1,0 +1,51 @@
+{
+  "id": "database-selection",
+  "title": "Choosing the Right Database",
+  "sourcePages": [
+    14,
+    14
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "לא בוחרים database לפי מה שפופולרי, אלא לפי סוג ה-workload, מודל הנתונים, query patterns, consistency, scale ו-latency."
+    },
+    {
+      "type": "heading",
+      "text": "מיפוי מהיר"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Relational data ו-transactions: PostgreSQL או MySQL.",
+        "Document-based וגמיש: MongoDB.",
+        "Search: Elasticsearch.",
+        "Analytics על data ענק: BigQuery.",
+        "Storage עצום עם גישה לפי key בסקייל גבוה: Bigtable או HBase."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות שכדאי לשאול"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "האם המודל relational?",
+        "האם צריך transactions חזקות?",
+        "האם צריך joins מורכבים?",
+        "האם ה-workload הוא OLTP או analytics?",
+        "האם הגישה היא בעיקר לפי key?",
+        "האם צריך full-text search?",
+        "מה דרישות consistency ו-latency?",
+        "מה נפח data וקצב הקריאות והכתיבות?"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובת סיכום לראיון",
+      "text": "אני לא בוחר database לפי מה שפופולרי, אלא לפי סוג ה-workload. ל-relational data ו-transactions אבחר PostgreSQL או MySQL. ל-document data גמיש MongoDB, לחיפוש Elasticsearch, ל-analytics גדול BigQuery, ול-storage עצום עם key access Bigtable או HBase."
+    }
+  ]
+}

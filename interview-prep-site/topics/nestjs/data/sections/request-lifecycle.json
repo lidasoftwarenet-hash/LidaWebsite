@@ -1,0 +1,64 @@
+{
+  "id": "request-lifecycle",
+  "title": "Request Lifecycle",
+  "sourcePages": [
+    234,
+    239
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "כאשר request נכנס ל-NestJS הוא עובר דרך כמה שכבות לפני ואחרי ה-route handler."
+    },
+    {
+      "type": "heading",
+      "text": "סדר כללי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "1. Middleware",
+        "2. Guards",
+        "3. Interceptors לפני הקריאה",
+        "4. Pipes",
+        "5. Controller",
+        "6. Service",
+        "7. Interceptors אחרי הקריאה",
+        "8. Exception Filters במקרה של שגיאה"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Middleware רץ מוקדם, Guards מחליטים אם מותר להיכנס, Pipes עושים validation או transformation, Controller מפעיל את Service, Interceptors עוטפים את הקריאה, ו-Filters מטפלים בשגיאות."
+    },
+    {
+      "type": "heading",
+      "text": "למה חשוב להכיר את הסדר"
+    },
+    {
+      "type": "paragraph",
+      "text": "הסדר עוזר לבחור את הכלי הנכון. Logging כללי יכול להתאים ל-Middleware, authorization ל-Guard, validation ל-Pipe, metrics ל-Interceptor ו-error mapping ל-Exception Filter."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה רץ לפני Controller?",
+      "answer": "Middleware, Guards, Interceptors לפני הקריאה ו-Pipes."
+    },
+    {
+      "type": "qa",
+      "question": "מי מטפל בשגיאה שלא נתפסה?",
+      "answer": "Exception Filter."
+    },
+    {
+      "type": "qa",
+      "question": "מי עוטף את ההרצה לפני ואחרי?",
+      "answer": "Interceptor."
+    }
+  ]
+}

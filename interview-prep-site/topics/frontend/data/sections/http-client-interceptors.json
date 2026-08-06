@@ -1,0 +1,104 @@
+{
+  "id": "http-client-interceptors",
+  "title": "HttpClient & Interceptors",
+  "sourcePages": [
+    11,
+    13
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "HttpClient משמש לתקשורת עם ה-Backend. מומלץ לרכז API calls בתוך Services."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable({ providedIn: \"root\" })\nexport class UserService {\n    private readonly http = inject(HttpClient);\n\n    getUser(id: string): Observable<User> {\n        return this.http.get<User>(`/api/users/${id}`);\n    }\n\n    createUser(request: CreateUserRequest): Observable<User> {\n        return this.http.post<User>(\"/api/users\", request);\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "שימוש ב-Component"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "user$ = this.userService.getUser(\"123\");"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "@if (user$ | async; as user) {\n    <h2>{{ user.name }}</h2>\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Query Parameters"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "searchUsers(term: string): Observable<User[]> {\n    const params = new HttpParams().set(\"search\", term);\n    return this.http.get<User[]>(\"/api/users\", { params });\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני מרכז API calls בתוך Services ומשתמש ב-HttpClient עם response types ברורים. המתודות מחזירות Observables, וה-Component משתמש בהן ישירות או דרך async pipe."
+    },
+    {
+      "type": "heading",
+      "text": "HTTP Interceptors"
+    },
+    {
+      "type": "paragraph",
+      "text": "Interceptor רץ עבור requests ו-responses ומרכז לוגיקה שחוזרת על עצמה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הוספת authentication token.",
+        "טיפול משותף בשגיאות.",
+        "Logging.",
+        "Loading indicator.",
+        "Retry."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export const authInterceptor: HttpInterceptorFn = (request, next) => {\n    const authService = inject(AuthService);\n    const token = authService.getToken();\n\n    if (!token) {\n        return next(request);\n    }\n\n    const authenticatedRequest = request.clone({\n        setHeaders: {\n            Authorization: `Bearer ${token}`\n        }\n    });\n\n    return next(authenticatedRequest);\n};"
+    },
+    {
+      "type": "heading",
+      "text": "Registration"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "bootstrapApplication(AppComponent, {\n    providers: [\n        provideHttpClient(\n            withInterceptors([authInterceptor])\n        )\n    ]\n});"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Angular מודרני קיימים functional interceptors ו-DI-based interceptors. Functional interceptors נותנים התנהגות צפויה ופשוטה יותר ברוב המקרים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Interceptor הוא middleware של HttpClient. אני משתמש בו ללוגיקה שחוזרת בכל request, למשל הוספת token, logging או טיפול מרכזי בשגיאות, במקום לשכפל אותה בכל Service."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה API calls מרוכזות ב-Service?",
+      "answer": "כדי להפריד בין UI לתקשורת עם ה-Backend ולמנוע duplication."
+    },
+    {
+      "type": "qa",
+      "question": "מהו HttpInterceptor?",
+      "answer": "שכבה שעוטפת requests ו-responses של HttpClient ומרכזת לוגיקה רוחבית."
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "id": "namespaces",
+  "title": "Namespaces",
+  "sourcePages": [
+    7,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Namespace הוא חלוקה לוגית בתוך Kubernetes cluster. הוא מאפשר להפריד teams, environments או domains בלי להקים cluster נפרד לכל דבר."
+    },
+    {
+      "type": "heading",
+      "text": "שימושים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "dev, staging ו-prod",
+        "Teams שונים",
+        "Services לפי domain",
+        "הפרדת הרשאות",
+        "ארגון resources",
+        "Resource quotas"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Namespace אינו בידוד מוחלט כמו cluster נפרד, אבל הוא כלי חשוב לסדר, הפרדה וניהול."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: staging"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לחשוב ש-Namespace הוא security boundary מוחלט.",
+        "לשים הכול ב-default namespace.",
+        "לא להגדיר quotas.",
+        "לערבב dev ו-prod בצורה מסוכנת.",
+        "Naming לא עקבי."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Namespace הוא הפרדה לוגית בתוך cluster. אני משתמש בו כדי להפריד teams, environments או domains, ולנהל הרשאות ומשאבים בצורה מסודרת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם Namespace מספק בידוד מלא?",
+      "answer": "לא. הוא boundary לוגי וניהולי, לא תחליף ל-cluster נפרד או לכל מנגנוני האבטחה."
+    },
+    {
+      "type": "qa",
+      "question": "למה להגדיר ResourceQuota לפי Namespace?",
+      "answer": "כדי למנוע מצוות או environment אחד לצרוך את כל משאבי ה-cluster."
+    }
+  ]
+}

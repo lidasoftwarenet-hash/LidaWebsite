@@ -1,0 +1,71 @@
+{
+  "id": "caching",
+  "title": "Caching",
+  "sourcePages": [
+    269,
+    269
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Cache שומר מידע קרוב יותר ל-service או ל-client כדי להוריד latency ועומס. זהו tradeoff בין performance לבין freshness."
+    },
+    {
+      "type": "heading",
+      "text": "דפוסים נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Cache-aside: האפליקציה בודקת cache. אם אין value, קוראת DB ושומרת.",
+        "Write-through: כל כתיבה עוברת גם דרך cache.",
+        "TTL: המידע נמחק אחרי זמן מסוים.",
+        "Invalidation: מוחקים או מעדכנים cache אחרי שינוי."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public ProductDto getProduct(String productId) {\n    String key = \"product:\" + productId;\n\n    return cache.get(key)\n        .orElseGet(() -> {\n            ProductDto product =\n                db.loadProduct(productId);\n\n            cache.put(\n                key,\n                product,\n                Duration.ofMinutes(10));\n\n            return product;\n        });\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Cache key שאינו כולל country, language או user permissions.",
+        "Cache stampede.",
+        "Stale data במקום קריטי.",
+        "TTL ארוך מדי.",
+        "Invalidation מורכב מדי."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Cache הוא tradeoff בין latency לבין freshness. אני בוחר strategy לפי סוג המידע, מגדיר TTL, מטפל ב-invalidation ונזהר מ-cache stampede ומ-cache key לא מדויק."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Cache-aside?",
+      "answer": "האפליקציה קוראת קודם מה-cache, וב-miss קוראת מה-DB ושומרת את התוצאה."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Cache Stampede?",
+      "answer": "כאשר key פופולרי פג והרבה requests פונים יחד ל-DB."
+    },
+    {
+      "type": "qa",
+      "question": "מה צריך לכלול Cache Key?",
+      "answer": "כל פרמטר שמשפיע על התוצאה, כולל locale, tenant או permissions אם רלוונטי."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "id": "resource-management",
+  "title": "Resource Requests & Limits",
+  "sourcePages": [
+    11,
+    11
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Requests הם המשאבים שה-Pod מבקש כדי ש-Kubernetes יוכל לשבץ אותו. Limits הם התקרה שה-container לא אמור לעבור."
+    },
+    {
+      "type": "heading",
+      "text": "CPU Request"
+    },
+    {
+      "type": "paragraph",
+      "text": "מגדיר כמה CPU ה-container צריך כ-baseline עבור scheduling וחישובי utilization."
+    },
+    {
+      "type": "heading",
+      "text": "Memory Request"
+    },
+    {
+      "type": "paragraph",
+      "text": "מגדיר כמה memory נדרשת כדי שה-container ירוץ בצורה יציבה."
+    },
+    {
+      "type": "heading",
+      "text": "CPU Limit"
+    },
+    {
+      "type": "paragraph",
+      "text": "מגביל CPU. חריגה ממנו עלולה לגרום ל-throttling."
+    },
+    {
+      "type": "heading",
+      "text": "Memory Limit"
+    },
+    {
+      "type": "paragraph",
+      "text": "Memory limit קשיח יותר. אם container עובר אותו, הוא עלול לקבל OOMKilled."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "resources:\n  requests:\n    cpu: \"250m\"\n    memory: \"512Mi\"\n  limits:\n    cpu: \"1000m\"\n    memory: \"1Gi\""
+    },
+    {
+      "type": "heading",
+      "text": "גישה ב-Production"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא משאירים requests ו-limits ריקים. מתחילים מהערכה, בודקים metrics ומכוונים לפי שימוש אמיתי."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא להגדיר requests בכלל.",
+        "Memory limit נמוך מדי שיוצר OOMKilled.",
+        "CPU limit נמוך מדי שיוצר throttling.",
+        "Requests גבוהים מדי שמבזבזים cluster capacity.",
+        "HPA שאינו עובד נכון כי אין requests.",
+        "Tuning ללא metrics אמיתיים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Requests עוזרים ל-Kubernetes לשבץ Pods נכון, ו-limits מגנים על ה-node ועל services אחרים. אני מגדיר אותם לפי metrics אמיתיים ונזהר במיוחד מ-memory limits נמוכים מדי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין request ל-limit?",
+      "answer": "Request משמש ל-scheduling ול-baseline. Limit מגדיר תקרה."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה בחריגת CPU limit?",
+      "answer": "ה-container עלול לעבור throttling."
+    },
+    {
+      "type": "qa",
+      "question": "מה קורה בחריגת memory limit?",
+      "answer": "ה-container עלול להיהרג עם OOMKilled."
+    }
+  ]
+}

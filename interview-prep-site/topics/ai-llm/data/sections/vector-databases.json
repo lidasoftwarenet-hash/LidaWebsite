@@ -1,0 +1,111 @@
+{
+  "id": "vector-databases",
+  "title": "Vector Databases & Embeddings",
+  "sourcePages": [
+    3,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Vector database שומר embeddings ומאפשר חיפוש לפי דמיון סמנטי ולא רק לפי התאמה טקסטואלית."
+    },
+    {
+      "type": "paragraph",
+      "text": "Embedding הוא ייצוג מספרי של טקסט. אם שני טקסטים דומים במשמעות, ה-vectors שלהם אמורים להיות קרובים."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "הבדל מרכזי",
+      "text": "Keyword search שואל האם המילים דומות. Vector search מנסה לבדוק האם המשמעות דומה."
+    },
+    {
+      "type": "heading",
+      "text": "Similarity Search"
+    },
+    {
+      "type": "paragraph",
+      "text": "חיפוש נפוץ נעשה לפי similarity metric, למשל cosine similarity. התוצאה היא רשימת chunks הקרובים ביותר לשאלה."
+    },
+    {
+      "type": "heading",
+      "text": "Metadata Filters"
+    },
+    {
+      "type": "paragraph",
+      "text": "Similarity לבדו אינו מספיק. כמעט תמיד צריך לסנן גם לפי metadata."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "tenantId",
+        "User permissions",
+        "Document type",
+        "Language",
+        "Updated date",
+        "Source",
+        "Product area"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אם משתמש שואל על מסמך פנימי, אסור להחזיר chunk ממסמך שאין לו הרשאה לראות, גם אם הוא דומה מאוד לשאלה."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<SearchResult> results =\n    vectorDb.search(\n        queryEmbedding,\n        SearchOptions.builder()\n            .topK(10)\n            .filter(\n                \"tenantId\",\n                tenantId\n            )\n            .filter(\n                \"accessLevel\",\n                \"allowed\"\n            )\n            .build()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "Hybrid Search"
+    },
+    {
+      "type": "paragraph",
+      "text": "בחלק מהמקרים כדאי לשלב keyword search עם semantic search. Semantic similarity טובה להבנת משמעות, בעוד keyword matching יכול להיות חשוב עבור מזהים, שמות מדויקים, מספרי גרסה ומונחים מקצועיים."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להסתמך רק על vector similarity ללא metadata filters.",
+        "להניח ש-similarity גבוה מוכיח שהתוצאה נכונה.",
+        "להשתמש במודל embedding שונה בזמן indexing ובזמן query.",
+        "לא לבצע re-index כאשר מסמך משתנה.",
+        "topK נמוך מדי שמפספס context.",
+        "topK גבוה מדי שמכניס רעש ועלות.",
+        "אין tenant isolation.",
+        "אין hybrid search כאשר המקרה דורש התאמה מדויקת."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Vector database מאפשר חיפוש לפי משמעות דרך embeddings. ב-Production אני משלב similarity search עם metadata filtering, הרשאות, freshness ולעיתים hybrid search כדי לקבל retrieval איכותי ובטוח."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Embedding?",
+      "answer": "ייצוג מספרי של מידע, כך שתכנים דומים במשמעות נמצאים קרוב במרחב ה-vector."
+    },
+    {
+      "type": "qa",
+      "question": "למה similarity לבדו אינו מספיק?",
+      "answer": "כי תוצאה יכולה להיות דומה אך לא רלוונטית, או להגיע ממסמך שאין למשתמש הרשאה לראות."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Hybrid Search שימושי?",
+      "answer": "כאשר צריך לשלב משמעות סמנטית עם מונחים מדויקים, מזהים או keywords."
+    }
+  ]
+}

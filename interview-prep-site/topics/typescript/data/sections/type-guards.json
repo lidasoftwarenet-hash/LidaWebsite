@@ -1,0 +1,133 @@
+{
+  "id": "type-guards",
+  "title": "Type Guards",
+  "sourcePages": [
+    222,
+    224
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Type Guard הוא runtime check שעוזר ל-TypeScript להבין מהו ה-type האמיתי של value ולבצע narrowing."
+    },
+    {
+      "type": "heading",
+      "text": "typeof"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function printValue(value: unknown): string {\n    if (typeof value === \"string\") {\n        return value.toUpperCase();\n    }\n\n    return \"Unknown\";\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "typeof מתאים בעיקר ל-primitives כמו string, number ו-boolean."
+    },
+    {
+      "type": "heading",
+      "text": "instanceof"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (value instanceof Error) {\n    return value.message;\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "instanceof מתאים לבדיקת instance של class."
+    },
+    {
+      "type": "heading",
+      "text": "in"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (\"email\" in user) {\n    console.log(user.email);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "in מתאים לבדיקת קיום property ב-object."
+    },
+    {
+      "type": "heading",
+      "text": "Custom Type Guard"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type Admin = {\n    role: \"admin\";\n    permissions: string[];\n};\n\ntype Customer = {\n    role: \"customer\";\n    email: string;\n};\n\nfunction isAdmin(\n    user: Admin | Customer\n): user is Admin {\n    return user.role === \"admin\";\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-return type user is Admin אומר ל-TypeScript שאם הפונקציה מחזירה true, המשתנה הוא Admin."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-Type Guards כדי לצמצם unknown או union ל-type בטוח לפני שימוש. typeof מתאים ל-primitives, instanceof ל-classes, in לבדיקת shape, ואם הלוגיקה חוזרת על עצמה אני כותב custom type guard."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת: typeof null"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-JavaScript גם null מחזיר object ב-typeof."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (\n    value !== null &&\n    typeof value === \"object\"\n) {\n    // safer\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת: Truthy Check כללי"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "if (value) {\n    // לא תמיד מספיק\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "0, empty string ו-false הם values חוקיים למרות שהם falsy."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Type Guards מאפשרים להפוך unknown או union למשהו בטוח לשימוש. אני מעדיף narrowing אמיתי על פני cast עם as, כי כך TypeScript באמת מגן עליי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו Type Guard?",
+      "answer": "Runtime check שמאפשר ל-TypeScript לבצע narrowing."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-typeof?",
+      "answer": "ל-primitives כמו string, number ו-boolean."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-instanceof?",
+      "answer": "כאשר בודקים אם value הוא instance של class."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Custom Type Guard?",
+      "answer": "פונקציה שמחזירה type predicate כמו value is SomeType."
+    },
+    {
+      "type": "qa",
+      "question": "למה value as Type פחות בטוח?",
+      "answer": "כי cast אינו בודק את הערך בזמן ריצה, בעוד Type Guard כן מבצע בדיקה."
+    }
+  ]
+}

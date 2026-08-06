@@ -1,0 +1,60 @@
+{
+  "id": "bigquery",
+  "title": "BigQuery",
+  "sourcePages": [
+    13,
+    13
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "BigQuery הוא data warehouse אנליטי של Google. הוא מיועד להריץ queries על כמויות data עצומות לצורכי BI, reports, analytics וחקירת מידע."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Aggregations על data גדול",
+        "Trends",
+        "Analytical joins",
+        "Dashboards",
+        "Business analysis",
+        "Reports"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Serverless",
+        "SQL נוח",
+        "יכולת לעבוד על כמויות data ענקיות"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "אינו מיועד ל-transactional low-latency workload.",
+        "אינו DB רגיל של application.",
+        "אינו מתאים לכתיבות קטנות ותכופות בסגנון OLTP.",
+        "לא מתאים ל-request שבו כל user מצפה לתגובה במילי-שניות."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "BigQuery הוא כלי ל-analytics על data גדול. אני משתמש בו כשצריך להריץ SQL על כמויות ענק ולבנות reports או ניתוחים. לא הייתי משתמש בו כ-DB של אפליקציה שמשרת user requests בזמן אמת."
+    }
+  ]
+}

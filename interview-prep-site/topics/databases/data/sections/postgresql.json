@@ -1,0 +1,64 @@
+{
+  "id": "postgresql",
+  "title": "PostgreSQL",
+  "sourcePages": [
+    11,
+    11
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "PostgreSQL הוא relational database חזק ומתקדם. כמו MySQL הוא עובד עם SQL וטבלאות, אבל הוא עשיר יותר ביכולות מתקדמות."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "DB מרכזי למערכת Backend רצינית",
+        "Transactions",
+        "Constraints חזקים",
+        "Queries מורכבות",
+        "JSONB",
+        "Indexes מתקדמים",
+        "Consistency חזקה",
+        "מודלים מורכבים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "איכות ואמינות",
+        "SQL חזק",
+        "גמישות",
+        "תמיכה טובה ב-JSON",
+        "Indexes מתקדמים",
+        "יכולת להתמודד עם data חשוב"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "paragraph",
+      "text": "כדי להוציא ממנו ביצועים טובים צריך להבין את המנוע. Scale של כתיבות כבדות מאוד עדיין דורש תכנון."
+    },
+    {
+      "type": "paragraph",
+      "text": "הוא אינו תחליף טבעי ל-Elasticsearch עבור חיפוש טקסטואלי כבד או ל-BigQuery עבור analytics על כמויות warehouse עצומות."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "PostgreSQL הוא הבחירה שלי כשאני צריך relational database חזק, אמין וגמיש. הוא טוב למערכות Production עם data חשוב, transactions, queries מורכבות ו-consistency. לחיפוש טקסטואלי כבד או analytics על כמויות ענק, הייתי משלב אותו עם כלים ייעודיים."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "id": "indexes",
+  "title": "Indexes",
+  "sourcePages": [
+    1,
+    2
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Index הוא מבנה עזר שה-DB מחזיק כדי למצוא rows מהר יותר, בלי לסרוק את כל הטבלה. בראיונות Backend זה נושא קלאסי כי הוא מחבר בין קוד, DB, ביצועים ו-Production."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "דרך לזכור",
+      "text": "Index הוא כמו תוכן עניינים לטבלה. במקום לעשות full table scan, ה-DB יכול להשתמש ב-index כדי להגיע מהר יותר לרשומות הרלוונטיות."
+    },
+    {
+      "type": "heading",
+      "text": "B-Tree Index"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-index הנפוץ הוא B-tree. הוא מתאים לחיפושים ולמיון לפי ערכים."
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "WHERE user_id = ?\nWHERE created_at > ?\nORDER BY created_at"
+    },
+    {
+      "type": "heading",
+      "text": "Composite Index"
+    },
+    {
+      "type": "paragraph",
+      "text": "Composite index הוא index על כמה עמודות. סדר העמודות בתוך ה-index משנה."
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "CREATE INDEX idx_orders_user_status_created\nON orders(user_id, status, created_at);"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-index הזה יעזור מאוד לשאילתה שמתחילה ב-user_id, ממשיכה ל-status וממיינת לפי created_at."
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT *\nFROM orders\nWHERE user_id = 123\n  AND status = 'PAID'\nORDER BY created_at DESC\nLIMIT 20;"
+    },
+    {
+      "type": "paragraph",
+      "text": "הוא פחות יעזור לשאילתה שמסננת רק לפי status, מפני ש-user_id הוא העמודה הראשונה ב-index."
+    },
+    {
+      "type": "heading",
+      "text": "EXPLAIN ANALYZE"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "EXPLAIN ANALYZE\nSELECT *\nFROM orders\nWHERE user_id = 123\n  AND status = 'PAID'\nORDER BY created_at DESC\nLIMIT 20;"
+    },
+    {
+      "type": "heading",
+      "text": "מה מחפשים ב-EXPLAIN"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Index Scan או Index Only Scan הם בדרך כלל סימן טוב.",
+        "Sequential Scan על טבלה ענקית הוא חשוד.",
+        "הרבה יותר rows scanned מאשר rows returned מצביעים על בעיה אפשרית.",
+        "Sort יקר יכול לרמוז שחסר index שמתאים ל-ORDER BY."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Index אינו חינם. הוא משפר reads אבל מאט writes, כי כל INSERT או UPDATE צריך לעדכן גם את ה-index.",
+        "יותר מדי indexes על טבלה heavy-write יכולים לפגוע מאוד בביצועים.",
+        "Index על עמודה עם selectivity נמוכה, כמו status עם מעט ערכים, לא תמיד יעזור.",
+        "Composite index חייב להתאים ל-query pattern.",
+        "לא מנחשים. בודקים בפועל עם EXPLAIN ANALYZE."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Index משפר קריאות בכך שהוא מאפשר ל-DB למצוא rows בלי full scan, אבל הוא עולה ב-storage וב-write cost. אני בוחר indexes לפי query patterns, selectivity וסדר העמודות, ומוודא בפועל עם EXPLAIN."
+    }
+  ]
+}

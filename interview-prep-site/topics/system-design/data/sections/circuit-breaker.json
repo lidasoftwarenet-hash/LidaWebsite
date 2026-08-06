@@ -1,0 +1,50 @@
+{
+  "id": "circuit-breaker",
+  "title": "Circuit Breaker",
+  "sourcePages": [
+    271,
+    271
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Circuit Breaker הוא pattern שמפסיק זמנית לקרוא ל-service כושל כדי למנוע cascading failures."
+    },
+    {
+      "type": "heading",
+      "text": "States"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Closed: הכול תקין ובקשות עוברות.",
+        "Open: יותר מדי failures, מפסיקים לקרוא ונכשלים מהר.",
+        "Half-open: לאחר זמן מסוים מנסים מספר בקשות בדיקה. הצלחה מחזירה ל-Closed, וכישלון מחזיר ל-Open."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "אם שירות חיצוני נופל וכל המערכת ממשיכה להמתין לו, הכשל מתפשט דרך timeouts, thread pools ו-connections. Circuit Breaker מאפשר fast fail ונותן לשירות זמן להתאושש."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Circuit Breaker מונע cascading failure. כששירות חיצוני מתחיל להיכשל, אני עובר ל-fast fail, נותן לו להתאושש ואז בודק בזהירות דרך half-open."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Open ל-Half-open?",
+      "answer": "Open חוסם בקשות. Half-open מאפשר מספר בקשות בדיקה כדי לראות אם השירות התאושש."
+    },
+    {
+      "type": "qa",
+      "question": "מה Circuit Breaker מגן?",
+      "answer": "על המערכת הקוראת ועל dependency כושל מפני הצפה נוספת."
+    }
+  ]
+}

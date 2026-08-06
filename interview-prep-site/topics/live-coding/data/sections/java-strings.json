@@ -1,0 +1,120 @@
+{
+  "id": "java-strings",
+  "title": "Java Strings",
+  "sourcePages": [
+    4,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "פעולות נפוצות על String ורשימות Strings ב-Java."
+    },
+    {
+      "type": "heading",
+      "text": "פיצול לכל תו"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> characters =\n    List.of(\n        text.trim()\n            .split(\"\")\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "פיצול למילים"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> words =\n    List.of(\n        text.trim()\n            .split(\" \")\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "פיצול לפי פסיק ו-Trim"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> values =\n    Arrays.stream(\n        text.split(\",\")\n    )\n    .map(String::trim)\n    .collect(\n        Collectors.toList()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "Distinct + Filter מול List אחר"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> commonDistinct =\n    characters.stream()\n        .distinct()\n        .filter(\n            words::contains\n        )\n        .collect(\n            Collectors.toList()\n        );"
+    },
+    {
+      "type": "heading",
+      "text": "Distinct + Contains"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<String> matching =\n    characters.stream()\n        .distinct()\n        .filter(value ->\n            value.contains(\n                \"ddd\"\n            )\n        )\n        .collect(\n            Collectors.toList()\n        );"
+    },
+    {
+      "type": "heading",
+      "text": "List ל-String"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "StringBuilder builder =\n    new StringBuilder();\n\nfor (\n    String value :\n    commonDistinct\n) {\n    builder.append(value);\n}\n\nString result =\n    builder.toString();"
+    },
+    {
+      "type": "heading",
+      "text": "לולאה על String"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "for (\n    int index = 0;\n    index < text.length();\n    index++\n) {\n    char current =\n        text.charAt(index);\n\n    int firstIndex =\n        text.indexOf(current);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Substring ו-Replace"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "String firstFive =\n    text.substring(0, 5);\n\nString replacedWord =\n    text.replace(\n        \"one\",\n        \"two\"\n    );\n\nString replacedChar =\n    text.replace(\n        'a',\n        'b'\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "Swap ברשימה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Collections.swap(\n    numbers,\n    0,\n    3\n);"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "הערת שימוש",
+      "text": "String ב-Java הוא immutable. פעולות כמו replace ו-substring מחזירות String חדש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "מה מחזיר charAt?",
+      "answer": "את התו שנמצא באינדקס המבוקש."
+    },
+    {
+      "type": "qa",
+      "question": "האם replace משנה את ה-String המקורי?",
+      "answer": "לא. הוא מחזיר String חדש."
+    },
+    {
+      "type": "qa",
+      "question": "מתי StringBuilder שימושי?",
+      "answer": "כאשר מחברים מספר רב של ערכים בתוך לולאה."
+    }
+  ]
+}

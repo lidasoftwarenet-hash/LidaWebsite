@@ -1,5 +1,91 @@
 {
   "id": "frontend",
-  "title": "Front-end",
-  "sections": []
+  "title": "Angular - Frontend",
+  "sections": [
+    {
+      "id": "angular-overview",
+      "title": "Angular Components",
+      "file": "sections/angular-overview.json"
+    },
+    {
+      "id": "component-communication",
+      "title": "Component Communication",
+      "file": "sections/component-communication.json"
+    },
+    {
+      "id": "signals",
+      "title": "Signals",
+      "file": "sections/signals.json"
+    },
+    {
+      "id": "change-detection",
+      "title": "Change Detection",
+      "file": "sections/change-detection.json"
+    },
+    {
+      "id": "services-di",
+      "title": "Services & Dependency Injection",
+      "file": "sections/services-di.json"
+    },
+    {
+      "id": "rxjs",
+      "title": "RxJS",
+      "file": "sections/rxjs.json"
+    },
+    {
+      "id": "routing",
+      "title": "Routing & Lazy Loading",
+      "file": "sections/routing.json"
+    },
+    {
+      "id": "guards-resolvers",
+      "title": "Guards & Resolvers",
+      "file": "sections/guards-resolvers.json"
+    },
+    {
+      "id": "http-client-interceptors",
+      "title": "HttpClient & Interceptors",
+      "file": "sections/http-client-interceptors.json"
+    },
+    {
+      "id": "reactive-forms",
+      "title": "Reactive Forms",
+      "file": "sections/reactive-forms.json"
+    },
+    {
+      "id": "template-driven-forms",
+      "title": "Template-driven Forms",
+      "file": "sections/template-driven-forms.json"
+    },
+    {
+      "id": "state-management",
+      "title": "State Management",
+      "file": "sections/state-management.json"
+    },
+    {
+      "id": "performance",
+      "title": "Angular Performance",
+      "file": "sections/performance.json"
+    },
+    {
+      "id": "lifecycle-cleanup",
+      "title": "Lifecycle & Cleanup",
+      "file": "sections/lifecycle-cleanup.json"
+    },
+    {
+      "id": "ssr-hydration",
+      "title": "SSR & Hydration",
+      "file": "sections/ssr-hydration.json"
+    },
+    {
+      "id": "security",
+      "title": "Frontend Security Basics",
+      "file": "sections/security.json"
+    },
+    {
+      "id": "ui-states",
+      "title": "Loading, Error & Empty States",
+      "file": "sections/ui-states.json"
+    }
+  ]
 }

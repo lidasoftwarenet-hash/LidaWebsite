@@ -1,0 +1,62 @@
+{
+  "id": "mysql",
+  "title": "MySQL",
+  "sourcePages": [
+    11,
+    11
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "MySQL הוא relational database קלאסי שעובד עם טבלאות, שורות, עמודות ו-SQL."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מערכות CRUD רגילות",
+        "Users",
+        "Orders",
+        "Products",
+        "Payments",
+        "Dashboards פשוטים",
+        "Web applications עם מודל יחסית ברור"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "פשטות יחסית",
+        "יציבות",
+        "ביצועים טובים",
+        "קהילה גדולה",
+        "כלים ותמיכה רחבים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "paragraph",
+      "text": "בתרחישים מורכבים מאוד של JSON, analytics מתקדם, queries מורכבות או data modeling מתקדם, PostgreSQL לרוב עשיר וגמיש יותר."
+    },
+    {
+      "type": "paragraph",
+      "text": "MySQL אינו הבחירה הטבעית למנוע חיפוש טקסטואלי מתקדם, Big Data analytics או horizontal scale עצום ללא תכנון מיוחד."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "MySQL מתאים מאוד למערכות relational קלאסיות עם data מובנה ו-SQL ברור. הוא פשוט, יציב ונפוץ, אבל אם אני צריך queries מורכבות מאוד, analytics מתקדם או יכולות data מתקדמות יותר, יכול להיות שאעדיף PostgreSQL או מערכת אחרת."
+    }
+  ]
+}

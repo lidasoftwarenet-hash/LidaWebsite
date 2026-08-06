@@ -1,0 +1,97 @@
+{
+  "id": "provider-scopes-circular",
+  "title": "Provider Scopes & Circular Dependencies",
+  "sourcePages": [
+    243,
+    244
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Provider Scopes"
+    },
+    {
+      "type": "paragraph",
+      "text": "ברירת המחדל של provider ב-NestJS היא singleton. בדרך כלל יש instance אחד של service לאורך חיי האפליקציה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Singleton או Default: instance אחד לכל האפליקציה.",
+        "Request-scoped: instance חדש לכל request.",
+        "Transient: instance חדש בכל injection."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Request-scoped יכול להיות שימושי, אבל הוא עלול לפגוע בביצועים וליצור scope bubbling לאורך dependency chain."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ברירת המחדל ב-NestJS היא singleton. אני משתמש ב-request scope בזהירות, כי הוא יכול להשפיע על ביצועים וגם לגרום ל-scope bubbling."
+    },
+    {
+      "type": "heading",
+      "text": "Circular Dependency"
+    },
+    {
+      "type": "paragraph",
+      "text": "Circular dependency נוצרת כאשר שני services תלויים זה בזה."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "דוגמה",
+      "text": "UsersService → AuthService → UsersService"
+    },
+    {
+      "type": "paragraph",
+      "text": "זו בדרך כלל אינדיקציה לבעיה ב-boundaries או בחלוקת האחריות."
+    },
+    {
+      "type": "heading",
+      "text": "פתרונות עדיפים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להוציא logic משותפת ל-Service שלישי.",
+        "לשנות boundaries של modules.",
+        "להשתמש באירועים.",
+        "במקרים חריגים להשתמש ב-forwardRef."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "כאשר יש circular dependency, אני קודם בודק אם ה-design נכון. לעיתים עדיף להוציא אחריות משותפת ל-Service נפרד במקום לפתור מיד עם forwardRef."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו default provider scope?",
+      "answer": "Singleton."
+    },
+    {
+      "type": "qa",
+      "question": "מה החיסרון של request scope?",
+      "answer": "יצירת instances רבים יותר ופגיעה אפשרית בביצועים."
+    },
+    {
+      "type": "qa",
+      "question": "מהי circular dependency?",
+      "answer": "מצב שבו שני providers או modules תלויים זה בזה."
+    },
+    {
+      "type": "qa",
+      "question": "מה הפתרון המועדף ל-circular dependency?",
+      "answer": "לשפר את design ולהוציא אחריות משותפת, ורק כמוצא אחרון להשתמש ב-forwardRef."
+    }
+  ]
+}

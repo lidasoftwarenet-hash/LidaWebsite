@@ -1,0 +1,78 @@
+{
+  "id": "api-gateway",
+  "title": "API Gateway",
+  "sourcePages": [
+    267,
+    267
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "API Gateway הוא שכבת כניסה מרכזית לפני ה-services. הוא מרכז cross-cutting concerns כדי לא לשכפל אותם בכל service."
+    },
+    {
+      "type": "heading",
+      "text": "מה מתאים ל-Gateway"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Routing.",
+        "Authentication.",
+        "Rate limiting.",
+        "Request validation בסיסי.",
+        "TLS termination.",
+        "Logging בסיסי.",
+        "Correlation ID.",
+        "Aggregation פשוטה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה לא מתאים ל-Gateway"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Business logic עמוקה.",
+        "Business authorization מורכב.",
+        "Logic שתלויה ב-domain פנימי.",
+        "החלטות עסקיות משתנות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להפוך Gateway ל-mini-monolith.",
+        "להכניס אליו יותר מדי business logic.",
+        "לא להעביר correlationId.",
+        "לא לשמור observability.",
+        "להסתיר שגיאות במקום להחזיר error contract ברור."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Gateway טוב מרכז routing, auth, rate limiting ו-observability, אבל אני נזהר לא להעביר אליו business logic עמוקה כדי שלא יהפוך ל-bottleneck ול-monolith."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה לא לשים Business Logic ב-Gateway?",
+      "answer": "כדי לא להפוך אותו ל-bottleneck ול-monolith מרכזי שקשה לשנות."
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של Correlation ID ב-Gateway?",
+      "answer": "הוא מאפשר להתחיל trace אחיד כבר בנקודת הכניסה ולעקוב אחרי request בין services."
+    }
+  ]
+}

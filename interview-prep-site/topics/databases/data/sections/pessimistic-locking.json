@@ -1,0 +1,55 @@
+{
+  "id": "pessimistic-locking",
+  "title": "Pessimistic Locking",
+  "sourcePages": [
+    5,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Pessimistic locking נועל בפועל row כדי למנוע מאחרים לשנות אותו במקביל. הוא מתאים למצבים שבהם אי אפשר להרשות conflict מאוחר, למשל מלאי, כסף או משאב מוגבל."
+    },
+    {
+      "type": "heading",
+      "text": "SQL Lock"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "SELECT *\nFROM inventory\nWHERE product_id = 123\nFOR UPDATE;"
+    },
+    {
+      "type": "paragraph",
+      "text": "עד שה-transaction עושה commit או rollback, transaction אחרת שמנסה לנעול את אותו row תמתין."
+    },
+    {
+      "type": "heading",
+      "text": "JPA Example"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@Lock(\n    LockModeType.PESSIMISTIC_WRITE\n)\n@Query(\n    \"select i from Inventory i \" +\n    \"where i.productId = :productId\"\n)\nInventory findForUpdate(\n    String productId\n);"
+    },
+    {
+      "type": "heading",
+      "text": "שיקולים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ה-lock מונע race condition בזמן אמת.",
+        "Transaction צריכה להיות קצרה.",
+        "Lock ממושך יוצר blocking.",
+        "Locks מרובים יכולים ליצור deadlocks."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Pessimistic locking נועל row בזמן transaction כדי למנוע עדכונים מקבילים. אני משתמש בו רק כשחייבים למנוע race condition בזמן אמת, ושומר את ה-transaction קצרה כדי להימנע מ-blocking ו-deadlocks."
+    }
+  ]
+}

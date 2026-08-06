@@ -1,0 +1,115 @@
+{
+  "id": "dtos-decorators-auth",
+  "title": "DTOs, Decorators & Auth",
+  "sourcePages": [
+    239,
+    242
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "DTOs ו-Validation"
+    },
+    {
+      "type": "paragraph",
+      "text": "DTO הוא class שמגדיר איך נראה request או response."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export class CreateUserDto {\n    @IsEmail()\n    email: string;\n\n    @IsString()\n    name: string;\n}"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Post()\ncreateUser(\n    @Body()\n    dto: CreateUserDto\n) {\n    return this.usersService\n        .create(dto);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "DTO נותן API contract ברור. יחד עם ValidationPipe אפשר לבדוק את input בזמן runtime."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "TypeScript לבדו לא מבצע runtime validation. DTO בלי ValidationPipe לא בהכרח בודק דבר."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "DTO מגדיר את shape של request או response. ב-NestJS אני משתמש בו יחד עם ValidationPipe כדי לוודא ש-input חיצוני מתאים למה שהמערכת מצפה."
+    },
+    {
+      "type": "heading",
+      "text": "Decorators"
+    },
+    {
+      "type": "paragraph",
+      "text": "Decorator מוסיף metadata ל-class, method או parameter. NestJS משתמש ב-metadata כדי לבנות routing, DI, validation ו-security."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "@Controller",
+        "@Injectable",
+        "@Get",
+        "@Body",
+        "@Param",
+        "@UseGuards"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Decorators ב-NestJS מצהירים על metadata: איזה class הוא controller, איזה method מטפל ב-GET, איזה service injectable ואיזה guard או pipe צריך להפעיל."
+    },
+    {
+      "type": "heading",
+      "text": "Authentication מול Authorization"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Authentication בודק מי המשתמש, למשל JWT, session, OAuth או API key.",
+        "Authorization בודק מה מותר למשתמש לעשות, למשל roles, permissions, ownership או ACL."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@UseGuards(JwtAuthGuard)\n@Get(\"profile\")\ngetProfile() {}"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Roles(\"admin\")\n@UseGuards(RolesGuard)\n@Get(\"admin\")\ngetAdminData() {}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Authentication בודק מי המשתמש. Authorization בודק מה מותר לו לעשות. ב-NestJS אני מממש זאת בדרך כלל עם Guards ולעיתים עם custom decorators ל-roles או permissions."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה DTO חשוב?",
+      "answer": "הוא מגדיר API contract ברור ומאפשר runtime validation דרך ValidationPipe."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה Decorator?",
+      "answer": "מוסיף metadata ש-NestJS משתמש בו ל-routing, DI, validation ו-security."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Authentication ל-Authorization?",
+      "answer": "Authentication מזהה את המשתמש. Authorization בודק הרשאות."
+    }
+  ]
+}

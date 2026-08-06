@@ -1,5 +1,41 @@
 {
   "id": "cloud-gcp",
-  "title": "Cloud GCP",
-  "sections": []
+  "title": "GCP Cloud",
+  "sections": [
+    {
+      "id": "cloud-run",
+      "title": "Cloud Run",
+      "file": "sections/cloud-run.json"
+    },
+    {
+      "id": "cloud-functions",
+      "title": "Cloud Functions",
+      "file": "sections/cloud-functions.json"
+    },
+    {
+      "id": "app-engine",
+      "title": "App Engine Standard vs Flexible",
+      "file": "sections/app-engine.json"
+    },
+    {
+      "id": "pubsub",
+      "title": "Pub/Sub",
+      "file": "sections/pubsub.json"
+    },
+    {
+      "id": "cloud-storage",
+      "title": "Cloud Storage & Buckets",
+      "file": "sections/cloud-storage.json"
+    },
+    {
+      "id": "dataflow",
+      "title": "Dataflow & Apache Beam",
+      "file": "sections/dataflow.json"
+    },
+    {
+      "id": "autoscaling",
+      "title": "Autoscaling",
+      "file": "sections/autoscaling.json"
+    }
+  ]
 }

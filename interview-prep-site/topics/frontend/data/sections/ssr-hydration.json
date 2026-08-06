@@ -1,0 +1,94 @@
+{
+  "id": "ssr-hydration",
+  "title": "SSR & Hydration",
+  "sourcePages": [
+    23,
+    24
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "באפליקציית SPA רגילה, הדפדפן מקבל HTML בסיסי ו-JavaScript שבונה את המסך."
+    },
+    {
+      "type": "heading",
+      "text": "SSR"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-Server-Side Rendering השרת מייצר HTML ראשוני ושולח אותו כבר עם התוכן."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Flow",
+      "text": "Request → Server renders HTML → Browser displays content → Angular becomes interactive"
+    },
+    {
+      "type": "heading",
+      "text": "Hydration"
+    },
+    {
+      "type": "paragraph",
+      "text": "Hydration היא השלב שבו Angular בצד הלקוח מתחבר ל-HTML שכבר נוצר בשרת ומפעיל עליו events והתנהגות."
+    },
+    {
+      "type": "heading",
+      "text": "מתי SSR שימושי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Public pages.",
+        "SEO.",
+        "Marketing sites.",
+        "Initial loading experience."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "SSR בדרך כלל פחות חשוב עבור dashboard פנימי לאחר login."
+    },
+    {
+      "type": "heading",
+      "text": "קוד שרץ בשרת"
+    },
+    {
+      "type": "paragraph",
+      "text": "קוד שרץ בשרת לא תמיד יכול להשתמש ישירות ב-Browser APIs."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "window",
+        "document",
+        "localStorage"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Angular SSR יוצר את ה-HTML הראשוני בצד השרת, בעיקר כדי לשפר SEO וטעינה ראשונית. לאחר מכן hydration מחברת את Angular בצד הלקוח ל-HTML הקיים והופכת אותו לאינטראקטיבי. אני משתמש בזה כשיש ערך לעמודים ציבוריים, ולא אוטומטית בכל מערכת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין SSR ל-Hydration?",
+      "answer": "SSR מייצר HTML בשרת. Hydration מחברת את Angular בצד הלקוח ל-HTML הקיים."
+    },
+    {
+      "type": "qa",
+      "question": "מתי SSR נותן ערך?",
+      "answer": "בעמודים ציבוריים, SEO, marketing ושיפור initial load."
+    },
+    {
+      "type": "qa",
+      "question": "למה window אינו תמיד זמין?",
+      "answer": "כי בזמן SSR הקוד רץ בשרת ולא בדפדפן."
+    }
+  ]
+}

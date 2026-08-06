@@ -1,0 +1,72 @@
+{
+  "id": "security-design",
+  "title": "Security Design",
+  "sourcePages": [
+    272,
+    273
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Security היא חלק מה-design ולא תוספת שמכניסים בסוף."
+    },
+    {
+      "type": "heading",
+      "text": "שכבות מרכזיות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Authentication: מי המשתמש?",
+        "Authorization: מה מותר לו לעשות?",
+        "Token handling: JWT קצר חיים, refresh token מוגן ו-rotation במידת הצורך.",
+        "Web risks: CSRF, XSS, SQL Injection ו-broken authentication.",
+        "Infrastructure risks: secrets management, least privilege, audit logs, HTTPS ו-rate limiting."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "JWT ללא expiration.",
+        "Secrets ב-Git או ב-environment שאינו מנוהל היטב.",
+        "לסמוך רק על authorization בצד ה-Frontend.",
+        "לא לבדוק permissions ברמת ה-resource.",
+        "לחשוף stack trace ל-client."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-security design אני מפריד בין authentication ל-authorization, משתמש ב-tokens בצורה זהירה, מגן מפני XSS ו-CSRF, מנהל secrets נכון ומיישם least privilege לאורך כל המערכת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Authentication ל-Authorization?",
+      "answer": "Authentication מזהה את המשתמש. Authorization בודק מה מותר לו לעשות."
+    },
+    {
+      "type": "qa",
+      "question": "למה JWT צריך Expiration?",
+      "answer": "כדי לצמצם את חלון הנזק אם token נגנב."
+    },
+    {
+      "type": "qa",
+      "question": "למה Frontend Authorization אינו מספיק?",
+      "answer": "כי client ניתן לשינוי. ההרשאה האמיתית חייבת להיבדק ב-Backend."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Least Privilege?",
+      "answer": "כל user, service או component מקבל רק את ההרשאות שהוא באמת צריך."
+    }
+  ]
+}

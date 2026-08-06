@@ -1,0 +1,72 @@
+{
+  "id": "never",
+  "title": "never & Exhaustive Checking",
+  "sourcePages": [
+    221,
+    222
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "never מייצג מצב שלא אמור לקרות. שימוש נפוץ הוא exhaustive checking כדי לוודא שטופלו כל האפשרויות ב-union."
+    },
+    {
+      "type": "heading",
+      "text": "assertNever"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function assertNever(value: never): never {\n    throw new Error(\"Unexpected value\");\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Exhaustive Switch"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type State =\n    | { type: \"idle\" }\n    | { type: \"loading\" }\n    | { type: \"error\"; message: string };\n\nfunction render(state: State): string {\n    switch (state.type) {\n        case \"idle\":\n            return \"Idle\";\n\n        case \"loading\":\n            return \"Loading\";\n\n        case \"error\":\n            return state.message;\n\n        default:\n            return assertNever(state);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אם יתווסף בעתיד variant חדש ל-State וה-switch לא יעודכן, TypeScript יוכל להתריע."
+    },
+    {
+      "type": "heading",
+      "text": "never מול void"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "void אומר שהפונקציה אינה מחזירה ערך שימושי.",
+        "never אומר שהקוד אינו אמור להגיע לנקודה הזאת או שהפונקציה לעולם אינה מסיימת באופן רגיל."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-never בעיקר ל-exhaustive checking, כדי לוודא שכל ה-variants של union טופלו. אם נוסף מצב חדש ולא עודכן ה-switch, אני רוצה שהקומפיילר יתריע."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה מייצג never?",
+      "answer": "מצב שלא אמור לקרות או פונקציה שאינה חוזרת באופן רגיל."
+    },
+    {
+      "type": "qa",
+      "question": "למה assertNever שימושי?",
+      "answer": "הוא גורם לקומפיילר לוודא שכל variants ב-union טופלו."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין never ל-void?",
+      "answer": "void אינו מחזיר value שימושי. never אינו מגיע לסיום רגיל."
+    }
+  ]
+}

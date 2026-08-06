@@ -1,0 +1,76 @@
+{
+  "id": "consistency-tradeoffs",
+  "title": "Consistency Tradeoffs",
+  "sourcePages": [
+    261,
+    261
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Consistency tradeoff הוא הבחירה בין strong consistency לבין eventual consistency, תוך איזון מול latency ו-availability."
+    },
+    {
+      "type": "heading",
+      "text": "Strong Consistency"
+    },
+    {
+      "type": "paragraph",
+      "text": "המשתמש רואה תמיד את המידע העדכני ביותר."
+    },
+    {
+      "type": "heading",
+      "text": "Eventual Consistency"
+    },
+    {
+      "type": "paragraph",
+      "text": "יכול להיות delay קצר עד שכל החלקים במערכת מתיישרים."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמאות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "יתרה בבנק: strong consistency.",
+        "מספר likes בפוסט: eventual consistency יכולה להספיק.",
+        "Inventory של מוצר אחרון: בדרך כלל צריך consistency חזקה יותר.",
+        "Analytics dashboard: stale data של כמה דקות לרוב מקובל."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להגיד eventual consistency בלי להסביר מה ההשפעה העסקית.",
+        "לא להגדיר מהו חלון הזמן המותר ל-stale data.",
+        "לא לחשוב על reconciliation.",
+        "להבטיח consistency מלאה בין microservices ללא transaction משותפת."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני בוחר consistency לפי ה-business impact. אם stale data יכולה לגרום נזק כספי או אבטחתי, אלך לכיוון strong consistency. אם מדובר ב-analytics או counters, eventual consistency יכולה להיות tradeoff טוב."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Stale Data מקובלת?",
+      "answer": "כאשר העיכוב אינו גורם נזק משמעותי, למשל analytics או counters."
+    },
+    {
+      "type": "qa",
+      "question": "מה חייבים להגדיר ב-Eventual Consistency?",
+      "answer": "את חלון הזמן המותר, דרך reconciliation ומה ה-user רואה בתקופת הביניים."
+    }
+  ]
+}

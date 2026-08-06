@@ -1,0 +1,82 @@
+{
+  "id": "change-detection",
+  "title": "Change Detection",
+  "sourcePages": [
+    17,
+    18
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Change Detection הוא המנגנון של Angular שבודק האם ה-data השתנה וה-UI צריך להתעדכן."
+    },
+    {
+      "type": "heading",
+      "text": "Default"
+    },
+    {
+      "type": "paragraph",
+      "text": "Angular בודק Components בצורה רחבה יותר. זה פשוט, אבל עלול להיות פחות יעיל באפליקציות גדולות."
+    },
+    {
+      "type": "heading",
+      "text": "OnPush"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    selector: \"app-user-list\",\n    changeDetection: ChangeDetectionStrategy.OnPush,\n    template: `\n        @for (user of users; track user.id) {\n            <p>{{ user.name }}</p>\n        }\n    `\n})\nexport class UserListComponent {\n    @Input() users: User[] = [];\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מתי OnPush מתעדכן"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מגיע @Input עם reference חדש.",
+        "מתרחש event בתוך ה-Component.",
+        "Observable עם async pipe פולט ערך.",
+        "Signal משתנה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Immutable Update"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "this.users = [...this.users, newUser];"
+    },
+    {
+      "type": "paragraph",
+      "text": "עדיף על mutation ישיר כאשר רוצים reference חדש וברור."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "this.users.push(newUser);"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Change Detection הוא המנגנון שמעדכן את ה-UI כשה-state משתנה. ב-Angular, OnPush עושה פחות בדיקות, ולכן אני עובד עם immutable updates, async pipe ו-Signals כדי שהשינויים יהיו ברורים וצפויים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של OnPush?",
+      "answer": "הוא מצמצם בדיקות מיותרות ויכול לשפר ביצועים."
+    },
+    {
+      "type": "qa",
+      "question": "למה Immutable Update חשוב?",
+      "answer": "הוא יוצר reference חדש וגורם לשינוי להיות ברור ל-OnPush."
+    }
+  ]
+}

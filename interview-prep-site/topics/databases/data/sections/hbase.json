@@ -1,0 +1,60 @@
+{
+  "id": "hbase",
+  "title": "HBase",
+  "sourcePages": [
+    14,
+    14
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "HBase הוא wide-column NoSQL database שרץ מעל Hadoop ו-HDFS. הוא דומה רעיונית ל-Bigtable ומתאים ל-data עצום, distributed storage וגישה מהירה לפי row key."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "סביבת Hadoop קיימת",
+        "Big Data בסקייל גבוה",
+        "Batch processing",
+        "Data pipelines",
+        "גישה לפי key על נפחים עצומים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Horizontal scale",
+        "ניהול כמויות data גדולות מאוד",
+        "גישה לפי row key"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "תפעול מורכב יותר.",
+        "פחות נוח לפיתוח אפליקטיבי רגיל.",
+        "אין SQL רגיל.",
+        "אין joins כמו relational DB.",
+        "אינו מתאים ל-REST service פשוט או CRUD רגיל."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "HBase מתאים ל-Big Data בסקייל גבוה, בעיקר בתוך ecosystem של Hadoop. הוא טוב לגישה לפי key על נפחים גדולים, אבל הוא לא נוח ולא מתאים כ-application DB רגיל. ב-GCP, Bigtable יהיה לרוב המקבילה המנוהלת והנוחה יותר."
+    }
+  ]
+}

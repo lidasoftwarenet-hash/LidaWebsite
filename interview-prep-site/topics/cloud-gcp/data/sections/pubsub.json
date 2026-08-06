@@ -1,0 +1,104 @@
+{
+  "id": "pubsub",
+  "title": "Pub/Sub",
+  "sourcePages": [
+    1,
+    2
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Pub/Sub הוא שירות messaging מנוהל של GCP שמאפשר תקשורת אסינכרונית בין services."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "המודל",
+      "text": "Publisher מפרסם message ל-Topic, ו-Subscriber קורא אותה דרך Subscription."
+    },
+    {
+      "type": "paragraph",
+      "text": "במערכת microservices לא כל פעולה צריכה לקרות בתוך request סינכרוני. Pub/Sub מאפשר decoupling, retries, עמידות לכשלים ועיבוד events בקצב שה-consumer מסוגל לעמוד בו."
+    },
+    {
+      "type": "heading",
+      "text": "איך נכון לחשוב על Delivery"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא מניחים שהודעה תגיע פעם אחת בלבד. צריך לתכנן מראש מצב של retries, duplicate messages, הודעות שמגיעות באיחור ולעיתים ordering שאינו מובטח."
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-consumer צריך לבצע ack רק לאחר שהעיבוד הקריטי הצליח. אם הוא נכשל או לא מבצע ack בזמן, Pub/Sub יכול לשלוח את ההודעה שוב."
+    },
+    {
+      "type": "heading",
+      "text": "מאפיינים של Consumer טוב"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Idempotent",
+        "מבצע validation",
+        "מבצע deduplication לפי eventId או business key",
+        "משתמש ב-DLQ עבור הודעות שנכשלות שוב ושוב",
+        "כולל logs ו-correlationId כדי להבין מה קרה ב-Production"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מפרויקט אמיתי"
+    },
+    {
+      "type": "paragraph",
+      "text": "Service שמאזין לאירועים על שינויים בחברות אינו מניח שה-publishers שבבעלות צוותים אחרים שולחים events מושלמים. האירועים יכולים להיות כפולים, חלקיים או להגיע בסדר לא צפוי. לכן ה-consumer מסנן, מאמת, בודק אם האירוע רלוונטי ורק אז מפעיל עיבוד נוסף."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public void handleCompanyChangedEvent(\n        CompanyChangedEvent event\n) {\n    if (processedEvents.exists(event.eventId())) {\n        return;\n    }\n\n    if (!isRelevant(event)) {\n        processedEvents.save(event.eventId());\n        return;\n    }\n\n    coverageService.recalculateForCompany(\n        event.companyId()\n    );\n\n    processedEvents.save(event.eventId());\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לעשות ack לפני שהעיבוד באמת הצליח.",
+        "לחשוב ש-Pub/Sub מבטיח exactly-once בצורה קסומה.",
+        "Consumer שלא יודע להתמודד עם duplicate messages.",
+        "Retry אינסופי בלי DLQ.",
+        "Ordering key לא נכון שיוצר bottleneck.",
+        "לא לשמור eventId או business key לצורך deduplication.",
+        "לא להבדיל בין failure זמני לבין message לא תקין."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Pub/Sub נותן תקשורת אסינכרונית בין services. אני מתכנן consumers כאילו הודעות יכולות להגיע שוב או להיכשל, ולכן משתמש ב-idempotency, ack נכון, retries, DLQ ו-observability."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Consumer צריך לבצע ack?",
+      "answer": "רק לאחר שהעיבוד הקריטי הסתיים בהצלחה."
+    },
+    {
+      "type": "qa",
+      "question": "למה Consumer צריך להיות idempotent?",
+      "answer": "כי הודעות יכולות להגיע יותר מפעם אחת בעקבות retries או timeout ב-ack."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-DLQ?",
+      "answer": "כאשר message נכשלת שוב ושוב ולא רוצים retry אינסופי."
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "id": "scaling-hpa",
+  "title": "Scaling & HPA",
+  "sourcePages": [
+    5,
+    6
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Scaling ב-Kubernetes הוא הגדלה או הקטנה של מספר ה-Pods או המשאבים לפי עומס. המטרה היא להתמודד עם traffic משתנה בלי לשלם תמיד על maximum capacity."
+    },
+    {
+      "type": "heading",
+      "text": "Replicas קבועים"
+    },
+    {
+      "type": "paragraph",
+      "text": "הדרך הפשוטה היא להגדיר מספר replicas קבוע, למשל שלושה Pods של אותו service."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "spec:\n  replicas: 3"
+    },
+    {
+      "type": "heading",
+      "text": "Horizontal Pod Autoscaler"
+    },
+    {
+      "type": "paragraph",
+      "text": "HPA משנה את מספר ה-Pods אוטומטית לפי metrics כמו CPU או memory."
+    },
+    {
+      "type": "paragraph",
+      "text": "כדי ש-HPA יעבוד נכון לפי utilization, צריך להגדיר resource requests שנותנים baseline לחישוב."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: autoscaling/v2\nkind: HorizontalPodAutoscaler\nmetadata:\n  name: coverage-service-hpa\nspec:\n  scaleTargetRef:\n    apiVersion: apps/v1\n    kind: Deployment\n    name: coverage-service\n  minReplicas: 3\n  maxReplicas: 10\n  metrics:\n    - type: Resource\n      resource:\n        name: cpu\n        target:\n          type: Utilization\n          averageUtilization: 70"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לעשות scale ל-service ששומר state מקומי.",
+        "HPA ללא resource requests.",
+        "Scaling לפי CPU כאשר ה-DB הוא ה-bottleneck.",
+        "להגדיל Pods וליצור עומס שה-downstream אינו יכול לשאת.",
+        "לא להגדיר maxReplicas.",
+        "לחשוב ש-scaling מתקן design לא נכון."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Scaling ב-Kubernetes נעשה דרך replicas ו-HPA. אני מוודא שה-service stateless, שיש resource requests, ושאני לא מגדיל עומס על downstream שאינו מסוגל לעמוד בו."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה HPA צריך resource requests?",
+      "answer": "כדי לחשב utilization ביחס ל-baseline של ה-container."
+    },
+    {
+      "type": "qa",
+      "question": "למה יותר Pods לא תמיד פותרים את הבעיה?",
+      "answer": "כי ה-bottleneck יכול להיות DB, queue או downstream service."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך maxReplicas?",
+      "answer": "כדי למנוע scale בלתי מוגבל ועלות או עומס מסוכן על dependencies."
+    }
+  ]
+}

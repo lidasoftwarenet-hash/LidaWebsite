@@ -1,0 +1,123 @@
+{
+  "id": "troubleshooting",
+  "title": "OOMKilled & CrashLoopBackOff",
+  "sourcePages": [
+    12,
+    13
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "OOMKilled"
+    },
+    {
+      "type": "paragraph",
+      "text": "OOMKilled אומר שה-container עבר את memory limit שלו ו-Kubernetes הרג אותו."
+    },
+    {
+      "type": "heading",
+      "text": "CrashLoopBackOff"
+    },
+    {
+      "type": "paragraph",
+      "text": "CrashLoopBackOff אומר שה-container עולה, נופל, ו-Kubernetes מנסה להפעיל אותו שוב עם delay הולך וגדל."
+    },
+    {
+      "type": "heading",
+      "text": "סדר חקירה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "kubectl describe pod",
+        "Container logs",
+        "Previous logs אם היה restart",
+        "Events",
+        "Exit code",
+        "Probes",
+        "Resource limits",
+        "Config ו-Secrets",
+        "Dependencies חיצוניות",
+        "Image ו-command"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "פקודות בסיסיות"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "kubectl get pods\n\nkubectl describe pod coverage-service-abc123\n\nkubectl logs coverage-service-abc123\n\nkubectl logs coverage-service-abc123 --previous"
+    },
+    {
+      "type": "heading",
+      "text": "סיבות נפוצות ל-OOMKilled"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Memory leak",
+        "Batch גדול מדי",
+        "Cache לא מוגבל",
+        "Memory limit נמוך מדי",
+        "JVM heap שאינו מותאם ל-container"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "סיבות נפוצות ל-CrashLoopBackOff"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Exception בזמן startup",
+        "Config חסר",
+        "Secret חסר",
+        "Connection ל-DB נכשל",
+        "Liveness probe אגרסיבי מדי",
+        "Command שגוי"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לבדוק רק current logs ולא --previous.",
+        "להגדיל memory בלי להבין למה usage עולה.",
+        "Liveness probe שהורגת אפליקציה לפני סיום startup.",
+        "JVM שאינה מותאמת ל-container limits.",
+        "Secret חסר שנראה כמו crash אפליקטיבי.",
+        "לתקן restart בלי לבדוק readiness."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "OOMKilled מצביע בדרך כלל על חריגה מ-memory limit. CrashLoopBackOff אומר שה-container נופל שוב ושוב. אני מתחיל מ-describe, events, current ו-previous logs, probes ו-resource limits, ורק אז מחליט אם זו בעיית קוד, config או תשתית."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה --previous חשוב?",
+      "answer": "כי הוא מציג logs של ה-container הקודם שכבר קרס והופעל מחדש."
+    },
+    {
+      "type": "qa",
+      "question": "האם הפתרון ל-OOMKilled הוא תמיד להגדיל limit?",
+      "answer": "לא. צריך לבדוק memory leak, batch size, cache ו-JVM configuration."
+    },
+    {
+      "type": "qa",
+      "question": "מה המשמעות של CrashLoopBackOff?",
+      "answer": "Kubernetes מפעיל container שוב ושוב לאחר crashes, עם backoff הולך וגדל."
+    }
+  ]
+}

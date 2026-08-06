@@ -1,0 +1,129 @@
+{
+  "id": "java-hashmap",
+  "title": "Java HashMap",
+  "sourcePages": [
+    2,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "פעולות נפוצות על HashMap ב-Java, כולל ספירת תדירויות וחיפוש הערך הנפוץ ביותר."
+    },
+    {
+      "type": "heading",
+      "text": "יצירה והוספה"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<Integer, Integer> values =\n    new HashMap<>();\n\nvalues.put(1, 1000);\nvalues.put(2, 31000);"
+    },
+    {
+      "type": "heading",
+      "text": "מספר Entries"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "int size =\n    values.size();"
+    },
+    {
+      "type": "heading",
+      "text": "Frequency Map"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Map<Integer, Integer> countMap =\n    new HashMap<>();\n\nfor (int number : numbers) {\n    countMap.put(\n        number,\n        countMap.getOrDefault(\n            number,\n            0\n        ) + 1\n    );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Maximum Value"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Integer maxValue =\n    Collections.max(\n        values.values()\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "המפתח הראשון עם Value מסוים"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Integer firstKey =\n    values.entrySet()\n        .stream()\n        .filter(entry ->\n            entry.getValue()\n                .equals(31000)\n        )\n        .map(\n            Map.Entry::getKey\n        )\n        .findFirst()\n        .orElseThrow();"
+    },
+    {
+      "type": "heading",
+      "text": "כל המפתחות עם אותו Value"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<Integer> keys =\n    values.entrySet()\n        .stream()\n        .filter(entry ->\n            entry.getValue()\n                .equals(31000)\n        )\n        .map(\n            Map.Entry::getKey\n        )\n        .toList();"
+    },
+    {
+      "type": "heading",
+      "text": "קריאת Value ובדיקת Key"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Integer value =\n    values.get(3);\n\nboolean exists =\n    values.containsKey(4);\n\nInteger valueOrDefault =\n    values.getOrDefault(\n        3,\n        1000\n    );"
+    },
+    {
+      "type": "heading",
+      "text": "הוספה רק אם Key אינו קיים"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "values.putIfAbsent(\n    5,\n    500\n);"
+    },
+    {
+      "type": "heading",
+      "text": "מציאת המפתח עם הספירה הגבוהה ביותר"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Integer majority = null;\nint maxCount = 0;\n\nfor (\n    Map.Entry<Integer, Integer>\n        entry :\n        countMap.entrySet()\n) {\n    if (\n        entry.getValue()\n            > maxCount\n    ) {\n        majority =\n            entry.getKey();\n\n        maxCount =\n            entry.getValue();\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Top K לפי Value"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "List<Integer> topKeys =\n    values.entrySet()\n        .stream()\n        .sorted(\n            Map.Entry\n                .<Integer, Integer>\n                comparingByValue()\n                .reversed()\n        )\n        .limit(limit)\n        .map(\n            Map.Entry::getKey\n        )\n        .toList();"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "הערת דיוק",
+      "text": "עדיף comparingByValue().reversed() על חיסור בתוך comparator, כדי להימנע מ-overflow ולשמור על קוד ברור."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות קצרות"
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה getOrDefault?",
+      "answer": "מחזיר את הערך של ה-key, או ערך ברירת מחדל אם ה-key אינו קיים."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה putIfAbsent?",
+      "answer": "מוסיף ערך רק אם אין כבר mapping עבור אותו key."
+    },
+    {
+      "type": "qa",
+      "question": "איך בונים Frequency Map?",
+      "answer": "עוברים על הקלט ומעדכנים כל key באמצעות getOrDefault(key, 0) + 1."
+    }
+  ]
+}

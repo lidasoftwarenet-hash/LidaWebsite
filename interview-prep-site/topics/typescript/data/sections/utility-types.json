@@ -1,0 +1,167 @@
+{
+  "id": "utility-types",
+  "title": "Utility Types",
+  "sourcePages": [
+    203,
+    207
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Utility Types הם כלים מובנים של TypeScript שמאפשרים ליצור וריאציות של types קיימים בלי לשכפל את אותו מבנה ידנית."
+    },
+    {
+      "type": "heading",
+      "text": "Model בסיסי"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type User = {\n    id: number;\n    name: string;\n    email: string;\n};"
+    },
+    {
+      "type": "heading",
+      "text": "Partial<T>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Partial הופך את כל השדות ל-optional."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type PartialUser = Partial<User>;\n\ntype PartialUserExpanded = {\n    id?: number;\n    name?: string;\n    email?: string;\n};"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "שימוש נפוץ",
+      "text": "Partial מתאים במיוחד ל-PATCH-style updates, שבהם לא חייבים לשלוח את כל השדות."
+    },
+    {
+      "type": "heading",
+      "text": "Required<T>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Required עושה את ההפך מ-Partial והופך את כל השדות לחובה."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type RequiredUser = Required<User>;"
+    },
+    {
+      "type": "heading",
+      "text": "Readonly<T>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Readonly מונע שינוי של properties לאחר יצירת האובייקט."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type ReadonlyUser = Readonly<User>;\n\nconst user: ReadonlyUser = {\n    id: 1,\n    name: \"Hen\",\n    email: \"hen@test.com\"\n};\n\nuser.name = \"New Name\";\n// Compile-time error"
+    },
+    {
+      "type": "heading",
+      "text": "Record<K, V>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Record יוצר object שבו כל ה-keys הם מסוג מסוים וכל ה-values מסוג מסוים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type Scores = Record<string, number>;\n\nconst scores: Scores = {\n    dan: 90,\n    hen: 100\n};"
+    },
+    {
+      "type": "heading",
+      "text": "Pick<T, K>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pick בוחר רק חלק מהשדות מתוך type קיים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type UserPreview = Pick<User, \"id\" | \"name\">;"
+    },
+    {
+      "type": "heading",
+      "text": "Omit<T, K>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Omit מסיר שדות מסוימים מתוך type קיים."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type UserWithoutEmail = Omit<User, \"email\">;"
+    },
+    {
+      "type": "heading",
+      "text": "Awaited<T>"
+    },
+    {
+      "type": "paragraph",
+      "text": "Awaited מחלץ את הטיפוס הפנימי של Promise."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type Result = Awaited<Promise<string>>;\n// Result is string"
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מעשית"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type User = {\n    id: string;\n    email: string;\n    name: string;\n    createdAt: Date;\n};\n\ntype CreateUserInput =\n    Pick<User, \"email\" | \"name\">;\n\ntype UpdateUserInput =\n    Partial<Pick<User, \"email\" | \"name\">>;\n\ntype PublicUser =\n    Omit<User, \"createdAt\">;\n\ntype UsersById =\n    Record<string, User>;\n\ntype ResolvedUser =\n    Awaited<Promise<User>>;"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-Utility Types כדי לייצר domain variants בצורה בטוחה. Pick ו-Omit טובים ל-projections, Partial מתאים ל-PATCH updates, Required מחזק contract חלקי, Record מתאים ל-key space ברור, ו-Awaited מחלץ את התוצאה מתוך Promise."
+    },
+    {
+      "type": "heading",
+      "text": "למה זה חשוב ברמת Senior"
+    },
+    {
+      "type": "paragraph",
+      "text": "במקום להחזיק כמה types כמעט זהים וליצור drift, מייצרים גרסאות מדויקות מתוך source of truth אחד."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Partial מתאים?",
+      "answer": "כאשר כל השדות יכולים להיות optional, למשל PATCH update."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Pick ל-Omit?",
+      "answer": "Pick שומר רק שדות נבחרים. Omit שומר הכול חוץ מהשדות שנבחרו."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה Record?",
+      "answer": "יוצר object עם key type ו-value type מוגדרים."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה Awaited?",
+      "answer": "מחלץ את הטיפוס שמתקבל בסוף Promise."
+    }
+  ]
+}

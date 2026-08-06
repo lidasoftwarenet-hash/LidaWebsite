@@ -1,0 +1,96 @@
+{
+  "id": "service-discovery",
+  "title": "Service Discovery",
+  "sourcePages": [
+    7,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Service discovery הוא המנגנון שבו services מוצאים אחד את השני בתוך Kubernetes."
+    },
+    {
+      "type": "paragraph",
+      "text": "Pods מתחלפים וכתובות ה-IP שלהם אינן יציבות. לכן לא פונים ישירות ל-Pod, אלא ל-Service בעל DNS name יציב."
+    },
+    {
+      "type": "heading",
+      "text": "DNS בתוך Namespace"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "http://user-service"
+    },
+    {
+      "type": "heading",
+      "text": "DNS בין Namespaces"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "http://user-service.users.svc.cluster.local"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-Service מנתב traffic ל-Pods לפי labels ו-selector."
+    },
+    {
+      "type": "code",
+      "language": "yaml",
+      "code": "apiVersion: v1\nkind: Service\nmetadata:\n  name: user-service\nspec:\n  selector:\n    app: user-service\n  ports:\n    - port: 80\n      targetPort: 8080"
+    },
+    {
+      "type": "heading",
+      "text": "Service Types"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "ClusterIP לחשיפה פנימית בתוך ה-cluster.",
+        "NodePort לחשיפה דרך port על Nodes.",
+        "LoadBalancer ליצירת load balancer חיצוני בספק ענן."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לקרוא ישירות ל-IP של Pod.",
+        "Labels שאינם תואמים ל-selector.",
+        "לא להבין את ההבדל בין ClusterIP, NodePort ו-LoadBalancer.",
+        "בעיות DNS בין namespaces.",
+        "Service קיים אבל אין endpoints כי Pods אינם match."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Kubernetes services מדברים זה עם זה דרך Service name ולא דרך Pod IP. ה-Service נותן DNS יציב ומנתב ל-Pods לפי labels."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להשתמש ב-Pod IP?",
+      "answer": "כי Pods יכולים להתחלף ולקבל IP חדש."
+    },
+    {
+      "type": "qa",
+      "question": "למה Service קיים אבל אין traffic?",
+      "answer": "אחת הסיבות הנפוצות היא selector שאינו תואם ל-labels של ה-Pods."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-ClusterIP?",
+      "answer": "כאשר ה-Service צריך להיות נגיש רק בתוך ה-cluster."
+    }
+  ]
+}

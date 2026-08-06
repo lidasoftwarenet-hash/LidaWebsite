@@ -1,0 +1,109 @@
+{
+  "id": "controllers-providers-di",
+  "title": "Controllers, Providers & DI",
+  "sourcePages": [
+    232,
+    234
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Controller"
+    },
+    {
+      "type": "paragraph",
+      "text": "Controller אחראי לקבל HTTP requests ולהחזיר responses. הוא צריך לקרוא params, body או query, להפעיל service ולהחזיר תוצאה."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Controller(\"users\")\nexport class UsersController {\n    constructor(\n        private readonly usersService:\n            UsersService\n    ) {}\n\n    @Get(\":id\")\n    getUser(\n        @Param(\"id\") id: string\n    ) {\n        return this.usersService\n            .getUser(id);\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Controller הוא שכבת HTTP. הוא לא המקום ל-business logic כבד. הוא צריך להיות דק ולקרוא ל-Service, שבו נמצאת הלוגיקה האמיתית."
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "מלכודת",
+      "text": "Controller שמכיל SQL queries, business rules או הרבה if-ים עסקיים הוא סימן להפרדת אחריות חלשה."
+    },
+    {
+      "type": "heading",
+      "text": "Provider ו-Service"
+    },
+    {
+      "type": "paragraph",
+      "text": "Provider הוא class ש-NestJS יודע לנהל ולהזריק דרך ה-DI container. Service הוא ה-provider הנפוץ ביותר."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class UsersService {\n    getUser(id: string) {\n        return { id };\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "@Injectable מסמן שה-class יכולה להיות מנוהלת על ידי ה-DI container."
+    },
+    {
+      "type": "heading",
+      "text": "Dependency Injection"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class UsersService {\n    constructor(\n        private readonly repository:\n            UsersRepository\n    ) {}\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "במקום ליצור dependency עם new, NestJS יוצר ומזריק אותה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "פחות coupling",
+        "Testing קל יותר",
+        "החלפת implementations",
+        "Separation of concerns",
+        "Lifecycle management"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Dependency Injection מאפשר למחלקה לקבל dependencies מבחוץ במקום ליצור אותן ידנית. זה מקטין coupling, מקל על testing ומאפשר ל-NestJS לנהל את lifecycle של providers."
+    },
+    {
+      "type": "heading",
+      "text": "Mock ב-Testing"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    provide: UsersRepository,\n    useValue: mockRepository\n}"
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה התפקיד של Controller?",
+      "answer": "לקבל HTTP request, לקרוא input, להפעיל Service ולהחזיר response."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Provider?",
+      "answer": "Class ש-NestJS מנהל ויכול להזריק דרך Dependency Injection."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה @Injectable?",
+      "answer": "מסמן class כ-provider שה-DI container יכול לנהל."
+    }
+  ]
+}

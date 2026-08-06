@@ -1,0 +1,62 @@
+{
+  "id": "bigtable",
+  "title": "Bigtable",
+  "sourcePages": [
+    12,
+    12
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Bigtable הוא wide-column NoSQL database של Google, שנבנה לסקייל גדול מאוד ולקריאות וכתיבות מהירות לפי key."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "כמויות data עצומות",
+        "גישה לפי key או range",
+        "Time series גדולים",
+        "Processed logs",
+        "Feature storage",
+        "Snapshots",
+        "Data שמגיע מ-pipelines"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Scale גבוה מאוד",
+        "Latency נמוך יחסית",
+        "יכולת להתמודד עם נפחים עצומים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "אין joins.",
+        "הוא אינו relational.",
+        "ה-model דורש תכנון מדויק של row key.",
+        "Key לא נכון יכול ליצור hot spots.",
+        "הוא אינו מתאים ל-CRUD application רגיל או ל-queries גמישות לפי הרבה שדות."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Bigtable מתאים כשיש data עצום וגישה מהירה לפי key או range. הוא חזק מאוד בסקייל, אבל דורש modeling נכון של ה-key. זה לא DB כללי ל-CRUD ולא תחליף ל-SQL database."
+    }
+  ]
+}

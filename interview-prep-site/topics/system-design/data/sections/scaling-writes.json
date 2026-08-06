@@ -1,0 +1,85 @@
+{
+  "id": "scaling-writes",
+  "title": "Scaling Writes",
+  "sourcePages": [
+    268,
+    268
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Scaling writes קשה יותר מ-scaling reads, משום שכתיבה דורשת consistency, locks, ordering ולעיתים עדכון indexes."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות אבחון"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "האם הבעיה באמת write throughput?",
+        "האם יש יותר מדי indexes?",
+        "האם אפשר לבצע batching?",
+        "האם אפשר להפריד commands מ-queries?",
+        "האם צריך partitioning?",
+        "האם צריך sharding?",
+        "האם אפשר להעביר חלק מהעבודה ל-async queue?"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "אפשרויות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Reduce indexes.",
+        "Batch writes.",
+        "Async processing.",
+        "Partition by date או tenant.",
+        "Shard by userId או tenantId.",
+        "CQRS.",
+        "Write-behind במקרים מסוימים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Sharding מוקדם מדי.",
+        "Shard key גרוע שיוצר hot shard.",
+        "יותר מדי indexes על טבלה write-heavy.",
+        "לא לחשוב על cross-shard queries.",
+        "לא לתכנן migration."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Scaling writes קשה יותר מ-reads. אני מתחיל מאופטימיזציה ו-batching, מוריד indexes מיותרים, ואז שוקל partitioning, sharding או async processing לפי bottleneck אמיתי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Sharding אינו הצעד הראשון?",
+      "answer": "כי הוא מוסיף מורכבות ב-routing, migrations, cross-shard queries ו-operations."
+    },
+    {
+      "type": "qa",
+      "question": "מהו Hot Shard?",
+      "answer": "Shard שמקבל חלק לא פרופורציונלי מהעומס בגלל shard key לא מאוזן."
+    },
+    {
+      "type": "qa",
+      "question": "איך Queue עוזר ל-Writes?",
+      "answer": "היא מאפשרת להחליק spikes, לבצע batching ולעבד חלק מהעבודה asynchronous."
+    }
+  ]
+}

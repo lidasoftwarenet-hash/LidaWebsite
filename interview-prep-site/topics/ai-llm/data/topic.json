@@ -1,5 +1,76 @@
 {
   "id": "ai-llm",
   "title": "AI / LLM",
-  "sections": []
+  "sections": [
+    {
+      "id": "rag-fundamentals",
+      "title": "RAG Fundamentals",
+      "file": "sections/rag-fundamentals.json"
+    },
+    {
+      "id": "vector-databases",
+      "title": "Vector Databases & Embeddings",
+      "file": "sections/vector-databases.json"
+    },
+    {
+      "id": "prompt-injection",
+      "title": "Prompt Injection",
+      "file": "sections/prompt-injection.json"
+    },
+    {
+      "id": "guardrails",
+      "title": "Guardrails",
+      "file": "sections/guardrails.json"
+    },
+    {
+      "id": "hallucination-handling",
+      "title": "Hallucination Handling",
+      "file": "sections/hallucination-handling.json"
+    },
+    {
+      "id": "agents",
+      "title": "AI Agents",
+      "file": "sections/agents.json"
+    },
+    {
+      "id": "mcp",
+      "title": "Model Context Protocol",
+      "file": "sections/mcp.json"
+    },
+    {
+      "id": "skills",
+      "title": "AI Skills",
+      "file": "sections/skills.json"
+    },
+    {
+      "id": "developer-tooling",
+      "title": "AI Developer Tooling",
+      "file": "sections/developer-tooling.json"
+    },
+    {
+      "id": "evaluation",
+      "title": "Evaluation",
+      "file": "sections/evaluation.json"
+    },
+    {
+      "id": "latency",
+      "title": "Latency",
+      "file": "sections/latency.json"
+    },
+    {
+      "id": "semantic-caching",
+      "title": "Semantic Caching",
+      "file": "sections/semantic-caching.json"
+    },
+    {
+      "id": "human-in-the-loop",
+      "title": "Human in the Loop",
+      "file": "sections/human-in-the-loop.json"
+    },
+    {
+      "id": "llm-security",
+      "title": "LLM Security",
+      "file": "sections/llm-security.json"
+    }
+  ]
 }

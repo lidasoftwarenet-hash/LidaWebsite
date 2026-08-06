@@ -1,0 +1,71 @@
+{
+  "id": "schema-migrations",
+  "title": "Schema Migrations",
+  "sourcePages": [
+    10,
+    10
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Schema migrations הן דרך versioned, repeatable ובטוחה לנהל שינויי schema. במערכת Production אי אפשר לשנות DB ידנית ולקוות לטוב."
+    },
+    {
+      "type": "heading",
+      "text": "סוגי שינויים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Create table",
+        "Add column",
+        "Add index",
+        "Alter column",
+        "Data migration",
+        "Drop column"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה"
+    },
+    {
+      "type": "code",
+      "language": "sql",
+      "code": "ALTER TABLE orders\nADD COLUMN status\nVARCHAR(30)\nNOT NULL\nDEFAULT 'PENDING';\n\nCREATE INDEX idx_orders_status\nON orders(status);"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "שינוי breaking לפני שהקוד החדש עלה.",
+        "מחיקת column שעדיין בשימוש.",
+        "Migration כבדה שנועלת טבלה גדולה.",
+        "הוספת NOT NULL בלי default על טבלה קיימת.",
+        "Rollback לא מתוכנן."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Expand and Contract"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מוסיפים שדה חדש בצורה backward compatible.",
+        "מעלים קוד שתומך בשני המצבים.",
+        "מריצים backfill.",
+        "רק לאחר מכן מסירים את השדה הישן."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Schema migrations צריכות להיות versioned ו-backward compatible. ב-Production אני מעדיף expand-and-contract כדי לא לשבור קוד בזמן deployment הדרגתי."
+    }
+  ]
+}

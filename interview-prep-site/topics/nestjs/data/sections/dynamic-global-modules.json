@@ -1,0 +1,90 @@
+{
+  "id": "dynamic-global-modules",
+  "title": "Dynamic & Global Modules",
+  "sourcePages": [
+    244,
+    245
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Dynamic Modules"
+    },
+    {
+      "type": "paragraph",
+      "text": "Dynamic Module הוא module שמקבל configuration בזמן import."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "CacheModule.register({\n    ttl: 60\n});"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "ConfigModule.forRoot({\n    isGlobal: true\n});"
+    },
+    {
+      "type": "heading",
+      "text": "מתי זה מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Database",
+        "Cache",
+        "Queue",
+        "Auth",
+        "Integrations"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Dynamic Modules שימושיים כאשר אני רוצה reusable module שמקבל configuration בזמן טעינה, כמו ConfigModule, CacheModule או integration module פנימי."
+    },
+    {
+      "type": "heading",
+      "text": "Global Modules"
+    },
+    {
+      "type": "paragraph",
+      "text": "Global Module זמין בכל האפליקציה בלי לבצע import בכל feature module."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Global()\n@Module({})\nexport class CommonModule {}"
+    },
+    {
+      "type": "paragraph",
+      "text": "זה נוח לדברים בסיסיים כמו config או logging, אבל שימוש רחב מדי מסתיר dependencies ומקשה להבין מאיפה provider מגיע."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-Global Modules בזהירות. זה מתאים לדברים בסיסיים כמו config או logging, אבל לא לכל feature, כי זה יכול להסתיר dependencies ולפגוע בקריאות."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Dynamic Module?",
+      "answer": "Module שמקבל configuration בזמן import."
+    },
+    {
+      "type": "qa",
+      "question": "מה זה Global Module?",
+      "answer": "Module ש-providers שלו זמינים בכל האפליקציה בלי imports חוזרים."
+    },
+    {
+      "type": "qa",
+      "question": "למה לא להפוך כל Module ל-global?",
+      "answer": "כי זה מסתיר dependencies ופוגע במבנה ובקריאות."
+    }
+  ]
+}

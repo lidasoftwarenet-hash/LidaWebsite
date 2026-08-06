@@ -1,0 +1,65 @@
+{
+  "id": "elasticsearch",
+  "title": "Elasticsearch",
+  "sourcePages": [
+    13,
+    13
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Elasticsearch הוא מנוע חיפוש ואינדוקס. הוא בנוי לחיפוש מהיר בתוך טקסט, filtering, ranking, autocomplete ו-aggregations מסוימות."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Full-text search",
+        "Autocomplete",
+        "Fuzzy search",
+        "Relevance scoring",
+        "Log search",
+        "חיפוש מהיר על הרבה documents"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חוזקות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "חיפוש טקסטואלי חזק",
+        "מהירות",
+        "Ranking ו-relevance",
+        "Filtering ואינדוקס"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מגבלות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "אינו source of truth אידיאלי.",
+        "אינו מתאים כ-DB ראשי ל-transactions.",
+        "אינו מתאים למידע כספי קריטי.",
+        "אינו מתאים כאשר consistency מיידית היא חובה."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "בדרך כלל שומרים את ה-data המקורי ב-PostgreSQL, MySQL או MongoDB, ומסנכרנים עותק ל-Elasticsearch לצורכי חיפוש."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Elasticsearch הוא מנוע חיפוש, לא ה-DB הראשי שלי. הייתי משתמש בו כדי לאפשר חיפוש מהיר וחכם על data, אבל את המקור האמין של המידע הייתי שומר ב-DB אחר ומעדכן את Elastic באינדוקס."
+    }
+  ]
+}

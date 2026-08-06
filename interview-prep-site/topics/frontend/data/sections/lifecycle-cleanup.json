@@ -1,0 +1,103 @@
+{
+  "id": "lifecycle-cleanup",
+  "title": "Lifecycle & Cleanup",
+  "sourcePages": [
+    18,
+    19
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Lifecycle hooks הן מתודות ש-Angular מפעיל בשלבים שונים בחיי ה-Component."
+    },
+    {
+      "type": "heading",
+      "text": "ngOnInit"
+    },
+    {
+      "type": "paragraph",
+      "text": "רץ לאחר שה-Component אותחל ומתאים לטעינת data או logic ראשוני."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "export class UsersComponent implements OnInit {\n    ngOnInit(): void {\n        this.loadUsers();\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "ngOnChanges"
+    },
+    {
+      "type": "paragraph",
+      "text": "רץ כאשר @Input משתנה."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "ngOnChanges(changes: SimpleChanges): void {\n    if (changes[\"userId\"]) {\n        this.loadUser();\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "ngAfterViewInit"
+    },
+    {
+      "type": "paragraph",
+      "text": "רץ לאחר שה-template וה-Child Components מוכנים. נפוץ כאשר משתמשים ב-ViewChild."
+    },
+    {
+      "type": "heading",
+      "text": "ngOnDestroy"
+    },
+    {
+      "type": "paragraph",
+      "text": "רץ לפני שה-Component נהרס ומתאים לניקוי resources."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Subscriptions.",
+        "Timers.",
+        "Event listeners.",
+        "WebSocket connections."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "takeUntilDestroyed"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "this.userService.getUsers()\n    .pipe(takeUntilDestroyed())\n    .subscribe(users => {\n        this.users = users;\n    });"
+    },
+    {
+      "type": "paragraph",
+      "text": "async pipe גם מנהל subscribe ו-unsubscribe אוטומטית."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-ngOnInit לאתחול, ב-ngOnChanges לתגובה לשינויים ב-Inputs, וב-ngOnDestroy לניקוי resources. אני מעדיף async pipe או takeUntilDestroyed כדי למנוע subscriptions שנשארים פתוחים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה מתאים ל-ngOnInit?",
+      "answer": "אתחול data או logic ראשוני."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך cleanup?",
+      "answer": "כדי למנוע memory leaks ופעולות שממשיכות לאחר שה-Component נהרס."
+    },
+    {
+      "type": "qa",
+      "question": "איך מנהלים subscription בצורה בטוחה?",
+      "answer": "באמצעות async pipe או takeUntilDestroyed."
+    }
+  ]
+}

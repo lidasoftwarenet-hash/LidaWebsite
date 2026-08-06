@@ -1,0 +1,82 @@
+{
+  "id": "guardrails",
+  "title": "Guardrails",
+  "sourcePages": [
+    7,
+    8
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Guardrails הם שכבות הגנה סביב מערכת AI שמגדירות מה מותר למודל לקבל, להחזיר או לבצע."
+    },
+    {
+      "type": "paragraph",
+      "text": "LLM אינו מנגנון policy אמין בפני עצמו. במוצר אמיתי צריך שכבות קוד שמגבילות פעולות, מסננות input ו-output ומונעות שימוש לא בטוח."
+    },
+    {
+      "type": "heading",
+      "text": "שכבות Guardrails"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Input validation: מה המשתמש ביקש והאם הבקשה מותרת.",
+        "Retrieval guardrails: איזה data מותר להכניס ל-context.",
+        "Output validation: האם הפלט בפורמט נכון ואינו כולל מידע אסור.",
+        "Action guardrails: האם הפעולה מותרת והאם נדרש אישור.",
+        "Tool limits: אילו tools זמינים, עם אילו permissions ובאילו תנאים."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "לדוגמה, assistant שיכול לשלוח email לא צריך לשלוח הודעה ללקוח ללא explicit approval או review."
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "if (\n    !policy.isActionAllowed(\n        user,\n        requestedAction\n    )\n) {\n    return AiResponse.blocked(\n        \"This action is not allowed\"\n    );\n}\n\nif (\n    requestedAction.isSensitive()\n) {\n    return AiResponse\n        .requiresApproval(\n            requestedAction\n        );\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשים את כל ה-guardrails בתוך prompt.",
+        "לא להבדיל בין תשובה לבין action.",
+        "לתת למודל גישה רחבה מדי ל-tools.",
+        "אין allowlist לפעולות.",
+        "אין audit trail.",
+        "אין validation ל-JSON או output structure.",
+        "אין tenant isolation."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Guardrails הם שכבות policy סביב ה-LLM. אני לא סומך רק על prompt, אלא מוסיף input validation, output validation, הרשאות, allowlisted actions, audit logs ו-human approval כשצריך."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Guardrails לא יכולים להיות רק Prompt?",
+      "answer": "כי Prompt אינו מנגנון הרשאות קשיח וניתן לעקיפה."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Answer Guardrail ל-Action Guardrail?",
+      "answer": "Answer guardrail בודק מה מותר להחזיר. Action guardrail בודק מה מותר לבצע."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך Audit Trail?",
+      "answer": "כדי לדעת מה המודל או ה-agent ניסה לבצע, עם איזה input ומה הייתה התוצאה."
+    }
+  ]
+}

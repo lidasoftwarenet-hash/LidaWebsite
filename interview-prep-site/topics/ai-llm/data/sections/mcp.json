@@ -1,0 +1,123 @@
+{
+  "id": "mcp",
+  "title": "Model Context Protocol",
+  "sourcePages": [
+    16,
+    18
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "MCP הוא קיצור של Model Context Protocol. זהו פרוטוקול שמאפשר לחבר מערכת AI לכלים ולמקורות מידע בצורה אחידה ומסודרת."
+    },
+    {
+      "type": "paragraph",
+      "text": "LLM בפני עצמו יודע בעיקר לקבל טקסט ולהחזיר טקסט. באמצעות MCP אפשר לחשוף יכולות חיצוניות כמו חיפוש במסמכים, קריאת Pull Request, הפעלת tests, יצירת ticket או פעולה דרך API."
+    },
+    {
+      "type": "heading",
+      "text": "Tool"
+    },
+    {
+      "type": "paragraph",
+      "text": "Tool הוא פעולה שהמערכת יכולה לבצע."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "searchDocuments()",
+        "getPullRequest()",
+        "runTests()",
+        "createTicket()"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Resource"
+    },
+    {
+      "type": "paragraph",
+      "text": "Resource הוא מידע שהמערכת יכולה לקרוא, כמו מסמך, קובץ, repository או רשומה במערכת פנימית."
+    },
+    {
+      "type": "heading",
+      "text": "מה MCP Server חושף"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "שם הפעולה.",
+        "Input schema.",
+        "Output schema.",
+        "הרשאות נדרשות.",
+        "האם זו פעולת קריאה או שינוי.",
+        "האם נדרש human approval."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "גם כאשר MCP חושף tool לחיפוש ב-Knowledge Base, ה-Backend של ה-tool עדיין חייב לבדוק את המשתמש, הארגון וההרשאות לפני החזרת המידע."
+    },
+    {
+      "type": "heading",
+      "text": "מה MCP אינו עושה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "MCP אינו Agent.",
+        "הוא אינו מחליט מה לעשות.",
+        "הוא אינו מתכנן workflow.",
+        "הוא מספק דרך סטנדרטית לחשוף capabilities."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "חלוקת אחריות",
+      "text": "Agent מחליט מה לעשות. Tool מבצע פעולה. MCP חושף את ה-Tool בצורה סטנדרטית."
+    },
+    {
+      "type": "heading",
+      "text": "אבטחה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להפריד בין read tools ל-write tools.",
+        "לבדוק הרשאות בתוך ה-tool.",
+        "לא להחזיר יותר מידע מהנדרש.",
+        "לבצע input validation.",
+        "לשמור audit לכל פעולה.",
+        "לדרוש approval לפעולות רגישות.",
+        "לטפל בכשלי tool בצורה ברורה.",
+        "להתייחס לפלט tool כ-data לא אמין."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "MCP הוא פרוטוקול שמאפשר לחבר AI assistant ל-tools ולמקורות מידע בצורה סטנדרטית. מבחינתי החלק החשוב הוא ה-Backend שמאחורי ה-tool: הרשאות, validation, הפרדה בין קריאה לשינוי, human approval ו-audit."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין MCP ל-Agent?",
+      "answer": "MCP מחבר ליכולות חיצוניות. Agent מתכנן ומחליט כיצד להשתמש בהן."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Tool ל-Resource?",
+      "answer": "Tool מבצע פעולה. Resource הוא מידע שניתן לקריאה."
+    },
+    {
+      "type": "qa",
+      "question": "איפה נאכפות הרשאות?",
+      "answer": "בתוך ה-Backend של ה-tool, לא על ידי המודל."
+    }
+  ]
+}

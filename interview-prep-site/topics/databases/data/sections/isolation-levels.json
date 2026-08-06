@@ -1,0 +1,39 @@
+{
+  "id": "isolation-levels",
+  "title": "Isolation Levels",
+  "sourcePages": [
+    4,
+    4
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Isolation level מגדיר כמה transaction אחת מוגנת משינויים של transactions אחרות שרצות במקביל."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Trade-off מרכזי",
+      "text": "ככל שה-isolation חזק יותר מקבלים יותר correctness, אבל משלמים ב-performance, locks או conflicts."
+    },
+    {
+      "type": "heading",
+      "text": "מה צריך להסביר בראיון"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Isolation עוסק בהתנהגות של transactions מקבילות.",
+        "הבחירה משפיעה על correctness ועל throughput.",
+        "אין level אחד שמתאים אוטומטית לכל workload.",
+        "הבחירה צריכה להתאים לרגישות העסקית ולכמות ה-concurrency."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Isolation level קובע כמה transaction מבודדת מאחרות. ככל שה-isolation חזק יותר מקבלים יותר correctness, אבל משלמים ב-locks, performance או conflicts."
+    }
+  ]
+}

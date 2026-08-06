@@ -1,0 +1,136 @@
+{
+  "id": "generics",
+  "title": "Generics",
+  "sourcePages": [
+    207,
+    210
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Generics מאפשרים לכתוב פונקציה, interface או class שעובדים עם כמה types בלי לאבד את ה-type המקורי."
+    },
+    {
+      "type": "heading",
+      "text": "Identity Function"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function identity<T>(value: T): T {\n    return value;\n}\n\nconst name = identity(\"Hen\"); // string\nconst age = identity(47); // number"
+    },
+    {
+      "type": "paragraph",
+      "text": "TypeScript זוכר את ה-type שנכנס ומשתמש בו גם ב-output."
+    },
+    {
+      "type": "heading",
+      "text": "למה לא any"
+    },
+    {
+      "type": "paragraph",
+      "text": "any מבטל את ההגנות של TypeScript. Generic שומר את הקשר בין input ל-output."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "אני משתמש ב-Generics כשאני רוצה לשמור קשר בין input ל-output או לכתוב helper כללי שעובד עם כמה types בלי לאבד type information."
+    },
+    {
+      "type": "heading",
+      "text": "Constraints עם extends"
+    },
+    {
+      "type": "paragraph",
+      "text": "Generic אינו אומר כל דבר ללא חוקים. הוא אומר כל type שמתאים לתנאים שהוגדרו."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function getById<T extends { id: string }>(\n    items: T[],\n    id: string\n): T | undefined {\n    return items.find(item => item.id === id);\n}"
+    },
+    {
+      "type": "heading",
+      "text": "keyof"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function getProperty<T, K extends keyof T>(\n    obj: T,\n    key: K\n): T[K] {\n    return obj[key];\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "K חייב להיות key אמיתי של T, ולכן אי אפשר לבקש property שאינו קיים."
+    },
+    {
+      "type": "heading",
+      "text": "טעות: להחזיר any"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function foo<T>(value: T): any {\n    return value;\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הפונקציה קיבלה T אבל החזירה any, ולכן כל היתרון של Generic נעלם."
+    },
+    {
+      "type": "heading",
+      "text": "טעות: שימוש ב-member ללא Constraint"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function printLength<T>(value: T) {\n    return value.length;\n    // Error: not every T has length\n}"
+    },
+    {
+      "type": "heading",
+      "text": "פתרון"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function printLength<T extends { length: number }>(\n    value: T\n): number {\n    return value.length;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Generic Class"
+    },
+    {
+      "type": "paragraph",
+      "text": "ב-class generic, type parameter שייך ל-instance. Members סטטיים אינם יכולים להשתמש ב-type parameter של המחלקה."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-Generics כדי לשמור קשר בין input ל-output, ולא רק בשביל גמישות. כשיש לי הנחות על ה-type אני מוסיף constraints, כדי שה-API יהיה reusable וגם safe."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון המרכזי של Generics?",
+      "answer": "Reusable code בלי לאבד type safety או את הקשר בין input ל-output."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה extends בתוך Generic?",
+      "answer": "מגדיר constraint שה-type חייב לעמוד בו."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה keyof?",
+      "answer": "יוצר union של כל ה-keys הקיימים ב-type."
+    },
+    {
+      "type": "qa",
+      "question": "למה Generic שמחזיר any הוא בעייתי?",
+      "answer": "כי הוא מאבד את type information ומבטל את ההגנות בהמשך ה-flow."
+    }
+  ]
+}

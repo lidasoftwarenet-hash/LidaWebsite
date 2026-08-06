@@ -1,0 +1,95 @@
+{
+  "id": "cloud-run",
+  "title": "Cloud Run",
+  "sourcePages": [
+    3,
+    5
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Cloud Run הוא שירות מנוהל להרצת containers בצורה serverless. מביאים container, ו-GCP מריץ אותו, מבצע scaling ומנהל את התשתית."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Stateless services",
+        "HTTP APIs",
+        "Workers קלים",
+        "Microservices שלא מצדיקים Kubernetes מלא",
+        "שירותים שצריכים autoscaling",
+        "שירותים שלא דורשים שליטה עמוקה ב-cluster"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Cloud Run מריץ container לפי traffic. כאשר אין traffic הוא יכול לרדת לאפס, וכאשר יש עומס הוא יכול לגדול אוטומטית."
+    },
+    {
+      "type": "heading",
+      "text": "Trade-off מול GKE"
+    },
+    {
+      "type": "paragraph",
+      "text": "Cloud Run נותן פשטות וניהול כמעט מלא, אבל פחות שליטה מ-Kubernetes. אם צריך networking מורכב, deployment מתקדם או שליטה עמוקה בתשתית, GKE יכול להתאים יותר."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת Service"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "@RestController\n@RequestMapping(\"/coverage\")\npublic class CoverageController {\n\n    private final CoverageService coverageService;\n\n    public CoverageController(\n        CoverageService coverageService\n    ) {\n        this.coverageService = coverageService;\n    }\n\n    @GetMapping(\"/{companyId}\")\n    public CoverageResponse getCoverage(\n        @PathVariable String companyId\n    ) {\n        return coverageService.getCoverage(companyId);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "אותו service יכול להיארז כ-container ולרוץ ב-Cloud Run."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לשמור state מקומי בתוך container.",
+        "להניח ש-instance תמיד חי.",
+        "לא לטפל ב-cold start.",
+        "לא להגדיר concurrency נכון.",
+        "לא להגדיר timeout מתאים.",
+        "לא לטפל ב-graceful shutdown.",
+        "לשים עבודה ארוכה מדי בתוך request path."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Cloud Run מתאים להרצת stateless containers בצורה serverless. אני משתמש בו כשאני רוצה service פשוט, scalable ומנוהל, בלי לנהל Kubernetes בעצמי."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Cloud Run מתאים?",
+      "answer": "ל-stateless HTTP services, APIs ו-workers קלים עם autoscaling."
+    },
+    {
+      "type": "qa",
+      "question": "מה החיסרון לעומת GKE?",
+      "answer": "פחות שליטה על networking, deployment וה-cluster."
+    },
+    {
+      "type": "qa",
+      "question": "למה חשוב להיות stateless?",
+      "answer": "כי instances יכולים לעלות, לרדת ולהתחלף בכל רגע."
+    }
+  ]
+}

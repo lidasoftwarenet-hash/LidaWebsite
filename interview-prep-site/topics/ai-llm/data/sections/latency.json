@@ -1,0 +1,96 @@
+{
+  "id": "latency",
+  "title": "Latency",
+  "sourcePages": [
+    11,
+    13
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Latency הוא הזמן שעובר מהרגע שהמשתמש שולח בקשה ועד שהוא מקבל תשובה."
+    },
+    {
+      "type": "heading",
+      "text": "ממה בנוי זמן התגובה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Retrieval.",
+        "בניית prompt.",
+        "קריאה למודל.",
+        "Validation.",
+        "Tool calls.",
+        "יצירת התשובה."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "גם תשובה איכותית אינה תמיד שימושית אם המשתמש מחכה זמן רב מדי. ב-Production צריך לאזן בין איכות, latency ועלות."
+    },
+    {
+      "type": "heading",
+      "text": "מה משפיע על Latency"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Prompt ארוך.",
+        "יותר מדי chunks ב-context.",
+        "מודל גדול ואיטי.",
+        "תשובה ארוכה.",
+        "מספר רב של tool calls.",
+        "קריאות שמתבצעות אחת אחרי השנייה.",
+        "שלבי validation רבים."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דרכי שיפור"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Streaming: להתחיל להציג תשובה בזמן שהמודל עדיין מייצר.",
+        "Caching: לשמור תוצאות נפוצות.",
+        "Context קטן ומדויק.",
+        "מודל קטן למשימות פשוטות.",
+        "Parallel tool calls לפעולות בלתי תלויות.",
+        "Async processing למשימות כבדות.",
+        "Timeout ו-fallback כאשר model או tool אינם עונים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Trade-off",
+      "text": "אסור לשפר מהירות על חשבון נכונות. Context קטן מדי יכול להיות מהיר יותר אך פחות מדויק."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Latency במערכת LLM הוא זמן התגובה הכולל, כולל retrieval, הקריאה למודל ו-tool calls. אני משפר אותו באמצעות streaming, caching, context מדויק, מודלים קטנים למשימות פשוטות וקריאות מקביליות, תוך בדיקה שהאיכות לא נפגעת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה כולל Latency במערכת RAG?",
+      "answer": "Retrieval, בניית context, קריאה למודל, validation ו-tool calls."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Async Processing מתאים?",
+      "answer": "כאשר העבודה כבדה ואינה חייבת להסתיים בתוך request אחד."
+    },
+    {
+      "type": "qa",
+      "question": "למה מודל קטן יכול לעזור?",
+      "answer": "כי משימות פשוטות לא תמיד דורשות את המודל החזק והאיטי ביותר."
+    }
+  ]
+}

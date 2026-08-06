@@ -1,5 +1,31 @@
 {
   "id": "ci-cd",
   "title": "CI/CD",
-  "sections": []
+  "sections": [
+    {
+      "id": "pipeline-overview",
+      "title": "CI/CD Pipeline Overview",
+      "file": "sections/pipeline-overview.json"
+    },
+    {
+      "id": "jenkins-argocd",
+      "title": "Jenkins, ArgoCD & GitOps",
+      "file": "sections/jenkins-argocd.json"
+    },
+    {
+      "id": "canary-blue-green",
+      "title": "Canary & Blue-Green",
+      "file": "sections/canary-blue-green.json"
+    },
+    {
+      "id": "rollback",
+      "title": "Rollback Strategy",
+      "file": "sections/rollback.json"
+    },
+    {
+      "id": "secrets",
+      "title": "Secrets in CI/CD",
+      "file": "sections/secrets.json"
+    }
+  ]
 }

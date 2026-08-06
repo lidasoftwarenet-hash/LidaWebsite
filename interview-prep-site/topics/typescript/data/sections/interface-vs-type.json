@@ -1,0 +1,95 @@
+{
+  "id": "interface-vs-type",
+  "title": "interface vs type",
+  "sourcePages": [
+    217,
+    218
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "גם interface וגם type יכולים להגדיר shape של object."
+    },
+    {
+      "type": "heading",
+      "text": "interface"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "interface User {\n    id: string;\n    email: string;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "type"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type User = {\n    id: string;\n    email: string;\n};"
+    },
+    {
+      "type": "paragraph",
+      "text": "במקרה של object פשוט, שתי האפשרויות תקינות."
+    },
+    {
+      "type": "heading",
+      "text": "מתי interface מתאים"
+    },
+    {
+      "type": "paragraph",
+      "text": "interface מתאים ל-object contracts ברורים, במיוחד כאשר הם יכולים להתרחב."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "interface UserDto {\n    id: string;\n    email: string;\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מתי type מתאים"
+    },
+    {
+      "type": "paragraph",
+      "text": "type מתאים במיוחד ל-unions, aliases, tuples, intersections ו-composition מתקדם."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type Status = \"success\" | \"error\";\ntype UserId = string;\n\ntype UserWithMeta =\n    UserDto & {\n        createdAt: Date;\n    };"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "באובייקטים רגילים גם interface וגם type מתאימים. אני נוטה להשתמש ב-interface כשאני מגדיר object contract ברור, וב-type כשאני צריך unions, intersections, aliases או composition מתקדם."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת"
+    },
+    {
+      "type": "paragraph",
+      "text": "לא נכון לומר שתמיד משתמשים רק ב-interface או תמיד רק ב-type. הבחירה תלויה במודל ובקונבנציות של הפרויקט."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם interface ו-type שקולים לחלוטין?",
+      "answer": "לא לחלוטין, אבל שניהם יכולים לתאר object shape רגיל."
+    },
+    {
+      "type": "qa",
+      "question": "מתי type עדיף?",
+      "answer": "כאשר צריך union, intersection, tuple, primitive alias או composition מורכב."
+    },
+    {
+      "type": "qa",
+      "question": "מתי interface נוח?",
+      "answer": "כאשר מגדירים contract ברור של object או API שיכול להתרחב."
+    }
+  ]
+}

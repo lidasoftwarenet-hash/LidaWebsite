@@ -1,0 +1,133 @@
+{
+  "id": "middleware-guards-pipes",
+  "title": "Middleware, Guards & Pipes",
+  "sourcePages": [
+    234,
+    237
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Middleware"
+    },
+    {
+      "type": "paragraph",
+      "text": "Middleware רץ מוקדם לפני route handler ומתאים לדברים כלליים ברמת request."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Logging",
+        "Request ID",
+        "Parsing",
+        "Simple request manipulation"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class LoggerMiddleware\n        implements NestMiddleware {\n\n    use(\n        request: Request,\n        response: Response,\n        next: NextFunction\n    ) {\n        console.log(\n            request.method,\n            request.url\n        );\n\n        next();\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Middleware מתאים לדברים כלליים שקורים לפני שה-request מגיע ל-route, כמו logging או request ID. אם אני צריך authorization, בדרך כלל Guard מתאים יותר."
+    },
+    {
+      "type": "heading",
+      "text": "Guards"
+    },
+    {
+      "type": "paragraph",
+      "text": "Guard מחליט אם request יכול להמשיך ל-route handler. הוא מתאים בעיקר ל-authentication, authorization, roles ו-permissions."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class AuthGuard\n        implements CanActivate {\n\n    canActivate(\n        context: ExecutionContext\n    ): boolean {\n        const request =\n            context\n                .switchToHttp()\n                .getRequest();\n\n        return Boolean(\n            request.user\n        );\n    }\n}"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@UseGuards(AuthGuard)\n@Get(\"profile\")\ngetProfile() {}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Guard עונה על השאלה האם ה-request מורשה להגיע ל-handler. לכן אני משתמש בו ל-auth, roles ו-permissions."
+    },
+    {
+      "type": "heading",
+      "text": "Middleware מול Guard"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Middleware כללי יותר ורץ מוקדם.",
+        "Guard מחובר ל-route ול-metadata של NestJS.",
+        "Authorization בדרך כלל שייך ל-Guard."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Pipes"
+    },
+    {
+      "type": "paragraph",
+      "text": "Pipe משמש בעיקר ל-validation ול-transformation של input."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Get(\":id\")\ngetUser(\n    @Param(\n        \"id\",\n        ParseIntPipe\n    )\n    id: number\n) {\n    return this.usersService\n        .getUser(id);\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "id מגיע מה-URL כ-string. ParseIntPipe ממיר אותו ל-number או זורק שגיאה."
+    },
+    {
+      "type": "heading",
+      "text": "ValidationPipe"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "app.useGlobalPipes(\n    new ValidationPipe({\n        whitelist: true,\n        forbidNonWhitelisted: true,\n        transform: true\n    })\n);"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "whitelist מסיר fields שלא מוגדרים ב-DTO.",
+        "forbidNonWhitelisted זורק שגיאה על field לא מוכר.",
+        "transform מנסה להמיר types לפי DTO."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Pipe מתאים ל-validation ול-transformation של input. למשל ParseIntPipe ל-param או ValidationPipe ל-DTO לפני שה-request מגיע ל-controller."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Middleware?",
+      "answer": "לדברים כלליים כמו logging, request ID או parsing."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Guard?",
+      "answer": "כאשר צריך להחליט אם request מורשה להמשיך."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Pipe?",
+      "answer": "כאשר צריך לבצע validation או transformation ל-input."
+    }
+  ]
+}

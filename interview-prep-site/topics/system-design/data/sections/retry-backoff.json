@@ -1,0 +1,98 @@
+{
+  "id": "retry-backoff",
+  "title": "Retry, Backoff & Jitter",
+  "sourcePages": [
+    264,
+    265
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Retry strategy היא מדיניות חכמה לטיפול ב-failures זמניים. Retry לא נכון יכול להעמיס על מערכת שכבר מתקשה."
+    },
+    {
+      "type": "heading",
+      "text": "מתי עושים Retry"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Timeout.",
+        "503 Service Unavailable.",
+        "Temporary network issue.",
+        "Rate limit מסוים, לפי הנחיות השירות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מתי לא עושים Retry"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Validation error.",
+        "400 Bad Request.",
+        "Authentication או authorization error.",
+        "Business conflict קבוע."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "רכיבים של Retry נכון"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Max attempts.",
+        "Exponential backoff.",
+        "Jitter.",
+        "Timeout.",
+        "Circuit breaker במידת הצורך."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public <T> T retry(Supplier<T> operation) {\n    int maxAttempts = 3;\n\n    for (int attempt = 1; attempt <= maxAttempts; attempt++) {\n        try {\n            return operation.get();\n        } catch (TransientException exception) {\n            if (attempt == maxAttempts) {\n                throw exception;\n            }\n\n            long backoffMs =\n                (long) Math.pow(2, attempt) * 100;\n\n            long jitterMs =\n                ThreadLocalRandom.current()\n                    .nextLong(50, 150);\n\n            sleep(backoffMs + jitterMs);\n        }\n    }\n\n    throw new IllegalStateException(\"unreachable\");\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Retry על non-idempotent operation ללא idempotency key.",
+        "Retry ללא limit.",
+        "כל clients עושים retry באותו זמן ללא jitter.",
+        "Retry על 400.",
+        "Retry בלי timeout."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Retry טוב חייב להיות מוגבל, עם exponential backoff ו-jitter, ורק ל-failures זמניים. בפעולות כתיבה אני מחבר אותו ל-idempotency כדי למנוע כפילויות."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך Jitter?",
+      "answer": "כדי למנוע מצב שבו כל clients מבצעים retry בדיוק באותו זמן ויוצרים spike חדש."
+    },
+    {
+      "type": "qa",
+      "question": "למה Retry צריך Limit?",
+      "answer": "כדי למנוע לולאה אינסופית והעמסה על dependency כושל."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Transient ל-Permanent Failure?",
+      "answer": "Transient עשוי להיעלם לאחר זמן קצר. Permanent דורש שינוי input או טיפול עסקי ולא ייפתר ב-retry."
+    }
+  ]
+}

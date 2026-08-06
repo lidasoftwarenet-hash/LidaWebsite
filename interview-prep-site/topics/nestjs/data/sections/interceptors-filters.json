@@ -1,0 +1,111 @@
+{
+  "id": "interceptors-filters",
+  "title": "Interceptors & Exception Filters",
+  "sourcePages": [
+    237,
+    239
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Interceptors"
+    },
+    {
+      "type": "paragraph",
+      "text": "Interceptor עוטף את הקריאה ל-handler ויכול להריץ לוגיקה לפני ואחרי הפעולה."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Logging",
+        "Measuring time",
+        "Response mapping",
+        "Caching",
+        "Response wrapping",
+        "Tracing"
+      ]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Injectable()\nexport class LoggingInterceptor\n        implements NestInterceptor {\n\n    intercept(\n        context: ExecutionContext,\n        next: CallHandler\n    ) {\n        const start =\n            Date.now();\n\n        return next\n            .handle()\n            .pipe(\n                tap(() =>\n                    console.log(\n                        `Took ${\n                            Date.now() - start\n                        }ms`\n                    )\n                )\n            );\n    }\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Interceptor מתאים לדברים שחוצים routes ועוטפים את הביצוע, כמו logging, metrics, response mapping או tracing."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "נקודה חשובה",
+      "text": "Interceptors עובדים עם RxJS Observable דרך next.handle()."
+    },
+    {
+      "type": "heading",
+      "text": "Exception Filters"
+    },
+    {
+      "type": "paragraph",
+      "text": "Exception Filter מטפל בשגיאות ומחליט איך לתרגם אותן ל-response."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "throw new NotFoundException(\n    \"User not found\"\n);\n\nthrow new BadRequestException(\n    \"Invalid request\"\n);"
+    },
+    {
+      "type": "heading",
+      "text": "מתי צריך Filter מותאם"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "פורמט אחיד לשגיאות",
+        "Logging מרוכז",
+        "מיפוי internal errors ל-HTTP errors",
+        "הסתרת פרטים פנימיים מה-client"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Exception Filters מאפשרים לשלוט איך שגיאות מתורגמות ל-response. אני לא חושף stack traces או פרטים פנימיים ומחזיר errors בפורמט אחיד."
+    },
+    {
+      "type": "heading",
+      "text": "סיכום ההבדלים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Middleware: כללי ורץ מוקדם.",
+        "Guard: מחליט אם מותר להיכנס.",
+        "Pipe: validation או transformation של input.",
+        "Interceptor: עוטף את הביצוע לפני ואחרי.",
+        "Filter: מטפל בשגיאות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Interceptor?",
+      "answer": "ללוגיקה חוצת routes כמו logging, metrics, caching או response mapping."
+    },
+    {
+      "type": "qa",
+      "question": "מתי משתמשים ב-Exception Filter?",
+      "answer": "כאשר רוצים לשלוט ב-error response, logging או mapping של exceptions."
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Interceptor ל-Filter?",
+      "answer": "Interceptor עוטף execution רגיל. Filter מטפל ב-exception."
+    }
+  ]
+}

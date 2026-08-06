@@ -1,0 +1,76 @@
+{
+  "id": "overview",
+  "title": "NestJS Overview",
+  "sourcePages": [
+    227,
+    229
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "NestJS הוא framework לבניית Backend ב-Node.js. הוא בנוי בעיקר סביב TypeScript ומביא לעולם של Node.js מבנה מסודר שמזכיר frameworks כמו Spring ו-Angular."
+    },
+    {
+      "type": "heading",
+      "text": "המבנה הבסיסי"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Flow מרכזי",
+      "text": "Controller → Service → Repository / External API / Database"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Modules",
+        "Controllers",
+        "Providers ו-Services",
+        "Dependency Injection",
+        "Decorators",
+        "Pipes",
+        "Guards",
+        "Interceptors",
+        "Exception Filters"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "NestJS הוא framework ל-Backend מעל Node.js, שבנוי סביב TypeScript ו-Dependency Injection. הוא נותן מבנה ברור דרך modules, controllers ו-services, ועוזר לבנות APIs בצורה מסודרת ותחזוקתית יותר מאשר Express נקי."
+    },
+    {
+      "type": "heading",
+      "text": "למה NestJS נוצר"
+    },
+    {
+      "type": "paragraph",
+      "text": "Express מצוין, אבל הוא מינימלי. הוא נותן routing ו-middleware, אבל לא קובע איך לארגן modules, dependency injection, validation, testing, error handling או business logic."
+    },
+    {
+      "type": "paragraph",
+      "text": "בפרויקט קטן החופש של Express יכול להספיק. בפרויקט גדול הוא עלול ליצור חוסר אחידות, coupling גבוה וקוד שקשה לבדוק ולתחזק."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Express נותן הרבה חופש, אבל בפרויקטים גדולים החופש הזה יכול להפוך לחוסר סדר. NestJS מוסיף structure, Dependency Injection ו-patterns ברורים, ולכן הוא מתאים יותר לאפליקציות גדולות ולצוותים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה זה NestJS?",
+      "answer": "Framework ל-Backend מעל Node.js, בנוי סביב TypeScript, modules, controllers, services ו-Dependency Injection."
+    },
+    {
+      "type": "qa",
+      "question": "למה להשתמש ב-NestJS?",
+      "answer": "כדי לקבל מבנה אחיד, testability, DI, validation, guards, interceptors ותחזוקה טובה יותר בפרויקט גדול."
+    }
+  ]
+}

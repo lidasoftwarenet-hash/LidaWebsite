@@ -3,17 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frontend - הכנה לראיונות עבודה</title>
-  <link rel="stylesheet" href="/interview-prep-site/assets/css/global.css?v=2">
-  <link rel="stylesheet" href="/interview-prep-site/topics/frontend/style.css?v=2">
-  <script src="/interview-prep-site/data/topics.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/study-store.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/navigation.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/continue-learning.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/mobile-nav.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/topic-files.js?v=2" defer></script>
-  <script src="/interview-prep-site/assets/js/app.js?v=2" defer></script>
-  <script src="/interview-prep-site/topics/frontend/script.js?v=2" defer></script>
+  <title>Angular - Frontend - הכנה לראיונות עבודה</title>
+  <link rel="stylesheet" href="/interview-prep-site/assets/css/global.css?v=3">
+  <link rel="stylesheet" href="/interview-prep-site/topics/frontend/style.css?v=3">
+  <script src="/interview-prep-site/data/topics.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/study-store.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/study-api.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/navigation.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/continue-learning.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/mobile-nav.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/topic-loader.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/study-ui.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/code-editor.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/topic-shortcuts.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/study-mode.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/topic-renderer.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/topic-files.js?v=3" defer></script>
+  <script src="/interview-prep-site/assets/js/app.js?v=3" defer></script>
+  <script src="/interview-prep-site/topics/frontend/script.js?v=3" defer></script>
 </head>
 <body>
   <header class="topic-header">
@@ -44,10 +51,81 @@
       <!-- Breadcrumbs, rendered dynamically by navigation.js -->
       <nav class="breadcrumbs" id="breadcrumbs" aria-label="breadcrumb"></nav>
 
-      <!-- Main content area for the "Frontend" topic; content to be added later -->
+      <!-- Main content area for the "Angular - Frontend" topic, driven by the topic content engine -->
       <main class="topic-main">
         <h1 id="topic-title"></h1>
-        <p class="content-placeholder">התוכן יתווסף בשלב הבא</p>
+
+        <!-- Personal study panel: topic-wide progress, private and local to this browser -->
+        <section class="study-panel" aria-label="מעקב התקדמות אישי">
+          <div class="topic-progress" role="group" aria-label="התקדמות בנושא">
+            <div
+              class="topic-progress-track"
+              id="topic-progress-bar"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+            >
+              <div class="topic-progress-fill"></div>
+            </div>
+            <p class="topic-progress-text" id="topic-progress-text"></p>
+          </div>
+          <button type="button" class="button-danger-ghost" id="reset-topic-progress">
+            איפוס התקדמות ב-Angular - Frontend
+          </button>
+        </section>
+
+        <div class="section-layout">
+          <!-- Internal subtopic navigation, rendered dynamically by topic-renderer.js -->
+          <nav class="section-nav" aria-label="ניווט בין נושאים משניים">
+            <p class="section-nav-title">נושאים משניים</p>
+            <ul class="section-list" id="section-list"></ul>
+          </nav>
+
+          <div class="section-body">
+            <!-- Loading state, shown while a section's JSON is being fetched -->
+            <p class="section-loading" id="section-loading" hidden>טוען...</p>
+
+            <!-- Error state, shown for unknown hashes or JSON load failures -->
+            <div class="section-error" id="section-error" hidden></div>
+
+            <div class="section-content-wrapper" id="section-content-wrapper" hidden>
+              <h2 class="section-title" id="section-title"></h2>
+
+              <!-- Section content blocks, rendered dynamically by topic-renderer.js -->
+              <div class="section-content" id="section-content"></div>
+
+              <!-- Personal study panel for the active section: status + private notes -->
+              <section class="section-study-panel" aria-label="מעקב אישי לנושא המשני">
+                <p class="section-study-panel-title">המעקב האישי שלי</p>
+
+                <div class="section-status-field">
+                  <label for="section-status">סטטוס למידה</label>
+                  <select id="section-status"></select>
+                  <span class="status-badge" id="section-status-badge"></span>
+                </div>
+
+                <div class="section-note-field">
+                  <div class="section-note-heading">
+                    <label for="section-note">הערות פרטיות</label>
+                  </div>
+                  <p class="section-note-hint">ההערות נשמרות במכשיר זה בלבד ואינן נשלחות לאף שירות חיצוני.</p>
+                  <textarea id="section-note" rows="4"></textarea>
+                  <div class="section-note-footer">
+                    <p class="note-char-count" id="note-char-count">0 תווים</p>
+                    <p class="note-save-state" id="note-save-state" aria-live="polite"></p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Previous / next subtopic navigation -->
+              <nav class="section-pager" aria-label="ניווט בין נושא משני קודם ובא">
+                <a class="pager-link" id="previous-section" href="#"></a>
+                <a class="pager-link" id="next-section" href="#"></a>
+              </nav>
+            </div>
+          </div>
+        </div>
       </main>
 
       <!-- Previous / next topic navigation, rendered dynamically by navigation.js -->

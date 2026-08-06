@@ -1,0 +1,97 @@
+{
+  "id": "discriminated-unions",
+  "title": "Discriminated Unions",
+  "sourcePages": [
+    213,
+    217
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Discriminated Union הוא union של כמה shapes שונים של object, כאשר לכולם יש field משותף שמזהה את ה-variant, למשל state, type או kind."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type LoadState =\n    | { state: \"loading\" }\n    | { state: \"success\"; data: string[] }\n    | { state: \"error\"; message: string };"
+    },
+    {
+      "type": "paragraph",
+      "text": "בכל מצב קיימים רק השדות שמתאימים לו."
+    },
+    {
+      "type": "heading",
+      "text": "למה לא Object אחד עם Optional Fields"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type LoadState = {\n    state: string;\n    data?: string[];\n    message?: string;\n};"
+    },
+    {
+      "type": "paragraph",
+      "text": "ה-model הזה מאפשר מצב לא חוקי שבו state הוא loading, אבל קיימים גם data וגם message."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "const invalidState = {\n    state: \"loading\",\n    data: [\"a\", \"b\"],\n    message: \"error\"\n};"
+    },
+    {
+      "type": "heading",
+      "text": "Narrowing עם switch"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function render(state: LoadState): string {\n    switch (state.state) {\n        case \"loading\":\n            return \"Loading...\";\n\n        case \"success\":\n            return state.data.join(\", \");\n\n        case \"error\":\n            return state.message;\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "בכל case TypeScript יודע בדיוק איזה variant פעיל ואילו properties זמינים."
+    },
+    {
+      "type": "heading",
+      "text": "שימושים נפוצים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "API responses",
+        "State management",
+        "Client/server messages",
+        "UI loading states",
+        "Business flows עם מצבים ברורים"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "כאשר יש כמה states ברורים כמו loading, success ו-error, אני מעדיף Discriminated Union על object אחד עם הרבה optional fields. זה מונע invalid states ונותן ל-TypeScript narrowing מדויק."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מהו discriminator?",
+      "answer": "Field משותף כמו type, kind או state שמזהה את ה-variant הפעיל."
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון על פני optional fields?",
+      "answer": "כל variant מתאר מצב חוקי אחד בלבד, ולכן אי אפשר ליצור שילובים לא הגיוניים."
+    },
+    {
+      "type": "qa",
+      "question": "איך TypeScript מבצע narrowing?",
+      "answer": "לפי הערך של ה-discriminator, למשל בתוך switch."
+    }
+  ]
+}

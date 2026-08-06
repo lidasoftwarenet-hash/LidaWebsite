@@ -1,5 +1,86 @@
 {
   "id": "system-design",
   "title": "System Design",
-  "sections": []
+  "sections": [
+    {
+      "id": "requirement-gathering",
+      "title": "Requirement Gathering",
+      "file": "sections/requirement-gathering.json"
+    },
+    {
+      "id": "api-design",
+      "title": "API Design & REST",
+      "file": "sections/api-design.json"
+    },
+    {
+      "id": "scaling-reads",
+      "title": "Scaling Reads",
+      "file": "sections/scaling-reads.json"
+    },
+    {
+      "id": "scaling-writes",
+      "title": "Scaling Writes",
+      "file": "sections/scaling-writes.json"
+    },
+    {
+      "id": "caching",
+      "title": "Caching",
+      "file": "sections/caching.json"
+    },
+    {
+      "id": "api-gateway",
+      "title": "API Gateway",
+      "file": "sections/api-gateway.json"
+    },
+    {
+      "id": "rate-limiting",
+      "title": "Rate Limiting",
+      "file": "sections/rate-limiting.json"
+    },
+    {
+      "id": "message-queues",
+      "title": "Message Queues",
+      "file": "sections/message-queues.json"
+    },
+    {
+      "id": "consistency-tradeoffs",
+      "title": "Consistency Tradeoffs",
+      "file": "sections/consistency-tradeoffs.json"
+    },
+    {
+      "id": "distributed-consistency",
+      "title": "Consistency Between Services",
+      "file": "sections/distributed-consistency.json"
+    },
+    {
+      "id": "idempotency",
+      "title": "Idempotency",
+      "file": "sections/idempotency.json"
+    },
+    {
+      "id": "circuit-breaker",
+      "title": "Circuit Breaker",
+      "file": "sections/circuit-breaker.json"
+    },
+    {
+      "id": "retry-backoff",
+      "title": "Retry, Backoff & Jitter",
+      "file": "sections/retry-backoff.json"
+    },
+    {
+      "id": "data-modeling",
+      "title": "Data Modeling",
+      "file": "sections/data-modeling.json"
+    },
+    {
+      "id": "observability",
+      "title": "Observability",
+      "file": "sections/observability.json"
+    },
+    {
+      "id": "security-design",
+      "title": "Security Design",
+      "file": "sections/security-design.json"
+    }
+  ]
 }

@@ -1,0 +1,96 @@
+{
+  "id": "canary-blue-green",
+  "title": "Canary & Blue-Green",
+  "sourcePages": [
+    6,
+    7
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Canary ו-Blue-Green הן אסטרטגיות deployment שמקטינות סיכון בזמן release."
+    },
+    {
+      "type": "heading",
+      "text": "Canary Deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "Canary משחרר גרסה חדשה לאחוז קטן מה-traffic. מודדים error rate, latency ו-business metrics, ורק אם הכול תקין מגדילים את התנועה בהדרגה."
+    },
+    {
+      "type": "heading",
+      "text": "Blue-Green Deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "Blue-Green מריץ שתי סביבות מלאות: אחת פעילה ואחת חדשה. לאחר בדיקה, מעבירים את ה-traffic לסביבה החדשה. במקרה של בעיה אפשר להחזיר את ה-traffic במהירות לסביבה הקודמת."
+    },
+    {
+      "type": "heading",
+      "text": "הבדל מרכזי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Canary נותן rollout הדרגתי ומדידה על חלק מהמשתמשים.",
+        "Blue-Green נותן switch מהיר בין שתי סביבות מלאות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "בחירה מעשית"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "כאשר יש סיכון התנהגותי ורוצים לבדוק בהדרגה, Canary מתאים יותר.",
+        "כאשר רוצים cutover נקי ומהיר עם סביבה מוכנה מראש, Blue-Green יכול להתאים."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "ניהול traffic יכול להתבצע דרך Ingress, Service Mesh או platform שמנתבת לפי version."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Canary ללא metrics ברורים להחלטה.",
+        "הגדלת traffic אוטומטית למרות error rate גבוה.",
+        "Blue-Green ללא בדיקה שהסביבה החדשה מוכנה.",
+        "DB migration שאינה תומכת בשתי גרסאות במקביל.",
+        "State או sessions שאינם עוברים טוב בין גרסאות.",
+        "Rollback של traffic בלבד כאשר יש שינוי data בלתי הפיך."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Canary מתאים ל-rollout הדרגתי עם מדידה, ו-Blue-Green מתאים למעבר מהיר בין סביבה ישנה לחדשה. בשניהם חשוב לוודא metrics, health checks ו-DB compatibility לפני שמגדילים traffic."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של Canary?",
+      "answer": "אפשר לחשוף גרסה חדשה בהדרגה ולעצור לפני שכל המשתמשים מושפעים."
+    },
+    {
+      "type": "qa",
+      "question": "מה היתרון של Blue-Green?",
+      "answer": "אפשר להכין סביבה מלאה מראש ולבצע switch מהיר עם יכולת חזרה."
+    },
+    {
+      "type": "qa",
+      "question": "מה חייב להיות compatible בשתי האסטרטגיות?",
+      "answer": "DB schema, data model, sessions ו-dependencies משותפות."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "reactive-forms",
+  "title": "Reactive Forms",
+  "sourcePages": [
+    9,
+    10
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Reactive Forms מגדירים את מבנה הטופס בקוד TypeScript."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    standalone: true,\n    imports: [ReactiveFormsModule],\n    template: `\n        <form [formGroup]=\"userForm\" (ngSubmit)=\"submit()\">\n            <input formControlName=\"name\">\n            <input formControlName=\"email\">\n            <button type=\"submit\" [disabled]=\"userForm.invalid\">Save</button>\n        </form>\n    `\n})\nexport class UserFormComponent {\n    userForm = new FormGroup({\n        name: new FormControl(\"\", {\n            nonNullable: true,\n            validators: [Validators.required]\n        }),\n        email: new FormControl(\"\", {\n            nonNullable: true,\n            validators: [Validators.required, Validators.email]\n        })\n    });\n\n    submit(): void {\n        if (this.userForm.valid) {\n            console.log(this.userForm.getRawValue());\n        }\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "למה Reactive Forms"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "מבנה הטופס מפורש בקוד.",
+        "Validation ברור ומרכזי.",
+        "קל יותר לנהל fields דינמיים.",
+        "קל יותר לבצע testing.",
+        "מתאים לטפסים מורכבים."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "ב-Reactive Forms אני מגדיר את form model בקוד באמצעות FormControl ו-FormGroup. זה נותן שליטה ברורה על values, validation ומצב הטופס, ולכן אני מעדיף את הגישה הזאת בטפסים מורכבים."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Reactive Forms מתאימים?",
+      "answer": "לטפסים מורכבים, validation מתקדם, fields דינמיים או צורך ב-testing ברור."
+    },
+    {
+      "type": "qa",
+      "question": "מה עושה nonNullable?",
+      "answer": "מגדיר שה-Control לא יחזיר null ושומר type מדויק יותר."
+    }
+  ]
+}

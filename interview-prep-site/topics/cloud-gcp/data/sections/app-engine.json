@@ -1,0 +1,148 @@
+{
+  "id": "app-engine",
+  "title": "App Engine Standard vs Flexible",
+  "sourcePages": [
+    8,
+    10
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "App Engine Standard ו-App Engine Flexible מאפשרים להריץ applications ב-App Engine, אבל רמת הניהול והשליטה שונה."
+    },
+    {
+      "type": "heading",
+      "text": "App Engine Standard"
+    },
+    {
+      "type": "paragraph",
+      "text": "האפליקציה רצה בסביבה מנוהלת ומוגבלת יותר עם runtimes נתמכים מראש."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Stateless REST services",
+        "Standard Java applications",
+        "Fast scaling",
+        "Minimal infrastructure management"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "יתרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "פשוט לתפעול",
+        "Startup מהיר",
+        "Scaling מהיר",
+        "יכול לרדת לאפס instances בתרחישים מתאימים"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חסרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "פחות שליטה על runtime",
+        "פחות שליטה על environment",
+        "פחות שליטה על resources"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "App Engine Flexible"
+    },
+    {
+      "type": "paragraph",
+      "text": "האפליקציה רצה בתוך Docker container מעל Compute Engine VMs."
+    },
+    {
+      "type": "heading",
+      "text": "מתי הוא מתאים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Custom Docker runtime",
+        "Native libraries מיוחדות",
+        "יותר CPU או memory",
+        "שליטה רחבה יותר בסביבה",
+        "Background processes"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "יתרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "יותר גמישות",
+        "יותר שליטה",
+        "Custom runtime"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "חסרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Startup איטי יותר",
+        "Scaling איטי יותר מ-Standard",
+        "Active version שומרת לפחות instance אחד"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "הבדל קצר לזכור"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Standard: יותר managed, פחות control, scaling מהיר, יכול לרדת לאפס.",
+        "Flexible: Docker על VMs, יותר control, custom runtime, יותר CPU או memory, scaling איטי יותר."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "App Engine Standard מתאים כשאני רוצה environment מאוד managed, scaling מהיר ו-service stateless עם runtime סטנדרטי. Flexible רץ ב-Docker על Compute Engine VMs ונותן יותר שליטה, custom runtime ויותר resources, אבל עם יותר overhead ו-scaling איטי יותר."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "נקודת Senior",
+      "text": "בפרויקט חדש כדאי להעריך גם את Cloud Run כחלופה מודרנית ולא לבחור App Engine אוטומטית."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל המרכזי בין Standard ל-Flexible?",
+      "answer": "Standard יותר managed ומהיר ב-scaling. Flexible נותן יותר שליטה וגמישות דרך Docker על VMs."
+    },
+    {
+      "type": "qa",
+      "question": "איזה מהם יכול לרדת לאפס?",
+      "answer": "Standard יכול לרדת לאפס בתרחישים מתאימים. Flexible שומר לפחות instance אחד עבור active version."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Cloud Run עשוי להיות חלופה טובה?",
+      "answer": "בפרויקט חדש של stateless containerized service שרוצים להריץ בצורה serverless."
+    }
+  ]
+}

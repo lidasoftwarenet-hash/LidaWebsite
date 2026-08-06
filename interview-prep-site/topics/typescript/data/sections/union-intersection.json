@@ -1,0 +1,88 @@
+{
+  "id": "union-intersection",
+  "title": "Union & Intersection Types",
+  "sourcePages": [
+    218,
+    220
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Union"
+    },
+    {
+      "type": "paragraph",
+      "text": "Union אומר שהערך יכול להיות אחד מכמה types."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function normalizeId(\n    id: string | number\n): string {\n    return typeof id === \"string\"\n        ? id\n        : id.toString();\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "לפני שימוש ב-members ספציפיים צריך לבצע narrowing."
+    },
+    {
+      "type": "heading",
+      "text": "Intersection"
+    },
+    {
+      "type": "paragraph",
+      "text": "Intersection אומר שה-object חייב לקיים כמה types יחד."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "type User = {\n    id: string;\n    email: string;\n};\n\ntype WithAudit = {\n    createdBy: string;\n    updatedBy: string;\n};\n\ntype AuditedUser =\n    User & WithAudit;"
+    },
+    {
+      "type": "paragraph",
+      "text": "AuditedUser חייב לכלול את כל השדות של User וגם של WithAudit."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "דרך לזכור",
+      "text": "Union הוא או-או. Intersection הוא גם-וגם."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודת ב-Union"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function print(value: string | number) {\n    return value.toUpperCase();\n    // Error\n}"
+    },
+    {
+      "type": "heading",
+      "text": "פתרון"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "function print(value: string | number): string {\n    if (typeof value === \"string\") {\n        return value.toUpperCase();\n    }\n\n    return value.toString();\n}"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Union מייצג או-או, ו-Intersection מייצג גם-וגם. ב-Union אני מבצע narrowing לפני שימוש ב-members ספציפיים. ב-Intersection אני בונה type שמקיים כמה contracts יחד."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Union ל-Intersection?",
+      "answer": "Union מאפשר אחד מכמה types. Intersection מחייב את כל ה-types יחד."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך narrowing ב-Union?",
+      "answer": "כי אפשר להשתמש רק ב-members שמשותפים לכל האפשרויות עד שמזהים את ה-type בפועל."
+    }
+  ]
+}

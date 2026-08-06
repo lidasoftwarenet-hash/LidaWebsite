@@ -1,5 +1,36 @@
 {
   "id": "live-coding",
   "title": "Live Coding",
-  "sections": []
+  "sections": [
+    {
+      "id": "java-arrays",
+      "title": "Java Arrays",
+      "file": "sections/java-arrays.json"
+    },
+    {
+      "id": "java-strings",
+      "title": "Java Strings",
+      "file": "sections/java-strings.json"
+    },
+    {
+      "id": "java-hashmap",
+      "title": "Java HashMap",
+      "file": "sections/java-hashmap.json"
+    },
+    {
+      "id": "javascript-arrays",
+      "title": "JavaScript Arrays",
+      "file": "sections/javascript-arrays.json"
+    },
+    {
+      "id": "javascript-strings",
+      "title": "JavaScript Strings",
+      "file": "sections/javascript-strings.json"
+    },
+    {
+      "id": "javascript-map",
+      "title": "JavaScript Map",
+      "file": "sections/javascript-map.json"
+    }
+  ]
 }

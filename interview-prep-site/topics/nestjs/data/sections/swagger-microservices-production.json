@@ -1,0 +1,129 @@
+{
+  "id": "swagger-microservices-production",
+  "title": "Swagger, Microservices & Production",
+  "sourcePages": [
+    245,
+    247
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "text": "Swagger ו-OpenAPI"
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS תומך ביצירת OpenAPI documentation באמצעות decorators."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@ApiTags(\"users\")\n@Controller(\"users\")\nexport class UsersController {}"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "תיעוד API",
+        "עבודה מול Frontend",
+        "בדיקות ידניות",
+        "Contract ברור"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "Swagger ב-NestJS עוזר לייצר תיעוד API מתוך הקוד וה-DTOs. זה שימושי במיוחד בעבודה מול Frontend או צוותים אחרים."
+    },
+    {
+      "type": "heading",
+      "text": "Microservices, Queues ו-Events"
+    },
+    {
+      "type": "paragraph",
+      "text": "NestJS אינו מוגבל ל-REST APIs."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Microservices transports",
+        "Message queues",
+        "Events",
+        "WebSockets",
+        "Scheduled jobs",
+        "RabbitMQ",
+        "Kafka",
+        "Redis",
+        "BullMQ",
+        "Cron jobs"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "NestJS אינו מוגבל ל-REST. אותם רעיונות של DI, guards, pipes, filters ו-interceptors יכולים לשמש גם במיקרוסרביסים, queues ו-WebSockets."
+    },
+    {
+      "type": "heading",
+      "text": "Production Topics"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Config validation",
+        "Logging",
+        "Metrics",
+        "Tracing",
+        "Health checks",
+        "Graceful shutdown",
+        "Global ValidationPipe",
+        "Error handling אחיד",
+        "Security headers",
+        "Rate limiting",
+        "CORS נכון",
+        "אי-חשיפת stack traces",
+        "Database connection lifecycle",
+        "Readiness ו-Liveness ב-Kubernetes"
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Graceful Shutdown"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להפסיק לקבל traffic חדש.",
+        "לסיים requests קיימים.",
+        "לסגור DB connections.",
+        "לסגור consumers.",
+        "לצאת בצורה נקייה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה לראיון",
+      "text": "ב-production אני לא חושב רק על Controller ו-Service. אני שם לב ל-logging, metrics, tracing, validation, graceful shutdown, config validation, error handling ו-health checks."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Swagger חשוב?",
+      "answer": "כדי לייצר API contract ותיעוד שימושי ל-Frontend ולצוותים אחרים."
+    },
+    {
+      "type": "qa",
+      "question": "האם NestJS מתאים רק ל-HTTP?",
+      "answer": "לא. הוא תומך גם ב-microservices, queues, events, WebSockets ו-jobs."
+    },
+    {
+      "type": "qa",
+      "question": "מה חשוב ב-production?",
+      "answer": "Observability, validation, security, health checks, graceful shutdown ו-config validation."
+    }
+  ]
+}

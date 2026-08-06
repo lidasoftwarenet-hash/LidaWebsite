@@ -1,0 +1,104 @@
+{
+  "id": "security",
+  "title": "Frontend Security Basics",
+  "sourcePages": [
+    22,
+    23
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ה-Frontend אינו גבול אבטחה אמיתי. משתמש יכול לפתוח DevTools, לשנות JavaScript ולשלוח requests ישירות ל-Backend."
+    },
+    {
+      "type": "heading",
+      "text": "XSS"
+    },
+    {
+      "type": "paragraph",
+      "text": "XSS הוא מצב שבו תוכן לא אמין הופך לקוד שרץ בדפדפן."
+    },
+    {
+      "type": "paragraph",
+      "text": "Angular מבצע escaping ו-sanitization לתוכן שמוצג ב-template."
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "<p>{{ userComment }}</p>"
+    },
+    {
+      "type": "heading",
+      "text": "HTML דינמי"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "<div [innerHTML]=\"htmlContent\"></div>"
+    },
+    {
+      "type": "paragraph",
+      "text": "צריך להיזהר במיוחד עם HTML דינמי ולא להשתמש ב-bypassSecurityTrustHtml על input לא אמין."
+    },
+    {
+      "type": "heading",
+      "text": "Authentication Token"
+    },
+    {
+      "type": "paragraph",
+      "text": "Interceptor יכול להוסיף token ל-request."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "request.clone({\n    setHeaders: {\n        Authorization: `Bearer ${token}`\n    }\n});"
+    },
+    {
+      "type": "heading",
+      "text": "Guards אינם אבטחה אמיתית"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    path: \"admin\",\n    canActivate: [adminGuard],\n    component: AdminComponent\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Guard יכול למנוע פתיחת מסך, אבל ה-Backend עדיין חייב לבדוק הרשאה בכל request."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא לסמוך על hidden buttons או disabled controls.",
+        "לא להציג מידע רגיש רק בגלל שה-UI מסתיר אותו.",
+        "לא לסמוך על Route Guard כ-authorization.",
+        "לא לעקוף sanitization עבור input לא אמין."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Angular עוזר להגן מפני XSS באמצעות escaping ו-sanitization, אבל עדיין צריך להיזהר עם HTML דינמי. Route Guards הם רק הגנת UI ולא מנגנון אבטחה אמיתי. כל authentication ו-authorization חייבים להיבדק שוב ב-Backend."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Frontend אינו Security Boundary?",
+      "answer": "כי המשתמש שולט בדפדפן ויכול לשנות קוד ולשלוח requests ישירות."
+    },
+    {
+      "type": "qa",
+      "question": "מה הסיכון ב-bypassSecurityTrustHtml?",
+      "answer": "הוא יכול לעקוף הגנות sanitization ולאפשר XSS אם הקלט אינו אמין."
+    },
+    {
+      "type": "qa",
+      "question": "האם Route Guard מספיק להרשאות?",
+      "answer": "לא. ה-Backend חייב לבדוק הרשאה לכל request."
+    }
+  ]
+}

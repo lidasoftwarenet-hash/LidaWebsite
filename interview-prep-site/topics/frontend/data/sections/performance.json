@@ -1,0 +1,87 @@
+{
+  "id": "performance",
+  "title": "Angular Performance",
+  "sourcePages": [
+    21,
+    22
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Performance ב-Angular מושפע בעיקר מכמות הקוד שנטען, מספר בדיקות ה-UI וכמות האלמנטים שנוצרים מחדש."
+    },
+    {
+      "type": "heading",
+      "text": "Lazy Loading"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "{\n    path: \"reports\",\n    loadComponent: () =>\n        import(\"./reports.component\")\n            .then(module => module.ReportsComponent)\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "כך ה-bundle הראשוני קטן יותר והאפליקציה נטענת מהר יותר."
+    },
+    {
+      "type": "heading",
+      "text": "OnPush"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class UserListComponent {}"
+    },
+    {
+      "type": "paragraph",
+      "text": "OnPush מתאים במיוחד עם Signals, immutable updates ו-async pipe."
+    },
+    {
+      "type": "heading",
+      "text": "Tracking ברשימות"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "@for (user of users; track user.id) {\n    <app-user-card [user]=\"user\" />\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "Tracking לפי מזהה יציב מאפשר ל-Angular להבין איזה item באמת השתנה ולא ליצור מחדש יותר elements מהנדרש."
+    },
+    {
+      "type": "heading",
+      "text": "עקרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להקטין initial bundle עם lazy loading.",
+        "להשתמש ב-OnPush כאשר מתאים.",
+        "לעבוד עם immutable updates.",
+        "להשתמש ב-track לפי id יציב.",
+        "למדוד לפני optimization ולא לנחש."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "כדי לשפר performance ב-Angular אני משתמש ב-lazy loading כדי להקטין את ה-bundle הראשוני, ב-OnPush כדי לצמצם Change Detection, וב-tracking לפי מזהה יציב ברשימות. לפני optimization אני גם בודק בפועל איפה הבעיה ולא מנחש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה משפיע על initial load?",
+      "answer": "בעיקר גודל ה-bundle וכמה features נטענים מראש."
+    },
+    {
+      "type": "qa",
+      "question": "למה track חשוב ברשימות?",
+      "answer": "כדי למנוע יצירה מחדש של DOM elements שלא השתנו."
+    }
+  ]
+}

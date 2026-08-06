@@ -1,0 +1,123 @@
+{
+  "id": "developer-tooling",
+  "title": "AI Developer Tooling",
+  "sourcePages": [
+    18,
+    19
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "AI developer tooling הוא שימוש בכלי AI כחלק מתהליך הפיתוח, ולא רק כ-chatbot לשאלות כלליות."
+    },
+    {
+      "type": "heading",
+      "text": "איפה הוא יכול לעזור"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "הבנת repository לא מוכר.",
+        "חיפוש flow בקוד.",
+        "יצירת skeleton ראשוני.",
+        "Refactoring.",
+        "יצירת tests.",
+        "Code review ראשוני.",
+        "Documentation.",
+        "זיהוי קבצים שיושפעו משינוי.",
+        "הסבר של errors ו-logs."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "דרך עבודה נכונה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Understand the existing flow.",
+        "Identify affected files.",
+        "Explain the current architecture.",
+        "Suggest an implementation plan.",
+        "Create a small patch.",
+        "Run or suggest relevant tests.",
+        "Review the result."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "במקום לבקש לכתוב feature שלם, מפרקים את העבודה לשלבים קטנים. כך המפתח שומר שליטה ומקטין סיכון לשינוי גדול ולא נכון."
+    },
+    {
+      "type": "heading",
+      "text": "איפה AI חוסך זמן במיוחד"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Navigation בקוד גדול.",
+        "מציאת usages של class או API.",
+        "יצירת tests בסיסיים.",
+        "שינוי naming.",
+        "יצירת mapper או DTO.",
+        "כתיבת תיעוד.",
+        "השוואת פתרונות."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "אחריות המפתח"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "להבין את הקוד שנוצר.",
+        "לבדוק התאמה לארכיטקטורה.",
+        "להריץ tests.",
+        "לבדוק security.",
+        "לוודא ש-API או library באמת קיימים.",
+        "לא להכניס secrets או מידע רגיש.",
+        "לא להריץ commands מסוכנים בלי להבין אותם."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Hallucinated API"
+    },
+    {
+      "type": "paragraph",
+      "text": "Hallucinated API הוא מצב שבו המודל מציע method, library או configuration שנשמעים אמיתיים אבל אינם קיימים."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "סיפור טוב לראיון",
+      "text": "כאשר אני עובד עם AI על feature, אני קודם מבקש להבין את ה-flow ולזהות את הקבצים הרלוונטיים. לאחר מכן אני מבקש plan ורק אז patch קטן. בסוף אני מבצע code review רגיל ומריץ tests."
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "אני משתמש ב-AI developer tooling כדי להבין קוד מהר יותר, לנווט ב-repository, ליצור skeletons ו-tests ולבצע review ראשוני. האחריות נשארת אצלי: אני בודק את הקוד, מריץ tests, מוודא התאמה לארכיטקטורה ולא מכניס מידע רגיש."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה לא לבקש מה-AI לכתוב Feature שלם?",
+      "answer": "כי שינוי גדול ללא הבנת context מגדיל את הסיכון לקוד לא נכון ולבזבוז זמן."
+    },
+    {
+      "type": "qa",
+      "question": "מהי API Hallucination?",
+      "answer": "הצעה של method, library או configuration שאינם קיימים בפועל."
+    },
+    {
+      "type": "qa",
+      "question": "מי אחראי לקוד שנוצר?",
+      "answer": "המפתח. ה-AI הוא כלי עזר ולא תחליף ל-review, testing והבנה הנדסית."
+    }
+  ]
+}

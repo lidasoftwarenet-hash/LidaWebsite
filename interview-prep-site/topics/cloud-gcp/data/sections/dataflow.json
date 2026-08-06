@@ -1,0 +1,100 @@
+{
+  "id": "dataflow",
+  "title": "Dataflow & Apache Beam",
+  "sourcePages": [
+    2,
+    3
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Dataflow הוא שירות מנוהל של GCP להרצת pipelines לעיבוד data, בדרך כלל באמצעות Apache Beam."
+    },
+    {
+      "type": "paragraph",
+      "text": "הוא מתאים ל-batch processing וגם ל-streaming. בראיונות מדברים עליו לרוב בהקשר של עיבוד גדול, מקבילי ומנוהל."
+    },
+    {
+      "type": "paragraph",
+      "text": "כאשר צריך לעבד כמות גדולה מאוד של data, service רגיל לא תמיד מתאים. Dataflow נותן parallelism, retries, scaling וניהול execution בלי להקים cluster בעצמך."
+    },
+    {
+      "type": "heading",
+      "text": "מבנה Pipeline"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "קריאת data ממקור",
+        "ביצוע transformations",
+        "סינון או enrichment",
+        "Validation",
+        "כתיבת התוצאה ל-BigQuery, Bigtable או storage אחר"
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Apache Beam מול Dataflow",
+      "text": "Apache Beam הוא המודל התכנותי. Dataflow הוא ה-runner המנוהל ב-GCP."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה מפרויקט Data Coverage"
+    },
+    {
+      "type": "paragraph",
+      "text": "Dataflow שימש להרצת pipelines חודשיים שמשכו data ממקורות גדולים, עיבדו אותו בסקייל וכתבו snapshot מעובד ל-Bigtable. כך אפשר היה לעבד כמויות גדולות בלי להעמיס על services רגילים."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת קוד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "Pipeline pipeline = Pipeline.create(options);\n\npipeline\n    .apply(\n        \"Read company ids\",\n        TextIO.read().from(inputPath)\n    )\n    .apply(\n        \"Parse company ids\",\n        ParDo.of(new ParseCompanyIdFn())\n    )\n    .apply(\n        \"Load company data\",\n        ParDo.of(new LoadCompanyDataFn())\n    )\n    .apply(\n        \"Write results\",\n        ParDo.of(new WriteCoverageSnapshotFn())\n    );\n\npipeline.run();"
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לחשוב על Dataflow כמו REST service. זה pipeline, לא request handler.",
+        "לשמור state לא בטוח בתוך DoFn.",
+        "לפתוח connections בצורה לא יעילה במקום להשתמש נכון ב-setup או initialization.",
+        "לקרוא external API בלי throttling או batching.",
+        "לא לתכנן partial failures ו-retries.",
+        "לא למדוד data quality לאחר הריצה.",
+        "לא לעקוב אחר cost של pipeline גדול."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Dataflow מתאים לעיבוד data בסקייל. אני מגדיר pipeline באמצעות Apache Beam, ו-Dataflow מנהל את ה-execution, ה-parallelism, ה-retries וה-scaling."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Apache Beam ל-Dataflow?",
+      "answer": "Beam הוא programming model ו-Dataflow הוא runner מנוהל של GCP."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Dataflow מתאים יותר מ-service רגיל?",
+      "answer": "כאשר צריך לעבד כמויות data גדולות במקביל, עם retries, scaling ו-execution מנוהל."
+    },
+    {
+      "type": "qa",
+      "question": "מה חשוב לבדוק לאחר Pipeline?",
+      "answer": "לא רק success טכני, אלא גם data quality, counts, partial failures ועלות."
+    }
+  ]
+}

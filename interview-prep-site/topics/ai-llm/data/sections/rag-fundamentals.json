@@ -1,0 +1,127 @@
+{
+  "id": "rag-fundamentals",
+  "title": "RAG Fundamentals",
+  "sourcePages": [
+    1,
+    3
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "RAG הוא pattern שבו המודל לא מסתמך רק על הידע הפנימי שלו. המערכת שולפת קודם מידע רלוונטי ממקור חיצוני, ואז מעבירה אותו למודל כחלק מה-context בזמן השאלה."
+    },
+    {
+      "type": "heading",
+      "text": "ה-flow הבסיסי"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Documents",
+        "Chunking",
+        "Embeddings",
+        "Vector Database",
+        "Retrieval",
+        "Context Injection",
+        "Generation",
+        "Metadata Filtering לפי הצורך"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "RAG הוא אחד השימושים הפרקטיים ביותר ב-AI במוצרים אמיתיים. הוא מאפשר לענות על מידע פנימי או עדכני של החברה, עם יותר שליטה, יותר freshness ופחות hallucinations."
+    },
+    {
+      "type": "heading",
+      "text": "מהו Chunk"
+    },
+    {
+      "type": "paragraph",
+      "text": "Chunk הוא חלק קטן מתוך מסמך גדול. במקום לשלוח למודל מסמך של 100 עמודים, מפרקים אותו ליחידות קטנות שאפשר לאנדקס ולשלוף בנפרד."
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Chunk 1: תיאור המוצר",
+        "Chunk 2: תנאי התשלום",
+        "Chunk 3: מדיניות הביטול",
+        "Chunk 4: פרטי המשלוח"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "החלוקה מאפשרת לשלוף רק את החלקים הרלוונטיים לשאלה. לעיתים משאירים overlap קטן בין chunks כדי שמשפט שנמצא בגבול בין שני חלקים לא ילך לאיבוד."
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "נקודה חשובה",
+      "text": "RAG לא מלמד את המודל את הדאטה. הוא מביא למודל context בזמן השאלה."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמת Flow בקוד"
+    },
+    {
+      "type": "code",
+      "language": "java",
+      "code": "public Answer answer(\n        String question,\n        String userId\n) {\n    Embedding questionEmbedding =\n        embeddingService.embed(\n            question\n        );\n\n    List<DocumentChunk> chunks =\n        vectorStore.search(\n            questionEmbedding,\n            MetadataFilter\n                .byUserPermissions(\n                    userId\n                ),\n            5\n        );\n\n    if (chunks.isEmpty()) {\n        return Answer\n            .notEnoughContext();\n    }\n\n    String context =\n        buildContext(chunks);\n\n    return llm.generate(\"\"\"\n        Answer only from the context.\n        If the answer is not in the context,\n        say you don't know.\n\n        Context:\n        %s\n\n        Question:\n        %s\n        \"\"\".formatted(\n            context,\n            question\n        ));\n}"
+    },
+    {
+      "type": "heading",
+      "text": "מה הופך RAG לטוב"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Chunking שמתאים למבנה המסמכים.",
+        "Retrieval שמחזיר מידע רלוונטי ולא רק דומה טכנית.",
+        "Metadata filtering לפי tenant והרשאות.",
+        "Freshness ועדכון index כאשר המסמכים משתנים.",
+        "יכולת לומר שאין מספיק מידע.",
+        "Evaluation של retrieval ושל התשובה."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Chunks גדולים מדי או קטנים מדי.",
+        "Retrieval מחזיר טקסט דומה אך לא תשובה לשאלה.",
+        "אין filtering לפי הרשאות.",
+        "המודל עונה גם כשאין context מספיק.",
+        "מסמכים ישנים שלא עברו re-index.",
+        "ערבוב מידע בין tenants.",
+        "אין מדידה של retrieval quality ושל answer quality."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "RAG משלב retrieval עם generation. אני מפרק מסמכים ל-chunks, יוצר embeddings, שומר אותם ב-vector database, ושולף context רלוונטי לשאלה. ב-Production אני שם דגש על chunking, metadata filtering, הרשאות, freshness ויכולת להגיד שאין מספיק מידע."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "האם RAG מאמן את המודל על המסמכים?",
+      "answer": "לא. הוא מביא מידע רלוונטי למודל בזמן הבקשה."
+    },
+    {
+      "type": "qa",
+      "question": "למה מחלקים מסמך ל-chunks?",
+      "answer": "כדי לחפש ולהעביר רק את החלקים הרלוונטיים במקום את כל המסמך."
+    },
+    {
+      "type": "qa",
+      "question": "למה overlap בין chunks יכול לעזור?",
+      "answer": "כדי לא לאבד משפט או רעיון שנמצא בגבול בין שני חלקים."
+    }
+  ]
+}

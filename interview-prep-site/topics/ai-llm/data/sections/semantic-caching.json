@@ -1,0 +1,118 @@
+{
+  "id": "semantic-caching",
+  "title": "Semantic Caching",
+  "sourcePages": [
+    13,
+    14
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Semantic cache מזהה שאלות דומות לפי המשמעות שלהן ולא רק לפי טקסט זהה."
+    },
+    {
+      "type": "paragraph",
+      "text": "לדוגמה, שתי השאלות What is our refund policy? ו-How can a customer get a refund? יכולות להיחשב דומות מספיק כדי להשתמש באותה תשובה שמורה."
+    },
+    {
+      "type": "heading",
+      "text": "איך זה עובד"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "המשתמש שואל שאלה.",
+        "המערכת יוצרת embedding לשאלה.",
+        "מחפשים ב-cache שאלה קודמת עם embedding דומה.",
+        "אם ההתאמה מספקת והתשובה עדיין תקפה, מחזירים אותה.",
+        "אם אין התאמה, קוראים ל-LLM ושומרים את התוצאה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Flow",
+      "text": "Question → Embedding → Search Similar Cache Entry → Validate → Return Cache or Call LLM"
+    },
+    {
+      "type": "heading",
+      "text": "יתרונות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Latency נמוך יותר.",
+        "פחות קריאות למודל.",
+        "עלות נמוכה יותר.",
+        "תשובות עקביות יותר."
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "מה צריך לבדוק לפני Cache Hit"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Similarity threshold.",
+        "Tenant.",
+        "Permissions.",
+        "Freshness.",
+        "Source documents.",
+        "Question type."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "לא כל שאלה מתאימה ל-semantic cache. שאלות אישיות, מידע שמשתנה במהירות או תשובות שתלויות בהרשאות דורשות זהירות רבה."
+    },
+    {
+      "type": "heading",
+      "text": "Invalidation"
+    },
+    {
+      "type": "paragraph",
+      "text": "רצוי לשמור אילו מסמכים שימשו לתשובה. כאשר מקור משתנה, אפשר למחוק או לרענן את entries שתלויים בו."
+    },
+    {
+      "type": "heading",
+      "text": "מלכודות נפוצות"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Similarity threshold נמוך מדי.",
+        "Cache משותף בין tenants.",
+        "אין בדיקת הרשאות.",
+        "תשובה ישנה לאחר שינוי מסמך.",
+        "אין קישור בין תשובה לבין source documents.",
+        "Cache לתוכן אישי או dynamic ללא partitioning נכון."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Semantic caching שומר תשובות לפי דמיון במשמעות. אני יוצר embedding לשאלה ומחפש שאלה קודמת דומה. זה מוריד latency ועלות, אבל לפני החזרת תשובה אני בודק tenant, הרשאות, freshness, המקורות ורמת דמיון מספקת."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מה ההבדל בין Cache רגיל ל-Semantic Cache?",
+      "answer": "Cache רגיל מחפש key זהה. Semantic cache מחפש שאלה דומה במשמעות."
+    },
+    {
+      "type": "qa",
+      "question": "למה צריך לשמור Source Documents?",
+      "answer": "כדי לבצע invalidation כאשר המקורות משתנים."
+    },
+    {
+      "type": "qa",
+      "question": "למה Tenant חייב להיות חלק מה-Cache Key או Filter?",
+      "answer": "כדי למנוע החזרת מידע של ארגון אחד לארגון אחר."
+    }
+  ]
+}

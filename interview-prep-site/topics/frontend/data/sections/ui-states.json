@@ -1,0 +1,66 @@
+{
+  "id": "ui-states",
+  "title": "Loading, Error & Empty States",
+  "sourcePages": [
+    19,
+    21
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "מסך שעובד מול API צריך לטפל לפחות ב-loading, success ו-error, ולעיתים גם במצב empty."
+    },
+    {
+      "type": "heading",
+      "text": "דוגמה עם Signals"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "users = signal<User[]>([]);\nloading = signal(false);\nerrorMessage = signal<string | null>(null);\n\nloadUsers(): void {\n    this.loading.set(true);\n    this.errorMessage.set(null);\n\n    this.userService.getUsers()\n        .pipe(finalize(() => this.loading.set(false)))\n        .subscribe({\n            next: users => this.users.set(users),\n            error: () => this.errorMessage.set(\"Unable to load users\")\n        });\n}"
+    },
+    {
+      "type": "heading",
+      "text": "Template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "code": "@if (loading()) {\n    <p>Loading...</p>\n} @else if (errorMessage()) {\n    <p>{{ errorMessage() }}</p>\n} @else if (users().length === 0) {\n    <p>No users found</p>\n} @else {\n    @for (user of users(); track user.id) {\n        <p>{{ user.name }}</p>\n    }\n}"
+    },
+    {
+      "type": "heading",
+      "text": "עקרונות חשובים"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "לא להשאיר מסך ריק בזמן טעינה.",
+        "להציג הודעת שגיאה ברורה למשתמש.",
+        "להבדיל בין שגיאה לבין תוצאה ריקה.",
+        "לא להציג stack trace או הודעה פנימית מהשרת.",
+        "להוסיף Retry רק כאשר הפעולה באמת בטוחה לחזרה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "בכל מסך אסינכרוני אני מנהל במפורש loading, success, error ו-empty state. המשתמש צריך להבין אם המידע עדיין נטען, לא נמצא או שהקריאה נכשלה. את הפרטים הטכניים אני שומר בלוגים ולא מציג ישירות ב-UI."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "למה Empty State נפרד מ-Error?",
+      "answer": "כי תוצאה ריקה יכולה להיות הצלחה תקינה ולא תקלה."
+    },
+    {
+      "type": "qa",
+      "question": "מתי Retry מתאים?",
+      "answer": "כאשר הפעולה בטוחה לחזרה והכשל עשוי להיות זמני."
+    }
+  ]
+}

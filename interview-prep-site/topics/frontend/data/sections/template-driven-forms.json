@@ -1,0 +1,54 @@
+{
+  "id": "template-driven-forms",
+  "title": "Template-driven Forms",
+  "sourcePages": [
+    10,
+    11
+  ],
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "ב-Template-driven Forms רוב הגדרת הטופס נמצאת ב-template באמצעות ngModel."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "code": "@Component({\n    standalone: true,\n    imports: [FormsModule],\n    template: `\n        <form #form=\"ngForm\" (ngSubmit)=\"submit()\">\n            <input name=\"email\" [(ngModel)]=\"email\" required email>\n            <button [disabled]=\"form.invalid\">Submit</button>\n        </form>\n    `\n})\nexport class LoginComponent {\n    email = \"\";\n\n    submit(): void {\n        console.log(this.email);\n    }\n}"
+    },
+    {
+      "type": "paragraph",
+      "text": "הגישה פשוטה ונוחה לטפסים קטנים. בטפסים גדולים עם validation מורכב, fields דינמיים או הרבה לוגיקה, בדרך כלל עדיף Reactive Forms."
+    },
+    {
+      "type": "heading",
+      "text": "השוואה"
+    },
+    {
+      "type": "bulletList",
+      "items": [
+        "Template-driven: פשוט ומהיר לטפסים קטנים.",
+        "Reactive Forms: מפורש, scalable וקל יותר לבדיקה."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "תשובה קצרה לראיון",
+      "text": "Template-driven Forms משתמשים ב-ngModel ומגדירים את רוב הטופס בתוך ה-template. הם מתאימים לטפסים פשוטים, אבל לטפסים מורכבים אני בדרך כלל מעדיף Reactive Forms."
+    },
+    {
+      "type": "heading",
+      "text": "שאלות ותשובות לראיון"
+    },
+    {
+      "type": "qa",
+      "question": "מתי Template-driven Forms מתאימים?",
+      "answer": "לטפסים פשוטים עם מעט fields ו-validation בסיסי."
+    },
+    {
+      "type": "qa",
+      "question": "למה Reactive Forms עדיפים בטופס גדול?",
+      "answer": "כי המבנה וה-validation מוגדרים בקוד וקל יותר לנהל ולבדוק אותם."
+    }
+  ]
+}
