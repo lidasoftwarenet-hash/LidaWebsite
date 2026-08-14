@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>חדשות | LiDa Software</title>
+  <meta name="description" content="Personal curated news feeds for LiDa Software." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/x-icon" href="/favicon.png" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <script src="/components/site-nav-v2.js" type="module"></script>
+  <script src="/components/site-footer-v2.js" defer></script>
+  
+  <link rel="stylesheet" href="/news/css/style.css" />
+</head>
+<body class="news-page-body">
+
+  
+  <main class="news-app" dir="rtl" lang="he">
+    <header class="news-header">
+      <div class="news-container">
+        <h1 class="editorial-headline">חדשות בשבילי</h1>
+        <div id="lastUpdated" class="last-updated">עודכן לאחרונה: --:--</div>
+      </div>
+    </header>
+
+    <div class="sticky-nav-wrapper">
+      <nav class="feed-nav" aria-label="Feed Navigation">
+        <button class="feed-btn active" data-feed="forme">בשבילי</button>
+        <button class="feed-btn" data-feed="romania">רומניה</button>
+        <button class="feed-btn" data-feed="technology">טכנולוגיה</button>
+        <button class="feed-btn" data-feed="archive">ארכיון</button>
+        <button class="feed-btn btn-icon search-toggle" id="searchToggleBtn" aria-label="חיפוש בחדשות">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="11" cy="11" r="8"></circle>
+             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+
+    <div class="news-container">
+       
+       <!-- Search & Archive Overlay/Section -->
+       <div id="searchSection" class="search-section hidden">
+         <div class="search-header">
+           <h2>חיפוש וארכיון</h2>
+           <button id="closeSearchBtn" class="close-btn" aria-label="סגור חיפוש">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <line x1="18" y1="6" x2="6" y2="18"></line>
+               <line x1="6" y1="6" x2="18" y2="18"></line>
+             </svg>
+           </button>
+         </div>
+
+         <div class="search-controls">
+           <div class="search-bar-wrapper">
+             <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <circle cx="11" cy="11" r="8"></circle>
+               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+             </svg>
+             <input type="text" id="searchInput" placeholder="חיפוש בחדשות (לדוגמה: OpenAI)..." aria-label="חיפוש חדשות" autocomplete="off" />
+             <button id="clearSearchBtn" class="clear-search-btn hidden" aria-label="נקה חיפוש">
+               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <line x1="18" y1="6" x2="6" y2="18"></line>
+                 <line x1="6" y1="6" x2="18" y2="18"></line>
+               </svg>
+             </button>
+           </div>
+           
+           <div class="search-filters">
+             <div class="filter-group">
+               <label for="feedFilter">מקור:</label>
+               <select id="feedFilter">
+                 <option value="">הכול</option>
+                 <option value="romania">רומניה</option>
+                 <option value="technology">טכנולוגיה</option>
+               </select>
+             </div>
+             
+             <div class="filter-group">
+               <label for="dateFilter">תאריך:</label>
+               <select id="dateFilter">
+                 <option value="any">כל הזמן</option>
+                 <option value="week">השבוע</option>
+                 <option value="month">החודש</option>
+                 <option value="custom">טווח תאריכים...</option>
+               </select>
+             </div>
+             
+             <div id="customDateRange" class="filter-group custom-date-range hidden">
+               <input type="date" id="dateFrom" aria-label="מתאריך" />
+               <span>-</span>
+               <input type="date" id="dateTo" aria-label="עד תאריך" />
+             </div>
+           </div>
+           
+           <div id="archiveWarning" class="archive-warning hidden">
+             <p>הערה: נכון לעכשיו, יש להזין מילת חיפוש כדי לחפש בארכיון.</p>
+           </div>
+         </div>
+       </div>
+       
+       <div id="newsError" class="news-error hidden"></div>
+       
+       <!-- Main Content Container -->
+       <div id="newsContent" class="news-content-area">
+          <!-- Populated by JS -->
+       </div>
+    </div>
+  </main>
+  
+  <script src="/news/js/news-api.js"></script>
+  <script src="/news/js/app.js"></script>
+</body>
+</html>
