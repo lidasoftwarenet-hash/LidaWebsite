@@ -1,7 +1,6 @@
 // UI Elements
 const UI = {
     tabs: document.querySelectorAll('.feed-btn[data-feed]'),
-    searchToggle: document.getElementById('searchToggleBtn'),
     searchSection: document.getElementById('searchSection'),
     closeSearchBtn: document.getElementById('closeSearchBtn'),
     searchInput: document.getElementById('searchInput'),
@@ -14,12 +13,119 @@ const UI = {
     archiveWarning: document.getElementById('archiveWarning'),
     content: document.getElementById('newsContent'),
     error: document.getElementById('newsError'),
-    lastUpdated: document.getElementById('lastUpdated')
+    lastUpdated: document.getElementById('lastUpdated'),
+    utilDate: document.getElementById('utilDate'),
+    utilClock: document.getElementById('utilClock'),
+    utilityBar: document.getElementById('utilityBar')
 };
+
+/**
+ * Utility Bar — date and clock (Israel timezone)
+ */
+function initUtilityBar() {
+    function updateUtilityBar() {
+        const now = new Date();
+        const opts = { timeZone: 'Asia/Jerusalem' };
+        const dayName = now.toLocaleDateString('he-IL', { ...opts, weekday: 'long' });
+        const dateStr = now.toLocaleDateString('he-IL', { ...opts, day: 'numeric', month: 'long', year: 'numeric' });
+        const timeStr = now.toLocaleTimeString('he-IL', { ...opts, hour: '2-digit', minute: '2-digit' });
+        if (UI.utilDate) UI.utilDate.textContent = dayName + ', ' + dateStr;
+        if (UI.utilClock) UI.utilClock.textContent = timeStr;
+    }
+    updateUtilityBar();
+    setInterval(updateUtilityBar, 30000);
+
+    // Weather panel toggle + data fetch
+    const weatherBtn = document.getElementById('weatherToggleBtn');
+    const weatherPanel = document.getElementById('weatherPanel');
+    const weatherClose = document.getElementById('weatherCloseBtn');
+    let weatherLoaded = false;
+
+    if (weatherBtn && weatherPanel) {
+        weatherBtn.addEventListener('click', () => {
+            const opening = weatherPanel.classList.toggle('hidden') === false;
+            if (opening && !weatherLoaded) {
+                weatherLoaded = true;
+                loadWeatherData();
+            }
+        });
+        if (weatherClose) {
+            weatherClose.addEventListener('click', () => {
+                weatherPanel.classList.add('hidden');
+            });
+        }
+        document.addEventListener('click', (e) => {
+            if (!weatherPanel.classList.contains('hidden') &&
+                !weatherPanel.contains(e.target) &&
+                !weatherBtn.contains(e.target)) {
+                weatherPanel.classList.add('hidden');
+            }
+        });
+    }
+
+    async function loadWeatherData() {
+        const cities = [
+            { id: 'weatherTelAviv', query: 'Tel_Aviv' },
+            { id: 'weatherBucharest', query: 'Bucharest' }
+        ];
+        for (const city of cities) {
+            const el = document.getElementById(city.id);
+            const dataEl = el?.querySelector('.weather-city-data');
+            if (!dataEl) continue;
+            try {
+                const resp = await fetch(`https://wttr.in/${city.query}?format=j1`);
+                if (!resp.ok) throw new Error('fetch failed');
+                const json = await resp.json();
+                const cur = json.current_condition?.[0];
+                if (!cur) { dataEl.textContent = 'לא זמין'; continue; }
+                const tempC = cur.temp_C;
+                const feelsLike = cur.FeelsLikeC;
+                const humidity = cur.humidity;
+                const windKmph = cur.windspeedKmph;
+                const desc = cur.lang_he?.[0]?.value || cur.weatherDesc?.[0]?.value || '';
+                const icon = getWeatherIcon(cur.weatherCode);
+                dataEl.innerHTML = `
+                    <div class="weather-temp">
+                        <span class="weather-temp-icon">${icon}</span>
+                        <span class="weather-temp-value">${tempC}°</span>
+                    </div>
+                    <div class="weather-condition">${escapeHTML(desc)}</div>
+                    <div class="weather-details">
+                        <span>מרגיש כמו ${feelsLike}°</span>
+                        <span>לחות ${humidity}%</span>
+                        <span>רוח ${windKmph} קמ״ש</span>
+                    </div>
+                `;
+            } catch (e) {
+                dataEl.textContent = 'לא ניתן לטעון נתוני מזג אוויר';
+            }
+        }
+    }
+
+    function getWeatherIcon(code) {
+        const c = parseInt(code, 10);
+        if (c === 113) return '☀️';
+        if (c === 116) return '⛅';
+        if (c === 119 || c === 122) return '☁️';
+        if ([176,263,266,293,296,299,302,305,308,311,314,353,356,359].includes(c)) return '🌧️';
+        if ([200,386,389,392,395].includes(c)) return '⛈️';
+        if ([227,230,323,326,329,332,335,338,368,371,374,377].includes(c)) return '🌨️';
+        if ([143,248,260].includes(c)) return '🌫️';
+        return '🌤️';
+    }
+}
+
+/**
+ * Local development detection.
+ * On localhost / 127.0.0.1 (any port), use the physical /news path.
+ * In production, use the public /hennews2409 path.
+ */
+const _isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const NEWS_BASE = _isLocal ? '/news' : '/hennews2409';
 
 // Application State
 const state = {
-    currentTab: 'forme',
+    currentTab: 'romania',
     isSearching: false,
     searchParams: { q: '', feedCode: '', from: '', to: '' },
     searchDebounceTimer: null,
@@ -39,15 +145,20 @@ const state = {
  */
 function getArticleIdFromPath(pathname) {
     const normalized = pathname.replace(/\/+$/, '');
-    if (
-        normalized === '/hennews2409' ||
-        normalized === '/hennews2409/index' ||
-        normalized === '/hennews2409/index.html'
-    ) {
-        return null;
+    // Check both possible base paths
+    const bases = ['/hennews2409', '/news'];
+    for (const base of bases) {
+        if (
+            normalized === base ||
+            normalized === base + '/index' ||
+            normalized === base + '/index.html'
+        ) {
+            return null;
+        }
+        const match = normalized.match(new RegExp('^' + base.replace('/', '\\/') + '\\/([^/]+)$'));
+        if (match) return decodeURIComponent(match[1]);
     }
-    const match = normalized.match(/^\/hennews2409\/([^/]+)$/);
-    return match ? decodeURIComponent(match[1]) : null;
+    return null;
 }
 
 /**
@@ -55,11 +166,12 @@ function getArticleIdFromPath(pathname) {
  */
 async function init() {
     const normalizedPath = window.location.pathname.replace(/\/+$/, '');
-    if (normalizedPath === '/news' || normalizedPath === '/news/index' || normalizedPath === '/news/index.html') {
+    if (!_isLocal && (normalizedPath === '/news' || normalizedPath === '/news/index' || normalizedPath === '/news/index.html')) {
         window.location.replace('/404');
         return;
     }
 
+    initUtilityBar();
     setupEventListeners();
     
     // Check if URL is an article view
@@ -172,7 +284,7 @@ function setupEventListeners() {
     });
 
     // Search UI toggles
-    UI.searchToggle.addEventListener('click', openSearchSection);
+
     UI.closeSearchBtn.addEventListener('click', closeSearchSection);
     UI.clearSearchBtn.addEventListener('click', () => {
         UI.searchInput.value = '';
@@ -211,7 +323,7 @@ function setupEventListeners() {
         const link = e.target.closest('a');
         if (link) {
             const href = link.getAttribute('href');
-            if (href && href.startsWith('/hennews2409/') && !href.includes('?') && !link.target) {
+            if (href && (href.startsWith('/hennews2409/') || href.startsWith('/news/')) && !href.includes('?') && !link.target) {
                 const url = new URL(link.href, window.location.origin);
                 const articleId = getArticleIdFromPath(url.pathname);
                 if (articleId) {
@@ -235,6 +347,7 @@ function setupEventListeners() {
         state.currentArticleId = null;
         document.querySelector('.sticky-nav-wrapper').classList.remove('hidden');
         document.querySelector('.news-header').classList.remove('hidden');
+        if (UI.utilityBar) UI.utilityBar.classList.remove('hidden');
 
         if (e.state) {
             restoreState(e.state);
@@ -470,9 +583,10 @@ async function openArticle(id, skipPushState = false, isInitialLoad = false) {
     document.querySelector('.sticky-nav-wrapper').classList.add('hidden');
     document.querySelector('.news-header').classList.add('hidden');
     UI.searchSection.classList.add('hidden');
+    if (UI.utilityBar) UI.utilityBar.classList.add('hidden');
 
     if (!skipPushState) {
-        window.history.pushState({ article: id }, '', `/hennews2409/${id}`);
+        window.history.pushState({ article: id }, '', `${NEWS_BASE}/${id}`);
     }
 
     renderEditorialSkeleton();
@@ -508,11 +622,16 @@ function renderArticle(item) {
         `;
     }
 
+    // Determine source language label
+    const feedCode = item.feed?.code || '';
+    const sourceLangLabel = feedCode === 'romania' ? 'ברומנית' : 'באנגלית';
+    const categoryLabel = item.location || item.category || (feedCode === 'romania' ? 'רומניה' : 'טכנולוגיה');
+
     const html = `
         <article class="article-page">
             <div class="article-page-nav">
                 <button class="back-to-news-btn" onclick="window.history.back()">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1);">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
@@ -521,8 +640,9 @@ function renderArticle(item) {
             </div>
             
             <header class="article-header">
-                ${getContextLabels(item, false)}
+                <span class="article-category-label">${escapeHTML(categoryLabel)}</span>
                 <h1 class="article-title">${escapeHTML(item.titleHe)}</h1>
+                ${item.summaryHe && item.articleHe ? `<p class="article-standfirst">${escapeHTML(item.summaryHe)}</p>` : ''}
                 ${item.originalTitle ? `<div class="article-original-title" dir="ltr">${escapeHTML(item.originalTitle)}</div>` : ''}
                 <div class="article-meta">
                     <span class="source-name">${escapeHTML(item.sourceName)}</span>
@@ -536,8 +656,12 @@ function renderArticle(item) {
             </div>
 
             <footer class="article-footer">
+                <div class="article-source-block">
+                    <strong>מקור:</strong> ${escapeHTML(item.sourceName)}
+                    ${item.originalTitle ? `<br><strong>הכותרת המקורית:</strong> <bdi>${escapeHTML(item.originalTitle)}</bdi>` : ''}
+                </div>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original-large">
-                    קרא את הכתבה המקורית ב-${escapeHTML(item.sourceName)} ↗
+                    לכתבה המקורית ${sourceLangLabel} ↗
                 </a>
             </footer>
         </article>
@@ -733,12 +857,13 @@ function renderFeatureNewsCard(item) {
                 ${getContextLabels(item, true)}
             </div>
             <h2 class="card-title">
-                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h2>
             ${item.originalTitle ? `<div class="card-original-title"><bdi>${escapeHTML(item.originalTitle)}</bdi></div>` : ''}
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
+                <span class="action-sep">|</span>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -755,11 +880,12 @@ function renderStandardNewsCard(item) {
                 ${getContextLabels(item, true)}
             </div>
             <h3 class="card-title">
-                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h3>
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
+                <span class="action-sep">|</span>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -770,7 +896,7 @@ function renderSectionLeadCard(item) {
     return `
         <article class="news-card section-lead-card">
             <h3 class="card-title">
-                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h3>
             <div class="card-meta" style="margin-top: 12px; margin-bottom: 12px;">
                 <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
@@ -779,7 +905,8 @@ function renderSectionLeadCard(item) {
             </div>
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
+                <span class="action-sep">|</span>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -790,7 +917,7 @@ function renderCompactNewsItem(item) {
     return `
         <article class="news-card compact-card">
             <h4 class="card-title">
-                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h4>
             <div class="card-meta">
                 <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
@@ -807,7 +934,7 @@ function renderLatestNewsItem(item, includeSummary = false) {
             <div class="latest-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</div>
             <div class="latest-content">
                 <h4 class="latest-title">
-                    <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
+                    <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
                 </h4>
                 ${includeSummary && item.summaryHe ? `<p class="card-summary" style="margin-bottom: 8px; font-size: 1rem;">${escapeHTML(item.summaryHe)}</p>` : ''}
                 <div class="card-meta">

@@ -1,57 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0a0a0f" />
-  <title>חדשות | LiDa Software</title>
-  <meta name="description" content="Personal curated news feeds for LiDa Software." />
+  <meta name="theme-color" content="#ffffff" />
+  <title>החדשות של Hen | LiDa Software</title>
+  <meta name="description" content="עדכוני חדשות אישיים — רומניה וטכנולוגיה בעברית." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/x-icon" href="/favicon.png" />
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  
-  <script src="/components/site-nav-v2.js" type="module"></script>
-  <script src="/components/site-footer-v2.js" defer></script>
-  
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="/news/css/style.css" />
 </head>
 <body class="news-page-body">
 
-  
   <main class="news-app" dir="rtl" lang="he">
+
+    <!-- Utility Bar -->
+    <div class="utility-bar" id="utilityBar">
+      <div class="utility-bar-inner">
+        <span id="utilDate"></span>
+        <span class="util-sep">|</span>
+        <span id="utilClock"></span>
+        <span class="util-sep">|</span>
+        <a href="/hennews2409" class="util-link">ראשי</a>
+        <span class="util-sep">|</span>
+        <span class="util-weather-wrap">
+          <button class="util-link util-weather-btn" id="weatherToggleBtn" aria-label="מזג אוויר">☀ מזג אוויר</button>
+          <div class="weather-panel hidden" id="weatherPanel">
+            <div class="weather-panel-header">
+              <span class="weather-panel-title">מזג אוויר</span>
+              <button class="weather-panel-close" id="weatherCloseBtn" aria-label="סגור">✕</button>
+            </div>
+            <div class="weather-panel-body">
+              <div class="weather-city" id="weatherTelAviv">
+                <div class="weather-city-label">תל אביב</div>
+                <div class="weather-city-data">טוען...</div>
+              </div>
+              <div class="weather-city" id="weatherBucharest">
+                <div class="weather-city-label">בוקרשט</div>
+                <div class="weather-city-data">טוען...</div>
+              </div>
+            </div>
+            <div class="weather-panel-footer">
+              <a href="https://wttr.in/Tel_Aviv?lang=he" target="_blank" rel="noopener noreferrer" class="weather-full-link">תחזית מלאה ↗</a>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <!-- News Header -->
     <header class="news-header">
       <div class="news-container">
-        <h1 class="editorial-headline">חדשות בשבילי</h1>
+        <h1 class="editorial-headline">
+          <a href="/hennews2409" aria-label="החדשות של Hen">
+            <img src="/news/sources/logo.jpg" alt="החדשות של Hen" class="site-logo" />
+          </a>
+        </h1>
         <div id="lastUpdated" class="last-updated">עודכן לאחרונה: --:--</div>
       </div>
     </header>
 
+    <!-- Sticky Nav -->
     <div class="sticky-nav-wrapper">
       <nav class="feed-nav" aria-label="Feed Navigation">
-        <button class="feed-btn active" data-feed="forme">בשבילי</button>
-        <button class="feed-btn" data-feed="romania">רומניה</button>
+        <button class="feed-btn active" data-feed="romania">רומניה</button>
         <button class="feed-btn" data-feed="technology">טכנולוגיה</button>
         <button class="feed-btn" data-feed="archive">ארכיון</button>
-        <button class="feed-btn btn-icon search-toggle" id="searchToggleBtn" aria-label="חיפוש בחדשות">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-             <circle cx="11" cy="11" r="8"></circle>
-             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </button>
       </nav>
     </div>
 
     <div class="news-container">
        
-       <!-- Search & Archive Overlay/Section -->
+       <!-- Search & Archive Section -->
        <div id="searchSection" class="search-section hidden">
          <div class="search-header">
            <h2>חיפוש וארכיון</h2>
            <button id="closeSearchBtn" class="close-btn" aria-label="סגור חיפוש">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                <line x1="18" y1="6" x2="6" y2="18"></line>
                <line x1="6" y1="6" x2="18" y2="18"></line>
              </svg>
@@ -60,13 +90,13 @@
 
          <div class="search-controls">
            <div class="search-bar-wrapper">
-             <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                <circle cx="11" cy="11" r="8"></circle>
                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
              </svg>
              <input type="text" id="searchInput" placeholder="חיפוש בחדשות (לדוגמה: OpenAI)..." aria-label="חיפוש חדשות" autocomplete="off" />
              <button id="clearSearchBtn" class="clear-search-btn hidden" aria-label="נקה חיפוש">
-               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                  <line x1="18" y1="6" x2="6" y2="18"></line>
                  <line x1="6" y1="6" x2="18" y2="18"></line>
                </svg>
