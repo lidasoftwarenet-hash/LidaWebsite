@@ -40,13 +40,13 @@ const state = {
 function getArticleIdFromPath(pathname) {
     const normalized = pathname.replace(/\/+$/, '');
     if (
-        normalized === '/news' ||
-        normalized === '/news/index' ||
-        normalized === '/news/index.html'
+        normalized === '/hennews2409' ||
+        normalized === '/hennews2409/index' ||
+        normalized === '/hennews2409/index.html'
     ) {
         return null;
     }
-    const match = normalized.match(/^\/news\/([^/]+)$/);
+    const match = normalized.match(/^\/hennews2409\/([^/]+)$/);
     return match ? decodeURIComponent(match[1]) : null;
 }
 
@@ -54,6 +54,12 @@ function getArticleIdFromPath(pathname) {
  * Initialize the application
  */
 async function init() {
+    const normalizedPath = window.location.pathname.replace(/\/+$/, '');
+    if (normalizedPath === '/news' || normalizedPath === '/news/index' || normalizedPath === '/news/index.html') {
+        window.location.replace('/404');
+        return;
+    }
+
     setupEventListeners();
     
     // Check if URL is an article view
@@ -205,7 +211,7 @@ function setupEventListeners() {
         const link = e.target.closest('a');
         if (link) {
             const href = link.getAttribute('href');
-            if (href && href.startsWith('/news/') && !href.includes('?') && !link.target) {
+            if (href && href.startsWith('/hennews2409/') && !href.includes('?') && !link.target) {
                 const url = new URL(link.href, window.location.origin);
                 const articleId = getArticleIdFromPath(url.pathname);
                 if (articleId) {
@@ -466,7 +472,7 @@ async function openArticle(id, skipPushState = false, isInitialLoad = false) {
     UI.searchSection.classList.add('hidden');
 
     if (!skipPushState) {
-        window.history.pushState({ article: id }, '', `/news/${id}`);
+        window.history.pushState({ article: id }, '', `/hennews2409/${id}`);
     }
 
     renderEditorialSkeleton();
@@ -727,12 +733,12 @@ function renderFeatureNewsCard(item) {
                 ${getContextLabels(item, true)}
             </div>
             <h2 class="card-title">
-                <a href="/news/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h2>
             ${item.originalTitle ? `<div class="card-original-title"><bdi>${escapeHTML(item.originalTitle)}</bdi></div>` : ''}
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/news/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -749,11 +755,11 @@ function renderStandardNewsCard(item) {
                 ${getContextLabels(item, true)}
             </div>
             <h3 class="card-title">
-                <a href="/news/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h3>
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/news/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -764,7 +770,7 @@ function renderSectionLeadCard(item) {
     return `
         <article class="news-card section-lead-card">
             <h3 class="card-title">
-                <a href="/news/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h3>
             <div class="card-meta" style="margin-top: 12px; margin-bottom: 12px;">
                 <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
@@ -773,7 +779,7 @@ function renderSectionLeadCard(item) {
             </div>
             <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
             <div class="card-actions">
-                <a href="/news/${item.id}" class="action-read-he">קרא בעברית</a>
+                <a href="/hennews2409/${item.id}" class="action-read-he">קרא בעברית</a>
                 <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
             </div>
         </article>
@@ -784,7 +790,7 @@ function renderCompactNewsItem(item) {
     return `
         <article class="news-card compact-card">
             <h4 class="card-title">
-                <a href="/news/${item.id}">${escapeHTML(item.titleHe)}</a>
+                <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
             </h4>
             <div class="card-meta">
                 <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
@@ -801,7 +807,7 @@ function renderLatestNewsItem(item, includeSummary = false) {
             <div class="latest-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</div>
             <div class="latest-content">
                 <h4 class="latest-title">
-                    <a href="/news/${item.id}">${escapeHTML(item.titleHe)}</a>
+                    <a href="/hennews2409/${item.id}">${escapeHTML(item.titleHe)}</a>
                 </h4>
                 ${includeSummary && item.summaryHe ? `<p class="card-summary" style="margin-bottom: 8px; font-size: 1rem;">${escapeHTML(item.summaryHe)}</p>` : ''}
                 <div class="card-meta">

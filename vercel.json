@@ -6,7 +6,8 @@
   "rewrites": [
     { "source": "/lidamixplay/", "destination": "/lida-mix-play/index.html" },
     { "source": "/lidamixplay/:path*", "destination": "/lida-mix-play/:path*" },
-    { "source": "/news/:id", "destination": "/news/index" },
+    { "source": "/hennews2409", "destination": "/news/index" },
+    { "source": "/hennews2409/:id", "destination": "/news/index" },
     { "source": "/cf-analytics/beacon.js", "destination": "https://static.cloudflareinsights.com/beacon.min.js" },
     { "source": "/cf-analytics/report", "destination": "https://cloudflareinsights.com/cdn-cgi/rum" }
   ]
