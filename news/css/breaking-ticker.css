@@ -1,0 +1,50 @@
+/* Seamless breaking-news ticker.
+   Starts with visible headlines and loops without an empty lead-in. */
+.breaking-marquee {
+  direction: ltr;
+}
+
+.breaking-track {
+  display: inline-flex;
+  width: max-content;
+  min-width: max-content;
+  align-items: center;
+  will-change: transform;
+  animation: breaking-ticker-loop 58s linear infinite;
+}
+
+.breaking-track:hover {
+  animation-play-state: paused;
+}
+
+.breaking-track > .breaking-items {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 24px;
+  padding-right: 32px;
+  direction: rtl;
+  animation: none !important;
+  transform: none !important;
+}
+
+@keyframes breaking-ticker-loop {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breaking-track {
+    animation: none;
+    transform: none;
+  }
+
+  .breaking-marquee {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .breaking-marquee::-webkit-scrollbar {
+    display: none;
+  }
+}
