@@ -13,9 +13,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/news/css/style.css" />
-  <link rel="stylesheet" href="/news/css/market-bar.css" />
-  <link rel="stylesheet" href="/news/css/side-rails.css" />
+  <!--
+    Keep a small explicit version on news assets as a second layer of cache busting.
+    Vercel also revalidates /news CSS/JS via vercel.json, so future deployments do
+    not depend on users manually clearing their browser cache.
+  -->
+  <link rel="stylesheet" href="/news/css/style.css?v=20260817-2057" />
+  <link rel="stylesheet" href="/news/css/market-bar.css?v=20260817-2057" />
+  <link rel="stylesheet" href="/news/css/side-rails.css?v=20260817-2057" />
 </head>
 <body class="news-page-body">
 
@@ -149,11 +154,11 @@
     </div>
   </main>
   
-  <script src="/news/js/news-api.js"></script>
-  <script src="/news/js/app.js"></script>
-  <script src="/news/js/weather-v2.js"></script>
-  <script src="/news/js/market-bar.js"></script>
-  <script src="/news/js/israel-support.js"></script>
-  <script src="/news/js/side-rails.js"></script>
+  <script src="/news/js/news-api.js?v=20260817-2057"></script>
+  <script src="/news/js/app.js?v=20260817-2057"></script>
+  <script src="/news/js/weather-v2.js?v=20260817-2057"></script>
+  <script src="/news/js/market-bar.js?v=20260817-2057"></script>
+  <script src="/news/js/israel-support.js?v=20260817-2057"></script>
+  <script src="/news/js/side-rails.js?v=20260817-2057"></script>
 </body>
 </html>
