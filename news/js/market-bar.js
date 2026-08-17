@@ -19,7 +19,7 @@
         strip.innerHTML = `
             <span class="market-item stock-item" title="ZoomInfo Technologies (NASDAQ: GTM)">
                 <span class="market-symbol">GTM</span>
-                <strong id="zoominfoPrice" class="market-value">--</strong>
+                <strong id="zoominfoPrice" class="market-value-stock">--</strong>
                 <span id="zoominfoChange" class="market-change"></span>
             </span>
             <span class="market-mini-sep">•</span>

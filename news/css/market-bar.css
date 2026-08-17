@@ -1,7 +1,7 @@
 .market-strip {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 40px;
   direction: ltr;
   white-space: nowrap;
   font-family: 'Inter', 'Heebo', sans-serif;
@@ -16,20 +16,26 @@
 }
 
 .market-symbol {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
-  color: #8a8a8a;
+  color: #83e080;
 }
 
 .market-value {
-  color: var(--news-text);
-  font-size: 12px;
+  color: rgb(199, 196, 196);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.market-value-stock {
+  color: rgb(0, 0, 0);
+  font-size: 16px;
   font-weight: 700;
 }
 
 .market-change {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -47,7 +53,7 @@
 
 .market-mini-sep {
   color: #c8c8c8;
-  font-size: 10px;
+  font-size: 20px;
 }
 
 .stock-item {
@@ -69,10 +75,10 @@
   .utility-bar-inner {
     min-width: max-content;
     padding: 0 12px;
-    gap: 10px;
+    gap: 36px;
   }
 
   .market-strip {
-    gap: 8px;
+    gap: 38px;
   }
 }
