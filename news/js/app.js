@@ -188,6 +188,9 @@ async function init() {
         return;
     }
 
+    // Default to 'forme' initially
+    document.querySelector('.news-app').setAttribute('data-current-feed', state.currentTab || 'forme');
+
     renderEditorialSkeleton();
 
     try {
@@ -424,6 +427,8 @@ function switchTab(feed, skipPushState = false) {
     if (!skipPushState) {
         updateURLState({ tab: feed });
     }
+
+    document.querySelector('.news-app').setAttribute('data-current-feed', feed);
     
     // If news isn't loaded yet, it means we deep-linked into search and now clicked a tab
     if (!state.news[feed] && feed !== 'forme') {
@@ -598,6 +603,16 @@ async function openArticle(id, skipPushState = false, isInitialLoad = false) {
             showError("הכתבה לא נמצאה.");
             return;
         }
+        
+        // Save to history
+        try {
+            let history = JSON.parse(localStorage.getItem('news_history') || '[]');
+            history = history.filter(i => i.id !== article.id);
+            history.unshift({ id: article.id, titleHe: article.titleHe, sourceName: article.sourceName, publishedAt: article.publishedAt || article.collectedAt });
+            if (history.length > 4) history.pop();
+            localStorage.setItem('news_history', JSON.stringify(history));
+        } catch(e) {}
+
         renderArticle(article);
     } catch (err) {
         console.error("Failed to load article:", err);
@@ -615,117 +630,169 @@ function renderArticle(item) {
             .join('');
     } else {
         articleHeHtml = `
-            <p>${escapeHTML(item.summaryHe)}</p>
-            <div class="article-no-hebrew-msg">
-                <p>הגרסה המלאה בעברית אינה זמינה עבור כתבה זו. מוזמנים לקרוא את הכתבה המקורית.</p>
+            <div class="article-no-content">
+                <p>הגרסה המלאה בעברית אינה זמינה עבור כתבה זו. מוזמנים לקרוא את הכתבה המקורית בקישור מטה.</p>
             </div>
+            <p style="margin-top:24px;">${escapeHTML(item.summaryHe)}</p>
         `;
     }
 
-    // Determine source language label
     const feedCode = item.feed?.code || '';
     const sourceLangLabel = feedCode === 'romania' ? 'ברומנית' : 'באנגלית';
     const categoryLabel = item.location || item.category || (feedCode === 'romania' ? 'רומניה' : 'טכנולוגיה');
 
+    // Get history to show at bottom
+    let historyHtml = '';
+    try {
+        const history = JSON.parse(localStorage.getItem('news_history') || '[]').filter(i => i.id !== item.id);
+        if (history.length > 0) {
+            historyHtml = `
+                <div class="article-footer">
+                    <div class="footer-label">קראת לאחרונה</div>
+                    <div class="continue-reading-grid">
+                        ${history.map(h => `
+                            <article class="editorial-card card-standard">
+                                <a href="${NEWS_BASE}/${h.id}" class="block-link">
+                                    <div class="card-meta">
+                                        <span class="meta-source"><bdi>${escapeHTML(h.sourceName)}</bdi></span>
+                                    </div>
+                                    <h3 class="card-title">${escapeHTML(h.titleHe)}</h3>
+                                </a>
+                            </article>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    } catch(e) {}
+
     const html = `
+        <div class="reading-progress-container">
+            <div class="reading-progress-bar" id="readingProgressBar"></div>
+        </div>
         <article class="article-page">
-            <div class="article-page-nav">
-                <button class="back-to-news-btn" onclick="window.history.back()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform: scaleX(-1);">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                    חזרה לחדשות
-                </button>
-            </div>
-            
             <header class="article-header">
-                <span class="article-category-label">${escapeHTML(categoryLabel)}</span>
+                <span class="meta-category">${escapeHTML(categoryLabel)}</span>
                 <h1 class="article-title">${escapeHTML(item.titleHe)}</h1>
                 ${item.summaryHe && item.articleHe ? `<p class="article-standfirst">${escapeHTML(item.summaryHe)}</p>` : ''}
-                ${item.originalTitle ? `<div class="article-original-title" dir="ltr">${escapeHTML(item.originalTitle)}</div>` : ''}
-                <div class="article-meta">
-                    <span class="source-name">${escapeHTML(item.sourceName)}</span>
-                    <span>·</span>
-                    <span class="pub-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
+                
+                <div class="article-meta-bar">
+                    <div class="article-author-info">
+                        <div class="article-source-badge">${escapeHTML(item.sourceName)}</div>
+                        <div class="article-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</div>
+                    </div>
+                    <div class="article-actions">
+                        <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="btn-outline">מקור ${sourceLangLabel} ↗</a>
+                        <button class="btn-outline" onclick="window.history.back()">חזור</button>
+                    </div>
                 </div>
+                ${item.originalTitle ? `<div class="original-title"><bdi>${escapeHTML(item.originalTitle)}</bdi></div>` : ''}
             </header>
 
-            <div class="article-content">
+            <div class="article-body">
                 ${articleHeHtml}
             </div>
 
-            <footer class="article-footer">
-                <div class="article-source-block">
-                    <strong>מקור:</strong> ${escapeHTML(item.sourceName)}
-                    ${item.originalTitle ? `<br><strong>הכותרת המקורית:</strong> <bdi>${escapeHTML(item.originalTitle)}</bdi>` : ''}
-                </div>
-                <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original-large">
-                    לכתבה המקורית ${sourceLangLabel} ↗
-                </a>
-            </footer>
+            ${historyHtml}
         </article>
     `;
 
     UI.content.innerHTML = html;
+
+    const updateProgress = () => {
+        const scrolled = window.scrollY;
+        const totalHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = totalHeight > 0 ? (scrolled / totalHeight) * 100 : 0;
+        const bar = document.getElementById('readingProgressBar');
+        if (bar) bar.style.width = progress + '%';
+    };
+    window.addEventListener('scroll', updateProgress);
 }
 
-/**
- * Main Routing for Rendering
- */
 function renderCurrentView() {
     if (state.isSearching) {
         renderSearch(state.news.search);
         return;
     }
-
     switch (state.currentTab) {
-        case 'forme':
-            renderForMe(state.news.forme);
-            break;
-        case 'romania':
-            renderRomania(state.news.romania);
-            break;
-        case 'technology':
-            renderTechnology(state.news.technology);
-            break;
+        case 'forme': renderForMe(state.news.forme); break;
+        case 'romania': renderRomania(state.news.romania); break;
+        case 'technology': renderTechnology(state.news.technology); break;
     }
 }
 
-/**
- * Renderers
- */
+function isFresh(dateStr) {
+    if (!dateStr) return false;
+    const diff = new Date() - new Date(dateStr);
+    return diff < 3 * 60 * 60 * 1000; // < 3 hours old
+}
+
+function renderBreakingStrip(items) {
+    if (!items || items.length === 0) return '';
+    const recent = [...items].sort((a, b) => {
+        return new Date(b.publishedAt || b.collectedAt) - new Date(a.publishedAt || a.collectedAt);
+    }).slice(0, 5);
+
+    if (recent.length === 0) return '';
+
+    return `
+        <div class="breaking-strip">
+            <div class="breaking-label"><div class="live-dot"></div> מבזקים</div>
+            <div class="breaking-marquee">
+                <div class="breaking-items">
+                    ${recent.map(item => `
+                        <a href="${NEWS_BASE}/${item.id}" class="breaking-item">
+                            <span class="breaking-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
+                            <span class="breaking-title">${escapeHTML(item.titleHe)}</span>
+                        </a>
+                    `).join('<span class="breaking-sep"></span>')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 function renderForMe(items) {
     if (!items || items.length === 0) return renderEmpty();
 
     const mainStory = items[0];
-    const secondaryStories = items.slice(1, 4);
-    
-    const rest = items.slice(4).sort((a, b) => {
-        const aDate = new Date(a.publishedAt || a.collectedAt).getTime();
-        const bDate = new Date(b.publishedAt || b.collectedAt).getTime();
-        return bDate - aDate;
-    });
+    const majorStories = items.slice(1, 4);
+    const compactStories = items.slice(4, 10);
+    const rest = items.slice(10);
 
-    let html = `
-        <div class="top-stories-layout">
-            <div class="secondary-stories-area">
-                ${secondaryStories.map(item => renderStandardNewsCard(item)).join('')}
+    let html = renderBreakingStrip(items);
+
+    html += `
+        <div class="hero-grid">
+            <div class="hero-main">
+                ${renderHeroCard(mainStory)}
             </div>
-            <div class="main-story-area">
-                ${renderFeatureNewsCard(mainStory)}
+            <div class="hero-side">
+                ${majorStories.map(item => renderMajorCard(item)).join('')}
             </div>
         </div>
     `;
 
+    if (compactStories.length > 0) {
+        html += `
+            <div class="section-header">
+                <h2>עדכונים שוטפים</h2>
+                <span class="section-label">הכי חשוב עכשיו</span>
+            </div>
+            <div class="story-cluster" style="margin-bottom: 48px;">
+                ${compactStories.map(item => renderCompactCard(item)).join('')}
+            </div>
+        `;
+    }
+    
     if (rest.length > 0) {
         html += `
-            <section class="latest-news-section">
-                <h2 class="latest-news-header">החדשות האחרונות</h2>
-                <div class="latest-stream">
-                    ${rest.map(item => renderLatestNewsItem(item)).join('')}
-                </div>
-            </section>
+            <div class="section-header">
+                <h2>עוד חדשות</h2>
+            </div>
+            <div class="rhythm-grid three-col">
+                ${rest.slice(0, 9).map(item => renderStandardCard(item)).join('')}
+            </div>
         `;
     }
 
@@ -741,7 +808,7 @@ function renderRomania(items) {
         { key: 'national', title: 'חדשות ארציות', match: (item) => item.category?.toLowerCase() === 'national' || item.category?.toLowerCase() === 'politics' }
     ];
 
-    renderCategorizedFeed(items, groups);
+    renderCategorizedFeed(items, groups, renderBreakingStrip(items));
 }
 
 function renderTechnology(items) {
@@ -755,39 +822,35 @@ function renderTechnology(items) {
         { key: 'hardware', title: 'Hardware & Chips', match: (item) => hasTerm(item, 'hardware') || hasTopic(item, 'hardware') }
     ];
 
-    renderCategorizedFeed(items, groups);
+    renderCategorizedFeed(items, groups, renderBreakingStrip(items));
 }
 
 function renderSearch(items) {
     const queryStr = UI.searchInput.value.trim();
-    
     if (!items || items.length === 0) {
         UI.content.innerHTML = `
             <div class="empty-state">
                 <p>לא מצאתי חדשות שמתאימות לחיפוש "${escapeHTML(queryStr)}".</p>
-                <button class="clear-search-btn-empty" onclick="document.getElementById('clearSearchBtn').click()">נקה חיפוש</button>
+                <button class="btn-outline" style="margin-top: 16px;" onclick="document.getElementById('clearSearchBtn').click()">נקה חיפוש</button>
             </div>
         `;
         return;
     }
     
-    // Sort chronologically for search
-    const sorted = [...items].sort((a, b) => {
-        const aDate = new Date(a.publishedAt || a.collectedAt).getTime();
-        const bDate = new Date(b.publishedAt || b.collectedAt).getTime();
-        return bDate - aDate;
-    });
+    const sorted = [...items].sort((a, b) => new Date(b.publishedAt || b.collectedAt) - new Date(a.publishedAt || a.collectedAt));
 
     UI.content.innerHTML = `
-        <h2 class="search-results-header">תוצאות עבור "${escapeHTML(queryStr)}" (${sorted.length})</h2>
-        <div class="latest-stream">
-            ${sorted.map(item => renderLatestNewsItem(item, true)).join('')}
+        <div class="section-header">
+            <h2>תוצאות עבור "${escapeHTML(queryStr)}"</h2>
+            <span class="section-label">${sorted.length} כתבות</span>
+        </div>
+        <div class="story-cluster">
+            ${sorted.map(item => renderCompactCard(item)).join('')}
         </div>
     `;
 }
 
-function renderCategorizedFeed(items, predefinedGroups) {
-    // Rank editorially
+function renderCategorizedFeed(items, predefinedGroups, prefixHtml = '') {
     const sorted = [...items].sort((a, b) => {
         if (a.isFeatured && !b.isFeatured) return -1;
         if (!a.isFeatured && b.isFeatured) return 1;
@@ -810,137 +873,116 @@ function renderCategorizedFeed(items, predefinedGroups) {
         if (!matched) otherItems.push(item);
     });
 
-    let html = '';
+    let html = prefixHtml;
+    
+    // Top story overall
+    if (sorted.length > 0) {
+        html += `
+            <div class="hero-grid">
+                <div class="hero-main">
+                    ${renderHeroCard(sorted[0])}
+                </div>
+                <div class="hero-side">
+                    ${sorted.slice(1, 4).map(item => renderMajorCard(item)).join('')}
+                </div>
+            </div>
+        `;
+    }
 
+    // Render remaining grouped items
     predefinedGroups.forEach(g => {
         const data = groupData[g.key];
-        if (data.items.length > 0) {
+        const gItems = data.items.filter(i => !sorted.slice(0,4).includes(i));
+        
+        if (gItems.length > 0) {
             html += `
-                <section class="category-section">
-                    <h2 class="category-header">${data.title}</h2>
-                    <div class="category-grid">
-                        ${data.items.map((item, idx) => {
-                            if (idx === 0) return renderSectionLeadCard(item);
-                            return renderCompactNewsItem(item);
-                        }).join('')}
-                    </div>
-                </section>
+                <div class="section-header">
+                    <h2>${data.title}</h2>
+                </div>
+                <div class="rhythm-grid">
+                    ${gItems.map(item => renderStandardCard(item)).join('')}
+                </div>
             `;
         }
     });
 
-    if (otherItems.length > 0) {
+    const oItems = otherItems.filter(i => !sorted.slice(0,4).includes(i));
+    if (oItems.length > 0) {
         html += `
-            <section class="category-section">
-                <h2 class="category-header">חדשות נוספות</h2>
-                <div class="category-grid">
-                    ${otherItems.map(item => renderCompactNewsItem(item)).join('')}
-                </div>
-            </section>
+            <div class="section-header">
+                <h2>עוד חדשות</h2>
+            </div>
+            <div class="story-cluster" style="margin-bottom: 48px;">
+                ${oItems.map(item => renderCompactCard(item)).join('')}
+            </div>
         `;
     }
 
     UI.content.innerHTML = html;
 }
 
-/**
- * Article Component Generators
- */
-function renderFeatureNewsCard(item) {
+function renderHeroCard(item) {
+    const freshHtml = isFresh(item.publishedAt || item.collectedAt) ? '<span class="meta-fresh">חדש</span>' : '';
     return `
-        <article class="news-card feature-card">
-            <div class="card-meta">
-                <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
-                <span>·</span>
-                <span class="pub-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
-                ${item.isFeatured ? `<span>·</span><span class="featured-badge">כתבת תחקיר</span>` : ''}
-                ${getContextLabels(item, true)}
-            </div>
-            <h2 class="card-title">
-                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
-            </h2>
-            ${item.originalTitle ? `<div class="card-original-title"><bdi>${escapeHTML(item.originalTitle)}</bdi></div>` : ''}
-            <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
-            <div class="card-actions">
-                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
-                <span class="action-sep">|</span>
-                <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
-            </div>
-        </article>
-    `;
-}
-
-function renderStandardNewsCard(item) {
-    return `
-        <article class="news-card standard-card">
-            <div class="card-meta">
-                <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
-                <span>·</span>
-                <span class="pub-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
-                ${getContextLabels(item, true)}
-            </div>
-            <h3 class="card-title">
-                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
-            </h3>
-            <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
-            <div class="card-actions">
-                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
-                <span class="action-sep">|</span>
-                <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
-            </div>
-        </article>
-    `;
-}
-
-function renderSectionLeadCard(item) {
-    return `
-        <article class="news-card section-lead-card">
-            <h3 class="card-title">
-                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
-            </h3>
-            <div class="card-meta" style="margin-top: 12px; margin-bottom: 12px;">
-                <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
-                <span>·</span>
-                <span class="pub-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
-            </div>
-            <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
-            <div class="card-actions">
-                <a href="${NEWS_BASE}/${item.id}" class="action-read-he">קרא בעברית</a>
-                <span class="action-sep">|</span>
-                <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="action-original">לכתבה המקורית ↗</a>
-            </div>
-        </article>
-    `;
-}
-
-function renderCompactNewsItem(item) {
-    return `
-        <article class="news-card compact-card">
-            <h4 class="card-title">
-                <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
-            </h4>
-            <div class="card-meta">
-                <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
-                <span>·</span>
-                <span class="pub-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
-            </div>
-        </article>
-    `;
-}
-
-function renderLatestNewsItem(item, includeSummary = false) {
-    return `
-        <article class="latest-item">
-            <div class="latest-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</div>
-            <div class="latest-content">
-                <h4 class="latest-title">
-                    <a href="${NEWS_BASE}/${item.id}">${escapeHTML(item.titleHe)}</a>
-                </h4>
-                ${includeSummary && item.summaryHe ? `<p class="card-summary" style="margin-bottom: 8px; font-size: 1rem;">${escapeHTML(item.summaryHe)}</p>` : ''}
+        <article class="editorial-card card-hero">
+            <a href="${NEWS_BASE}/${item.id}" class="block-link">
                 <div class="card-meta">
-                    <span class="source-name"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
-                    ${item.feed?.name ? `<span>·</span><span>${escapeHTML(item.feed.name)}</span>` : ''}
-                    ${item.category ? `<span>·</span><span>${escapeHTML(item.category)}</span>` : ''}
+                    ${freshHtml}
+                    <span class="meta-category">${escapeHTML(item.category || item.location || 'ראשי')}</span>
+                    <span class="meta-sep">/</span>
+                    <span class="meta-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
+                </div>
+                <h2 class="card-title">${escapeHTML(item.titleHe)}</h2>
+                <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
+                <div class="card-meta" style="margin-top:12px;">
+                    <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
+                </div>
+            </a>
+        </article>
+    `;
+}
+
+function renderMajorCard(item) {
+    return `
+        <article class="editorial-card card-major">
+            <a href="${NEWS_BASE}/${item.id}" class="block-link">
+                <div class="card-meta">
+                    <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
+                    <span class="meta-sep">/</span>
+                    <span class="meta-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
+                </div>
+                <h3 class="card-title">${escapeHTML(item.titleHe)}</h3>
+                <p class="card-summary">${escapeHTML(item.summaryHe)}</p>
+            </a>
+        </article>
+    `;
+}
+
+function renderStandardCard(item) {
+    return `
+        <article class="editorial-card card-standard">
+            <a href="${NEWS_BASE}/${item.id}" class="block-link">
+                <div class="card-meta">
+                    <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
+                    <span class="meta-sep">/</span>
+                    <span class="meta-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
+                </div>
+                <h3 class="card-title">${escapeHTML(item.titleHe)}</h3>
+            </a>
+        </article>
+    `;
+}
+
+function renderCompactCard(item) {
+    return `
+        <article class="editorial-card card-compact">
+            <div class="meta-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt, true)}</div>
+            <div>
+                <a href="${NEWS_BASE}/${item.id}" class="block-link">
+                    <h4 class="card-title">${escapeHTML(item.titleHe)}</h4>
+                </a>
+                <div class="card-meta">
+                    <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
                 </div>
             </div>
         </article>
@@ -948,30 +990,28 @@ function renderLatestNewsItem(item, includeSummary = false) {
 }
 
 function renderEmpty() {
-    UI.content.innerHTML = `<div class="empty-state">לא נמצאו חדשות בתצוגה זו.</div>`;
+    UI.content.innerHTML = `
+        <div class="empty-state">
+            <p>אין כרגע עדכונים חדשים בקטגוריה הזאת.</p>
+            <button class="btn-outline" style="margin-top: 16px;" onclick="window.history.back()">חזור לראשי</button>
+        </div>
+    `;
 }
 
 function renderEditorialSkeleton() {
     UI.content.innerHTML = `
-        <div class="editorial-skeleton">
-            <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div class="hero-grid">
+            <div class="hero-main">
                 <div class="sk-card">
-                    <div class="sk-meta sk-pulse"></div>
-                    <div class="sk-title-md sk-pulse"></div>
-                    <div class="sk-text sk-pulse"></div>
-                </div>
-                <div class="sk-card">
-                    <div class="sk-meta sk-pulse"></div>
-                    <div class="sk-title-md sk-pulse"></div>
-                    <div class="sk-text sk-pulse"></div>
+                    <div class="sk-meta sk-line"></div>
+                    <div class="sk-title sk-line" style="height:48px;"></div>
+                    <div class="sk-title sk-line" style="height:48px; width:60%;"></div>
+                    <div class="sk-meta sk-line" style="margin-top:12px; width:90%;"></div>
                 </div>
             </div>
-            <div class="sk-card">
-                <div class="sk-meta sk-pulse"></div>
-                <div class="sk-title-lg sk-pulse"></div>
-                <div class="sk-text sk-pulse"></div>
-                <div class="sk-text sk-pulse"></div>
-                <div class="sk-text-short sk-pulse"></div>
+            <div class="hero-side" style="display:flex; flex-direction:column; gap:24px;">
+                <div class="sk-card"><div class="sk-meta sk-line"></div><div class="sk-title sk-line"></div></div>
+                <div class="sk-card"><div class="sk-meta sk-line"></div><div class="sk-title sk-line"></div></div>
             </div>
         </div>
     `;
@@ -980,7 +1020,7 @@ function renderEditorialSkeleton() {
 /**
  * Date Formatter
  */
-function formatRelativeHebrewDate(dateString) {
+function formatRelativeHebrewDate(dateString, shortMode = false) {
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return '';
@@ -999,6 +1039,12 @@ function formatRelativeHebrewDate(dateString) {
     
     const timeStr = date.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jerusalem' });
     
+    if (shortMode) {
+        if (isToday) return timeStr;
+        if (isYesterday) return 'אתמול';
+        return date.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit' });
+    }
+
     if (diffMins < 1) return 'עכשיו';
     if (diffMins === 1) return 'לפני דקה';
     if (diffMins === 2) return 'לפני שתי דקות';
