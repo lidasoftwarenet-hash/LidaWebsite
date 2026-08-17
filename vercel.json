@@ -10,5 +10,37 @@
     { "source": "/hennews2409/:id", "destination": "/news/index" },
     { "source": "/cf-analytics/beacon.js", "destination": "https://static.cloudflareinsights.com/beacon.min.js" },
     { "source": "/cf-analytics/report", "destination": "https://cloudflareinsights.com/cdn-cgi/rum" }
+  ],
+  "headers": [
+    {
+      "source": "/hennews2409",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
+      ]
+    },
+    {
+      "source": "/hennews2409/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
+      ]
+    },
+    {
+      "source": "/news/index",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
+      ]
+    },
+    {
+      "source": "/news/css/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/news/js/:path*",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
   ]
 }
