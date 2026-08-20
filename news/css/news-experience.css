@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px 13px;
+  gap: 8px 25px;
 }
 
 .feed-pulse-live {
@@ -72,11 +72,12 @@
   border: 0;
   background: transparent;
   color: var(--feed-accent-primary);
-  font: inherit;
+  font-size: 20px;
   font-weight: 800;
   cursor: pointer;
   padding: 4px 6px;
   border-radius: 5px;
+  margin-left: 22px;
 }
 
 .feed-pulse-btn:hover {

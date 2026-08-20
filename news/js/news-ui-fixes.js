@@ -88,6 +88,48 @@
         });
     }
 
+    function initPillSlider() {
+        const nav = document.querySelector('.feed-nav');
+        if (!nav) return;
+
+        // Create slider element
+        const slider = document.createElement('div');
+        slider.className = 'feed-nav-slider';
+        nav.prepend(slider);
+
+        function moveSliderToActive() {
+            const activeBtn = nav.querySelector('.feed-btn.active');
+            if (!activeBtn) return;
+            const navRect = nav.getBoundingClientRect();
+            const btnRect = activeBtn.getBoundingClientRect();
+            slider.style.left = (btnRect.left - navRect.left) + 'px';
+            slider.style.width = btnRect.width + 'px';
+        }
+
+        // Move on tab click (before .active class changes)
+        nav.addEventListener('click', (e) => {
+            const btn = e.target.closest('.feed-btn[data-feed]');
+            if (!btn) return;
+            // Defer so .active has been toggled by app.js first
+            requestAnimationFrame(() => {
+                requestAnimationFrame(moveSliderToActive);
+            });
+        });
+
+        // Initial position (no transition on first paint)
+        slider.style.transition = 'none';
+        moveSliderToActive();
+        // Re-enable transition after first paint
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                slider.style.transition = '';
+            });
+        });
+
+        // Re-align on resize
+        window.addEventListener('resize', moveSliderToActive, { passive: true });
+    }
+
     function init() {
         const content = document.getElementById('newsContent');
         if (content) {
@@ -111,6 +153,7 @@
         });
 
         scheduleSync();
+        initPillSlider();
 
         // Israel is fetched asynchronously after the initial Romania render.
         // Recheck briefly during startup so its unread badge appears without requiring a click.
