@@ -1,0 +1,44 @@
+/* Small UX corrections layered after the main news styles. */
+
+.feed-unread-badge {
+  min-width: auto;
+  height: 19px;
+  padding: 0 7px;
+  gap: 2px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 9.5px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.feed-unread-number {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+}
+
+.feed-unread-word {
+  font-weight: 800;
+}
+
+.editorial-side-rail {
+  /* JS aligns this with the hero so it never sits over the moving headlines strip. */
+  transition: top 160ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+@media (max-width: 640px) {
+  .feed-unread-badge {
+    width: 18px;
+    min-width: 18px;
+    padding: 0 4px;
+  }
+
+  .feed-unread-word {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorial-side-rail {
+    transition: none;
+  }
+}
