@@ -94,7 +94,7 @@
 .has-source-image .news-media-shade { opacity: 1; }
 
 .news-story-media--hero {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 32 / 9;
   margin-bottom: 22px;
   border-radius: 14px;
 }
@@ -145,7 +145,7 @@
 }
 
 .news-story-media--standard {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 32 / 9;
   border-radius: 8px;
   margin-bottom: 14px;
 }
@@ -162,7 +162,7 @@
 
 .article-lead-media-frame {
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 32 / 9;
   background: var(--news-surface);
   border: 1px solid var(--news-border);
   border-radius: 12px;
@@ -184,7 +184,7 @@
 
 @media (max-width: 959px) {
   .news-story-media--hero {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 32 / 9;
   }
 
   .article-lead-media {
