@@ -94,6 +94,24 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--feed-accent-primary) 9%, transparent);
 }
 
+/* Article pages keep the same navigation, but unread counters are a feed-level
+   concept and only clutter / stretch the pill navigation while reading. */
+body.news-article-with-header .feed-unread-badge {
+  display: none !important;
+}
+
+body.news-article-with-header .feed-nav {
+  gap: 8px;
+}
+
+body.news-article-with-header .feed-btn {
+  gap: 0;
+}
+
+body.news-article-with-header .last-updated {
+  margin-inline-start: 14px;
+}
+
 @media (max-width: 900px) {
   .news-header {
     padding-top: 0;
