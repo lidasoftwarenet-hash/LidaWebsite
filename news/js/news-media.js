@@ -1,7 +1,6 @@
 (() => {
     const originalRenderHeroCard = renderHeroCard;
     const originalRenderMajorCard = renderMajorCard;
-    const originalRenderStandardCard = renderStandardCard;
     const originalRenderArticle = renderArticle;
 
     function safeImageUrl(value) {
@@ -81,8 +80,7 @@
     };
 
     renderMajorCard = function(item) {
-        const media = renderMedia(item, 'major');
-        if (!media) return originalRenderMajorCard(item);
+        const media = renderMedia(item, 'major', { showFallback: true });
 
         return `
             <article class="editorial-card card-major card-major--visual">
@@ -102,22 +100,52 @@
         `;
     };
 
+    // Rhythm-grid cards should be visually rich even when the importance score is below 4.
+    // Real source images are preferred; the restrained source tile keeps the layout balanced
+    // when an article has no usable image.
     renderStandardCard = function(item) {
-        const shouldShowImage = Boolean(safeImageUrl(item?.imageUrl)) && Number(item?.importanceScore || 0) >= 4;
-        if (!shouldShowImage) return originalRenderStandardCard(item);
+        const freshHtml = isFresh(item.publishedAt || item.collectedAt)
+            ? '<span class="meta-fresh">חדש</span>'
+            : '';
 
         return `
             <article class="editorial-card card-standard card-standard--visual">
                 <a href="${NEWS_BASE}/${item.id}" class="block-link">
-                    ${renderMedia(item, 'standard')}
+                    ${renderMedia(item, 'standard', { showFallback: true })}
                     <div class="news-card-copy news-card-copy--standard">
                         <div class="card-meta">
+                            ${freshHtml}
                             <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
                             <span class="meta-sep">/</span>
                             <span class="meta-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt)}</span>
                         </div>
                         <h3 class="card-title">${escapeHTML(item.titleHe)}</h3>
+                        ${item.summaryHe ? `<p class="card-summary news-card-summary--standard">${escapeHTML(item.summaryHe)}</p>` : ''}
                     </div>
+                </a>
+            </article>
+        `;
+    };
+
+    // Compact/story-cluster rows get a small editorial thumbnail instead of becoming
+    // long text-only lists.
+    renderCompactCard = function(item) {
+        const freshHtml = isFresh(item.publishedAt || item.collectedAt)
+            ? '<span class="meta-fresh">חדש</span>'
+            : '';
+
+        return `
+            <article class="editorial-card card-compact card-compact--visual">
+                <div class="meta-time compact-time">${formatRelativeHebrewDate(item.publishedAt || item.collectedAt, true)}</div>
+                <a href="${NEWS_BASE}/${item.id}" class="block-link compact-story-link">
+                    <div class="compact-story-copy">
+                        <h4 class="card-title">${escapeHTML(item.titleHe)}</h4>
+                        <div class="card-meta">
+                            ${freshHtml}
+                            <span class="meta-source"><bdi>${escapeHTML(item.sourceName)}</bdi></span>
+                        </div>
+                    </div>
+                    ${renderMedia(item, 'compact', { showFallback: true })}
                 </a>
             </article>
         `;
