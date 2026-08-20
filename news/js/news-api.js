@@ -57,6 +57,17 @@ const NewsApi = {
     },
 
     /**
+     * Small aggregated payload used by the newsroom footer.
+     */
+    getDashboard: async function() {
+        const response = await fetch(NEXT_PUBLIC_NEWS_API_BASE_URL + '/dashboard');
+        if (!response.ok) {
+            throw new Error('Failed to fetch newsroom dashboard');
+        }
+        return response.json();
+    },
+
+    /**
      * @param {Object} params
      * @param {string} [params.q]
      * @param {string} [params.feedCode]
