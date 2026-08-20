@@ -25,6 +25,170 @@
   transition: top 160ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
+/* ===================================================
+   Masthead refresh
+   Turn the old centered logo block into a compact editorial header.
+   =================================================== */
+.news-header {
+  max-width: none;
+  margin: 0;
+  padding: 18px 0 12px;
+  text-align: initial;
+  background: var(--news-bg);
+}
+
+.news-header > .news-container {
+  position: relative;
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
+  gap: 28px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  border-top: 3px solid var(--news-text);
+  border-bottom: 1px solid var(--news-border-dark);
+}
+
+.news-header > .news-container::before {
+  content: 'ISRAEL  ·  ROMANIA  ·  TECHNOLOGY';
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: center;
+  direction: ltr;
+  color: var(--news-text-tertiary);
+  font-family: 'Inter', sans-serif;
+  font-size: 9.5px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: .115em;
+  white-space: nowrap;
+}
+
+.editorial-headline {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  line-height: 0;
+  justify-self: center;
+}
+
+.editorial-headline > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border-radius: 6px;
+}
+
+.site-logo {
+  display: block;
+  width: auto;
+  height: 54px;
+  max-width: min(430px, 42vw);
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.last-updated {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  margin: 0;
+  min-height: 28px;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--news-text-secondary);
+  background: var(--news-surface);
+  border: 1px solid var(--news-border);
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 650;
+  white-space: nowrap;
+  box-shadow: 0 1px 0 rgba(0,0,0,.025);
+}
+
+.last-updated::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: var(--feed-accent-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--feed-accent-primary) 9%, transparent);
+}
+
+@media (max-width: 900px) {
+  .news-header {
+    padding-top: 12px;
+  }
+
+  .news-header > .news-container {
+    min-height: 78px;
+    grid-template-columns: 1fr auto;
+    gap: 14px 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+
+  .news-header > .news-container::before {
+    display: none;
+  }
+
+  .editorial-headline {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .site-logo {
+    height: 46px;
+    max-width: min(360px, 58vw);
+  }
+
+  .last-updated {
+    grid-column: 2;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 560px) {
+  .news-header {
+    padding: 9px 0 8px;
+  }
+
+  .news-header > .news-container {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 12px;
+    padding-bottom: 11px;
+    border-top-width: 2px;
+  }
+
+  .editorial-headline,
+  .last-updated {
+    justify-self: auto;
+  }
+
+  .site-logo {
+    height: 42px;
+    max-width: min(320px, 82vw);
+  }
+
+  .last-updated {
+    min-height: 24px;
+    padding: 4px 9px;
+    font-size: 10px;
+  }
+}
+
 @media (max-width: 640px) {
   .feed-unread-badge {
     width: 18px;
