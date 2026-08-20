@@ -25,7 +25,7 @@
     }
 
     function unreadCount(feed) {
-        if (!window.state?.news || !TRACKED_FEEDS.includes(feed)) return 0;
+        if (typeof state === 'undefined' || !state.news || !TRACKED_FEEDS.includes(feed)) return 0;
         const items = state.news[feed] || [];
         const lastSeen = loadLastSeen();
         const saved = Number(lastSeen[feed] || 0);
@@ -62,7 +62,7 @@
     function alignSideRails() {
         const rails = document.querySelectorAll('.editorial-side-rail');
         if (!rails.length) return;
-        if (window.state?.isArticleView || window.state?.isSearching) return;
+        if (typeof state !== 'undefined' && (state.isArticleView || state.isSearching)) return;
 
         // Align the side rails with the editorial hero, never with the moving ticker.
         const anchor = document.querySelector('#newsContent .hero-grid') ||
@@ -76,6 +76,74 @@
             rail.style.top = `${top}px`;
         });
     }
+
+    function showArticleSiteChrome() {
+        document.querySelector('.sticky-nav-wrapper')?.classList.remove('hidden');
+        document.querySelector('.news-header')?.classList.remove('hidden');
+        document.getElementById('utilityBar')?.classList.remove('hidden');
+        document.getElementById('searchSection')?.classList.add('hidden');
+        document.body.classList.add('news-article-with-header');
+    }
+
+    function syncArticleFeed(feed) {
+        if (!TRACKED_FEEDS.includes(feed)) return;
+        if (typeof state !== 'undefined') state.currentTab = feed;
+        document.querySelector('.news-app')?.setAttribute('data-current-feed', feed);
+        document.querySelectorAll('.feed-btn[data-feed]').forEach(tab => {
+            tab.classList.toggle('active', tab.getAttribute('data-feed') === feed);
+        });
+    }
+
+    // Keep the complete site masthead visible on every article page.
+    // app.js used to hide the utility bar, masthead and feed navigation in openArticle().
+    const originalOpenArticleForHeader = openArticle;
+    openArticle = function(...args) {
+        const result = originalOpenArticleForHeader.apply(this, args);
+        showArticleSiteChrome();
+        return Promise.resolve(result).finally(() => {
+            if (typeof state === 'undefined' || state.isArticleView) showArticleSiteChrome();
+        });
+    };
+
+    // Once the article payload is available, highlight the feed it belongs to.
+    const originalRenderArticleForHeader = renderArticle;
+    renderArticle = function(item) {
+        const result = originalRenderArticleForHeader(item);
+        showArticleSiteChrome();
+        syncArticleFeed(item?.feed?.code || '');
+        requestAnimationFrame(syncUnreadBadges);
+        return result;
+    };
+
+    // Feed navigation remains functional while reading an article.
+    const originalSwitchTabForHeader = switchTab;
+    switchTab = function(feed, skipPushState = false) {
+        if (typeof state !== 'undefined' && state.isArticleView && feed !== 'archive') {
+            state.isArticleView = false;
+            state.currentArticleId = null;
+            document.body.classList.remove('news-article-with-header');
+
+            if (!skipPushState) {
+                window.history.pushState({ tab: feed }, '', NEWS_BASE);
+            }
+
+            return originalSwitchTabForHeader.call(this, feed, true);
+        }
+        return originalSwitchTabForHeader.call(this, feed, skipPushState);
+    };
+
+    // Archive also works directly from an article page instead of opening over the article.
+    const originalOpenSearchForHeader = openSearchSection;
+    openSearchSection = function(...args) {
+        if (typeof state !== 'undefined' && state.isArticleView) {
+            state.isArticleView = false;
+            state.currentArticleId = null;
+            document.body.classList.remove('news-article-with-header');
+            window.history.pushState({ archive: true }, '', NEWS_BASE);
+            renderCurrentView();
+        }
+        return originalOpenSearchForHeader.apply(this, args);
+    };
 
     let framePending = false;
     function scheduleSync() {
