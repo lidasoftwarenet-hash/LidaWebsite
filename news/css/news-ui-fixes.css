@@ -1,67 +1,118 @@
 /* Small UX corrections layered after the main news styles. */
 
-/* Unread counters are intentionally taken out of the button's layout flow.
-   They behave like compact notification counters instead of stretching the
-   navigation pill or changing the slider measurement. */
+/* ===================================================
+   Feed navigation polish
+   =================================================== */
 .feed-nav {
-  gap: 12px;
+  min-height: 52px;
+  gap: 0;
+  padding-inline: 24px;
+}
+
+.feed-nav-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 4px;
 }
 
 .feed-btn {
   min-height: 36px;
-  padding-inline: 20px;
+  padding-inline: 18px;
   overflow: visible;
   isolation: isolate;
+  gap: 7px;
 }
 
-.feed-btn-archive {
-  min-height: 36px;
-  padding-inline: 13px;
-  overflow: visible;
-  isolation: isolate;
-  padding: 0 12 10px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
+/* Keep the unread count visually attached to its label. It is intentionally
+   compact and in-flow; the slider re-measures after badge changes. */
 .feed-unread-badge {
-  position: absolute;
-  top: -5px;
-  inset-inline-end: -5px;
- 
-  min-width: 18px;
-  height: 18px;
-  padding: 0 1px;
+  position: static;
+  flex: 0 0 auto;
+  min-width: 19px;
+  height: 17px;
+  padding: 0 5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--news-bg);
+  border: 0;
   border-radius: 999px;
+  background: var(--feed-accent-primary);
   color: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
+  box-shadow: 0 1px 3px rgba(13, 89, 163, .18);
   font-family: 'Inter', sans-serif;
-  font-size: 8px;
+  font-size: 9px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
   white-space: nowrap;
   pointer-events: none;
+  transform: translateY(-1px);
 }
 
 .feed-btn.active .feed-unread-badge {
-  background: #fff;
+  background: rgba(255, 255, 255, .96);
   color: var(--feed-accent-primary);
-  border-color: var(--feed-accent-primary);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, .2);
+  box-shadow: none;
 }
 
 .feed-unread-number {
   font: inherit;
 }
 
-/* The aria-label/title still says "new articles". Visually the compact count is
-   enough and keeps the navigation editorial rather than notification-heavy. */
 .feed-unread-word {
   display: none;
+}
+
+/* Archive is a utility action, not a fourth feed. Keep it visually separate
+   and anchored to the opposite side of the status pill on desktop. */
+.feed-btn-archive {
+  position: absolute;
+  inset-inline-start: 24px;
+  min-height: 34px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, var(--feed-accent-primary) 20%, var(--news-border));
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff 0%, #f7faff 100%);
+  color: #334155;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .05), inset 0 1px 0 rgba(255,255,255,.75);
+  font-family: 'Heebo', sans-serif;
+  font-size: 12.5px;
+  font-weight: 750;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 2;
+  transition: color .18s ease, border-color .18s ease, background .18s ease,
+              box-shadow .18s ease, transform .18s ease;
+}
+
+.feed-btn-archive svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  stroke: currentColor;
+}
+
+.feed-btn-archive:hover {
+  color: var(--feed-accent-primary);
+  border-color: color-mix(in srgb, var(--feed-accent-primary) 42%, var(--news-border));
+  background: color-mix(in srgb, var(--feed-accent-primary) 5%, #fff);
+  box-shadow: 0 3px 10px rgba(15, 23, 42, .08);
+  transform: translateY(-1px);
+}
+
+.feed-btn-archive.active {
+  color: var(--feed-accent-primary) !important;
+  border-color: color-mix(in srgb, var(--feed-accent-primary) 45%, var(--news-border));
+  background: color-mix(in srgb, var(--feed-accent-primary) 8%, #fff);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--feed-accent-primary) 8%, transparent);
 }
 
 .editorial-side-rail {
@@ -71,12 +122,11 @@
 
 /* ===================================================
    Masthead refresh
-   Turn the old centered logo block into a compact editorial header.
    =================================================== */
 .news-header {
   max-width: none;
   margin: 0;
-  padding: 0px 0 0px;
+  padding: 0;
   text-align: initial;
   background: var(--news-bg);
 }
@@ -86,7 +136,6 @@
   padding: 0;
   display: block;
 }
-
 
 .editorial-headline {
   margin: 0;
@@ -110,6 +159,8 @@
 }
 
 .last-updated {
+  position: absolute;
+  inset-inline-end: 24px;
   align-self: center;
   min-height: 28px;
   padding: 5px 10px;
@@ -143,16 +194,12 @@ body.news-article-with-header .feed-unread-badge {
   display: none !important;
 }
 
-body.news-article-with-header .feed-nav {
+body.news-article-with-header .feed-nav-primary {
   gap: 8px;
 }
 
 body.news-article-with-header .feed-btn {
   gap: 0;
-}
-
-body.news-article-with-header .last-updated {
-  margin-inline-start: 14px;
 }
 
 @media (max-width: 900px) {
@@ -180,12 +227,50 @@ body.news-article-with-header .last-updated {
     max-width: min(750px, 100vw);
   }
 
-  .feed-nav {
-    gap: 8px;
+  .feed-nav-primary {
+    gap: 5px;
   }
 
   .feed-btn {
-    padding-inline: 16px;
+    padding-inline: 14px;
+  }
+
+  .feed-btn-archive {
+    inset-inline-start: 14px;
+  }
+
+  .last-updated {
+    inset-inline-end: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .feed-nav {
+    min-height: auto;
+    padding: 7px 10px 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 7px;
+  }
+
+  .feed-nav-primary {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .feed-btn-archive,
+  .last-updated {
+    position: static;
+  }
+
+  .feed-btn-archive {
+    order: 2;
+  }
+
+  .last-updated {
+    order: 3;
   }
 }
 
@@ -211,32 +296,36 @@ body.news-article-with-header .last-updated {
     max-width: min(630px, 100vw);
   }
 
+  .feed-btn {
+    min-height: 34px;
+    padding-inline: 11px;
+    gap: 5px;
+    font-size: .9rem;
+  }
+
+  .feed-unread-badge {
+    min-width: 17px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 8px;
+  }
+
+  .feed-btn-archive {
+    min-height: 31px;
+    padding: 5px 10px;
+    font-size: 11.5px;
+  }
+
   .last-updated {
     min-height: 24px;
     padding: 4px 9px;
     font-size: 10px;
   }
-
-  .feed-nav {
-    gap: 5px;
-  }
-
-  .feed-btn {
-    padding-inline: 13px;
-  }
-
-  .feed-unread-badge {
-    top: -4px;
-    inset-inline-end: -3px;
-    min-width: 17px;
-    height: 17px;
-    padding: 0 4px;
-    font-size: 8.5px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .editorial-side-rail {
+  .editorial-side-rail,
+  .feed-btn-archive {
     transition: none;
   }
 }
