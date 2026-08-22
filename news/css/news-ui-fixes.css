@@ -1,23 +1,59 @@
 /* Small UX corrections layered after the main news styles. */
 
+/* Unread counters are intentionally taken out of the button's layout flow.
+   They behave like compact notification counters instead of stretching the
+   navigation pill or changing the slider measurement. */
+.feed-nav {
+  gap: 12px;
+}
+
+.feed-btn {
+  min-height: 36px;
+  padding-inline: 20px;
+  overflow: visible;
+  isolation: isolate;
+}
+
 .feed-unread-badge {
-  min-width: auto;
-  height: 19px;
-  padding: 0 7px;
-  gap: 2px;
-  font-family: 'Heebo', sans-serif;
-  font-size: 9.5px;
+  position: absolute;
+  top: -5px;
+  inset-inline-end: -5px;
+  z-index: 3;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--news-bg);
+  border-radius: 999px;
+  background: #0b4da2;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
   letter-spacing: 0;
   white-space: nowrap;
+  pointer-events: none;
+}
+
+.feed-btn.active .feed-unread-badge {
+  background: #fff;
+  color: var(--feed-accent-primary);
+  border-color: var(--feed-accent-primary);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .2);
 }
 
 .feed-unread-number {
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
+  font: inherit;
 }
 
+/* The aria-label/title still says "new articles". Visually the compact count is
+   enough and keeps the navigation editorial rather than notification-heavy. */
 .feed-unread-word {
-  font-weight: 800;
+  display: none;
 }
 
 .editorial-side-rail {
@@ -67,7 +103,6 @@
 
 .last-updated {
   align-self: center;
-  transform: translateY(-3px);
   min-height: 28px;
   padding: 5px 10px;
   display: inline-flex;
@@ -95,7 +130,7 @@
 }
 
 /* Article pages keep the same navigation, but unread counters are a feed-level
-   concept and only clutter / stretch the pill navigation while reading. */
+   concept and only clutter the pill navigation while reading. */
 body.news-article-with-header .feed-unread-badge {
   display: none !important;
 }
@@ -136,6 +171,14 @@ body.news-article-with-header .last-updated {
   .site-logo {
     max-width: min(750px, 100vw);
   }
+
+  .feed-nav {
+    gap: 8px;
+  }
+
+  .feed-btn {
+    padding-inline: 16px;
+  }
 }
 
 @media (max-width: 560px) {
@@ -165,17 +208,22 @@ body.news-article-with-header .last-updated {
     padding: 4px 9px;
     font-size: 10px;
   }
-}
 
-@media (max-width: 640px) {
-  .feed-unread-badge {
-    width: 18px;
-    min-width: 18px;
-    padding: 0 4px;
+  .feed-nav {
+    gap: 5px;
   }
 
-  .feed-unread-word {
-    display: none;
+  .feed-btn {
+    padding-inline: 13px;
+  }
+
+  .feed-unread-badge {
+    top: -4px;
+    inset-inline-end: -3px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    font-size: 8.5px;
   }
 }
 
