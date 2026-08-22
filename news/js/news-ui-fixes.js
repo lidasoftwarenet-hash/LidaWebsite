@@ -43,19 +43,22 @@
 
             if (count <= 0) {
                 badge?.remove();
+                tab.setAttribute('aria-label', FEED_LABELS[feed]);
+                tab.removeAttribute('title');
                 return;
             }
 
             if (!badge) {
                 badge = document.createElement('span');
                 badge.className = 'feed-unread-badge';
+                badge.setAttribute('aria-hidden', 'true');
                 tab.appendChild(badge);
             }
 
             const visibleCount = count > 99 ? '99+' : String(count);
-            badge.innerHTML = `<span class="feed-unread-number">${visibleCount}</span><span class="feed-unread-word"> חדש</span>`;
-            badge.setAttribute('aria-label', `${count} כתבות חדשות מאז הביקור האחרון בפיד ${FEED_LABELS[feed]}`);
-            badge.setAttribute('title', `${count} כתבות חדשות מאז הביקור האחרון בפיד ${FEED_LABELS[feed]}`);
+            badge.textContent = visibleCount;
+            tab.setAttribute('aria-label', `${FEED_LABELS[feed]}, ${count} כתבות חדשות`);
+            tab.setAttribute('title', `${count} כתבות חדשות מאז הביקור האחרון בפיד ${FEED_LABELS[feed]}`);
         });
     }
 
@@ -95,7 +98,6 @@
     }
 
     // Keep the complete site masthead visible on every article page.
-    // app.js used to hide the utility bar, masthead and feed navigation in openArticle().
     const originalOpenArticleForHeader = openArticle;
     openArticle = function(...args) {
         const result = originalOpenArticleForHeader.apply(this, args);
@@ -159,43 +161,58 @@
     function initPillSlider() {
         const nav = document.querySelector('.feed-nav');
         if (!nav) return;
+        const track = nav.querySelector('.feed-nav-primary') || nav;
 
-        // Create slider element
+        // The slider belongs only to the three editorial feeds. Archive is a
+        // separate utility action and deliberately sits outside this track.
         const slider = document.createElement('div');
         slider.className = 'feed-nav-slider';
-        nav.prepend(slider);
+        track.prepend(slider);
 
         function moveSliderToActive() {
-            const activeBtn = nav.querySelector('.feed-btn.active');
-            if (!activeBtn) return;
-            const navRect = nav.getBoundingClientRect();
+            if (typeof state !== 'undefined' && state.isSearching) {
+                slider.style.opacity = '0';
+                return;
+            }
+
+            const activeBtn = track.querySelector('.feed-btn.active');
+            if (!activeBtn) {
+                slider.style.opacity = '0';
+                return;
+            }
+
+            const trackRect = track.getBoundingClientRect();
             const btnRect = activeBtn.getBoundingClientRect();
-            slider.style.left = (btnRect.left - navRect.left) + 'px';
+            slider.style.opacity = '1';
+            slider.style.left = (btnRect.left - trackRect.left) + 'px';
             slider.style.width = btnRect.width + 'px';
         }
 
-        // Move on tab click (before .active class changes)
         nav.addEventListener('click', (e) => {
             const btn = e.target.closest('.feed-btn[data-feed]');
             if (!btn) return;
-            // Defer so .active has been toggled by app.js first
             requestAnimationFrame(() => {
                 requestAnimationFrame(moveSliderToActive);
             });
         });
 
-        // Initial position (no transition on first paint)
         slider.style.transition = 'none';
         moveSliderToActive();
-        // Re-enable transition after first paint
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 slider.style.transition = '';
             });
         });
 
-        // Re-align on resize
+        // Badges arrive asynchronously. Re-measure whenever their content is
+        // inserted/removed so the blue pill always matches the real tab width.
+        const trackObserver = new MutationObserver(() => {
+            requestAnimationFrame(moveSliderToActive);
+        });
+        trackObserver.observe(track, { childList: true, subtree: true, characterData: true });
+
         window.addEventListener('resize', moveSliderToActive, { passive: true });
+        window.addEventListener('pageshow', moveSliderToActive);
     }
 
     function init() {
@@ -208,7 +225,6 @@
         const nav = document.querySelector('.feed-nav');
         if (nav) {
             const navObserver = new MutationObserver(() => {
-                // Existing experience code may redraw badges; normalize their label afterwards.
                 setTimeout(syncUnreadBadges, 0);
             });
             navObserver.observe(nav, { childList: true, subtree: true });
@@ -224,7 +240,6 @@
         initPillSlider();
 
         // Israel is fetched asynchronously after the initial Romania render.
-        // Recheck briefly during startup so its unread badge appears without requiring a click.
         let startupChecks = 0;
         const startupTimer = setInterval(() => {
             scheduleSync();
