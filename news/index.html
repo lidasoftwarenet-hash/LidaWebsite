@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="/news/css/news-media.css?v=20260822-1024" />
   <link rel="stylesheet" href="/news/css/news-experience.css?v=20260822-1024" />
   <link rel="stylesheet" href="/news/css/news-ui-fixes.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/news-search.css?v=20260822-1038" />
   <link rel="stylesheet" href="/news/css/news-footer.css?v=20260822-1024" />
 </head>
 <body class="news-page-body">
@@ -97,9 +98,13 @@
        <!-- Search & Archive Section -->
        <div id="searchSection" class="search-section hidden">
          <div class="search-header">
-           <h2>חיפוש וארכיון</h2>
+           <div class="search-title-wrap">
+             <span class="search-kicker">HEN NEWS ARCHIVE</span>
+             <h2>חיפוש וארכיון</h2>
+             <p class="search-subtitle">מצא כתבות לפי מילות מפתח, ערוץ חדשות וטווח זמן.</p>
+           </div>
            <button id="closeSearchBtn" class="close-btn" aria-label="סגור חיפוש">
-             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                <line x1="18" y1="6" x2="6" y2="18"></line>
                <line x1="6" y1="6" x2="18" y2="18"></line>
              </svg>
@@ -108,11 +113,11 @@
 
          <div class="search-controls">
            <div class="search-bar-wrapper">
-             <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+             <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                <circle cx="11" cy="11" r="8"></circle>
                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
              </svg>
-             <input type="text" id="searchInput" placeholder="חיפוש בחדשות (לדוגמה: OpenAI)..." aria-label="חיפוש חדשות" autocomplete="off" />
+             <input type="text" id="searchInput" placeholder="חפש נושא, חברה או כתבה... לדוגמה OpenAI" aria-label="חיפוש חדשות" autocomplete="off" />
              <button id="clearSearchBtn" class="clear-search-btn hidden" aria-label="נקה חיפוש">
                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                  <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -120,12 +125,13 @@
                </svg>
              </button>
            </div>
-           
+
+           <div class="search-filter-label">סינון תוצאות</div>
            <div class="search-filters">
              <div class="filter-group">
-               <label for="feedFilter">מקור:</label>
+               <label for="feedFilter">ערוץ חדשות</label>
                <select id="feedFilter">
-                 <option value="">הכול</option>
+                 <option value="">כל הערוצים</option>
                  <option value="israel">ישראל</option>
                  <option value="romania">רומניה</option>
                  <option value="technology">טכנולוגיה</option>
@@ -133,7 +139,7 @@
              </div>
              
              <div class="filter-group">
-               <label for="dateFilter">תאריך:</label>
+               <label for="dateFilter">תקופה</label>
                <select id="dateFilter">
                  <option value="any">כל הזמן</option>
                  <option value="week">השבוע</option>
@@ -144,12 +150,19 @@
              
              <div id="customDateRange" class="filter-group custom-date-range hidden">
                <input type="date" id="dateFrom" aria-label="מתאריך" />
-               <span>-</span>
+               <span>עד</span>
                <input type="date" id="dateTo" aria-label="עד תאריך" />
              </div>
            </div>
            
            <div id="archiveWarning" class="archive-warning hidden"></div>
+           <div class="archive-search-footnote">
+             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+               <circle cx="12" cy="12" r="9" stroke-width="1.7"/>
+               <path d="M12 10.5v5M12 7.5h.01" stroke-width="1.9" stroke-linecap="round"/>
+             </svg>
+             <span>אפשר לחפש גם בלי טקסט: בחר ערוץ או תקופה כדי לדפדף בארכיון.</span>
+           </div>
          </div>
        </div>
        
