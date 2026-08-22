@@ -14,14 +14,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Versioned news assets + Vercel revalidation prevent stale UI after deploys. -->
-  <link rel="stylesheet" href="/news/css/style.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/market-bar.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/side-rails.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/breaking-ticker.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/news-media.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/news-experience.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/news-ui-fixes.css?v=20260822-0849" />
-  <link rel="stylesheet" href="/news/css/news-footer.css?v=20260822-0849" />
+  <link rel="stylesheet" href="/news/css/style.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/market-bar.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/side-rails.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/breaking-ticker.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/news-media.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/news-experience.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/news-ui-fixes.css?v=20260822-1024" />
+  <link rel="stylesheet" href="/news/css/news-footer.css?v=20260822-1024" />
 </head>
 <body class="news-page-body">
 
@@ -75,10 +75,19 @@
     <!-- Sticky Nav -->
     <div class="sticky-nav-wrapper">
       <nav class="feed-nav" aria-label="Feed Navigation">
-        <button class="feed-btn active" data-feed="romania">רומניה</button>
-        <button class="feed-btn" data-feed="israel">ישראל</button>
-        <button class="feed-btn" data-feed="technology">טכנולוגיה</button>
-        <button class="feed-btn-archive" data-feed="archive">ארכיון</button>
+        <button class="feed-btn feed-btn-archive" data-feed="archive" aria-label="פתח ארכיון חדשות">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7.5h16M6.5 7.5v10.25A1.25 1.25 0 0 0 7.75 19h8.5a1.25 1.25 0 0 0 1.25-1.25V7.5M8.5 4.5h7l1 3h-9l1-3ZM9.5 11.5h5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>ארכיון</span>
+        </button>
+
+        <div class="feed-nav-primary" aria-label="ערוצי חדשות">
+          <button class="feed-btn active" data-feed="romania">רומניה</button>
+          <button class="feed-btn" data-feed="israel">ישראל</button>
+          <button class="feed-btn" data-feed="technology">טכנולוגיה</button>
+        </div>
+
         <div id="lastUpdated" class="last-updated">עודכן לאחרונה: --:--</div>
       </nav>
     </div>
@@ -156,17 +165,17 @@
   <!-- Persistent newsroom intelligence footer -->
   <footer id="newsroomFooter" class="newsroom-footer" aria-label="HEN NEWS Newsroom"></footer>
   
-  <script src="/news/js/news-api.js?v=20260822-0849"></script>
-  <script src="/news/js/app.js?v=20260822-0849"></script>
-  <script src="/news/js/news-media.js?v=20260822-0849"></script>
-  <script src="/news/js/weather-v2.js?v=20260822-0849"></script>
-  <script src="/news/js/market-bar.js?v=20260822-0849"></script>
-  <script src="/news/js/israel-support.js?v=20260822-0849"></script>
-  <script src="/news/js/side-rails.js?v=20260822-0849"></script>
-  <script src="/news/js/breaking-ticker.js?v=20260822-0849"></script>
-  <script src="/news/js/news-experience.js?v=20260822-0849"></script>
-  <script src="/news/js/news-ui-fixes.js?v=20260822-0849"></script>
-  <script src="/news/js/article-page-fixes.js?v=20260822-0849"></script>
-  <script src="/news/js/news-footer.js?v=20260822-0849"></script>
+  <script src="/news/js/news-api.js?v=20260822-1024"></script>
+  <script src="/news/js/app.js?v=20260822-1024"></script>
+  <script src="/news/js/news-media.js?v=20260822-1024"></script>
+  <script src="/news/js/weather-v2.js?v=20260822-1024"></script>
+  <script src="/news/js/market-bar.js?v=20260822-1024"></script>
+  <script src="/news/js/israel-support.js?v=20260822-1024"></script>
+  <script src="/news/js/side-rails.js?v=20260822-1024"></script>
+  <script src="/news/js/breaking-ticker.js?v=20260822-1024"></script>
+  <script src="/news/js/news-experience.js?v=20260822-1024"></script>
+  <script src="/news/js/news-ui-fixes.js?v=20260822-1024"></script>
+  <script src="/news/js/article-page-fixes.js?v=20260822-1024"></script>
+  <script src="/news/js/news-footer.js?v=20260822-1024"></script>
 </body>
 </html>
