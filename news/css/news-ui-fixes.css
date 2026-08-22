@@ -14,24 +14,32 @@
   isolation: isolate;
 }
 
+.feed-btn-archive {
+  min-height: 36px;
+  padding-inline: 13px;
+  overflow: visible;
+  isolation: isolate;
+  padding: 0 12 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 .feed-unread-badge {
   position: absolute;
   top: -5px;
   inset-inline-end: -5px;
-  z-index: 3;
+ 
   min-width: 18px;
   height: 18px;
-  padding: 0 5px;
+  padding: 0 1px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 2px solid var(--news-bg);
   border-radius: 999px;
-  background: #0b4da2;
   color: #fff;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .18);
   font-family: 'Inter', sans-serif;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
