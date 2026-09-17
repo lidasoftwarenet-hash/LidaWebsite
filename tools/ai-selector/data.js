@@ -1,5 +1,5 @@
 // --- DATA STORE ---
-// Last updated: July 2026 | Sources: OpenAI, Anthropic, Google, Mistral, DeepSeek, Meta official docs
+// Last updated: September 2026 | Sources: OpenAI, Anthropic, Google, Mistral, DeepSeek, xAI, Meta official docs
 const db = [
     // ═══════════════════════════════
     //  ACTIVE MODELS
@@ -7,17 +7,31 @@ const db = [
 
     // ── OpenAI ──────────────────────
     {
+        id: "gpt-6-astra",
+        name: "GPT-6 Astra",
+        provider: "OpenAI",
+        status: "active",
+        context: "1M",
+        priceIn: 10.00,
+        priceOut: 50.00,
+        speed: 65,
+        intelligence: 100,
+        pros: ["OpenAI's frontier flagship (Sep 2026)", "1M token context window", "Computer operator & agentic workflows", "Deep research & software engineering"],
+        cons: ["Most expensive model at $10/$50 per MTok", "Slower generation due to scale", "Stricter safety constraints than prev. models"],
+        apiUrl: "https://api.openai.com/v1/chat/completions"
+    },
+    {
         id: "gpt-5-6-sol",
         name: "GPT-5.6 Sol",
         provider: "OpenAI",
         status: "active",
         context: "256k",
-        priceIn: 5.00,
-        priceOut: 30.00,
+        priceIn: 4.00,
+        priceOut: 20.00,
         speed: 75,
         intelligence: 99,
-        pros: ["Flagship GPT-5.6 tier", "Frontier reasoning & agentic tasks", "Multimodal native", "Deep coding capability"],
-        cons: ["Most expensive OpenAI model", "Slower than lower tiers", "High demand at peak times"],
+        pros: ["Frontier reasoning & agentic tasks", "Multimodal native", "Deep coding capability", "Promo pricing through Nov 21, 2026 ($4/$20)"],
+        cons: ["Superseded by GPT-6 Astra at top tier", "Slower than lower tiers", "High demand at peak times"],
         apiUrl: "https://api.openai.com/v1/chat/completions"
     },
     {
@@ -26,12 +40,12 @@ const db = [
         provider: "OpenAI",
         status: "active",
         context: "256k",
-        priceIn: 2.50,
-        priceOut: 15.00,
+        priceIn: 2.00,
+        priceOut: 12.00,
         speed: 84,
         intelligence: 96,
         pros: ["GPT-5.6 at mid-tier cost", "Strong reasoning & coding", "Competitive with previous flagships", "Prompt caching support"],
-        cons: ["Pricier than GPT-4.1 for most tasks", "Sol outperforms on hardest tasks"],
+        cons: ["Sol outperforms on hardest tasks", "256k context vs GPT-6 Astra's 1M"],
         apiUrl: "https://api.openai.com/v1/chat/completions"
     },
     {
@@ -40,11 +54,11 @@ const db = [
         provider: "OpenAI",
         status: "active",
         context: "256k",
-        priceIn: 1.00,
-        priceOut: 6.00,
+        priceIn: 0.20,
+        priceOut: 1.20,
         speed: 91,
         intelligence: 91,
-        pros: ["Most affordable GPT-5.6 tier", "Fast latency", "Great for high-volume pipelines", "Strong instruction following"],
+        pros: ["Ultra-affordable at $0.20/M input (80% price cut)", "Fast latency", "Great for high-volume pipelines", "Strong instruction following"],
         cons: ["Less capable than Sol/Terra on complex tasks", "Thinking limited vs full Sol"],
         apiUrl: "https://api.openai.com/v1/chat/completions"
     },
@@ -52,22 +66,22 @@ const db = [
 
     // ── Anthropic ───────────────────
     {
-        id: "claude-fable-5",
-        name: "Claude Fable 5",
+        id: "claude-fable-5-1",
+        name: "Claude Fable 5.1",
         provider: "Anthropic",
         status: "active",
         context: "1M",
         priceIn: 10.00,
         priceOut: 50.00,
         speed: 60,
-        intelligence: 99,
-        pros: ["Anthropic's most capable model", "1M token context window", "Exceptional autonomous & agentic tasks", "Frontier safety alignment"],
+        intelligence: 100,
+        pros: ["Anthropic's latest frontier model (Sep 2026)", "1M token context window", "Exceptional agentic & long-running tasks", "75% cheaper cache reads vs Fable 5"],
         cons: ["Premium pricing ($10/$50 per MTok)", "Slower generation speed", "Overkill for routine tasks"],
         apiUrl: "https://api.anthropic.com/v1/messages"
     },
     {
-        id: "claude-opus-4-8",
-        name: "Claude Opus 4.8",
+        id: "claude-opus-5",
+        name: "Claude Opus 5",
         provider: "Anthropic",
         status: "active",
         context: "1M",
@@ -75,7 +89,7 @@ const db = [
         priceOut: 25.00,
         speed: 68,
         intelligence: 97,
-        pros: ["1M token context at half of Fable 5 cost", "Flagship for agentic coding", "Default high-effort reasoning mode", "Claude Code optimized"],
+        pros: ["1M token context at half of Fable 5.1 cost", "Flagship for agentic coding", "128k max output tokens", "Claude Code optimized"],
         cons: ["High cost for standard chatbot use", "Slower than Sonnet models"],
         apiUrl: "https://api.anthropic.com/v1/messages"
     },
@@ -89,8 +103,8 @@ const db = [
         priceOut: 10.00,
         speed: 78,
         intelligence: 96,
-        pros: ["Introductory pricing through Aug 2026", "Excellent coding & analysis", "Low hallucination rate", "Fast enough for prod workloads"],
-        cons: ["Intro pricing rises to $3/$15 post-Aug 2026", "200k context only (vs Opus 1M)"],
+        pros: ["Best price/performance in Anthropic lineup", "Excellent coding & analysis", "Low hallucination rate", "Fast enough for prod workloads"],
+        cons: ["200k context only (vs Opus 1M)", "No extended reasoning like Fable 5.1"],
         apiUrl: "https://api.anthropic.com/v1/messages"
     },
     {
@@ -124,18 +138,18 @@ const db = [
 
     // ── Google ───────────────────────
     {
-        id: "gemini-3-5-flash",
-        name: "Gemini 3.5 Flash",
+        id: "gemini-3-8-flash",
+        name: "Gemini 3.8 Flash",
         provider: "Google",
         status: "active",
         context: "1M",
-        priceIn: 1.50,
-        priceOut: 9.00,
-        speed: 92,
-        intelligence: 94,
-        pros: ["Google's latest flagship Flash model", "1M token context window", "Superior search & grounding integration", "Multimodal native"],
-        cons: ["Higher output price than Gemini 2.5 Flash", "Thinking tokens included in output billing"],
-        apiUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
+        priceIn: 0.75,
+        priceOut: 3.75,
+        speed: 94,
+        intelligence: 95,
+        pros: ["Google's latest workhorse model (Sep 2026)", "1M token context window", "Selectable thinking levels (low/medium/high)", "Introductory pricing through Dec 31, 2026"],
+        cons: ["Price rises to $1.50/$7.50 Jan 1, 2027", "Thinking tokens included in output billing", "Lower ceiling than Gemini 3.1 Pro"],
+        apiUrl: "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
     },
     {
         id: "gemini-3-1-pro",
@@ -257,6 +271,20 @@ const db = [
 
     // ── DeepSeek ────────────────────
     {
+        id: "deepseek-v4-1-flash",
+        name: "DeepSeek V4.1 Flash",
+        provider: "DeepSeek",
+        status: "active",
+        context: "128k",
+        priceIn: 0.10,
+        priceOut: 0.20,
+        speed: 90,
+        intelligence: 93,
+        pros: ["Latest DeepSeek release (Sep 2026)", "~4x cheaper agent memory costs", "Frontier-class reasoning at minimal price", "Open weights available"],
+        cons: ["Data privacy concerns (Chinese origin)", "Peak-hour pricing applies", "API stability varies"],
+        apiUrl: "https://api.deepseek.com/chat/completions"
+    },
+    {
         id: "deepseek-v4-flash",
         name: "DeepSeek V4 Flash",
         provider: "DeepSeek",
@@ -287,6 +315,20 @@ const db = [
 
     // ── xAI ─────────────────────────
     {
+        id: "grok-4-6",
+        name: "Grok 4.6",
+        provider: "xAI",
+        status: "active",
+        context: "500k",
+        priceIn: 2.00,
+        priceOut: 6.00,
+        speed: 82,
+        intelligence: 97,
+        pros: ["xAI's current flagship (Aug 2026)", "1.5T param MoE architecture", "Optimized for agentic coding & visual work", "Available on Bedrock, Azure Foundry, GitHub Copilot"],
+        cons: ["Context smaller than Grok 4.1 Fast 2M variant", "Ecosystem still maturing vs OpenAI/Anthropic"],
+        apiUrl: "https://api.x.ai/v1/chat/completions"
+    },
+    {
         id: "grok-4-5",
         name: "Grok 4.5",
         provider: "xAI",
@@ -296,8 +338,8 @@ const db = [
         priceOut: 6.00,
         speed: 80,
         intelligence: 96,
-        pros: ["xAI flagship (July 2026)", "500k context window", "Optimized for coding & agentic tasks", "V9 foundation — 1.5T parameter scale"],
-        cons: ["Context smaller than Grok 4.20 variant", "Newer model, ecosystem still maturing"],
+        pros: ["Developer-focused (Cursor-trained)", "500k context window", "Strong coding & agentic tasks", "V9 foundation — 1.5T parameter scale"],
+        cons: ["Superseded by Grok 4.6 as primary flagship", "Context smaller than Grok 4.1 Fast variant"],
         apiUrl: "https://api.x.ai/v1/chat/completions"
     },
     {
@@ -381,6 +423,48 @@ const db = [
     // ═══════════════════════════════
     //  GRAVEYARD (DEPRECATED)
     // ═══════════════════════════════
+    {
+        id: "claude-fable-5",
+        name: "Claude Fable 5",
+        provider: "Anthropic",
+        status: "legacy",
+        context: "1M",
+        priceIn: 10.00,
+        priceOut: 50.00,
+        speed: 60,
+        intelligence: 99,
+        pros: ["Was Anthropic's frontier flagship (Q2 2026)", "1M token context window"],
+        cons: ["Superseded by Claude Fable 5.1 (Sep 2026)", "Higher cache read costs than 5.1"],
+        apiUrl: "DEPRECATED"
+    },
+    {
+        id: "claude-opus-4-8",
+        name: "Claude Opus 4.8",
+        provider: "Anthropic",
+        status: "legacy",
+        context: "1M",
+        priceIn: 5.00,
+        priceOut: 25.00,
+        speed: 68,
+        intelligence: 97,
+        pros: ["Was flagship for agentic coding", "1M token context"],
+        cons: ["Superseded by Claude Opus 5 (Jul 2026)", "Migrate to Opus 5 for new projects"],
+        apiUrl: "DEPRECATED"
+    },
+    {
+        id: "gemini-3-5-flash",
+        name: "Gemini 3.5 Flash",
+        provider: "Google",
+        status: "legacy",
+        context: "1M",
+        priceIn: 1.50,
+        priceOut: 9.00,
+        speed: 92,
+        intelligence: 94,
+        pros: ["Was Google's leading Flash model (May 2026)", "1M token context"],
+        cons: ["Superseded by Gemini 3.8 Flash (Sep 2026)", "Lifecycle end: May 19, 2027 or later"],
+        apiUrl: "DEPRECATED"
+    },
     {
         id: "gpt-5",
         name: "GPT-5",
